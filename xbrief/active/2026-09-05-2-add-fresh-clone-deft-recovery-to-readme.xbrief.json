@@ -1,0 +1,49 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #2",
+    "updated": "2026-09-05T16:20:46Z"
+  },
+  "plan": {
+    "title": "Add fresh-clone Deft recovery to README",
+    "status": "running",
+    "narratives": {
+      "Description": "Add fresh-clone Deft recovery to README",
+      "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/2",
+      "Overview": "Problem: README.md only contains the project title while .deft/core/ is gitignored, so AGENTS.md's cold-start route is unreachable on a fresh clone. Acceptance: add the sanctioned deft:cold-start-bootstrap v1 global-first ladder at the top of README.md, keep recovery independent of .deft/core/, and pass Deft validation plus CI. Found during independent review of PR #1."
+    },
+    "items": [],
+    "references": [
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/2",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #2: Add fresh-clone Deft recovery to README"
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "npm run check:cold-start-readme",
+        "deft verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived an executable README-and-pin contract plus the issue's Deft conformance requirement because the issue stated no shell commands and this project has no suite floor (#3284/#3334)"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5359165296,
+        "origin": "3ci-consulting/directive-training#2",
+        "id": "github.issue.5359165296"
+      }
+    },
+    "id": "github.issue.5359165296",
+    "updated": "2026-09-05T16:20:46Z"
+  }
+}

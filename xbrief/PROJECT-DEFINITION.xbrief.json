@@ -1,0 +1,24 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Project definition -- synthesized gestalt of the project",
+    "created": "2026-09-05T14:54:49Z",
+    "updated": "2026-09-05T15:47:47.265Z"
+  },
+  "plan": {
+    "title": "PROJECT-DEFINITION",
+    "status": "running",
+    "narratives": {
+      "Overview": "",
+      "tech stack": "",
+      "Architecture": "",
+      "RisksAndUnknowns": "",
+      "Configuration": "",
+      "ProjectRules": "Greptile is disabled for this project. Do not enable, trigger, wait for, or require Greptile reviews or status checks. Treat missing Greptile signals as expected; use local checks, GitHub CI, and human review."
+    },
+    "items": [],
+    "metadata": {
+      "staleness_flags": []
+    }
+  }
+}
