@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #2",
-    "updated": "2026-09-05T16:20:46Z"
+    "updated": "2026-09-05T16:37:35Z"
   },
   "plan": {
     "title": "Add fresh-clone Deft recovery to README",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Add fresh-clone Deft recovery to README",
       "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/2",
@@ -41,9 +41,33 @@
         "github_issue_id": 5359165296,
         "origin": "3ci-consulting/directive-training#2",
         "id": "github.issue.5359165296"
-      }
+      },
+      "completionProvenance": {
+        "repository": "3Ci-Consulting/directive-training",
+        "implementationCommit": "dc900497a894651ab0bb2fb3e1548734fccf0364",
+        "prNumber": 1,
+        "prBase": "master",
+        "mergeCommit": "77545a578af3a3ff9e9447afc75602f30ba04ac6",
+        "deliveryBranch": "master",
+        "deliveryCommit": "77545a578af3a3ff9e9447afc75602f30ba04ac6",
+        "verifiedAt": "2026-09-05T16:37:35Z",
+        "verifier": "swarm:finalize-cohort",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMDcyMTEtYWJhMC03ZWIyLWFjY2QtZDUwZTdlYzJjOTE0"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-05T16:37:35Z"
+      },
+      "completedAt": "2026-09-05T16:37:35Z",
+      "completedSessionId": "host:codex:v1:MDFhMDcyMTEtYWJhMC03ZWIyLWFjY2QtZDUwZTdlYzJjOTE0"
     },
     "id": "github.issue.5359165296",
-    "updated": "2026-09-05T16:20:46Z"
+    "updated": "2026-09-05T16:37:35Z"
   }
 }
