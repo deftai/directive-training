@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Implementation-ready curriculum scope for core Modules 2 and 3",
     "created": "2026-09-05T19:43:46Z",
-    "updated": "2026-09-06T03:42:52Z",
+    "updated": "2026-09-06T12:48:30Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -173,7 +173,7 @@
         },
         {
           "id": 11,
-          "text": "README.md and curriculum/README.md link Modules 2 and 3, state their accurate readiness and platform support, preserve the cold-start and safety contracts, keep numeric prerequisites, and route Module 3 onward to planned Module 4.",
+          "text": "README.md, curriculum/README.md, curriculum/modules/01-what-directive-is.md, and solutions/module-01-what-directive-is.md link Modules 1-3, state their accurate readiness and platform support, preserve the cold-start and safety contracts, keep numeric prerequisites, and route Module 3 onward to planned Module 4.",
           "artifact_path": "curriculum/README.md",
           "ambiguous": false,
           "provenance": "statement"
@@ -232,6 +232,7 @@
           "README.md",
           "assessments/README.md",
           "curriculum/README.md",
+          "curriculum/modules/01-what-directive-is.md",
           "curriculum/modules/02-installation-and-anatomy.md",
           "curriculum/modules/03-authority-and-context.md",
           "labs/02-disposable-initialization.md",
@@ -242,6 +243,7 @@
           "references/SOURCE-NOTES.md",
           "solutions/README.md",
           "solutions/lab-02-disposable-initialization.md",
+          "solutions/module-01-what-directive-is.md",
           "solutions/module-03-authority-and-context.md"
         ],
         "module_boundary": "Repository-authored Modules 2-3 curriculum, one disposable initialization lab, explained solutions, platform evidence, learner navigation, and focused validation"
@@ -255,6 +257,7 @@
           "README.md",
           "assessments/README.md",
           "curriculum/README.md",
+          "curriculum/modules/01-what-directive-is.md",
           "curriculum/modules/02-installation-and-anatomy.md",
           "curriculum/modules/03-authority-and-context.md",
           "history/changes/modules-2-3-curriculum/proposal.xbrief.json",
@@ -270,6 +273,7 @@
           "scripts/verify-modules-2-3.mjs",
           "solutions/README.md",
           "solutions/lab-02-disposable-initialization.md",
+          "solutions/module-01-what-directive-is.md",
           "solutions/module-03-authority-and-context.md",
           "xbrief/PROJECT-DEFINITION.xbrief.json",
           "xbrief/active/2026-09-05-modules-2-3-installation-and-authority.xbrief.json"
@@ -292,6 +296,6 @@
         "file_scope_confidence": "high"
       }
     },
-    "updated": "2026-09-06T03:42:52Z"
+    "updated": "2026-09-06T12:48:30Z"
   }
 }

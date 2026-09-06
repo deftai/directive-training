@@ -2,11 +2,12 @@
   "schemaVersion": 1,
   "xbriefRelPath": "xbrief/active/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
   "planId": "training.modules2-3",
-  "approvedAt": "2026-09-06T03:46:53Z",
+  "approvedAt": "2026-09-06T13:19:36Z",
   "fileScope": [
     ".github/workflows/modules-2-3-platform-validation.yml",
     "assessments/README.md",
     "COST-ESTIMATE.md",
+    "curriculum/modules/01-what-directive-is.md",
     "curriculum/modules/02-installation-and-anatomy.md",
     "curriculum/modules/03-authority-and-context.md",
     "curriculum/README.md",
@@ -23,18 +24,19 @@
     "references/SOURCE-NOTES.md",
     "scripts/verify-modules-2-3.mjs",
     "solutions/lab-02-disposable-initialization.md",
+    "solutions/module-01-what-directive-is.md",
     "solutions/module-03-authority-and-context.md",
     "solutions/README.md",
     "xbrief/active/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
     "xbrief/PROJECT-DEFINITION.xbrief.json"
   ],
-  "fileScopeDigest": "e338a1d6b6b8966d59c594fcdc6d72baa65471ea54fe9aaff377024dacfe0cbf",
+  "fileScopeDigest": "9e822b9b731bc7388b443f4f4ba875371be2ba4928518b8323608c1ac150293c",
   "humanApproval": {
     "kind": "operator",
     "actor": "David",
-    "mintedAt": "2026-09-06T03:46:53Z",
+    "mintedAt": "2026-09-06T13:19:36Z",
     "mintedVia": "scope:record-approved-scope"
   },
-  "intentDigest": "24ee1f1b10ed3746bc844bf1f8b1064e09765d2bba48dc7b39f6c759e1e16abb",
+  "intentDigest": "7bd09d914a213476d205e5aa70127b9d09c750cf24db27cf5db9d0ab4eda9921",
   "digestAlgo": "intent-extract-v1"
 }
