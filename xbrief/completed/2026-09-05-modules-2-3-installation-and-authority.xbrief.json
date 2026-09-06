@@ -3,13 +3,13 @@
     "version": "0.8",
     "description": "Implementation-ready curriculum scope for core Modules 2 and 3",
     "created": "2026-09-05T19:43:46Z",
-    "updated": "2026-09-06T15:09:23Z",
+    "updated": "2026-09-06T15:17:32Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
     "id": "training.modules2-3",
     "title": "Modules 2-3: Installation, Project Anatomy, Authority, and Context",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Deliver two substantive, self-directed core modules: Module 2 teaches version-pinned consumer installation, initialization, diagnosis, project anatomy, and safe recovery in a disposable repository; Module 3 teaches authority resolution, behavior-versus-requirement boundaries, and lazy loading through a fictional conflict exercise.",
       "UserStory": "As a 3Ci engineer new to Directive, I want reproducible setup and authority-resolution practice, so that I can orient inside a Directive consumer project and recover from common mistakes without undocumented assistance.",
@@ -39,7 +39,7 @@
       {
         "id": "training.modules2-3.baseline",
         "title": "Revalidate pinned setup, command, authority, and platform evidence",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "The source baseline and notes cite released files and headings, record every tested help and live command surface with date/platform/shell, preserve observed prose-versus-runtime disagreements, and label unexecuted paths candidate rather than verified."
@@ -54,7 +54,7 @@
       {
         "id": "training.modules2-3.installation-module",
         "title": "Author Module 2: Installation and Project Anatomy",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "A learner can select init, update, or doctor from observed project state, distinguish consumer from maintainer surfaces, and classify the initialized artifacts using evidence from the pinned release."
@@ -69,7 +69,7 @@
       {
         "id": "training.modules2-3.installation-lab",
         "title": "Build and prove the disposable initialization lab and solution",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "The lab uses an exact 0.111.0 package pin in a unique no-remote temporary repository, includes guarded starting-state, checkpoint, acceptance, failure, reset, archive/cleanup, and solution paths, and retains successful macOS/zsh, Linux/bash, and native Windows/PowerShell 7 evidence before labeling each path verified."
@@ -84,7 +84,7 @@
       {
         "id": "training.modules2-3.authority-module",
         "title": "Author Module 3: Authority and Context",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "A learner can cite the controlling source for fictional rule conflicts, distinguish behavior rules from product requirements and live authorization, apply Personal-versus-Defaults precedence correctly, and select the smallest relevant lazy-loaded context."
@@ -99,7 +99,7 @@
       {
         "id": "training.modules2-3.navigation",
         "title": "Refresh learner navigation and reference indexes",
-        "status": "proposed",
+        "status": "completed",
         "effort": "S",
         "narrative": {
           "Acceptance": "The repository start page, course map, lab and solution indexes, glossary, and quick reference link the new material, state its actual verification status, and preserve numeric prerequisites and later-module boundaries."
@@ -114,7 +114,7 @@
       {
         "id": "training.modules2-3.quality",
         "title": "Add focused content validation and record final evidence",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "The focused verifier catches missing contracts, placeholders, broken links, stale availability claims, and incomplete platform evidence; all literal acceptance commands and the aggregate gate pass without weakening a gate."
@@ -330,8 +330,32 @@
         "conflict_group": "curriculum-phase-a",
         "size": "large",
         "file_scope_confidence": "high"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 10,
+        "prBase": null,
+        "mergeCommit": "0336d3994f6e3d6bb3a0b0a0f21e3dadf957689f",
+        "deliveryBranch": "master",
+        "deliveryCommit": "0336d3994f6e3d6bb3a0b0a0f21e3dadf957689f",
+        "verifiedAt": "2026-09-06T15:17:32Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMDcyOWYtZDhkYy03YTkyLThkNTgtZDczOGQ0ZTc0YTU3"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-06T15:17:32Z"
+      },
+      "completedAt": "2026-09-06T15:17:32Z",
+      "completedSessionId": "host:codex:v1:MDFhMDcyOWYtZDhkYy03YTkyLThkNTgtZDczOGQ0ZTc0YTU3"
     },
-    "updated": "2026-09-06T15:09:23Z"
+    "updated": "2026-09-06T15:17:32Z"
   }
 }
