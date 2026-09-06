@@ -97,7 +97,7 @@
         },
         {
           "id": 3,
-          "text": ".github/workflows/modules-2-3-platform-validation.yml uses pinned actions and a macOS, Linux, and Windows matrix to execute only the disposable Module 2 proof path; it requests read-only repository permission and no secret or remote-mutation capability.",
+          "text": ".github/workflows/modules-2-3-platform-validation.yml uses pinned actions and a macOS, Linux, and Windows matrix to execute only the disposable Module 2 proof path; it requires no user-managed secret, write permission, persisted credential, or remote mutation. GitHub still supplies its ephemeral read token to the official checkout and Node setup actions.",
           "artifact_path": ".github/workflows/modules-2-3-platform-validation.yml",
           "ambiguous": false,
           "provenance": "statement"

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "xbriefRelPath": "xbrief/active/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
   "planId": "training.modules2-3",
-  "approvedAt": "2026-09-06T13:19:36Z",
+  "approvedAt": "2026-09-06T14:25:17Z",
   "fileScope": [
     ".github/workflows/modules-2-3-platform-validation.yml",
     "assessments/README.md",
@@ -34,9 +34,9 @@
   "humanApproval": {
     "kind": "operator",
     "actor": "David",
-    "mintedAt": "2026-09-06T13:19:36Z",
+    "mintedAt": "2026-09-06T14:25:17Z",
     "mintedVia": "scope:record-approved-scope"
   },
-  "intentDigest": "7bd09d914a213476d205e5aa70127b9d09c750cf24db27cf5db9d0ab4eda9921",
+  "intentDigest": "867f213c79b5cc1e4514d365103863f7a9270c005f22c7e41d9f9e3d22d5b6f3",
   "digestAlgo": "intent-extract-v1"
 }
