@@ -1,0 +1,57 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Proposed internal wiki, Confluence, or SharePoint publishing-readiness scope",
+    "created": "2026-09-05T19:43:46Z",
+    "updated": "2026-09-05T19:43:46Z",
+    "author": "agent:deft-directive-setup"
+  },
+  "plan": {
+    "id": "training.internal-publishing",
+    "title": "Internal Publishing Readiness and Platform Implementation",
+    "status": "proposed",
+    "narratives": {
+      "Description": "Prepare and, only after separate authorization, implement a governed projection from repository Markdown to the selected private internal knowledge platform. Candidate destinations are an internal wiki, Confluence, or SharePoint.",
+      "Acceptance": "A human selects the platform and authorizes publication. Repository Markdown remains the authored source of truth; ownership, permissions, link and navigation mapping, generated-content labeling, synchronization, rollback, version display, and drift handling are defined; platform-specific transformations do not force a wholesale rewrite; and no content becomes public.",
+      "Traces": "PROJECT-DEFINITION PrimaryFormat, PublishingBoundary, SourceOfTruth, ProjectRules",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance command; do not embed the aggregate gate in plan.acceptance.commands."
+    },
+    "items": [
+      {
+        "id": "training.internal-publishing.selection",
+        "title": "Select the private publication platform and projection contract",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "The approved decision records the platform, audience, access controls, source ownership, projection boundaries, synchronization direction, and maintenance owner before any publishing action."
+        }
+      },
+      {
+        "id": "training.internal-publishing.implementation",
+        "title": "Implement and verify the authorized internal projection",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "The selected private destination preserves navigation, code blocks, callouts, source/version attribution, and learner usability, and its pages can be regenerated or reconciled from repository Markdown."
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false
+    },
+    "metadata": {
+      "kind": "phase",
+      "swarm": {
+        "readiness": "needs_refinement",
+        "parallel_safe": false,
+        "depends_on": [
+          "training.version-maintenance"
+        ],
+        "size": "large"
+      }
+    }
+  }
+}

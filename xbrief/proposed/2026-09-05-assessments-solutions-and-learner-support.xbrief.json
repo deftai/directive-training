@@ -1,0 +1,57 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Proposed cross-course assessment and learner-support scope",
+    "created": "2026-09-05T19:43:46Z",
+    "updated": "2026-09-05T19:43:46Z",
+    "author": "agent:deft-directive-setup"
+  },
+  "plan": {
+    "id": "training.learner-support",
+    "title": "Assessments, Solutions, Troubleshooting, and Learner Navigation",
+    "status": "proposed",
+    "narratives": {
+      "Description": "Complete and normalize the practical evidence, feedback, recovery, and navigation surfaces across the core course and capstone. This scope closes self-directed gaps that only become visible once substantive modules exist.",
+      "Acceptance": "Every learning outcome maps to practical evidence and useful feedback; every exercise has progressive hints and an explained solution; every lab has expected failures, recovery, reset, cleanup, and an unambiguous done condition; and course navigation tells learners how to start, resume, continue, and get unstuck without an instructor.",
+      "Traces": "PROJECT-DEFINITION Product, CourseShape, LearningGoals, LabModel",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance command; do not embed the aggregate gate in plan.acceptance.commands."
+    },
+    "items": [
+      {
+        "id": "training.learner-support.outcome-map",
+        "title": "Map learning outcomes to practical assessments and feedback",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "Every core outcome has an observable evidence requirement, scoring or comparison guidance, and actionable feedback rather than trivia-only recall."
+        }
+      },
+      {
+        "id": "training.learner-support.recovery",
+        "title": "Normalize solutions, troubleshooting, recovery, and navigation",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "A learner can resume or recover every practical task from written material alone and can access solutions after a clearly suggested first attempt."
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false
+    },
+    "metadata": {
+      "kind": "phase",
+      "swarm": {
+        "readiness": "needs_refinement",
+        "parallel_safe": false,
+        "depends_on": [
+          "training.capstone"
+        ],
+        "size": "large"
+      }
+    }
+  }
+}

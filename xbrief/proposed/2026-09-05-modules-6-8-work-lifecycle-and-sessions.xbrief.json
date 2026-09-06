@@ -1,0 +1,66 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Proposed curriculum scope for core Modules 6 through 8",
+    "created": "2026-09-05T19:43:46Z",
+    "updated": "2026-09-05T19:43:46Z",
+    "author": "agent:deft-directive-setup"
+  },
+  "plan": {
+    "id": "training.modules6-8",
+    "title": "Modules 6-8: Work Shaping, Lifecycle Authorization, and Session Workflow",
+    "status": "proposed",
+    "narratives": {
+      "Description": "Teach how an idea becomes demonstrable work, how lifecycle state grants bounded implementation authority, and how sessions select authorized work. The work includes vertical-slice shaping, lifecycle preflight, and intake/posture exercises.",
+      "Acceptance": "Learners write observable acceptance criteria, turn a horizontal plan into a vertical slice, recognize epic decomposition, use lifecycle commands rather than file moves, observe proposed-scope preflight failure and active-scope success, distinguish read-only and mutation-ready posture, recover sessions, and apply ordered-plan precedence before the ranked queue.",
+      "Traces": "PROJECT-DEFINITION LearningGoals: work shaping and observable acceptance; lifecycle and implementation authorization; session start and ordered work selection",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance command; do not embed the aggregate gate in plan.acceptance.commands."
+    },
+    "items": [
+      {
+        "id": "training.modules6-8.shaping",
+        "title": "Author Module 6 and vertical-slice shaping exercise",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "A learner transforms a fictional horizontal technical plan into a coherent, demonstrable vertical slice with observable acceptance and explains when decomposition is required."
+        }
+      },
+      {
+        "id": "training.modules6-8.lifecycle",
+        "title": "Author Module 7 and lifecycle authorization lab",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "A disposable fixture demonstrates fail-closed preflight in proposed state, correct promotion and activation through verified lifecycle commands, successful preflight, reset, and cleanup."
+        }
+      },
+      {
+        "id": "training.modules6-8.sessions",
+        "title": "Author Module 8 and work-selection exercise",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "A learner classifies requests by session posture and traces ordered-plan, ranked-queue, accepted-backlog, cache, and audit-log decisions to the correct store."
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false
+    },
+    "metadata": {
+      "kind": "phase",
+      "swarm": {
+        "readiness": "needs_refinement",
+        "parallel_safe": false,
+        "depends_on": [
+          "training.modules4-5"
+        ],
+        "size": "large"
+      }
+    }
+  }
+}

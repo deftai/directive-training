@@ -1,0 +1,279 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Approved first implementation milestone for the 3Ci Directive curriculum",
+    "created": "2026-09-05T19:43:46Z",
+    "updated": "2026-09-05T22:08:06Z",
+    "author": "agent:deft-directive-setup"
+  },
+  "plan": {
+    "id": "training.foundation-module1",
+    "title": "Self-Directed Curriculum Foundation and Module 1 Pilot",
+    "status": "running",
+    "narratives": {
+      "Description": "Establish the approved curriculum foundation and deliver a fully self-directed Module 1 pilot. This is the only scope approved for activation and implementation in the first milestone.",
+      "UserStory": "As a 3Ci engineer new to Directive, I want a trustworthy starting point and a complete first module, so that I can begin learning independently and verify my understanding without undocumented help.",
+      "ImplementationPlan": "1. Record the approved project definition and version-aware source baseline.\n2. Build learner navigation, reusable content templates, Module 1, its exercise and solution, initial references, the disposable-lab model, and the maintenance contract.\n3. Verify every Directive claim and command against the pinned consumer release, then run the literal quality checks.",
+      "Acceptance": "AC-01: PROJECT-DEFINITION.xbrief.json records the approved private 3Ci identity, self-directed delivery model, learner profile, goals, source-of-truth boundaries, safety constraints, portability target, and unresolved named-owner/pilot decisions.\nAC-02: references/SOURCE-BASELINE.md records the exact package and engine pins, official tag and commit when resolvable, verification date, source headings, tested help surfaces, adaptation method, and disagreements.\nAC-03: README.md gives an independent learner an exact start and recovery path, while curriculum/README.md maps all eleven core modules and future electives with prerequisites, timing, and navigation.\nAC-04: Reusable module, lab, assessment, and solution templates contain the complete self-directed contracts and no empty placeholders are presented as completed content.\nAC-05: Module 1 is learner-ready and contains observable outcomes, a starting-state check, mental model, guided teaching, a fictional classification exercise, progressive hints, expected failures and recovery, common misconceptions, self-assessment, completion evidence, an explained solution, navigation, and official references.\nAC-06: The initial glossary, quick reference, disposable-lab model, and curriculum-maintenance note distinguish current xBRIEF 0.8 guidance, 3Ci policy, upstream behavior, and future internal publishing projections.\nAC-07: Session/runtime state and framework deposits remain untracked; the content contains no client or confidential data and requires no instructor explanation.\nAC-08: npm run check:cold-start-readme, directive verify:vbrief-conformance --project-root ., and task deft:check pass on the feature branch.\nAC-09: No content is pushed, opened as a pull request, merged, published, released, or deployed.",
+      "Traces": "PROJECT-DEFINITION: Product, LearningGoals, CourseShape, PrimaryFormat, SourceOfTruth, DirectiveBaseline, LabModel, PublishingBoundary, Maintenance, ProjectRules"
+    },
+    "references": [
+      {
+        "uri": "urn:3ci:directive-training:request:2026-09-05",
+        "type": "x-xbrief/user-request",
+        "title": "David's approved Directive training foundation request",
+        "TrustLevel": "internal"
+      }
+    ],
+    "items": [
+      {
+        "id": "training.foundation-module1.identity-baseline",
+        "title": "Record project identity and Directive source baseline",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "The approved xBRIEF 0.8 project definition is authoritative, and the source manifest makes every major version-sensitive claim traceable to the pinned released package and tested CLI surface."
+        }
+      },
+      {
+        "id": "training.foundation-module1.navigation-templates",
+        "title": "Create learner navigation and reusable self-directed templates",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "A learner can identify where to start, what the full core path contains, how long it takes, how to resume, and how each future module, lab, assessment, and solution must be authored."
+        }
+      },
+      {
+        "id": "training.foundation-module1.module-1",
+        "title": "Author the complete What Directive Is module and solution set",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "Module 1 satisfies every required self-directed section and lets a learner classify realistic tools and scenarios, compare against an explained answer, recover from mistakes, and prove the stated outcomes without an instructor."
+        }
+      },
+      {
+        "id": "training.foundation-module1.reference-safety",
+        "title": "Document reference aids, disposable lab safety, and maintenance",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "The glossary, quick reference, lab model, and maintenance note are substantive, current-version aware, fictional and non-sensitive, explicit about 3Ci overlays, and portable to a later governed internal-publishing projection."
+        }
+      },
+      {
+        "id": "training.foundation-module1.quality",
+        "title": "Run and record milestone quality evidence",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "The literal approved checks pass from the feature branch, generated or runtime state is not committed, and the milestone remains local with no unauthorized remote or publishing action."
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "npm run check:cold-start-readme",
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false,
+      "source_rung": "stated",
+      "derived_reason": "decomposed and bound 16 independently testable clauses after the operator-approved acceptance-contract correction (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "xbrief/PROJECT-DEFINITION.xbrief.json exists and contains \"3Ci Directive Training\", \"private\", \"internal-alpha\", and \"self-directed\".",
+          "artifact_path": "xbrief/PROJECT-DEFINITION.xbrief.json",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "references/SOURCE-BASELINE.md exists and contains \"@deftai/directive: 0.111.0\", \"750b79f6ed343393e42142f419dfb0591cca5a21\", and \"## Claim-to-source map\".",
+          "artifact_path": "references/SOURCE-BASELINE.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "README.md exists and contains \"## Start here\", \"assessment policy\", \"solution policy\", and \"## Resume or recover\".",
+          "artifact_path": "README.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "curriculum/README.md exists and contains \"ten hours\", \"## Core path\", and \"## Future advanced electives\".",
+          "artifact_path": "curriculum/README.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "curriculum/modules/01-what-directive-is.md exists and contains \"## Learning outcomes\", \"## Exercise: classify the Northstar stack\", \"## Progressive hints\", \"## Expected failures and recovery\", \"## Self-assessment\", and \"## Official sources\".",
+          "artifact_path": "curriculum/modules/01-what-directive-is.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "solutions/module-01-what-directive-is.md exists and contains \"## Outcome map\", \"## Self-assessment key\", and \"## Recovery path\".",
+          "artifact_path": "solutions/module-01-what-directive-is.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 7,
+          "text": "assessments/README.md exists and contains \"## Available assessment path\", \"## Self-evaluation\", and \"## Feedback policy\".",
+          "artifact_path": "assessments/README.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 8,
+          "text": "solutions/README.md exists and contains \"## Available solutions\", \"## Recovery policy\", and \"## Version drift\".",
+          "artifact_path": "solutions/README.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 9,
+          "text": "labs/README.md exists and contains \"## Non-negotiable boundary\", \"## Deterministic reset\", and \"## Recoverable cleanup\".",
+          "artifact_path": "labs/README.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 10,
+          "text": "templates/module-template.md exists and contains \"## Starting-state check\", \"## Progressive hints\", and \"## Author release check\".",
+          "artifact_path": "templates/module-template.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 11,
+          "text": "templates/lab-template.md exists and contains \"## Literal acceptance commands\", \"## Reset to start\", and \"## Cleanup\".",
+          "artifact_path": "templates/lab-template.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 12,
+          "text": "templates/assessment-template.md exists and contains \"## Outcomes and evidence map\", \"## Feedback map\", and \"## Completion statement\".",
+          "artifact_path": "templates/assessment-template.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 13,
+          "text": "templates/solution-template.md exists and contains \"## Acceptance evidence\", \"## Expected failures and recovery\", and \"## Retry plan\".",
+          "artifact_path": "templates/solution-template.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 14,
+          "text": "references/GLOSSARY.md exists and contains \"## Authority and context\", \"## 3Ci training terms\", and \"## Legacy note\".",
+          "artifact_path": "references/GLOSSARY.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 15,
+          "text": "references/QUICK-REFERENCE.md exists and contains \"## Mental model\", \"## 3Ci safety overlay\", and \"## When stuck\".",
+          "artifact_path": "references/QUICK-REFERENCE.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 16,
+          "text": "maintainers/CURRICULUM-MAINTENANCE.md exists and contains \"## Release revalidation procedure\", \"## Independent-learner validation\", and \"## Publishing boundary\".",
+          "artifact_path": "maintainers/CURRICULUM-MAINTENANCE.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [
+          ".github/PULL_REQUEST_TEMPLATE.md",
+          "README.md",
+          "assessments/README.md",
+          "curriculum/README.md",
+          "curriculum/modules/01-what-directive-is.md",
+          "labs/README.md",
+          "maintainers/CURRICULUM-MAINTENANCE.md",
+          "references/GLOSSARY.md",
+          "references/QUICK-REFERENCE.md",
+          "references/SOURCE-BASELINE.md",
+          "references/SOURCE-NOTES.md",
+          "solutions/README.md",
+          "solutions/module-01-what-directive-is.md",
+          "templates/assessment-template.md",
+          "templates/lab-template.md",
+          "templates/module-template.md",
+          "templates/solution-template.md"
+        ],
+        "module_boundary": "Repository-authored curriculum, learner support, source evidence, and maintainer guidance for the foundation and Module 1 pilot"
+      },
+      "swarm": {
+        "readiness": "sequential",
+        "parallel_safe": false,
+        "file_scope": [
+          ".github/PULL_REQUEST_TEMPLATE.md",
+          ".gitignore",
+          "AGENTS.md",
+          "COST-ESTIMATE.md",
+          "README.md",
+          "assessments/README.md",
+          "curriculum/README.md",
+          "curriculum/modules/01-what-directive-is.md",
+          "labs/README.md",
+          "maintainers/CURRICULUM-MAINTENANCE.md",
+          "meta/policy-changes.log",
+          "references/GLOSSARY.md",
+          "references/QUICK-REFERENCE.md",
+          "references/SOURCE-BASELINE.md",
+          "references/SOURCE-NOTES.md",
+          "solutions/README.md",
+          "solutions/module-01-what-directive-is.md",
+          "templates/assessment-template.md",
+          "templates/lab-template.md",
+          "templates/module-template.md",
+          "templates/solution-template.md",
+          "xbrief/PROJECT-DEFINITION.xbrief.json",
+          "xbrief/active/2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot.xbrief.json",
+          "xbrief/proposed/2026-09-05-advanced-electives.xbrief.json",
+          "xbrief/proposed/2026-09-05-assessments-solutions-and-learner-support.xbrief.json",
+          "xbrief/proposed/2026-09-05-disposable-end-to-end-capstone.xbrief.json",
+          "xbrief/proposed/2026-09-05-internal-publishing-readiness.xbrief.json",
+          "xbrief/proposed/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
+          "xbrief/proposed/2026-09-05-modules-4-5-xbrief-and-projections.xbrief.json",
+          "xbrief/proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
+          "xbrief/proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
+          "xbrief/proposed/2026-09-05-pilot-and-revision.xbrief.json",
+          "xbrief/proposed/2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot.xbrief.json",
+          "xbrief/proposed/2026-09-05-version-drift-and-maintenance-process.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:cold-start-readme",
+          "directive verify:vbrief-conformance --project-root ."
+        ],
+        "expected_outputs": [
+          "Cold-start README contract passes",
+          "All xBRIEF 0.8 artifacts conform"
+        ],
+        "depends_on": [],
+        "conflict_group": "curriculum-foundation",
+        "size": "large",
+        "file_scope_confidence": "high"
+      }
+    },
+    "updated": "2026-09-05T22:08:06Z"
+  }
+}

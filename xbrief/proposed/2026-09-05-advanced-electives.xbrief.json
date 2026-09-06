@@ -1,0 +1,57 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Proposed post-MVP advanced Directive elective scope",
+    "created": "2026-09-05T19:43:46Z",
+    "updated": "2026-09-05T19:43:46Z",
+    "author": "agent:deft-directive-setup"
+  },
+  "plan": {
+    "id": "training.advanced-electives",
+    "title": "Advanced Directive Electives",
+    "status": "proposed",
+    "narratives": {
+      "Description": "Develop advanced electives only after learners can complete one solo Directive lifecycle. These modules are explicitly outside the initial MVP and must not displace beginner-path completion or pilot revision.",
+      "Acceptance": "Future electives may cover brownfield adoption and upgrades, backlog refinement and reconciliation, swarm-ready decomposition, worktrees and multi-agent allocation, dispatch contracts and model routing, review monitors and merge-path ownership, bounded autonomy and dual stops, decisions and provenance, feedback and continuous improvement, host/runtime operations, release and deployment workflows, and framework-maintainer internals. Each elective must state its advanced prerequisites and satisfy the same self-directed evidence, recovery, and solution contracts.",
+      "Traces": "PROJECT-DEFINITION NonGoals; approved advanced-elective list",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance command; do not embed the aggregate gate in plan.acceptance.commands."
+    },
+    "items": [
+      {
+        "id": "training.advanced-electives.architecture",
+        "title": "Prioritize and shape advanced elective tracks",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "Electives are prioritized from validated learner and maintainer needs, explicitly gated on solo-lifecycle competence, and split into independently teachable scopes before implementation."
+        }
+      },
+      {
+        "id": "training.advanced-electives.delivery",
+        "title": "Deliver approved advanced modules with isolated exercises",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "Each authorized elective is current-version traceable, self-directed, safe, isolated from business repositories, and contains observable evidence, hints, recovery, assessment, and an explained solution."
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false
+    },
+    "metadata": {
+      "kind": "phase",
+      "swarm": {
+        "readiness": "needs_refinement",
+        "parallel_safe": false,
+        "depends_on": [
+          "training.pilot-revision"
+        ],
+        "size": "large"
+      }
+    }
+  }
+}

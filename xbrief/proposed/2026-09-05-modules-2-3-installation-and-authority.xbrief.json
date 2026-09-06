@@ -1,0 +1,57 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Proposed curriculum scope for core Modules 2 and 3",
+    "created": "2026-09-05T19:43:46Z",
+    "updated": "2026-09-05T19:43:46Z",
+    "author": "agent:deft-directive-setup"
+  },
+  "plan": {
+    "id": "training.modules2-3",
+    "title": "Modules 2-3: Installation, Project Anatomy, Authority, and Context",
+    "status": "proposed",
+    "narratives": {
+      "Description": "Teach independent consumer installation, initialization, diagnosis, project anatomy, authority resolution, and lazy loading. The work includes a disposable initialization lab and a progressively hinted rule-conflict exercise.",
+      "Acceptance": "Module 2 lets a learner choose among init, update, and doctor; distinguish consumer and maintainer surfaces; and prove the tracked, ignored, authoritative, and reconstitutable artifacts in a disposable repository. Module 3 lets a learner resolve USER.md, PROJECT-DEFINITION, task guidance, and framework defaults while separating behavior rules from product requirements.",
+      "Traces": "PROJECT-DEFINITION LearningGoals: installation and project orientation; authority and lazy loading",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance command; do not embed the aggregate gate in plan.acceptance.commands."
+    },
+    "items": [
+      {
+        "id": "training.modules2-3.installation",
+        "title": "Author Module 2 and its disposable initialization lab",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "Verified macOS, Linux, and PowerShell paths let a learner initialize a disposable consumer repository, run current health and toolchain checks, inspect the result, reset safely, and compare evidence with an explained solution."
+        }
+      },
+      {
+        "id": "training.modules2-3.authority",
+        "title": "Author Module 3 and its authority-resolution exercise",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "A learner can resolve conflicting fictional rules through the documented authority hierarchy, explain lazy loading, use progressive hints, and verify the reasoning against a complete solution."
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false
+    },
+    "metadata": {
+      "kind": "phase",
+      "swarm": {
+        "readiness": "needs_refinement",
+        "parallel_safe": false,
+        "depends_on": [
+          "training.foundation-module1"
+        ],
+        "size": "large"
+      }
+    }
+  }
+}

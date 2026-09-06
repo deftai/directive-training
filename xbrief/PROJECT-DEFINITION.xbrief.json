@@ -1,24 +1,165 @@
 {
   "xBRIEFInfo": {
     "version": "0.8",
-    "description": "Project definition -- synthesized gestalt of the project",
+    "description": "Project definition for the private 3Ci Directive training curriculum",
     "created": "2026-09-05T14:54:49Z",
-    "updated": "2026-09-05T15:47:47.265Z"
+    "updated": "2026-09-05T20:08:54Z",
+    "author": "agent:deft-directive-setup"
   },
   "plan": {
-    "title": "PROJECT-DEFINITION",
+    "title": "3Ci Directive Training",
     "status": "running",
     "narratives": {
-      "Overview": "",
-      "tech stack": "",
-      "Architecture": "",
-      "RisksAndUnknowns": "",
-      "Configuration": "",
-      "ProjectRules": "Greptile is disabled for this project. Do not enable, trigger, wait for, or require Greptile reviews or status checks. Treat missing Greptile signals as expected; use local checks, GitHub CI, and human review."
+      "Overview": "3Ci Directive Training is a private, pre-release internal-alpha curriculum owned by 3Ci engineering enablement. It teaches working 3Ci software engineers to use Directive safely and independently as consumers of the framework.",
+      "Product": "A practical, self-directed, asynchronous curriculum delivered through authored Markdown, reproducible walkthroughs, disposable labs, self-checks, explained solutions, and concise reference material. A learner must be able to complete the core path without a live instructor or undocumented assistance.",
+      "Audience": "Learners are 3Ci software engineers who understand Git, GitHub, branches, pull requests, terminals, tests, and ordinary software delivery; have used at least one coding-agent host; and are new to Directive, xBRIEF, Directive strategies and skills, session posture, and deterministic gates. They are Directive consumers, not framework maintainers.",
+      "LearningGoals": "Teach Directive as a repository practice layer built on shared standards, durable state, and deterministic gates; installation and project orientation; authority and lazy loading; xBRIEF 0.8 project and work state; source-versus-projection boundaries; work shaping and observable acceptance; lifecycle and implementation authorization; session start and ordered work selection; proof-driven implementation and aggregate checks; pre-PR and review workflows; and precise distinctions among implemented, PR-open, merge-ready, delivered, deployed, and UAT-verified.",
+      "CourseShape": "The target is approximately 12 hours: about 10 hours for the eleven core modules and about 2 hours for a disposable end-to-end capstone. Every completed module and lab must satisfy the repository's self-directed content contracts, including starting-state checks, observable evidence, progressive hints, recovery, self-assessment, and an explained solution.",
+      "PrimaryFormat": "Markdown-first and content-focused. Stable source paths should remain portable enough to project later into an internal wiki, Confluence, or SharePoint without a wholesale rewrite. No publishing or platform-specific implementation is authorized in the current milestone.",
+      "techstack": "Authored Markdown and JSON xBRIEF 0.8 artifacts in Git; the npm-installed @deftai/directive consumer CLI and repository Taskfile gates; and, for later executable labs, Node.js 20 JavaScript with the built-in node:test runner. npm is the primary package manager with verified pnpm notes where useful. No static-site generator or curriculum application is part of the initial milestone.",
+      "Architecture": "Repository Markdown is the authored curriculum source, organized as learner navigation, stable numbered modules, disposable lab specifications and fixtures, assessments, explained solutions, maintainer guidance, templates, and version-pinned references. xBRIEF artifacts govern identity and work lifecycle. Runtime state and framework deposits are reconstitutable and untracked. Any later wiki, Confluence, or SharePoint representation is a governed projection from repository sources.",
+      "SourceOfTruth": "Project identity, policy, and work lifecycle live in xBRIEF 0.8 artifacts. Authored lessons live in this repository's Markdown source. Generated outputs must be marked and regenerated from their authoritative source. Official Directive behavior is not defined by this training repository; claims must be checked against the pinned release, its command surface, and official sources. 3Ci-specific rules must be labeled as 3Ci policy. Completed training xBRIEFs record what was delivered and do not authorize future work.",
+      "DirectiveBaseline": "Teach current consumer behavior from a precisely pinned @deftai/directive release. Prefer official sources from that release and deterministic released behavior when prose disagrees. Record the package version, engine version, tag, commit, verification date, source locations, tested help surfaces, adaptation method, and disagreements in a maintained source-baseline manifest. Teach xBRIEF schema 0.8; keep vBRIEF, schema 0.6, retired Python launchers, .deft/core/run, and frozen migration workflows outside the beginner path as legacy material.",
+      "SupportedEnvironments": "The host-neutral core targets macOS, Linux, and Windows, with zsh, bash, and PowerShell 7 paths. Each platform- or shell-specific path must be tested before its module or lab is marked learner-ready; untested paths must be labeled as candidates or omitted. Codex, Claude Code, and Cursor may receive clearly labeled host-specific notes. npm is the primary package-manager path; pnpm equivalents may be included only when verified. Learner commands must be confirmed using directive --help, directive commands, and directive <verb> --help rather than remembered syntax.",
+      "LabModel": "Labs use fictional, non-sensitive scenarios in disposable local repositories, temporary directories, or designated per-learner training repositories. The later sample application is a small fictional Node.js 20 JavaScript CLI/library tested with node:test. Labs must never initialize, reset, or implement inside this training repository or a business repository; require no real deployment, production credentials, client data, or destructive remote actions; keep cache and session state untracked; and provide deterministic reset and cleanup paths.",
+      "ReviewModel": "Core review exercises use simulated review-bot findings so every learner can finish independently. Local checks, available GitHub CI, and human review remain valid evidence surfaces. Host- or platform-specific automation must be optional and labeled.",
+      "DevelopmentPosture": "This project is pre-release. Optimize for clarity and changeability, keep artifacts as initial pre-release versions, and do not introduce backward-compatibility shims. Use a feature branch for changes and implement one approved, active scope at a time.",
+      "NonGoals": "The initial curriculum has no instructor-led dependency, required live demonstration, public website, public documentation, LMS or SCORM package, certification program, video series, polished slide deck, exhaustive command reference, framework-maintainer training, production-repository exercise, live deployment, destructive remote action, confidential backlog ingestion, advanced swarm workflow, release workflow, migration workflow, package-internal material, or wholesale reproduction of upstream documentation.",
+      "PublishingBoundary": "The material may eventually be published to an internal wiki, Confluence, or SharePoint. Repository Markdown remains the authored source of truth; published pages will be generated or governed projections. Platform selection, export tooling, permissions, and publication are future work and require explicit authorization.",
+      "Maintenance": "3Ci engineering enablement is the organizational content owner. A named individual maintainer and at least two representative pilot learners remain to be assigned before MVP exit. Maintainers must revalidate version-sensitive claims and literal commands when the Directive pin changes and record the result in the source baseline and maintenance notes.",
+      "RisksAndUnknowns": "The named content owner and pilot learners are unresolved. The eventual internal publishing platform is unresolved. Command and prose drift across Directive releases can invalidate training quickly, so claims require per-release traceability and revalidation. Cross-platform shell differences can make otherwise correct labs non-reproducible and must be tested or explicitly bounded.",
+      "ProjectRules": "This repository belongs to 3Ci and must remain private. It is neither a Deft Systems repository nor the deftai/directive source repository. Treat the configured Git remote as repository identity; do not change its visibility or remote settings, modify /Users/davidcall/tools/deft/directive, or create issues or pull requests in deftai/directive. Use fictional projects and mock data only; never include client information, proprietary source, credentials, production logs, or confidential issue content. Learner exercises must run outside this working tree and outside business repositories. Do not push, open a pull request, merge, publish, release, or deploy without explicit authorization. Greptile is disabled for this project. Do not enable, trigger, wait for, or require Greptile reviews or status checks. Treat missing Greptile signals as expected; use local checks, GitHub CI, and human review. Solutions should be available after a suggested first attempt rather than concealed behind instructor access."
     },
-    "items": [],
+    "references": [
+      {
+        "uri": "../COST-ESTIMATE.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Cost estimate for the approved first curriculum milestone",
+        "TrustLevel": "internal"
+      }
+    ],
+    "items": [
+      {
+        "id": "2026-09-05-advanced-electives",
+        "title": "Advanced Directive Electives",
+        "status": "proposed",
+        "metadata": {
+          "source_path": "proposed/2026-09-05-advanced-electives.xbrief.json",
+          "lifecycle_folder": "proposed"
+        }
+      },
+      {
+        "id": "2026-09-05-assessments-solutions-and-learner-support",
+        "title": "Assessments, Solutions, Troubleshooting, and Learner Navigation",
+        "status": "proposed",
+        "metadata": {
+          "source_path": "proposed/2026-09-05-assessments-solutions-and-learner-support.xbrief.json",
+          "lifecycle_folder": "proposed"
+        }
+      },
+      {
+        "id": "2026-09-05-disposable-end-to-end-capstone",
+        "title": "Disposable End-to-End Solo Directive Capstone",
+        "status": "proposed",
+        "metadata": {
+          "source_path": "proposed/2026-09-05-disposable-end-to-end-capstone.xbrief.json",
+          "lifecycle_folder": "proposed"
+        }
+      },
+      {
+        "id": "2026-09-05-internal-publishing-readiness",
+        "title": "Internal Publishing Readiness and Platform Implementation",
+        "status": "proposed",
+        "metadata": {
+          "source_path": "proposed/2026-09-05-internal-publishing-readiness.xbrief.json",
+          "lifecycle_folder": "proposed"
+        }
+      },
+      {
+        "id": "2026-09-05-modules-2-3-installation-and-authority",
+        "title": "Modules 2-3: Installation, Project Anatomy, Authority, and Context",
+        "status": "proposed",
+        "metadata": {
+          "source_path": "proposed/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
+          "lifecycle_folder": "proposed"
+        }
+      },
+      {
+        "id": "2026-09-05-modules-4-5-xbrief-and-projections",
+        "title": "Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries",
+        "status": "proposed",
+        "metadata": {
+          "source_path": "proposed/2026-09-05-modules-4-5-xbrief-and-projections.xbrief.json",
+          "lifecycle_folder": "proposed"
+        }
+      },
+      {
+        "id": "2026-09-05-modules-6-8-work-lifecycle-and-sessions",
+        "title": "Modules 6-8: Work Shaping, Lifecycle Authorization, and Session Workflow",
+        "status": "proposed",
+        "metadata": {
+          "source_path": "proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
+          "lifecycle_folder": "proposed"
+        }
+      },
+      {
+        "id": "2026-09-05-modules-9-11-implementation-gates-and-review",
+        "title": "Modules 9-11: Implementation, Gates, Review, and Closeout",
+        "status": "proposed",
+        "metadata": {
+          "source_path": "proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
+          "lifecycle_folder": "proposed"
+        }
+      },
+      {
+        "id": "2026-09-05-pilot-and-revision",
+        "title": "Independent Learner Pilot and Curriculum Revision",
+        "status": "proposed",
+        "metadata": {
+          "source_path": "proposed/2026-09-05-pilot-and-revision.xbrief.json",
+          "lifecycle_folder": "proposed"
+        }
+      },
+      {
+        "id": "2026-09-05-version-drift-and-maintenance-process",
+        "title": "Directive Version-Drift Checks and Maintenance Process",
+        "status": "proposed",
+        "metadata": {
+          "source_path": "proposed/2026-09-05-version-drift-and-maintenance-process.xbrief.json",
+          "lifecycle_folder": "proposed"
+        }
+      },
+      {
+        "id": "2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot",
+        "title": "Self-Directed Curriculum Foundation and Module 1 Pilot",
+        "status": "running",
+        "metadata": {
+          "source_path": "active/2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot.xbrief.json",
+          "lifecycle_folder": "active"
+        }
+      },
+      {
+        "id": "2026-09-05-2-add-fresh-clone-deft-recovery-to-readme",
+        "title": "Add fresh-clone Deft recovery to README",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-05-2-add-fresh-clone-deft-recovery-to-readme.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/3Ci-Consulting/directive-training/issues/2",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #2: Add fresh-clone Deft recovery to README"
+            }
+          ]
+        }
+      }
+    ],
     "metadata": {
       "staleness_flags": []
+    },
+    "x-directive/policy": {
+      "allowDirectCommitsToMaster": false
     }
   }
 }

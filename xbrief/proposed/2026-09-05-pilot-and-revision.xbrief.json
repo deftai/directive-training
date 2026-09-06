@@ -1,0 +1,57 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Proposed independent learner pilot and revision scope",
+    "created": "2026-09-05T19:43:46Z",
+    "updated": "2026-09-05T19:43:46Z",
+    "author": "agent:deft-directive-setup"
+  },
+  "plan": {
+    "id": "training.pilot-revision",
+    "title": "Independent Learner Pilot and Curriculum Revision",
+    "status": "proposed",
+    "narratives": {
+      "Description": "Run a documented pilot with representative 3Ci engineers who did not author the material, then revise the course from observed friction and ambiguity. Pilot staffing is a future activation gate and is not resolved by the organizational owner alone.",
+      "Acceptance": "A named maintainer and at least two representative pilot learners are recorded. Pilot learners complete the core path and capstone using only documented instructions, hints, and solutions; undocumented human interventions and observed friction are captured; and the resulting ambiguities are corrected and revalidated before MVP exit.",
+      "Traces": "PROJECT-DEFINITION Maintenance, RisksAndUnknowns; MVP independent-completion and pilot exit criteria",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance command; do not embed the aggregate gate in plan.acceptance.commands."
+    },
+    "items": [
+      {
+        "id": "training.pilot-revision.plan",
+        "title": "Name the maintainer and pilot cohort and define evidence capture",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "The pilot has a named content owner, at least two non-author representative learners, privacy-safe evidence capture, success criteria, and a way to record undocumented assistance."
+        }
+      },
+      {
+        "id": "training.pilot-revision.run",
+        "title": "Run the independent pilot and incorporate findings",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "Pilot evidence shows whether learners complete the capstone independently, and every material friction point is resolved, explicitly deferred, or returned to scoped work with rationale."
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false
+    },
+    "metadata": {
+      "kind": "phase",
+      "swarm": {
+        "readiness": "needs_refinement",
+        "parallel_safe": false,
+        "depends_on": [
+          "training.learner-support"
+        ],
+        "size": "large"
+      }
+    }
+  }
+}

@@ -6,6 +6,11 @@
 .deft/.cli/
 .deft/ritual-state.json
 .deft/last-session.json
+.deft/orientation-state.json
+.deft/session-bind.json
+.deft/session-binds/
+/USER.md
+/.deft/USER.md
 .deft/occupancy.json
 .deft/routing.local.json
 .deft/authz/

@@ -1,0 +1,57 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Proposed Directive version-drift and curriculum-maintenance scope",
+    "created": "2026-09-05T19:43:46Z",
+    "updated": "2026-09-05T19:43:46Z",
+    "author": "agent:deft-directive-setup"
+  },
+  "plan": {
+    "id": "training.version-maintenance",
+    "title": "Directive Version-Drift Checks and Maintenance Process",
+    "status": "proposed",
+    "narratives": {
+      "Description": "Turn the initial source-baseline discipline into a repeatable maintenance workflow for released Directive updates. The process must detect stale commands and claims without making this curriculum the authority for upstream behavior.",
+      "Acceptance": "A named maintainer can identify the pinned package, tag, and commit; compare a candidate upgrade with official release-matched sources and the live command surface; rerun platform-sensitive examples and literal course commands; record disagreements and required edits; update verification dates; and block publication of stale guidance until revalidation is complete.",
+      "Traces": "PROJECT-DEFINITION DirectiveBaseline, SourceOfTruth, Maintenance, RisksAndUnknowns",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance command; do not embed the aggregate gate in plan.acceptance.commands."
+    },
+    "items": [
+      {
+        "id": "training.version-maintenance.workflow",
+        "title": "Define the release-change review and claim-revalidation workflow",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "The workflow identifies authoritative inputs, changed command surfaces, claim owners, verification evidence, drift disposition, and an explicit completion gate for a new training baseline."
+        }
+      },
+      {
+        "id": "training.version-maintenance.checks",
+        "title": "Implement proportionate version-drift checks",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "Focused checks catch stale pinned versions, missing traceability, and unverified taught commands without introducing a large bespoke validation framework."
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false
+    },
+    "metadata": {
+      "kind": "phase",
+      "swarm": {
+        "readiness": "needs_refinement",
+        "parallel_safe": false,
+        "depends_on": [
+          "training.pilot-revision"
+        ],
+        "size": "large"
+      }
+    }
+  }
+}

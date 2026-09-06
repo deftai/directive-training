@@ -1,0 +1,57 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Proposed disposable end-to-end Directive capstone scope",
+    "created": "2026-09-05T19:43:46Z",
+    "updated": "2026-09-05T19:43:46Z",
+    "author": "agent:deft-directive-setup"
+  },
+  "plan": {
+    "id": "training.capstone",
+    "title": "Disposable End-to-End Solo Directive Capstone",
+    "status": "proposed",
+    "narratives": {
+      "Description": "Create a deterministic two-hour capstone in a disposable fictional repository. It must prove that a learner can supervise one complete solo Directive-managed change using only written instructions, hints, recovery, and solutions.",
+      "Acceptance": "The capstone covers orientation, an approved active scope, story-ready and xBRIEF preflight, test-backed implementation, focused checks, literal acceptance, the aggregate gate, pre-PR self-review, simulated review, and evidence-based closeout. It includes starting-state checks, checkpoints, progressive hints, reset and cleanup, expected evidence, and a complete solution without touching the training or a business repository.",
+      "Traces": "PROJECT-DEFINITION CourseShape, LabModel, LearningGoals, ProjectRules",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance command; do not embed the aggregate gate in plan.acceptance.commands."
+    },
+    "items": [
+      {
+        "id": "training.capstone.fixture",
+        "title": "Build the fictional disposable capstone fixture and reset path",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "The fixture creates a safe per-run repository, contains no sensitive data or remote destructive action, and can be reset and cleaned up deterministically on every supported operating-system path."
+        }
+      },
+      {
+        "id": "training.capstone.walkthrough",
+        "title": "Author the solo lifecycle capstone, evidence rubric, hints, and solution",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "A learner can complete and assess the full lifecycle without undocumented human intervention and can explain why each lifecycle and quality gate exists."
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false
+    },
+    "metadata": {
+      "kind": "phase",
+      "swarm": {
+        "readiness": "needs_refinement",
+        "parallel_safe": false,
+        "depends_on": [
+          "training.modules9-11"
+        ],
+        "size": "large"
+      }
+    }
+  }
+}

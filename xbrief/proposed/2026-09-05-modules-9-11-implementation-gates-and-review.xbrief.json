@@ -1,0 +1,66 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Proposed curriculum scope for core Modules 9 through 11",
+    "created": "2026-09-05T19:43:46Z",
+    "updated": "2026-09-05T19:43:46Z",
+    "author": "agent:deft-directive-setup"
+  },
+  "plan": {
+    "id": "training.modules9-11",
+    "title": "Modules 9-11: Implementation, Gates, Review, and Closeout",
+    "status": "proposed",
+    "narratives": {
+      "Description": "Teach the solo implementation golden path, proof-driven testing and gates, and evidence-based PR, review, and closeout states. The work uses a fictional Node.js 20 application, node:test, and simulated review findings.",
+      "Acceptance": "Learners start from a clean feature branch and active contract, pass story-ready and xBRIEF preflight, implement a narrow tested behavior, use focused checks and literal acceptance commands, diagnose a deliberate aggregate-gate failure without weakening the gate, conduct a pre-PR review, classify all simulated findings, prepare a coherent fix batch, and distinguish implementation, PR, merge readiness, delivery, deployment, and UAT evidence.",
+      "Traces": "PROJECT-DEFINITION LearningGoals: proof-driven implementation and aggregate checks; pre-PR and review workflows; precise completion states",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance command; do not embed the aggregate gate in plan.acceptance.commands."
+    },
+    "items": [
+      {
+        "id": "training.modules9-11.implementation",
+        "title": "Author Module 9 and the small test-backed implementation lab",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "A learner independently performs one smallest-coherent-change cycle from clean branch and active contract through focused evidence without unrelated scope expansion."
+        }
+      },
+      {
+        "id": "training.modules9-11.gates",
+        "title": "Author Module 10 and red-green-refactor gate lab",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "A learner produces red-green-refactor evidence, runs literal acceptance commands and the aggregate gate, diagnoses the seeded failure, and repairs the work rather than the gate."
+        }
+      },
+      {
+        "id": "training.modules9-11.review",
+        "title": "Author Module 11 and simulated review exercise",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "A learner performs pre-PR self-review, classifies every simulated finding before editing, resolves a coherent batch, and labels completion scenarios only as far as current evidence supports."
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false
+    },
+    "metadata": {
+      "kind": "phase",
+      "swarm": {
+        "readiness": "needs_refinement",
+        "parallel_safe": false,
+        "depends_on": [
+          "training.modules6-8"
+        ],
+        "size": "large"
+      }
+    }
+  }
+}

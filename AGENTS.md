@@ -2,7 +2,7 @@
 
 <!-- Purpose: bounded consumer AGENTS.md header (#2065 Option A). Edit the one-liner below. Do NOT add Status / Next / Known Issues — they rot silently; see UPGRADING.md § AGENTS.md: managed vs unmanaged header. -->
 
-One-line project description (edit me).
+Private, self-directed Directive training for 3Ci engineers, authored in Markdown and exercised only in disposable repositories.
 
 ## Session orientation
 
