@@ -132,10 +132,10 @@
       {
         "id": "2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot",
         "title": "Self-Directed Curriculum Foundation and Module 1 Pilot",
-        "status": "running",
+        "status": "completed",
         "metadata": {
-          "source_path": "active/2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot.xbrief.json",
-          "lifecycle_folder": "active"
+          "source_path": "completed/2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot.xbrief.json",
+          "lifecycle_folder": "completed"
         }
       },
       {

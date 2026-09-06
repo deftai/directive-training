@@ -3,13 +3,13 @@
     "version": "0.8",
     "description": "Approved first implementation milestone for the 3Ci Directive curriculum",
     "created": "2026-09-05T19:43:46Z",
-    "updated": "2026-09-05T22:08:06Z",
+    "updated": "2026-09-06T02:48:56Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
     "id": "training.foundation-module1",
     "title": "Self-Directed Curriculum Foundation and Module 1 Pilot",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Establish the approved curriculum foundation and deliver a fully self-directed Module 1 pilot. This is the only scope approved for activation and implementation in the first milestone.",
       "UserStory": "As a 3Ci engineer new to Directive, I want a trustworthy starting point and a complete first module, so that I can begin learning independently and verify my understanding without undocumented help.",
@@ -29,46 +29,76 @@
       {
         "id": "training.foundation-module1.identity-baseline",
         "title": "Record project identity and Directive source baseline",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "The approved xBRIEF 0.8 project definition is authoritative, and the source manifest makes every major version-sensitive claim traceable to the pinned released package and tested CLI surface."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #5 source HEAD 885cbfb50c48d4ffbffffc2a6095881af2109cf9: task deft:check passed 16/16 acceptance clauses and independent review confirmed the project identity and source baseline",
+          "recorded_at": "2026-09-06T02:47:04Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.foundation-module1.navigation-templates",
         "title": "Create learner navigation and reusable self-directed templates",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "A learner can identify where to start, what the full core path contains, how long it takes, how to resume, and how each future module, lab, assessment, and solution must be authored."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #5 source HEAD 885cbfb50c48d4ffbffffc2a6095881af2109cf9: task deft:check passed clauses 3-4 and 7-13; 71/71 authored Markdown links and anchors were verified",
+          "recorded_at": "2026-09-06T02:47:04Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.foundation-module1.module-1",
         "title": "Author the complete What Directive Is module and solution set",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "Module 1 satisfies every required self-directed section and lets a learner classify realistic tools and scenarios, compare against an explained answer, recover from mistakes, and prove the stated outcomes without an instructor."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #5 source HEAD 885cbfb50c48d4ffbffffc2a6095881af2109cf9: task deft:check passed clauses 5-6 and independent end-to-end review verified the module, exercise, self-assessment, recovery guidance, and solution",
+          "recorded_at": "2026-09-06T02:47:04Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.foundation-module1.reference-safety",
         "title": "Document reference aids, disposable lab safety, and maintenance",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "The glossary, quick reference, lab model, and maintenance note are substantive, current-version aware, fictional and non-sensitive, explicit about 3Ci overlays, and portable to a later governed internal-publishing projection."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "PR #5 source HEAD 885cbfb50c48d4ffbffffc2a6095881af2109cf9: independent full-diff review confirmed fictional non-sensitive content, 3Ci overlays, disposable-lab safety, maintenance ownership, and the no-publication boundary",
+          "recorded_at": "2026-09-06T02:47:04Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.foundation-module1.quality",
         "title": "Run and record milestone quality evidence",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "The literal approved checks pass from the feature branch, generated or runtime state is not committed, and the milestone remains local with no unauthorized remote or publishing action."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #5 source HEAD 885cbfb50c48d4ffbffffc2a6095881af2109cf9: npm run check:cold-start-readme, directive verify:vbrief-conformance --project-root ., task deft:check, and GitHub no-mixed-core-and-app passed; squash merge fcb459affb34eecbd57873f78a12cb0dc3fdf3f2 delivered the reviewed scope",
+          "recorded_at": "2026-09-06T02:47:04Z",
+          "recorded_by": "agent:codex"
         }
       }
     ],
@@ -272,8 +302,32 @@
         "conflict_group": "curriculum-foundation",
         "size": "large",
         "file_scope_confidence": "high"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 5,
+        "prBase": null,
+        "mergeCommit": "fcb459affb34eecbd57873f78a12cb0dc3fdf3f2",
+        "deliveryBranch": "master",
+        "deliveryCommit": "fcb459affb34eecbd57873f78a12cb0dc3fdf3f2",
+        "verifiedAt": "2026-09-06T02:48:56Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMDcyOWYtZDhkYy03YTkyLThkNTgtZDczOGQ0ZTc0YTU3"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-06T02:48:56Z"
+      },
+      "completedAt": "2026-09-06T02:48:56Z",
+      "completedSessionId": "host:codex:v1:MDFhMDcyOWYtZDhkYy03YTkyLThkNTgtZDczOGQ0ZTc0YTU3"
     },
-    "updated": "2026-09-05T22:08:06Z"
+    "updated": "2026-09-06T02:48:56Z"
   }
 }
