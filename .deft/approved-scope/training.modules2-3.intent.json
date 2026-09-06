@@ -1,0 +1,265 @@
+{
+  "schemaVersion": 1,
+  "algo": "intent-extract-v1",
+  "plan": {
+    "id": "training.modules2-3",
+    "title": "Modules 2-3: Installation, Project Anatomy, Authority, and Context",
+    "narratives": {
+      "Description": "Deliver two substantive, self-directed core modules: Module 2 teaches version-pinned consumer installation, initialization, diagnosis, project anatomy, and safe recovery in a disposable repository; Module 3 teaches authority resolution, behavior-versus-requirement boundaries, and lazy loading through a fictional conflict exercise.",
+      "UserStory": "As a 3Ci engineer new to Directive, I want reproducible setup and authority-resolution practice, so that I can orient inside a Directive consumer project and recover from common mistakes without undocumented assistance.",
+      "ImplementationPlan": "1. Revalidate setup, command, authority, and lazy-loading claims against @deftai/directive 0.111.0 and its released sources.\n2. Build Module 2, a disposable initialization lab, its cross-platform proof path, and an explained solution.\n3. Build Module 3, its progressively hinted fictional authority exercise, and an explained solution.\n4. Refresh course navigation and reference material, add a focused content verifier, and run the literal and aggregate gates.\n5. Keep any unproved operating-system, shell, package-manager, or host path labeled candidate or omit it until evidence exists.",
+      "Acceptance": "Module 2 lets a learner choose among init, update, and doctor; use the exact pinned consumer path; distinguish consumer and maintainer surfaces; classify tracked, ignored, authoritative, and reconstitutable artifacts; interpret doctor findings without assuming warning-free output; and recover safely in a disposable repository. Module 3 lets a learner resolve USER.md, PROJECT-DEFINITION, task guidance, active scope plus live intent, and framework defaults; separate behavior rules from product requirements; and load only relevant guidance. Both modules satisfy the repository's self-directed module contract and require no instructor, external review bot, credential, production repository, or remote mutation.",
+      "KnownReleasedBehavior": "A 2026-09-05 macOS/zsh probe of @deftai/directive 0.111.0 found that init after git init classified the empty Git repository as brownfield and did not create the package.json pin described by released prose. doctor exited 0 with pin/provenance warnings and also reported a missing xbrief directory while inspecting an existing xBRIEF envelope. The curriculum must record this disagreement, teach an explicit exact-version pin before initialization, and classify doctor evidence rather than promise zero warnings.",
+      "PlatformProof": "macOS/zsh has direct runtime evidence. Linux/bash and native Windows/PowerShell 7 require independent execution before those paths are labeled verified. A small GitHub Actions matrix may provide the native operating-system proof; creating or running remote CI still requires the repository's separate push/PR authorization. PowerShell on macOS is not proof of native Windows behavior. pnpm remains candidate-only unless separately executed.",
+      "Safety": "All executable setup work uses a unique operating-system temporary directory containing fictional data and no Git remote. Guards must prove the canonical working root equals the recorded lab root before mutation. Reset defaults to a fresh disposable directory while preserving failure evidence; cleanup must target one exact verified no-remote lab path. Never initialize, reset, or clean this training worktree, a business repository, a home directory, or a broad workspace.",
+      "Traces": "PROJECT-DEFINITION LearningGoals: installation and project orientation; authority and lazy loading. SupportedEnvironments, LabModel, DirectiveBaseline, SourceOfTruth, ProjectRules, and PublishingBoundary.",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance commands; do not embed the aggregate gate in plan.acceptance.commands. A platform path is not verified merely because the content verifier passes."
+    },
+    "references": [
+      {
+        "uri": "urn:3ci:directive-training:request:2026-09-05",
+        "type": "x-xbrief/user-request",
+        "title": "David's approved Directive training curriculum request"
+      },
+      {
+        "uri": "../../references/SOURCE-BASELINE.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Pinned Directive source baseline"
+      }
+    ],
+    "items": [
+      {
+        "id": "training.modules2-3.authority-module",
+        "title": "Author Module 3: Authority and Context",
+        "narrative": {
+          "Acceptance": "A learner can cite the controlling source for fictional rule conflicts, distinguish behavior rules from product requirements and live authorization, apply Personal-versus-Defaults precedence correctly, and select the smallest relevant lazy-loaded context."
+        }
+      },
+      {
+        "id": "training.modules2-3.baseline",
+        "title": "Revalidate pinned setup, command, authority, and platform evidence",
+        "narrative": {
+          "Acceptance": "The source baseline and notes cite released files and headings, record every tested help and live command surface with date/platform/shell, preserve observed prose-versus-runtime disagreements, and label unexecuted paths candidate rather than verified."
+        }
+      },
+      {
+        "id": "training.modules2-3.installation-lab",
+        "title": "Build and prove the disposable initialization lab and solution",
+        "narrative": {
+          "Acceptance": "The lab uses an exact 0.111.0 package pin in a unique no-remote temporary repository, includes guarded starting-state, checkpoint, acceptance, failure, reset, archive/cleanup, and solution paths, and retains successful macOS/zsh, Linux/bash, and native Windows/PowerShell 7 evidence before labeling each path verified."
+        }
+      },
+      {
+        "id": "training.modules2-3.installation-module",
+        "title": "Author Module 2: Installation and Project Anatomy",
+        "narrative": {
+          "Acceptance": "A learner can select init, update, or doctor from observed project state, distinguish consumer from maintainer surfaces, and classify the initialized artifacts using evidence from the pinned release."
+        }
+      },
+      {
+        "id": "training.modules2-3.navigation",
+        "title": "Refresh learner navigation and reference indexes",
+        "narrative": {
+          "Acceptance": "The repository start page, course map, lab and solution indexes, glossary, and quick reference link the new material, state its actual verification status, and preserve numeric prerequisites and later-module boundaries."
+        }
+      },
+      {
+        "id": "training.modules2-3.quality",
+        "title": "Add focused content validation and record final evidence",
+        "narrative": {
+          "Acceptance": "The focused verifier catches missing contracts, placeholders, broken links, stale availability claims, and incomplete platform evidence; all literal acceptance commands and the aggregate gate pass without weakening a gate."
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "npm run check:cold-start-readme",
+        "npm run check:modules-2-3",
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false,
+      "source_rung": "stated",
+      "derived_reason": "decomposed the operator-approved Modules 2-3 outcomes and self-directed content contracts into artifact-bound, independently inspectable clauses",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "references/SOURCE-BASELINE.md records the exact Directive 0.111.0 pin, official release tag and commit, Modules 2-3 source files/headings, tested command surfaces, adaptation status, and prose-versus-runtime disagreements.",
+          "artifact_path": "references/SOURCE-BASELINE.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "references/SOURCE-NOTES.md contains dated environment and result records for the claimed macOS/zsh, Linux/bash, and Windows/PowerShell 7 setup paths; any unexecuted path is labeled candidate or omitted, and PowerShell on macOS is not counted as native Windows proof.",
+          "artifact_path": "references/SOURCE-NOTES.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": ".github/workflows/modules-2-3-platform-validation.yml uses pinned actions and a macOS, Linux, and Windows matrix to execute only the disposable Module 2 proof path; it requests read-only repository permission and no secret or remote-mutation capability.",
+          "artifact_path": ".github/workflows/modules-2-3-platform-validation.yml",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "curriculum/modules/02-installation-and-anatomy.md satisfies the module contract and maps O2.1-O2.4 to a starting check, command chooser, consumer/maintainer boundary, anatomy classification, guided walkthrough, lab, evidence, hints, recovery, misconceptions, self-assessment, navigation, and official sources.",
+          "artifact_path": "curriculum/modules/02-installation-and-anatomy.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "labs/02-disposable-initialization.md provides exact per-platform tasks, a unique temporary-directory and canonical-root guard, empty-remote check, explicit 0.111.0 package pin, mutation allowlist, checkpoint, literal acceptance commands, expected evidence, progressive hints, tested recovery, fresh-directory reset, bounded cleanup, solution link, and a clear done condition.",
+          "artifact_path": "labs/02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "labs/fixtures/02-disposable-initialization/package.json is fictional, private, pins @deftai/directive exactly to 0.111.0, and contains no remote, credential, client data, proprietary source, or production integration.",
+          "artifact_path": "labs/fixtures/02-disposable-initialization/package.json",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 7,
+          "text": "solutions/lab-02-disposable-initialization.md maps O2.1-O2.4 to reasoning, reproducible commands, observed evidence, valid alternatives, known 0.111.0 findings, failure recovery, reset, and cleanup without assuming warning-free doctor output or automatic package pinning.",
+          "artifact_path": "solutions/lab-02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 8,
+          "text": "curriculum/modules/03-authority-and-context.md satisfies the module contract and maps O3.1-O3.4 to a conceptual starting check, accurate two-axis authority model, behavior-versus-requirement teaching, lazy-loading walkthrough, fictional conflict exercise, hints, recovery, self-assessment, evidence, navigation, and official sources.",
+          "artifact_path": "curriculum/modules/03-authority-and-context.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 9,
+          "text": "Module 3 requires a cited decision table that considers deterministic rule strength separately from Personal/Defaults/project authority, preserves active scope plus live implementation intent, and identifies material ambiguity that requires operator direction rather than inventing a total file-order hierarchy.",
+          "artifact_path": "curriculum/modules/03-authority-and-context.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 10,
+          "text": "solutions/module-03-authority-and-context.md maps O3.1-O3.4, explains every conflict decision and source citation, accepts evidence-equivalent alternatives, gives bounded retry guidance, and identifies unresolved material choices requiring operator direction.",
+          "artifact_path": "solutions/module-03-authority-and-context.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 11,
+          "text": "README.md and curriculum/README.md link Modules 2 and 3, state their accurate readiness and platform support, preserve the cold-start and safety contracts, keep numeric prerequisites, and route Module 3 onward to planned Module 4.",
+          "artifact_path": "curriculum/README.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 12,
+          "text": "labs/README.md, assessments/README.md, and solutions/README.md link the new practical evidence paths and remove stale blanket-unavailable language without claiming unfinished later modules are available.",
+          "artifact_path": "labs/README.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 13,
+          "text": "references/GLOSSARY.md and references/QUICK-REFERENCE.md define and cross-link the Modules 2-3 terms while keeping Directive behavior, 3Ci policy, course guidance, current xBRIEF 0.8, and legacy material distinct.",
+          "artifact_path": "references/GLOSSARY.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 14,
+          "text": "scripts/verify-modules-2-3.mjs exits non-zero for missing required artifacts, headings, outcome IDs, platform proof, links, stale availability statements, or unresolved author markers, and passes for the completed scope.",
+          "artifact_path": "scripts/verify-modules-2-3.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 15,
+          "text": "package.json exposes check:modules-2-3 without changing the exact @deftai/directive 0.111.0 development pin or adding an application, static-site generator, publishing system, or large validation framework.",
+          "artifact_path": "package.json",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 16,
+          "text": "Every executable example uses fictional data in an exact disposable no-remote repository; reset and cleanup cannot target the training repository, a business repository, a home directory, or a broad workspace, and no exercise requires credentials, production access, deployment, publication, an instructor, or a live review bot.",
+          "artifact_path": "labs/02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 17,
+          "text": "npm run check:cold-start-readme, npm run check:modules-2-3, directive verify:vbrief-conformance --project-root ., and the separately executed task deft:check all pass on the feature branch; the scope is not completed until every claimed platform proof is current.",
+          "artifact_path": "package.json",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [
+          ".github/workflows/modules-2-3-platform-validation.yml",
+          "README.md",
+          "assessments/README.md",
+          "curriculum/README.md",
+          "curriculum/modules/02-installation-and-anatomy.md",
+          "curriculum/modules/03-authority-and-context.md",
+          "labs/02-disposable-initialization.md",
+          "labs/fixtures/02-disposable-initialization/package.json",
+          "references/GLOSSARY.md",
+          "references/QUICK-REFERENCE.md",
+          "references/SOURCE-BASELINE.md",
+          "references/SOURCE-NOTES.md",
+          "solutions/README.md",
+          "solutions/lab-02-disposable-initialization.md",
+          "solutions/module-03-authority-and-context.md"
+        ],
+        "module_boundary": "Repository-authored Modules 2-3 curriculum, one disposable initialization lab, explained solutions, platform evidence, learner navigation, and focused validation"
+      },
+      "swarm": {
+        "file_scope": [
+          ".github/workflows/modules-2-3-platform-validation.yml",
+          "COST-ESTIMATE.md",
+          "README.md",
+          "assessments/README.md",
+          "curriculum/README.md",
+          "curriculum/modules/02-installation-and-anatomy.md",
+          "curriculum/modules/03-authority-and-context.md",
+          "history/changes/modules-2-3-curriculum/proposal.xbrief.json",
+          "history/changes/modules-2-3-curriculum/tasks.xbrief.json",
+          "labs/02-disposable-initialization.md",
+          "labs/fixtures/02-disposable-initialization/package.json",
+          "labs/README.md",
+          "package.json",
+          "references/GLOSSARY.md",
+          "references/QUICK-REFERENCE.md",
+          "references/SOURCE-BASELINE.md",
+          "references/SOURCE-NOTES.md",
+          "scripts/verify-modules-2-3.mjs",
+          "solutions/README.md",
+          "solutions/lab-02-disposable-initialization.md",
+          "solutions/module-03-authority-and-context.md",
+          "xbrief/PROJECT-DEFINITION.xbrief.json",
+          "xbrief/active/2026-09-05-modules-2-3-installation-and-authority.xbrief.json"
+        ]
+      }
+    }
+  },
+  "approvedRepos": [
+    "3ci-consulting/directive-training"
+  ],
+  "unknownPaths": [
+    "metadata.intended_placement",
+    "metadata.kind"
+  ]
+}

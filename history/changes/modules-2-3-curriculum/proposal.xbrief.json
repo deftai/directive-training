@@ -1,0 +1,39 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Approved change proposal for the Modules 2-3 curriculum scope",
+    "created": "2026-09-06T03:41:01Z",
+    "updated": "2026-09-06T03:41:01Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.modules2-3-curriculum",
+    "title": "modules-2-3-curriculum",
+    "status": "approved",
+    "items": [],
+    "narratives": {
+      "Problem": "The repository has a complete foundation and Module 1, but learners cannot yet install, diagnose, or orient in a Directive consumer project or resolve competing authority sources without undocumented help.",
+      "Change": "Author Modules 2 and 3, a disposable initialization lab, explained solutions, source and command evidence, a small cross-platform proof path, refreshed navigation, and focused content validation.",
+      "Scope": "In scope: the files and acceptance clauses declared by training.modules2-3. Out of scope: later modules, capstone work, publishing implementation, deployment, production repositories, Directive framework changes, and upstream issue filing.",
+      "Impact": "Adds learner-facing Markdown, disposable fictional lab assets, reference evidence, one small GitHub Actions matrix, and a focused repository check. The training repository remains the authored source; no site is published.",
+      "Risks": "Released prose and CLI behavior can disagree; shell behavior can differ by operating system; an unsafe reset instruction could target the wrong repository. Exact version pinning, platform evidence, no-remote guards, and bounded recovery are acceptance requirements.",
+      "Approach": "Revalidate the pinned 0.111.0 command and source surfaces, implement the two modules sequentially, execute the lab proof on each claimed platform, then run focused and aggregate gates.",
+      "Alternatives": "Splitting Modules 2 and 3 was considered. One sequential story keeps their shared source and navigation work coherent; split only if cross-platform behavior creates a materially independent scope.",
+      "Dependencies": "The completed training.foundation-module1 scope, the exact @deftai/directive 0.111.0 pin, Node.js 20 or later, Git, npm, and native platform runners for every path labeled verified."
+    },
+    "references": [
+      {
+        "uri": "../../../xbrief/pending/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Approved Modules 2-3 scope",
+        "TrustLevel": "internal"
+      }
+    ],
+    "metadata": {
+      "change_name": "modules-2-3-curriculum",
+      "confirmed_by": "David",
+      "confirmation_phrase": "yes",
+      "confirmed_at": "2026-09-06T03:41:01Z"
+    }
+  }
+}

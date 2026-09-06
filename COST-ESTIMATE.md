@@ -1,5 +1,5 @@
 <!-- deft:template -->
-<!-- Purpose: pre-build cost estimate for the approved first curriculum milestone -->
+<!-- Purpose: pre-build cost estimate for the approved Modules 2-3 curriculum scope -->
 
 # Cost & Budget Estimate
 
@@ -8,23 +8,28 @@
 
 ## TL;DR
 
-The current repository-only milestone is expected to add **$0 per month** in
-hosting or service charges because it creates private Markdown and xBRIEF
-content and does not publish or run an application. The meaningful cost is
-authoring and review time. A later wiki, Confluence, or SharePoint
-implementation could add licensing, integration, or maintenance costs and is
-not included here.
+The approved Modules 2-3 scope is expected to add **$0 per month** in hosting
+or service charges. It creates private Markdown, disposable local lab material,
+and a small cross-platform validation workflow; it does not publish or run an
+application. The meaningful cost is about **36-56 hours** of authoring,
+platform verification, review, and correction time. A later wiki, Confluence,
+or SharePoint implementation is not included.
 
 ## Assumptions
 
-- 3Ci already provides the private GitHub repository, coding-agent access, and
-  ordinary engineering workstations used for this work.
-- The released `@deftai/directive` package and Node.js toolchain do not require
-  a new project-specific paid account.
-- This estimate covers only `Self-Directed Curriculum Foundation and Module 1
-  Pilot`.
-- No website, hosted application, LMS, publication connector, external API,
-  deployment, or production service is created.
+- 3Ci already provides the private GitHub repository, coding-agent access,
+  GitHub Actions allowance, and ordinary engineering workstations used for
+  this work.
+- The released `@deftai/directive` package, Node.js toolchain, and GitHub-hosted
+  macOS, Linux, and Windows validation do not require a new project-specific
+  paid account under 3Ci's current agreements.
+- This estimate covers only `Modules 2-3: Installation, Project Anatomy,
+  Authority, and Context`.
+- The scope includes two complete self-directed modules, one executable
+  disposable lab, two explained solutions, source revalidation, a small
+  platform matrix, navigation updates, and focused content checks.
+- No website, LMS, publication connector, external API, deployment, production
+  service, live review bot, or business-repository exercise is created.
 - If 3Ci's existing GitHub or coding-agent agreements meter this work
   separately, that internal amount is unknown and should be confirmed with the
   relevant account owner.
@@ -33,17 +38,21 @@ not included here.
 
 No new account is required under the assumptions above. Contributors need
 access to the existing private 3Ci GitHub organization, an approved
-coding-agent host, Git, Node.js 20 or later, and npm.
+coding-agent host, Git, Node.js 20 or later, npm, and the repository's existing
+GitHub Actions capability.
 
 ## Hosting, infrastructure, and third-party fees
 
-None apply to the approved milestone. It produces repository files only and
-explicitly forbids publication and deployment.
+None are expected for this scope. The validation matrix uses the repository's
+existing GitHub Actions allowance and operates only on generated disposable
+test repositories. It does not deploy, publish, add a remote to a learner lab,
+or use a credential in the lab workflow.
 
 ## Monthly band
 
-Scale assumption: one private Markdown-first curriculum repository, no runtime
-application, no publication, and no new project-specific service account.
+Scale assumption: one private Markdown-first curriculum repository, two
+additional core modules, one disposable setup lab, one small three-operating-
+system validation matrix, no runtime application, and no publishing system.
 
 - **Low** _(quiet month)_: about **$0 per month** in incremental service costs
 - **Typical** _(active authoring and review)_: about **$0 per month** in
@@ -56,34 +65,38 @@ application, no publication, and no new project-specific service account.
 - Selecting and publishing to a wiki, Confluence, or SharePoint
 - Buying licenses or adding a paid publication connector
 - Adding hosted learner services, an LMS, analytics, video, or external APIs
-- Expanding the milestone beyond the foundation and Module 1 pilot
+- Adding native platform infrastructure outside existing GitHub-hosted runners
+- Expanding beyond Modules 2-3 or changing the pinned Directive release
 
 ## Build & maintenance time
 
 These figures describe focused work, not a price quote.
 
-- **Build**: about **24-40 hours** for source verification, curriculum
-  architecture, Module 1 authoring, exercises and solutions, maintenance
-  guidance, and quality review
-- **Maintenance**: about **2-6 hours per month**, with additional revalidation
-  after a material Directive release
+- **Source and command revalidation**: about **6-10 hours**
+- **Module 2, disposable lab, and explained solution**: about **14-22 hours**
+- **Module 3, authority exercise, and explained solution**: about **10-14 hours**
+- **Cross-platform proof, navigation, checks, and review**: about **6-10 hours**
+- **Total build**: about **36-56 hours**
+- **Ongoing maintenance attributable to Modules 2-3**: about **2-5 hours per
+  month**, plus a focused revalidation after a material Directive release
+
+## Prior decision
+
+David selected **Build** on 2026-09-05 for `Self-Directed Curriculum
+Foundation and Module 1 Pilot`. That decision covered only the completed first
+milestone and does not authorize this expanded scope.
 
 ## Decision point
 
-Pick one. The build phase will not start until the decision is recorded.
-
-1. **Build** -- proceed with this cost expectation.
-2. **Rescope** -- reduce or change the scope, then redo this estimate.
-3. **No-build** -- stop and record the reason.
-4. **Skip** -- skip the cost phase and record a reason.
+The recorded decision below governs the Modules 2-3 build phase.
 
 ### Decision recorded
 
 - **Decision**: Build
 - **Date**: 2026-09-05
 - **Recorded by**: David
-- **Reason**: The approved repository-only milestone has no expected
-  incremental service cost and may proceed to the build phase.
+- **Reason**: David accepted the Modules 2-3 cost expectation and selected the
+  build phase.
 
 ---
 

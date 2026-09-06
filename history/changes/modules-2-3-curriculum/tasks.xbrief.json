@@ -1,0 +1,92 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Implementation tasks for the approved Modules 2-3 curriculum change",
+    "created": "2026-09-06T03:41:01Z",
+    "updated": "2026-09-06T03:41:01Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.modules2-3-curriculum.tasks",
+    "title": "modules-2-3-curriculum tasks",
+    "status": "approved",
+    "items": [
+      {
+        "id": "change.modules2-3-curriculum.baseline",
+        "title": "Revalidate pinned setup, command, authority, and platform evidence",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.modules2-3-curriculum.module2",
+        "title": "Author Module 2",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.modules2-3-curriculum.lab2",
+        "title": "Build and prove the disposable initialization lab and solution",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.modules2-3-curriculum.module3",
+        "title": "Author Module 3 and its explained solution",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.modules2-3-curriculum.navigation",
+        "title": "Refresh learner navigation and reference indexes",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.modules2-3-curriculum.quality",
+        "title": "Add focused validation and record evidence",
+        "type": "task",
+        "status": "pending"
+      }
+    ],
+    "edges": [
+      {
+        "from": "change.modules2-3-curriculum.baseline",
+        "to": "change.modules2-3-curriculum.module2",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.modules2-3-curriculum.baseline",
+        "to": "change.modules2-3-curriculum.module3",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.modules2-3-curriculum.module2",
+        "to": "change.modules2-3-curriculum.lab2",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.modules2-3-curriculum.lab2",
+        "to": "change.modules2-3-curriculum.navigation",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.modules2-3-curriculum.module3",
+        "to": "change.modules2-3-curriculum.navigation",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.modules2-3-curriculum.navigation",
+        "to": "change.modules2-3-curriculum.quality",
+        "type": "depends_on"
+      }
+    ],
+    "references": [
+      {
+        "uri": "../../../xbrief/pending/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Approved Modules 2-3 scope",
+        "TrustLevel": "internal"
+      }
+    ]
+  }
+}
