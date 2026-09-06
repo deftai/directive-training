@@ -1,0 +1,17 @@
+{
+  "name": "northstar-route-checker",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Fictional disposable fixture for 3Ci Directive training Module 2",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@deftai/directive": "0.111.0"
+  },
+  "overrides": {
+    "@deftai/directive-content": "0.111.0",
+    "@deftai/directive-core": "0.111.0",
+    "@deftai/directive-types": "0.111.0"
+  }
+}

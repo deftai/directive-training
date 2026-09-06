@@ -1,15 +1,15 @@
 # Directive source baseline
 
 This manifest fixes the curriculum's version-sensitive claims to Directive 0.111.0. It was
-verified on 2026-09-05 and must be refreshed when the project pin changes.
+verified on 2026-09-05 and 2026-09-06 and must be refreshed when the project pin changes.
 
 ## Release identity
 
 | Evidence | Verified result |
 | --- | --- |
 | Consumer project pin | `package.json` has exact dev dependency `@deftai/directive: 0.111.0`. |
-| Executable used for probes | `/opt/homebrew/bin/directive`, resolved to the global 0.111.0 CLI package. |
-| Installed packages | `@deftai/directive`, `@deftai/directive-core`, and `@deftai/directive-content` are all 0.111.0. |
+| Executables used for probes | `/opt/homebrew/bin/directive`, resolved to the global 0.111.0 CLI package, and a disposable repository's explicit `node_modules/.bin/directive`, installed from the exact fixture pin. |
+| Installed packages | The global CLI, core, and content packages and the disposable repository's CLI/core/content graph all resolved to 0.111.0. The training repository itself records a pin but does not contain a project-local install or lockfile. |
 | Runtime version report | `directive --version` reported `@deftai/directive-core@0.111.0`. |
 | Consumer deposit | `.deft/GENERATION.json` records payload, templates, skills, and docs at 0.111.0. |
 | Release tag | Annotated tag `v0.111.0`; tag object `00115182c859e96d0fe6f168f118fff3ad1a807f`. |
@@ -38,7 +38,8 @@ repository includes the framework Taskfile as `deft`, so its root-level spelling
 
 ## Claim-to-source map
 
-The heading names below are exact in the pinned release.
+The source locations and uniquely named headings or labels below are exact in the pinned
+release.
 
 | Curriculum claim | Pinned source and heading |
 | --- | --- |
@@ -47,7 +48,13 @@ The heading names below are exact in the pinned release.
 | New xBRIEF writes use schema 0.8; schema 0.6 remains legacy read/migration compatibility. | [content/conventions/references.md][src-references] — `Schema Version: v0.8 (canonical write)`. |
 | Deft names the company and on-disk footprint; Directive names the installed product and primary CLI. | [README.md][src-readme] — `Deft & Directive (naming)`; [docs/CATEGORY.md][src-category] — `What Directive is`. |
 | npm plus `directive init`, `directive update`, and `directive doctor` form the current consumer entry path. | [README.md][src-readme] — `Getting Started`, `1. Install and initialize`; [docs/CONCEPTS.md][src-concepts] — `Installer Layout`. |
+| Current consumer prerequisites are Node.js 20 or newer, Git, GitHub CLI, and the selected npm/pnpm package manager; the Module 2 proof uses a supported Node.js 24 line. | [content/docs/getting-started.md][src-getting-started] — `Prerequisites`, `Installation`, `npm (canonical)`; live `directive toolchain:check --consumer --project-root .`. |
+| Use `init` for a repository without a Directive footprint, `update` to reconcile an initialized consumer, and `doctor` when state is unknown or unhealthy. An `init` against an existing footprint delegates to update. | [README.md][src-readme] — `Getting Started`; [content/skills/deft-directive-setup/SKILL.md][skill-setup] — `Consumer-first default (#1813)`; [docs/CONCEPTS.md][src-concepts] — `Installer Layout`; released `init`, `update`, and `doctor` help surfaces. |
+| Consumer work uses the installed CLI or the consumer project's `task deft:*` namespace; framework-maintainer tasks belong to the separate `deftai/directive` source checkout. | [content/skills/deft-directive-setup/SKILL.md][skill-setup] — `Consumer-first default (#1813)`, `Contributor / framework-maintainer path (secondary)`; [main.md][src-main] — `Publishing deft tasks in your project root`; [docs/CONCEPTS.md][src-concepts] — `Taskfile First`. |
+| Authoritative xBRIEF and authored product files, tracked managed integration, and ignored reconstitutable/runtime artifacts are different classes; tracked does not mean authoritative. | [README.md][src-readme] — `What gets tracked vs ignored`; [SKILL.md][src-core-skill] — `Project Root vs Framework Internals`; [docs/CONCEPTS.md][src-concepts] — `xBRIEF Is The Durable State`, `Source Of Truth Vs Projection`. |
 | Guidance is modular and loaded for the work at hand, with stronger deterministic surfaces preferred over prose. | [docs/CONCEPTS.md][src-concepts] — `Lazy Loading And Modularity`, `Rule Strength`; [README.md][src-readme] — `Rule Hierarchy`. |
+| Behavior-source specificity and enforcement strength are separate axes: USER.md Personal preferences override project definition and USER.md Defaults, while deterministic checks outrank weaker prose. | [README.md][src-readme] — `Rule Hierarchy`; [SKILL.md][src-core-skill] — `Core Principle: Rule Precedence`, `File Reading Strategy (Lazy Loading)`; [docs/CONCEPTS.md][src-concepts] — `Rule Strength`. |
+| Implementation authority is the conjunction of an active xBRIEF and live operator implementation intent; completed xBRIEFs are delivery records, not future authorization. | [main.md][src-main] — `xBRIEF Persistence`; [content/commands.md][src-commands] — `Scope xBRIEF Lifecycle`, `Session routing (#2176)`. |
 | xBRIEF is durable project and work state; generated Markdown and codebase maps are projections. | [docs/CONCEPTS.md][src-concepts] — `xBRIEF Is The Durable State`, `Source Of Truth Vs Projection`. |
 | Scope moves through proposed, pending, active, and completed states by lifecycle commands, with folder and status kept together. | [docs/CONCEPTS.md][src-concepts] — `Scope Lifecycle`; [content/commands.md][src-commands] — `Scope xBRIEF Lifecycle`. |
 | The workflow has an inception phase and a recurring session phase; strategy, triage, slicing, implementation, review, and shipping can loop. | [content/docs/directive-lifecycle.md][src-lifecycle] — `The two phases`, `Stage → real surface`, `Why it loops`. |
@@ -67,6 +74,36 @@ them only to recognize an old project and route it to maintainer or migration gu
 The phrase `v0.20 Output Contract` in the strategy source names a historical document-model
 cutover. It does not change the current xBRIEF schema version from 0.8.
 
+## Modules 2–3 command surfaces
+
+The following literal probes were run against 0.111.0. Detailed exits and anomalies are in
+[SOURCE-NOTES.md](./SOURCE-NOTES.md#cli-help-probes).
+
+| Surface tested | Result used by the curriculum |
+| --- | --- |
+| `directive --help` | Exit 0; curated command overview. |
+| `directive commands` | Exit 0; full registered-command inventory. |
+| `directive init --help` | Exit 0; verified options include `--repo-root` and `--yes`. |
+| `directive update --help` | Exit 0; verified update and dry-run surface. |
+| `directive doctor --help` | Exit 0; verified diagnostic surface. |
+| `directive toolchain:check --help` | Exit 2 after printing usage because 0.111.0 rejects `--help`; this is recorded, not hidden. |
+| `directive toolchain:check --consumer --project-root .` | Exit 0 on the verified macOS/zsh consumer path. |
+
+## Modules 2–3 released disagreements
+
+These disagreements change what the learner path can safely promise. Probe details and less
+central release discrepancies remain in [SOURCE-NOTES.md](./SOURCE-NOTES.md#recorded-disagreements-and-curriculum-decisions).
+
+| Released prose or help | Observed 0.111.0 behavior | Curriculum treatment |
+| --- | --- | --- |
+| The README says init creates a committed package pin. | The disposable init path created no package pin. | Put and verify the exact direct pin and CLI/core/content/types overrides before init. |
+| Prose describes a new empty directory as a scaffold. | Running Git first made the otherwise empty repository select `brownfield-install`. | Expect brownfield for this Git-first safety path; do not reinterpret it as the wrong command. |
+| The project requires per-verb help checks. | `toolchain:check --help` prints usage but exits 2 with an unrecognized-argument diagnostic. | Record the defect, prove registration with `directive commands`, and use only the tested consumer form. |
+| Doctor is commonly described as read-only and prose can imply a clean result. | Doctor can write ignored throttle state and can exit 0 with classified warnings. | Say it does not mutate tracked product state or remotes; preserve and classify warnings. |
+| Brownfield init appends canonical ignore rules. | It did not add `/USER.md` or `/.deft/USER.md` to the existing ignore file. | Add those safety rules before init and prove them afterward. |
+| A learner might expect generated integration to remain merely untracked. | Init staged most managed paths, and the default-branch hook rejected the first checkpoint on `main`. | Inspect the staged-plus-untracked union and create the disposable feature branch before init. |
+| `scope:record-approved-scope --help` advertises a `--` separator. | The released command rejects that separator. | Pass the xBRIEF path directly for 0.111.0; upstream tracking is [deftai/directive#4203](https://github.com/deftai/directive/issues/4203). |
+
 ## Deferred skill-contract validation
 
 The following pinned files are candidates, not blanket authority for modules that have not
@@ -75,7 +112,6 @@ corresponding module is written.
 
 | Curriculum area | Revalidation source |
 | --- | --- |
-| Setup and project definition | [deft-directive-setup][skill-setup] |
 | Implementation and quality gates | [deft-directive-build][skill-build] |
 | Pre-PR self-review | [deft-directive-pre-pr][skill-pre-pr] |
 | Review and fix cycles | [deft-directive-review-cycle][skill-review] |
@@ -118,6 +154,9 @@ Record probe-level results, disagreements, and unresolved coverage in
 [src-readme]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/README.md
 [src-category]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/docs/CATEGORY.md
 [src-concepts]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/docs/CONCEPTS.md
+[src-core-skill]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/SKILL.md
+[src-main]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/main.md
+[src-getting-started]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/docs/getting-started.md
 [src-references]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/conventions/references.md
 [src-lifecycle]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/docs/directive-lifecycle.md
 [src-commands]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/commands.md

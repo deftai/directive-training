@@ -27,11 +27,16 @@ this Markdown; they will not replace it as the source of truth.
 1. Confirm the prerequisites in the [course map](curriculum/README.md).
 2. Note the current teaching baseline: `@deftai/directive` 0.111.0 with xBRIEF
    schema 0.8.
-3. Begin [Module 1: What Directive Is](curriculum/modules/01-what-directive-is.md).
-4. Use the [glossary](references/GLOSSARY.md) and
+3. Complete [Module 1: What Directive Is](curriculum/modules/01-what-directive-is.md),
+   [Module 2: Installation and Project Anatomy](curriculum/modules/02-installation-and-anatomy.md),
+   and [Module 3: Authority and Context](curriculum/modules/03-authority-and-context.md)
+   in order.
+4. Module 2's command work belongs only in its
+   [disposable no-remote lab](labs/02-disposable-initialization.md).
+5. Use the [glossary](references/GLOSSARY.md) and
    [quick reference](references/QUICK-REFERENCE.md) when a term or boundary is
    unclear.
-5. Use the [assessment policy](assessments/README.md) to evaluate practical
+6. Use the [assessment policy](assessments/README.md) to evaluate practical
    evidence and the [solution policy](solutions/README.md) to compare and retry
    after a suggested first attempt.
 
@@ -39,14 +44,15 @@ The detailed [source baseline](references/SOURCE-BASELINE.md) is optional audit
 evidence for maintainers and curious learners. It includes legacy and advanced
 drift notes that are intentionally outside the beginner sequence.
 
-Module 1 is the only learner-ready module in this internal-alpha milestone.
-The course map labels every other module as planned; a filename in the map is
-not a claim that the lesson is ready.
+Modules 1–3 are learner-ready drafts in this internal alpha. Module 2 is verified on
+macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 for the pinned
+npm path; macOS/zsh also has a detailed local rehearsal. Modules 4–11 and the capstone
+remain planned; a filename in the map is not a readiness claim.
 
 ## Safety boundary
 
 **[3Ci policy]** Do not run learner exercises in this repository or in a 3Ci
-business or client repository. When a later module asks you to change files,
+business or client repository. When a module asks you to change files,
 create the disposable repository described in [the lab model](labs/README.md).
 Use only its fictional project and mock data. Never add credentials, client
 information, production logs, or confidential issue content.

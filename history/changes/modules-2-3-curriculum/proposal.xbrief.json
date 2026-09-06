@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Approved change proposal for the Modules 2-3 curriculum scope",
     "created": "2026-09-06T03:41:01Z",
-    "updated": "2026-09-06T03:41:01Z",
+    "updated": "2026-09-06T05:58:58Z",
     "author": "agent:codex"
   },
   "plan": {
@@ -23,7 +23,7 @@
     },
     "references": [
       {
-        "uri": "../../../xbrief/pending/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
+        "uri": "../../../xbrief/active/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
         "type": "x-xbrief/spec-section",
         "title": "Approved Modules 2-3 scope",
         "TrustLevel": "internal"

@@ -9,8 +9,8 @@ explain how its three pillars make repository work repeatable.
 | --- | --- |
 | Stable ID | `module-01-what-directive-is` |
 | Status | `learner-ready draft` |
-| Last content update | 2026-09-05 |
-| Last verified | 2026-09-05 |
+| Last content update | 2026-09-06 |
+| Last verified | 2026-09-06 |
 | Directive baseline | `@deftai/directive@0.111.0`, engine `@deftai/directive-core@0.111.0`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 45 minutes |
 | Prerequisites | Read the [curriculum map](../README.md); be familiar with Git repositories, pull requests, tests, and at least one coding-agent host |
@@ -290,7 +290,7 @@ Make a first attempt and use the progressive hints before opening the [Module 1 
 ## Navigation
 
 - **Previous:** [Curriculum map](../README.md)
-- **Next:** [Module 2 — Installation and project anatomy (not yet available)](../README.md)
+- **Next:** [Module 2 — Installation and Project Anatomy](02-installation-and-anatomy.md)
 - **Course home:** [3Ci Directive Training](../../README.md)
 
 ## Official sources

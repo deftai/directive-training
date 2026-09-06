@@ -1,7 +1,7 @@
 # Directive training glossary
 
 These definitions describe the course baseline: `@deftai/directive` 0.111.0
-and xBRIEF schema 0.8, verified on 2026-09-05. See
+and xBRIEF schema 0.8, verified through 2026-09-06. See
 [SOURCE-BASELINE.md](SOURCE-BASELINE.md) before applying them to another
 release.
 
@@ -21,6 +21,20 @@ consumer project. It is not the `deftai/directive` framework source repository.
 The upstream repository where Directive itself is built and maintained. Its
 maintainer commands and internal implementation are outside the core learner
 path.
+
+**project pin**
+The exact `@deftai/directive` version recorded in a consumer project's
+`package.json`. It is the reconstitution anchor; a recorded pin is not proof
+that a matching project-local package is currently installed.
+
+**managed integration**
+Tracked files or marked sections refreshed by Directive, such as its AGENTS.md
+section, Taskfile include, host adapters, hooks, schemas, and generation
+metadata. Managed and tracked does not automatically mean authoritative source.
+
+**reconstitutable deposit**
+Ignored framework content such as `.deft/core/` that can be recreated from the
+project pin. Reconstitutable does not mean safe to hand-edit or delete broadly.
 
 **coding-agent host**
 The environment in which an agent runs, such as Codex, Claude Code, or Cursor.
@@ -45,13 +59,13 @@ orchestrator for the application being built.
 ## Authority and context
 
 **authority hierarchy**
-The precedence used when instructions differ. In this baseline, personal rules
-in the resolved USER.md always win, PROJECT-DEFINITION overrides USER.md
-defaults, and operational rules use the strongest applicable representation:
-deterministic gate, Taskfile, xBRIEF, RFC 2119 rule, then fallback prose. The
-applicable active scope and the human operator's live instruction form the
-implementation contract. Do not infer a simple file order; read the active
-project's Directive guidance because the exact hierarchy is release-sensitive.
+Two related axes used after classifying a statement. For behavior-source
+specificity, `USER.md Personal` wins, PROJECT-DEFINITION overrides `USER.md
+Defaults`, and applicable task/framework guidance supplies narrower defaults.
+For enforcement strength, deterministic checks precede Taskfile targets,
+xBRIEF policy, RFC 2119 instructions, and prose. Product requirements and
+present implementation authorization remain separate questions; do not infer a
+single total file order.
 
 **USER.md**
 The shared user-preference file resolved by Directive for the current platform.
@@ -65,6 +79,20 @@ boundaries, and durable project decisions.
 **behavior rule**
 An instruction governing how work is performed, such as a safety or branch
 rule. It is different from a product requirement describing what to build.
+
+**product requirement**
+An observable property the accepted project or scope must deliver. It normally
+coexists with behavior rules that constrain how the work is performed.
+
+**implementation authorization**
+Present permission to implement a bounded product change: active scope plus the
+human operator's live implementation intent. Required deterministic gate passes
+are a separate readiness condition before implementation mutation may proceed.
+
+**material ambiguity**
+An unresolved choice that would change scope, safety, authorization, or
+observable product behavior. Narrow the conflict to its controlling facts, then
+ask the operator rather than inventing a tie-breaker.
 
 **lazy loading**
 Loading detailed guidance only when the current work needs it. The repository's

@@ -2,8 +2,10 @@
 
 This is the navigation source for a twelve-hour, self-directed path: ten hours
 of core modules followed by a two-hour disposable capstone. The current
-internal-alpha milestone makes Module 1 learner-ready. All other modules and the
-capstone remain planned until their files contain substantive, verified content.
+internal-alpha milestone makes Modules 1–3 learner-ready drafts. Module 2's pinned npm
+path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell
+7.4+ on Windows Server 2022; macOS/zsh also has a detailed local rehearsal. Modules 4–11 and
+the capstone remain planned until their files contain substantive, verified content.
 
 ## Audience and prerequisites
 
@@ -19,7 +21,7 @@ For command-based modules you will need:
 - Git and GitHub CLI;
 - npm as the primary package manager, with pnpm differences called out where
   they matter;
-- macOS or Linux with zsh or Bash, or Windows with PowerShell 7; and
+- macOS or Linux with zsh or Bash, or Windows with PowerShell 7.4 or newer; and
 - Codex, Claude Code, or Cursor for host-specific notes. The core instruction is
   host-neutral.
 
@@ -49,8 +51,8 @@ No step requires a live demonstration or an instructor's private knowledge.
 | ID | Module | Time | Status | Primary practice |
 | --- | --- | ---: | --- | --- |
 | 01 | [What Directive is](modules/01-what-directive-is.md) | 45 min | Learner-ready draft | Classify tools and scenarios by responsibility |
-| 02 | Installation and project anatomy (`02-installation-and-anatomy.md`) | 60 min | Planned | Initialize and inspect a disposable consumer repository |
-| 03 | Authority and context (`03-authority-and-context.md`) | 45 min | Planned | Resolve conflicting sample rules |
+| 02 | [Installation and project anatomy](modules/02-installation-and-anatomy.md) | 60 min | Learner-ready draft; pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 | Initialize and inspect a disposable consumer repository |
+| 03 | [Authority and context](modules/03-authority-and-context.md) | 45 min | Learner-ready draft | Resolve conflicting sample rules |
 | 04 | xBRIEF as durable state (`04-xbrief-as-durable-state.md`) | 45 min | Planned | Classify project and work-state artifacts |
 | 05 | Sources versus projections (`05-sources-versus-projections.md`) | 50 min | Planned | Repair projection drift through its source |
 | 06 | Creating well-shaped work (`06-creating-well-shaped-work.md`) | 55 min | Planned | Turn a horizontal plan into a vertical slice |
@@ -151,3 +153,6 @@ hints, recovery paths, and solutions. Their friction becomes revision input.
 
 - Previous: [Repository start](../README.md)
 - Next: [Module 1 — What Directive is](modules/01-what-directive-is.md)
+
+After Module 3, stop at the course map. Module 4 is still planned and has no
+learner-ready lesson yet.

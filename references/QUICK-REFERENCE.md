@@ -1,7 +1,7 @@
 # Directive learner quick reference
 
 Use this as a memory aid, not as an exhaustive command reference. It describes
-`@deftai/directive` 0.111.0 and xBRIEF 0.8, verified on 2026-09-05. Check
+`@deftai/directive` 0.111.0 and xBRIEF 0.8, verified through 2026-09-06. Check
 [the source baseline](SOURCE-BASELINE.md) before using it with another version.
 
 ## Mental model
@@ -30,7 +30,8 @@ directive <verb> --help
 
 Replace `<verb>` with the exact command, for example `doctor`. Record a failed
 per-verb help check instead of assuming it is available. In 0.111.0,
-`session:start --help` and `check --help` reject `--help`, and the lifecycle help
+`session:start --help`, `check --help`, and `toolchain:check --help` reject
+`--help`, and the lifecycle help
 for `scope:promote` and `scope:activate` contains older vBRIEF-era wording. Use
 current deterministic behavior and the same-release sources, and log the
 disagreement. The `xbrief:preflight` help also retains `--vbrief-path` as a
@@ -47,7 +48,8 @@ the exact help before using options or operands.
 | Add Directive to a repository that is not initialized | `directive init` | Run only at the intended consumer repository root |
 | Reconcile an initialized consumer project with its pin | `directive update` | Do not re-scaffold the project by hand |
 | Diagnose setup or health | `directive doctor` | Follow its single recommended recovery path |
-| Prove an active xBRIEF is implementation-ready | `directive xbrief:preflight` | Requires active/running scope and live implementation intent |
+| Prove consumer prerequisites | `directive toolchain:check --consumer --project-root .` | In 0.111.0, verify registration with `directive commands`; its `--help` path exits 2 |
+| Prove an active xBRIEF is implementation-ready | `directive xbrief:preflight -- xbrief/active/<scope-file>.xbrief.json` | Pass the active xBRIEF path; requires active/running scope and live implementation intent |
 | Move approved work toward active state | `directive scope:promote`, then `directive scope:activate` | Use lifecycle commands, not manual file moves |
 
 Framework-maintainer build, release, migration-internals, and package commands
@@ -57,16 +59,28 @@ are outside the core consumer course.
 
 When instructions appear to conflict:
 
-1. Stop before mutation.
+1. Stop before a product or implementation mutation.
 2. Resolve and read USER.md in place.
 3. Read the repository's AGENTS.md and framework entry guidance.
 4. Read PROJECT-DEFINITION and the applicable active scope.
-5. Load only the task-specific skill or reference needed now.
-6. Apply the documented precedence; ask the operator only when a material choice
+5. Classify each statement as a behavior rule, product requirement, present
+   authorization, or deterministic evidence.
+6. Resolve behavior-source specificity separately from enforcement strength.
+7. Load only the task-specific skill or reference needed now.
+8. Require active scope plus live implementation intent for authority, then
+   require passing current gates before an implementation mutation may proceed.
+9. Ask the operator only when a material choice
    remains unresolved.
 
 Never copy USER.md into a repository. Never use chat history as a replacement
 for durable project or scope state.
+
+```text
+behavior specificity: USER.md Personal → project definition → USER.md Defaults → applicable guidance
+rule strength: deterministic → Taskfile → xBRIEF policy → RFC2119 → prose
+implementation authority: active xBRIEF + live implementation intent
+implementation mutation readiness: implementation authority + passing required gates
+```
 
 ## Source or projection?
 
@@ -132,4 +146,6 @@ solution → sanitized curriculum-defect report. A hidden instructor step is nev
 part of the path.
 
 - Previous: [Glossary](GLOSSARY.md)
-- Next: [Module 1](../curriculum/modules/01-what-directive-is.md)
+- Start: [Module 1](../curriculum/modules/01-what-directive-is.md)
+- Continue setup practice: [Module 2](../curriculum/modules/02-installation-and-anatomy.md)
+- Continue authority practice: [Module 3](../curriculum/modules/03-authority-and-context.md)

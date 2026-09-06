@@ -15,9 +15,14 @@ An assessment must not present a 3Ci preference as Directive behavior.
 | Module | Assessment | Evidence | Solution |
 |---|---|---|---|
 | [Module 1 — What Directive Is](../curriculum/modules/01-what-directive-is.md) | The module's “Exercise” and “Self-assessment” sections | A fictional scenario classification, rationale, and outcome checklist | [Explained Module 1 solution](../solutions/module-01-what-directive-is.md) |
-| Modules 2–11 | Not yet available | None required yet | Follow availability from the [curriculum map](../curriculum/README.md) |
+| [Module 2 — Installation and Project Anatomy](../curriculum/modules/02-installation-and-anatomy.md) | The module self-assessment plus [Lab 2](../labs/02-disposable-initialization.md) | State-based command choice, consumer/maintainer boundary, exact local setup evidence, anatomy classification, and recovery decision record | [Explained Lab 2 solution](../solutions/lab-02-disposable-initialization.md) |
+| [Module 3 — Authority and Context](../curriculum/modules/03-authority-and-context.md) | The ten-card decision table and module self-assessment | Cited statement classification, two-axis authority reasoning, authorization, and lazy-context choices | [Explained Module 3 solution](../solutions/module-03-authority-and-context.md) |
+| Modules 4–11 and capstone | Not yet available | None required yet | Follow availability from the [curriculum map](../curriculum/README.md) |
 
-The foundation milestone embeds Module 1 assessment in the module so the lesson, attempt, feedback, and retry path stay together. Later standalone assessments will appear in this directory and will link back to their source modules. “Not yet available” is an explicit status, not completed content.
+Modules 1–3 keep assessment beside the lesson or disposable lab so the attempt,
+feedback, and retry path stay together. Later standalone assessments will
+appear in this directory and link back to their source modules. “Not yet
+available” is an explicit status, not completed content.
 
 ## How to complete an assessment
 
@@ -43,7 +48,7 @@ Each outcome needs practical evidence. Reading the lesson, completing steps, or 
 | Classification or decision | The decision, its rule, and one source or observation that supports it | A label with no rationale |
 | File or state change | A narrow diff or exact artifact plus the stated validation result | “I edited the file” |
 | Command use | Literal command, exit code, and the relevant passing output | A screenshot with no command or result context |
-| Recovery | Original symptom, diagnosed cause, bounded recovery, and passing retry | “It worked after I tried again” |
+| Recovery | Original symptom or supplied failure record, diagnosed cause, bounded recovery, and either a passing retry or an observable retry gate when manufacturing the failure would be unsafe | “It worked after I tried again” |
 | Explanation | A short causal account tied to the mental model and evidence | Memorized wording without an observed example |
 
 Keep evidence small enough to review. **[3Ci policy]** Do not include credentials, client information, proprietary source, production logs, confidential issue content, full environment dumps, or unrelated repository state. Evidence stays local unless a separate authorized 3Ci process names an approved destination.

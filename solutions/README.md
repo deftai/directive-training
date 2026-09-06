@@ -15,7 +15,9 @@ Every solution keeps these claim types separate.
 | Source | Solution | Status |
 |---|---|---|
 | [Module 1 — What Directive Is](../curriculum/modules/01-what-directive-is.md) | [Explained Module 1 solution](module-01-what-directive-is.md) | Available in the foundation milestone |
-| Modules 2–11 and the capstone | Follow the [curriculum map](../curriculum/README.md) | Not yet available |
+| [Module 2 — Installation and Project Anatomy](../curriculum/modules/02-installation-and-anatomy.md) | [Explained Lab 2 solution](lab-02-disposable-initialization.md) | Available; pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 |
+| [Module 3 — Authority and Context](../curriculum/modules/03-authority-and-context.md) | [Explained Module 3 solution](module-03-authority-and-context.md) | Available; command-free exercise |
+| Modules 4–11 and the capstone | Follow the [curriculum map](../curriculum/README.md) | Not yet available |
 
 “Not yet available” is an explicit status. It does not represent completed or hidden content.
 
@@ -119,7 +121,8 @@ Work through this independent path:
 1. Repeat the source exercise's location, remote, fixture, and version checks.
 2. Compare the exact failure with the solution's expected failures.
 3. Use a fresh disposable directory if the state cannot be explained.
-4. Retry the smallest outcome and retain its full error.
+4. Retry the smallest outcome and retain its full error, or revise the decision artifact when
+   the exercise supplies a safe failure record instead of requiring live reproduction.
 5. If the documented baseline cannot reproduce the solution, mark the environment blocked and preserve the evidence for curriculum maintenance.
 
 Do not invent production access or use a business repository to work around a broken fixture. Environment failure is not a learner failure.
@@ -129,7 +132,9 @@ Do not invent production access or use a business repository to work around a br
 Start with [the solution template](../templates/solution-template.md). Before listing a solution as available:
 
 - run the worked approach and every applicable acceptance command or inspection from the stated starting environment;
-- reproduce each documented failure and prove its recovery;
+- reproduce each documented failure when doing so is safe and intentional; for a supplied or
+  unsafe-to-manufacture failure, validate its record, recovery decision, and observable retry
+  gate instead;
 - map every source outcome to practical evidence;
 - explain the mental model and decision criteria;
 - identify valid alternatives without weakening the gates;

@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "check:cold-start-readme": "node scripts/verify-cold-start-readme.mjs"
+    "check:cold-start-readme": "node scripts/verify-cold-start-readme.mjs",
+    "check:modules-2-3": "node scripts/verify-modules-2-3.mjs"
   },
   "devDependencies": {
     "@deftai/directive": "0.111.0"

@@ -11,8 +11,8 @@ outcomes that your evidence does not yet demonstrate.
 | For module | [`module-01-what-directive-is`](../curriculum/modules/01-what-directive-is.md) |
 | Outcomes covered | O1, O2, O3 |
 | Status | `learner-ready draft` |
-| Last content update | 2026-09-05 |
-| Last verified | 2026-09-05 |
+| Last content update | 2026-09-06 |
+| Last verified | 2026-09-06 |
 | Directive baseline | `@deftai/directive@0.111.0`, engine `@deftai/directive-core@0.111.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Classify the Northstar stack](../curriculum/modules/01-what-directive-is.md#exercise-classify-the-northstar-stack) |
 
@@ -214,5 +214,5 @@ The reasoning in this solution uses the same pinned official source headings lis
 ## Navigation
 
 - **Back to module:** [Module 1 — What Directive Is](../curriculum/modules/01-what-directive-is.md)
-- **Next:** [Module 2 — Installation and project anatomy (not yet available)](../curriculum/README.md)
+- **Next:** [Module 2 — Installation and Project Anatomy](../curriculum/modules/02-installation-and-anatomy.md)
 - **Course home:** [3Ci Directive Training](../README.md)

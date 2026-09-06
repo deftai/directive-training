@@ -5,15 +5,25 @@ They are maintainer evidence, not a learner command reference.
 
 ## Verification context
 
-- Verification date: 2026-09-05.
+- Verification dates: 2026-09-05 and 2026-09-06.
 - Host used: macOS with zsh and Node.js 24.18.0.
 - Project direct pin: `@deftai/directive` 0.111.0 in `devDependencies`.
-- Project-local `node_modules` and a lockfile were absent.
+- The training project had no project-local `node_modules` or lockfile; its exact direct pin
+  is a reconstitution anchor, not proof of a local install.
 - Executed CLI: global `/opt/homebrew/bin/directive`.
 - Installed CLI, core engine, and content package: 0.111.0 each.
 - Reconstituted deposit generation: 0.111.0 on all recorded surfaces.
 - Official tag: `v0.111.0`; peeled commit and npm `gitHead`:
   `750b79f6ed343393e42142f419dfb0591cca5a21`.
+- The complete macOS/zsh Module 2 rehearsal used two unique disposable, no-remote Git
+  repositories under one operating-system temporary parent. The fresh reset attempt installed
+  the exact fixture graph, ran every help and initialization check, committed the inspected
+  allowlist, passed literal acceptance, and archived both attempts.
+- Authorized GitHub Actions run
+  [34040576589](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040576589)
+  repeated the guarded path with Node.js 24.20.0 on `macos-15`, `ubuntu-24.04`, and
+  `windows-2022`; all three native jobs passed at head
+  `4c73458f1586259359f4ca3d7be4d614d6908cd2`.
 
 ## Version and provenance probes
 
@@ -40,6 +50,7 @@ Every row was executed from the consumer project root. `In top help` means the c
 | `directive init --help` | Yes | Yes | Exit 0; printed init options. |
 | `directive update --help` | Yes | Yes | Exit 0; printed update options. |
 | `directive doctor --help` | Yes | Yes | Exit 0; printed doctor options. |
+| `directive toolchain:check --help` | No | Yes | Exit 2; printed usage after `toolchain-check: unrecognized argument: --help`. |
 | `directive xbrief:preflight --help` | No | Yes | Exit 0; printed the current xBRIEF verb with a legacy `--vbrief-path` option name. |
 | `directive scope:promote --help` | Yes | Yes | Exit 0; printed a stale Task/vBRIEF-oriented help card. |
 | `directive scope:activate --help` | No | Yes | Exit 0; printed a stale Task/vBRIEF-oriented help card. |
@@ -64,6 +75,77 @@ Additional observations:
 Do not teach that every `directive <verb> --help` succeeds. Start with `directive --help`, use
 `directive commands` to confirm registration, then test help for each verb before publishing
 its syntax.
+
+## Disposable consumer runtime proof
+
+The 2026-09-06 macOS/zsh proof `local-disposable-project-local-hook-full` used a fresh
+operating-system temporary parent, two Git repositories with no remotes, the fictional Module
+2 fixture, and the explicit project-local CLI and hook runtime. The first attempt stopped
+after the guarded Git start; the second exercised the complete learner path as a
+fresh-directory reset. Neither attempt initialized or mutated the training working tree.
+
+| Probe | Exit | Relevant result |
+| --- | ---: | --- |
+| `npm install --ignore-scripts --no-audit --no-fund` with an empty temporary npm user config | 0 | Added 48 packages; CLI, core, and content resolved through the fixture's exact 0.111.0 pin and overrides. |
+| Fixture and installed-graph assertions | 0 | `private: true`; the direct CLI pin and CLI/core/content/types installed package versions were all exactly 0.111.0. |
+| `./node_modules/.bin/directive --version` | 0 | Reported engine `@deftai/directive-core@0.111.0`. |
+| Project-local hook-runtime assertions | 0 | `PATH` selected the disposable attempt's `node_modules/.bin/deft` before init and commit; `core.hooksPath` was exactly `.githooks`. |
+| Top help, command inventory, and init/update/doctor help | 0 each | Every ordinarily supported help probe completed through the explicit local binary. |
+| `toolchain:check --help` diagnostic probe | 2, expected | Printed the recorded `unrecognized argument: --help` diagnostic; the result was asserted rather than suppressed. |
+| `./node_modules/.bin/directive init --yes --repo-root .` | 0 | Classified the Git-initialized directory as brownfield and created the consumer integration. |
+| Seven `git check-ignore` assertions | 0 each | Core, CLI adapter, cache, ritual, triage-cache, shared-USER, and dependency examples were ignored. |
+| Staged-plus-untracked allowlist and checkpoint | 0 | Inspected 138 unique paths, positively required the initialized anchors after staging, rejected no unexpected path, and committed through the local hook on `training/module-02` as local commit `a0839aff1063e9ebd6ee0757ffdf27ad49de5445`. |
+| `./node_modules/.bin/directive doctor --full --project-root .` | 0 | Reported two warnings: the canonical npm provenance/migrate signpost and a missing `xbrief/` directory despite an xBRIEF envelope. Warnings were recorded rather than treated as failure. |
+| `./node_modules/.bin/directive toolchain:check --consumer --project-root .` | 0 | Reported Git 2.50.1, GitHub CLI 2.88.1, Node.js 24.18.0, npm 11.16.0, and “All required tools available.” |
+| Literal clean/root/branch/remote acceptance | 0 | Both tracked diffs and complete porcelain status were empty; the canonical Git root matched the recorded attempt; branch remained `training/module-02`; remotes remained empty. |
+| Fresh-directory reset and archive loop | 0 | Preserved both disposable attempts, moved their exact parent to a new temporary archive, and resolved each archived Git root before confirming both remote lists were empty. |
+
+### Native platform matrix proof
+
+Authorized pull-request run
+[34040576589](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040576589)
+used the checked-in workflow, its pinned actions, Node.js 24.20.0, temporary no-remote
+repositories, and the same version, help, init, anatomy, checkpoint, doctor, toolchain,
+acceptance, reset, and archive assertions on each bounded runner.
+
+| Proof marker | Bounded environment | Job evidence | Result |
+| --- | --- | --- | --- |
+| `macos-zsh` | GitHub `macos-15`; zsh | [job 101506460259](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040576589/job/101506460259) | Passed in 19 seconds. |
+| `linux-bash` | GitHub `ubuntu-24.04`; bash | [job 101506460227](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040576589/job/101506460227) | Passed in 29 seconds. |
+| `windows-pwsh7` | GitHub `windows-2022`; PowerShell 7.4+ gate | [job 101506460109](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040576589/job/101506460109) | Passed in 71 seconds. |
+
+The preceding run
+[34040433466](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040433466)
+exposed a curriculum-command defect on Windows: `Get-Command deft` returned both `deft.cmd`
+and the extensionless shim, and coercing both paths broke the local-runtime comparison. The
+workflow and all learner Windows checks now select the first application in PATH explicitly;
+the passing Windows job above verifies that correction. This was not a Directive behavior
+disagreement.
+
+This evidence is bounded to those runner labels, shells, the npm fixture path, and the pinned
+0.111.0 graph. It does not verify pnpm, other operating-system images, or coding-host
+integration. The workflow required no user-managed secret, write permission, persisted
+credential, or remote mutation; GitHub supplied its ephemeral read token to the official
+checkout and Node setup actions.
+
+The first disposable attempt failed `npm install` with `E401` because the host's ordinary npm
+configuration contained stale authentication. No credential value was captured. A fresh
+attempt with an empty temporary npm user config proved the public-registry path. Learner
+guidance first preserves the approved organizational registry configuration; it uses a fresh
+attempt and the organization's documented npm recovery when authentication is required.
+
+The first attempt also showed that `npx --no-install directive` can fall through to a global
+binary when a local install is missing. Module 2 therefore invokes the exact
+`node_modules/.bin/directive` (`directive.cmd` on Windows) and proves that file exists.
+
+Platform proof markers consumed by the focused verifier:
+
+- `platform-proof:macos-zsh status=verified date=2026-09-06 evidence=local-disposable-project-local-hook-full+gha-run-34040576589`
+- `platform-proof:linux-bash status=verified date=2026-09-06 evidence=gha-run-34040576589`
+- `platform-proof:windows-pwsh7 status=verified date=2026-09-06 evidence=gha-run-34040576589`
+
+PowerShell 7.6.5 on the macOS host supplied syntax inspection only. Native Windows evidence
+comes from the bounded `windows-2022` job above; the macOS inspection is not counted twice.
 
 ## Source-file verification
 
@@ -99,6 +181,13 @@ baseline are otherwise unchanged.
 | `directive --help` omits registered verbs including `scope:activate`, `xbrief:preflight`, and `verify:vbrief-conformance`. | Treat top help as curated. Use `directive commands` for registry coverage. |
 | Upstream source docs use unprefixed `task` commands; this consumer's include is named `deft`. | Teach consumer forms such as `task deft:check`, `task deft:scope:promote`, and `task deft:scope:activate`. |
 | `task --list` descriptions for the two scope lifecycle tasks also retain vBRIEF wording. | Use the task names as executable surfaces, but take current terminology and paths from the xBRIEF sources. |
+| The release README says `init` creates a committed package pin, but the shipped 0.111.0 init path did not call the available pin-writing primitive and the disposable probe received no automatic pin. | Put and verify the exact `@deftai/directive: 0.111.0` pin in `package.json` before init; do not promise that init creates it. |
+| Released prose describes a new empty directory as a scaffold, but 0.111.0 treats `.git` alone as sufficient for `brownfield-install`. | A lab that runs `git init` first expects the brownfield label. Scaffold classification requires a disposable non-Git directory. |
+| `doctor` is described as read-only, but a normal run writes ignored throttle metadata. | Describe doctor as non-mutating to tracked product state and remotes, not as performing zero filesystem writes. |
+| `update --dry-run` says no changes are written but formats planned deletions as past-tense `Removed:` entries. | Call the output a proposed plan. A 2026-09-06 probe confirmed the named backup remained after dry-run. |
+| `directive init --headless` exited 0 but emitted truncated, invalid JSON in the observed 0.111.0 run. | Keep headless init outside the beginner path and do not use its stdout as evidence until the defect is resolved and reverified. |
+| Brownfield init appended many canonical ignore entries to an existing `.gitignore` but did not append `/USER.md` or `/.deft/USER.md`; the resulting `git check-ignore USER.md` exited 1. | The lab writes those two safety entries before init and proves them afterward. Continue teaching that shared USER.md is resolved and read in place, never copied or committed. |
+| Init staged most installer-managed paths, and the installed branch hook refused the first local checkpoint on the unborn `main` branch. | The lab creates `training/module-02` before init, then validates the union of already-staged and untracked paths. It does not bypass the branch gate or assume all generated files remain untracked. |
 
 Legacy verbs remain registered, including `vbrief:activate`, `vbrief:preflight`, and
 `vbrief:validate`. Registration preserves compatibility; it does not make them current
@@ -150,20 +239,30 @@ Completed checks:
 - Matched the direct package pin, installed CLI/core/content versions, and deposit generation.
 - Resolved the official annotated tag and peeled commit through local git and remote refs.
 - Matched the npm `gitHead` to the peeled release commit and recorded artifact integrity.
-- Verified all seven required behavior-source paths and exact headings at the release commit.
+- Verified every source path and cited heading or label used for Modules 2–3 at the release
+  commit.
 - Compared the preserved MIT notice byte-for-byte with `LICENSE` at the release commit.
 - Compared the four deposited source files byte-for-byte and explained the two files with deposit rewrites.
 - Executed global help, full command inventory, and each listed verb-help probe.
+- Executed the exact project-local disposable consumer path on macOS/zsh, including guarded
+  reset, help probes, init, positive anatomy/generation/schema/hook assertions, seven ignore
+  assertions, a 138-path allowlist, a feature-branch checkpoint through the project-local
+  `deft` hook runtime, full doctor, toolchain check, literal clean-state acceptance, and
+  archive verification for both no-remote attempts.
+- Revalidated the setup skill's consumer-first and contributor-boundary sections for Modules
+  2–3, plus the core skill's authority and lazy-loading sections.
 - Confirmed the consumer `task deft:*` namespace through `Taskfile.yml` and `task --list`.
 - Confirmed the six deferred skill-contract files exist at the release commit.
 
 Unresolved or deliberately deferred evidence:
 
-- Linux, Windows, bash, PowerShell, project-local npm, and pnpm execution were not probed in
-  this pass. Do not claim cross-platform verification from the macOS results.
+- pnpm, coding-host integration, and operating-system or shell versions outside the recorded
+  local and GitHub-hosted runner bounds remain unproved. Do not generalize the three successful
+  matrix jobs beyond their explicit npm, image, shell, Node.js, and Directive versions.
 - The repository has no lockfile or project-local install. The exact direct pin and the exact
   global packages were verified, but a future install's full dependency graph is not locked
   here.
 - The release tag was resolved but no cryptographic tag signature was present or verified.
-- Setup, build, pre-PR, review-cycle, refinement, and swarm procedure details remain deferred
-  until their curriculum modules are authored and revalidated.
+- Build, pre-PR, review-cycle, refinement, and swarm procedure details remain deferred until
+  their curriculum modules are authored and revalidated. Setup and authority material needed
+  for Modules 2–3 was revalidated in this pass.

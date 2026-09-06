@@ -3,13 +3,13 @@
     "version": "0.8",
     "description": "Implementation-ready curriculum scope for core Modules 2 and 3",
     "created": "2026-09-05T19:43:46Z",
-    "updated": "2026-09-06T12:48:30Z",
+    "updated": "2026-09-06T15:09:23Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
     "id": "training.modules2-3",
     "title": "Modules 2-3: Installation, Project Anatomy, Authority, and Context",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "Deliver two substantive, self-directed core modules: Module 2 teaches version-pinned consumer installation, initialization, diagnosis, project anatomy, and safe recovery in a disposable repository; Module 3 teaches authority resolution, behavior-versus-requirement boundaries, and lazy loading through a fictional conflict exercise.",
       "UserStory": "As a 3Ci engineer new to Directive, I want reproducible setup and authority-resolution practice, so that I can orient inside a Directive consumer project and recover from common mistakes without undocumented assistance.",
@@ -43,6 +43,12 @@
         "effort": "M",
         "narrative": {
           "Acceptance": "The source baseline and notes cite released files and headings, record every tested help and live command surface with date/platform/shell, preserve observed prose-versus-runtime disagreements, and label unexecuted paths candidate rather than verified."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "references/SOURCE-BASELINE.md and references/SOURCE-NOTES.md; pinned-release links, exact source paths, dated CLI probes, and platform markers passed npm run check:modules-2-3 on 2026-09-06",
+          "recorded_at": "2026-09-06T12:23:15Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
@@ -52,6 +58,12 @@
         "effort": "L",
         "narrative": {
           "Acceptance": "A learner can select init, update, or doctor from observed project state, distinguish consumer from maintainer surfaces, and classify the initialized artifacts using evidence from the pinned release."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "Independent learner-path audit found no remaining actionable Module 2 findings after remediation; curriculum/modules/02-installation-and-anatomy.md and its outcome/evidence contract passed npm run check:modules-2-3",
+          "recorded_at": "2026-09-06T12:23:15Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
@@ -61,6 +73,12 @@
         "effort": "L",
         "narrative": {
           "Acceptance": "The lab uses an exact 0.111.0 package pin in a unique no-remote temporary repository, includes guarded starting-state, checkpoint, acceptance, failure, reset, archive/cleanup, and solution paths, and retains successful macOS/zsh, Linux/bash, and native Windows/PowerShell 7 evidence before labeling each path verified."
+        },
+        "x-directive/evidence": {
+          "kind": "observed_behavior",
+          "pointer": "references/SOURCE-NOTES.md records the full guarded local macOS/zsh rehearsal plus GitHub Actions run 34040576589 at head 4c73458f1586259359f4ca3d7be4d614d6908cd2: the pinned npm path passed on macOS 15/zsh, Ubuntu 24.04/bash, and Windows Server 2022/PowerShell 7.4+ with clean no-remote acceptance, reset, and archive evidence; pnpm, other images, and coding-host integration remain unproved",
+          "recorded_at": "2026-09-06T15:09:23Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
@@ -70,6 +88,12 @@
         "effort": "L",
         "narrative": {
           "Acceptance": "A learner can cite the controlling source for fictional rule conflicts, distinguish behavior rules from product requirements and live authorization, apply Personal-versus-Defaults precedence correctly, and select the smallest relevant lazy-loaded context."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "Independent authority-model audit findings were resolved in curriculum/modules/03-authority-and-context.md and solutions/module-03-authority-and-context.md; outcomes, citations, exercise, hints, recovery, and solution passed npm run check:modules-2-3",
+          "recorded_at": "2026-09-06T12:23:15Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
@@ -79,6 +103,12 @@
         "effort": "S",
         "narrative": {
           "Acceptance": "The repository start page, course map, lab and solution indexes, glossary, and quick reference link the new material, state its actual verification status, and preserve numeric prerequisites and later-module boundaries."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:modules-2-3 validated 19 required artifacts, local Markdown links and reference definitions, readiness statements, numeric navigation, and bounded native-proof labels across the seven learner and index surfaces; each now limits verification to the pinned npm path on macOS 15/zsh, Ubuntu 24.04/bash, and Windows Server 2022/PowerShell 7.4+",
+          "recorded_at": "2026-09-06T15:09:23Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
@@ -88,6 +118,12 @@
         "effort": "M",
         "narrative": {
           "Acceptance": "The focused verifier catches missing contracts, placeholders, broken links, stale availability claims, and incomplete platform evidence; all literal acceptance commands and the aggregate gate pass without weakening a gate."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "On codex/modules-2-3-implementation after the final proof reconciliation, structured JSON/YAML/JavaScript validation, 21 parser checks over 14 executable lab fences, 3 workflow parser checks, story-ready and xBRIEF preflight, npm run check:cold-start-readme, npm run check:modules-2-3, directive verify:vbrief-conformance --project-root ., scope provenance, forward coverage, test boundary, consumer check contract, cached diff, branch, and task --silent deft:check exited 0. GitHub Actions run 34040576589 passed all 3 native platform jobs at head 4c73458f1586259359f4ca3d7be4d614d6908cd2, and the Deft core guard passed. Independent audits identified 0 P0, 2 P1, and 14 P2 findings; all 16 were resolved with no deferrals, including an independently clean review of the Windows shim fix. The consumer-check contract retained 3 nonblocking CI-composition notes in PR evidence.",
+          "recorded_at": "2026-09-06T15:09:23Z",
+          "recorded_by": "agent:codex"
         }
       }
     ],
@@ -296,6 +332,6 @@
         "file_scope_confidence": "high"
       }
     },
-    "updated": "2026-09-06T12:48:30Z"
+    "updated": "2026-09-06T15:09:23Z"
   }
 }

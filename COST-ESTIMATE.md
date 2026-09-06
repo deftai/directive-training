@@ -46,7 +46,9 @@ GitHub Actions capability.
 None are expected for this scope. The validation matrix uses the repository's
 existing GitHub Actions allowance and operates only on generated disposable
 test repositories. It does not deploy, publish, add a remote to a learner lab,
-or use a credential in the lab workflow.
+configure a user-managed secret or write-capable token, or persist a Git
+credential. GitHub supplies its ephemeral read token to the immutable checkout
+and Node setup actions.
 
 ## Monthly band
 

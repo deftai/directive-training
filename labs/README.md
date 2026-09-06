@@ -2,12 +2,12 @@
 
 This guide defines the safe execution model for every hands-on exercise in the 3Ci Directive curriculum. Labs use fictional inputs in short-lived local Git repositories. A learner must be able to create, verify, reset, and clean up a lab without an instructor.
 
-**Foundation status:** this is the design contract for later executable labs,
-not a released lab. The macOS, Linux, and PowerShell blocks below are candidate
-recipes. A learner should use one only after the linked lab record names that
-platform as verified. This milestone did not execute any recipe end to end;
-Linux, Bash, Windows, and PowerShell were not probed at all. Maintainers must
-test every claimed path before marking a lab learner-ready.
+**Current status:** this guide remains the shared lab contract. The
+[Module 2 disposable initialization lab](02-disposable-initialization.md) is a
+learner-ready draft with an end-to-end local macOS/zsh proof and native matrix proof for the pinned npm path on
+macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022, dated
+2026-09-06. Generic author examples below are not substitutes for a released lab's
+exact commands.
 
 ## Rule labels
 
@@ -39,7 +39,10 @@ OS temporary directory/
     └── module-XX-<unique-id>/       # recoverable, inactive prior attempt
 ```
 
-The lab instructions create all fixture content in the active directory. They do not ask you to clone this curriculum repository or copy files from a business repository. A fixture must be reconstructible from the lab's public-in-repository instructions and fictional data.
+The lab instructions either create the fictional fixture in the active directory or copy a
+named fixture read-only from this private curriculum clone. They never copy from a business
+repository. A fixture must be reconstructible from checked-in instructions and fictional
+data.
 
 ## Create a disposable repository
 
@@ -73,7 +76,7 @@ test -z "$(git remote)"
 
 Both commands must exit `0`. Also inspect the printed path. It must be the unique directory under `3ci-directive-labs`, not this course or a business checkout.
 
-### Windows with PowerShell 7
+### Windows with PowerShell 7.4+
 
 ```powershell
 $labParent = Join-Path ([System.IO.Path]::GetTempPath()) "3ci-directive-labs"
@@ -108,7 +111,7 @@ After the location guards pass, follow the lab's exact scaffold commands. A conf
 - states the expected initial `git status --short` output;
 - does not depend on an unpublished file, private chat, or instructor action;
 - pins required runtime and Directive versions; and
-- provides separate commands when zsh/bash and PowerShell syntax differs.
+- provides separate commands when zsh/bash and PowerShell 7.4+ syntax differs.
 
 Do not improvise with a real repository when fixture setup fails. Preserve the error, use the documented fixture recovery, or create a new attempt.
 
@@ -125,8 +128,8 @@ platform-verified commands that perform this sequence:
    artifacts named by the lab;
 4. show `git diff --cached --name-only` and stop if any path falls outside that
    allowlist;
-5. create the local checkpoint with the fictional identity `3Ci Lab Learner
-   <learner@example.invalid>`; and
+5. create the local checkpoint with the exact fictional identity named by the lab (for
+   example, `3Ci Lab Learner <learner@example.invalid>`); and
 6. verify the named checkpoint and the expected clean or documented working
    state.
 
@@ -225,7 +228,7 @@ if test "$ARCHIVE_STATUS" -eq 0; then unset LAB_DIR; fi
 test "$ARCHIVE_STATUS" -eq 0
 ```
 
-### Windows with PowerShell 7
+### Windows with PowerShell 7.4+
 
 ```powershell
 $repoRoot = (Resolve-Path -LiteralPath (git rev-parse --show-toplevel)).Path
@@ -282,9 +285,10 @@ No instructor or review bot is required. If the documented recovery still cannot
 | Resource | Availability | Use |
 |---|---|---|
 | This environment guide | Available | Create, verify, reset, and archive disposable attempts |
-| [Module 1 — What Directive Is](../curriculum/modules/01-what-directive-is.md) | Available in the foundation milestone | Complete its embedded fictional classification exercise; it does not mutate a business repository |
+| [Module 1 — What Directive Is](../curriculum/modules/01-what-directive-is.md) | Available | Complete its embedded fictional classification exercise; it does not mutate a repository |
+| [Lab 2 — Initialize a Disposable Directive Consumer](02-disposable-initialization.md) | Learner-ready draft; pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 | Use its exact fixture, guards, checkpoints, acceptance, reset, and archive path |
 | [Lab authoring template](../templates/lab-template.md) | Available to maintainers | Build a lab with tasks, checkpoints, literal gates, reset, cleanup, and a solution |
-| Later executable labs | Not yet available | Follow their module links from the [curriculum map](../curriculum/README.md) when released |
+| Labs for Modules 4–11 and the capstone | Not yet available | Follow their module links from the [curriculum map](../curriculum/README.md) when released |
 
 An entry marked “not yet available” is not completed curriculum.
 
