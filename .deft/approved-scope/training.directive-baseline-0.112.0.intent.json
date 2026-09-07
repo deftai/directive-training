@@ -136,7 +136,7 @@
         "scripts/verify-cold-start-readme.mjs",
         "scripts/verify-modules-2-3.mjs",
         "history/changes/directive-baseline-0.112.0/proposal.xbrief.json",
-        "xbrief/active/2026-09-07-directive-baseline-0.112.0.xbrief.json",
+        "xbrief/active/2026-09-07-directive-baseline-0-112-0.xbrief.json",
         "xbrief/PROJECT-DEFINITION.xbrief.json"
       ],
       "file_scope_confidence": "high",
@@ -166,7 +166,7 @@
           "scripts/verify-modules-2-3.mjs",
           "history/changes/directive-baseline-0.112.0/proposal.xbrief.json",
           "xbrief/completed/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
-          "xbrief/active/2026-09-07-directive-baseline-0.112.0.xbrief.json",
+          "xbrief/active/2026-09-07-directive-baseline-0-112-0.xbrief.json",
           "xbrief/PROJECT-DEFINITION.xbrief.json"
         ]
       }

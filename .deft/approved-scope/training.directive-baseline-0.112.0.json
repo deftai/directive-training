@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "xbriefRelPath": "xbrief/active/2026-09-07-directive-baseline-0.112.0.xbrief.json",
+  "xbriefRelPath": "xbrief/active/2026-09-07-directive-baseline-0-112-0.xbrief.json",
   "planId": "training.directive-baseline-0.112.0",
-  "approvedAt": "2026-09-07T03:30:45Z",
+  "approvedAt": "2026-09-07T03:44:40Z",
   "fileScope": [
     ".deft/GENERATION.json",
     ".github/workflows/modules-2-3-platform-validation.yml",
@@ -27,17 +27,17 @@
     "solutions/module-01-what-directive-is.md",
     "solutions/module-03-authority-and-context.md",
     "solutions/README.md",
-    "xbrief/active/2026-09-07-directive-baseline-0.112.0.xbrief.json",
+    "xbrief/active/2026-09-07-directive-baseline-0-112-0.xbrief.json",
     "xbrief/completed/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
     "xbrief/PROJECT-DEFINITION.xbrief.json"
   ],
-  "fileScopeDigest": "af361bb01d3e6b53ad6a67f4ab1567cf85daf34f88bddcbd49cf04932cb31e07",
+  "fileScopeDigest": "39e3321e489098d76997e44f8c10dc3c46beb465bc9d3ad80fed8fbbb51bef0a",
   "humanApproval": {
     "kind": "operator",
     "actor": "David",
-    "mintedAt": "2026-09-07T03:30:45Z",
+    "mintedAt": "2026-09-07T03:44:40Z",
     "mintedVia": "scope:record-approved-scope"
   },
-  "intentDigest": "1707587f88fd5218737b66b384e836286306760e9884ea317c27735fbf9a9d75",
+  "intentDigest": "e32bdf8eb2a7880cb320cb134c7220d8b1168bebc1aeff4d6691b4a46c84c6bf",
   "digestAlgo": "intent-extract-v1"
 }
