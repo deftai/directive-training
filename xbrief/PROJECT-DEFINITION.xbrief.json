@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Project definition for the private 3Ci Directive training curriculum",
     "created": "2026-09-05T14:54:49Z",
-    "updated": "2026-09-06T05:58:58Z",
+    "updated": "2026-09-07T02:54:41Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -76,15 +76,6 @@
         }
       },
       {
-        "id": "2026-09-05-modules-2-3-installation-and-authority",
-        "title": "Modules 2-3: Installation, Project Anatomy, Authority, and Context",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
-          "lifecycle_folder": "completed"
-        }
-      },
-      {
         "id": "2026-09-05-modules-4-5-xbrief-and-projections",
         "title": "Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries",
         "status": "proposed",
@@ -130,12 +121,26 @@
         }
       },
       {
-        "id": "2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot",
-        "title": "Self-Directed Curriculum Foundation and Module 1 Pilot",
-        "status": "completed",
+        "id": "2026-09-07-directive-baseline-0.112.0",
+        "title": "Directive 0.112.0 Curriculum Baseline",
+        "status": "running",
         "metadata": {
-          "source_path": "completed/2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot.xbrief.json",
-          "lifecycle_folder": "completed"
+          "source_path": "active/2026-09-07-directive-baseline-0-112-0.xbrief.json",
+          "lifecycle_folder": "active",
+          "references": [
+            {
+              "uri": "urn:3ci:directive-training:request:2026-09-07",
+              "type": "x-xbrief/user-request",
+              "title": "David's confirmed full Directive 0.112.0 upgrade request",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../references/SOURCE-BASELINE.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Maintained Directive source baseline",
+              "TrustLevel": "internal"
+            }
+          ]
         }
       },
       {
@@ -153,10 +158,52 @@
             }
           ]
         }
+      },
+      {
+        "id": "2026-09-05-modules-2-3-installation-and-authority",
+        "title": "Modules 2-3: Installation, Project Anatomy, Authority, and Context",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "urn:3ci:directive-training:request:2026-09-05",
+              "type": "x-xbrief/user-request",
+              "title": "David's approved Directive training curriculum request",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../references/SOURCE-BASELINE.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Pinned Directive source baseline",
+              "TrustLevel": "internal"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot",
+        "title": "Self-Directed Curriculum Foundation and Module 1 Pilot",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "urn:3ci:directive-training:request:2026-09-05",
+              "type": "x-xbrief/user-request",
+              "title": "David's approved Directive training foundation request",
+              "TrustLevel": "internal"
+            }
+          ]
+        }
       }
     ],
     "metadata": {
-      "staleness_flags": []
+      "staleness_flags": [
+        "Narrative 'ProjectRules' may be stale: completed scope 'Modules 2-3: Installation, Project Anatomy, Authority, and Context' shares topics (project)"
+      ]
     },
     "x-directive/policy": {
       "allowDirectCommitsToMaster": false

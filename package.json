@@ -5,6 +5,6 @@
     "check:modules-2-3": "node scripts/verify-modules-2-3.mjs"
   },
   "devDependencies": {
-    "@deftai/directive": "0.111.0"
+    "@deftai/directive": "0.112.0"
   }
 }

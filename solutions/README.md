@@ -15,7 +15,7 @@ Every solution keeps these claim types separate.
 | Source | Solution | Status |
 |---|---|---|
 | [Module 1 — What Directive Is](../curriculum/modules/01-what-directive-is.md) | [Explained Module 1 solution](module-01-what-directive-is.md) | Available in the foundation milestone |
-| [Module 2 — Installation and Project Anatomy](../curriculum/modules/02-installation-and-anatomy.md) | [Explained Lab 2 solution](lab-02-disposable-initialization.md) | Available; pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 |
+| [Module 2 — Installation and Project Anatomy](../curriculum/modules/02-installation-and-anatomy.md) | [Explained Lab 2 solution](lab-02-disposable-initialization.md) | Available; 0.112.0 pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence |
 | [Module 3 — Authority and Context](../curriculum/modules/03-authority-and-context.md) | [Explained Module 3 solution](module-03-authority-and-context.md) | Available; command-free exercise |
 | Modules 4–11 and the capstone | Follow the [curriculum map](../curriculum/README.md) | Not yet available |
 

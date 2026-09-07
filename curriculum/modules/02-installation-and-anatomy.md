@@ -9,10 +9,10 @@ explain which resulting files are authoritative, managed, ignored, or reconstitu
 | --- | --- |
 | Stable ID | `module-02-installation-and-anatomy` |
 | Status | `learner-ready draft` |
-| Last content update | 2026-09-06 |
-| Last verified | 2026-09-06 |
-| Directive baseline | `@deftai/directive@0.111.0`, engine `@deftai/directive-core@0.111.0`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
-| Platform status | macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 verified for the pinned npm path; macOS/zsh also rehearsed locally |
+| Last content update | 2026-09-07 |
+| Last verified | 2026-09-07 |
+| Directive baseline | `@deftai/directive@0.112.0`, engine `@deftai/directive-core@0.112.0`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Platform status | 0.112.0 pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence |
 | Estimated duration | 60 minutes |
 | Prerequisites | Complete [Module 1](01-what-directive-is.md); know basic Git and terminal navigation; have Node.js 20 or newer, Git, GitHub CLI, and npm |
 
@@ -78,7 +78,7 @@ reliable than deleting whatever looks unfamiliar.
 
 Statements in this module use three labels:
 
-- **[Directive behavior]** — behavior verified against Directive 0.111.0.
+- **[Directive behavior]** — behavior verified against Directive 0.112.0.
 - **[3Ci policy]** — an internal safety or operating requirement.
 - **[Course guidance]** — a recommended learning route, not an upstream guarantee.
 
@@ -94,7 +94,7 @@ Statements in this module use three labels:
 | **Runtime state** | Local cache, session, ritual, occupancy, or diagnostic state that should not become durable project source. | **[Directive behavior]** |
 | **Authoritative source** | The file that humans and agents edit to change a durable project fact, requirement, or authored product. | **[Directive behavior]** |
 | **Reconstitutable** | Safe to regenerate from a named tracked anchor; not synonymous with unimportant or safe to hand-edit. | **[Directive behavior]** |
-| **Brownfield init** | The 0.111.0 route used when the target already contains Git or application signals. An otherwise empty `git init` repository takes this route. | **[Directive behavior]** |
+| **Brownfield init** | The 0.112.0 route used when the target already contains Git or application signals. An otherwise empty `git init` repository takes this route. | **[Directive behavior]** |
 
 ## Mental model
 
@@ -111,10 +111,10 @@ Use this loop:
 | State is unknown, incomplete, or unhealthy | `directive doctor` | Classify the condition and follow its one primary next action before choosing a mutating recovery. |
 
 **[Directive behavior]** `doctor` does not repair tracked product state by default and does
-not change a remote, but 0.111.0 can write ignored diagnostic throttle metadata. Call it a
+not change a remote, but 0.112.0 can write ignored diagnostic throttle metadata. Call it a
 diagnostic, not a promise of zero filesystem writes.
 
-**[Directive behavior]** In 0.111.0, `.git` alone makes an otherwise empty directory take
+**[Directive behavior]** In 0.112.0, `.git` alone makes an otherwise empty directory take
 the brownfield route. That label is expected in this module's lab because the safety check
 creates the Git repository first.
 
@@ -150,7 +150,7 @@ directive doctor --help
 directive toolchain:check --help
 ```
 
-The first five probes exit 0. The last command is a recorded 0.111.0 defect: it prints
+The first five probes exit 0. The last command is a recorded 0.112.0 defect: it prints
 usage but exits 2 with `toolchain-check: unrecognized argument: --help`. Confirm the verb in
 `directive commands`, record the disagreement, and use the verified consumer form:
 
@@ -164,11 +164,11 @@ examples need release-specific verification.
 ### 2. Pin before initialization
 
 **[Directive behavior]** Released prose says init creates a committed package pin, but the
-0.111.0 runtime path did not do so in the disposable probe. The lab therefore starts with a
+0.112.0 runtime path did not do so in the disposable probe. The lab therefore starts with a
 fictional, private `package.json` that pins exactly:
 
 ```json
-"@deftai/directive": "0.111.0"
+"@deftai/directive": "0.112.0"
 ```
 
 It installs that package and invokes the explicit project-local executable. This prevents a
@@ -250,7 +250,7 @@ is no client, production service, deployment, or real backlog.
 ### Your task
 
 1. Create and guard a unique temporary Git repository.
-2. Install and prove the exact 0.111.0 project-local CLI.
+2. Install and prove the exact 0.112.0 project-local CLI.
 3. Verify help, initialize, run doctor and the consumer toolchain check.
 4. Classify the resulting files and record the evidence bundle.
 5. Trace the lab's provided failure record through a deterministic recovery decision.
@@ -275,7 +275,7 @@ archive path. Do not keep environment dumps, token output, or unrelated files.
 | Outcome | Observable condition | Inspection |
 | --- | --- | --- |
 | O2.1 | Your chooser note names `init`, `update`, and `doctor` for the correct observed states, and your boundary answer distinguishes a consumer surface from a maintainer-only surface. | Compare with the walkthrough and solution reasoning. |
-| O2.2 | The explicit local binary reports core 0.111.0; init and toolchain check exit 0 in the guarded no-remote repository. | Use the lab's literal acceptance commands. |
+| O2.2 | The explicit local binary reports core 0.112.0; init and toolchain check exit 0 in the guarded no-remote repository. | Use the lab's literal acceptance commands. |
 | O2.3 | Your table includes at least two authoritative/anchor, two tracked-managed, two ignored-runtime, and two ignored-reconstitutable examples; it also identifies external `USER.md` and mixed ownership in `AGENTS.md`. | Compare each example with Git inspection and the source baseline. |
 | O2.4 | Doctor output is recorded by severity and recommendation; the provided failure is traced through evidence preservation, a fresh-directory recovery, and an observable retry gate. | Inspect the evidence bundle and archive state. |
 
@@ -284,13 +284,14 @@ archive path. Do not keep environment dumps, token output, or unrelated files.
 | Evidence | Required result | Outcomes |
 | --- | --- | --- |
 | Command chooser and repository boundary | Every choice follows observed footprint/health state, and the consumer/maintainer distinction is explicit. | O2.1 |
-| Local version and init record | Explicit local CLI reports 0.111.0; repository remains no-remote. | O2.2 |
+| Local version and init record | Explicit local CLI reports 0.112.0; repository remains no-remote. | O2.2 |
 | Anatomy table | Durable source, managed tracked, ignored runtime, and reconstitutable examples are correctly separated. | O2.3 |
 | Diagnostic/recovery record | Exit codes, findings, the completed recovery decision drill, and final archive path are present. | O2.4 |
 
-You are ready to continue when all four rows are demonstrated. Native matrix evidence verifies
-the pinned npm path on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on
-Windows Server 2022; it does not prove pnpm, other operating-system images, or coding-host integration.
+You are ready to continue when all four rows are demonstrated. Current local and native-matrix
+evidence verifies the 0.112.0 pinned npm path on macOS 15/zsh, Linux/bash on Ubuntu 24.04,
+and Windows/PowerShell 7.4+ on Windows Server 2022. It does not prove pnpm, other
+operating-system images, or coding-host integration.
 
 ## Progressive hints
 
@@ -329,7 +330,7 @@ attempt and use the fresh-directory reset.
 | --- | --- | --- |
 | `npm install` returns `E401` or another authentication error. | npm is using a stale or required registry configuration. | Record only the error code and registry host, never a token. Preserve the attempt. Use the organization's approved npm setup, then create a fresh attempt. |
 | `npx --no-install directive` reports a version even though the local package is absent. | The launcher fell through to another executable on the host. | Do not use that result. Prove and invoke the explicit project-local binary. |
-| Init says `brownfield` in an otherwise empty repository. | `.git` is a brownfield signal in 0.111.0. | Continue; the lab expects this classification. |
+| Init says `brownfield` in an otherwise empty repository. | `.git` is a brownfield signal in 0.112.0. | Continue; the lab expects this classification. |
 | Doctor exits 0 with warnings. | Health classification can be non-fatal. | Record the warning and single recommended action; do not weaken or skip the check. |
 | `directive toolchain:check --help` exits 2. | The released verb rejects the uniform help flag. | Record the known disagreement, confirm registration with `directive commands`, and use the tested consumer invocation. |
 | Unexpected files or a remote appear. | The starting boundary or environment differs from the fixture. | Stop mutations, preserve evidence, and create a new unique temporary attempt. Do not clean the surprising repository. |
@@ -387,12 +388,12 @@ drill, and a safe retry route. No instructor unlock is required.
 
 ## Official sources
 
-| Claim | Pinned 0.111.0 source or observed surface | Use in this module |
+| Claim | Pinned 0.112.0 source or observed surface | Use in this module |
 | --- | --- | --- |
-| Consumer install and layout | [README — Getting Started](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/README.md#getting-started); [Concepts — Installer Layout](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/docs/CONCEPTS.md#installer-layout) | Command chooser and deposit model |
-| Consumer prerequisites | [Getting started — Prerequisites](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/docs/getting-started.md#prerequisites) | Tool starting check |
-| Consumer versus contributor route | [Setup skill contract](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/skills/deft-directive-setup/SKILL.md) | Repository boundary |
-| Tracked and ignored surfaces | [README — Getting Started](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/README.md#getting-started); [core skill — Project Root vs Framework Internals](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/SKILL.md) | Artifact classification |
+| Consumer install and layout | [README — Getting Started](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/README.md#getting-started); [Concepts — Installer Layout](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/docs/CONCEPTS.md#installer-layout) | Command chooser and deposit model |
+| Consumer prerequisites | [Getting started — Prerequisites](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/docs/getting-started.md#prerequisites) | Tool starting check |
+| Consumer versus contributor route | [Setup skill contract](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-setup/SKILL.md) | Repository boundary |
+| Tracked and ignored surfaces | [README — Getting Started](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/README.md#getting-started); [core skill — Project Root vs Framework Internals](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/SKILL.md) | Artifact classification |
 | Literal CLI behavior | `directive --help`, `directive commands`, and each verb help/runtime probe recorded in [source notes](../../references/SOURCE-NOTES.md#cli-help-probes) | Version-specific syntax and disagreements |
 
 All explanations are paraphrased or adapted. Exact command names, paths, versions, and short

@@ -9,17 +9,19 @@ it, inspect its anatomy, and preserve evidence without touching a business repos
 | --- | --- |
 | Stable ID | `lab-02-disposable-initialization` |
 | Supports | Module 2 outcomes O2.1, O2.2, O2.3, and O2.4 |
-| Status | `learner-ready draft`; pinned npm path `verified` on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 |
-| Last verified | 2026-09-06 |
-| Directive baseline | `@deftai/directive@0.111.0`, engine `@deftai/directive-core@0.111.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Status | `learner-ready draft`; 0.112.0 pinned npm path `verified` on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence |
+| Last verified | 2026-09-07 |
+| Directive baseline | `@deftai/directive@0.112.0`, engine `@deftai/directive-core@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Estimated duration | 25–35 minutes |
 | Fixture | [Fictional Northstar package](fixtures/02-disposable-initialization/package.json) |
 
-The guarded path passed native matrix jobs on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022; macOS/zsh also has a detailed local rehearsal. These bounds do not prove pnpm, other images, or coding-host integration.
+The guarded 0.112.0 path passed a detailed local macOS 15/zsh rehearsal and the native
+matrix on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on
+Windows Server 2022. These bounds do not prove pnpm, other images, or coding-host integration.
 
 ## Goal and done condition
 
-You are done when the project-local CLI reports Directive 0.111.0; init, doctor, and the consumer toolchain check return the expected exits; the repository remains no-remote; the anatomy and five-field recovery evidence pass; and cleanup archives the exact lab parent and restores its temporary CLI/npm shell state.
+You are done when the project-local CLI reports Directive 0.112.0; init, doctor, and the consumer toolchain check return the expected exits; the repository remains no-remote; the anatomy and five-field recovery evidence pass; and cleanup archives the exact lab parent and restores its temporary CLI/npm shell state.
 
 This demonstrates O2.1–O2.4 without creating application code, a remote, pull request, deployment, or published artifact.
 
@@ -31,10 +33,10 @@ Northstar Route Checker is a fictional future JavaScript route-validation tool; 
 
 ### Required environment
 
-- Node.js 20 or newer; the verified local run used 24.18.0 and the verified matrix used 24.20.0.
+- Node.js 20 or newer; the verified local 0.112.0 run used 24.18.0 and the 0.112.0 native matrix used 24.20.0.
 - npm, Git, GitHub CLI, and either zsh, bash, or PowerShell 7.4 or newer.
 - A local clone of this private curriculum repository, used only to read the fixture.
-- Access to the approved npm registry for `@deftai/directive@0.111.0`.
+- Access to the approved npm registry for `@deftai/directive@0.112.0`.
 
 First run:
 
@@ -48,7 +50,7 @@ gh --version
 **Pass:** every command exits 0 and Node reports 20 or newer. If a command is missing, use
 your organization's approved tool installation path before continuing.
 
-### macOS 15 with zsh — locally rehearsed and matrix-verified; Linux with bash — matrix-verified on Ubuntu 24.04
+### macOS 15/zsh — verified locally and natively; Linux/bash — verified on Ubuntu 24.04
 
 Start in a neutral terminal directory and set `DIRECTIVE_TRAINING_ROOT` to the absolute path of your private curriculum clone; this path is learner input, not an authoring placeholder.
 
@@ -159,7 +161,7 @@ Required starting status, in lexical order:
 No other path may appear. Continue only after `module_02_start=ready`. Keep the recorded paths, saved `module_02_original_*` values, and guard functions in the same terminal session; failures return control so recovery values remain available.
 `git branch --show-current` must print `training/module-02`.
 
-### Windows with PowerShell 7.4+ — verified on Windows Server 2022
+### Windows/PowerShell 7.4+ — verified on Windows Server 2022
 
 Set the first value to the absolute path of your private curriculum clone.
 
@@ -252,7 +254,7 @@ at `$EvidenceNote`, beside the attempt and outside its Git working tree.
 - **[3Ci policy]** Keep `git remote` empty; do not push, open a pull request, deploy, release, publish, or call production.
 - **[3Ci policy]** Do not put tokens, credentials, environment dumps, client data, proprietary code, production logs, or confidential issues in commands or evidence.
 - Mutations are limited to the exact temporary parent, its Git metadata, fixture files, dependency state, Directive integration/runtime state, and adjacent evidence lists.
-- Stop if the root guard fails, a remote appears, the pin differs from 0.111.0, or a command requests unexpected credentials or external action.
+- Stop if the root guard fails, a remote appears, the pin differs from 0.112.0, or a command requests unexpected credentials or external action.
 
 ## Starting checkpoint
 
@@ -263,7 +265,7 @@ This checkpoint proves the local executable, help surfaces, initialization, igno
 ```sh
 module_02_initialize() {
   assert_no_remote || return 2
-  node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.111.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.111.0")) process.exit(2)' || return 2
+  node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.112.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.112.0")) process.exit(2)' || return 2
   npm install --ignore-scripts --no-audit --no-fund || return 2
   assert_no_remote || return 2
 
@@ -279,11 +281,11 @@ module_02_initialize() {
     return 2
   }
 
-  node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.111.0") process.exit(2) }' || return 2
+  node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.112.0") process.exit(2) }' || return 2
   version_output="$("$directive_path" --version)" || return 2
   printf '%s\n' "$version_output"
   case "$version_output" in
-    *'@deftai/directive-core@0.111.0'*) ;;
+    *'@deftai/directive-core@0.112.0'*) ;;
     *) echo "wrong Directive version" >&2; return 2 ;;
   esac
   "$directive_path" --help >/dev/null || return 2
@@ -316,7 +318,7 @@ module_02_initialize() {
       return 2
     }
   done
-  node -e 'const g=require("./.deft/GENERATION.json"); if(g.contentVersion!=="0.111.0" || g.surfaces?.payload!=="0.111.0") process.exit(2)' || return 2
+  node -e 'const g=require("./.deft/GENERATION.json"); if(g.contentVersion!=="0.112.0" || g.surfaces?.payload!=="0.112.0") process.exit(2)' || return 2
   node -e 'const x=require("./xbrief/PROJECT-DEFINITION.xbrief.json"); if(x.xBRIEFInfo?.version!=="0.8") process.exit(2)' || return 2
   hooks_path="$(git config --get core.hooksPath)" || return 2
   test "$hooks_path" = ".githooks" || {
@@ -393,7 +395,7 @@ If the allowlist rejects a path, preserve the attempt and compare that path with
 
 ```powershell
 Assert-NoRemote
-node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.111.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.111.0")) process.exit(2)'
+node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.112.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.112.0")) process.exit(2)'
 npm install --ignore-scripts --no-audit --no-fund
 Assert-NoRemote
 
@@ -405,7 +407,7 @@ if (-not (Test-Path -LiteralPath $DirectivePath -PathType Leaf)) { throw 'projec
 if (-not (Test-Path -LiteralPath $DeftPath -PathType Leaf)) { throw 'project-local Deft hook runtime is missing' }
 $ResolvedDeft = [IO.Path]::GetFullPath((Get-Command deft -CommandType Application -All -ErrorAction Stop | Select-Object -First 1).Source)
 if ($ResolvedDeft -ne $DeftPath) { throw "deft does not resolve to the disposable repository: $ResolvedDeft" }
-node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.111.0") process.exit(2) }'
+node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.112.0") process.exit(2) }'
 & $DirectivePath --version
 & $DirectivePath --help | Out-Null
 & $DirectivePath commands | Out-Null
@@ -423,7 +425,7 @@ try {
 }
 if ($ToolchainHelpExit -ne 2) { throw "expected toolchain help exit 2; got $ToolchainHelpExit" }
 if (-not (Select-String -LiteralPath $ToolchainHelpPath -SimpleMatch 'unrecognized argument: --help')) {
-  throw 'expected 0.111.0 toolchain help diagnostic is missing'
+  throw 'expected 0.112.0 toolchain help diagnostic is missing'
 }
 
 Assert-NoRemote
@@ -443,7 +445,7 @@ foreach ($RequiredTrackedPath in $RequiredTrackedPaths) {
     throw "required initialized path is missing: $RequiredTrackedPath"
   }
 }
-node -e 'const g=require("./.deft/GENERATION.json"); if(g.contentVersion!=="0.111.0" || g.surfaces?.payload!=="0.111.0") process.exit(2)'
+node -e 'const g=require("./.deft/GENERATION.json"); if(g.contentVersion!=="0.112.0" || g.surfaces?.payload!=="0.112.0") process.exit(2)'
 node -e 'const x=require("./xbrief/PROJECT-DEFINITION.xbrief.json"); if(x.xBRIEFInfo?.version!=="0.8") process.exit(2)'
 $HooksPath = (& git config --get core.hooksPath | Out-String).Trim()
 if ($LASTEXITCODE -ne 0 -or $HooksPath -ne '.githooks') { throw "unexpected Git hooks path: $HooksPath" }
@@ -637,7 +639,7 @@ global npm configuration, or create a failed repository for this scenario.
 3. the required support boundary: use only the organization's approved npm setup;
 4. the next safe mutation: leave the attempt intact, create a new unique attempt under the
    guarded parent, and re-run the root and no-remote guards before installation; and
-5. the retry gate: the explicit project-local binary exists, reports Directive core 0.111.0,
+5. the retry gate: the explicit project-local binary exists, reports Directive core 0.112.0,
    install exits 0, and `git remote` remains empty.
 
 **Checkpoint:** all five fields follow from the provided facts, no credential handling is
@@ -660,15 +662,15 @@ Run these from the recorded disposable repository root while the variables and g
 ```sh
 module_02_accept() {
   assert_no_remote || return 2
-  node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.111.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.111.0")) process.exit(2)' || return 2
-  node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.111.0") process.exit(2) }' || return 2
+  node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.112.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.112.0")) process.exit(2)' || return 2
+  node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.112.0") process.exit(2) }' || return 2
   resolved_deft="$(command -v deft)" || return 2
   test "$resolved_deft" = "$local_bin/deft" || return 2
   test "$(git config --get core.hooksPath)" = ".githooks" || return 2
   version_output="$("$directive_path" --version)" || return 2
   printf '%s\n' "$version_output"
   case "$version_output" in
-    *'@deftai/directive-core@0.111.0'*) ;;
+    *'@deftai/directive-core@0.112.0'*) ;;
     *) echo "wrong Directive version" >&2; return 2 ;;
   esac
   "$directive_path" doctor --full --project-root . || return 2
@@ -695,14 +697,14 @@ fi
 ```powershell
 Assert-NoRemote
 if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
-node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.111.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.111.0")) process.exit(2)'
-node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.111.0") process.exit(2) }'
+node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.112.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.112.0")) process.exit(2)'
+node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.112.0") process.exit(2) }'
 $ResolvedDeft = [IO.Path]::GetFullPath((Get-Command deft -CommandType Application -All -ErrorAction Stop | Select-Object -First 1).Source)
 if ($ResolvedDeft -ne $DeftPath) { throw 'deft does not resolve to the disposable repository' }
 $HooksPath = (& git config --get core.hooksPath | Out-String).Trim()
 if ($LASTEXITCODE -ne 0 -or $HooksPath -ne '.githooks') { throw 'unexpected Git hooks path' }
 $VersionOutput = (& $DirectivePath --version | Out-String)
-if ($LASTEXITCODE -ne 0 -or $VersionOutput -notmatch '@deftai/directive-core@0\.111\.0') { throw 'wrong Directive version' }
+if ($LASTEXITCODE -ne 0 -or $VersionOutput -notmatch '@deftai/directive-core@0\.112\.0') { throw 'wrong Directive version' }
 & $DirectivePath doctor --full --project-root .
 if ($LASTEXITCODE -ne 0) { throw 'doctor failed' }
 & $DirectivePath toolchain:check --consumer --project-root .
@@ -722,7 +724,7 @@ if ((git branch --show-current) -ne 'training/module-02') { throw 'wrong lab bra
 
 | Validation | Required exit/result | Observable signal | Outcomes |
 | --- | --- | --- | --- |
-| Exact local version | 0 | Contains `@deftai/directive-core@0.111.0` | O2.2 |
+| Exact local version | 0 | Contains `@deftai/directive-core@0.112.0` | O2.2 |
 | Full doctor | 0 | Health summary plus any classified warnings and one recommendation | O2.4 |
 | Consumer toolchain check | 0 | `All required tools available` | O2.2, O2.4 |
 | Git boundary checks | 0 | Clean tracked index, `.deft/core` ignored, no remote names | O2.2, O2.3 |
@@ -777,11 +779,11 @@ required.
 
 | Symptom | Confirm the cause | Recovery | Evidence after retry |
 | --- | --- | --- | --- |
-| `npm install` returns `E401`/`E403` | Record the status and registry host only; do not print config or tokens | Preserve the attempt. Restore the organization-approved registry/auth setup, then start a fresh attempt. If an approved public-registry route exists, use a fresh temporary npm config rather than editing global state. | Local binary exists and reports 0.111.0 |
+| `npm install` returns `E401`/`E403` | Record the status and registry host only; do not print config or tokens | Preserve the attempt. Restore the organization-approved registry/auth setup, then start a fresh attempt. If an approved public-registry route exists, use a fresh temporary npm config rather than editing global state. | Local binary exists and reports 0.112.0 |
 | Local binary is missing but another `directive` runs | Test the exact `node_modules/.bin` path | Do not accept the global result. Correct the install in a fresh attempt and use the explicit path. | Exact local path and version both pass |
 | Init reports `brownfield-install` | Confirm `.git` exists | Continue. This is expected released behavior for the lab's Git-first safety path. | Init exits 0 and managed integration appears |
 | Checkpoint commit is refused on `main` | Run `git branch --show-current`; the branch gate protects the default branch | Preserve the gate. Switch the unborn lab repository to `training/module-02`, re-inspect the complete staged-plus-untracked allowlist, then retry the commit. | Commit succeeds on `training/module-02` |
-| Toolchain help exits 2 | Inspect `toolchain-help.txt` for the known unrecognized argument | Record the 0.111.0 defect; verify registration with `commands`, then run the tested consumer form. | Consumer toolchain command exits 0 |
+| Toolchain help exits 2 | Inspect `toolchain-help.txt` for the known unrecognized argument | Record the 0.112.0 defect; verify registration with `commands`, then run the tested consumer form. | Consumer toolchain command exits 0 |
 | Doctor exits 0 with warnings | Record severity and recommended action | Treat the result as evidence and classify the recommendation. Do not execute migration or another untaught recovery in this module. Use Task 4's provided failure for the required recovery decision. | Exit and warnings are both represented accurately |
 | Init prints generic push, PR, or merge next steps | The installer is describing an ordinary repository lifecycle, not granting this lab remote authority | Do not follow those steps. Re-run the no-remote guard and continue only with the local lab. | `git remote` remains empty |
 | Allowlist rejects a path | Read the exact path and compare with the pinned baseline | Stop. Preserve the attempt and verify version/source drift before amending any allowlist. | A fresh attempt contains only expected paths |
@@ -980,7 +982,7 @@ archive later only through your normal local-data policy.
 
 After a good-faith first attempt, compare your route and evidence with the
 [explained solution](../solutions/lab-02-disposable-initialization.md). It covers the known
-0.111.0 warnings, provided authentication-failure decision drill, global-fallback hazard, and
+0.112.0 warnings, provided authentication-failure decision drill, global-fallback hazard, and
 valid alternate evidence. The solution is immediately available; no instructor or bot is
 required.
 
@@ -988,7 +990,7 @@ required.
 
 Fill this in only after acceptance and cleanup:
 
-> I completed `lab-02-disposable-initialization` against Directive 0.111.0 on my recorded
+> I completed `lab-02-disposable-initialization` against Directive 0.112.0 on my recorded
 > operating system and shell. The explicit local version, doctor, consumer toolchain, Git
 > boundary, chooser, anatomy, and recovery-decision checks passed and cover O2.1–O2.4. The
 > exact disposable parent is archived at my recorded temporary archive path. Every attempt

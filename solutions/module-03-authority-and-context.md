@@ -11,8 +11,8 @@ applying behavior specificity, rule strength, authorization, or operator escalat
 | Solves | `module-03-authority-and-context` |
 | Outcomes covered | O3.1, O3.2, O3.3, O3.4 |
 | Status | `learner-ready draft` |
-| Last verified | 2026-09-06 |
-| Directive baseline | `@deftai/directive@0.111.0`, engine `@deftai/directive-core@0.111.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Last verified | 2026-09-07 |
+| Directive baseline | `@deftai/directive@0.112.0`, engine `@deftai/directive-core@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Module 3 conflict exercise](../curriculum/modules/03-authority-and-context.md#exercise) |
 
 Claim labels used here:
@@ -107,7 +107,7 @@ A successful table should show:
 | Card | Statement type | Applied axis/category | Controlling source or evidence | Decision | Additional context | Operator needed? |
 | --- | --- | --- | --- | --- | --- | --- |
 | A | Behavior choice | Behavior-source specificity | `PROJECT-DEFINITION` overrides `USER.md Defaults` for a project-scoped package manager | Use npm for Northstar | None beyond the two cited sources | No |
-| B | Behavior formatting rule | Behavior-source specificity | `USER.md Personal` is more specific than the general framework example | Record evidence dates as ISO 8601, such as `2026-09-06` | None | No |
+| B | Behavior formatting rule | Behavior-source specificity | `USER.md Personal` is more specific than the general framework example | Record evidence dates as ISO 8601, such as `2026-09-07` | None | No |
 | C | Product requirement plus authorization | Implementation authorization | Active xBRIEF supplies accepted work; live instruction explicitly withholds implementation | Summarize only; do not edit | Active scope and the requested review guidance | No |
 | D | Product requirement, authorization, and evidence | Gate readiness after authority | Active scope plus live implement intent exist, but deterministic preflight exited 1 | Follow the stated remediation and rerun the same preflight; write no code until it passes | Preflight contract and its one remediation | No, unless remediation itself needs new authority |
 | E | Historical requirement and vague live intent | Lifecycle authority | Completed xBRIEF has zero authority over what to build next; no active scope exists | Do not implement the old improvement. Use the authorized work-selection and lifecycle path to obtain an active contract | Work-selection/lifecycle guidance | Not yet. Inspect authorized work selection first. If it yields no approved choice: “Which proposed scope should be approved and activated for this implementation request?” |
@@ -220,7 +220,7 @@ product decision.
 1. Record the course pin and the newer project's installed Directive version.
 2. Re-open the matching release's core skill, Concepts rule-strength section, main xBRIEF
    authority statement, and session-routing contract.
-3. Keep this exercise on 0.111.0 or stop and report the version mismatch.
+3. Keep this exercise on 0.112.0 or stop and report the version mismatch.
 4. Do not silently combine hierarchies from different releases.
 
 ## Misconceptions exposed by this exercise
@@ -261,11 +261,11 @@ Never copy the actual contents of a shared `USER.md` into the scratch note.
 
 | Claim | Type | Pinned source or policy | Verified date |
 | --- | --- | --- | --- |
-| Personal/project/Defaults precedence and lazy loading | Directive behavior | [Core skill — `Core Principle: Rule Precedence` and `File Reading Strategy (Lazy Loading)`](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/SKILL.md) | 2026-09-06 |
-| Deterministic enforcement order | Directive behavior | [Concepts — `Rule Strength` and `Lazy Loading And Modularity`](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/docs/CONCEPTS.md) | 2026-09-06 |
-| Active scope plus live intent; completed-scope boundary | Directive behavior | [main.md — xBRIEF Persistence](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/main.md#xbrief-persistence) | 2026-09-06 |
-| Session posture and implementation intent | Directive behavior | [Commands — `Session routing (#2176)` and `Scope xBRIEF Lifecycle`](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/commands.md) | 2026-09-06 |
-| Bounded operator escalation and no shared USER.md copying | 3Ci policy | `xbrief/PROJECT-DEFINITION.xbrief.json` ProjectRules and [Module 3](../curriculum/modules/03-authority-and-context.md) | 2026-09-06 |
+| Personal/project/Defaults precedence and lazy loading | Directive behavior | [Core skill — `Core Principle: Rule Precedence` and `File Reading Strategy (Lazy Loading)`](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/SKILL.md) | 2026-09-07 |
+| Deterministic enforcement order | Directive behavior | [Concepts — `Rule Strength` and `Lazy Loading And Modularity`](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/docs/CONCEPTS.md) | 2026-09-07 |
+| Active scope plus live intent; completed-scope boundary | Directive behavior | [main.md — xBRIEF Persistence](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/main.md#xbrief-persistence) | 2026-09-07 |
+| Session posture and implementation intent | Directive behavior | [Commands — `Session routing (#2176)` and `Scope xBRIEF Lifecycle`](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md) | 2026-09-07 |
+| Bounded operator escalation and no shared USER.md copying | 3Ci policy | `xbrief/PROJECT-DEFINITION.xbrief.json` ProjectRules and [Module 3](../curriculum/modules/03-authority-and-context.md) | 2026-09-07 |
 
 This solution is an original paraphrase/adaptation. See the complete
 [source baseline](../references/SOURCE-BASELINE.md).

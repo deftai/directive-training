@@ -5,40 +5,41 @@ They are maintainer evidence, not a learner command reference.
 
 ## Verification context
 
-- Verification dates: 2026-09-05 and 2026-09-06.
+- Current-baseline verification date: 2026-09-07.
 - Host used: macOS with zsh and Node.js 24.18.0.
-- Project direct pin: `@deftai/directive` 0.111.0 in `devDependencies`.
+- Project direct pin: `@deftai/directive` 0.112.0 in `devDependencies`.
 - The training project had no project-local `node_modules` or lockfile; its exact direct pin
   is a reconstitution anchor, not proof of a local install.
-- Executed CLI: global `/opt/homebrew/bin/directive`.
-- Installed CLI, core engine, and content package: 0.111.0 each.
-- Reconstituted deposit generation: 0.111.0 on all recorded surfaces.
-- Official tag: `v0.111.0`; peeled commit and npm `gitHead`:
-  `750b79f6ed343393e42142f419dfb0591cca5a21`.
+- Executed CLI: global `/Users/davidcall/.nvm/versions/node/v24.18.0/bin/directive` and the
+  disposable repository's explicit project-local binary.
+- Installed CLI, core engine, content, and types packages: 0.112.0 each on the applicable
+  package graph.
+- Reconstituted deposit generation: 0.112.0 on all recorded surfaces.
+- Official tag: `v0.112.0`; peeled commit and npm `gitHead`:
+  `7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808`.
 - The complete macOS/zsh Module 2 rehearsal used two unique disposable, no-remote Git
   repositories under one operating-system temporary parent. The fresh reset attempt installed
   the exact fixture graph, ran every help and initialization check, committed the inspected
   allowlist, passed literal acceptance, and archived both attempts.
-- Authorized GitHub Actions run
-  [34040576589](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040576589)
-  repeated the guarded path with Node.js 24.20.0 on `macos-15`, `ubuntu-24.04`, and
-  `windows-2022`; all three native jobs passed at head
-  `4c73458f1586259359f4ca3d7be4d614d6908cd2`.
+- Native 0.112.0 pull-request matrix run
+  [34080818120](https://github.com/3Ci-Consulting/directive-training/actions/runs/34080818120)
+  used Node.js 24.20.0 on `macos-15`, `ubuntu-24.04`, and `windows-2022`; all three
+  jobs passed at exact candidate head `3f2f996bcfb53c4361cc5c5e949d9c9cd2c83a39`.
 
 ## Version and provenance probes
 
 | Probe | Exit | Result |
 | --- | ---: | --- |
-| Read the exact value from `package.json` | 0 | `@deftai/directive: 0.111.0` under `devDependencies`. |
-| `directive --version` | 0 | Reported engine `@deftai/directive-core@0.111.0`. |
-| Read the installed CLI package manifest | 0 | CLI package version 0.111.0. |
-| `npm ls -g --depth=1` for the package graph | 0 | CLI, content, and core resolved to 0.111.0. |
-| Read `.deft/GENERATION.json` and `.deft/core/VERSION` | 0 | Deposit surfaces say 0.111.0 and tag `v0.111.0`; `VERSION` identifies a content-package deposit. |
-| `git ls-remote` for `refs/tags/v0.111.0` and its peel | 0 | Tag object `00115182c859e96d0fe6f168f118fff3ad1a807f`; commit `750b79f6ed343393e42142f419dfb0591cca5a21`. |
-| `npm view @deftai/directive@0.111.0` | 0 | Version, tarball integrity, repository, and `gitHead` resolved; `gitHead` matched the tag peel. |
+| Read the exact value from `package.json` | 0 | `@deftai/directive: 0.112.0` under `devDependencies`. |
+| `directive --version` | 0 | Reported engine `@deftai/directive-core@0.112.0`. |
+| Read the installed CLI package manifest | 0 | CLI package version 0.112.0. |
+| `npm ls -g --depth=1` for the package graph | 0 | CLI, content, and core resolved to 0.112.0. |
+| Read `.deft/GENERATION.json` and `.deft/core/VERSION` | 0 | Deposit surfaces say 0.112.0 and tag `v0.112.0`; `VERSION` identifies a content-package deposit. |
+| `git ls-remote` for `refs/tags/v0.112.0` and its peel | 0 | Tag object `5f30e544eedb72c313ba61934818eb49506fe61b`; commit `7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808`. |
+| `npm view @deftai/directive@0.112.0` | 0 | Version, tarball integrity, repository, and `gitHead` resolved; `gitHead` matched the tag peel. |
 
-The CLI help banner displays `Directive v0.111`, without the patch component. Use package
-metadata, `directive --version`, and the deposit generation record for the exact 0.111.0 pin.
+The CLI help banner displays `Directive v0.112`, without the patch component. Use package
+metadata, `directive --version`, and the deposit generation record for the exact 0.112.0 pin.
 
 ## CLI help probes
 
@@ -54,7 +55,7 @@ Every row was executed from the consumer project root. `In top help` means the c
 | `directive xbrief:preflight --help` | No | Yes | Exit 0; printed the current xBRIEF verb with a legacy `--vbrief-path` option name. |
 | `directive scope:promote --help` | Yes | Yes | Exit 0; printed a stale Task/vBRIEF-oriented help card. |
 | `directive scope:activate --help` | No | Yes | Exit 0; printed a stale Task/vBRIEF-oriented help card. |
-| `directive scope:record-approved-scope --help` | No | Yes | Exit 2; printed usage that advertises a `--` separator, although the released command rejects that separator. |
+| `directive scope:record-approved-scope --help` | No | Yes | Exit 0; printed the current usage with the documented `-- <xbrief-path>` form. |
 | `directive session:start --help` | Yes | Yes | Exit 2; `session_start: unrecognized argument: --help`. |
 | `directive check --help` | Yes | Yes | Exit 2; `check: unrecognized argument: --help`. |
 | `directive verify:vbrief-conformance --help` | No | Yes | Exit 0; printed accepted flags including `--project-root PATH`. |
@@ -78,7 +79,7 @@ its syntax.
 
 ## Disposable consumer runtime proof
 
-The 2026-09-06 macOS/zsh proof `local-disposable-project-local-hook-full` used a fresh
+The 2026-09-07 macOS/zsh proof `local-0.112.0-disposable-project-local-hook-full` used a fresh
 operating-system temporary parent, two Git repositories with no remotes, the fictional Module
 2 fixture, and the explicit project-local CLI and hook runtime. The first attempt stopped
 after the guarded Git start; the second exercised the complete learner path as a
@@ -86,15 +87,15 @@ fresh-directory reset. Neither attempt initialized or mutated the training worki
 
 | Probe | Exit | Relevant result |
 | --- | ---: | --- |
-| `npm install --ignore-scripts --no-audit --no-fund` with an empty temporary npm user config | 0 | Added 48 packages; CLI, core, and content resolved through the fixture's exact 0.111.0 pin and overrides. |
-| Fixture and installed-graph assertions | 0 | `private: true`; the direct CLI pin and CLI/core/content/types installed package versions were all exactly 0.111.0. |
-| `./node_modules/.bin/directive --version` | 0 | Reported engine `@deftai/directive-core@0.111.0`. |
+| `npm install --ignore-scripts --no-audit --no-fund` with an empty temporary npm user config | 0 | Added 48 packages; CLI, core, and content resolved through the fixture's exact 0.112.0 pin and overrides. |
+| Fixture and installed-graph assertions | 0 | `private: true`; the direct CLI pin and CLI/core/content/types installed package versions were all exactly 0.112.0. |
+| `./node_modules/.bin/directive --version` | 0 | Reported engine `@deftai/directive-core@0.112.0`. |
 | Project-local hook-runtime assertions | 0 | `PATH` selected the disposable attempt's `node_modules/.bin/deft` before init and commit; `core.hooksPath` was exactly `.githooks`. |
 | Top help, command inventory, and init/update/doctor help | 0 each | Every ordinarily supported help probe completed through the explicit local binary. |
 | `toolchain:check --help` diagnostic probe | 2, expected | Printed the recorded `unrecognized argument: --help` diagnostic; the result was asserted rather than suppressed. |
 | `./node_modules/.bin/directive init --yes --repo-root .` | 0 | Classified the Git-initialized directory as brownfield and created the consumer integration. |
 | Seven `git check-ignore` assertions | 0 each | Core, CLI adapter, cache, ritual, triage-cache, shared-USER, and dependency examples were ignored. |
-| Staged-plus-untracked allowlist and checkpoint | 0 | Inspected 138 unique paths, positively required the initialized anchors after staging, rejected no unexpected path, and committed through the local hook on `training/module-02` as local commit `a0839aff1063e9ebd6ee0757ffdf27ad49de5445`. |
+| Staged-plus-untracked allowlist and checkpoint | 0 | Inspected 138 unique paths, positively required the initialized anchors after staging, rejected no unexpected path, and committed through the local hook on `training/module-02` as disposable local commit `9e27626075148d7f56b8b0fa772306120c53709b`. |
 | `./node_modules/.bin/directive doctor --full --project-root .` | 0 | Reported two warnings: the canonical npm provenance/migrate signpost and a missing `xbrief/` directory despite an xBRIEF envelope. Warnings were recorded rather than treated as failure. |
 | `./node_modules/.bin/directive toolchain:check --consumer --project-root .` | 0 | Reported Git 2.50.1, GitHub CLI 2.88.1, Node.js 24.18.0, npm 11.16.0, and “All required tools available.” |
 | Literal clean/root/branch/remote acceptance | 0 | Both tracked diffs and complete porcelain status were empty; the canonical Git root matched the recorded attempt; branch remained `training/module-02`; remotes remained empty. |
@@ -102,28 +103,31 @@ fresh-directory reset. Neither attempt initialized or mutated the training worki
 
 ### Native platform matrix proof
 
-Authorized pull-request run
-[34040576589](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040576589)
-used the checked-in workflow, its pinned actions, Node.js 24.20.0, temporary no-remote
-repositories, and the same version, help, init, anatomy, checkpoint, doctor, toolchain,
-acceptance, reset, and archive assertions on each bounded runner.
+Current-baseline pull-request run
+[34080818120](https://github.com/3Ci-Consulting/directive-training/actions/runs/34080818120)
+used the 0.112.0 fixture, pinned actions, Node.js 24.20.0, temporary no-remote repositories,
+and the same version, help, init, anatomy, checkpoint, doctor, toolchain, acceptance, reset,
+and archive assertions on each bounded runner. It completed successfully at exact candidate
+head `3f2f996bcfb53c4361cc5c5e949d9c9cd2c83a39`.
 
 | Proof marker | Bounded environment | Job evidence | Result |
 | --- | --- | --- | --- |
-| `macos-zsh` | GitHub `macos-15`; zsh | [job 101506460259](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040576589/job/101506460259) | Passed in 19 seconds. |
-| `linux-bash` | GitHub `ubuntu-24.04`; bash | [job 101506460227](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040576589/job/101506460227) | Passed in 29 seconds. |
-| `windows-pwsh7` | GitHub `windows-2022`; PowerShell 7.4+ gate | [job 101506460109](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040576589/job/101506460109) | Passed in 71 seconds. |
+| `macos-zsh` | GitHub `macos-15`; zsh | [job 101615602233](https://github.com/3Ci-Consulting/directive-training/actions/runs/34080818120/job/101615602233) | Passed in 24 seconds. |
+| `linux-bash` | GitHub `ubuntu-24.04`; bash | [job 101615602154](https://github.com/3Ci-Consulting/directive-training/actions/runs/34080818120/job/101615602154) | Passed in 33 seconds. |
+| `windows-pwsh7` | GitHub `windows-2022`; PowerShell 7.4+ gate | [job 101615602190](https://github.com/3Ci-Consulting/directive-training/actions/runs/34080818120/job/101615602190) | Passed in 71 seconds. |
 
-The preceding run
+An earlier 0.111.0 run
 [34040433466](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040433466)
 exposed a curriculum-command defect on Windows: `Get-Command deft` returned both `deft.cmd`
 and the extensionless shim, and coercing both paths broke the local-runtime comparison. The
 workflow and all learner Windows checks now select the first application in PATH explicitly;
-the passing Windows job above verifies that correction. This was not a Directive behavior
-disagreement.
+the subsequent passing 0.111.0 run
+[34040576589](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040576589)
+first verified the correction, and the current passing Windows job confirms it remains fixed
+under 0.112.0. This was not a Directive behavior disagreement.
 
-This evidence is bounded to those runner labels, shells, the npm fixture path, and the pinned
-0.111.0 graph. It does not verify pnpm, other operating-system images, or coding-host
+This current evidence is bounded to those runner labels, shells, the npm fixture path, and
+the pinned 0.112.0 graph. It does not verify pnpm, other operating-system images, or coding-host
 integration. The workflow required no user-managed secret, write permission, persisted
 credential, or remote mutation; GitHub supplied its ephemeral read token to the official
 checkout and Node setup actions.
@@ -140,12 +144,13 @@ binary when a local install is missing. Module 2 therefore invokes the exact
 
 Platform proof markers consumed by the focused verifier:
 
-- `platform-proof:macos-zsh status=verified date=2026-09-06 evidence=local-disposable-project-local-hook-full+gha-run-34040576589`
-- `platform-proof:linux-bash status=verified date=2026-09-06 evidence=gha-run-34040576589`
-- `platform-proof:windows-pwsh7 status=verified date=2026-09-06 evidence=gha-run-34040576589`
+- `platform-proof:macos-zsh status=verified date=2026-09-07 evidence=local-0.112.0-disposable-project-local-hook-full+gha-run-34080818120`
+- `platform-proof:linux-bash status=verified date=2026-09-07 evidence=gha-run-34080818120`
+- `platform-proof:windows-pwsh7 status=verified date=2026-09-07 evidence=gha-run-34080818120`
 
-PowerShell 7.6.5 on the macOS host supplied syntax inspection only. Native Windows evidence
-comes from the bounded `windows-2022` job above; the macOS inspection is not counted twice.
+PowerShell 7.6.5 on the macOS host supplied syntax inspection only. The bounded
+`windows-2022` job above proves the 0.112.0 baseline natively; the macOS-host inspection is
+separate and is not counted as native Windows evidence.
 
 ## Source-file verification
 
@@ -153,12 +158,12 @@ Hashes are SHA-256 over file bytes at the peeled release commit.
 
 | Pinned source | SHA-256 | Consumer-deposit result |
 | --- | --- | --- |
-| `README.md` | `f101b72f1b9b20c400ddd6b39793332d56ced989aebe82817df0eb5f8bcef9e3` | Source-repository-only; not in `.deft/core/`. |
-| `docs/CATEGORY.md` | `5b98ec4fd10c6197578d47231074fc1f14410275ca8ba285f8778d1e01001ebd` | Source-repository-only; not in `.deft/core/`. |
+| `README.md` | `10d14274e9e2a6ebe1d49ff85141eaf1c086e7bca9614ed9ce8d2db60f30c0f6` | Source-repository-only; not in `.deft/core/`. |
+| `docs/CATEGORY.md` | `5ac68491bfc455188ed3beffe8e398f3ed29e4d273dfb8c7b12306fe22d035c3` | Source-repository-only; not in `.deft/core/`. |
 | `docs/CONCEPTS.md` | `20fe9d9a0ab72c9922b7c4fb22ed6944f41d73c7730b25347c41af9c27c79161` | Source-repository-only; not in `.deft/core/`. |
 | `content/conventions/references.md` | `a07578a13eeb1bfb20f10d08aff4e71549a63e3f7585bb5be9d32827d2ebaf98` | Reconstituted at `.deft/core/conventions/references.md` with the deposit marker and one relative-link rewrite; deposited hash `1a31bb6c4406189acbf1bb95c1832f55389bfe300e190a5946f60025366435d4`. |
 | `content/docs/directive-lifecycle.md` | `14ea6bfd92cc8d49bdce173206f4d73670e24c87abdb0bf620b6bbe218799c52` | Byte-identical at `.deft/core/docs/directive-lifecycle.md`. |
-| `content/commands.md` | `86371bed0e2e7e6c34a5aabbb5adfab071da01e0c680cd68ec7c3e79136b2a39` | Byte-identical at `.deft/core/commands.md`. |
+| `content/commands.md` | `eb012055fe7c3d410016e5e8ee386dc232de997dd9d57ba245125b25d6f45c50` | Byte-identical at `.deft/core/commands.md`. |
 | `content/strategies/README.md` | `e21090a90ca0ed3c4b324afebef53392292a4e43e86e2b9ea74a1058659de8aa` | Reconstituted at `.deft/core/strategies/README.md` with deposit-only rewrites. |
 | `LICENSE` | `4322170c478362f7beb21558b4585f706a8b9e8d22fbda53f81d90f9aebfaeb5` | Notice text matches `.deft/core/LICENSE.md`; the deposited copy adds a Markdown heading marker. |
 
@@ -172,7 +177,7 @@ baseline are otherwise unchanged.
 | Surface disagreement | Curriculum decision |
 | --- | --- |
 | `scope:promote --help` and `scope:activate --help` describe vBRIEF files and `vbrief/` example paths even though current sources define xBRIEF as canonical. | Teach `xbrief/` and xBRIEF 0.8. Use the help card only for flags until upstream wording changes. |
-| `scope:record-approved-scope --help` advertises a `--` separator that the released command rejects with `scope_record_approved_scope: unrecognized argument: --`. | For 0.111.0, pass the xBRIEF path directly without the separator. The upstream defect is tracked in [deftai/directive#4203](https://github.com/deftai/directive/issues/4203). |
+| 0.111.0 rejected the `--` separator advertised by `scope:record-approved-scope --help`; 0.112.0 accepts it. Both separator and direct-positional probes reached the expected operator-TTY authorization refusal in the agent shell. | Teach the documented `-- <xbrief-path>` form for 0.112.0. Treat [deftai/directive#4203](https://github.com/deftai/directive/issues/4203) as resolved release history, not a current workaround. |
 | `xbrief:preflight --help` names the current verb but retains `--vbrief-path` as an option alias. | Prefer the documented positional active `xbrief/` path in learner examples; record the legacy option name rather than treating it as the current data model. |
 | The strategy README uses deprecated `/deft:run:*` forms, while `content/commands.md` names `/deft:directive:run:*` as canonical. | Teach the namespaced `/deft:directive:run:*` form and label the shorter form legacy. Revalidate when strategy modules are authored. |
 | The strategy README's `v0.20 Output Contract` section still says "scope vBRIEFs" in places. | Explain that v0.20 names the document-model cutover; current authoring is xBRIEF schema 0.8. |
@@ -181,11 +186,11 @@ baseline are otherwise unchanged.
 | `directive --help` omits registered verbs including `scope:activate`, `xbrief:preflight`, and `verify:vbrief-conformance`. | Treat top help as curated. Use `directive commands` for registry coverage. |
 | Upstream source docs use unprefixed `task` commands; this consumer's include is named `deft`. | Teach consumer forms such as `task deft:check`, `task deft:scope:promote`, and `task deft:scope:activate`. |
 | `task --list` descriptions for the two scope lifecycle tasks also retain vBRIEF wording. | Use the task names as executable surfaces, but take current terminology and paths from the xBRIEF sources. |
-| The release README says `init` creates a committed package pin, but the shipped 0.111.0 init path did not call the available pin-writing primitive and the disposable probe received no automatic pin. | Put and verify the exact `@deftai/directive: 0.111.0` pin in `package.json` before init; do not promise that init creates it. |
-| Released prose describes a new empty directory as a scaffold, but 0.111.0 treats `.git` alone as sufficient for `brownfield-install`. | A lab that runs `git init` first expects the brownfield label. Scaffold classification requires a disposable non-Git directory. |
+| The release README says `init` creates a committed package pin, but the shipped 0.112.0 init path did not call the available pin-writing primitive and the disposable probe received no automatic pin. | Put and verify the exact `@deftai/directive: 0.112.0` pin in `package.json` before init; do not promise that init creates it. |
+| Released prose describes a new empty directory as a scaffold, but 0.112.0 treats `.git` alone as sufficient for `brownfield-install`. | A lab that runs `git init` first expects the brownfield label. Scaffold classification requires a disposable non-Git directory. |
 | `doctor` is described as read-only, but a normal run writes ignored throttle metadata. | Describe doctor as non-mutating to tracked product state and remotes, not as performing zero filesystem writes. |
-| `update --dry-run` says no changes are written but formats planned deletions as past-tense `Removed:` entries. | Call the output a proposed plan. A 2026-09-06 probe confirmed the named backup remained after dry-run. |
-| `directive init --headless` exited 0 but emitted truncated, invalid JSON in the observed 0.111.0 run. | Keep headless init outside the beginner path and do not use its stdout as evidence until the defect is resolved and reverified. |
+| A 0.111.0 `update --dry-run` probe formatted planned deletions as past-tense `Removed:` entries. A current-state 0.112.0 probe exited 0, reported `No dest mutations recorded`, and changed no files. | Treat dry-run output as a plan. The old wording was not reproduced because the 0.112.0 target had no pending deletion. |
+| 0.111.0 `directive init --headless` emitted truncated JSON; the 0.112.0 probe exited 0 and emitted a complete 6,420,515-byte document parsed successfully by `JSON.parse`. | Record the defect as resolved in 0.112.0. Headless init remains outside the beginner path because Modules 1–3 do not teach automation installation. |
 | Brownfield init appended many canonical ignore entries to an existing `.gitignore` but did not append `/USER.md` or `/.deft/USER.md`; the resulting `git check-ignore USER.md` exited 1. | The lab writes those two safety entries before init and proves them afterward. Continue teaching that shared USER.md is resolved and read in place, never copied or committed. |
 | Init staged most installer-managed paths, and the installed branch hook refused the first local checkpoint on the unborn `main` branch. | The lab creates `training/module-02` before init, then validates the union of already-staged and untracked paths. It does not bypass the branch gate or assume all generated files remain untracked. |
 

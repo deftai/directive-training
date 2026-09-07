@@ -1,7 +1,7 @@
 # Curriculum maintenance contract
 
 This document governs the authored 3Ci Directive curriculum. It describes the
-0.111.0 internal-alpha baseline and must be reviewed whenever the project pin,
+0.112.0 internal-alpha baseline and must be reviewed whenever the project pin,
 Directive behavior, course outcomes, or publication target changes.
 
 ## Ownership and release status
@@ -153,6 +153,7 @@ The current active scope states these literal acceptance commands:
 
 ```text
 npm run check:cold-start-readme
+npm run check:modules-2-3
 directive verify:vbrief-conformance --project-root .
 ```
 

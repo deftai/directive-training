@@ -9,9 +9,9 @@ authorization, and deterministic evidence into one misleading file-order list.
 | --- | --- |
 | Stable ID | `module-03-authority-and-context` |
 | Status | `learner-ready draft` |
-| Last content update | 2026-09-06 |
-| Last verified | 2026-09-06 |
-| Directive baseline | `@deftai/directive@0.111.0`, engine `@deftai/directive-core@0.111.0`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Last content update | 2026-09-07 |
+| Last verified | 2026-09-07 |
+| Directive baseline | `@deftai/directive@0.112.0`, engine `@deftai/directive-core@0.112.0`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 45 minutes |
 | Prerequisites | Complete [Module 2](02-installation-and-anatomy.md); understand project versus managed files and xBRIEF as durable work state |
 
@@ -423,12 +423,12 @@ instructor unlock is required.
 
 ## Official sources
 
-| Claim | Pinned 0.111.0 source | Use in this module |
+| Claim | Pinned 0.112.0 source | Use in this module |
 | --- | --- | --- |
-| Personal, project, Defaults, and lazy-loading precedence | [Core skill — `Core Principle: Rule Precedence` and `File Reading Strategy (Lazy Loading)`](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/SKILL.md) | Behavior specificity and context selection |
-| Deterministic rule strength and modularity | [Concepts — `Rule Strength` and `Lazy Loading And Modularity`](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/docs/CONCEPTS.md) | Enforcement axis |
-| Active plus live authority; completed scope boundary | [main.md — xBRIEF Persistence](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/main.md#xbrief-persistence) | Implementation authorization |
-| Session routing and intent gate | [Commands](https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/commands.md) — `Session routing (#2176)`, `Scope xBRIEF Lifecycle` | Read-only versus mutation posture |
+| Personal, project, Defaults, and lazy-loading precedence | [Core skill — `Core Principle: Rule Precedence` and `File Reading Strategy (Lazy Loading)`](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/SKILL.md) | Behavior specificity and context selection |
+| Deterministic rule strength and modularity | [Concepts — `Rule Strength` and `Lazy Loading And Modularity`](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/docs/CONCEPTS.md) | Enforcement axis |
+| Active plus live authority; completed scope boundary | [main.md — xBRIEF Persistence](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/main.md#xbrief-persistence) | Implementation authorization |
+| Session routing and intent gate | [Commands](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md) — `Session routing (#2176)`, `Scope xBRIEF Lifecycle` | Read-only versus mutation posture |
 
 The module paraphrases and adapts these sources. It does not reproduce a shared `USER.md` or
 substantial upstream prose. See the [source baseline](../../references/SOURCE-BASELINE.md).

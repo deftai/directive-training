@@ -1,24 +1,24 @@
 # Directive source baseline
 
-This manifest fixes the curriculum's version-sensitive claims to Directive 0.111.0. It was
-verified on 2026-09-05 and 2026-09-06 and must be refreshed when the project pin changes.
+This manifest fixes the curriculum's version-sensitive claims to Directive 0.112.0. It was
+revalidated on 2026-09-07 and must be refreshed when the project pin changes.
 
 ## Release identity
 
 | Evidence | Verified result |
 | --- | --- |
-| Consumer project pin | `package.json` has exact dev dependency `@deftai/directive: 0.111.0`. |
-| Executables used for probes | `/opt/homebrew/bin/directive`, resolved to the global 0.111.0 CLI package, and a disposable repository's explicit `node_modules/.bin/directive`, installed from the exact fixture pin. |
-| Installed packages | The global CLI, core, and content packages and the disposable repository's CLI/core/content graph all resolved to 0.111.0. The training repository itself records a pin but does not contain a project-local install or lockfile. |
-| Runtime version report | `directive --version` reported `@deftai/directive-core@0.111.0`. |
-| Consumer deposit | `.deft/GENERATION.json` records payload, templates, skills, and docs at 0.111.0. |
-| Release tag | Annotated tag `v0.111.0`; tag object `00115182c859e96d0fe6f168f118fff3ad1a807f`. |
-| Release commit | `750b79f6ed343393e42142f419dfb0591cca5a21`. The tag peel and npm `gitHead` agree. |
-| npm artifact | Version 0.111.0; integrity `sha512-l/7/yvNs6hFgb0NGCLHFf7KROYWeNFNvhTSQSIfHmlrld14GarAEK2/ikQbsrhpUGC0STz76iJ4wK3grhW+lKQ==`. |
+| Consumer project pin | `package.json` has exact dev dependency `@deftai/directive: 0.112.0`. |
+| Executables used for probes | `/Users/davidcall/.nvm/versions/node/v24.18.0/bin/directive`, resolved to the global 0.112.0 CLI package, and a disposable repository's explicit `node_modules/.bin/directive`, installed from the exact fixture pin. |
+| Installed packages | The global CLI/core/content graph and the disposable repository's CLI/core/content/types graph all resolved to 0.112.0. The training repository itself records a pin but intentionally contains no project-local install or lockfile. |
+| Runtime version report | `directive --version` reported `@deftai/directive-core@0.112.0`. |
+| Consumer deposit | `.deft/GENERATION.json` records payload, templates, skills, and docs at 0.112.0. |
+| Release tag | Annotated tag `v0.112.0`; tag object `5f30e544eedb72c313ba61934818eb49506fe61b`. |
+| Release commit | `7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808`. The tag peel and npm `gitHead` agree. |
+| npm artifact | Version 0.112.0; integrity `sha512-c5fOMWk2p1C/M6q8B3DrAJDjceNPeU6AvCesTA/zQAw/V+vbiPltfeo8NIBndoxRAaDtbVSQzEKnQ93f6sDS1w==`. |
 | Curriculum model | Current authoring uses `xBRIEFInfo.version: "0.8"` and the `xbrief/` lifecycle. |
 
 Use the immutable [release commit][release-commit] for citations. The human-friendly
-[v0.111.0 tag][release-tag] and [npm package record][npm-release] identify the same release.
+[v0.112.0 tag][release-tag] and [npm package record][npm-release] identify the same release.
 
 ## Evidence precedence
 
@@ -26,7 +26,7 @@ When evidence disagrees, use this order:
 
 1. Observed behavior from the installed, pin-matched CLI or deterministic gate.
 1. Source at the immutable release commit.
-1. The 0.111.0 content reconstituted under `.deft/core/`.
+1. The 0.112.0 content reconstituted under `.deft/core/`.
 1. This curriculum's explanation.
 
 The first three layers define upstream behavior. The curriculum paraphrases them and labels
@@ -43,10 +43,10 @@ release.
 
 | Curriculum claim | Pinned source and heading |
 | --- | --- |
-| Directive is a repository practice layer, not a coding host, standalone skill pack, or application orchestrator. | [README.md][src-readme] — `TL;DR`; [docs/CATEGORY.md][src-category] — `Four-way fit table`, `What Directive is`, `What Directive is not`. |
-| Directive's three pillars are shared standards, durable work state, and deterministic gates in the repository. | [docs/CATEGORY.md][src-category] — `What Directive is`; [README.md][src-readme] — `TL;DR`. |
+| Directive is a repository practice layer, not a coding host, standalone skill pack, or application orchestrator. | [README.md][src-readme] — opening `What it is` summary; [docs/CATEGORY.md][src-category] — `Four-way fit table`, `What Directive is`, `What Directive is not`. |
+| Directive's three pillars are shared standards, durable work state, and deterministic gates in the repository. | [docs/CATEGORY.md][src-category] — `What Directive is`; [README.md][src-readme] — opening `What it is` summary. |
 | New xBRIEF writes use schema 0.8; schema 0.6 remains legacy read/migration compatibility. | [content/conventions/references.md][src-references] — `Schema Version: v0.8 (canonical write)`. |
-| Deft names the company and on-disk footprint; Directive names the installed product and primary CLI. | [README.md][src-readme] — `Deft & Directive (naming)`; [docs/CATEGORY.md][src-category] — `What Directive is`. |
+| Deft names the company; Directive names the installed product and primary CLI, while `.deft/` remains its on-disk footprint. | [README.md][src-readme] — opening naming statement and `Getting Started`; [docs/CATEGORY.md][src-category] — `What Directive is`. |
 | npm plus `directive init`, `directive update`, and `directive doctor` form the current consumer entry path. | [README.md][src-readme] — `Getting Started`, `1. Install and initialize`; [docs/CONCEPTS.md][src-concepts] — `Installer Layout`. |
 | Current consumer prerequisites are Node.js 20 or newer, Git, GitHub CLI, and the selected npm/pnpm package manager; the Module 2 proof uses a supported Node.js 24 line. | [content/docs/getting-started.md][src-getting-started] — `Prerequisites`, `Installation`, `npm (canonical)`; live `directive toolchain:check --consumer --project-root .`. |
 | Use `init` for a repository without a Directive footprint, `update` to reconcile an initialized consumer, and `doctor` when state is unknown or unhealthy. An `init` against an existing footprint delegates to update. | [README.md][src-readme] — `Getting Started`; [content/skills/deft-directive-setup/SKILL.md][skill-setup] — `Consumer-first default (#1813)`; [docs/CONCEPTS.md][src-concepts] — `Installer Layout`; released `init`, `update`, and `doctor` help surfaces. |
@@ -76,7 +76,7 @@ cutover. It does not change the current xBRIEF schema version from 0.8.
 
 ## Modules 2–3 command surfaces
 
-The following literal probes were run against 0.111.0. Detailed exits and anomalies are in
+The following literal probes were run against 0.112.0. Detailed exits and anomalies are in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md#cli-help-probes).
 
 | Surface tested | Result used by the curriculum |
@@ -86,15 +86,16 @@ The following literal probes were run against 0.111.0. Detailed exits and anomal
 | `directive init --help` | Exit 0; verified options include `--repo-root` and `--yes`. |
 | `directive update --help` | Exit 0; verified update and dry-run surface. |
 | `directive doctor --help` | Exit 0; verified diagnostic surface. |
-| `directive toolchain:check --help` | Exit 2 after printing usage because 0.111.0 rejects `--help`; this is recorded, not hidden. |
-| `directive toolchain:check --consumer --project-root .` | Exit 0 on the verified macOS/zsh consumer path. |
+| `directive toolchain:check --help` | Exit 2 after printing usage because 0.112.0 rejects `--help`; this is recorded, not hidden. |
+| `directive toolchain:check --consumer --project-root .` | Exit 0 on the verified macOS/zsh, Linux/bash, and Windows/PowerShell consumer paths. |
+| `directive scope:record-approved-scope --help` | Exit 0; its documented `-- <xbrief-path>` form and the direct positional form both reach the operator-TTY authorization gate. |
 
 ## Modules 2–3 released disagreements
 
 These disagreements change what the learner path can safely promise. Probe details and less
 central release discrepancies remain in [SOURCE-NOTES.md](./SOURCE-NOTES.md#recorded-disagreements-and-curriculum-decisions).
 
-| Released prose or help | Observed 0.111.0 behavior | Curriculum treatment |
+| Released prose or help | Observed 0.112.0 behavior | Curriculum treatment |
 | --- | --- | --- |
 | The README says init creates a committed package pin. | The disposable init path created no package pin. | Put and verify the exact direct pin and CLI/core/content/types overrides before init. |
 | Prose describes a new empty directory as a scaffold. | Running Git first made the otherwise empty repository select `brownfield-install`. | Expect brownfield for this Git-first safety path; do not reinterpret it as the wrong command. |
@@ -102,7 +103,11 @@ central release discrepancies remain in [SOURCE-NOTES.md](./SOURCE-NOTES.md#reco
 | Doctor is commonly described as read-only and prose can imply a clean result. | Doctor can write ignored throttle state and can exit 0 with classified warnings. | Say it does not mutate tracked product state or remotes; preserve and classify warnings. |
 | Brownfield init appends canonical ignore rules. | It did not add `/USER.md` or `/.deft/USER.md` to the existing ignore file. | Add those safety rules before init and prove them afterward. |
 | A learner might expect generated integration to remain merely untracked. | Init staged most managed paths, and the default-branch hook rejected the first checkpoint on `main`. | Inspect the staged-plus-untracked union and create the disposable feature branch before init. |
-| `scope:record-approved-scope --help` advertises a `--` separator. | The released command rejects that separator. | Pass the xBRIEF path directly for 0.111.0; upstream tracking is [deftai/directive#4203](https://github.com/deftai/directive/issues/4203). |
+
+Two 0.111.0 discrepancies are resolved in 0.112.0: the documented
+`scope:record-approved-scope -- <xbrief-path>` separator is accepted, and `directive init
+--headless` emits complete parseable JSON. They are recorded as release deltas in
+[SOURCE-NOTES.md](./SOURCE-NOTES.md), not retained as current learner warnings.
 
 ## Deferred skill-contract validation
 
@@ -148,23 +153,23 @@ Refresh this baseline when any of these occurs:
 Record probe-level results, disagreements, and unresolved coverage in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md).
 
-[release-commit]: https://github.com/deftai/directive/commit/750b79f6ed343393e42142f419dfb0591cca5a21
-[release-tag]: https://github.com/deftai/directive/tree/v0.111.0
-[npm-release]: https://www.npmjs.com/package/@deftai/directive/v/0.111.0
-[src-readme]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/README.md
-[src-category]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/docs/CATEGORY.md
-[src-concepts]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/docs/CONCEPTS.md
-[src-core-skill]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/SKILL.md
-[src-main]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/main.md
-[src-getting-started]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/docs/getting-started.md
-[src-references]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/conventions/references.md
-[src-lifecycle]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/docs/directive-lifecycle.md
-[src-commands]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/commands.md
-[src-strategies]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/strategies/README.md
-[src-license]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/LICENSE
-[skill-setup]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/skills/deft-directive-setup/SKILL.md
-[skill-build]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/skills/deft-directive-build/SKILL.md
-[skill-pre-pr]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/skills/deft-directive-pre-pr/SKILL.md
-[skill-review]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/skills/deft-directive-review-cycle/SKILL.md
-[skill-refinement]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/skills/deft-directive-refinement/SKILL.md
-[skill-swarm]: https://github.com/deftai/directive/blob/750b79f6ed343393e42142f419dfb0591cca5a21/content/skills/deft-directive-swarm/SKILL.md
+[release-commit]: https://github.com/deftai/directive/commit/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808
+[release-tag]: https://github.com/deftai/directive/tree/v0.112.0
+[npm-release]: https://www.npmjs.com/package/@deftai/directive/v/0.112.0
+[src-readme]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/README.md
+[src-category]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/docs/CATEGORY.md
+[src-concepts]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/docs/CONCEPTS.md
+[src-core-skill]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/SKILL.md
+[src-main]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/main.md
+[src-getting-started]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/docs/getting-started.md
+[src-references]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/conventions/references.md
+[src-lifecycle]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/docs/directive-lifecycle.md
+[src-commands]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md
+[src-strategies]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/strategies/README.md
+[src-license]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/LICENSE
+[skill-setup]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-setup/SKILL.md
+[skill-build]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-build/SKILL.md
+[skill-pre-pr]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-pre-pr/SKILL.md
+[skill-review]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-review-cycle/SKILL.md
+[skill-refinement]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-refinement/SKILL.md
+[skill-swarm]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-swarm/SKILL.md

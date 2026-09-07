@@ -4,9 +4,10 @@ This guide defines the safe execution model for every hands-on exercise in the 3
 
 **Current status:** this guide remains the shared lab contract. The
 [Module 2 disposable initialization lab](02-disposable-initialization.md) is a
-learner-ready draft with an end-to-end local macOS/zsh proof and native matrix proof for the pinned npm path on
-macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022, dated
-2026-09-06. Generic author examples below are not substitutes for a released lab's
+learner-ready draft with local and native-matrix proof of the 0.112.0 pinned npm path on
+macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+
+on Windows Server 2022, dated 2026-09-07. Generic author
+examples below are not substitutes for a released lab's
 exact commands.
 
 ## Rule labels
@@ -286,7 +287,7 @@ No instructor or review bot is required. If the documented recovery still cannot
 |---|---|---|
 | This environment guide | Available | Create, verify, reset, and archive disposable attempts |
 | [Module 1 — What Directive Is](../curriculum/modules/01-what-directive-is.md) | Available | Complete its embedded fictional classification exercise; it does not mutate a repository |
-| [Lab 2 — Initialize a Disposable Directive Consumer](02-disposable-initialization.md) | Learner-ready draft; pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 | Use its exact fixture, guards, checkpoints, acceptance, reset, and archive path |
+| [Lab 2 — Initialize a Disposable Directive Consumer](02-disposable-initialization.md) | Learner-ready draft; 0.112.0 pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence | Use its exact fixture, guards, checkpoints, acceptance, reset, and archive path |
 | [Lab authoring template](../templates/lab-template.md) | Available to maintainers | Build a lab with tasks, checkpoints, literal gates, reset, cleanup, and a solution |
 | Labs for Modules 4–11 and the capstone | Not yet available | Follow their module links from the [curriculum map](../curriculum/README.md) when released |
 

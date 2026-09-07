@@ -1,0 +1,39 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Approved change proposal for the Directive 0.112.0 curriculum baseline",
+    "created": "2026-09-07T02:34:17Z",
+    "updated": "2026-09-07T02:34:17Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.directive-baseline-0.112.0",
+    "title": "directive-baseline-0.112.0",
+    "status": "approved",
+    "items": [],
+    "narratives": {
+      "Problem": "The framework deposit on master is Directive 0.112.0, while the curriculum package pin, executable fixtures, assertions, CI proof, and current teaching references still describe 0.111.0.",
+      "Change": "Move the maintained curriculum baseline to the exact 0.112.0 release and revalidate every current version-sensitive claim and executable proof surface.",
+      "Scope": "In scope: package pins and overrides, current curriculum and solution text, maintained source-baseline evidence, Module 2 verification scripts, the native platform validation workflow, and generation metadata produced by the 0.112.0 refresh. Out of scope: historical completed xBRIEFs, approved-scope records, archived change evidence, later curriculum modules, publishing, and upstream framework changes.",
+      "Impact": "Learners and maintainers receive one internally consistent 0.112.0 baseline. Cross-platform labels remain bounded by evidence: macOS can be reproved locally, while Linux and Windows require the existing GitHub Actions matrix before they are described as revalidated for 0.112.0.",
+      "Risks": "A mechanical version replacement could preserve a claim that changed in 0.112.0, erase historical evidence, or overstate native platform validation. Release identity, live command behavior, and platform proof must be checked independently.",
+      "Approach": "Probe the exact npm graph and immutable tag, update executable assertions before teaching prose, rerun the disposable macOS proof, reconcile source notes and learner text with observed behavior, and finish with focused and aggregate checks.",
+      "Alternatives": "Keeping 0.111.0 as the teaching pin was rejected because the user requested the latest release and master already carries the 0.112.0 framework deposit. Blind global replacement was rejected because released behavior changed for the approved-scope separator.",
+      "Dependencies": "The merged 0.112.0 framework refresh, Node.js 20 or newer, Git, npm, and native CI runners for claims labeled verified on Linux and Windows."
+    },
+    "references": [
+      {
+        "uri": "../../../xbrief/active/2026-09-07-directive-baseline-0-112-0.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Directive 0.112.0 curriculum baseline scope",
+        "TrustLevel": "internal"
+      }
+    ],
+    "metadata": {
+      "change_name": "directive-baseline-0.112.0",
+      "confirmed_by": "David",
+      "confirmation_phrase": "yes",
+      "confirmed_at": "2026-09-07T02:34:17Z"
+    }
+  }
+}

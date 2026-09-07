@@ -25,7 +25,7 @@ this Markdown; they will not replace it as the source of truth.
 ## Start here
 
 1. Confirm the prerequisites in the [course map](curriculum/README.md).
-2. Note the current teaching baseline: `@deftai/directive` 0.111.0 with xBRIEF
+2. Note the current teaching baseline: `@deftai/directive` 0.112.0 with xBRIEF
    schema 0.8.
 3. Complete [Module 1: What Directive Is](curriculum/modules/01-what-directive-is.md),
    [Module 2: Installation and Project Anatomy](curriculum/modules/02-installation-and-anatomy.md),
@@ -44,9 +44,10 @@ The detailed [source baseline](references/SOURCE-BASELINE.md) is optional audit
 evidence for maintainers and curious learners. It includes legacy and advanced
 drift notes that are intentionally outside the beginner sequence.
 
-Modules 1–3 are learner-ready drafts in this internal alpha. Module 2 is verified on
-macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 for the pinned
-npm path; macOS/zsh also has a detailed local rehearsal. Modules 4–11 and the capstone
+Modules 1–3 are learner-ready drafts in this internal alpha. Module 2's 0.112.0 pinned npm
+path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and
+Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence.
+Modules 4–11 and the capstone
 remain planned; a filename in the map is not a readiness claim.
 
 ## Safety boundary

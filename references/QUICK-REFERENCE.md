@@ -1,7 +1,7 @@
 # Directive learner quick reference
 
 Use this as a memory aid, not as an exhaustive command reference. It describes
-`@deftai/directive` 0.111.0 and xBRIEF 0.8, verified through 2026-09-06. Check
+`@deftai/directive` 0.112.0 and xBRIEF 0.8, verified through 2026-09-07. Check
 [the source baseline](SOURCE-BASELINE.md) before using it with another version.
 
 ## Mental model
@@ -29,7 +29,7 @@ directive <verb> --help
 ```
 
 Replace `<verb>` with the exact command, for example `doctor`. Record a failed
-per-verb help check instead of assuming it is available. In 0.111.0,
+per-verb help check instead of assuming it is available. In 0.112.0,
 `session:start --help`, `check --help`, and `toolchain:check --help` reject
 `--help`, and the lifecycle help
 for `scope:promote` and `scope:activate` contains older vBRIEF-era wording. Use
@@ -40,7 +40,7 @@ active `xbrief/` path. See the baseline for tested exit results.
 
 ## Consumer command chooser
 
-These command names and their help surfaces were checked against 0.111.0. Read
+These command names and their help surfaces were checked against 0.112.0. Read
 the exact help before using options or operands.
 
 | Need | Begin with | Boundary |
@@ -48,7 +48,7 @@ the exact help before using options or operands.
 | Add Directive to a repository that is not initialized | `directive init` | Run only at the intended consumer repository root |
 | Reconcile an initialized consumer project with its pin | `directive update` | Do not re-scaffold the project by hand |
 | Diagnose setup or health | `directive doctor` | Follow its single recommended recovery path |
-| Prove consumer prerequisites | `directive toolchain:check --consumer --project-root .` | In 0.111.0, verify registration with `directive commands`; its `--help` path exits 2 |
+| Prove consumer prerequisites | `directive toolchain:check --consumer --project-root .` | In 0.112.0, verify registration with `directive commands`; its `--help` path exits 2 |
 | Prove an active xBRIEF is implementation-ready | `directive xbrief:preflight -- xbrief/active/<scope-file>.xbrief.json` | Pass the active xBRIEF path; requires active/running scope and live implementation intent |
 | Move approved work toward active state | `directive scope:promote`, then `directive scope:activate` | Use lifecycle commands, not manual file moves |
 
