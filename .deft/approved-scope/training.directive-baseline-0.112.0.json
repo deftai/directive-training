@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-07-directive-baseline-0.112.0.xbrief.json",
+  "planId": "training.directive-baseline-0.112.0",
+  "approvedAt": "2026-09-07T03:30:45Z",
+  "fileScope": [
+    ".deft/GENERATION.json",
+    ".github/workflows/modules-2-3-platform-validation.yml",
+    "curriculum/modules/01-what-directive-is.md",
+    "curriculum/modules/02-installation-and-anatomy.md",
+    "curriculum/modules/03-authority-and-context.md",
+    "curriculum/README.md",
+    "history/changes/directive-baseline-0.112.0/proposal.xbrief.json",
+    "labs/02-disposable-initialization.md",
+    "labs/fixtures/02-disposable-initialization/package.json",
+    "labs/README.md",
+    "maintainers/CURRICULUM-MAINTENANCE.md",
+    "package.json",
+    "README.md",
+    "references/GLOSSARY.md",
+    "references/QUICK-REFERENCE.md",
+    "references/SOURCE-BASELINE.md",
+    "references/SOURCE-NOTES.md",
+    "scripts/verify-cold-start-readme.mjs",
+    "scripts/verify-modules-2-3.mjs",
+    "solutions/lab-02-disposable-initialization.md",
+    "solutions/module-01-what-directive-is.md",
+    "solutions/module-03-authority-and-context.md",
+    "solutions/README.md",
+    "xbrief/active/2026-09-07-directive-baseline-0.112.0.xbrief.json",
+    "xbrief/completed/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
+    "xbrief/PROJECT-DEFINITION.xbrief.json"
+  ],
+  "fileScopeDigest": "af361bb01d3e6b53ad6a67f4ab1567cf85daf34f88bddcbd49cf04932cb31e07",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "David",
+    "mintedAt": "2026-09-07T03:30:45Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "1707587f88fd5218737b66b384e836286306760e9884ea317c27735fbf9a9d75",
+  "digestAlgo": "intent-extract-v1"
+}

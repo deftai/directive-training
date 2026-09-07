@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "algo": "intent-extract-v1",
+  "plan": {
+    "id": "training.directive-baseline-0.112.0",
+    "title": "Directive 0.112.0 Curriculum Baseline",
+    "narratives": {
+      "Description": "Upgrade the maintained training baseline from @deftai/directive 0.111.0 to the exact 0.112.0 release across dependencies, executable proofs, and current teaching references.",
+      "UserStory": "As a 3Ci Directive learner or maintainer, I want the repository's current guidance and executable examples to agree on the latest pinned release, so that the training does not mix framework generations or repeat behavior that changed upstream.",
+      "ImplementationPlan": "1. Bind release identity to npm 0.112.0, its integrity, annotated tag, peeled commit, and installed CLI/core/content/types graph.\n2. Update package pins, fixture overrides, focused assertions, and platform workflow expectations.\n3. Re-run the disposable consumer path on macOS/zsh and compare 0.112.0 behavior with the maintained disagreements.\n4. Update current source-baseline, source-notes, modules, labs, solutions, quick reference, glossary, README, and maintenance guidance.\n5. Preserve historical 0.111.0 delivery records byte-for-byte, run focused checks and task deft:check, and require native CI before claiming Linux/Windows 0.112.0 revalidation.",
+      "Acceptance": "All maintained package and executable surfaces pin 0.112.0 exactly; current learner and maintainer references describe only behavior observed or sourced from 0.112.0; the fixed approved-scope separator disagreement is removed; still-present defects remain explicit; historical completed and archived 0.111.0 evidence is unchanged; local macOS proof and repository quality gates pass; and Linux/Windows status is not promoted to revalidated without a successful native matrix run.",
+      "Safety": "All runtime probing stays inside unique operating-system temporary directories with fictional data and no Git remote. No command may mutate the training worktree, a business repository, upstream deftai/directive, credentials, production systems, or publishing surfaces.",
+      "Traces": "PROJECT-DEFINITION DirectiveBaseline, SourceOfTruth, SupportedEnvironments, LabModel, Maintenance, RisksAndUnknowns, ProjectRules, and David's explicit full-upgrade instruction.",
+      "QualityGate": "Run npm run check:cold-start-readme, npm run check:modules-2-3, directive verify:vbrief-conformance --project-root ., and task deft:check. Native Linux/bash and Windows/PowerShell 7 status requires the modules-2-3-platform-validation GitHub Actions matrix on the final branch head."
+    },
+    "references": [
+      {
+        "uri": "urn:3ci:directive-training:request:2026-09-07",
+        "type": "x-xbrief/user-request",
+        "title": "David's confirmed full Directive 0.112.0 upgrade request"
+      },
+      {
+        "uri": "../../references/SOURCE-BASELINE.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Maintained Directive source baseline"
+      }
+    ],
+    "items": [
+      {
+        "id": "training.directive-baseline-0.112.0.curriculum",
+        "title": "Reconcile current teaching and maintenance references with 0.112.0",
+        "narrative": {
+          "Acceptance": "Current learner and maintainer documents use 0.112.0, preserve accurate still-current limitations, remove the fixed separator warning, and make platform proof status precise."
+        }
+      },
+      {
+        "id": "training.directive-baseline-0.112.0.executable-surfaces",
+        "title": "Upgrade package pins, fixtures, assertions, and platform validation",
+        "narrative": {
+          "Acceptance": "The root package, disposable fixture, focused verifiers, and native validation workflow require 0.112.0 consistently and reject a stale maintained baseline."
+        }
+      },
+      {
+        "id": "training.directive-baseline-0.112.0.release-proof",
+        "title": "Revalidate the immutable 0.112.0 release identity and command behavior",
+        "narrative": {
+          "Acceptance": "The source baseline records the exact package graph, integrity, annotated tag, peeled commit, tested help surfaces, live command results, and every retained or resolved prose-versus-runtime disagreement."
+        }
+      },
+      {
+        "id": "training.directive-baseline-0.112.0.validation",
+        "title": "Run local proof and repository gates without rewriting history",
+        "narrative": {
+          "Acceptance": "The disposable macOS/zsh path and focused/aggregate checks pass, maintained files contain no stale baseline token, and completed xBRIEFs, approved-scope records, and archived change evidence remain unchanged."
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "npm run check:cold-start-readme",
+        "npm run check:modules-2-3",
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "The operator specified the outcome but did not prescribe literal shell acceptance commands; repository checks and native CI are derived from the maintained curriculum contract.",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "package.json and labs/fixtures/02-disposable-initialization/package.json pin @deftai/directive and its fixture overrides exactly to 0.112.0.",
+          "artifact_path": "package.json",
+          "ambiguous": false,
+          "provenance": "derived"
+        },
+        {
+          "id": 2,
+          "text": "references/SOURCE-BASELINE.md and references/SOURCE-NOTES.md bind all maintained version-sensitive claims to the immutable 0.112.0 release and dated observed behavior.",
+          "artifact_path": "references/SOURCE-BASELINE.md",
+          "ambiguous": false,
+          "provenance": "derived"
+        },
+        {
+          "id": 3,
+          "text": "The Module 2 verification script and platform workflow fail on a stale maintained pin and execute the disposable 0.112.0 consumer proof without remote mutation.",
+          "artifact_path": "scripts/verify-modules-2-3.mjs",
+          "ambiguous": false,
+          "provenance": "derived"
+        },
+        {
+          "id": 4,
+          "text": "Current curriculum, lab, solution, quick-reference, glossary, README, and maintenance documents use 0.112.0 and agree with the revalidated behavior record.",
+          "artifact_path": "curriculum/modules/02-installation-and-anatomy.md",
+          "ambiguous": false,
+          "provenance": "derived"
+        },
+        {
+          "id": 5,
+          "text": "Historical completed xBRIEFs, approved-scope records, and archived change evidence retain their original 0.111.0 delivery record without modification.",
+          "artifact_path": "xbrief/completed/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
+          "ambiguous": false,
+          "provenance": "derived"
+        },
+        {
+          "id": 6,
+          "text": "Local macOS/zsh proof and repository checks pass; Linux/bash and Windows/PowerShell 7 are described as pending for this baseline until the final-head native matrix passes.",
+          "artifact_path": ".github/workflows/modules-2-3-platform-validation.yml",
+          "ambiguous": false,
+          "provenance": "derived"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "maintenance",
+      "file_scope": [
+        ".deft/GENERATION.json",
+        ".github/workflows/modules-2-3-platform-validation.yml",
+        "README.md",
+        "package.json",
+        "maintainers/CURRICULUM-MAINTENANCE.md",
+        "references/GLOSSARY.md",
+        "references/QUICK-REFERENCE.md",
+        "references/SOURCE-BASELINE.md",
+        "references/SOURCE-NOTES.md",
+        "curriculum/modules/01-what-directive-is.md",
+        "curriculum/README.md",
+        "curriculum/modules/02-installation-and-anatomy.md",
+        "curriculum/modules/03-authority-and-context.md",
+        "labs/02-disposable-initialization.md",
+        "labs/README.md",
+        "labs/fixtures/02-disposable-initialization/package.json",
+        "solutions/module-01-what-directive-is.md",
+        "solutions/README.md",
+        "solutions/module-03-authority-and-context.md",
+        "solutions/lab-02-disposable-initialization.md",
+        "scripts/verify-cold-start-readme.mjs",
+        "scripts/verify-modules-2-3.mjs",
+        "history/changes/directive-baseline-0.112.0/proposal.xbrief.json",
+        "xbrief/active/2026-09-07-directive-baseline-0.112.0.xbrief.json",
+        "xbrief/PROJECT-DEFINITION.xbrief.json"
+      ],
+      "file_scope_confidence": "high",
+      "swarm": {
+        "file_scope": [
+          ".deft/GENERATION.json",
+          ".github/workflows/modules-2-3-platform-validation.yml",
+          "README.md",
+          "package.json",
+          "maintainers/CURRICULUM-MAINTENANCE.md",
+          "references/GLOSSARY.md",
+          "references/QUICK-REFERENCE.md",
+          "references/SOURCE-BASELINE.md",
+          "references/SOURCE-NOTES.md",
+          "curriculum/modules/01-what-directive-is.md",
+          "curriculum/README.md",
+          "curriculum/modules/02-installation-and-anatomy.md",
+          "curriculum/modules/03-authority-and-context.md",
+          "labs/02-disposable-initialization.md",
+          "labs/README.md",
+          "labs/fixtures/02-disposable-initialization/package.json",
+          "solutions/module-01-what-directive-is.md",
+          "solutions/README.md",
+          "solutions/module-03-authority-and-context.md",
+          "solutions/lab-02-disposable-initialization.md",
+          "scripts/verify-cold-start-readme.mjs",
+          "scripts/verify-modules-2-3.mjs",
+          "history/changes/directive-baseline-0.112.0/proposal.xbrief.json",
+          "xbrief/completed/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
+          "xbrief/active/2026-09-07-directive-baseline-0.112.0.xbrief.json",
+          "xbrief/PROJECT-DEFINITION.xbrief.json"
+        ]
+      }
+    }
+  },
+  "approvedRepos": [
+    "3ci-consulting/directive-training"
+  ],
+  "unknownPaths": [
+    "metadata.file_scope",
+    "metadata.file_scope_confidence",
+    "metadata.kind"
+  ]
+}
