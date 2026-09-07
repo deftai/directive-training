@@ -18,7 +18,7 @@ Scoped work, ranked queue, and tracked bugs live in authoritative sources — no
 
 (Optional) Ephemeral shell quirks or uncommitted local artifacts only — not tracked work state.
 
-<!-- deft:managed-section v3 sha=unknown refreshed=2026-09-05T14:54:48Z session=581633d565dc -->
+<!-- deft:managed-section v3 sha=unknown refreshed=2026-09-07T01:46:41Z session=ec8aaf35c4b5 -->
 # Deft — AI Development Framework
 
 Deft is installed in .deft/core/. Full guidelines: .deft/core/main.md
@@ -41,7 +41,7 @@ Deft is installed in .deft/core/. Full guidelines: .deft/core/main.md
 
 ## Session-start ritual (#1149)
 
-! On **mutation** session start, run `deft session:start`; before code-writing or `start_agent` dispatch run `deft verify:session-ritual -- --tier=gated` (stale after `plan.policy.sessionRitualStalenessHours`; records `deft verify:tools` / `deft doctor` / `deft verify:cache-fresh` / `deft agents:refresh` / `npm i -g @deftai/directive@latest`; #1149 / #1348) — `.deft/core/commands.md` § Session-start ritual. Recovery: `deft session:ready` (one-shot: start + gated ritual + cache recovery; #2993). The #3124 SCM mirror tip does not fire (`triage:classify --mirror` withdrawn, #4070).
+! On **mutation** session start, run `deft session:start`; before code-writing or `start_agent` dispatch run `deft verify:session-ritual -- --tier=gated` (stale after `plan.policy.sessionRitualStalenessHours`; records `deft verify:tools` / `deft doctor` / `deft verify:cache-fresh` / `deft agents:refresh` / `npm i -g @deftai/directive@latest`; #1149 / #1348) — `.deft/core/commands.md` § Session-start ritual. Recovery: `deft session:ready` (one-shot: start + gated ritual + cache recovery; #2993). The #3124 SCM mirror tip does not fire (`triage:classify --mirror` withdrawn, #4070). Work-claim (#4200): catalog label `status:claimed`; verb `deft scm issue work-claim`; session-start and `xbrief:preflight` MUST scan; warn is success, not a lock; claim refuses read-only / no occupancy. Depth: `.deft/core/scm/github.md`.
 
 ## WIP cap
 
