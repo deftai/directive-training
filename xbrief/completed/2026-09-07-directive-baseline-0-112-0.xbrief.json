@@ -3,13 +3,13 @@
     "version": "0.8",
     "description": "Implementation-ready scope for the Directive 0.112.0 curriculum baseline",
     "created": "2026-09-07T02:34:17Z",
-    "updated": "2026-09-07T02:36:38Z",
+    "updated": "2026-09-07T04:02:18Z",
     "author": "agent:codex"
   },
   "plan": {
     "id": "training.directive-baseline-0.112.0",
     "title": "Directive 0.112.0 Curriculum Baseline",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Upgrade the maintained training baseline from @deftai/directive 0.111.0 to the exact 0.112.0 release across dependencies, executable proofs, and current teaching references.",
       "UserStory": "As a 3Ci Directive learner or maintainer, I want the repository's current guidance and executable examples to agree on the latest pinned release, so that the training does not mix framework generations or repeat behavior that changed upstream.",
@@ -37,60 +37,60 @@
       {
         "id": "training.directive-baseline-0.112.0.release-proof",
         "title": "Revalidate the immutable 0.112.0 release identity and command behavior",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "The source baseline records the exact package graph, integrity, annotated tag, peeled commit, tested help surfaces, live command results, and every retained or resolved prose-versus-runtime disagreement."
         },
         "x-directive/evidence": {
           "kind": "observed_behavior",
-          "pointer": "references/SOURCE-BASELINE.md and references/SOURCE-NOTES.md; immutable 0.112.0 release graph, 2026-09-07 local macOS/zsh behavior, and GitHub Actions run 34080818120 at head 3f2f996bcfb53c4361cc5c5e949d9c9cd2c83a39",
-          "recorded_at": "2026-09-07T03:51:44Z",
+          "pointer": "references/SOURCE-BASELINE.md and references/SOURCE-NOTES.md; immutable 0.112.0 release graph, 2026-09-07 local macOS/zsh behavior, promotion run 34080818120 at head 3f2f996bcfb53c4361cc5c5e949d9c9cd2c83a39, and final-head run 34081399902 at e95b3198673796fab95b486c594ee5267041cac2",
+          "recorded_at": "2026-09-07T03:58:53Z",
           "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.directive-baseline-0.112.0.executable-surfaces",
         "title": "Upgrade package pins, fixtures, assertions, and platform validation",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "The root package, disposable fixture, focused verifiers, and native validation workflow require 0.112.0 consistently and reject a stale maintained baseline."
         },
         "x-directive/evidence": {
           "kind": "test",
-          "pointer": "npm run check:modules-2-3 plus GitHub Actions run 34080818120; linux-bash, macos-zsh, and windows-pwsh7 all passed at head 3f2f996bcfb53c4361cc5c5e949d9c9cd2c83a39",
-          "recorded_at": "2026-09-07T03:51:44Z",
+          "pointer": "npm run check:modules-2-3 plus final-head GitHub Actions run 34081399902; linux-bash, macos-zsh, and windows-pwsh7 all passed at head e95b3198673796fab95b486c594ee5267041cac2",
+          "recorded_at": "2026-09-07T03:58:53Z",
           "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.directive-baseline-0.112.0.curriculum",
         "title": "Reconcile current teaching and maintenance references with 0.112.0",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Current learner and maintainer documents use 0.112.0, preserve accurate still-current limitations, remove the fixed separator warning, and make platform proof status precise."
         },
         "x-directive/evidence": {
           "kind": "review",
-          "pointer": "PR #15 promotion diff; current README, curriculum, labs, solutions, references, and maintenance surfaces reconcile with the verified 0.112.0 record and focused verifier",
-          "recorded_at": "2026-09-07T03:51:44Z",
+          "pointer": "PR #15 final head e95b3198673796fab95b486c594ee5267041cac2; current README, curriculum, labs, solutions, references, and maintenance surfaces reconcile with the verified 0.112.0 record, and the independent final diff audit was clean",
+          "recorded_at": "2026-09-07T03:58:53Z",
           "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.directive-baseline-0.112.0.validation",
         "title": "Run local proof and repository gates without rewriting history",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "The disposable macOS/zsh path and focused/aggregate checks pass, maintained files contain no stale baseline token, and completed xBRIEFs, approved-scope records, and archived change evidence remain unchanged."
         },
         "x-directive/evidence": {
           "kind": "test",
-          "pointer": "Local acceptance commands and task deft:check passed; GitHub Actions run 34080818120 passed all native jobs at head 3f2f996bcfb53c4361cc5c5e949d9c9cd2c83a39; diff audit preserved historical completed, approved-scope, and archived 0.111.0 records",
-          "recorded_at": "2026-09-07T03:51:44Z",
+          "pointer": "Local acceptance commands and task deft:check passed; final-head GitHub Actions run 34081399902 passed all native jobs at e95b3198673796fab95b486c594ee5267041cac2; diff audit preserved historical completed, approved-scope, and archived 0.111.0 records",
+          "recorded_at": "2026-09-07T03:58:53Z",
           "recorded_by": "agent:codex"
         }
       }
@@ -225,8 +225,32 @@
         "conflict_group": "directive-baseline-maintenance",
         "size": "medium",
         "file_scope_confidence": "high"
-      }
+      },
+      "completionProvenance": {
+        "repository": "3Ci-Consulting/directive-training",
+        "implementationCommit": null,
+        "prNumber": 15,
+        "prBase": "master",
+        "mergeCommit": "2fe8c3bb5eb3d1978a603fba7cca93e552f45d41",
+        "deliveryBranch": "master",
+        "deliveryCommit": "2fe8c3bb5eb3d1978a603fba7cca93e552f45d41",
+        "verifiedAt": "2026-09-07T04:02:18Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMDc5ODgtMTBlYi03YzIzLTk1MDgtZGUzZGQ3YzYwYWM4"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-07T04:02:18Z"
+      },
+      "completedAt": "2026-09-07T04:02:18Z",
+      "completedSessionId": "host:codex:v1:MDFhMDc5ODgtMTBlYi03YzIzLTk1MDgtZGUzZGQ3YzYwYWM4"
     },
-    "updated": "2026-09-07T02:36:38Z"
+    "updated": "2026-09-07T04:02:18Z"
   }
 }
