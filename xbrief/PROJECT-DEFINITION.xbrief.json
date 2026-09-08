@@ -34,7 +34,7 @@
       {
         "uri": "../COST-ESTIMATE.md",
         "type": "x-xbrief/spec-section",
-        "title": "Cost estimate for the approved Modules 2-3 curriculum scope",
+        "title": "Current Modules 4-5 cost estimate and historical Modules 2-3 decision",
         "TrustLevel": "internal"
       }
     ],
@@ -78,10 +78,10 @@
       {
         "id": "2026-09-05-modules-4-5-xbrief-and-projections",
         "title": "Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries",
-        "status": "proposed",
+        "status": "running",
         "metadata": {
-          "source_path": "proposed/2026-09-05-modules-4-5-xbrief-and-projections.xbrief.json",
-          "lifecycle_folder": "proposed"
+          "source_path": "active/2026-09-05-modules-4-5-xbrief-and-projections.xbrief.json",
+          "lifecycle_folder": "active"
         }
       },
       {

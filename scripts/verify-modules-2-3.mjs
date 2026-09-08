@@ -27,8 +27,9 @@ const requiredFiles = [
   "solutions/module-03-authority-and-context.md",
 ];
 
-const read = (relativePath) =>
-  readFileSync(resolve(root, relativePath), "utf8");
+// Normalize at the read boundary so every content and local-heading check sees the same lines.
+const readText = (path) => readFileSync(path, "utf8").replace(/\r\n/g, "\n");
+const read = (relativePath) => readText(resolve(root, relativePath));
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 for (const relativePath of requiredFiles) {
@@ -789,7 +790,7 @@ const verifyLocalLink = (relativePath, destination) => {
   );
   if (!encodedFragment || !statSync(realTarget).isFile()) return;
   const fragment = decodeURIComponent(encodedFragment).toLowerCase();
-  const headingSlugs = [...readFileSync(realTarget, "utf8").matchAll(/^#{1,6}\s+(.+)$/gm)]
+  const headingSlugs = [...readText(realTarget).matchAll(/^#{1,6}\s+(.+)$/gm)]
     .map((match) => markdownHeadingSlug(match[1]));
   assert.ok(
     headingSlugs.includes(fragment),

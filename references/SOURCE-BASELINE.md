@@ -109,6 +109,33 @@ Two 0.111.0 discrepancies are resolved in 0.112.0: the documented
 --headless` emits complete parseable JSON. They are recorded as release deltas in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md), not retained as current learner warnings.
 
+## Modules 4–5 source and command boundary
+
+Module 4 is a command-free classification exercise. It uses the release's
+[artifact taxonomy][src-taxonomy], [continue checkpoint contract][src-continue], and
+[0.8 schema][src-schema], interpreted with the current xBRIEF persistence rule in
+[main.md][src-main]. The taxonomy retains legacy filenames and schema examples. These
+lessons paraphrase the roles and use current `xbrief/`, `.xbrief.json`, and schema 0.8
+authoring names; they do not reproduce old envelopes. Pinned prose disagrees on the
+destination of terminal `failed` scopes, so that transition is not taught.
+
+Module 5 uses one prepared, fictional MAP fixture. Authored architecture metadata in
+`PROJECT-DEFINITION` and facts extracted from its bounded source glob feed the generated
+MAP. The [renderer implementation][src-map] and [freshness implementation][src-map-fresh]
+support the concrete behavior; learners do not need to inspect framework internals.
+
+| Surface | Verified boundary at 0.112.0 |
+| --- | --- |
+| `directive codebase:map --project-root .` | Registered CLI renderer; exercised through the disposable fixture's explicit local binary. |
+| `directive verify:codebase-map-fresh --project-root .` | Registered freshness check; existing stale output fails, but absent MAP can exit 0. The lab independently proves MAP existence and contents. |
+| Per-verb `--help` for those two verbs | The flag is ignored: the renderer writes and the freshness verifier checks. These are not safe discovery commands outside a disposable probe. |
+| `directive spec:render` and `directive project:render` | Registered inventory and pinned source inspected; not executed as Lab 5 exercises. |
+| `task deft:roadmap:render` | Present in this consumer's Taskfile include. `roadmap:render` is not in the 0.112.0 CLI inventory; do not invent a direct CLI equivalent. |
+
+Lab 5 has its own platform evidence in [source notes](./SOURCE-NOTES.md#modules-45-verification).
+Module 2's native matrix does not establish Lab 5 platform support. Linux/bash and native
+Windows/PowerShell Lab 5 paths remain candidates and have no published executable path.
+
 ## Deferred skill-contract validation
 
 The following pinned files are candidates, not blanket authority for modules that have not
@@ -173,3 +200,8 @@ Record probe-level results, disagreements, and unresolved coverage in
 [skill-review]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-review-cycle/SKILL.md
 [skill-refinement]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-refinement/SKILL.md
 [skill-swarm]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-swarm/SKILL.md
+[src-taxonomy]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/vbrief/vbrief.md
+[src-continue]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/resilience/continue-here.md
+[src-schema]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/vbrief/schemas/xbrief-core-0.8.schema.json
+[src-map]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/packages/core/src/codebase/map.ts
+[src-map-fresh]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/packages/core/src/codebase/map-fresh.ts

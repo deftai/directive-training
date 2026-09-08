@@ -29,10 +29,13 @@ this Markdown; they will not replace it as the source of truth.
    schema 0.8.
 3. Complete [Module 1: What Directive Is](curriculum/modules/01-what-directive-is.md),
    [Module 2: Installation and Project Anatomy](curriculum/modules/02-installation-and-anatomy.md),
-   and [Module 3: Authority and Context](curriculum/modules/03-authority-and-context.md)
+   [Module 3: Authority and Context](curriculum/modules/03-authority-and-context.md),
+   [Module 4: xBRIEF as Durable State](curriculum/modules/04-xbrief-as-durable-state.md),
+   and [Module 5: Sources versus Projections](curriculum/modules/05-sources-versus-projections.md)
    in order.
-4. Module 2's command work belongs only in its
-   [disposable no-remote lab](labs/02-disposable-initialization.md).
+4. Run command work only in the specified disposable no-remote lab:
+   [Lab 2](labs/02-disposable-initialization.md) or
+   [Lab 5](labs/05-projection-drift-recovery.md).
 5. Use the [glossary](references/GLOSSARY.md) and
    [quick reference](references/QUICK-REFERENCE.md) when a term or boundary is
    unclear.
@@ -44,10 +47,12 @@ The detailed [source baseline](references/SOURCE-BASELINE.md) is optional audit
 evidence for maintainers and curious learners. It includes legacy and advanced
 drift notes that are intentionally outside the beginner sequence.
 
-Modules 1–3 are learner-ready drafts in this internal alpha. Module 2's 0.112.0 pinned npm
+Modules 1–5 are learner-ready drafts in this internal alpha. Module 2's 0.112.0 pinned npm
 path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and
 Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence.
-Modules 4–11 and the capstone
+Module 4 is command-free. Module 5's new projection lab is verified only on
+macOS/zsh; Linux and native Windows have not been verified for that lab.
+Modules 6–11 and the capstone
 remain planned; a filename in the map is not a readiness claim.
 
 ## Safety boundary

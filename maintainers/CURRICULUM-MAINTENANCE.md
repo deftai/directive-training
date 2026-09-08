@@ -149,11 +149,15 @@ course source.
 
 ## Milestone checks
 
-The current active scope states these literal acceptance commands:
+Run the following local curriculum checks. The Modules 4–5 active scope states
+the conformance command verbatim; the npm checks are supplemental product evidence:
 
 ```text
 npm run check:cold-start-readme
 npm run check:modules-2-3
+npm run check:modules-4-5
+npm run test:modules-4-5
+npm run test:portability
 directive verify:vbrief-conformance --project-root .
 ```
 
@@ -167,6 +171,42 @@ The aggregate gate must not be embedded in its own literal-command list. Run
 the current Directive source-provenance, encoding, link, and diff checks when
 available in addition to these commands. Record the exact revision and date
 with the evidence; a prior green run is not current proof.
+
+Modules 4–5 add classification and projection-recovery evidence. The two new
+focused commands supplement the active scope's literal conformance command;
+they do not replace it. Lab 5's macOS/zsh execution evidence is distinct from
+Module 2's native matrix. Keep Linux and native Windows unverified for Lab 5
+until their own written paths have been executed.
+
+Use the [native Windows revalidation handoff](WINDOWS-REVALIDATION.md) for the
+Modules 4–5 portability follow-up. Bind it to the published fix commit, preserve
+the old failed attempt, and distinguish native evidence from cross-platform
+unit-test inputs. The launcher guard recognizes the complete `cmd-shim@8.0.0`
+programs for the exact local Directive target, with CRLF normalization only.
+An unfamiliar npm launcher format must be reported and reviewed; do not replace
+real launchers with the golden test fixtures or bypass the guard.
+
+An existing clone can legitimately lack the ignored `.deft/core` payload. The
+handoff selects the exact published revision first, then restores only an absent
+payload from the verified 0.112.0 CLI's public headless manifest. Its helper
+refuses existing deposits, preserves partial failures, and leaves tracked files
+unchanged. Doctor must pass before framework-guided validation continues. The
+handoff also authorizes the full suite's normal cleanup of only its new contract
+fixtures; previous attempts and evidence remain protected.
+
+Lab 5 archive now takes an explicit absolute attempt root and runs from outside
+that attempt parent. Keep the learner cleanup blocks and Windows handoff aligned
+with this interface. Windows safety verification also requires successful Node
+file and directory symlink probes; a capability failure must remain visible and
+must not be converted to passing or skipped safety assertions.
+
+Fresh Lab 5 text copies use LF, and its guarded `.gitattributes` normalizes the
+source JSON in Git. The checkpoint now contains nine files. Revalidate LF and
+CRLF course input and source edits under both `core.autocrlf` values, including
+real trailing-whitespace negatives. Never repair portability by weakening the
+literal `git diff --check` gate or changing a learner's global settings. The
+Windows handoff requires an executed complete candidate script, not a post-run
+reconstruction, and a symlink-capable process for full safety sign-off.
 
 - Previous: [Quick reference](../references/QUICK-REFERENCE.md)
 - Next: [Source baseline](../references/SOURCE-BASELINE.md)

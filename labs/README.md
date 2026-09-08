@@ -10,6 +10,11 @@ on Windows Server 2022, dated 2026-09-07. Generic author
 examples below are not substitutes for a released lab's
 exact commands.
 
+[Lab 5 — Projection drift recovery](05-projection-drift-recovery.md) is a
+learner-ready draft verified on macOS/zsh only. It uses a minimal prepared
+projection fixture and a guarded helper; Linux and native Windows execution
+are not verified for Lab 5. Module 2's platform evidence does not transfer to it.
+
 ## Rule labels
 
 - **[Directive behavior]** identifies a claim verified against the pinned Directive release. The current pin and evidence live in [the source baseline](../references/SOURCE-BASELINE.md).
@@ -288,8 +293,10 @@ No instructor or review bot is required. If the documented recovery still cannot
 | This environment guide | Available | Create, verify, reset, and archive disposable attempts |
 | [Module 1 — What Directive Is](../curriculum/modules/01-what-directive-is.md) | Available | Complete its embedded fictional classification exercise; it does not mutate a repository |
 | [Lab 2 — Initialize a Disposable Directive Consumer](02-disposable-initialization.md) | Learner-ready draft; 0.112.0 pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence | Use its exact fixture, guards, checkpoints, acceptance, reset, and archive path |
+| [Module 4 — xBRIEF as Durable State](../curriculum/modules/04-xbrief-as-durable-state.md) | Available | Complete its embedded artifact-classification exercise without mutating a repository |
+| [Lab 5 — Projection drift recovery](05-projection-drift-recovery.md) | Learner-ready draft; 0.112.0 pinned npm path verified on macOS 26.6.2/zsh only | Use its exact fixture, ordered tasks, evidence, fresh reset, and archive path |
 | [Lab authoring template](../templates/lab-template.md) | Available to maintainers | Build a lab with tasks, checkpoints, literal gates, reset, cleanup, and a solution |
-| Labs for Modules 4–11 and the capstone | Not yet available | Follow their module links from the [curriculum map](../curriculum/README.md) when released |
+| Labs for Modules 6–11 and the capstone | Not yet available | Follow their module links from the [curriculum map](../curriculum/README.md) when released |
 
 An entry marked “not yet available” is not completed curriculum.
 

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "deft.decision.v1",
+  "id": "restore-only-an-absent-validation-framework-payload-from-the-pin",
+  "decision": "Restore only an absent validation framework payload from the pinned headless manifest",
+  "governingRule": {
+    "description": "Validate the exact published course revision without rewriting tracked source or destroying prior evidence",
+    "path": "maintainers/WINDOWS-REVALIDATION.md",
+    "rfc2119": "MUST"
+  },
+  "alternativesConsidered": [
+    {
+      "option": "Executing init or update can rewrite and stage tracked course files"
+    },
+    {
+      "option": "Blocking on an intentionally ignored missing payload prevents fresh-clone validation"
+    }
+  ],
+  "whyWinner": "The public 0.112.0 headless manifest supports a guarded core-only restoration with unchanged Git state and passing doctor integrity checks",
+  "confidence": "high",
+  "activeScopeRefs": [
+    "xbrief/active/2026-09-05-modules-4-5-xbrief-and-projections.xbrief.json"
+  ],
+  "timestamp": "2026-09-07T17:37:28Z",
+  "revisitTrigger": "Revalidate this route when the Directive pin or headless manifest contract changes; an existing broken payload requires separate recovery authority",
+  "tags": [
+    "windows-validation"
+  ]
+}

@@ -2,9 +2,11 @@
 
 This is the navigation source for a twelve-hour, self-directed path: ten hours
 of core modules followed by a two-hour disposable capstone. The current
-internal-alpha milestone makes Modules 1–3 learner-ready drafts. Module 2's 0.112.0 pinned npm
+internal-alpha milestone makes Modules 1–5 learner-ready drafts. Module 2's 0.112.0 pinned npm
 path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell
-7.4+ on Windows Server 2022 by local and native-matrix evidence. Modules 4–11 and
+7.4+ on Windows Server 2022 by local and native-matrix evidence. Module 4 is
+command-free. Module 5's projection lab is verified only on macOS/zsh;
+its Linux and native Windows paths are not verified. Modules 6–11 and
 the capstone remain planned until their files contain substantive, verified content.
 
 ## Audience and prerequisites
@@ -53,8 +55,8 @@ No step requires a live demonstration or an instructor's private knowledge.
 | 01 | [What Directive is](modules/01-what-directive-is.md) | 45 min | Learner-ready draft | Classify tools and scenarios by responsibility |
 | 02 | [Installation and project anatomy](modules/02-installation-and-anatomy.md) | 60 min | Learner-ready draft; 0.112.0 pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence | Initialize and inspect a disposable consumer repository |
 | 03 | [Authority and context](modules/03-authority-and-context.md) | 45 min | Learner-ready draft | Resolve conflicting sample rules |
-| 04 | xBRIEF as durable state (`04-xbrief-as-durable-state.md`) | 45 min | Planned | Classify project and work-state artifacts |
-| 05 | Sources versus projections (`05-sources-versus-projections.md`) | 50 min | Planned | Repair projection drift through its source |
+| 04 | [xBRIEF as durable state](modules/04-xbrief-as-durable-state.md) | 45 min | Learner-ready draft; command-free | Classify project and work-state artifacts |
+| 05 | [Sources versus projections](modules/05-sources-versus-projections.md) | 50 min | Learner-ready draft; lab verified on macOS/zsh only | Repair projection drift through its source |
 | 06 | Creating well-shaped work (`06-creating-well-shaped-work.md`) | 55 min | Planned | Turn a horizontal plan into a vertical slice |
 | 07 | Scope lifecycle and implementation authorization (`07-scope-lifecycle.md`) | 65 min | Planned | Fail, promote, activate, and pass preflight |
 | 08 | Session start and authorized work selection (`08-session-and-work-selection.md`) | 45 min | Planned | Trace posture and intake decisions |
@@ -154,5 +156,6 @@ hints, recovery paths, and solutions. Their friction becomes revision input.
 - Previous: [Repository start](../README.md)
 - Next: [Module 1 — What Directive is](modules/01-what-directive-is.md)
 
-After Module 3, stop at the course map. Module 4 is still planned and has no
-learner-ready lesson yet.
+After Module 5, stop at the course map. Module 6 is still planned and has no
+learner-ready lesson yet. A learner without the verified Lab 5 environment can
+read its concepts but must retain an environment-blocked practical outcome.

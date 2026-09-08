@@ -112,9 +112,10 @@ future work.
 ## Durable state and lifecycle
 
 **xBRIEF**
-Directive's structured, durable project and work-state format. Current course
-writes use schema version 0.8. Chat history can help explain a session, but it is
-not the durable source of truth.
+Directive's structured project and work-state format. Current course writes
+use schema version 0.8. Scope records are durable; some session artifacts are
+tactical or consumed during recovery. Chat history does not replace current
+project or scope state.
 
 **scope xBRIEF**
 A bounded work contract containing a goal, observable acceptance, planned
@@ -125,12 +126,14 @@ Durable requirements describing what the product or feature must do. It shapes
 scopes but is not a substitute for an active implementation contract.
 
 **plan**
-Durable structure for intended work and policy. An ordered plan can constrain
-work selection; it does not silently expand an active scope.
+The structured object within an xBRIEF. The separate `plan.xbrief.json` file
+holds tactical session planning. An ordered work-selection plan is a distinct
+mechanism; neither silently expands an active scope.
 
 **continue artifact**
-Durable handoff state that lets a later session resume without treating chat
-history as authority.
+Persisted recovery context in `continue.xbrief.json`, consumed on successful
+resume. It helps reestablish a session but does not replace the current project
+definition, active scope, or live instruction.
 
 **proposed**
 Work has been shaped for consideration but is not approved for implementation.
@@ -164,9 +167,14 @@ work state, repository Markdown owns lesson text, and upstream released sources
 own official Directive behavior.
 
 **projection**
-Generated or rendered output derived from a source, such as a project-definition
+Generated or rendered output derived from a source, such as a specification
 Markdown rendering, codebase map, or future internal-publishing page. Repair the
 source and regenerate; do not promote the projection over its source.
+
+**projection freshness**
+Agreement of an existing view with its expected rendering. In the 0.112.0 MAP
+check, absence is allowed; a task requiring a MAP must separately prove that
+it exists and contains the intended result. See [Module 5](../curriculum/modules/05-sources-versus-projections.md).
 
 **gate**
 A deterministic check that returns evidence about a required condition. A gate

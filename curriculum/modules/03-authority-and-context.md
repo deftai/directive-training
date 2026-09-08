@@ -419,7 +419,7 @@ instructor unlock is required.
 - Previous: [Module 2 — Installation and Project Anatomy](02-installation-and-anatomy.md)
 - Course map: [3Ci Directive training](../README.md)
 - Solution: [Explained Module 3 solution](../../solutions/module-03-authority-and-context.md)
-- Next: Module 4 — xBRIEF as Durable State (planned; return to the course map for status)
+- Next: [Module 4 — xBRIEF as Durable State](04-xbrief-as-durable-state.md)
 
 ## Official sources
 

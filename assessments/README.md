@@ -17,9 +17,11 @@ An assessment must not present a 3Ci preference as Directive behavior.
 | [Module 1 — What Directive Is](../curriculum/modules/01-what-directive-is.md) | The module's “Exercise” and “Self-assessment” sections | A fictional scenario classification, rationale, and outcome checklist | [Explained Module 1 solution](../solutions/module-01-what-directive-is.md) |
 | [Module 2 — Installation and Project Anatomy](../curriculum/modules/02-installation-and-anatomy.md) | The module self-assessment plus [Lab 2](../labs/02-disposable-initialization.md) | State-based command choice, consumer/maintainer boundary, exact local setup evidence, anatomy classification, and recovery decision record | [Explained Lab 2 solution](../solutions/lab-02-disposable-initialization.md) |
 | [Module 3 — Authority and Context](../curriculum/modules/03-authority-and-context.md) | The ten-card decision table and module self-assessment | Cited statement classification, two-axis authority reasoning, authorization, and lazy-context choices | [Explained Module 3 solution](../solutions/module-03-authority-and-context.md) |
-| Modules 4–11 and capstone | Not yet available | None required yet | Follow availability from the [curriculum map](../curriculum/README.md) |
+| [Module 4 — xBRIEF as Durable State](../curriculum/modules/04-xbrief-as-durable-state.md) | Artifact classification and self-assessment | Roles, lifecycle folder/status pairs, current authority, and resume decisions | [Explained Module 4 solution](../solutions/module-04-xbrief-as-durable-state.md) |
+| [Module 5 — Sources versus Projections](../curriculum/modules/05-sources-versus-projections.md) | [Lab 5](../labs/05-projection-drift-recovery.md) and self-assessment | Source/view classification, rejected drift, regenerated MAP, freshness, and reset evidence; macOS/zsh only | [Explained Lab 5 solution](../solutions/lab-05-projection-drift-recovery.md) |
+| Modules 6–11 and capstone | Not yet available | None required yet | Follow availability from the [curriculum map](../curriculum/README.md) |
 
-Modules 1–3 keep assessment beside the lesson or disposable lab so the attempt,
+Modules 1–5 keep assessment beside the lesson or disposable lab so the attempt,
 feedback, and retry path stay together. Later standalone assessments will
 appear in this directory and link back to their source modules. “Not yet
 available” is an explicit status, not completed content.

@@ -38,6 +38,11 @@ disagreement. The `xbrief:preflight` help also retains `--vbrief-path` as a
 legacy option name; learner examples should use the documented positional
 active `xbrief/` path. See the baseline for tested exit results.
 
+Run per-verb probes only in an appropriate disposable environment. In 0.112.0,
+`codebase:map --help` actually renders a MAP and
+`verify:codebase-map-fresh --help` performs a check. Neither provides ordinary
+usage help. Use the locally pinned forms in [Lab 5](../labs/05-projection-drift-recovery.md).
+
 ## Consumer command chooser
 
 These command names and their help surfaces were checked against 0.112.0. Read
@@ -86,7 +91,7 @@ implementation mutation readiness: implementation authority + passing required g
 
 | Information | Authoritative source here | Examples of projections |
 | --- | --- | --- |
-| Project identity and policy | `xbrief/PROJECT-DEFINITION.xbrief.json` | Rendered project-definition Markdown |
+| Project identity and policy | Authored narratives/policy in `xbrief/PROJECT-DEFINITION.xbrief.json` | Derived summaries; its `items` registry is separately refreshed from lifecycle scopes |
 | Work lifecycle and acceptance | Lifecycle files under `xbrief/` | Summaries and status views |
 | Training lessons | Authored repository Markdown | Future wiki, Confluence, or SharePoint pages |
 | Official Directive behavior | Pinned release, tested CLI, and official same-release sources | This course's paraphrases |
@@ -95,6 +100,12 @@ implementation mutation readiness: implementation authority + passing required g
 If a projection drifts, edit its authoritative source, regenerate it with the
 verified release command, and check the result. Do not hand-edit a generated
 file to hide drift.
+
+For [Module 5](../curriculum/modules/05-sources-versus-projections.md), the
+verified consumer pair is `directive codebase:map --project-root .` followed
+by `directive verify:codebase-map-fresh --project-root .`. Lab 5 invokes the
+explicit local binary and separately checks MAP existence and expected content:
+in 0.112.0, freshness alone can pass when the optional MAP is absent.
 
 ## Lifecycle and authority
 

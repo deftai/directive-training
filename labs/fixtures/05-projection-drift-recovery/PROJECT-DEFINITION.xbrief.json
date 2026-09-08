@@ -1,0 +1,39 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Fictional Northstar projection exercise",
+    "created": "2026-09-07T00:00:00Z",
+    "updated": "2026-09-07T00:00:00Z"
+  },
+  "plan": {
+    "title": "Northstar Stop Codes",
+    "status": "running",
+    "narratives": {
+      "Overview": "A fictional, disposable fixture for learning projection ownership."
+    },
+    "items": [],
+    "architecture": {
+      "codeStructure": {
+        "version": "0.1",
+        "modules": [
+          {
+            "id": "stop-code",
+            "name": "Stop code",
+            "purpose": "Normalize fictional stop codes.",
+            "pathGlobs": ["src/*.js"]
+          }
+        ],
+        "pathOwnership": [],
+        "allowedPatterns": [],
+        "projectionManifest": [
+          {
+            "kind": "codebase-map",
+            "path": ".planning/codebase/MAP.md",
+            "source": "plan.architecture.codeStructure",
+            "generated": true
+          }
+        ]
+      }
+    }
+  }
+}

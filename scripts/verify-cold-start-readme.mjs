@@ -4,8 +4,10 @@ import { fileURLToPath } from "node:url";
 
 const readmePath = fileURLToPath(new URL("../README.md", import.meta.url));
 const packagePath = fileURLToPath(new URL("../package.json", import.meta.url));
-const readme = readFileSync(readmePath, "utf8");
-const packageJson = JSON.parse(readFileSync(packagePath, "utf8"));
+// Git may check out text with CRLF; validate its content independently of that choice.
+const readText = (path) => readFileSync(path, "utf8").replace(/\r\n/g, "\n");
+const readme = readText(readmePath);
+const packageJson = JSON.parse(readText(packagePath));
 const openMarker = "<!-- deft:cold-start-bootstrap v1 (#2273) -->";
 const closeMarker = "<!-- /deft:cold-start-bootstrap v1 -->";
 const corporateMirrorUrl =

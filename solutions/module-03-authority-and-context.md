@@ -274,5 +274,4 @@ This solution is an original paraphrase/adaptation. See the complete
 
 - Return to [Module 3](../curriculum/modules/03-authority-and-context.md).
 - Mark O3.1–O3.4 demonstrated only after the exercise acceptance checks pass.
-- Continue to the [course map](../curriculum/README.md); Module 4 is planned, not yet
-  learner-ready.
+- Continue to [Module 4 — xBRIEF as Durable State](../curriculum/modules/04-xbrief-as-durable-state.md).

@@ -17,7 +17,9 @@ Every solution keeps these claim types separate.
 | [Module 1 — What Directive Is](../curriculum/modules/01-what-directive-is.md) | [Explained Module 1 solution](module-01-what-directive-is.md) | Available in the foundation milestone |
 | [Module 2 — Installation and Project Anatomy](../curriculum/modules/02-installation-and-anatomy.md) | [Explained Lab 2 solution](lab-02-disposable-initialization.md) | Available; 0.112.0 pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence |
 | [Module 3 — Authority and Context](../curriculum/modules/03-authority-and-context.md) | [Explained Module 3 solution](module-03-authority-and-context.md) | Available; command-free exercise |
-| Modules 4–11 and the capstone | Follow the [curriculum map](../curriculum/README.md) | Not yet available |
+| [Module 4 — xBRIEF as Durable State](../curriculum/modules/04-xbrief-as-durable-state.md) | [Explained Module 4 solution](module-04-xbrief-as-durable-state.md) | Available; command-free exercise |
+| [Module 5 — Sources versus Projections](../curriculum/modules/05-sources-versus-projections.md) | [Explained Lab 5 solution](lab-05-projection-drift-recovery.md) | Available; projection lab verified on macOS/zsh only |
+| Modules 6–11 and the capstone | Follow the [curriculum map](../curriculum/README.md) | Not yet available |
 
 “Not yet available” is an explicit status. It does not represent completed or hidden content.
 

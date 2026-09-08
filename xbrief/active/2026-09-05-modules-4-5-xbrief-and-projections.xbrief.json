@@ -1,0 +1,95 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Active local implementation scope for core Modules 4 and 5",
+    "created": "2026-09-05T19:43:46Z",
+    "updated": "2026-09-07T04:38:25Z",
+    "author": "agent:deft-directive-setup"
+  },
+  "plan": {
+    "id": "training.modules4-5",
+    "title": "Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries",
+    "status": "running",
+    "narratives": {
+      "Description": "Teach xBRIEF 0.8 artifact roles, lifecycle folders, durable state, and source-versus-generated-projection boundaries. The work includes an artifact-classification exercise and a disposable projection-drift recovery lab.",
+      "Acceptance": "Module 4 lets a learner classify PROJECT-DEFINITION, specification, scope, plan, and continue artifacts and explain why chat is not authoritative state. Module 5 lets a learner reject a direct generated-file edit, change the authoritative source, render the projection with verified commands, and prove freshness.",
+      "Traces": "PROJECT-DEFINITION LearningGoals: xBRIEF 0.8 project and work state; source-versus-projection boundaries",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance command; do not embed the aggregate gate in plan.acceptance.commands.",
+      "LocalHandoff": "Modules 4 and 5, explained solutions, the guarded Lab 5 fixture, navigation, source notes, and focused tests are implemented locally. The operator subsequently authorized push, PR, and review. This scope remains active; merge and lifecycle closeout still require separate authorization. Lab 5 runtime proof is bounded to macOS/zsh.",
+      "PortabilityFollowup": "On 2026-09-07 David approved portability fixes after the native Windows report at 41e5065. Extend this unit to make the existing cold-start and Modules 2-3 text verifiers line-ending neutral without weakening their semantic assertions, validate native npm executable shims against their exact local target, retain symlink safety coverage, and provide Windows revalidation instructions. No Windows learner-ready claim is authorized before a complete native replay. Archive behavior was untested at that authorization; the subsequent ArchiveFollowup records the confirmed failure and approved fix.",
+      "ArchiveFollowup": "The native Windows report at 373389e confirms bootstrap, CRLF handling, real npm launchers, both projection recoveries, all five final commands, and reset. Both real archives and the inside-cwd unit case fail with EPERM; four safety tests lack symlink-creation capability. David approved implementing and pushing an explicit guarded archive target, running caller and helper outside the attempt parent, preserving all existing path and evidence guards, and updating tests and the Windows handoff with explicit symlink prerequisites. No host-policy changes, safety-test skips, merge, or lifecycle closeout are authorized. Native completion requires a new exact-commit replay.",
+      "Decisions": "- xbrief/decisions/2026-09-07-restore-only-an-absent-validation-framework-payload-from-the-pin.decision.json — Restore only an absent validation framework payload from the pinned headless manifest",
+      "LineEndingFollowup": "David approved implementing and pushing deterministic fixture line endings, regression coverage, and updated Windows instructions after the e881f0 native report. That report validates the archive fix, but reports 88/92 tests passing with four symlink setup capability failures and a real-lab CRLF edit failure recovered before final acceptance. Extend the same scope to deterministic disposable source/Git line-ending behavior without weakening git diff --check, semantic source checks, or symlink assertions. Preserve the existing checkout EOL policy, global settings, prior attempts, and native evidence. Explain Windows symlink prerequisites, but do not change host configuration, merge, or close the lifecycle.",
+      "FinalizationDisposition": "David directed continuing finalization of Modules 4-5 and moving on after the native report at 324b5f7. Finish this implementation against its verified macOS/zsh Lab 5 path; stop the Windows adapter repair/retest loop. The final native report passes 97/101 tests including all nine EOL tests and archive contracts; four symlink setup permission failures remain, and the adapter stopped before step 6 because its parent cwd was the course root. Windows support remains candidate/incomplete and must not be marked learner-ready. Preserve all reports, adapters, and attempts. No further Windows fixes, host changes, or weakened tests/gates are authorized by this finalization. Implementation and push/PR review remain in this same scope; merge and post-merge lifecycle closeout still require explicit authorization. Do not activate the dependent Modules 6-8 scope before this unit is delivered."
+    },
+    "items": [
+      {
+        "id": "training.modules4-5.durable-state",
+        "title": "Author Module 4 and xBRIEF artifact-classification exercise",
+        "status": "completed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "A learner accurately identifies each current xBRIEF artifact and lifecycle folder, distinguishes durable state from chat context, and verifies the classification with explained feedback."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "curriculum/modules/04-xbrief-as-durable-state.md and solutions/module-04-xbrief-as-durable-state.md; independent source/content review verified fourteen artifact cards, seven lifecycle verdicts, live-intent cases, and O4.1-O4.4 solution evidence, including non-delivery closeout distinction",
+          "recorded_at": "2026-09-07T04:38:25Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "training.modules4-5.projections",
+        "title": "Author Module 5 and projection-drift recovery lab",
+        "status": "completed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "The fictional lab proves safe recovery by editing a declared source, regenerating its projection, checking freshness, resetting deterministically, and never changing the training repository itself."
+        },
+        "x-directive/evidence": {
+          "kind": "observed_behavior",
+          "pointer": "references/SOURCE-NOTES.md Modules 4-5 verification; labs/05-projection-drift-recovery.md and its explained solution; macOS/zsh exact 0.112.0 replay showed two stale exits 1, repaired fresh exits 0, source-only propagation, and five final passing acceptance commands; 46 automated tests passed",
+          "recorded_at": "2026-09-07T04:38:25Z",
+          "recorded_by": "agent:codex"
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false,
+      "source_rung": "stated",
+      "derived_reason": "derived 2 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "A learner accurately identifies each current xBRIEF artifact and lifecycle folder, distinguishes durable state from chat context, and verifies the classification with explained feedback.",
+          "artifact_path": "curriculum/modules/04-xbrief-as-durable-state.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "The fictional lab proves safe recovery by editing a declared source, regenerating its projection, checking freshness, resetting deterministically, and never changing the training repository itself.",
+          "artifact_path": "labs/05-projection-drift-recovery.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "phase",
+      "swarm": {
+        "readiness": "needs_refinement",
+        "parallel_safe": false,
+        "depends_on": [
+          "training.modules2-3"
+        ],
+        "size": "large"
+      }
+    },
+    "updated": "2026-09-07T04:38:25Z"
+  }
+}

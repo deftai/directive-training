@@ -152,6 +152,276 @@ PowerShell 7.6.5 on the macOS host supplied syntax inspection only. The bounded
 `windows-2022` job above proves the 0.112.0 baseline natively; the macOS-host inspection is
 separate and is not counted as native Windows evidence.
 
+## Modules 4–5 verification
+
+This extension uses the unchanged 0.112.0 release identity above. Source inspection and
+local probes ran on 2026-09-07 with macOS/zsh and Node.js 24.18.0. The upgrade's native
+Module 2 matrix is separate evidence, not Lab 5 coverage.
+
+Module 4's fictional cards and explained answers were reviewed against the current main
+xBRIEF rule, deposited taxonomy, 0.8 schema, command contract, and continue checkpoint
+contract. The taxonomy has legacy naming/schema examples; the course adapts the artifact
+roles to current xBRIEF 0.8, without copying legacy envelopes. Taxonomy and Concepts prose
+disagree about terminal `failed` destinations; the exercise makes no claim about that
+transition. A completed folder/status alone is not proof of delivery: the learner must
+inspect the recorded disposition and evidence.
+
+| Module 5 probe | Exit / result | Teaching consequence |
+| --- | --- | --- |
+| `directive commands` | 0; contains `codebase:map`, `verify:codebase-map-fresh`, `spec:render`, and `project:render`; omits `roadmap:render`. | Use only registered direct CLI forms. |
+| `task --list` | 0; includes `deft:roadmap:render` along with the other projection tasks. | Roadmap is shown as a consumer Taskfile command, not a direct CLI command. |
+| `directive codebase:map --help` | 0; rendered MAP instead of help. | Unknown help flag is ignored; never recommend this as read-only discovery. The probe's own generated output was not retained in the curriculum. |
+| `directive verify:codebase-map-fresh --help` | 1 when the probe MAP was stale; performed verification rather than showing help. | Help is not a safe no-op for this verb either. |
+| Read installed 0.112.0 map and freshness implementation | Missing MAP returns no freshness errors; existing output is compared with newly rendered content. | Require a separate MAP existence/content check, plus the released freshness check. |
+
+The Module 5 command table's specification and registry rows are source/inventory
+inspection, not claims of executable lab proof. The fictional lab changes one architecture
+description; it does not implement new application behavior. See the module for the
+immutable source links and the lab for guarded, project-local commands.
+
+During lab authoring, the first result assertion expected an individual source filename
+inside MAP. That expectation failed. The expected output was independently re-derived
+from the released renderer implementation and its observed module table: MAP provides the
+module's authored glob and matched-file count, not a filename list. The final helper checks
+the requested purpose, `src/*.js`, and count `1`, alongside exact source JSON and diff
+boundaries. The released renderer and freshness gate were not modified.
+
+Review also found that a plain checkpoint tag can inherit a signing requirement. The lab
+now disables tag signing for that single local command, with a regression test using
+`tag.gpgSign=true`. It does not alter the learner's global Git configuration.
+
+### Disposable Lab 5 runtime proof
+
+Proof `local-0.112.0-lab05-full-AZ7LaE` completed on macOS 26.6.2 (build 25G83),
+zsh 5.9 arm64, Node.js 24.18.0, npm 11.16.0, and Git 2.50.1 (Apple Git-155).
+The final helper created attempt `3ci-directive-lab05-AZ7LaE/repo` under the OS temporary
+root. Its isolated public-registry install resolved CLI/core/content/types to exactly
+0.112.0. Runtime proof used the real installed packages, not unit-test package fixtures.
+
+| Runtime checkpoint | Observed result |
+| --- | --- |
+| Guard, install, graph verification, and eight-file local checkpoint | All exit 0; fictional local identity, lightweight checkpoint tag, no remote. |
+| Absent-MAP freshness help probe | Exit 0; separate absence check proves there is still no MAP. |
+| Renderer help probe and subsequent freshness help probe | Renderer writes MAP and exits 0; verifier checks the new MAP and exits 0. |
+| Supplied MAP-only drift | Freshness 1; source diff 0. Rendering unchanged source restores original purpose and freshness 0. |
+| Learner's purpose-only source edit | Freshness 1 before render; renderer and freshness 0 afterward. |
+| Five literal final commands | Guard 0, pin 0, released freshness 0, result 0, whitespace diff 0. |
+| Meaningful output | Existing generated MAP names its source; the `stop-code` row has the requested new purpose, `src/*.js`, and file count `1`. |
+| Fresh reset | Distinct `3ci-directive-lab05-AJBaKH/repo`; old evidence retained, new guard 0, MAP absent, no remote. |
+| Archive | Both exact parents moved to OS-temp `3ci-directive-lab-archive`; old roots absent, completed evidence/MAP and reset package present. |
+
+The local evidence note is retained inside the completed archive as
+`3ci-directive-lab05-AZ7LaE/evidence.md`. This maintained table preserves the substantive
+results without making a machine-specific temporary path a required curriculum link.
+No business repository, external Git remote, credentials, running service, deployment,
+or recursive deletion was used. The implementation checkout was not initialized as a lab.
+
+Lab-specific proof markers consumed by the focused verifier:
+
+- `lab05-platform-proof:macos-zsh status=verified date=2026-09-07 evidence=local-0.112.0-lab05-eol-BcQ9WF`
+- `lab05-platform-proof:linux-bash status=candidate date=2026-09-07 evidence=not-run`
+- `lab05-platform-proof:windows-pwsh7 status=candidate date=2026-09-07 evidence=native-324b5f7-incomplete-paused`
+
+### Native Windows revalidation and archive follow-up
+
+The operator supplied a native report for exact commit
+`373389eea62baeb1c694e4bb00db7dccbe848847` on 2026-09-07. The reported environment
+was Windows 11 Home ARM64 build 26200, PowerShell 7.6.5, Node.js 26.8.1,
+npm 11.19.0, and Git 2.54 for Windows, with CRLF checkout conversion enabled.
+This is supplied native evidence, not execution on the maintainer's macOS host.
+
+- The supplied SHA, remote branch, PR head, and detached checkout matched. The bounded
+  recovery restored 412 payload files from the 419-file manifest, left Git clean, and
+  passed doctor and the read-only session entry. Bootstrap was no longer a launch blocker.
+- All three text/content verifiers passed. The suite reported 82 of 87 tests passing,
+  with zero skips. Four tests failed while creating file/directory symlinks with `EPERM`;
+  one failed when archiving from inside the attempt. Passing coverage thresholds did
+  not make that failed test run green.
+- Real installed 0.112.0 npm launchers passed validation. Both stale states, both
+  recoveries, all five final commands, and a distinct fresh reset passed. Both archive
+  attempts failed with `EPERM`; the completed, reset, and earlier attempts were retained.
+- The pasted PowerShell adapter covered isolated installation only. Complete replay
+  scripts and raw command logs are required in the next handoff; the pasted adapter
+  alone does not establish a reproducible full replay.
+
+The approved fix makes archive require an explicit canonical absolute target and refuses
+to run while the caller is inside its parent. The original course helper and calling
+shell must both run outside the tree being moved. Identity, path, no-remote, symlink,
+no-overwrite, and preservation guards remain in place. There is no internal directory
+change, forced move, copy-and-delete fallback, or host-setting change.
+
+Regression tests first reproduced the old explicit-target rejection and unsafe inside-cwd
+behavior. The revised 92-test suite passes locally with zero failures or skips. Combined
+coverage is 99.49% lines, 97.00% branches, and 100% functions across the two Lab 5 helpers,
+Modules 4–5 verifier, and deposit-restoration helper, with explicit 90% thresholds.
+The archive helper itself has 100% line, 98.61% branch, and 100% function coverage.
+All nine revised PowerShell blocks parse. The literal symlink probe and both archive
+commands also execute successfully through PowerShell on macOS; this is not Windows proof.
+
+Fresh proof `local-0.112.0-lab05-archive-cQbiqQ` ran the complete published macOS/zsh
+lab with the real pinned package graph. Both expected stale exits were 1, both recoveries
+and all five final commands were 0, and fresh reset preserved prior evidence. The two
+revised archive commands exited 0 from the course directory. Both old roots were absent;
+the completed evidence and MAP hashes were unchanged. The completed `cQbiqQ` and reset
+`ZGFUzB` attempt parents remain under the OS-temp `3ci-directive-lab-archive` directory.
+The retained replay log SHA-256 is
+`e8e242f56870c9d00658089e9f1daab8422645b23e4ab02e51647191cd470c1d`.
+The tested helper SHA-256 is
+`4dc22df437a3d5bba4395a9d5077eecc9e895ba114eed75f02d5c064eafbac7d`.
+
+At that handoff, Windows remained a candidate pending native archive replay.
+Complete safety validation additionally requires successful Node file- and directory-symlink
+creation probes in the approved Windows session. If that capability is absent, preserve
+the actual failures and continue the independent guarded lab, but do not claim full safety
+coverage or learner readiness. No test assertion or platform gate was weakened.
+
+### Native archive confirmation and source line endings
+
+The next supplied native report bound expected SHA, branch, PR, and detached HEAD
+to `e881f016145405c4617d0884889bf93b7c952e23`. On the same Windows 11 Home ARM64,
+PowerShell 7.6.5, Node 26.8.1, npm 11.19.0, Git 2.54.0.windows.1 host:
+
+- Both real outside-directory archives and every new archive test passed. The
+  completed `1Hg1gf` and reset `adG4tz` parents were retained in the temp archive.
+- The existing restored deposit passed doctor without another restore; content
+  portability checks and the real 0.112.0 npm launchers stayed green.
+- The combined suite reported 88/92 passing, four failures, zero skips. All four
+  failures occurred while creating file/directory symlinks, before their intended
+  rejection assertions. Reported coverage was 99.49% lines, 96.97% branches, and
+  100% functions over the included files; the suite still exited 1.
+- Both intended stale/recovery pairs, final checks, reset, and archives completed,
+  but the first literal `git diff --check` returned 2 for trailing whitespace on
+  a CRLF purpose line. A bounded edit recovery and regeneration produced final
+  exit 0. Those are recovered results, not an uninterrupted first-pass success.
+- The complete PowerShell script was assembled from executed commands afterward
+  and parsed only. Its filename in the report is not an attached script or proof
+  that the assembled file itself ran end-to-end.
+
+Source inspection found an EOL-policy mismatch: fixture copies retained checkout
+CRLF bytes, and the checkpoint helper passed `core.autocrlf=false` when staging,
+while the literal final Git command inherited the host configuration. The report
+does not justify assigning the failure solely to the candidate editor. The
+approved follow-up normalizes fresh text copies and uses fixed source attributes
+in the disposable fixture; it does not relax whitespace checking or alter the
+course checkout's EOL policy.
+
+The full Windows safety result remains incomplete until both Node symlink probes
+and the unchanged tests pass in the same approved process context. Windows does
+support file and directory symlinks: Developer Mode permits unprivileged creation
+by supporting applications, and an appropriately privileged elevated process is
+another route. Node 26.8.1's bundled libuv enables that unprivileged-creation flag.
+Sources: [Microsoft symlink guidance](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/)
+and [Node 26.8.1's Windows filesystem implementation](https://github.com/nodejs/node/blob/v26.8.1/deps/uv/src/win/fs.c).
+These prerequisites do not authorize changing host settings or replacing symlink
+tests with junctions. The new line-ending behavior still requires native replay.
+
+The regression first reproduced the native shape before product changes:
+CRLF course copies with `core.autocrlf=true` and a CRLF purpose edit produced
+plain `git diff --check` exit 2 on source line 22, despite a 1/1 numstat.
+An LF edit against a CRLF checkpoint instead produced 39/39 line churn.
+The fix copies all five fixture text files as LF and checkpoints a ninth file,
+`.gitattributes`, with a narrow `text eol=lf` rule for the editable JSON.
+The guard rejects changed rules, symlinks, and effective attribute overrides.
+
+The revised six-file suite passes locally: 101 tests, zero failures or skips.
+Explicit 90% line/branch/function thresholds pass at 99.49% / 97.01% / 100%
+across the two lab helpers, Modules 4–5 verifier, and recovery helper.
+The projection helper itself has 100% / 98.63% / 100% coverage.
+The eight combinations of LF/CRLF course copies, `core.autocrlf=true/false`,
+and LF/CRLF edits all pass the exact plain Git whitespace command with a
+purpose-only 1/1 diff. Genuine trailing spaces and tabs still return 2 in
+every combination. No global or course Git setting changes are needed.
+
+Fresh proof `local-0.112.0-lab05-eol-BcQ9WF` ran the complete macOS/zsh path
+with the real installed 0.112.0 graph. Both stale checks returned 1, both
+recoveries and all five final commands returned 0, and the nine-file checkpoint
+had an LF source/index. Fresh reset and both outside-directory archives passed;
+the completed `BcQ9WF` and reset `d7Lvv5` parents are retained in the OS-temp
+archive with the completed evidence and MAP hashes unchanged.
+
+A separate real-install attempt `Qcksac` executed the current literal CRLF edit
+block under PowerShell 7.6.5 on macOS. It produced UTF-8 without BOM, CRLF working
+bytes, LF index bytes, and exactly one added/deleted purpose line. The unchanged
+whitespace check passed before regeneration; freshness then returned the expected
+1, recovery and all five final checks returned 0, and archiving preserved the
+attempt. This tests the PowerShell edit block on macOS, not the complete native
+Windows candidate. All ten handoff PowerShell blocks parse.
+
+The executed scripts and logs remain in `/private/tmp/lab05-eol-proof-kUyMFDrf`.
+The helper SHA-256 before and after both runs was
+`7eb072c959c682e0dfe94034e1f6ccb8049f721928e57477b7d2397593016b0c`.
+The exact PowerShell edit script SHA-256 before and after execution was
+`e6fdb77238f99000859d46f9165aa5813eb317205bb7d3bc0006e8833202b2ea`.
+The complete LF replay log SHA-256 is
+`ab517d0a1148f9987f16f466007c05635f60fd5ce82cf2495ffc09aa259804c1`;
+the PowerShell CRLF log SHA-256 is
+`2e0bfc46b8174d7e6e067c13546b421471fdcf3773e34dfd0a6cc8ab40929202`.
+
+### Final native report and implementation disposition
+
+The final supplied report bound the branch, PR, and detached checkout to
+`324b5f73d9e5011fff9699a84806d659ea555bc1`. It reported 97/101 tests passing,
+four failures during symlink setup, and zero skips. All nine EOL tests and the
+archive contract tests passed natively. Doctor, content checks, real installed
+0.112.0 launchers, the nine-file LF checkpoint, and the first stale/recovery pair
+also passed. These results confirm the bounded fixes, not complete Windows support.
+
+The attached complete candidate set the parent PowerShell location to the course
+root, while earlier subprocesses used the disposable root as their working
+directory. At candidate line 357 it invoked relative `projection-lab.mjs guard`
+directly, without changing the parent location. Node returned `MODULE_NOT_FOUND`
+before the helper or CRLF edit ran. The second stale/recovery pair, final five
+checks, reset, and real archives were not run. This adapter error does not
+establish a new fixture defect. The unchanged candidate's pre/post SHA-256 was
+`6952b710e43a608f70c1d6d1c6e94934b96ba0d111068407c095c7e1b89aa7da`.
+The new `3ci-directive-lab05-5EsMke/repo` attempt and all earlier evidence were
+retained; the course remained clean at the tested SHA.
+
+David then directed finalizing the modules and moving on instead of continuing
+the Windows repair/retest loop. Finalization therefore uses the already verified
+macOS/zsh Lab 5 path and unchanged acceptance criteria. Windows validation is
+paused and incomplete, not waived or passed. No further adapter fix, replay,
+host configuration change, test skip, or gate change is part of this batch.
+The [Windows handoff](../maintainers/WINDOWS-REVALIDATION.md) is retained as a
+historical assignment. Implementation completion is separate from merge and
+post-merge scope closeout; the active scope records that delivery boundary.
+
+### Local tooling verification
+
+The original implementation's `npm run test:modules-4-5` passed all 46 tests, with none skipped. These include 32 content
+contract tests and 14 fixture/safety tests. An additional Node.js built-in coverage run
+over `labs/fixtures/05-projection-drift-recovery/*.mjs` and
+`scripts/verify-modules-4-5.mjs`, with 90% line/branch/function thresholds, passed:
+
+| Tooling source | Lines | Branches | Functions |
+| --- | ---: | ---: | ---: |
+| `projection-lab.mjs` | 95.98% | 96.67% | 100% |
+| `safety.mjs` | 96.61% | 91.67% | 100% |
+| `verify-modules-4-5.mjs` | 98.55% | 95.60% | 100% |
+| Combined | 97.27% | 95.43% | 100% |
+
+This coverage measures the course tooling, not the installed Directive engine or inert
+fictional JavaScript input. `deft coverage:hotspots` could not consume the Node report:
+it expects `coverage/coverage-final.json`. The actual Node report and explicit thresholds
+above provide the coverage evidence; no engine coverage claim is made.
+
+The inherited Git-redirection regression verifies that unsafe caller overrides are refused
+before attempt creation or inspection. Error messages report variable names, not values.
+Negative tests also cover foreign roots, symlinks, remotes, pins, extra files, malformed
+scope inputs, missing MAP, source changes outside the permitted field, and unsafe commands
+in learner Markdown.
+
+The declared literal command is `directive verify:vbrief-conformance --project-root .`.
+The configured rapid `task deft:check` executes that command successfully; it is not a
+substitute for the supplemental curriculum checks or the live lab proof. The framework's
+prose-clause walk remains advisory/unverifiable because this inherited scope has no
+`plan.metadata.swarm.file_scope`. The independent content review and lab evidence address
+those clauses; no scope digest, operator approval, or verifier result was invented.
+Scope provenance likewise reports an existing migration warning for the active scope's
+missing approved digest. Branch and test-boundary checks pass. Forward-coverage reports
+zero recognized new source files, so it is not counted as coverage evidence for these
+`.mjs` additions.
+
 ## Source-file verification
 
 Hashes are SHA-256 over file bytes at the peeled release commit.

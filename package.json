@@ -2,7 +2,10 @@
   "private": true,
   "scripts": {
     "check:cold-start-readme": "node scripts/verify-cold-start-readme.mjs",
-    "check:modules-2-3": "node scripts/verify-modules-2-3.mjs"
+    "check:modules-2-3": "node scripts/verify-modules-2-3.mjs",
+    "check:modules-4-5": "node scripts/verify-modules-4-5.mjs",
+    "test:modules-4-5": "node --test scripts/projection-lab.test.mjs scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-modules-4-5.test.mjs",
+    "test:portability": "node --test scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs"
   },
   "devDependencies": {
     "@deftai/directive": "0.112.0"

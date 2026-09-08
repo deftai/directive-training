@@ -1,7 +1,44 @@
 <!-- deft:template -->
-<!-- Purpose: pre-build cost estimate for the approved Modules 2-3 curriculum scope -->
+<!-- Purpose: current Modules 4-5 cost estimate with the prior Modules 2-3 estimate retained -->
 
 # Cost & Budget Estimate
+
+## Current scope — Modules 4–5 (2026-09-07)
+
+Currency: **USD**. The current work adds two Markdown lessons, explained
+solutions, one guarded disposable projection lab, and focused validation.
+No new hosting service, paid account, publishing platform, or runtime
+application is introduced. Existing workstation, agent-access, and private
+repository costs remain under their existing arrangements; metered internal
+usage is not estimated here.
+
+For one private curriculum repository and local fictional lab attempts, the
+incremental monthly service band is **low $0 / typical $0 / high $0**, assuming
+existing tooling access. These are scope assumptions, not vendor quotes.
+Human-equivalent authoring, source checking, lab verification, and review is
+roughly **24–40 hours**; an agent-assisted run is not a measurement of that
+human effort. Ongoing content maintenance is approximately **1–3 hours per
+month**, with a new estimate after a release or scope change.
+
+The executable Lab 5 path is bounded to macOS/zsh. Native Linux/Windows proof,
+publishing, paid services, and Modules 6–11 are outside this implementation.
+Re-estimate before introducing any of them or changing the release pin.
+
+### Decision recorded — current scope
+
+- **Decision**: Build
+- **Date**: 2026-09-07
+- **Recorded by**: agent:codex, from David's explicit implementation request
+- **Request**: “pull the latest master and proceed to implement the next two
+  modules once the lifecycle closeout running in the other session is complete”
+- **Boundary**: Local Modules 4–5 implementation after verified upgrade
+  closeout. This record does not assert a separate cost-estimate approval or
+  authorization for remote publishing, paid purchases, PR creation, or merge.
+
+## Historical estimate — Modules 2–3
+
+The remainder records the previous scope and its prior decision. It does not
+replace the current Modules 4–5 scope above.
 
 > All figures are in **US dollars (USD)**. These are loose ranges, not
 > guarantees. Re-estimate if the approved scope or service assumptions change.
