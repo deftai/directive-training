@@ -8,9 +8,9 @@ revalidated through 2026-09-09 and must be refreshed when the project pin change
 | Evidence | Verified result |
 | --- | --- |
 | Consumer project pin | `package.json` has exact dev dependency `@deftai/directive: 0.112.0`. |
-| Executables used for probes | `/Users/davidcall/.nvm/versions/node/v24.18.0/bin/directive`, resolved to the global 0.112.0 CLI package, and a disposable repository's explicit `node_modules/.bin/directive`, installed from the exact fixture pin. |
+| Executables used for probes | Earlier Modules 2–6 probes used a then-current global 0.112.0 CLI. Module 7 used a disposable repository's explicit `node_modules/.bin/directive` and isolated Task PATH from the exact fixture pin; the now-global 0.113.0 CLI was detected and excluded. |
 | Installed packages | The global CLI/core/content graph and the disposable repository's CLI/core/content/types graph all resolved to 0.112.0. The training repository itself records a pin but intentionally contains no project-local install or lockfile. |
-| Runtime version report | `directive --version` reported `@deftai/directive-core@0.112.0`. |
+| Runtime version report | The Module 7 local binary reported `@deftai/directive (engine: @deftai/directive-core@0.112.0)`. The shell-global 0.113.0 report is not evidence for this baseline. |
 | Consumer deposit | `.deft/GENERATION.json` records payload, templates, skills, and docs at 0.112.0. |
 | Release tag | Annotated tag `v0.112.0`; tag object `5f30e544eedb72c313ba61934818eb49506fe61b`. |
 | Release commit | `7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808`. The tag peel and npm `gitHead` agree. |
@@ -161,6 +161,34 @@ independently deployable or that static inspection proves running behavior.
 The pinned-source inspection and disagreements for this module are recorded in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-6-verification). Later lifecycle execution,
 implementation, review, and shipping procedures remain reserved for their own modules.
+
+## Module 7 lifecycle validation
+
+Module 7 executes the real 0.112.0 consumer Task lifecycle inside a unique fictional
+operating-system temporary repository. The fixture has an exact CLI pin plus exact
+core/content/types overrides, an ignored 0.112.0 content deposit, a feature branch, and no
+remote. Its Task PATH exposes only the attempt's package launchers and individually resolved
+support tools, preventing the newer global Directive from shadowing the taught release.
+
+| Surface | Verified 0.112.0 result |
+| --- | --- |
+| Local `directive xbrief:preflight --vbrief-path xbrief/proposed/<story>` | Exit `1`; proposed is not eligible for implementation. The option name retains legacy wording. |
+| `task deft:xbrief:preflight` on proposed | Nonzero; go-task 3.50.0 returned `201` while preserving the child exit `1`. The wrapper value is environment evidence, not an engine contract. |
+| `task deft:scope:promote` | Exit `0`; `proposed/proposed` became `pending/pending`. |
+| `task deft:scope:activate` | Exit `0`; `pending/pending` became `active/running`. |
+| `task deft:scope:cancel` | Exit `0`; the separate proposed story became `cancelled/cancelled`. |
+| `task deft:session:start` then `task deft:verify:session-ritual` | Exits `0`, `0` under one current session ID after activation. |
+| `task deft:xbrief:preflight` on active | Exit `0` after explicit current lab intent and the session gates. |
+| `task deft:scope:complete` | Exit `0`; the active story became `completed/completed`. This fixture contains no product implementation, so completion is not called delivery. |
+
+The fixture writes the expected failure before promotion, creates a different unique root for
+reset, and uses an exact-parent rename into a recoverable temporary archive for cleanup. The
+focused verifier checks those mechanisms and rejects remote/destructive command surfaces; it
+does not execute Markdown commands. Native execution is currently bounded to macOS/zsh.
+Linux/bash and Windows/PowerShell remain candidates.
+
+Probe details, exact help disagreements, platform markers, and the isolated runtime evidence
+are in [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-7-source-validation).
 
 ## Deferred skill-contract validation
 

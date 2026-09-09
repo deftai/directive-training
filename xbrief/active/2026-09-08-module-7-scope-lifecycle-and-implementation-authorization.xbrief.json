@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Story xBRIEF 2 decomposed from proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
-    "updated": "2026-09-09T19:03:46Z"
+    "updated": "2026-09-09T20:58:14Z"
   },
   "plan": {
     "id": "training.modules6-8.lifecycle",
@@ -78,6 +78,7 @@
           "README.md",
           "assessments/README.md",
           "curriculum/README.md",
+          "curriculum/modules/06-creating-well-shaped-work.md",
           "curriculum/modules/07-scope-lifecycle.md",
           "history/changes/module-7-curriculum/proposal.xbrief.json",
           "labs/07-scope-lifecycle.md",
@@ -92,8 +93,13 @@
           "references/SOURCE-BASELINE.md",
           "references/SOURCE-NOTES.md",
           "scripts/lifecycle-lab.test.mjs",
+          "scripts/verify-module-6.mjs",
+          "scripts/verify-module-6.test.mjs",
           "scripts/verify-module-7.mjs",
           "scripts/verify-module-7.test.mjs",
+          "scripts/verify-modules-4-5.mjs",
+          "scripts/verify-modules-4-5.test.mjs",
+          "solutions/module-06-creating-well-shaped-work.md",
           "solutions/README.md",
           "solutions/lab-07-scope-lifecycle.md",
           "xbrief/PROJECT-DEFINITION.xbrief.json",
@@ -215,6 +221,6 @@
       ],
       "ambiguity_attestation": "none_found"
     },
-    "updated": "2026-09-09T19:03:46Z"
+    "updated": "2026-09-09T20:58:14Z"
   }
 }

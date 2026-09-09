@@ -54,7 +54,7 @@ function fixture(t) {
   }));
   write(solution4, document(solutionHeadings, outcomes4, { "Solution record": record }));
   write(solution5, document(solutionHeadings, outcomes5, { "Solution record": record }));
-  write("curriculum/README.md", "# Course\n\n| [Module 4](modules/04-xbrief-as-durable-state.md) | Learner-ready draft |\n| [Module 5](modules/05-sources-versus-projections.md) | Learner-ready draft — macOS/zsh |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| Module 7 | Planned |\n");
+  write("curriculum/README.md", "# Course\n\n| [Module 4](modules/04-xbrief-as-durable-state.md) | Learner-ready draft |\n| [Module 5](modules/05-sources-versus-projections.md) | Learner-ready draft — macOS/zsh |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| Module 7 | Learner-ready draft |\n");
   write("references/SOURCE-NOTES.md", "# Proof\n\n- `lab05-platform-proof:macos-zsh status=verified date=2026-09-07 evidence=local-disposable-lab5-full`\n- `lab05-platform-proof:linux-bash status=candidate date=2026-09-07 evidence=not-run`\n- `lab05-platform-proof:windows-pwsh7 status=candidate date=2026-09-07 evidence=not-run`\n");
   write("package.json", JSON.stringify({ private: true, devDependencies: { "@deftai/directive": "0.112.0" } }));
   return {
@@ -173,7 +173,7 @@ test("rejects unsupported native proof markers and prose claims", (t) => {
   assert.throws(() => verifyModules45(files.root), /unsupported native/);
 });
 
-test("rejects planned availability for released modules and availability for Module 7", (t) => {
+test("rejects planned availability for released Modules 4–6", (t) => {
   const files = fixture(t);
   files.change("curriculum/README.md", (body) => body.replace("Learner-ready draft", "Planned"));
   assert.throws(() => verifyModules45(files.root), /Module 4 availability/);
@@ -182,16 +182,4 @@ test("rejects planned availability for released modules and availability for Mod
   module6Files.change("curriculum/README.md", (body) => body.replace("Learner-ready draft; command-free", "Planned"));
   assert.throws(() => verifyModules45(module6Files.root), /Module 6 availability/);
 
-  const module7Files = fixture(t);
-  module7Files.change("curriculum/README.md", (body) => body.replace("| Module 7 | Planned |", "| Module 7 | Learner-ready draft |"));
-  assert.throws(() => verifyModules45(module7Files.root), /Module 7.*planned/);
-});
-
-test("rejects a contradictory Module 7 row even when explanatory prose says planned", (t) => {
-  const files = fixture(t);
-  files.change("curriculum/README.md", (body) => `${body.replace(
-    "| Module 7 | Planned |",
-    "| Module 7 | Learner-ready draft; available |",
-  )}\nModule 7 is planned for a later course phase.\n`);
-  assert.throws(() => verifyModules45(files.root), /Module 7.*planned/);
 });

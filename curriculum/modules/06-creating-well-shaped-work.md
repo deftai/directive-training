@@ -425,8 +425,7 @@ required.
 
 - Previous: [Module 5 — Sources versus Projections](05-sources-versus-projections.md)
 - Course map: [Core curriculum](../README.md)
-- Next: Module 7 — Scope Lifecycle and Implementation Authorization is planned; return to
-  the [course map](../README.md).
+- Next: [Module 7 — Scope Lifecycle and Implementation Authorization](07-scope-lifecycle.md)
 - Resume point: retry the first outcome without passing evidence; retain outcomes already
   demonstrated unless the course baseline changes.
 

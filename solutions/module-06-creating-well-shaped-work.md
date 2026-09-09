@@ -348,8 +348,8 @@ record how the course resolves those disagreements.
 
 - Return to [Module 6](../curriculum/modules/06-creating-well-shaped-work.md).
 - Record O6.1–O6.3 only after every exercise acceptance inspection passes.
-- Module 7 is planned; return to the [course map](../curriculum/README.md) rather than
-  inventing lifecycle practice.
+- Continue to [Module 7 — Scope Lifecycle and Implementation Authorization](../curriculum/modules/07-scope-lifecycle.md),
+  or return to the [course map](../curriculum/README.md).
 
 ## Author release check
 

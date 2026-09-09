@@ -14,7 +14,6 @@ import {
 const module6 = "curriculum/modules/06-creating-well-shaped-work.md";
 const solution6 = "solutions/module-06-creating-well-shaped-work.md";
 const module5 = "curriculum/modules/05-sources-versus-projections.md";
-const module7Scope = "xbrief/proposed/2026-09-08-module-7-scope-lifecycle-and-implementation-authorization.xbrief.json";
 const requiredFiles = [
   module6,
   solution6,
@@ -29,7 +28,6 @@ const requiredFiles = [
   "references/SOURCE-NOTES.md",
   "maintainers/CURRICULUM-MAINTENANCE.md",
   "xbrief/PROJECT-DEFINITION.xbrief.json",
-  module7Scope,
   "package.json",
 ];
 const unfinishedMarker = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
@@ -161,14 +159,15 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
   const module6Navigation = section(moduleProse, "Navigation");
   assert.match(module6Navigation, /\]\(05-sources-versus-projections\.md(?:#[^)]*)?\)/, "Module 6 navigation must link to Module 5");
   assert.match(module6Navigation, /\]\(\.\.\/README\.md(?:#[^)]*)?\)/, "Module 6 navigation must link to the course map");
-  assert.match(module6Navigation, /Module 7[^\n]*\bplanned\b/i, "Module 6 navigation must identify Module 7 as planned");
+  assert.match(module6Navigation, /\]\(07-scope-lifecycle\.md(?:#[^)]*)?\)/, "Module 6 must retain Module 7 navigation");
+  assert.match(section(solutionProse, "Continue"), /\]\(\.\.\/curriculum\/modules\/07-scope-lifecycle\.md(?:#[^)]*)?\)/, "Module 6 solution must retain Module 7 navigation");
 
   const course = content.get("curriculum/README.md");
   const module6Row = course.split("\n").find((line) => line.includes("06-creating-well-shaped-work.md"));
   assert.ok(module6Row && !/\bplanned\b/i.test(module6Row), "Module 6 availability must identify learner-ready curriculum");
   const module7Row = courseModuleRow(course, 7);
-  assert.match(module7Row, /\|\s*Planned\s*\|/i, "Module 7 must remain planned in its course-map row");
-  assert.doesNotMatch(module7Row, /\b(?:learner-ready|available|running)\b/i, "Module 7 course-map row must remain planned, not available");
+  assert.match(module7Row, /07-scope-lifecycle\.md/, "Module 7 course-map navigation must link the lesson");
+  assert.doesNotMatch(module7Row, /\|\s*Planned\s*\|/i, "Module 7 course-map navigation must not regress to an unavailable placeholder");
   verifyLinks(root, "curriculum/README.md", markdownParts(course).prose);
   for (const path of ["README.md", "assessments/README.md", "solutions/README.md"]) {
     requireModule6Link(content.get(path), `${path} navigation`);
@@ -196,11 +195,7 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(content.get("maintainers/CURRICULUM-MAINTENANCE.md"), /node --test scripts\/verify-module-6\.test\.mjs/, "maintenance contract is missing the Module 6 test check");
 
   const project = JSON.parse(content.get("xbrief/PROJECT-DEFINITION.xbrief.json"));
-  const projectModule7 = project.plan?.items?.find((item) => item.title?.startsWith("Module 7") || item.id?.includes("module-7"));
-  assert.equal(projectModule7?.status, "proposed", "Module 7 must remain proposed in PROJECT-DEFINITION");
-  assert.equal(projectModule7?.metadata?.lifecycle_folder, "proposed", "Module 7 must remain in the proposed lifecycle folder");
-  const module7 = JSON.parse(content.get(module7Scope));
-  assert.equal(module7.plan?.status, "proposed", "Module 7 scope must remain proposed");
+  assert.equal(project.xBRIEFInfo?.version, "0.8", "PROJECT-DEFINITION must retain xBRIEF 0.8");
 
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.private, true, "the training package must remain private");

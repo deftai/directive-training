@@ -153,6 +153,26 @@ story-ready, and xBRIEF preflight gates before changing product content.
 A completed scope records lifecycle closeout; it does not by itself prove
 delivery or authorize the next change.
 
+In a consumer repository whose framework include is named `deft`, the Module 7
+sequence uses these Task surfaces:
+
+```text
+task deft:xbrief:preflight -- xbrief/proposed/<scope>.xbrief.json  # expected failure
+task deft:scope:promote -- xbrief/proposed/<scope>.xbrief.json
+task deft:scope:activate -- xbrief/pending/<scope>.xbrief.json
+task deft:session:start -- --session-id=<current-session-id>
+task deft:verify:session-ritual -- --tier=gated
+task deft:xbrief:preflight -- xbrief/active/<scope>.xbrief.json
+task deft:scope:complete -- xbrief/active/<scope>.xbrief.json
+task deft:scope:cancel -- xbrief/proposed/<obsolete-scope>.xbrief.json
+```
+
+The pinned 0.112.0 engine exits `1` for proposed preflight. A Task runner can
+wrap that child failure with another nonzero process exit; retain both values
+and do not relabel the wrapper result as the engine contract. See
+[Module 7](../curriculum/modules/07-scope-lifecycle.md) and its
+[disposable lab](../labs/07-scope-lifecycle.md).
+
 ## Evidence ladder
 
 | Claim | Minimum kind of evidence |

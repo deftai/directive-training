@@ -1,0 +1,13 @@
+{
+  "name": "northstar-lifecycle-lab",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@deftai/directive": "0.112.0"
+  },
+  "overrides": {
+    "@deftai/directive-core": "0.112.0",
+    "@deftai/directive-content": "0.112.0",
+    "@deftai/directive-types": "0.112.0"
+  }
+}

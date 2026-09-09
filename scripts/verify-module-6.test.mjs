@@ -8,7 +8,7 @@ import { verifyModule6 } from "./verify-module-6.mjs";
 const module6 = "curriculum/modules/06-creating-well-shaped-work.md";
 const solution6 = "solutions/module-06-creating-well-shaped-work.md";
 const module5 = "curriculum/modules/05-sources-versus-projections.md";
-const module7Scope = "xbrief/proposed/2026-09-08-module-7-scope-lifecycle-and-implementation-authorization.xbrief.json";
+const module7 = "curriculum/modules/07-scope-lifecycle.md";
 const moduleHeadings = [
   "Module record", "Learning outcomes", "Starting-state check", "Why this matters",
   "Terminology", "Mental model", "Guided explanation", "Walkthrough", "Exercise",
@@ -69,7 +69,7 @@ function fixture(t) {
     "Completion evidence": outcomes,
     "Self-assessment": outcomes,
     "Explained solution": "Use the [explained solution](../../solutions/module-06-creating-well-shaped-work.md).",
-    "Navigation": "Previous: [Module 5](05-sources-versus-projections.md). Next: Module 7 is planned; see the [course map](../README.md).",
+    "Navigation": "Previous: [Module 5](05-sources-versus-projections.md). Next: [Module 7](07-scope-lifecycle.md); see the [course map](../README.md).",
     "Official sources": "See the [source baseline](../../references/SOURCE-BASELINE.md) and [Module 6 source validation](../../references/SOURCE-NOTES.md#module-6-source-validation).",
   }));
   write(solution6, document(solutionHeadings, {
@@ -93,12 +93,13 @@ function fixture(t) {
       "```",
     ].join("\n"),
     "Acceptance evidence": outcomes,
-    "Continue": "Return to [Module 6](../curriculum/modules/06-creating-well-shaped-work.md) or review the [course map](../curriculum/README.md).",
+    "Continue": "Continue to [Module 7](../curriculum/modules/07-scope-lifecycle.md) or review the [course map](../curriculum/README.md).",
     "Sources": "See the [source baseline](../references/SOURCE-BASELINE.md) and [Module 6 source validation](../references/SOURCE-NOTES.md#module-6-source-validation).",
   }));
   write(module5, "# Module 5\n\n## Navigation\n\nNext: [Module 6](06-creating-well-shaped-work.md).\n");
+  write(module7, "# Module 7\n");
   write("README.md", "# Training\n\nContinue with [Module 6](curriculum/modules/06-creating-well-shaped-work.md).\n");
-  write("curriculum/README.md", "# Course\n\n| Module | Status |\n| --- | --- |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| Module 7 | Planned |\n");
+  write("curriculum/README.md", "# Course\n\n| Module | Status |\n| --- | --- |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| [Module 7](modules/07-scope-lifecycle.md) | Learner-ready draft |\n");
   write("assessments/README.md", "# Assessments\n\nUse [Module 6](../curriculum/modules/06-creating-well-shaped-work.md#self-assessment).\n");
   write("solutions/README.md", "# Solutions\n\nUse the [Module 6 solution](module-06-creating-well-shaped-work.md).\n");
   write("references/GLOSSARY.md", "# Glossary\n\n## Vertical slice\n\nAn independently demoable, human-observable capability.\n\n## Horizontal plan\n\nWork grouped by component rather than outcome.\n\n## Proposed scope\n\nA reviewable candidate that grants no implementation authority.\n");
@@ -112,9 +113,8 @@ function fixture(t) {
   write("maintainers/CURRICULUM-MAINTENANCE.md", "# Maintenance\n\nRun `npm run check:module-6` and `node --test scripts/verify-module-6.test.mjs`.\n");
   write("xbrief/PROJECT-DEFINITION.xbrief.json", JSON.stringify({
     xBRIEFInfo: { version: "0.8" },
-    plan: { items: [{ id: "module-7", title: "Module 7", status: "proposed", metadata: { lifecycle_folder: "proposed" } }] },
+    plan: { items: [{ id: "module-7", title: "Module 7", status: "running", metadata: { lifecycle_folder: "active" } }] },
   }));
-  write(module7Scope, JSON.stringify({ xBRIEFInfo: { version: "0.8" }, plan: { title: "Module 7", status: "proposed" } }));
   write("package.json", JSON.stringify({
     private: true,
     scripts: {
@@ -133,7 +133,7 @@ function fixture(t) {
 }
 
 test("accepts a complete command-free Module 6 contract", (t) => {
-  assert.equal(verifyModule6(fixture(t).root).artifactCount, 15);
+  assert.equal(verifyModule6(fixture(t).root).artifactCount, 14);
 });
 
 for (const [path, headings] of [[module6, moduleHeadings], [solution6, solutionHeadings]]) {
@@ -244,22 +244,18 @@ test("rejects stale and ranged Directive pins", (t) => {
   assert.throws(() => verifyModule6(files.root), /exact Directive pin/);
 });
 
-test("rejects Module 7 becoming available or running", (t) => {
+test("requires durable Module 7 navigation without owning its lifecycle state", (t) => {
   const files = fixture(t);
-  files.change("curriculum/README.md", (body) => body.replace("| Module 7 | Planned |", "| Module 7 | Learner-ready draft |"));
-  assert.throws(() => verifyModule6(files.root), /Module 7.*planned/);
-  files.change("curriculum/README.md", (body) => body.replace("| Module 7 | Learner-ready draft |", "| Module 7 | Planned |"));
-  files.change(module7Scope, (body) => body.replace('"proposed"', '"running"'));
-  assert.throws(() => verifyModule6(files.root), /Module 7.*proposed/);
-});
+  files.change(module6, (body) => body.replace("[Module 7](07-scope-lifecycle.md)", "Module 7"));
+  assert.throws(() => verifyModule6(files.root), /Module 7 navigation/);
 
-test("rejects a contradictory Module 7 row even when explanatory prose says planned", (t) => {
-  const files = fixture(t);
-  files.change("curriculum/README.md", (body) => `${body.replace(
-    "| Module 7 | Planned |",
-    "| Module 7 | Learner-ready draft; available |",
-  )}\nModule 7 is planned for a later course phase.\n`);
-  assert.throws(() => verifyModule6(files.root), /Module 7.*planned/);
+  const solutionFiles = fixture(t);
+  solutionFiles.change(solution6, (body) => body.replace("[Module 7](../curriculum/modules/07-scope-lifecycle.md)", "Module 7"));
+  assert.throws(() => verifyModule6(solutionFiles.root), /Module 7 navigation/);
+
+  const mapFiles = fixture(t);
+  mapFiles.change("curriculum/README.md", (body) => body.replace("[Module 7](modules/07-scope-lifecycle.md)", "Module 7"));
+  assert.throws(() => verifyModule6(mapFiles.root), /Module 7 course-map navigation/);
 });
 
 for (const marker of ["{{AUTHOR_TODO}}", "TODO: finish", "TBD", "FIXME"]) {

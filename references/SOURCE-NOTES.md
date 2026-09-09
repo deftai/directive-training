@@ -481,9 +481,78 @@ implementation-authority claim.
 
 The content verifier rejects missing O6.1–O6.3 mappings, missing worksheet fields or lesson
 sections, stale/ranged pins, unsafe shell blocks, broken or escaping local links, unfinished
-markers, premature Module 7 availability, and any loss of the proposed-state authority
-boundary. It reuses the fenced-code-aware Markdown and link utilities from the Modules 4–5
-verifier so the two contracts evaluate local links consistently.
+markers, broken Module 7 navigation, and any loss of the proposed-state authority boundary.
+It reuses the fenced-code-aware Markdown and link utilities from the Modules 4–5
+verifier so the two contracts evaluate local links consistently. It validates stable
+forward navigation to learner-ready Module 7 without owning Module 7's temporary lifecycle
+folder or status.
+
+## Module 7 source validation
+
+Module 7 was validated on 2026-09-09 against the exact local
+`@deftai/directive@0.112.0` package graph in the guarded Lab 7 fixture. The global
+`directive` on this host reports engine 0.113.0 and was intentionally excluded. The helper's
+isolated Task PATH resolved the local 0.112.0 `deft`/`directive` launchers while admitting
+only individually resolved support tools.
+
+| Source or runtime surface | Evidence used |
+| --- | --- |
+| `.deft/core/commands.md` — Scope xBRIEF Lifecycle | Folder/status transitions, session routing, live implementation intent, and preflight boundaries. |
+| `.deft/core/main.md` — xBRIEF Persistence | Active xBRIEF plus live operator instruction is the current implementation contract; completed scope is historical. |
+| `.deft/core/tasks/scope.yml` | Consumer Task dispatch for promote, activate, complete, and cancel. |
+| `.deft/core/tasks/xbrief.yml` | Consumer Task dispatch for xBRIEF preflight and the retained `--vbrief-path` engine option. |
+| `.deft/core/tasks/session.yml` | Consumer Task dispatch for session start. |
+| `directive commands` and lifecycle help cards | Command registration and operand/help boundaries at 0.112.0. |
+| `npm run test:module-7` | Guard, reset, archive, exact pin, proposed failure, transitions, session ritual, active preflight, completion, cancellation, and no-remote assertions. |
+
+### Exact observed lifecycle results
+
+| Event | Exit | State/result |
+| --- | ---: | --- |
+| Local pinned proposed preflight | `1` | Diagnostic says only active scope is eligible; story remained `proposed/proposed`. |
+| Proposed preflight through go-task 3.50.0 | `201` | Task preserved the child exit `1`; the wrapper exit is not generalized. |
+| Promote | `0` | `pending/pending` |
+| Activate | `0` | `active/running` |
+| Cancel separate story | `0` | `cancelled/cancelled` |
+| Session start | `0` | Current session ID claimed the disposable worktree. |
+| Gated session ritual | `0` | Fresh gated ritual. |
+| Active preflight | `0` | Ready-for-implementation result after current lab intent and session gates. |
+| Complete | `0` | `completed/completed`; no product or delivery claim. |
+
+The run wrote `proposed-preflight.json` before promotion and
+`lifecycle-run.json` after final-state verification. Both records include command, exit,
+stdout, stderr, exact engine baseline, environment, current-intent boundary, final pairs,
+and empty remote. Tests moved only their own exact marked temporary parents into the
+recoverable temporary archive; they did not delete them.
+
+### Module 7 platform evidence
+
+`lab07-platform-proof:macos-zsh status=verified date=2026-09-09 evidence=native-pinned-lifecycle-test`
+
+`lab07-platform-proof:linux-bash status=candidate date=2026-09-09 evidence=not-run`
+
+`lab07-platform-proof:windows-pwsh7 status=candidate date=2026-09-09 evidence=not-run`
+
+The macOS run used Node.js 24.18.0, npm 11.16.0, Git 2.50.1, zsh 5.9, and
+go-task 3.50.0. Linux/bash and native Windows/PowerShell require independent execution before
+their markers or learner-facing status may become verified.
+
+### Module 7 source disagreements
+
+| Disagreement or environment edge | Curriculum decision |
+| --- | --- |
+| Scope help cards and Task descriptions say `vBRIEF` and show `vbrief/` paths. | Teach schema-0.8 `xbrief/` paths from the current lifecycle sources and observed behavior. |
+| `xbrief:preflight` retains `--vbrief-path` internally. | Learner-facing Task examples use positional `xbrief/` paths; runtime evidence records the released engine option exactly. |
+| `session:start --help` and `verify:session-ritual --help` exit `2` as unrecognized help requests. | Use `directive commands`, pinned source, and the exercised consumer Task forms; do not invent per-verb flags. |
+| The pinned engine returns `1`, while go-task returned `201` for the same proposed preflight failure. | Treat `1` as the engine contract and preserve the nonzero wrapper exit with Task version/environment attribution. |
+| A newer global Directive can shadow the course pin through the deposited Task engine. | The fixture constructs a bounded PATH whose `deft` and `directive` resolve to the attempt's 0.112.0 launchers. |
+| `scope:complete` succeeds for the fixture's lifecycle-only story with no acceptance items. | State explicitly that this demonstrates lifecycle mechanics only and proves no implemented or delivered product behavior. |
+
+The read-only Module 7 verifier rejects missing outcomes, broken local links, unsafe learner
+commands, weakened guards, missing exact pins, wrong Task ordering, lost pre-promotion
+evidence, reused reset roots, non-recoverable cleanup, unsupported platform promotion,
+stale navigation, and active-scope/project-registry disagreement. It does not execute fixture
+or Markdown commands.
 
 ## Source-file verification
 

@@ -1,0 +1,26 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Project definition for the fictional Northstar lifecycle lab"
+  },
+  "plan": {
+    "title": "Northstar Lifecycle Lab",
+    "status": "running",
+    "narratives": {
+      "Overview": "A fictional, disposable, no-remote repository for observing Directive scope lifecycle transitions.",
+      "Product": "A local greeting example used only to make authorization state visible.",
+      "Audience": "3Ci Directive learners.",
+      "SourceOfTruth": "Lifecycle state lives in xbrief/; the parent evidence directory records lab observations.",
+      "DevelopmentPosture": "Private pre-release training fixture with no compatibility layer.",
+      "ProjectRules": "Use fictional data only. Keep every mutation inside the unique operating-system temporary repository. Do not add a remote, push, open a pull request, merge, deploy, publish, or release."
+    },
+    "items": [],
+    "metadata": {
+      "staleness_flags": []
+    },
+    "x-directive/policy": {
+      "allowDirectCommitsToMaster": false,
+      "requireHumanMerge": false
+    }
+  }
+}

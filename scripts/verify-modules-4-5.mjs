@@ -208,9 +208,6 @@ export function verifyModules45(root = fileURLToPath(new URL("../", import.meta.
     const row = course.split("\n").find((line) => line.includes(filename));
     assert.ok(row && !/\b(?:planned|not yet available)\b/i.test(row), `Module ${number} availability must identify the completed curriculum`);
   }
-  const module7Row = courseModuleRow(course, 7);
-  assert.match(module7Row, /\|\s*Planned\s*\|/i, "Module 7 must remain planned in its course-map row");
-  assert.doesNotMatch(module7Row, /\b(?:learner-ready|available|running)\b/i, "Module 7 course-map row must remain planned, not available");
   verifyLinks(root, "curriculum/README.md", markdownParts(course).prose);
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.private, true, "the training package must remain private");

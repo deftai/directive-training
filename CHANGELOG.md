@@ -4,6 +4,11 @@
 
 ### Added
 
+- Module 7, a guarded disposable lifecycle lab, and an explained solution that
+  separate proposed, pending, active/running, completed, and cancelled state
+  from live implementation intent and current session/preflight readiness.
+- Focused Module 7 content and fixture tests with exact Directive 0.112.0
+  engine evidence, isolated Task execution, fresh reset, and recoverable archive.
 - Module 6: a command-free lesson and explained solution for turning horizontal
   plans into vertical slices, tracing ideas into reviewable proposed scope, and
   decomposing epics with dependency and boundary rationale.
@@ -21,10 +26,15 @@
 
 ### Changed
 
+- Mark Module 7 learner-ready on its verified macOS/zsh path; retain Linux/bash
+  and native Windows/PowerShell as candidate paths without learner-ready claims.
+- Keep the Modules 4–6 verifiers stable as later modules advance: earlier
+  contracts validate their own readiness and durable forward links, not a future
+  module's temporary lifecycle folder or status.
 - Clarify tactical/continue artifact lifetime and distinguish project-definition
   narratives from its rendered scope registry in the learner references.
 - Document projection help and missing-MAP freshness behavior. New lab platform
-  proof is limited to macOS/zsh; Modules 7–11 remain planned.
+  proof is limited to macOS/zsh; Modules 8–11 remain planned.
 
 ### Fixed
 

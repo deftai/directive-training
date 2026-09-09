@@ -143,8 +143,17 @@ definition, active scope, or live instruction.
 **proposed**
 Work has been shaped for consideration but is not approved for implementation.
 
+**promotion**
+The governed lifecycle transition from `proposed/proposed` to `pending/pending`.
+Promotion admits a scope to approved pending work; it does not make that scope current.
+
 **pending**
 Work has been promoted into the approved work set but is not currently active.
+
+**activation**
+The governed lifecycle transition from `pending/pending` to `active/running`.
+Activation establishes the durable current scope, but live implementation intent and
+applicable readiness gates remain separate requirements.
 
 **active / running**
 Work is the current implementation scope. Active state is necessary but not
@@ -163,6 +172,11 @@ record instead of disguising the transition as a manual file deletion.
 **lifecycle command**
 A Directive command that performs a state transition and its validation. Use it
 instead of manually moving lifecycle files.
+
+**lifecycle evidence**
+The command, exit code, relevant output, folder/status pair, release pin, environment,
+and safety-boundary facts that support a lifecycle claim. A final folder alone can omit
+the expected failure or ordering needed to explain how the state was reached.
 
 ## Work shaping
 
