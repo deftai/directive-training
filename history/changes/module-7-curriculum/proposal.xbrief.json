@@ -1,0 +1,42 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Approved change proposal for the Module 7 curriculum scope",
+    "created": "2026-09-09T19:04:54Z",
+    "updated": "2026-09-09T19:04:54Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.module-7-curriculum",
+    "title": "module-7-curriculum",
+    "status": "approved",
+    "items": [],
+    "narratives": {
+      "Problem": "Learners can shape observable work through Module 6, but they cannot yet observe how lifecycle state and live implementation intent combine to grant or deny bounded implementation authority.",
+      "Change": "Author Module 7, its guarded disposable lifecycle lab and fictional fixture, an explained solution, source and navigation updates, and focused verifiers with negative and portability tests.",
+      "Scope": "In scope: the paths and five acceptance clauses declared by training.modules6-8.lifecycle, the approved Module 7 cost record, the generated project and parent-scope lifecycle updates, and the governed proposed-to-active child transition. Out of scope: Module 8 and later curriculum, business repositories, learner remotes, publishing, deployment, upstream framework changes, push, pull-request creation, and merge.",
+      "Impact": "Adds one learner-ready lesson and one reproducible disposable lab that demonstrate fail-closed proposed state, canonical promotion and activation, active preflight success, completion and cancellation state, bounded reset, and recoverable cleanup.",
+      "Risks": "The lab could touch the training repository, configure a remote, delete outside its named temporary root, overstate unexecuted platform behavior, or blur lifecycle state with implementation intent. Safety guards, negative tests, explicit platform labels, and exact Directive 0.112.0 evidence must prevent those failures.",
+      "Approach": "Revalidate the pinned lifecycle and preflight command surfaces first, write failing tests for the fixture and verifier, implement the smallest guarded lab and lesson that satisfy the five clauses, update navigation and sources, then run the literal focused checks and aggregate gate.",
+      "Alternatives": "Combining Modules 7 and 8 was rejected because the approved decomposition makes them sequential, independently verifiable stories. Manual xBRIEF file moves and a live remote lab were rejected because they would bypass lifecycle contracts or violate the disposable no-remote boundary.",
+      "Dependencies": "The completed Module 6 curriculum, the exact @deftai/directive 0.112.0 baseline, Node.js 20 or newer, Git, npm, and the repository's existing Markdown, fixture, and verifier patterns.",
+      "Authorization": "David selected option 1, Build, after reviewing the Module 7 estimate, then answered Yes to confirm /deft:change module-7-curriculum and include the related cost-estimate and project-reference edits. The canonical parent update and proposed-to-active child transition are lifecycle counterparts, not added product scope. This confirms local implementation only and does not authorize remote delivery or destructive cleanup.",
+      "Stops": "Success: all Module 7 focused acceptance commands, lifecycle fixture tests, conformance checks, and the aggregate local gate pass. Failure: at most five implementation fix iterations or three identical failures without progress, and at most three pre-PR review passes. Stop before push or pull-request creation pending separate authorization."
+    },
+    "references": [
+      {
+        "uri": "../../../xbrief/active/2026-09-08-module-7-scope-lifecycle-and-implementation-authorization.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Active Module 7 implementation contract",
+        "TrustLevel": "internal"
+      }
+    ],
+    "metadata": {
+      "change_name": "module-7-curriculum",
+      "confirmed_by": "David",
+      "confirmation_phrase": "Yes",
+      "confirmed_at": "2026-09-09T19:04:54Z",
+      "cost_selection": "Option 1, Build"
+    }
+  }
+}

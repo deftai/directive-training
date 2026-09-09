@@ -1,9 +1,94 @@
 <!-- deft:template -->
-<!-- Purpose: current Module 6 cost estimate with prior curriculum estimates retained -->
+<!-- Purpose: current Module 7 cost estimate with prior curriculum estimates retained -->
 
 # Cost & Budget Estimate
 
-## Current scope — Module 6 (2026-09-09)
+## Current scope — Module 7 (2026-09-09)
+
+Currency: **USD**. Module 7 adds one Markdown lesson, one guarded disposable
+lifecycle lab, a fictional fixture, an explained solution, source trace and
+navigation updates, and focused validation with negative and portability tests.
+It introduces no hosting service, paid account, publishing platform, production
+runtime, credential, or learner-facing remote operation.
+
+### TL;DR
+
+For one private curriculum repository using existing 3Ci tooling, the expected
+incremental monthly service band is **low $0 / typical $0 / high $0**. The
+meaningful cost is approximately **30–46 hours** of focused source checking,
+lesson and lab authoring, safety validation, platform evidence, and review.
+Ongoing maintenance attributable to this module is approximately **2–3 hours
+per month**.
+
+### Assumptions and scale considerations
+
+- The scale assumption is one private curriculum repository and one disposable
+  local lab attempt per learner, using existing 3Ci GitHub, coding-agent,
+  workstation, Node.js, npm, and GitHub Actions access.
+- The lab creates only unique temporary repositories, configures no remote, and
+  uses fictional data. Reset and cleanup remain bounded to the named lab root.
+- macOS, Linux, and Windows claims require independent execution evidence;
+  unexecuted paths remain explicitly candidate or unsupported.
+- Publishing, paid services, business-repository exercises, a Directive
+  release-pin change, Modules 8–11, and the capstone are excluded and require a
+  new estimate.
+
+### What you will need to sign up for
+
+No new account is expected. Contributors use the existing private 3Ci GitHub
+organization, approved coding-agent access, Git, Node.js 20 or later, npm, and
+the repository's existing GitHub Actions capability.
+
+### Hosting, infrastructure, and third-party fees
+
+None are expected for this scope. The lab runs only in disposable local
+repositories and must not contact a remote. Repository validation uses existing
+GitHub Actions access and does not deploy or publish anything.
+
+### Monthly band
+
+- **Low** _(quiet month)_: about **$0 per month**
+- **Typical** _(one private repository and ordinary learner attempts)_: about
+  **$0 per month**
+- **High** _(heavier use within the same approved boundary)_: about **$0 per
+  month**
+
+The $0 band depends on existing 3Ci tooling access. Separately billed CI usage,
+new paid platform accounts, publication, or remote lab infrastructure would
+change the boundary and require a new estimate rather than silently raising the
+high band.
+
+### Build and maintenance time
+
+- **Directive 0.112.0 lifecycle and preflight revalidation**: about **4–7
+  hours**
+- **Lesson, disposable fixture, and lifecycle lab**: about **12–18 hours**
+- **Safety guard, reset, cleanup, solution, and navigation**: about **6–9
+  hours**
+- **Focused verifier, negative tests, platform evidence, and review**: about
+  **8–12 hours**
+- **Total build**: about **30–46 hours**
+- **Maintenance**: about **2–3 hours per month**, plus focused revalidation
+  after a material Directive release
+
+### Decision point — current scope
+
+1. **Build** -- accept the cost and start the build phase.
+2. **Rescope** -- keep building but reduce cost first.
+3. **No-build** -- stop here and record the reason.
+4. **Skip** -- skip the cost phase and record a short reason.
+
+### Decision recorded — current scope
+
+- **Decision**: Build
+- **Date**: 2026-09-09
+- **Recorded by**: David
+- **Selection**: Option 1, Build
+- **Boundary**: Module 7 local implementation only. A build decision does not
+  authorize push, pull-request creation, merge, branch deletion, worktree
+  removal, deployment, publication, Module 8, or any remote learner-lab action.
+
+## Prior scope — Module 6 (2026-09-09)
 
 Currency: **USD**. Module 6 adds one command-free Markdown lesson, a fictional
 vertical-slice exercise, an explained solution, source trace updates,
