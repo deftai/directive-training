@@ -101,7 +101,7 @@
         ],
         "verify_commands": [
           "npm run check:module-6",
-          "node --test scripts/verify-module-6.test.mjs",
+          "npm run test:module-6",
           "directive verify:vbrief-conformance --project-root ."
         ],
         "expected_outputs": [

@@ -19,9 +19,10 @@ An assessment must not present a 3Ci preference as Directive behavior.
 | [Module 3 — Authority and Context](../curriculum/modules/03-authority-and-context.md) | The ten-card decision table and module self-assessment | Cited statement classification, two-axis authority reasoning, authorization, and lazy-context choices | [Explained Module 3 solution](../solutions/module-03-authority-and-context.md) |
 | [Module 4 — xBRIEF as Durable State](../curriculum/modules/04-xbrief-as-durable-state.md) | Artifact classification and self-assessment | Roles, lifecycle folder/status pairs, current authority, and resume decisions | [Explained Module 4 solution](../solutions/module-04-xbrief-as-durable-state.md) |
 | [Module 5 — Sources versus Projections](../curriculum/modules/05-sources-versus-projections.md) | [Lab 5](../labs/05-projection-drift-recovery.md) and self-assessment | Source/view classification, rejected drift, regenerated MAP, freshness, and reset evidence; macOS/zsh only | [Explained Lab 5 solution](../solutions/lab-05-projection-drift-recovery.md) |
-| Modules 6–11 and capstone | Not yet available | None required yet | Follow availability from the [curriculum map](../curriculum/README.md) |
+| [Module 6 — Creating Well-Shaped Work](../curriculum/modules/06-creating-well-shaped-work.md) | The module's command-free worksheet and self-assessment | A complete vertical-slice record, a proposed-scope candidate with observable acceptance, and ordered slice rationales | [Explained Module 6 solution](../solutions/module-06-creating-well-shaped-work.md) |
+| Modules 7–11 and capstone | Not yet available | None required yet | Follow availability from the [curriculum map](../curriculum/README.md) |
 
-Modules 1–5 keep assessment beside the lesson or disposable lab so the attempt,
+Modules 1–6 keep assessment beside the lesson or disposable lab so the attempt,
 feedback, and retry path stay together. Later standalone assessments will
 appear in this directory and link back to their source modules. “Not yet
 available” is an explicit status, not completed content.

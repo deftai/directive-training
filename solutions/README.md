@@ -19,7 +19,8 @@ Every solution keeps these claim types separate.
 | [Module 3 — Authority and Context](../curriculum/modules/03-authority-and-context.md) | [Explained Module 3 solution](module-03-authority-and-context.md) | Available; command-free exercise |
 | [Module 4 — xBRIEF as Durable State](../curriculum/modules/04-xbrief-as-durable-state.md) | [Explained Module 4 solution](module-04-xbrief-as-durable-state.md) | Available; command-free exercise |
 | [Module 5 — Sources versus Projections](../curriculum/modules/05-sources-versus-projections.md) | [Explained Lab 5 solution](lab-05-projection-drift-recovery.md) | Available; projection lab verified on macOS/zsh only |
-| Modules 6–11 and the capstone | Follow the [curriculum map](../curriculum/README.md) | Not yet available |
+| [Module 6 — Creating Well-Shaped Work](../curriculum/modules/06-creating-well-shaped-work.md) | [Explained Module 6 solution](module-06-creating-well-shaped-work.md) | Available; command-free exercise |
+| Modules 7–11 and the capstone | Follow the [curriculum map](../curriculum/README.md) | Not yet available |
 
 “Not yet available” is an explicit status. It does not represent completed or hidden content.
 

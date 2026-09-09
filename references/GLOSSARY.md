@@ -1,7 +1,7 @@
 # Directive training glossary
 
 These definitions describe the course baseline: `@deftai/directive` 0.112.0
-and xBRIEF schema 0.8, verified through 2026-09-07. See
+and xBRIEF schema 0.8, verified through 2026-09-09. See
 [SOURCE-BASELINE.md](SOURCE-BASELINE.md) before applying them to another
 release.
 
@@ -121,6 +121,11 @@ project or scope state.
 A bounded work contract containing a goal, observable acceptance, planned
 items, evidence commands, and lifecycle metadata.
 
+**proposed scope**
+A reviewable scope xBRIEF candidate whose `plan.status` remains `proposed`.
+Proposal records shaped work for review; it does not grant implementation
+authority.
+
 **specification**
 Durable requirements describing what the product or feature must do. It shapes
 scopes but is not a substitute for an active implementation contract.
@@ -158,6 +163,32 @@ record instead of disguising the transition as a manual file deletion.
 **lifecycle command**
 A Directive command that performs a state transition and its validation. Use it
 instead of manually moving lifecycle files.
+
+## Work shaping
+
+**horizontal plan**
+A plan organized mainly by technical layer or component, such as database,
+API, and interface work. It may identify useful tasks, but it does not by
+itself describe an end-to-end, human-observable capability.
+
+**vertical slice**
+A narrow end-to-end change through the relevant layers that produces an
+independently demoable, human-observable capability. It must be independently
+verifiable; it need not be independently deployable in every environment.
+
+**tracer bullet**
+A deliberately narrow but complete path through the relevant layers, used to
+prove a capability or expose uncertainty. It remains a vertical slice only
+when its result can be demonstrated and verified independently.
+
+**epic**
+A body of work too broad to be one independently verifiable story. Decompose it
+into ordered slices and record why each dependency and slice boundary exists.
+
+**decomposition DAG**
+The directed acyclic graph formed by stories and their dependencies. Story
+dependencies use `plan.metadata.swarm.depends_on`; phase or epic records may
+also summarize relationships with `plan.metadata.dependencies`.
 
 ## Sources, projections, and proof
 

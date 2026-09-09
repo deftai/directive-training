@@ -7,6 +7,7 @@ import { verifyModules45 } from "./verify-modules-4-5.mjs";
 
 const module4 = "curriculum/modules/04-xbrief-as-durable-state.md";
 const module5 = "curriculum/modules/05-sources-versus-projections.md";
+const module6 = "curriculum/modules/06-creating-well-shaped-work.md";
 const lab5 = "labs/05-projection-drift-recovery.md";
 const solution4 = "solutions/module-04-xbrief-as-durable-state.md";
 const solution5 = "solutions/lab-05-projection-drift-recovery.md";
@@ -43,8 +44,9 @@ function fixture(t) {
     "Module record": record,
     "Guided explanation": "plan.architecture.codeStructure is the source for .planning/codebase/MAP.md. Regenerate rather than hand-edit the projection.",
     "Exercise": `### Exercise acceptance\n\n${outcomes5}`,
-    "Navigation": "Next: Module 6 is planned; [course map](../README.md)",
+    "Navigation": "Next: [Module 6](06-creating-well-shaped-work.md)",
   }));
+  write(module6, "# Module 6\n");
   write(lab5, document(labHeadings, outcomes5, {
     "Lab record": record + "\n| Platforms verified | macOS/zsh verified; Linux/bash and Windows/PowerShell are candidate paths, untested for Lab 5 |",
     "Literal acceptance commands": `\`\`\`zsh\n"$directive_path" codebase:map\n"$directive_path" verify:codebase-map-fresh\nnode projection-lab.mjs verify-result\n\`\`\`\n\n${outcomes5}`,
@@ -52,7 +54,7 @@ function fixture(t) {
   }));
   write(solution4, document(solutionHeadings, outcomes4, { "Solution record": record }));
   write(solution5, document(solutionHeadings, outcomes5, { "Solution record": record }));
-  write("curriculum/README.md", "# Course\n\n| [Module 4](modules/04-xbrief-as-durable-state.md) | Learner-ready draft |\n| [Module 5](modules/05-sources-versus-projections.md) | Learner-ready draft — macOS/zsh |\n| Module 6 | Planned |\n");
+  write("curriculum/README.md", "# Course\n\n| [Module 4](modules/04-xbrief-as-durable-state.md) | Learner-ready draft |\n| [Module 5](modules/05-sources-versus-projections.md) | Learner-ready draft — macOS/zsh |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| Module 7 | Planned |\n");
   write("references/SOURCE-NOTES.md", "# Proof\n\n- `lab05-platform-proof:macos-zsh status=verified date=2026-09-07 evidence=local-disposable-lab5-full`\n- `lab05-platform-proof:linux-bash status=candidate date=2026-09-07 evidence=not-run`\n- `lab05-platform-proof:windows-pwsh7 status=candidate date=2026-09-07 evidence=not-run`\n");
   write("package.json", JSON.stringify({ private: true, devDependencies: { "@deftai/directive": "0.112.0" } }));
   return {
@@ -171,10 +173,25 @@ test("rejects unsupported native proof markers and prose claims", (t) => {
   assert.throws(() => verifyModules45(files.root), /unsupported native/);
 });
 
-test("rejects planned availability for Module 4 and a released Module 6", (t) => {
+test("rejects planned availability for released modules and availability for Module 7", (t) => {
   const files = fixture(t);
   files.change("curriculum/README.md", (body) => body.replace("Learner-ready draft", "Planned"));
   assert.throws(() => verifyModules45(files.root), /Module 4 availability/);
-  files.change("curriculum/README.md", (body) => body.replaceAll("| Planned |", "| Learner-ready draft |"));
-  assert.throws(() => verifyModules45(files.root), /Module 6.*planned/);
+
+  const module6Files = fixture(t);
+  module6Files.change("curriculum/README.md", (body) => body.replace("Learner-ready draft; command-free", "Planned"));
+  assert.throws(() => verifyModules45(module6Files.root), /Module 6 availability/);
+
+  const module7Files = fixture(t);
+  module7Files.change("curriculum/README.md", (body) => body.replace("| Module 7 | Planned |", "| Module 7 | Learner-ready draft |"));
+  assert.throws(() => verifyModules45(module7Files.root), /Module 7.*planned/);
+});
+
+test("rejects a contradictory Module 7 row even when explanatory prose says planned", (t) => {
+  const files = fixture(t);
+  files.change("curriculum/README.md", (body) => `${body.replace(
+    "| Module 7 | Planned |",
+    "| Module 7 | Learner-ready draft; available |",
+  )}\nModule 7 is planned for a later course phase.\n`);
+  assert.throws(() => verifyModules45(files.root), /Module 7.*planned/);
 });

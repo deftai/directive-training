@@ -4,6 +4,10 @@
 
 ### Added
 
+- Module 6: a command-free lesson and explained solution for turning horizontal
+  plans into vertical slices, tracing ideas into reviewable proposed scope, and
+  decomposing epics with dependency and boundary rationale.
+- Focused Module 6 content tests and shared fenced-Markdown/link verification.
 - Three proposed, sequential story xBRIEFs for Modules 6–8, with explicit
   requirement coverage, dependencies, acceptance criteria, file boundaries,
   and focused verification contracts.
@@ -20,7 +24,7 @@
 - Clarify tactical/continue artifact lifetime and distinguish project-definition
   narratives from its rendered scope registry in the learner references.
 - Document projection help and missing-MAP freshness behavior. New lab platform
-  proof is limited to macOS/zsh; Modules 6–11 remain planned.
+  proof is limited to macOS/zsh; Modules 7–11 remain planned.
 
 ### Fixed
 

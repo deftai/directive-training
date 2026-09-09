@@ -283,7 +283,7 @@ valid alternative approaches.
 
 - Previous: [Module 4 — xBRIEF as durable state](04-xbrief-as-durable-state.md)
 - Course map: [Core curriculum](../README.md)
-- Next: Module 6 — Creating well-shaped work is planned; return to the [course map](../README.md).
+- Next: [Module 6 — Creating well-shaped work](06-creating-well-shaped-work.md)
 - Resume: repeat only outcomes without passing evidence unless the baseline changed.
 
 ## Official sources

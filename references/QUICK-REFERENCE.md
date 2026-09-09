@@ -1,7 +1,7 @@
 # Directive learner quick reference
 
 Use this as a memory aid, not as an exhaustive command reference. It describes
-`@deftai/directive` 0.112.0 and xBRIEF 0.8, verified through 2026-09-07. Check
+`@deftai/directive` 0.112.0 and xBRIEF 0.8, verified through 2026-09-09. Check
 [the source baseline](SOURCE-BASELINE.md) before using it with another version.
 
 ## Mental model
@@ -107,6 +107,38 @@ by `directive verify:codebase-map-fresh --project-root .`. Lab 5 invokes the
 explicit local binary and separately checks MAP existence and expected content:
 in 0.112.0, freshness alone can pass when the optional MAP is absent.
 
+## Shape work
+
+Use this progression for a fictional idea before implementation:
+
+```text
+idea -> bounded strategy choice -> observable acceptance -> proposed scope
+                                                        (candidate only)
+```
+
+A strategy narrows the question. Acceptance states observable behavior. A
+schema-0.8 scope with `plan.status: proposed` makes the result reviewable, but
+does not create implementation authority. A standalone
+`specification.xbrief.json` is optional compatibility state in current setup,
+not a required stop in this progression.
+
+Turn a horizontal component plan into one end-to-end slice with this record:
+
+| Artifact | User-visible outcome | Exclusions | Literal inspection |
+| --- | --- | --- | --- |
+| Smallest complete product artifact | What a person can observe | What stays outside this slice | Exact read-only check of the artifact and outcome |
+
+When the work is an epic, create ordered, independently verifiable slices:
+
+| Order | Slice | Dependency rationale | Boundary rationale |
+| ---: | --- | --- | --- |
+| 1..n | One demonstrable capability | Why it must follow another slice, or why it has no dependency | Why this is the smallest coherent end-to-end boundary |
+
+For a story dependency, record the predecessor in
+`plan.metadata.swarm.depends_on`. Phase or epic metadata may additionally
+summarize dependencies. Static inspection can prove the worksheet or proposed
+artifact shape; executable product behavior needs separate behavioral evidence.
+
 ## Lifecycle and authority
 
 ```text
@@ -160,3 +192,4 @@ part of the path.
 - Start: [Module 1](../curriculum/modules/01-what-directive-is.md)
 - Continue setup practice: [Module 2](../curriculum/modules/02-installation-and-anatomy.md)
 - Continue authority practice: [Module 3](../curriculum/modules/03-authority-and-context.md)
+- Continue work-shaping practice: [Module 6](../curriculum/modules/06-creating-well-shaped-work.md)

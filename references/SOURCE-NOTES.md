@@ -5,7 +5,9 @@ They are maintainer evidence, not a learner command reference.
 
 ## Verification context
 
-- Current-baseline verification date: 2026-09-07.
+- Current-baseline verification date: 2026-09-09. Runtime proofs below retain
+  their original execution dates; Module 6 adds source and content-contract
+  verification, not a new CLI runtime claim.
 - Host used: macOS with zsh and Node.js 24.18.0.
 - Project direct pin: `@deftai/directive` 0.112.0 in `devDependencies`.
 - The training project had no project-local `node_modules` or lockfile; its exact direct pin
@@ -422,6 +424,67 @@ missing approved digest. Branch and test-boundary checks pass. Forward-coverage 
 zero recognized new source files, so it is not counted as coverage evidence for these
 `.mjs` additions.
 
+## Module 6 verification
+
+This command-free extension uses the same exact Directive 0.112.0 package pin and immutable
+release commit recorded above. The relevant deposited sources were re-read on 2026-09-09;
+the lesson introduces no executable learner lab, runtime-platform claim, remote action, or
+implementation-authority claim.
+
+| Deposited source inspected | Module 6 contract checked |
+| --- | --- |
+| `.deft/core/docs/directive-lifecycle.md` | The idea/strategy loop, recurring lifecycle surfaces, and the distinction between shaping and later delivery. |
+| `.deft/core/strategies/README.md` | Preparatory and spec-generating strategy categories; historical v0.20 terminology is not treated as the current schema. |
+| `.deft/core/strategies/interview.md` | Bounded interview choices, follow-up structure, and review-before-lifecycle handling. |
+| `.deft/core/skills/deft-directive-setup/SKILL.md` | Recorded-strategy dispatch, direct proposed-scope creation, optional compatibility specification, and dependency-field placement. |
+| `.deft/core/skills/deft-directive-decompose/SKILL.md` | Story sizing, two-to-five acceptance criteria, observable evidence, traces, and dependency-aware decomposition. |
+| `.deft/core/vbrief/vbrief.md` | Epic/story hierarchy, acceptance placement under `plan.items[].narrative.Acceptance`, and dependency-DAG semantics. |
+| `.deft/core/verification/verification.md` | Evidence proves outcomes rather than completed steps; static and behavioral evidence have different limits. |
+| `.deft/core/verification/plan-checking.md` | Acceptance is checked for testability, observability, evidence, and traceability. |
+| `.deft/core/glossary.md` | A vertical slice is independently demoable and human-observable; horizontal layer work is the wrong story shape. |
+| `.deft/core/skills/deft-directive-gh-slice/SKILL.md` | A tracer bullet is a narrow complete path through relevant layers that remains independently demonstrable and verifiable. |
+| `.deft/core/commands.md` | Proposed, pending, active, and completed lifecycle states and their distinct transition surfaces. |
+| `.deft/core/main.md` | The current implementation contract is active xBRIEF plus live operator instruction; completed scope is historical state. |
+
+### Teaching decisions and evidence boundary
+
+- The idea path is taught as `idea -> bounded strategy choice -> testable/observable
+  acceptance -> schema-0.8 proposed-scope artifact`. A current setup can create proposed
+  scope directly; `specification.xbrief.json` is compatibility-only and optional.
+- The proposed artifact keeps `plan.status: proposed`. It is reviewable candidate state,
+  not approval, activation, preflight, or implementation authority.
+- Testable behavior belongs in `plan.items[].narrative.Acceptance`, with two to five
+  criteria plus evidence and traces for the story examples.
+- A vertical slice produces one independently demoable, human-observable capability through
+  the relevant layers. “Independently verifiable” is required; “independently deployable” is
+  not asserted as a universal definition.
+- Epic decomposition produces ordered, independently verifiable stories. Story dependencies
+  use `plan.metadata.swarm.depends_on`; phase or epic records may supplement them with
+  `plan.metadata.dependencies`.
+- `Exclusions` and `Literal inspection` are explicitly course worksheet evidence fields, not
+  canonical xBRIEF keys. Literal inspection proves the recorded artifact shape; it does not
+  substitute for executable evidence when a later scope claims running behavior.
+
+### Module 6 source disagreements
+
+| Source disagreement | Curriculum decision |
+| --- | --- |
+| Strategy prose still shows deprecated `/deft:run:*` forms, while Commands uses `/deft:directive:run:*`. | Name the discrepancy in maintainer evidence; do not teach either invocation in this command-free module. |
+| Strategy material retains `vBRIEF` and `v0.20 Output Contract` wording. | Teach current xBRIEF schema 0.8 and treat v0.20 as historical document-model terminology. |
+| Older setup wording can imply that `specification.xbrief.json` is required. | Follow the current setup contract: it is optional compatibility state and proposed scopes can be produced directly. |
+| Interview prose can read as though approval immediately promotes work. | Keep the interview result reviewable; approval, promotion, activation, and live implementation intent remain separate. |
+| Generic dependency examples use `plan.metadata.dependencies`, while current story dispatch uses the swarm-specific field. | Put story dependencies in `plan.metadata.swarm.depends_on`; reserve the generic field as a phase/epic supplement. |
+| The GitHub slicing skill assumes a `SPECIFICATION.md` input in part of its flow. | Use its tracer-bullet definition only; do not invent a required Markdown specification artifact. |
+| Some vBRIEF prose retains legacy plan paths. | Teach lifecycle files under `xbrief/` and schema 0.8 only. |
+| Curated top-level `--help` omits some registered surfaces. | Source this command-free lesson from the pinned files; do not infer absence or invent command syntax from curated help. |
+| Upstream examples use unprefixed `task`, while this consumer exposes framework tasks as `task deft:*`. | Preserve the consumer namespace in maintainer checks; Module 6 itself runs no learner commands. |
+
+The content verifier rejects missing O6.1–O6.3 mappings, missing worksheet fields or lesson
+sections, stale/ranged pins, unsafe shell blocks, broken or escaping local links, unfinished
+markers, premature Module 7 availability, and any loss of the proposed-state authority
+boundary. It reuses the fenced-code-aware Markdown and link utilities from the Modules 4–5
+verifier so the two contracts evaluate local links consistently.
+
 ## Source-file verification
 
 Hashes are SHA-256 over file bytes at the peeled release commit.
@@ -538,6 +601,7 @@ Unresolved or deliberately deferred evidence:
   global packages were verified, but a future install's full dependency graph is not locked
   here.
 - The release tag was resolved but no cryptographic tag signature was present or verified.
-- Build, pre-PR, review-cycle, refinement, and swarm procedure details remain deferred until
-  their curriculum modules are authored and revalidated. Setup and authority material needed
-  for Modules 2–3 was revalidated in this pass.
+- Build, pre-PR, review-cycle, refinement, and swarm procedure details beyond the bounded
+  Module 6 shaping and decomposition excerpts remain deferred until their curriculum modules
+  are authored and revalidated. Setup and authority material needed for Modules 2–3 and the
+  setup/decomposition claims used by Module 6 were revalidated in their respective passes.

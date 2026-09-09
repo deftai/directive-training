@@ -8,15 +8,15 @@ const module5 = "curriculum/modules/05-sources-versus-projections.md";
 const lab5 = "labs/05-projection-drift-recovery.md";
 const solution4 = "solutions/module-04-xbrief-as-durable-state.md";
 const solution5 = "solutions/lab-05-projection-drift-recovery.md";
-const moduleHeadings = ["Module record", "Learning outcomes", "Starting-state check", "Why this matters", "Terminology", "Mental model", "Guided explanation", "Walkthrough", "Exercise", "Completion evidence", "Progressive hints", "Expected failures and recovery", "Common misconceptions", "Self-assessment", "Explained solution", "Navigation", "Official sources"];
+export const moduleHeadings = Object.freeze(["Module record", "Learning outcomes", "Starting-state check", "Why this matters", "Terminology", "Mental model", "Guided explanation", "Walkthrough", "Exercise", "Completion evidence", "Progressive hints", "Expected failures and recovery", "Common misconceptions", "Self-assessment", "Explained solution", "Navigation", "Official sources"]);
 const labHeadings = ["Lab record", "Goal and done condition", "Fictional scenario", "Environment and starting-state check", "Safety boundary", "Starting checkpoint", "Tasks", "Checkpoints", "Literal acceptance commands", "Evidence bundle", "Progressive hints", "Expected failures and recovery", "Reset to start", "Cleanup", "Explained solution", "Done statement"];
-const solutionHeadings = ["Solution record", "Before you use this solution", "Result summary", "Outcome map", "Reasoning", "Worked approach", "Acceptance evidence", "Compare with your attempt", "Valid alternatives", "Expected failures and recovery", "Misconceptions exposed by this exercise", "Retry plan", "Reset and cleanup", "Sources", "Continue"];
+export const solutionHeadings = Object.freeze(["Solution record", "Before you use this solution", "Result summary", "Outcome map", "Reasoning", "Worked approach", "Acceptance evidence", "Compare with your attempt", "Valid alternatives", "Expected failures and recovery", "Misconceptions exposed by this exercise", "Retry plan", "Reset and cleanup", "Sources", "Continue"]);
 const headingContracts = new Map([[module4, moduleHeadings], [module5, moduleHeadings], [lab5, labHeadings], [solution4, solutionHeadings], [solution5, solutionHeadings]]);
 const requiredFiles = [...headingContracts.keys(), "curriculum/README.md", "references/SOURCE-NOTES.md", "package.json"];
 const escapeRegExp = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 // Parse fences linewise so headings and links shown as examples are not prose.
-function markdownParts(content) {
+export function markdownParts(content) {
   const prose = [];
   const blocks = [];
   let fence;
@@ -37,7 +37,7 @@ function markdownParts(content) {
   return { prose: prose.join("\n"), blocks };
 }
 
-function section(prose, heading) {
+export function section(prose, heading) {
   const headings = [...prose.matchAll(/^(#{2,4}) (.+?)[ \t]*#*[ \t]*$/gm)];
   const index = headings.findIndex((match) => match[2] === heading);
   assert.ok(index >= 0, `missing heading: ${heading}`);
@@ -58,7 +58,7 @@ function headingSlugs(content) {
   return used;
 }
 
-function verifyLinks(root, path, prose) {
+export function verifyLinks(root, path, prose) {
   const realRoot = realpathSync(root);
   const normalizeId = (id) => id.trim().replace(/\s+/g, " ").toLowerCase();
   const destinationPattern = /^(?:<([^>]+)>|(\S+?))(?:\s+["'][\s\S]*["'])?$/;
@@ -101,6 +101,21 @@ function verifyLinks(root, path, prose) {
     const id = normalizeId(match[2] || match[1]);
     assert.ok(definitions.has(id), `${path} uses an undefined reference link: ${id}`);
   }
+}
+
+export function courseModuleRow(course, moduleNumber) {
+  const padded = String(moduleNumber).padStart(2, "0");
+  const numericId = new RegExp(`^0?${moduleNumber}$`);
+  const moduleLabel = new RegExp(`\\bModule\\s+0?${moduleNumber}\\b`, "i");
+  const modulePath = new RegExp(`\\b${padded}-[^\\s|)]*\\.md\\b`, "i");
+  const matches = course.split(/\r?\n/).filter((line) => {
+    if (!/^\s*\|/.test(line)) return false;
+    const cells = line.trim().replace(/^\||\|$/g, "").split("|").map((cell) => cell.trim());
+    const identity = cells.slice(0, 2).join(" ");
+    return numericId.test(cells[0] ?? "") || moduleLabel.test(identity) || modulePath.test(identity);
+  });
+  assert.equal(matches.length, 1, `course map must contain exactly one Module ${moduleNumber} row`);
+  return matches[0];
 }
 
 const forbiddenCommand = /\b(?:git\s+(?:push\b|remote\s+(?:add|remove|rename|set-url|prune|update)\b|reset\s+--hard\b|clean\b|checkout\s+--(?:\s|$)|branch\s+-D\b)|gh\s+(?!--version(?:\s|$))|npm\s+publish\b|(?:directive|deft)\s+(?:deploy|publish|release)\b|rm\s+-[\w-]*r[\w-]*\b|Remove-Item\b|(?:del|rmdir)\s+\/s\b|(?:curl|wget|Invoke-WebRequest|Invoke-RestMethod)\b)/i;
@@ -187,13 +202,15 @@ export function verifyModules45(root = fileURLToPath(new URL("../", import.meta.
     }
   }
   assert.match(section(parsed.get(module4).prose, "Navigation"), /\]\(05-sources-versus-projections\.md(?:#[^)]*)?\)/, "Module 4 must navigate to Module 5");
-  assert.match(section(parsed.get(module5).prose, "Navigation"), /Module 6[^\n]*(?:planned|not yet available)/i, "Module 5 must identify Module 6 as planned");
+  assert.match(section(parsed.get(module5).prose, "Navigation"), /\]\(06-creating-well-shaped-work\.md(?:#[^)]*)?\)/, "Module 5 must navigate to Module 6");
   const course = content.get("curriculum/README.md");
-  for (const [number, filename] of [[4, "04-xbrief-as-durable-state.md"], [5, "05-sources-versus-projections.md"]]) {
+  for (const [number, filename] of [[4, "04-xbrief-as-durable-state.md"], [5, "05-sources-versus-projections.md"], [6, "06-creating-well-shaped-work.md"]]) {
     const row = course.split("\n").find((line) => line.includes(filename));
     assert.ok(row && !/\b(?:planned|not yet available)\b/i.test(row), `Module ${number} availability must identify the completed curriculum`);
   }
-  assert.match(course, /^.*(?:\|\s*6\s*\||Module 6|06-[^\s]*\.md).*\bPlanned\b/im, "Module 6 must remain planned in the course map");
+  const module7Row = courseModuleRow(course, 7);
+  assert.match(module7Row, /\|\s*Planned\s*\|/i, "Module 7 must remain planned in its course-map row");
+  assert.doesNotMatch(module7Row, /\b(?:learner-ready|available|running)\b/i, "Module 7 course-map row must remain planned, not available");
   verifyLinks(root, "curriculum/README.md", markdownParts(course).prose);
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.private, true, "the training package must remain private");

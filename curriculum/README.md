@@ -2,11 +2,11 @@
 
 This is the navigation source for a twelve-hour, self-directed path: ten hours
 of core modules followed by a two-hour disposable capstone. The current
-internal-alpha milestone makes Modules 1–5 learner-ready drafts. Module 2's 0.112.0 pinned npm
+internal-alpha milestone makes Modules 1–6 learner-ready drafts. Module 2's 0.112.0 pinned npm
 path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell
-7.4+ on Windows Server 2022 by local and native-matrix evidence. Module 4 is
-command-free. Module 5's projection lab is verified only on macOS/zsh;
-its Linux and native Windows paths are not verified. Modules 6–11 and
+7.4+ on Windows Server 2022 by local and native-matrix evidence. Modules 4 and 6
+are command-free. Module 5's projection lab is verified only on macOS/zsh;
+its Linux and native Windows paths are not verified. Modules 7–11 and
 the capstone remain planned until their files contain substantive, verified content.
 
 ## Audience and prerequisites
@@ -57,7 +57,7 @@ No step requires a live demonstration or an instructor's private knowledge.
 | 03 | [Authority and context](modules/03-authority-and-context.md) | 45 min | Learner-ready draft | Resolve conflicting sample rules |
 | 04 | [xBRIEF as durable state](modules/04-xbrief-as-durable-state.md) | 45 min | Learner-ready draft; command-free | Classify project and work-state artifacts |
 | 05 | [Sources versus projections](modules/05-sources-versus-projections.md) | 50 min | Learner-ready draft; lab verified on macOS/zsh only | Repair projection drift through its source |
-| 06 | Creating well-shaped work (`06-creating-well-shaped-work.md`) | 55 min | Planned | Turn a horizontal plan into a vertical slice |
+| 06 | [Creating well-shaped work](modules/06-creating-well-shaped-work.md) | 55 min | Learner-ready draft; command-free | Turn a horizontal plan into a vertical slice |
 | 07 | Scope lifecycle and implementation authorization (`07-scope-lifecycle.md`) | 65 min | Planned | Fail, promote, activate, and pass preflight |
 | 08 | Session start and authorized work selection (`08-session-and-work-selection.md`) | 45 min | Planned | Trace posture and intake decisions |
 | 09 | The implementation golden path (`09-implementation-golden-path.md`) | 70 min | Planned | Implement one test-backed active scope |
@@ -88,9 +88,9 @@ small setup cost, but host-specific mechanics must not change the core outcomes.
   chat history is not authoritative work state.
 - **05 — Sources versus projections:** distinguish xBRIEF sources from rendered
   Markdown and codebase-map projections; recover safely from drift.
-- **06 — Creating well-shaped work:** move an idea through strategy,
-  specification, and proposed scope; write observable criteria and vertical
-  slices; recognize an epic that needs decomposition.
+- **06 — Creating well-shaped work:** turn an idea into a bounded strategy choice,
+  observable acceptance statements, and proposed scope; write vertical slices
+  and recognize an epic that needs decomposition.
 
 ### Phase C: authorize and implement
 
@@ -156,6 +156,7 @@ hints, recovery paths, and solutions. Their friction becomes revision input.
 - Previous: [Repository start](../README.md)
 - Next: [Module 1 — What Directive is](modules/01-what-directive-is.md)
 
-After Module 5, stop at the course map. Module 6 is still planned and has no
+After Module 6, stop at the course map. Module 7 is still planned and has no
 learner-ready lesson yet. A learner without the verified Lab 5 environment can
-read its concepts but must retain an environment-blocked practical outcome.
+read its concepts and continue through command-free Module 6, but must retain an
+environment-blocked Module 5 practical outcome.

@@ -1,7 +1,7 @@
 # Directive source baseline
 
 This manifest fixes the curriculum's version-sensitive claims to Directive 0.112.0. It was
-revalidated on 2026-09-07 and must be refreshed when the project pin changes.
+revalidated through 2026-09-09 and must be refreshed when the project pin changes.
 
 ## Release identity
 
@@ -62,6 +62,12 @@ release.
 | Deterministic checks are evidence; focused checks support iteration and the full check is the merge chokepoint. | [docs/CONCEPTS.md][src-concepts] — `Quality Gates`; [content/commands.md][src-commands] — `Quality And Verification Commands`, `Gate throughput — iteration fast lane (#1704)`. |
 | Durable edits belong in xBRIEF source; rendered specification, PRD, roadmap, and project views are regenerated. | [content/commands.md][src-commands] — `Generated Document Commands`; [docs/CONCEPTS.md][src-concepts] — `Source Of Truth Vs Projection`. |
 | Preparatory strategies inform a later specification; spec-generating strategies create lifecycle artifacts. | [content/strategies/README.md][src-strategies] — `Available Strategies`, `Strategy Types`, `v0.20 Output Contract (for spec-generating strategies)`. |
+| An idea can enter a bounded strategy choice, including a structured interview, and current setup can record the result directly as proposed scope; `specification.xbrief.json` is optional compatibility state, not a required intermediate artifact. | [content/docs/directive-lifecycle.md][src-lifecycle] — `Stage → real surface`; [content/strategies/interview.md][src-interview] — choice and interview sections; [deft-directive-setup][skill-setup] — current strategy dispatch and compatibility handling. |
+| Testable story behavior belongs in `plan.items[].narrative.Acceptance`, ordinarily with two to five criteria plus evidence and traceability. | [deft-directive-decompose][skill-decompose] — decomposition contract; [content/vbrief/vbrief.md][src-taxonomy] — story and acceptance model; [content/verification/verification.md][src-verification] and [content/verification/plan-checking.md][src-plan-checking] — observable evidence and plan checks. |
+| A vertical slice is an independently demoable, human-observable capability through the relevant layers; a tracer bullet is a narrow complete path that remains independently demonstrable and verifiable. Horizontal layer-only work is the wrong story shape. | [content/glossary.md][src-glossary-upstream] — vertical and horizontal definitions; [deft-directive-gh-slice][skill-gh-slice] — tracer-bullet slicing contract. |
+| Epic decomposition produces ordered, independently verifiable stories in a dependency DAG. Story dependencies use `plan.metadata.swarm.depends_on`; phase or epic metadata may supplement them with `plan.metadata.dependencies`. | [content/vbrief/vbrief.md][src-taxonomy] — epic, story, and DAG model; [deft-directive-decompose][skill-decompose] — story boundaries and dependencies; [deft-directive-setup][skill-setup] — dependency field placement. |
+| A proposed scope is reviewable candidate state, not implementation authority. Promotion, activation, and a separate live implementation instruction remain distinct lifecycle concerns. | [content/commands.md][src-commands] — `Scope xBRIEF Lifecycle`; [main.md][src-main] — `xBRIEF Persistence`. |
+| `Exclusions` and `Literal inspection` are Module 6 worksheet evidence fields, not canonical xBRIEF keys. Static inspection can prove artifact shape but cannot universally prove executable behavior. | [content/skills/deft-directive-setup/SKILL.md][skill-setup] — scope construction; [content/verification/verification.md][src-verification] — evidence model. |
 | Implemented, PR-open, integration-merged, and delivered are distinct; deployed and UAT-verified require separate evidence. | [content/docs/directive-lifecycle.md][src-lifecycle] — `Delivery integrity vs deploy / UAT (#3041 / #3380)`. |
 | Task/CLI surfaces replace the retired Python launcher for current work. | [docs/CONCEPTS.md][src-concepts] — `Taskfile First`; [content/commands.md][src-commands] — `Command Lifecycle: retired Python launcher vs task`. |
 
@@ -136,6 +142,26 @@ Lab 5 has its own platform evidence in [source notes](./SOURCE-NOTES.md#modules-
 Module 2's native matrix does not establish Lab 5 platform support. Linux/bash and native
 Windows/PowerShell Lab 5 paths remain candidates and have no published executable path.
 
+## Module 6 source boundary
+
+Module 6 is a command-free work-shaping exercise. Its fictional worksheet teaches three
+observable outcomes: reshape horizontal component work into one vertical slice; trace an idea
+through a bounded strategy choice, observable acceptance, and schema-0.8 proposed scope; and
+decompose an epic into ordered independently verifiable slices with dependency and boundary
+rationale.
+
+The learner writes scratch notes only. The proposed artifact remains candidate state with
+`plan.status: proposed`; it does not authorize implementation, promotion, or activation. The
+lesson names a standalone specification file as optional compatibility state rather than a
+required current setup artifact. Its `Exclusions` and `Literal inspection` columns are course
+worksheet fields, not invented canonical xBRIEF keys. “Independently verifiable” is the
+universal slice evidence boundary taught here; the course does not claim every slice is
+independently deployable or that static inspection proves running behavior.
+
+The pinned-source inspection and disagreements for this module are recorded in
+[SOURCE-NOTES.md](./SOURCE-NOTES.md#module-6-verification). Later lifecycle execution,
+implementation, review, and shipping procedures remain reserved for their own modules.
+
 ## Deferred skill-contract validation
 
 The following pinned files are candidates, not blanket authority for modules that have not
@@ -193,8 +219,14 @@ Record probe-level results, disagreements, and unresolved coverage in
 [src-lifecycle]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/docs/directive-lifecycle.md
 [src-commands]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md
 [src-strategies]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/strategies/README.md
+[src-interview]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/strategies/interview.md
+[src-verification]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/verification/verification.md
+[src-plan-checking]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/verification/plan-checking.md
+[src-glossary-upstream]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/glossary.md
 [src-license]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/LICENSE
 [skill-setup]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-setup/SKILL.md
+[skill-decompose]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-decompose/SKILL.md
+[skill-gh-slice]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-gh-slice/SKILL.md
 [skill-build]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-build/SKILL.md
 [skill-pre-pr]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-pre-pr/SKILL.md
 [skill-review]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-review-cycle/SKILL.md

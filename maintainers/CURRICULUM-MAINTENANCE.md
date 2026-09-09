@@ -149,14 +149,16 @@ course source.
 
 ## Milestone checks
 
-Run the following local curriculum checks. The Modules 4–5 active scope states
-the conformance command verbatim; the npm checks are supplemental product evidence:
+Run the following local curriculum checks. The current active scope states the
+conformance command verbatim; the npm checks are supplemental product evidence:
 
 ```text
 npm run check:cold-start-readme
 npm run check:modules-2-3
 npm run check:modules-4-5
 npm run test:modules-4-5
+npm run check:module-6
+node --test scripts/verify-module-6.test.mjs
 npm run test:portability
 directive verify:vbrief-conformance --project-root .
 ```
@@ -177,6 +179,12 @@ focused commands supplement the active scope's literal conformance command;
 they do not replace it. Lab 5's macOS/zsh execution evidence is distinct from
 Module 2's native matrix. Keep Linux and native Windows unverified for Lab 5
 until their own written paths have been executed.
+
+Module 6 adds a command-free worksheet and explained solution. Its focused
+checks prove required sections, outcome coverage, source-bound terminology,
+safe local links, navigation, and the absence of executable shell blocks. The
+learner evidence is a fictional scratch note with literal read-only inspection;
+it makes no runtime, remote, deployment, or implementation-authority claim.
 
 Use the [native Windows revalidation handoff](WINDOWS-REVALIDATION.md) for the
 Modules 4–5 portability follow-up. Bind it to the published fix commit, preserve

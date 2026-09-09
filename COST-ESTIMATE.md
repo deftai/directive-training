@@ -50,26 +50,27 @@ module is approximately **1–2 hours per month**.
 
 ## Prior scope — Modules 4–5 (2026-09-07)
 
-Currency: **USD**. The current work adds two Markdown lessons, explained
-solutions, one guarded disposable projection lab, and focused validation.
-No new hosting service, paid account, publishing platform, or runtime
-application is introduced. Existing workstation, agent-access, and private
-repository costs remain under their existing arrangements; metered internal
-usage is not estimated here.
+Currency: **USD**. That work added two Markdown lessons, explained solutions,
+one guarded disposable projection lab, and focused validation. It introduced
+no new hosting service, paid account, publishing platform, or runtime
+application. Existing workstation, agent-access, and private repository costs
+remained under their existing arrangements; metered internal usage was not
+estimated here.
 
 For one private curriculum repository and local fictional lab attempts, the
-incremental monthly service band is **low $0 / typical $0 / high $0**, assuming
-existing tooling access. These are scope assumptions, not vendor quotes.
-Human-equivalent authoring, source checking, lab verification, and review is
-roughly **24–40 hours**; an agent-assisted run is not a measurement of that
-human effort. Ongoing content maintenance is approximately **1–3 hours per
-month**, with a new estimate after a release or scope change.
+incremental monthly service band was **low $0 / typical $0 / high $0**, assuming
+existing tooling access. Those were scope assumptions, not vendor quotes.
+Human-equivalent authoring, source checking, lab verification, and review was
+estimated at roughly **24–40 hours**; an agent-assisted run was not a
+measurement of that human effort. Ongoing content maintenance was estimated at
+approximately **1–3 hours per month**, with a new estimate after a release or
+scope change.
 
-The executable Lab 5 path is bounded to macOS/zsh. Native Linux/Windows proof,
-publishing, paid services, and Modules 6–11 are outside this implementation.
-Re-estimate before introducing any of them or changing the release pin.
+The executable Lab 5 path was bounded to macOS/zsh. Native Linux/Windows proof,
+publishing, paid services, and Modules 6–11 were outside that implementation.
+Re-estimate before introducing any remaining item or changing the release pin.
 
-### Decision recorded — current scope
+### Decision recorded — prior scope
 
 - **Decision**: Build
 - **Date**: 2026-09-07
@@ -82,8 +83,9 @@ Re-estimate before introducing any of them or changing the release pin.
 
 ## Historical estimate — Modules 2–3
 
-The remainder records the previous scope and its prior decision. It does not
-replace the current Modules 4–5 scope above.
+The remainder records an earlier scope and its prior decision. It does not
+replace either the current Module 6 estimate or the prior Modules 4–5 estimate
+above.
 
 > All figures are in **US dollars (USD)**. These are loose ranges, not
 > guarantees. Re-estimate if the approved scope or service assumptions change.
