@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Proposed curriculum scope for core Modules 6 through 8",
     "created": "2026-09-05T19:43:46Z",
-    "updated": "2026-09-05T19:43:46Z",
+    "updated": "2026-09-09T02:27:33Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -61,6 +61,26 @@
         ],
         "size": "large"
       }
-    }
+    },
+    "references": [
+      {
+        "uri": "proposed/2026-09-08-module-6-creating-well-shaped-work.xbrief.json",
+        "type": "x-xbrief/plan",
+        "title": "Module 6: Creating Well-Shaped Work",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "proposed/2026-09-08-module-7-scope-lifecycle-and-implementation-authorization.xbrief.json",
+        "type": "x-xbrief/plan",
+        "title": "Module 7: Scope Lifecycle and Implementation Authorization",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "proposed/2026-09-08-module-8-session-start-and-authorized-work-selection.xbrief.json",
+        "type": "x-xbrief/plan",
+        "title": "Module 8: Session Start and Authorized Work Selection",
+        "TrustLevel": "internal"
+      }
+    ]
   }
 }

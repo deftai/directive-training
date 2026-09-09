@@ -4,6 +4,9 @@
 
 ### Added
 
+- Three proposed, sequential story xBRIEFs for Modules 6–8, with explicit
+  requirement coverage, dependencies, acceptance criteria, file boundaries,
+  and focused verification contracts.
 - Modules 4 and 5: xBRIEF artifact classification and source/projection recovery,
   with explained solutions, progressive hints, and outcome-based self-checks.
 - A guarded disposable codebase-MAP lab with exact Directive 0.112.0 fixtures,

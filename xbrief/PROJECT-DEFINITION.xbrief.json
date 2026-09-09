@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Project definition for the private 3Ci Directive training curriculum",
     "created": "2026-09-05T14:54:49Z",
-    "updated": "2026-09-07T02:54:41Z",
+    "updated": "2026-09-09T02:37:21Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -76,15 +76,6 @@
         }
       },
       {
-        "id": "2026-09-05-modules-4-5-xbrief-and-projections",
-        "title": "Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-05-modules-4-5-xbrief-and-projections.xbrief.json",
-          "lifecycle_folder": "completed"
-        }
-      },
-      {
         "id": "2026-09-05-modules-6-8-work-lifecycle-and-sessions",
         "title": "Modules 6-8: Work Shaping, Lifecycle Authorization, and Session Workflow",
         "status": "proposed",
@@ -121,23 +112,81 @@
         }
       },
       {
-        "id": "2026-09-07-directive-baseline-0.112.0",
-        "title": "Directive 0.112.0 Curriculum Baseline",
-        "status": "completed",
+        "id": "2026-09-08-module-6-creating-well-shaped-work",
+        "title": "Module 6: Creating Well-Shaped Work",
+        "status": "proposed",
         "metadata": {
-          "source_path": "completed/2026-09-07-directive-baseline-0-112-0.xbrief.json",
-          "lifecycle_folder": "completed",
+          "source_path": "proposed/2026-09-08-module-6-creating-well-shaped-work.xbrief.json",
+          "lifecycle_folder": "proposed",
           "references": [
             {
-              "uri": "urn:3ci:directive-training:request:2026-09-07",
-              "type": "x-xbrief/user-request",
-              "title": "David's confirmed full Directive 0.112.0 upgrade request",
+              "uri": "../PROJECT-DEFINITION.xbrief.json",
+              "type": "x-xbrief/spec-section",
+              "title": "Directive training project learning goals and safety boundaries",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../curriculum/README.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Course sequence and Module 6 outcomes",
+              "TrustLevel": "internal"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-08-module-7-scope-lifecycle-and-implementation-authorization",
+        "title": "Module 7: Scope Lifecycle and Implementation Authorization",
+        "status": "proposed",
+        "metadata": {
+          "source_path": "proposed/2026-09-08-module-7-scope-lifecycle-and-implementation-authorization.xbrief.json",
+          "lifecycle_folder": "proposed",
+          "references": [
+            {
+              "uri": "../PROJECT-DEFINITION.xbrief.json",
+              "type": "x-xbrief/spec-section",
+              "title": "Directive training lifecycle, baseline, and lab safety contracts",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../curriculum/README.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Course sequence and Module 7 outcomes",
               "TrustLevel": "internal"
             },
             {
               "uri": "../../references/SOURCE-BASELINE.md",
               "type": "x-xbrief/spec-section",
-              "title": "Maintained Directive source baseline",
+              "title": "Pinned Directive 0.112.0 source and runtime baseline",
+              "TrustLevel": "internal"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-08-module-8-session-start-and-authorized-work-selection",
+        "title": "Module 8: Session Start and Authorized Work Selection",
+        "status": "proposed",
+        "metadata": {
+          "source_path": "proposed/2026-09-08-module-8-session-start-and-authorized-work-selection.xbrief.json",
+          "lifecycle_folder": "proposed",
+          "references": [
+            {
+              "uri": "../PROJECT-DEFINITION.xbrief.json",
+              "type": "x-xbrief/spec-section",
+              "title": "Directive training session, state, and safety contracts",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../curriculum/README.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Course sequence and Module 8 outcomes",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../references/SOURCE-BASELINE.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Pinned Directive 0.112.0 source and runtime baseline",
               "TrustLevel": "internal"
             }
           ]
@@ -183,6 +232,15 @@
         }
       },
       {
+        "id": "2026-09-05-modules-4-5-xbrief-and-projections",
+        "title": "Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-05-modules-4-5-xbrief-and-projections.xbrief.json",
+          "lifecycle_folder": "completed"
+        }
+      },
+      {
         "id": "2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot",
         "title": "Self-Directed Curriculum Foundation and Module 1 Pilot",
         "status": "completed",
@@ -198,11 +256,36 @@
             }
           ]
         }
+      },
+      {
+        "id": "2026-09-07-directive-baseline-0-112-0",
+        "title": "Directive 0.112.0 Curriculum Baseline",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-07-directive-baseline-0-112-0.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "urn:3ci:directive-training:request:2026-09-07",
+              "type": "x-xbrief/user-request",
+              "title": "David's confirmed full Directive 0.112.0 upgrade request",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../references/SOURCE-BASELINE.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Maintained Directive source baseline",
+              "TrustLevel": "internal"
+            }
+          ]
+        }
       }
     ],
     "metadata": {
       "staleness_flags": [
-        "Narrative 'ProjectRules' may be stale: completed scope 'Modules 2-3: Installation, Project Anatomy, Authority, and Context' shares topics (project)"
+        "Narrative 'DirectiveBaseline' may be stale: completed scope 'Directive 0.112.0 Curriculum Baseline' shares topics (baseline, directive)",
+        "Narrative 'ProjectRules' may be stale: completed scope 'Modules 2-3: Installation, Project Anatomy, Authority, and Context' shares topics (project)",
+        "Narrative 'SourceOfTruth' may be stale: completed scope 'Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries' shares topics (source)"
       ]
     },
     "x-directive/policy": {

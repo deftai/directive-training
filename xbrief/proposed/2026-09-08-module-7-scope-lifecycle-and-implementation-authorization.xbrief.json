@@ -1,0 +1,171 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Story xBRIEF 2 decomposed from proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json"
+  },
+  "plan": {
+    "id": "training.modules6-8.lifecycle",
+    "title": "Module 7: Scope Lifecycle and Implementation Authorization",
+    "status": "proposed",
+    "planRef": "proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
+    "narratives": {
+      "Description": "Deliver Module 7 and a guarded disposable lab that makes lifecycle state and implementation authorization observable without touching this training repository or any remote. This story is independently reviewable because it owns the only executable lab in the cohort, including its fictional fixture, safety helper, reset and recoverable cleanup, explained solution, platform evidence, and focused tests.",
+      "ImplementationPlan": "1. Probe the pinned Directive 0.112.0 lifecycle, session, and xBRIEF preflight command surfaces, then record exact behavior and any documentation drift in references/SOURCE-BASELINE.md and references/SOURCE-NOTES.md.\n2. Author curriculum/modules/07-scope-lifecycle.md, labs/07-scope-lifecycle.md, the exact labs/fixtures/07-scope-lifecycle files, and solutions/lab-07-scope-lifecycle.md so proposed failure, task-driven promotion and activation, active success, completion, cancellation, reset, and cleanup are reproducible.\n3. Add scripts/verify-module-7.mjs, its negative tests, and lifecycle fixture tests; update the exact indexes and run focused, portability, conformance, and aggregate evidence gates without claiming an unexecuted platform.",
+      "UserStory": "As a 3Ci engineer learning Directive, I want to observe lifecycle transitions and preflight authorization in a disposable repository, so that I can distinguish approved scope from mutation-ready implementation authority.",
+      "Traces": "Parent training.modules6-8.lifecycle, PROJECT-DEFINITION LearningGoals: lifecycle and implementation authorization, PROJECT-DEFINITION DirectiveBaseline, SupportedEnvironments, LabModel, and ProjectRules contracts"
+    },
+    "items": [
+      {
+        "id": "training.modules6-8.lifecycle.baseline",
+        "title": "Validate lifecycle and authorization behavior",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "The source and runtime record validates exact Directive 0.112.0 lifecycle and preflight behavior, records exit codes, and labels every unexecuted platform as candidate or unsupported.",
+          "Traces": "training.modules6-8.lifecycle"
+        }
+      },
+      {
+        "id": "training.modules6-8.lifecycle.safety",
+        "title": "Build the disposable lab safety boundary",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "Given the supplied fixture, the starting guard fails before mutation unless the canonical root is a unique temporary no-remote repository with the exact Directive 0.112.0 pin.",
+          "Traces": "training.modules6-8.lifecycle"
+        }
+      },
+      {
+        "id": "training.modules6-8.lifecycle.transitions",
+        "title": "Demonstrate authorized lifecycle transitions",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "The lab records proposed-scope preflight failure; task-driven proposed-to-pending, active/running, completed, and cancelled transitions with folder/status agreement; and active-scope preflight success only after the required live implementation intent and session gates.",
+          "Traces": "training.modules6-8.lifecycle"
+        }
+      },
+      {
+        "id": "training.modules6-8.lifecycle.recovery",
+        "title": "Provide reset, recovery, and bounded cleanup",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "The explained solution records preserved failure evidence, while fresh-attempt reset and exact-target recoverable cleanup reject any target outside the named fictional lab boundary.",
+          "Traces": "training.modules6-8.lifecycle"
+        }
+      },
+      {
+        "id": "training.modules6-8.lifecycle.quality",
+        "title": "Verify lesson, fixture, and platform claims",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "The focused verifier rejects broken safety guards, transition evidence, outcome mappings, local links, reset behavior, and platform labels without performing a push, merge, delivery closeout, or remote mutation.",
+          "Traces": "training.modules6-8.lifecycle"
+        }
+      }
+    ],
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "readiness": "sequential",
+        "parallel_safe": false,
+        "file_scope": [
+          "CHANGELOG.md",
+          "README.md",
+          "assessments/README.md",
+          "curriculum/README.md",
+          "curriculum/modules/07-scope-lifecycle.md",
+          "history/changes/module-7-curriculum/proposal.xbrief.json",
+          "labs/07-scope-lifecycle.md",
+          "labs/README.md",
+          "labs/fixtures/07-scope-lifecycle/PROJECT-DEFINITION.xbrief.json",
+          "labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs",
+          "labs/fixtures/07-scope-lifecycle/package.json",
+          "labs/fixtures/07-scope-lifecycle/safety.mjs",
+          "package.json",
+          "references/GLOSSARY.md",
+          "references/QUICK-REFERENCE.md",
+          "references/SOURCE-BASELINE.md",
+          "references/SOURCE-NOTES.md",
+          "scripts/lifecycle-lab.test.mjs",
+          "scripts/verify-module-7.mjs",
+          "scripts/verify-module-7.test.mjs",
+          "solutions/README.md",
+          "solutions/lab-07-scope-lifecycle.md",
+          "xbrief/PROJECT-DEFINITION.xbrief.json",
+          "xbrief/active/2026-09-08-module-7-scope-lifecycle-and-implementation-authorization.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:module-7",
+          "npm run test:module-7",
+          "directive verify:vbrief-conformance --project-root ."
+        ],
+        "expected_outputs": [
+          "Module 7 content contract passes with exact outcome, safety, recovery, and navigation evidence",
+          "Disposable lifecycle fixture tests pass without mutating the training repository or contacting a remote",
+          "Platform claims cite independent execution evidence or remain explicitly candidate",
+          "All xBRIEF 0.8 artifacts conform"
+        ],
+        "depends_on": [
+          "training.modules6-8.shaping"
+        ],
+        "conflict_group": "curriculum-core-navigation",
+        "size": "large",
+        "file_scope_confidence": "high",
+        "model_tier": "high"
+      },
+      "parent_lineage": {
+        "schema": "deft.scope.parent_lineage.v1",
+        "coverage_map": {
+          "training.modules6-8.shaping": {
+            "disposition": "covered",
+            "child_story_ids": [
+              "training.modules6-8.shaping"
+            ]
+          },
+          "training.modules6-8.lifecycle": {
+            "disposition": "covered",
+            "child_story_ids": [
+              "training.modules6-8.lifecycle"
+            ]
+          },
+          "training.modules6-8.sessions": {
+            "disposition": "covered",
+            "child_story_ids": [
+              "training.modules6-8.sessions"
+            ]
+          }
+        },
+        "parent_requirement_ids": [
+          "training.modules6-8.shaping",
+          "training.modules6-8.lifecycle",
+          "training.modules6-8.sessions"
+        ],
+        "negative_invariant_ids": [],
+        "parent_plan_id": "training.modules6-8"
+      }
+    },
+    "references": [
+      {
+        "uri": "../PROJECT-DEFINITION.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Directive training lifecycle, baseline, and lab safety contracts",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../curriculum/README.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Course sequence and Module 7 outcomes",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../references/SOURCE-BASELINE.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Pinned Directive 0.112.0 source and runtime baseline",
+        "TrustLevel": "internal"
+      }
+    ]
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Story xBRIEF 3 decomposed from proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json"
+  },
+  "plan": {
+    "id": "training.modules6-8.sessions",
+    "title": "Module 8: Session Start and Authorized Work Selection",
+    "status": "proposed",
+    "planRef": "proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
+    "narratives": {
+      "Description": "Deliver Module 8 as a self-directed lesson using sanitized fictional state snapshots rather than a learner's live GitHub repository, cache, or confidential backlog. This story is independently buildable because it owns the posture and work-selection decision exercise, explained solution, source trace, navigation, and focused content verification while leaving implementation, gates, and review to Modules 9 through 11.",
+      "ImplementationPlan": "1. Revalidate the pinned Directive 0.112.0 session, ordered-plan, ranked-queue, cache, and audit-log surfaces and record any live-runtime versus deposited-prose drift in the source notes.\n2. Author curriculum/modules/08-session-and-work-selection.md and solutions/module-08-session-and-work-selection.md with fixed fictional request cards, state snapshots, a deterministic decision matrix, progressive hints, and outcome-mapped evidence.\n3. Update the exact navigation and reference files, add scripts/verify-module-8.mjs plus negative unit tests, and run the focused npm checks and xBRIEF conformance check before the aggregate gate.",
+      "UserStory": "As a 3Ci engineer learning Directive, I want to classify session posture and choose work from authoritative selection surfaces, so that I can resume safely without treating caches, plans, or completed scopes as implementation authority.",
+      "Traces": "Parent training.modules6-8.sessions, PROJECT-DEFINITION LearningGoals: session start and ordered work selection, PROJECT-DEFINITION SourceOfTruth, DirectiveBaseline, LabModel, and NonGoals contracts"
+    },
+    "items": [
+      {
+        "id": "training.modules6-8.sessions.baseline",
+        "title": "Validate session and work-selection behavior",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "The source record validates exact Directive 0.112.0 session and work-selection behavior and records every disagreement between deposited prose and the released command surface.",
+          "Traces": "training.modules6-8.sessions"
+        }
+      },
+      {
+        "id": "training.modules6-8.sessions.posture",
+        "title": "Teach session posture and recovery decisions",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "Given sanitized request cards and fixed state snapshots, the learner records the correct read-only or mutation posture, start or recovery route, and any missing authority for each case.",
+          "Traces": "training.modules6-8.sessions"
+        }
+      },
+      {
+        "id": "training.modules6-8.sessions.selection",
+        "title": "Teach ordered-plan and ranked-queue precedence",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "When an active ordered plan exists, the exercise rejects adjacent ranked-queue work; when that plan is exhausted, it stops until an explicit queue selection or operator target exists.",
+          "Traces": "training.modules6-8.sessions"
+        }
+      },
+      {
+        "id": "training.modules6-8.sessions.state-map",
+        "title": "Map authoritative and non-authorizing state",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "The exercise records the learner's mapping of ordered plan, ranked cache, pending scope, audit log, active scope, and live intent to exact roles without reading a live backlog or treating any record alone as implementation authority.",
+          "Traces": "training.modules6-8.sessions"
+        }
+      },
+      {
+        "id": "training.modules6-8.sessions.quality",
+        "title": "Add the explained solution and focused verifier",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "Negative tests reject incorrect outcome mappings, canonical state paths, local links, exact Directive 0.112.0 claims, and Module 9's still-planned status; the explained solution records the expected evidence.",
+          "Traces": "training.modules6-8.sessions"
+        }
+      }
+    ],
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "readiness": "sequential",
+        "parallel_safe": false,
+        "file_scope": [
+          "CHANGELOG.md",
+          "README.md",
+          "assessments/README.md",
+          "curriculum/README.md",
+          "curriculum/modules/08-session-and-work-selection.md",
+          "history/changes/module-8-curriculum/proposal.xbrief.json",
+          "package.json",
+          "references/GLOSSARY.md",
+          "references/QUICK-REFERENCE.md",
+          "references/SOURCE-BASELINE.md",
+          "references/SOURCE-NOTES.md",
+          "scripts/verify-module-8.mjs",
+          "scripts/verify-module-8.test.mjs",
+          "solutions/README.md",
+          "solutions/module-08-session-and-work-selection.md",
+          "xbrief/PROJECT-DEFINITION.xbrief.json",
+          "xbrief/active/2026-09-08-module-8-session-start-and-authorized-work-selection.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:module-8",
+          "node --test scripts/verify-module-8.test.mjs",
+          "directive verify:vbrief-conformance --project-root ."
+        ],
+        "expected_outputs": [
+          "Module 8 lesson and solution satisfy the self-directed content contract using fixed fictional state",
+          "Negative verifier tests reject incorrect posture, queue precedence, state roles, links, and version claims",
+          "No learner step requires a live GitHub backlog, Directive cache, or confidential project state",
+          "All xBRIEF 0.8 artifacts conform"
+        ],
+        "depends_on": [
+          "training.modules6-8.lifecycle"
+        ],
+        "conflict_group": "curriculum-core-navigation",
+        "size": "large",
+        "file_scope_confidence": "high",
+        "model_tier": "medium"
+      },
+      "parent_lineage": {
+        "schema": "deft.scope.parent_lineage.v1",
+        "coverage_map": {
+          "training.modules6-8.shaping": {
+            "disposition": "covered",
+            "child_story_ids": [
+              "training.modules6-8.shaping"
+            ]
+          },
+          "training.modules6-8.lifecycle": {
+            "disposition": "covered",
+            "child_story_ids": [
+              "training.modules6-8.lifecycle"
+            ]
+          },
+          "training.modules6-8.sessions": {
+            "disposition": "covered",
+            "child_story_ids": [
+              "training.modules6-8.sessions"
+            ]
+          }
+        },
+        "parent_requirement_ids": [
+          "training.modules6-8.shaping",
+          "training.modules6-8.lifecycle",
+          "training.modules6-8.sessions"
+        ],
+        "negative_invariant_ids": [],
+        "parent_plan_id": "training.modules6-8"
+      }
+    },
+    "references": [
+      {
+        "uri": "../PROJECT-DEFINITION.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Directive training session, state, and safety contracts",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../curriculum/README.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Course sequence and Module 8 outcomes",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../references/SOURCE-BASELINE.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Pinned Directive 0.112.0 source and runtime baseline",
+        "TrustLevel": "internal"
+      }
+    ]
+  }
+}
