@@ -1,9 +1,54 @@
 <!-- deft:template -->
-<!-- Purpose: current Modules 4-5 cost estimate with the prior Modules 2-3 estimate retained -->
+<!-- Purpose: current Module 6 cost estimate with prior curriculum estimates retained -->
 
 # Cost & Budget Estimate
 
-## Current scope — Modules 4–5 (2026-09-07)
+## Current scope — Module 6 (2026-09-09)
+
+Currency: **USD**. Module 6 adds one command-free Markdown lesson, a fictional
+vertical-slice exercise, an explained solution, source trace updates,
+navigation updates, and focused validation with negative tests. It introduces
+no hosting service, paid account, publishing platform, runtime application, or
+learner-facing remote operation.
+
+### TL;DR
+
+For one private curriculum repository using existing 3Ci tooling, the expected
+incremental monthly service band is **low $0 / typical $0 / high $0**. The
+meaningful cost is approximately **16–26 hours** of focused authoring, source
+checking, validation, and review. Ongoing maintenance attributable to this
+module is approximately **1–2 hours per month**.
+
+### Assumptions and scale considerations
+
+- Existing private GitHub, coding-agent, workstation, Node.js, npm, and
+  GitHub Actions access remain available under current 3Ci arrangements.
+- The work remains command-free and uses only fictional planning scenarios.
+- Native platform labs, publishing, paid services, Modules 7–11, the capstone,
+  and a Directive release-pin change are excluded and require a new estimate.
+
+### Build and maintenance time
+
+- **Directive 0.112.0 claim revalidation**: about **2–4 hours**
+- **Lesson and vertical-slice exercise**: about **6–10 hours**
+- **Explained solution, navigation, and source trace**: about **3–5 hours**
+- **Focused verifier, negative tests, and review**: about **5–7 hours**
+- **Total build**: about **16–26 hours**
+- **Maintenance**: about **1–2 hours per month**, plus focused revalidation
+  after a material Directive release
+
+### Decision recorded — current scope
+
+- **Decision**: Build
+- **Date**: 2026-09-09
+- **Recorded by**: David
+- **Selection**: Option 1, Build
+- **Boundary**: Module 6 local implementation and the confirmed
+  `/deft:change module-6-curriculum` proposal. This decision does not authorize
+  Modules 7–8, push, pull-request creation, merge, branch deletion, worktree
+  removal, deployment, or publication.
+
+## Prior scope — Modules 4–5 (2026-09-07)
 
 Currency: **USD**. The current work adds two Markdown lessons, explained
 solutions, one guarded disposable projection lab, and focused validation.

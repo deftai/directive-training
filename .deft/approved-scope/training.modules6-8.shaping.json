@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-08-module-6-creating-well-shaped-work.xbrief.json",
+  "planId": "training.modules6-8.shaping",
+  "approvedAt": "2026-09-09T14:23:41Z",
+  "fileScope": [
+    "assessments/README.md",
+    "CHANGELOG.md",
+    "COST-ESTIMATE.md",
+    "curriculum/modules/05-sources-versus-projections.md",
+    "curriculum/modules/06-creating-well-shaped-work.md",
+    "curriculum/README.md",
+    "history/changes/module-6-curriculum/proposal.xbrief.json",
+    "maintainers/CURRICULUM-MAINTENANCE.md",
+    "package.json",
+    "README.md",
+    "references/GLOSSARY.md",
+    "references/QUICK-REFERENCE.md",
+    "references/SOURCE-BASELINE.md",
+    "references/SOURCE-NOTES.md",
+    "ROADMAP.md",
+    "scripts/verify-module-6.mjs",
+    "scripts/verify-module-6.test.mjs",
+    "scripts/verify-modules-4-5.mjs",
+    "scripts/verify-modules-4-5.test.mjs",
+    "solutions/module-06-creating-well-shaped-work.md",
+    "solutions/README.md",
+    "xbrief/active/2026-09-08-module-6-creating-well-shaped-work.xbrief.json",
+    "xbrief/PROJECT-DEFINITION.xbrief.json",
+    "xbrief/proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
+    "xbrief/proposed/2026-09-08-module-6-creating-well-shaped-work.xbrief.json"
+  ],
+  "fileScopeDigest": "f2a735c29af01e634140ba41b4a36fbf1d382729799ba58a7b045fcdc238992f",
+  "humanApproval": {
+    "kind": "renewed-approval",
+    "actor": "David",
+    "mintedAt": "2026-09-09T14:23:41Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "60be268d0c4de709784d75b4b472fddfb1a7a42f1c092ddf47acded46bfc8333",
+  "digestAlgo": "intent-extract-v1"
+}

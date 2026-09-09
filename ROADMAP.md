@@ -5,6 +5,10 @@
 
 # Roadmap
 
+## Active
+
+- Module 6: Creating Well-Shaped Work -- `[running]`
+
 ## Proposed
 
 _Scopes not yet promoted to pending. Orientation only — not a substitute for `task triage:queue`._
@@ -17,7 +21,6 @@ _Scopes not yet promoted to pending. Orientation only — not a substitute for `
 - Modules 9-11: Implementation, Gates, Review, and Closeout -- `[proposed]`
 - Independent Learner Pilot and Curriculum Revision -- `[proposed]`
 - Directive Version-Drift Checks and Maintenance Process -- `[proposed]`
-- Module 6: Creating Well-Shaped Work -- `[proposed]`
 - Module 7: Scope Lifecycle and Implementation Authorization -- `[proposed]`
 - Module 8: Session Start and Authorized Work Selection -- `[proposed]`
 

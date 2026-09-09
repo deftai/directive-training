@@ -1,12 +1,13 @@
 {
   "xBRIEFInfo": {
     "version": "0.8",
-    "description": "Story xBRIEF 1 decomposed from proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json"
+    "description": "Story xBRIEF 1 decomposed from proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
+    "updated": "2026-09-09T14:21:28Z"
   },
   "plan": {
     "id": "training.modules6-8.shaping",
     "title": "Module 6: Creating Well-Shaped Work",
-    "status": "proposed",
+    "status": "running",
     "planRef": "proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
     "narratives": {
       "Description": "Deliver Module 6 as a self-directed lesson that turns horizontal activity lists into small end-to-end outcomes with observable evidence. This story is independently buildable because it is command-free and owns its lesson, exercise, explained solution, source trace, navigation, and focused content checks.",
@@ -73,11 +74,15 @@
         "parallel_safe": false,
         "file_scope": [
           "CHANGELOG.md",
+          "COST-ESTIMATE.md",
           "README.md",
+          "ROADMAP.md",
           "assessments/README.md",
           "curriculum/README.md",
+          "curriculum/modules/05-sources-versus-projections.md",
           "curriculum/modules/06-creating-well-shaped-work.md",
           "history/changes/module-6-curriculum/proposal.xbrief.json",
+          "maintainers/CURRICULUM-MAINTENANCE.md",
           "package.json",
           "references/GLOSSARY.md",
           "references/QUICK-REFERENCE.md",
@@ -85,10 +90,14 @@
           "references/SOURCE-NOTES.md",
           "scripts/verify-module-6.mjs",
           "scripts/verify-module-6.test.mjs",
+          "scripts/verify-modules-4-5.mjs",
+          "scripts/verify-modules-4-5.test.mjs",
           "solutions/README.md",
           "solutions/module-06-creating-well-shaped-work.md",
           "xbrief/PROJECT-DEFINITION.xbrief.json",
-          "xbrief/active/2026-09-08-module-6-creating-well-shaped-work.xbrief.json"
+          "xbrief/active/2026-09-08-module-6-creating-well-shaped-work.xbrief.json",
+          "xbrief/proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
+          "xbrief/proposed/2026-09-08-module-6-creating-well-shaped-work.xbrief.json"
         ],
         "verify_commands": [
           "npm run check:module-6",
@@ -150,6 +159,51 @@
         "title": "Course sequence and Module 6 outcomes",
         "TrustLevel": "internal"
       }
-    ]
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 5 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "The source record validates every version-sensitive Module 6 claim against Directive 0.112.0 and records any prose-versus-runtime disagreement without inventing newer behavior.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Given a fictional horizontal component plan, the learner creates one end-to-end slice whose artifact, user-visible outcome, exclusions, and literal inspection are recorded.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Given a fictional idea, the learner records a bounded strategy choice, a testable specification statement, and a proposed-scope artifact without treating that proposal as implementation authority.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Given an epic-sized scenario, the learner creates an ordered set of independently verifiable slices and records dependency and boundary rationale for every slice.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Focused negative tests reject missing outcome IDs, required learning sections, local links, exact Directive 0.112.0 claims, and Module 7's still-planned status; the explained solution records the expected evidence.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "updated": "2026-09-09T14:21:28Z"
   }
 }

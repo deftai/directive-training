@@ -1,0 +1,44 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Approved change proposal for the Module 6 curriculum scope",
+    "created": "2026-09-09T12:16:53Z",
+    "updated": "2026-09-09T14:21:28Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.module-6-curriculum",
+    "title": "module-6-curriculum",
+    "status": "approved",
+    "items": [],
+    "narratives": {
+      "Problem": "Learners can identify Directive authority and durable state through Module 5, but they cannot yet turn horizontal activity lists into small end-to-end outcomes with observable evidence or recognize when work requires ordered decomposition.",
+      "Change": "Author Module 6, its fictional vertical-slice exercise, explained solution, source trace, navigation updates, and a focused verifier with negative tests.",
+      "Scope": "In scope: the paths and acceptance clauses declared by training.modules6-8.shaping, including the approved Module 6 cost record; Module 5 navigation and regression-check updates; the generated roadmap; the maintainer check list; the parent scope record; and the governed proposed-to-active lifecycle counterpart. Out of scope: Modules 7-11, the capstone, executable learner labs, publishing, deployment, upstream framework changes, push, pull-request creation, and merge.",
+      "Impact": "Adds one command-free learner-ready draft that teaches work shaping, proposed-scope boundaries, observable acceptance, epic recognition, and ordered decomposition without introducing a live service or remote learner action.",
+      "Risks": "The lesson could blur proposal with implementation authority, teach horizontal component completion as value, overstate Directive 0.112.0 behavior, or make success subjective. Every claim and exercise must be version-bound, outcome-mapped, and mechanically checked.",
+      "Approach": "Revalidate the pinned Directive sources first, write failing negative verifier tests, author the lesson and solution to satisfy the declared outcomes, update navigation and references, then run the literal focused checks and aggregate gate.",
+      "Alternatives": "Combining Modules 6-8 was rejected because the merged refinement established sequential, independently verifiable stories. An executable Module 6 lab was rejected because this scope is intentionally command-free and should use fictional planning artifacts.",
+      "Dependencies": "The delivered Modules 1-5 curriculum, the exact @deftai/directive 0.112.0 baseline, Node.js 20 or newer, Git, npm, and the repository's existing content-contract patterns.",
+      "Authorization": "David selected option 1, Build, after reviewing the Module 6 estimate. After a read-only audit exposed stale navigation, regression, roadmap, maintenance, and parent-scope surfaces, David selected option 1 again to approve the six-path minimum expansion. The governed deletion of the proposed child path is the already-authorized counterpart of activation, not added product scope. These selections confirm /deft:change module-6-curriculum and local implementation; they do not authorize remote delivery or destructive cleanup.",
+      "Stops": "Success: all Module 6 acceptance commands and the aggregate local gate pass. Failure: at most five implementation fix iterations or three identical failures without progress, and at most three pre-PR review passes. Stop before push or pull-request creation pending separate authorization."
+    },
+    "references": [
+      {
+        "uri": "../../../xbrief/active/2026-09-08-module-6-creating-well-shaped-work.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Active Module 6 implementation contract",
+        "TrustLevel": "internal"
+      }
+    ],
+    "metadata": {
+      "change_name": "module-6-curriculum",
+      "confirmed_by": "David",
+      "confirmation_phrase": "1 (Build)",
+      "confirmed_at": "2026-09-09T12:16:53Z",
+      "scope_expansion_confirmed_by": "David",
+      "scope_expansion_confirmation_phrase": "1",
+      "scope_expansion_confirmed_at": "2026-09-09T14:21:28Z"
+    }
+  }
+}
