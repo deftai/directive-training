@@ -3,13 +3,13 @@
     "version": "0.8",
     "description": "Active local implementation scope for core Modules 4 and 5",
     "created": "2026-09-05T19:43:46Z",
-    "updated": "2026-09-07T04:38:25Z",
+    "updated": "2026-09-08T03:58:43Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
     "id": "training.modules4-5",
     "title": "Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Teach xBRIEF 0.8 artifact roles, lifecycle folders, durable state, and source-versus-generated-projection boundaries. The work includes an artifact-classification exercise and a disposable projection-drift recovery lab.",
       "Acceptance": "Module 4 lets a learner classify PROJECT-DEFINITION, specification, scope, plan, and continue artifacts and explain why chat is not authoritative state. Module 5 lets a learner reject a direct generated-file edit, change the authoritative source, render the projection with verified commands, and prove freshness.",
@@ -81,6 +81,9 @@
     },
     "metadata": {
       "kind": "phase",
+      "delivery": {
+        "required": true
+      },
       "swarm": {
         "readiness": "needs_refinement",
         "parallel_safe": false,
@@ -88,8 +91,32 @@
           "training.modules2-3"
         ],
         "size": "large"
-      }
+      },
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-08T03:58:43Z"
+      },
+      "completedAt": "2026-09-08T03:58:43Z",
+      "completedSessionId": "host:codex:v1:MDFhMDdlZjEtODUxZi03NTYwLTk1MGEtODY2OTJhODlhYTkx",
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 17,
+        "prBase": "master",
+        "mergeCommit": "6494c6d0fb4eff897eeff3a04ab85d0e7118ba17",
+        "deliveryBranch": "master",
+        "deliveryCommit": "6494c6d0fb4eff897eeff3a04ab85d0e7118ba17",
+        "verifiedAt": "2026-09-08T03:58:43Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMDdlZjEtODUxZi03NTYwLTk1MGEtODY2OTJhODlhYTkx"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered"
     },
-    "updated": "2026-09-07T04:38:25Z"
+    "updated": "2026-09-08T03:58:43Z"
   }
 }
