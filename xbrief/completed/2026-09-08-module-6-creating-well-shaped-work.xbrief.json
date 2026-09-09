@@ -2,12 +2,12 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Story xBRIEF 1 decomposed from proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
-    "updated": "2026-09-09T14:21:28Z"
+    "updated": "2026-09-09T17:50:31Z"
   },
   "plan": {
     "id": "training.modules6-8.shaping",
     "title": "Module 6: Creating Well-Shaped Work",
-    "status": "running",
+    "status": "completed",
     "planRef": "proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
     "narratives": {
       "Description": "Deliver Module 6 as a self-directed lesson that turns horizontal activity lists into small end-to-end outcomes with observable evidence. This story is independently buildable because it is command-free and owns its lesson, exercise, explained solution, source trace, navigation, and focused content checks.",
@@ -19,8 +19,14 @@
       {
         "id": "training.modules6-8.shaping.baseline",
         "title": "Revalidate Module 6 claims against Directive 0.112.0",
-        "status": "proposed",
+        "status": "completed",
         "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-6; references/SOURCE-NOTES.md#module-6-source-validation; product PR #21",
+          "recorded_at": "2026-09-09T17:43:24Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "The source record validates every version-sensitive Module 6 claim against Directive 0.112.0 and records any prose-versus-runtime disagreement without inventing newer behavior.",
           "Traces": "training.modules6-8.shaping"
@@ -29,8 +35,14 @@
       {
         "id": "training.modules6-8.shaping.lesson",
         "title": "Author the Module 6 lesson and vertical-slice exercise",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-6; curriculum/modules/06-creating-well-shaped-work.md; product PR #21",
+          "recorded_at": "2026-09-09T17:43:24Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "Given a fictional horizontal component plan, the learner creates one end-to-end slice whose artifact, user-visible outcome, exclusions, and literal inspection are recorded.",
           "Traces": "training.modules6-8.shaping"
@@ -39,8 +51,14 @@
       {
         "id": "training.modules6-8.shaping.scope-path",
         "title": "Trace an idea into proposed scope",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:module-6; curriculum/modules/06-creating-well-shaped-work.md#exercise; product PR #21",
+          "recorded_at": "2026-09-09T17:43:24Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "Given a fictional idea, the learner records a bounded strategy choice, a testable specification statement, and a proposed-scope artifact without treating that proposal as implementation authority.",
           "Traces": "training.modules6-8.shaping"
@@ -49,8 +67,14 @@
       {
         "id": "training.modules6-8.shaping.decomposition",
         "title": "Teach epic recognition and ordered decomposition",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:module-6; solutions/module-06-creating-well-shaped-work.md; product PR #21",
+          "recorded_at": "2026-09-09T17:43:24Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "Given an epic-sized scenario, the learner creates an ordered set of independently verifiable slices and records dependency and boundary rationale for every slice.",
           "Traces": "training.modules6-8.shaping"
@@ -59,8 +83,14 @@
       {
         "id": "training.modules6-8.shaping.quality",
         "title": "Add the explained solution and focused verifier",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:module-6 (82 passing); scripts/verify-module-6.test.mjs; product PR #21",
+          "recorded_at": "2026-09-09T17:43:24Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "Focused negative tests reject missing outcome IDs, required learning sections, local links, exact Directive 0.112.0 claims, and Module 7's still-planned status; the explained solution records the expected evidence.",
           "Traces": "training.modules6-8.shaping"
@@ -144,7 +174,31 @@
         ],
         "negative_invariant_ids": [],
         "parent_plan_id": "training.modules6-8"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 21,
+        "prBase": null,
+        "mergeCommit": "d96b7b75190dc12808f49363c708a19d4291c970",
+        "deliveryBranch": "master",
+        "deliveryCommit": "d96b7b75190dc12808f49363c708a19d4291c970",
+        "verifiedAt": "2026-09-09T17:50:31Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "095B8269-BDAC-48AA-BD71-8B5757C6354D"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-09T17:50:31Z"
+      },
+      "completedAt": "2026-09-09T17:50:31Z",
+      "completedSessionId": "095B8269-BDAC-48AA-BD71-8B5757C6354D"
     },
     "references": [
       {
@@ -204,6 +258,6 @@
       ],
       "ambiguity_attestation": "none_found"
     },
-    "updated": "2026-09-09T14:21:28Z"
+    "updated": "2026-09-09T17:50:31Z"
   }
 }
