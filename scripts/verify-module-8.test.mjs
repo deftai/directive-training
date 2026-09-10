@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { cpSync, mkdtempSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdtempSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
@@ -34,7 +34,8 @@ function completedLifecycleCopy() {
   const root = copiedRepository();
   const activeScope = join(root, "xbrief", "active", scopeFilename);
   const completedScope = join(root, "xbrief", "completed", scopeFilename);
-  renameSync(activeScope, completedScope);
+  if (existsSync(activeScope)) renameSync(activeScope, completedScope);
+  assert.ok(existsSync(completedScope), "copied repository must contain the Module 8 scope");
 
   const scope = JSON.parse(readFileSync(completedScope, "utf8"));
   scope.plan.status = "completed";

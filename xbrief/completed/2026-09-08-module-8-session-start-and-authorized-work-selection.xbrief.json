@@ -2,12 +2,12 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Story xBRIEF 3 decomposed from proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
-    "updated": "2026-09-10T11:56:59Z"
+    "updated": "2026-09-10T12:44:09Z"
   },
   "plan": {
     "id": "training.modules6-8.sessions",
     "title": "Module 8: Session Start and Authorized Work Selection",
-    "status": "running",
+    "status": "completed",
     "planRef": "proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
     "narratives": {
       "Description": "Deliver Module 8 as a self-directed lesson using sanitized fictional state snapshots rather than a learner's live GitHub repository, cache, or confidential backlog. This story is independently buildable because it owns the posture and work-selection decision exercise, explained solution, source trace, navigation, and focused content verification while leaving implementation, gates, and review to Modules 9 through 11.",
@@ -19,51 +19,81 @@
       {
         "id": "training.modules6-8.sessions.baseline",
         "title": "Validate session and work-selection behavior",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "The source record validates exact Directive 0.112.0 session and work-selection behavior and records every disagreement between deposited prose and the released command surface.",
           "Traces": "training.modules6-8.sessions"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-8; directive verify:vbrief-conformance --project-root .",
+          "recorded_at": "2026-09-10T12:43:01Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.modules6-8.sessions.posture",
         "title": "Teach session posture and recovery decisions",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Given sanitized request cards and fixed state snapshots, the learner records the correct read-only or mutation posture, start or recovery route, and any missing authority for each case.",
           "Traces": "training.modules6-8.sessions"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-8; npm run test:module-8 (11 passed, 0 failed)",
+          "recorded_at": "2026-09-10T12:43:01Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.modules6-8.sessions.selection",
         "title": "Teach ordered-plan and ranked-queue precedence",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "When an active ordered plan exists, the exercise rejects adjacent ranked-queue work; when that plan is exhausted, it stops until an explicit queue selection or operator target exists.",
           "Traces": "training.modules6-8.sessions"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:module-8 (ordered-plan and ranked-queue negative cases; 11 passed, 0 failed)",
+          "recorded_at": "2026-09-10T12:43:01Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.modules6-8.sessions.state-map",
         "title": "Map authoritative and non-authorizing state",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "The exercise records the learner's mapping of ordered plan, ranked cache, pending scope, audit log, active scope, and live intent to exact roles without reading a live backlog or treating any record alone as implementation authority.",
           "Traces": "training.modules6-8.sessions"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-8; npm run test:module-8 (authority and live-backlog negative cases; 11 passed, 0 failed)",
+          "recorded_at": "2026-09-10T12:43:01Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.modules6-8.sessions.quality",
         "title": "Add the explained solution and focused verifier",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Negative tests reject incorrect outcome mappings, canonical state paths, local links, exact Directive 0.112.0 claims, and Module 9's still-planned status; the explained solution records the expected evidence.",
           "Traces": "training.modules6-8.sessions"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:module-8 (11 passed, 0 failed); npm run check:module-8",
+          "recorded_at": "2026-09-10T12:43:01Z",
+          "recorded_by": "agent:codex"
         }
       }
     ],
@@ -141,7 +171,31 @@
         ],
         "negative_invariant_ids": [],
         "parent_plan_id": "training.modules6-8"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 30,
+        "prBase": null,
+        "mergeCommit": "2bb1320efdc82f85f716b53cca2c927f6979e06b",
+        "deliveryBranch": "master",
+        "deliveryCommit": "2bb1320efdc82f85f716b53cca2c927f6979e06b",
+        "verifiedAt": "2026-09-10T12:44:09Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "29de24f4-299f-4cf3-a747-c33bd517d569"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-10T12:44:09Z"
+      },
+      "completedAt": "2026-09-10T12:44:09Z",
+      "completedSessionId": "29de24f4-299f-4cf3-a747-c33bd517d569"
     },
     "references": [
       {
@@ -207,6 +261,6 @@
       ],
       "ambiguity_attestation": "none_found"
     },
-    "updated": "2026-09-10T11:56:59Z"
+    "updated": "2026-09-10T12:44:09Z"
   }
 }
