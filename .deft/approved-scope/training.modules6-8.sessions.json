@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-08-module-8-session-start-and-authorized-work-selection.xbrief.json",
+  "planId": "training.modules6-8.sessions",
+  "approvedAt": "2026-09-10T12:04:25Z",
+  "fileScope": [
+    "assessments/README.md",
+    "CHANGELOG.md",
+    "COST-ESTIMATE.md",
+    "curriculum/modules/08-session-and-work-selection.md",
+    "curriculum/README.md",
+    "history/changes/module-8-curriculum/proposal.xbrief.json",
+    "package.json",
+    "README.md",
+    "references/GLOSSARY.md",
+    "references/QUICK-REFERENCE.md",
+    "references/SOURCE-BASELINE.md",
+    "references/SOURCE-NOTES.md",
+    "scripts/verify-module-7.mjs",
+    "scripts/verify-module-8.mjs",
+    "scripts/verify-module-8.test.mjs",
+    "solutions/module-08-session-and-work-selection.md",
+    "solutions/README.md",
+    "xbrief/active/2026-09-08-module-8-session-start-and-authorized-work-selection.xbrief.json",
+    "xbrief/PROJECT-DEFINITION.xbrief.json"
+  ],
+  "fileScopeDigest": "71c8ef72ef5bf2633ae334e0f408217804d25dd2a4b185341cc52d6938a319ce",
+  "humanApproval": {
+    "kind": "renewed-approval",
+    "actor": "David",
+    "mintedAt": "2026-09-10T12:04:25Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "19ec8c127bded3064230564cbdfc1d557b3a3b268538c60bcc24199dea676def",
+  "digestAlgo": "intent-extract-v1"
+}
