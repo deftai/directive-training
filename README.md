@@ -33,7 +33,8 @@ this Markdown; they will not replace it as the source of truth.
    [Module 4: xBRIEF as Durable State](curriculum/modules/04-xbrief-as-durable-state.md),
    [Module 5: Sources versus Projections](curriculum/modules/05-sources-versus-projections.md),
    [Module 6: Creating Well-Shaped Work](curriculum/modules/06-creating-well-shaped-work.md),
-   and [Module 7: Scope Lifecycle and Implementation Authorization](curriculum/modules/07-scope-lifecycle.md)
+   [Module 7: Scope Lifecycle and Implementation Authorization](curriculum/modules/07-scope-lifecycle.md),
+   and [Module 8: Session Start and Authorized Work Selection](curriculum/modules/08-session-and-work-selection.md)
    in order.
 4. Run command work only in the specified disposable no-remote lab:
    [Lab 2](labs/02-disposable-initialization.md) or
@@ -50,12 +51,12 @@ The detailed [source baseline](references/SOURCE-BASELINE.md) is optional audit
 evidence for maintainers and curious learners. It includes legacy and advanced
 drift notes that are intentionally outside the beginner sequence.
 
-Modules 1–7 are learner-ready drafts in this internal alpha. Module 2's 0.112.0 pinned npm
+Modules 1–8 are learner-ready drafts in this internal alpha. Module 2's 0.112.0 pinned npm
 path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and
 Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence.
-Modules 4 and 6 are command-free. Module 5's projection lab and Module 7's lifecycle lab are verified only on
+Modules 4, 6, and 8 are command-free. Module 5's projection lab and Module 7's lifecycle lab are verified only on
 macOS/zsh; Linux and native Windows have not been verified for those labs.
-Modules 8–11 and the capstone
+Modules 9–11 and the capstone
 remain planned; a filename in the map is not a readiness claim.
 
 ## Safety boundary

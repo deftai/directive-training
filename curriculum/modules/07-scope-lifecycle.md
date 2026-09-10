@@ -252,7 +252,7 @@ retain the failure first and retry in a fresh attempt.
 - Previous: [Module 6 — Creating Well-Shaped Work](06-creating-well-shaped-work.md)
 - Course map: [3Ci Directive training](../README.md)
 - Practice: [Lab 7 — Scope Lifecycle](../../labs/07-scope-lifecycle.md)
-- Next: Module 8 — Session Start and Authorized Work Selection is planned and not yet learner-ready.
+- Next: [Module 8 — Session Start and Authorized Work Selection](08-session-and-work-selection.md)
 
 ## Official sources
 

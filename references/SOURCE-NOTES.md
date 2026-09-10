@@ -554,6 +554,55 @@ evidence, reused reset roots, non-recoverable cleanup, unsupported platform prom
 stale navigation, and active-scope/project-registry disagreement. It does not execute fixture
 or Markdown commands.
 
+## Module 8 source validation
+
+Validation date: 2026-09-10. The pulled authoring worktree used engine 0.114.0 and deposit
+0.114.0. The course remains pinned to 0.112.0, so released behavior was checked through an
+explicit 0.112.0 runtime and its cached CLI/core/content/types package graph. No learner
+exercise read the training repository's live queue, cache, or issue state.
+
+### Pinned sources inspected
+
+| Exact 0.112.0 package surface | Result |
+| --- | --- |
+| `@deftai/directive-content/main.md` | Confirmed read-only default, mutation ritual, active-contract conjunction, and completed-record boundary. |
+| `@deftai/directive-content/commands.md` | Confirmed session recovery, ordered-plan precedence, explicit queue escape, exhaustion stop, and cache/audit roles. |
+| `@deftai/directive-content/tasks/session.yml` | Confirmed `session:start` and `session:ready` registration. |
+| `@deftai/directive-content/tasks/plan-sequence.yml` | Confirmed ordered-plan command family and `.deft/plan-sequence.json`. |
+| `@deftai/directive-content/tasks/triage-queue.yml` | Confirmed queue/show/audit consumer Task dispatch. |
+| `@deftai/directive-core/dist/triage/queue/constants.js` and `dist/triage/cache-path.js` | Confirmed `.deft-cache/` plus `xbrief/.triage-cache/candidates.jsonl`. |
+
+### Runtime and command probes
+
+| Probe | Exit | Observed result |
+| --- | ---: | --- |
+| `directive --version` in the authoring worktree | `0` | Reported engine 0.114.0. |
+| Read `.deft/GENERATION.json` after update | `0` | Reported deposit 0.114.0. |
+| `npx --yes --package=@deftai/directive@0.112.0 directive --version` | `0` | Reported the explicit 0.112.0 runtime: `@deftai/directive-core@0.112.0`. |
+| Explicit 0.112.0 `directive commands` | `0` | Registered `session:start`, `session:ready`, `verify:session-ritual`, the plan-sequence family, `triage:queue`, and `triage:audit`. |
+| Explicit 0.112.0 `directive session:start --help` | `2` | `session_start: unrecognized argument: --help`. |
+| Explicit 0.112.0 `directive plan-sequence:current --help` | `2` | `unknown flag: --help`. |
+| Explicit 0.112.0 `directive triage:queue --help` | `2` | `triage_queue: unrecognized argument: --help`. |
+| Explicit 0.112.0 `directive verify:session-ritual --help` | `2` | `verify_session_ritual: unrecognized argument: --help`. |
+
+The 0.112.0 and 0.114.0 relevant command inventories agree for the Module 8 surfaces.
+The newer inventory additionally includes `verify:subagent-steer`, which is outside this
+lesson and was not backported into the teaching contract.
+
+### Recorded disagreements and environment edges
+
+| Observation | Curriculum decision |
+| --- | --- |
+| Relevant per-verb `--help` requests exit `2` even though the verbs are registered. | Use `directive commands` plus exact released source; record the help rejection and do not invent flags. |
+| The current authoring engine/deposit are 0.114.0 while the project pin and course baseline are exact 0.112.0. | Use explicit 0.112.0 runtime/source evidence for behavior and mention 0.114.0 only as authoring drift. |
+| Current `deft migrate:preflight` expects `.deft/core/xbrief/schemas`, while the refreshed 0.114.0 deposit contains `.deft/core/vbrief/schemas`. | Record the 0.114.0 packaging/path mismatch as unresolved environment drift. Do not change the gate or teach it as 0.112.0 behavior. |
+| Direct `npm pack` requests for separately named 0.112.0 content/core packages returned mirror `E404`, while the already cached exact package graph remained readable and the explicit runtime ran. | Cite the cached exact graph and executable version proof; do not claim a fresh standalone package download. |
+
+The Module 8 verifier is read-only. It checks lesson and solution structure, exact baseline,
+outcome evidence, posture, precedence, state paths and roles, source records, lifecycle
+registry agreement, local links, and Module 9's planned status. Its negative tests mutate only
+temporary copies and reject instructions to inspect live project state.
+
 ## Source-file verification
 
 Hashes are SHA-256 over file bytes at the peeled release commit.

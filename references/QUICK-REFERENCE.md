@@ -173,6 +173,31 @@ and do not relabel the wrapper result as the engine contract. See
 [Module 7](../curriculum/modules/07-scope-lifecycle.md) and its
 [disposable lab](../labs/07-scope-lifecycle.md).
 
+## Session and work selection
+
+Classify posture before running ceremony:
+
+| Situation | Surface | Boundary |
+| --- | --- | --- |
+| Read-only orientation | Load AGENTS.md, USER.md, project definition, and applicable scope | Do not run mutation ceremony merely to explain state |
+| Cold mutation start | `deft session:start`, then the gated ritual and start gates | Use when state is missing, invalid, or not reusable |
+| Same-worktree mutation recovery | `deft session:ready` or an allowed `deft session:start --rearm` | Recovery restores readiness; it does not select or authorize work |
+
+Apply work-selection precedence:
+
+1. Active `.deft/plan-sequence.json` → use `deft plan-sequence:current`.
+   Bare “proceed” binds only to that entry.
+2. Exhausted plan → stop until the operator names a target or explicitly asks
+   for queue selection.
+3. No controlling plan, or explicit switch → use `deft triage:queue` for a
+   ranked candidate view.
+4. Use `deft triage:audit` to inspect the decision trail, not as present
+   implementation intent.
+
+Selection never replaces the authority conjunction: active scope plus live
+implementation intent. See
+[Module 8](../curriculum/modules/08-session-and-work-selection.md).
+
 ## Evidence ladder
 
 | Claim | Minimum kind of evidence |

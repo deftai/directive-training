@@ -4,6 +4,12 @@
 
 ### Added
 
+- Module 8, a command-free fixed-state lesson and explained solution for session
+  posture, recovery, ordered-plan precedence, ranked-queue selection, state
+  roles, and the boundary between selection and implementation authority.
+- Focused Module 8 content verification with negative tests for incorrect
+  posture, precedence, authority, paths, links, baseline, and future-module
+  readiness claims.
 - Module 7, a guarded disposable lifecycle lab, and an explained solution that
   separate proposed, pending, active/running, completed, and cancelled state
   from live implementation intent and current session/preflight readiness.
@@ -26,6 +32,8 @@
 
 ### Changed
 
+- Mark Module 8 learner-ready while keeping Modules 9–11 planned, and advance
+  course, assessment, solution, and Module 7 forward navigation.
 - Promote the validated Module 8 session-start and authorized-work-selection
   scope to the pending backlog after Modules 6–7 lifecycle completion.
 - Mark Module 7 learner-ready on its verified macOS/zsh path; retain Linux/bash

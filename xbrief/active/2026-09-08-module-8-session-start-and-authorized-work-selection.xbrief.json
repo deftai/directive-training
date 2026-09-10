@@ -2,12 +2,12 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Story xBRIEF 3 decomposed from proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
-    "updated": "2026-09-10T01:16:52Z"
+    "updated": "2026-09-10T11:56:59Z"
   },
   "plan": {
     "id": "training.modules6-8.sessions",
     "title": "Module 8: Session Start and Authorized Work Selection",
-    "status": "pending",
+    "status": "running",
     "planRef": "proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
     "narratives": {
       "Description": "Deliver Module 8 as a self-directed lesson using sanitized fictional state snapshots rather than a learner's live GitHub repository, cache, or confidential backlog. This story is independently buildable because it owns the posture and work-selection decision exercise, explained solution, source trace, navigation, and focused content verification while leaving implementation, gates, and review to Modules 9 through 11.",
@@ -74,6 +74,7 @@
         "parallel_safe": false,
         "file_scope": [
           "CHANGELOG.md",
+          "COST-ESTIMATE.md",
           "README.md",
           "assessments/README.md",
           "curriculum/README.md",
@@ -84,6 +85,7 @@
           "references/QUICK-REFERENCE.md",
           "references/SOURCE-BASELINE.md",
           "references/SOURCE-NOTES.md",
+          "scripts/verify-module-7.mjs",
           "scripts/verify-module-8.mjs",
           "scripts/verify-module-8.test.mjs",
           "solutions/README.md",
@@ -93,7 +95,7 @@
         ],
         "verify_commands": [
           "npm run check:module-8",
-          "node --test scripts/verify-module-8.test.mjs",
+          "npm run test:module-8",
           "directive verify:vbrief-conformance --project-root ."
         ],
         "expected_outputs": [
@@ -170,41 +172,41 @@
         {
           "id": 1,
           "text": "The source record validates exact Directive 0.112.0 session and work-selection behavior and records every disagreement between deposited prose and the released command surface.",
-          "artifact_path": null,
+          "artifact_path": "references/SOURCE-NOTES.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 2,
           "text": "Given sanitized request cards and fixed state snapshots, the learner records the correct read-only or mutation posture, start or recovery route, and any missing authority for each case.",
-          "artifact_path": null,
+          "artifact_path": "curriculum/modules/08-session-and-work-selection.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 3,
           "text": "When an active ordered plan exists, the exercise rejects adjacent ranked-queue work; when that plan is exhausted, it stops until an explicit queue selection or operator target exists.",
-          "artifact_path": null,
+          "artifact_path": "curriculum/modules/08-session-and-work-selection.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 4,
           "text": "The exercise records the learner's mapping of ordered plan, ranked cache, pending scope, audit log, active scope, and live intent to exact roles without reading a live backlog or treating any record alone as implementation authority.",
-          "artifact_path": null,
+          "artifact_path": "curriculum/modules/08-session-and-work-selection.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 5,
           "text": "Negative tests reject incorrect outcome mappings, canonical state paths, local links, exact Directive 0.112.0 claims, and Module 9's still-planned status; the explained solution records the expected evidence.",
-          "artifact_path": null,
+          "artifact_path": "scripts/verify-module-8.test.mjs",
           "ambiguous": false,
           "provenance": "statement"
         }
       ],
       "ambiguity_attestation": "none_found"
     },
-    "updated": "2026-09-10T01:16:52Z"
+    "updated": "2026-09-10T11:56:59Z"
   }
 }

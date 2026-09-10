@@ -2,11 +2,12 @@
 
 This is the navigation source for a twelve-hour, self-directed path: ten hours
 of core modules followed by a two-hour disposable capstone. The current
-internal-alpha milestone makes Modules 1–7 learner-ready drafts. Module 2's 0.112.0 pinned npm
+internal-alpha milestone makes Modules 1–8 learner-ready drafts. Module 2's 0.112.0 pinned npm
 path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell
 7.4+ on Windows Server 2022 by local and native-matrix evidence. Modules 4 and 6
-are command-free. Module 5's projection lab and Module 7's lifecycle lab are verified only on macOS/zsh;
-their Linux and native Windows paths are not verified. Modules 8–11 and
+are command-free; Module 8 is also command-free and uses fixed fictional state.
+Module 5's projection lab and Module 7's lifecycle lab are verified only on macOS/zsh;
+their Linux and native Windows paths are not verified. Modules 9–11 and
 the capstone remain planned until their files contain substantive, verified content.
 
 ## Audience and prerequisites
@@ -59,7 +60,7 @@ No step requires a live demonstration or an instructor's private knowledge.
 | 05 | [Sources versus projections](modules/05-sources-versus-projections.md) | 50 min | Learner-ready draft; lab verified on macOS/zsh only | Repair projection drift through its source |
 | 06 | [Creating well-shaped work](modules/06-creating-well-shaped-work.md) | 55 min | Learner-ready draft; command-free | Turn a horizontal plan into a vertical slice |
 | 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready draft; lab verified on macOS/zsh only | Fail, promote, activate, establish current readiness, complete, and cancel |
-| 08 | Session start and authorized work selection (`08-session-and-work-selection.md`) | 45 min | Planned | Trace posture and intake decisions |
+| 08 | [Session start and authorized work selection](modules/08-session-and-work-selection.md) | 45 min | Learner-ready draft; command-free fixed-state exercise | Trace posture and intake decisions |
 | 09 | The implementation golden path (`09-implementation-golden-path.md`) | 70 min | Planned | Implement one test-backed active scope |
 | 10 | Testing, gates, and evidence (`10-testing-gates-and-evidence.md`) | 65 min | Planned | Red-green-refactor and diagnose a gate failure |
 | 11 | PR, review, and actual completion (`11-review-and-completion.md`) | 55 min | Planned | Resolve simulated findings and classify completion evidence |
@@ -156,7 +157,7 @@ hints, recovery paths, and solutions. Their friction becomes revision input.
 - Previous: [Repository start](../README.md)
 - Next: [Module 1 — What Directive is](modules/01-what-directive-is.md)
 
-After Module 7, stop at the course map. Module 8 is still planned and has no
+After Module 8, stop at the course map. Module 9 is still planned and has no
 learner-ready lesson yet. A learner without the verified Lab 5 or Lab 7 environment can
 read the corresponding concepts, but must retain an environment-blocked practical outcome
 instead of treating an unexecuted candidate platform as verified.

@@ -1,9 +1,90 @@
 <!-- deft:template -->
-<!-- Purpose: current Module 7 cost estimate with prior curriculum estimates retained -->
+<!-- Purpose: current Module 8 cost estimate with prior curriculum estimates retained -->
 
 # Cost & Budget Estimate
 
-## Current scope — Module 7 (2026-09-09)
+## Current scope — Module 8 (2026-09-10)
+
+Currency: **USD**. Module 8 adds one Markdown lesson built from fixed fictional
+request cards and state snapshots, an explained solution, source trace and
+navigation updates, and focused validation with negative tests. It introduces
+no hosting service, paid account, publishing platform, production runtime,
+credential, live GitHub backlog access, or learner-facing remote operation.
+
+### TL;DR
+
+For one private curriculum repository using existing 3Ci tooling, the expected
+incremental monthly service band is **low $0 / typical $0 / high $0**. The
+meaningful cost is approximately **16–32 hours** of focused command
+revalidation, lesson and exercise authoring, source tracing, validation, and
+review. Ongoing maintenance attributable to this module is approximately
+**1–2 hours per month**.
+
+### Assumptions and scale considerations
+
+- The scale assumption is one private curriculum repository and one
+  self-directed fixed-state exercise per learner, using existing 3Ci GitHub,
+  coding-agent, workstation, Node.js, and npm access.
+- Learners use only sanitized fictional request cards and state snapshots. No
+  exercise reads a live GitHub backlog, Directive cache, audit log, or
+  confidential repository.
+- The project remains pinned to Directive 0.112.0 for learner-facing claims;
+  the installed 0.114.0 engine is used only to identify and record drift.
+- Publishing, paid services, live remote exercises, a release-pin change,
+  Modules 9–11, and the capstone are excluded and require a new estimate.
+
+### What you will need to sign up for
+
+No new account is expected. Contributors use the existing private 3Ci GitHub
+organization, approved coding-agent access, Git, Node.js 20 or later, npm, and
+the repository's existing validation capability.
+
+### Hosting, infrastructure, and third-party fees
+
+None are expected for this scope. The exercise is authored Markdown with fixed
+fictional state and does not deploy, publish, contact a learner repository, or
+use a paid external service.
+
+### Monthly band
+
+- **Low** _(quiet month)_: about **$0 per month**
+- **Typical** _(one private repository and ordinary learner attempts)_: about
+  **$0 per month**
+- **High** _(heavier use within the same approved boundary)_: about **$0 per
+  month**
+
+The $0 band depends on existing 3Ci tooling access. Publication, separately
+billed automation, new paid accounts, or live remote training infrastructure
+would change the boundary and require a new estimate.
+
+### Build and maintenance time
+
+- **Directive 0.112.0 session and work-selection revalidation**: about **3–6
+  hours**
+- **Lesson, fixed request cards, state snapshots, and decision matrix**: about
+  **6–12 hours**
+- **Explained solution, navigation, glossary, and source trace**: about **3–6
+  hours**
+- **Focused verifier, negative tests, conformance, and review**: about **4–8
+  hours**
+- **Total build**: about **16–32 hours**
+- **Maintenance**: about **1–2 hours per month**, plus focused revalidation
+  after a material Directive release
+
+### Decision recorded — current scope
+
+- **Decision**: Build
+- **Date**: 2026-09-10
+- **Recorded by**: David
+- **Selection**: Option 1, Build
+- **Confirmation**: “built it”
+- **Boundary**: Module 8 local implementation and the confirmed
+  `/deft:directive:change module-8-curriculum` proposal. This decision does
+  not authorize Modules 9–11, live backlog access, push, pull-request
+  creation, merge, branch deletion, worktree removal, deployment, or
+  publication.
+
+## Prior scope — Module 7 (2026-09-09)
 
 Currency: **USD**. Module 7 adds one Markdown lesson, one guarded disposable
 lifecycle lab, a fictional fixture, an explained solution, source trace and

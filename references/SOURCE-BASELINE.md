@@ -190,6 +190,42 @@ Linux/bash and Windows/PowerShell remain candidates.
 Probe details, exact help disagreements, platform markers, and the isolated runtime evidence
 are in [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-7-source-validation).
 
+## Module 8 session and work-selection validation
+
+Module 8 is a command-free exercise over fixed fictional state. Its behavior claims were
+revalidated against the exact 0.112.0 package graph and these released content surfaces:
+
+| Pinned 0.112.0 source | Teaching contract |
+| --- | --- |
+| `content/main.md` | Read-only default, mutation routing, active contract, and completed-record boundary. |
+| `content/commands.md` | Cold start, re-arm and recovery, ordered-plan/queue precedence, exhaustion stop, cache, and audit surfaces. |
+| `content/tasks/session.yml` | Consumer dispatch for `session:start` and `session:ready`. |
+| `content/tasks/plan-sequence.yml` | Ordered-plan set, current, advance, clear, and verify surfaces. |
+| `content/tasks/triage-queue.yml` | Ranked queue, per-item view, and audit-log surfaces. |
+
+The exact state map used in the lesson is:
+
+| Surface | 0.112.0 path or command | Authority boundary |
+| --- | --- | --- |
+| Ordered plan | `.deft/plan-sequence.json` and `deft plan-sequence:current` | Selects the current sequence entry; no mutation authority. |
+| Ranked issue content | `.deft-cache/` and `deft triage:queue` | Ranks candidates after the plan gate permits queue use. |
+| Triage audit | `xbrief/.triage-cache/candidates.jsonl` and `deft triage:audit` | Records decisions; supplies no present intent. |
+| Pending scope | `xbrief/pending/` | Approved but not current. |
+| Active scope | `xbrief/active/` with running status | Durable current contract; requires live implementation intent. |
+| Completed scope | `xbrief/completed/` | Historical closeout; no next-work authority. |
+
+An active ordered plan binds a bare “what next?” or “proceed” to the current sequence entry.
+Labels and rank do not override it. When the plan is exhausted, selection stops until the
+operator names a target or explicitly asks for queue/backlog selection. A queue result remains
+a candidate; implementation requires active scope plus the operator's live implementation
+instruction and passing applicable readiness gates.
+
+The local authoring environment was already on engine and deposit 0.114.0 after pulling
+master. Therefore Module 8's release evidence used an explicit cached 0.112.0 npm package
+graph rather than treating the newer environment as the teaching baseline. Exact probes and
+the observed 0.114.0 migration-path drift are recorded in
+[SOURCE-NOTES.md](./SOURCE-NOTES.md#module-8-source-validation).
+
 ## Deferred skill-contract validation
 
 The following pinned files are candidates, not blanket authority for modules that have not

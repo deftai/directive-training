@@ -104,6 +104,12 @@ The level of action currently authorized. Read-only orientation may inspect
 state. Mutation-ready work additionally requires explicit implementation intent
 and the current release's session and preflight gates.
 
+**session recovery**
+The bounded route for restoring mutation readiness after a same-worktree
+interruption or stale ritual. In the teaching baseline, `deft session:ready` is
+the one-shot recovery surface. Recovery restores session conditions; it does
+not select work or supply implementation authority.
+
 **active contract**
 The active/running scope xBRIEF together with the human operator's live
 instruction. A completed xBRIEF records prior lifecycle closeout; it does not authorize
@@ -251,9 +257,16 @@ It complements focused checks and the aggregate gate.
 
 ## Work selection and delivery states
 
+**ordered plan**
+An operator-set short sequence that binds bare continuation language such as
+“proceed” to its current entry. An active ordered plan takes precedence over the
+ranked queue; exhaustion stops selection until the operator names a target or
+explicitly switches to queue selection.
+
 **ranked queue**
-The accepted backlog ordered for selection when no bounded ordered plan takes
-precedence. It is not inferred from a folder listing.
+A cache-backed ordering of candidate backlog work used when no bounded ordered
+plan takes precedence or the operator explicitly switches selection paths. It
+is not inferred from a folder listing and does not authorize implementation.
 
 **cache**
 Local, reconstitutable data used to support fast work selection or tooling. It

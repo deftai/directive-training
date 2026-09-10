@@ -99,7 +99,7 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   }
   assert.match(section(moduleProse, "Navigation"), /\]\(06-creating-well-shaped-work\.md\)/, "Module 7 must link back to Module 6");
   assert.match(section(moduleProse, "Navigation"), /\]\(\.\.\/README\.md\)/, "Module 7 must link to the course map");
-  assert.match(section(moduleProse, "Navigation"), /Module 8[^\n]*planned/i, "Module 7 must identify Module 8 as planned");
+  assert.match(section(moduleProse, "Navigation"), /\]\(08-session-and-work-selection\.md\)/, "Module 7 must link to Module 8");
 
   const labBlocks = parsed.get(lab7).blocks.filter(({ language }) => /^(?:sh|bash|zsh|console)$/.test(language)).map(({ content: block }) => block).join("\n");
   assert.match(labBlocks, /helper="[^"\n]*lifecycle-lab\.mjs"/, `${lab7} must bind the supplied lifecycle helper`);
@@ -147,7 +147,7 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   const module7Row = courseModuleRow(course, 7);
   assert.match(module7Row, /07-scope-lifecycle\.md/, "Module 7 course row must link the lesson");
   assert.doesNotMatch(module7Row, /\|\s*Planned\s*\|/i, "Module 7 must no longer be planned");
-  assert.match(courseModuleRow(course, 8), /\|\s*Planned\s*\|/i, "Module 8 must remain planned");
+  assert.match(courseModuleRow(course, 8), /08-session-and-work-selection\.md/, "Module 8 course row must retain its lesson link");
   for (const path of ["README.md", "curriculum/README.md", "labs/README.md", "solutions/README.md", "assessments/README.md"]) {
     requireModule7Link(content.get(path), path);
     verifyLinks(root, path, markdownParts(content.get(path)).prose);

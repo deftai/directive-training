@@ -1,0 +1,42 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Approved change proposal for the Module 8 curriculum scope",
+    "created": "2026-09-10T11:45:15Z",
+    "updated": "2026-09-10T11:45:15Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.module-8-curriculum",
+    "title": "module-8-curriculum",
+    "status": "approved",
+    "items": [],
+    "narratives": {
+      "Problem": "Learners can identify implementation authority through Module 7, but they cannot yet choose a safe session posture or select authorized work from ordered plans, ranked queues, active scope, and live operator intent.",
+      "Change": "Author Module 8, its fixed fictional request cards and state snapshots, an explained solution, source and navigation updates, and a focused verifier with negative tests.",
+      "Scope": "In scope: the paths and five acceptance clauses declared by training.modules6-8.sessions, the approved Module 8 cost record, the generated project and parent-scope lifecycle updates, and the governed pending-to-active child transition. Out of scope: Module 9 and later curriculum, live GitHub backlogs, real Directive caches, confidential project state, learner remotes, publishing, deployment, upstream framework changes, push, pull-request creation, and merge.",
+      "Impact": "Adds one learner-ready lesson and deterministic decision exercise that distinguish read-only orientation from mutation sessions, session recovery from cold start, ordered-plan precedence from ranked-queue selection, and informative state from implementation authority.",
+      "Risks": "The lesson could expose live project state, teach stale command behavior, imply that a cache or completed scope authorizes implementation, or overstate platform validation. Fixed fictional snapshots, exact 0.112.0 evidence, explicit 0.114.0 drift notes, negative tests, and platform labels must prevent those failures.",
+      "Approach": "Revalidate the pinned session and work-selection command surfaces first, write failing verifier tests, implement the smallest fixed-state lesson and solution that satisfy the five clauses, update navigation and source records, then run focused checks, literal acceptance, conformance, and the aggregate gate.",
+      "Alternatives": "A live-backlog lab was rejected because it would expose mutable or confidential state and would not be reproducible. Combining Module 8 with Modules 9 through 11 was rejected because the approved decomposition makes work selection an independently verifiable story.",
+      "Dependencies": "The completed Module 7 curriculum, the exact @deftai/directive 0.112.0 project pin, the installed 0.114.0 engine used only for drift comparison, Node.js 20 or newer, Git, npm, and the repository's existing Markdown and verifier patterns.",
+      "Authorization": "David selected Build for the Module 8 estimate and approved /deft:directive:change module-8-curriculum by replying “built it” after the explicit confirmation request. This confirms local implementation and the related cost-estimate and project-reference edits only; it does not authorize remote delivery or destructive cleanup.",
+      "Stops": "Success: all Module 8 focused acceptance commands, negative verifier tests, conformance checks, and the aggregate local gate pass. Failure: at most five implementation fix iterations or three identical failures without progress, and at most three pre-PR review passes. Stop before push or pull-request creation pending separate authorization."
+    },
+    "references": [
+      {
+        "uri": "../../../xbrief/active/2026-09-08-module-8-session-start-and-authorized-work-selection.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Active Module 8 implementation contract",
+        "TrustLevel": "internal"
+      }
+    ],
+    "metadata": {
+      "change_name": "module-8-curriculum",
+      "confirmed_by": "David",
+      "confirmation_phrase": "built it",
+      "confirmed_at": "2026-09-10T11:45:15Z",
+      "cost_selection": "Option 1, Build"
+    }
+  }
+}
