@@ -26,6 +26,8 @@
 
 ### Changed
 
+- Promote the validated Module 8 session-start and authorized-work-selection
+  scope to the pending backlog after Modules 6–7 lifecycle completion.
 - Mark Module 7 learner-ready on its verified macOS/zsh path; retain Linux/bash
   and native Windows/PowerShell as candidate paths without learner-ready claims.
 - Keep the Modules 4–6 verifiers stable as later modules advance: earlier
