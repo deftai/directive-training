@@ -2,12 +2,12 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Story xBRIEF decomposed from proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
-    "updated": "2026-09-10T19:31:58Z"
+    "updated": "2026-09-10T22:14:21Z"
   },
   "plan": {
     "id": "training.modules9-11.gates",
     "title": "Module 10: Testing, Gates, and Evidence",
-    "status": "running",
+    "status": "completed",
     "planRef": "proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
     "narratives": {
       "Description": "Deliver Module 10 and a guarded disposable Node.js lab that makes red-green-refactor evidence, literal acceptance, forward coverage, and the aggregate gate independently observable. The lab seeds one deliberate aggregate-gate failure after focused behavior is green, then requires the learner to diagnose the first failing subcheck and repair the governed evidence record without changing the test, gate, policy, or verifier.",
@@ -20,51 +20,81 @@
       {
         "id": "training.modules9-11.gates.baseline",
         "title": "Validate testing and gate behavior",
-        "status": "pending",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "The source and runtime record validates exact Directive 0.112.0 focused-check, literal-acceptance, forward-coverage, aggregate-check, and gate-integrity behavior with relevant exit signals, while labeling every newer-runtime disagreement or unexecuted platform accurately.",
           "Traces": "training.modules9-11.gates"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-10; directive verify:vbrief-conformance --project-root .",
+          "recorded_at": "2026-09-10T22:13:50Z",
+          "recorded_by": "codex/module_10_through_merge"
         }
       },
       {
         "id": "training.modules9-11.gates.safety",
         "title": "Build the guarded gate-lab starting state",
-        "status": "pending",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "The supplied helper rejects mutation unless the canonical root is its unique OS-temporary no-remote repository, branch training/module-10 is clean at the named checkpoint, the exact Directive 0.112.0 graph is installed, exactly one story is active/running, and stage-specific mutable paths never include the Taskfile, gate verifier, policy, package scripts, or framework deposit.",
           "Traces": "training.modules9-11.gates"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "node --test scripts/gates-lab.test.mjs",
+          "recorded_at": "2026-09-10T22:13:50Z",
+          "recorded_by": "codex/module_10_through_merge"
         }
       },
       {
         "id": "training.modules9-11.gates.rrr",
         "title": "Produce red-green-refactor evidence",
-        "status": "pending",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "The learner adds one focused behavioral test, retains its expected assertion failure, implements only the authorized source behavior, reruns to green, refactors without changing behavior, and records each exit and diff checkpoint in order with the test frozen after the red checkpoint.",
           "Traces": "training.modules9-11.gates"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "node --test scripts/gates-lab.test.mjs",
+          "recorded_at": "2026-09-10T22:13:50Z",
+          "recorded_by": "codex/module_10_through_merge"
         }
       },
       {
         "id": "training.modules9-11.gates.diagnosis",
         "title": "Diagnose and repair the seeded aggregate failure",
-        "status": "pending",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "After focused and literal acceptance checks pass, the aggregate lab gate fails for the seeded incomplete quality record; the learner identifies the first failing subcheck, updates only that governed work record from observed evidence, leaves gate-definition hashes unchanged, and reruns focused, literal, forward-coverage, and aggregate checks to green.",
           "Traces": "training.modules9-11.gates"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "node --test scripts/gates-lab.test.mjs",
+          "recorded_at": "2026-09-10T22:13:50Z",
+          "recorded_by": "codex/module_10_through_merge"
         }
       },
       {
         "id": "training.modules9-11.gates.quality",
         "title": "Verify the lesson, lab, recovery, and boundary",
-        "status": "pending",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "The focused negative-test verifier rejects a non-temporary or remote target, wrong branch or lifecycle state, altered exact pin, skipped or reordered red-green-refactor evidence, gate or verifier edits, incomplete quality evidence, broken links or outcome mappings, unsupported platform claims, and any claim that Module 11 is learner-ready in this scope.",
           "Traces": "training.modules9-11.gates"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "node --test scripts/verify-module-10.test.mjs",
+          "recorded_at": "2026-09-10T22:13:50Z",
+          "recorded_by": "codex/module_10_through_merge"
         }
       }
     ],
@@ -164,7 +194,31 @@
         ],
         "negative_invariant_ids": [],
         "parent_plan_id": "training.modules9-11"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 40,
+        "prBase": "master",
+        "mergeCommit": "88989000f5b7fbfa2838318f591b9cea97449c94",
+        "deliveryBranch": "master",
+        "deliveryCommit": "88989000f5b7fbfa2838318f591b9cea97449c94",
+        "verifiedAt": "2026-09-10T22:14:21Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "d8009ff6-b300-4fd7-9a72-e7dbb2080c83"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-10T22:14:21Z"
+      },
+      "completedAt": "2026-09-10T22:14:21Z",
+      "completedSessionId": "d8009ff6-b300-4fd7-9a72-e7dbb2080c83"
     },
     "references": [
       {
@@ -240,6 +294,6 @@
       ],
       "ambiguity_attestation": "none_found"
     },
-    "updated": "2026-09-10T19:28:16Z"
+    "updated": "2026-09-10T22:14:21Z"
   }
 }
