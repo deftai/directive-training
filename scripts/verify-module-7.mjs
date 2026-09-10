@@ -11,7 +11,11 @@ const helper = "labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs";
 const safety = "labs/fixtures/07-scope-lifecycle/safety.mjs";
 const fixturePackage = "labs/fixtures/07-scope-lifecycle/package.json";
 const fixtureProject = "labs/fixtures/07-scope-lifecycle/PROJECT-DEFINITION.xbrief.json";
-const activeScope = "xbrief/active/2026-09-08-module-7-scope-lifecycle-and-implementation-authorization.xbrief.json";
+const scopeFilename = "2026-09-08-module-7-scope-lifecycle-and-implementation-authorization.xbrief.json";
+const lifecycleStates = [
+  { path: `xbrief/active/${scopeFilename}`, status: "running", folder: "active" },
+  { path: `xbrief/completed/${scopeFilename}`, status: "completed", folder: "completed" },
+];
 const parentScope = "xbrief/proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json";
 const labHeadings = [
   "Lab record", "Goal and done condition", "Fictional scenario", "Environment and starting-state check",
@@ -23,7 +27,7 @@ const requiredFiles = [
   module7, lab7, solution7, helper, safety, fixturePackage, fixtureProject, "README.md", "CHANGELOG.md",
   "curriculum/README.md", "labs/README.md", "solutions/README.md", "assessments/README.md",
   "references/GLOSSARY.md", "references/QUICK-REFERENCE.md", "references/SOURCE-BASELINE.md",
-  "references/SOURCE-NOTES.md", "package.json", "xbrief/PROJECT-DEFINITION.xbrief.json", activeScope, parentScope,
+  "references/SOURCE-NOTES.md", "package.json", "xbrief/PROJECT-DEFINITION.xbrief.json", parentScope,
 ];
 const outcomes = ["O7.1", "O7.2", "O7.3", "O7.4"];
 const unfinished = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
@@ -50,8 +54,18 @@ function requireModule7Link(content, label) {
 /** Read-only Module 7 contract verifier. It never executes lesson commands or fixture code. */
 export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.url))) {
   assert.equal(typeof root, "string", "repository root must be a path string");
+  const presentLifecycleStates = lifecycleStates.filter(({ path }) => {
+    const absolute = resolve(root, path);
+    return existsSync(absolute) && statSync(absolute).isFile();
+  });
+  assert.equal(
+    presentLifecycleStates.length,
+    1,
+    "Module 7 must have exactly one active or completed lifecycle scope artifact",
+  );
+  const lifecycleState = presentLifecycleStates[0];
   const content = new Map();
-  for (const path of requiredFiles) {
+  for (const path of [...requiredFiles, lifecycleState.path]) {
     const absolute = resolve(root, path);
     assert.ok(existsSync(absolute) && statSync(absolute).isFile(), `missing required artifact: ${path}`);
     const body = readFileSync(absolute, "utf8");
@@ -146,17 +160,20 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(content.get("references/SOURCE-BASELINE.md"), /^## Module 7 (?:source boundary|lifecycle validation)\s*$/m, "source baseline is missing Module 7 lifecycle validation");
 
   const project = JSON.parse(content.get("xbrief/PROJECT-DEFINITION.xbrief.json"));
-  const projectItem = project.plan.items.find((item) => item.id === "2026-09-08-module-7-scope-lifecycle-and-implementation-authorization");
-  assert.equal(projectItem?.status, "running", "PROJECT-DEFINITION must register Module 7 as running during implementation");
-  assert.equal(projectItem?.metadata?.lifecycle_folder, "active", "PROJECT-DEFINITION must point Module 7 to active/ during implementation");
-  assert.equal(JSON.parse(content.get(activeScope)).plan?.status, "running", "Module 7 scope must remain active/running before delivery closeout");
+  const projectItems = project.plan.items.filter((item) => item.id === "2026-09-08-module-7-scope-lifecycle-and-implementation-authorization");
+  assert.equal(projectItems.length, 1, "PROJECT-DEFINITION must register Module 7 exactly once");
+  const projectItem = projectItems[0];
+  assert.equal(projectItem.status, lifecycleState.status, "PROJECT-DEFINITION Module 7 status must match its lifecycle scope");
+  assert.equal(projectItem.metadata?.lifecycle_folder, lifecycleState.folder, "PROJECT-DEFINITION Module 7 folder must match its lifecycle scope");
+  assert.equal(projectItem.metadata?.source_path, `${lifecycleState.folder}/${scopeFilename}`, "PROJECT-DEFINITION Module 7 source path must match its lifecycle scope");
+  assert.equal(JSON.parse(content.get(lifecycleState.path)).plan?.status, lifecycleState.status, "Module 7 scope folder and status must agree");
   assert.equal(JSON.parse(content.get(parentScope)).plan?.status, "proposed", "parent phase remains proposed record state");
 
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.scripts?.["check:module-7"], "node scripts/verify-module-7.mjs", "package scripts must expose check:module-7");
   assert.equal(projectPackage.scripts?.["test:module-7"], "node --test scripts/lifecycle-lab.test.mjs scripts/verify-module-7.test.mjs", "package scripts must expose test:module-7");
   assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.112.0", "training package must retain exact Directive pin");
-  return { artifactCount: requiredFiles.length };
+  return { artifactCount: content.size };
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

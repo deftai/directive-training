@@ -2,12 +2,12 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Story xBRIEF 2 decomposed from proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
-    "updated": "2026-09-09T20:58:14Z"
+    "updated": "2026-09-10T00:06:50Z"
   },
   "plan": {
     "id": "training.modules6-8.lifecycle",
     "title": "Module 7: Scope Lifecycle and Implementation Authorization",
-    "status": "running",
+    "status": "completed",
     "planRef": "proposed/2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json",
     "narratives": {
       "Description": "Deliver Module 7 and a guarded disposable lab that makes lifecycle state and implementation authorization observable without touching this training repository or any remote. This story is independently reviewable because it owns the only executable lab in the cohort, including its fictional fixture, safety helper, reset and recoverable cleanup, explained solution, platform evidence, and focused tests.",
@@ -19,51 +19,81 @@
       {
         "id": "training.modules6-8.lifecycle.baseline",
         "title": "Validate lifecycle and authorization behavior",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "The source and runtime record validates exact Directive 0.112.0 lifecycle and preflight behavior, records exit codes, and labels every unexecuted platform as candidate or unsupported.",
           "Traces": "training.modules6-8.lifecycle"
+        },
+        "x-directive/evidence": {
+          "kind": "observed_behavior",
+          "pointer": "PR #25 source head 41f9a8c641136d04bbb55e37f35b6f63c379ce6c: references/SOURCE-NOTES.md records the exact Directive 0.112.0 lifecycle and preflight behavior; npm run check:module-7 and npm run test:module-7 passed locally, and GitHub Actions run 34418940975 passed the maintained macOS/zsh, Linux/bash, and Windows/PowerShell 7 jobs with unsupported and candidate paths still labeled as such",
+          "recorded_at": "2026-09-10T00:05:38Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.modules6-8.lifecycle.safety",
         "title": "Build the disposable lab safety boundary",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "Given the supplied fixture, the starting guard fails before mutation unless the canonical root is a unique temporary no-remote repository with the exact Directive 0.112.0 pin.",
           "Traces": "training.modules6-8.lifecycle"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #25 source head 41f9a8c641136d04bbb55e37f35b6f63c379ce6c: npm run test:module-7 passed 17/17, including foreign-target, remote, partial-install, drifted-pin, and exact disposable-target guard cases; GitHub Actions run 34418940975 passed on all three maintained native platforms",
+          "recorded_at": "2026-09-10T00:05:38Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.modules6-8.lifecycle.transitions",
         "title": "Demonstrate authorized lifecycle transitions",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "The lab records proposed-scope preflight failure; task-driven proposed-to-pending, active/running, completed, and cancelled transitions with folder/status agreement; and active-scope preflight success only after the required live implementation intent and session gates.",
           "Traces": "training.modules6-8.lifecycle"
+        },
+        "x-directive/evidence": {
+          "kind": "observed_behavior",
+          "pointer": "PR #25 source head 41f9a8c641136d04bbb55e37f35b6f63c379ce6c: the disposable lab and npm run test:module-7 recorded proposed/proposed failure, pending, active/running, completed, and cancelled folder/status pairs plus gated active-scope preflight success; GitHub Actions run 34418940975 reproduced the sequence on macOS, Linux, and Windows",
+          "recorded_at": "2026-09-10T00:05:38Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.modules6-8.lifecycle.recovery",
         "title": "Provide reset, recovery, and bounded cleanup",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "The explained solution records preserved failure evidence, while fresh-attempt reset and exact-target recoverable cleanup reject any target outside the named fictional lab boundary.",
           "Traces": "training.modules6-8.lifecycle"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #25 source head 41f9a8c641136d04bbb55e37f35b6f63c379ce6c: npm run test:module-7 passed recovery cases for preserved failure evidence, fresh-attempt reset, partial and drifted attempts, foreign targets, and remote rejection; solutions/lab-07-scope-lifecycle.md documents the bounded recovery path",
+          "recorded_at": "2026-09-10T00:05:38Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.modules6-8.lifecycle.quality",
         "title": "Verify lesson, fixture, and platform claims",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "The focused verifier rejects broken safety guards, transition evidence, outcome mappings, local links, reset behavior, and platform labels without performing a push, merge, delivery closeout, or remote mutation.",
           "Traces": "training.modules6-8.lifecycle"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #25 source head 41f9a8c641136d04bbb55e37f35b6f63c379ce6c: npm run check:module-7, npm run test:module-7, directive verify:vbrief-conformance --project-root ., task deft:verify:ac, and task deft:check all exited 0 locally; GitHub Actions runs 34418940975 and 34418940960 passed all current-head platform and mixed-boundary checks before squash merge f8be65b26bc53f28934302bfb38274e0de3335c1",
+          "recorded_at": "2026-09-10T00:05:38Z",
+          "recorded_by": "agent:codex"
         }
       }
     ],
@@ -155,7 +185,31 @@
         ],
         "negative_invariant_ids": [],
         "parent_plan_id": "training.modules6-8"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 25,
+        "prBase": "master",
+        "mergeCommit": "f8be65b26bc53f28934302bfb38274e0de3335c1",
+        "deliveryBranch": "master",
+        "deliveryCommit": "f8be65b26bc53f28934302bfb38274e0de3335c1",
+        "verifiedAt": "2026-09-10T00:06:50Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "6F1F5F81-E728-4497-B7A3-41E49C61D873"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-10T00:06:50Z"
+      },
+      "completedAt": "2026-09-10T00:06:50Z",
+      "completedSessionId": "6F1F5F81-E728-4497-B7A3-41E49C61D873"
     },
     "references": [
       {
@@ -221,6 +275,6 @@
       ],
       "ambiguity_attestation": "none_found"
     },
-    "updated": "2026-09-09T20:58:14Z"
+    "updated": "2026-09-10T00:06:50Z"
   }
 }

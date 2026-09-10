@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { cpSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { cpSync, mkdtempSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
@@ -11,10 +11,17 @@ const copyPaths = [
   "README.md", "CHANGELOG.md", "package.json", "curriculum", "labs", "solutions",
   "assessments", "maintainers", "references", "templates", "xbrief",
 ];
+const scopeFilename = "2026-09-08-module-7-scope-lifecycle-and-implementation-authorization.xbrief.json";
+const projectScopeId = "2026-09-08-module-7-scope-lifecycle-and-implementation-authorization";
 
-function changedCopy(path, transform) {
+function copiedRepository() {
   const root = mkdtempSync(join(tmpdir(), "module7-contract-test-"));
   for (const source of copyPaths) cpSync(join(repositoryRoot, source), join(root, source), { recursive: true });
+  return root;
+}
+
+function changedCopy(path, transform) {
+  const root = copiedRepository();
   const target = join(root, path);
   const before = readFileSync(target, "utf8");
   const after = transform(before);
@@ -23,9 +30,63 @@ function changedCopy(path, transform) {
   return root;
 }
 
-test("Module 7 content contract accepts the repository", () => {
+function activeLifecycleCopy() {
+  const root = copiedRepository();
+  const completedScope = join(root, "xbrief", "completed", scopeFilename);
+  const activeScope = join(root, "xbrief", "active", scopeFilename);
+  renameSync(completedScope, activeScope);
+
+  const scope = JSON.parse(readFileSync(activeScope, "utf8"));
+  scope.plan.status = "running";
+  for (const item of scope.plan.items) item.status = "proposed";
+  for (const field of ["completionProvenance", "deliveryDisposition", "handoffState", "lifecycleWrite", "completedAt", "completedSessionId"]) {
+    delete scope.plan.metadata[field];
+  }
+  writeFileSync(activeScope, `${JSON.stringify(scope, null, 2)}\n`);
+
+  const projectPath = join(root, "xbrief", "PROJECT-DEFINITION.xbrief.json");
+  const project = JSON.parse(readFileSync(projectPath, "utf8"));
+  const projectItem = project.plan.items.find((item) => item.id === projectScopeId);
+  projectItem.status = "running";
+  projectItem.metadata.lifecycle_folder = "active";
+  projectItem.metadata.source_path = `active/${scopeFilename}`;
+  writeFileSync(projectPath, `${JSON.stringify(project, null, 2)}\n`);
+
+  const parentPath = join(root, "xbrief", "proposed", "2026-09-05-modules-6-8-work-lifecycle-and-sessions.xbrief.json");
+  const parent = JSON.parse(readFileSync(parentPath, "utf8"));
+  const scopeReference = parent.plan.references.find(({ uri }) => uri.endsWith(scopeFilename));
+  scopeReference.uri = `active/${scopeFilename}`;
+  writeFileSync(parentPath, `${JSON.stringify(parent, null, 2)}\n`);
+  return root;
+}
+
+test("Module 7 content contract accepts the completed repository", () => {
   const result = verifyModule7(repositoryRoot);
-  assert.ok(result.artifactCount >= 18);
+  assert.equal(result.artifactCount, 21);
+});
+
+test("Module 7 content contract accepts the active implementation state", () => {
+  const result = verifyModule7(activeLifecycleCopy());
+  assert.equal(result.artifactCount, 21);
+});
+
+test("verifier rejects a lifecycle registry mismatch", () => {
+  const root = changedCopy("xbrief/PROJECT-DEFINITION.xbrief.json", (body) => {
+    const project = JSON.parse(body);
+    const projectItem = project.plan.items.find((item) => item.id === projectScopeId);
+    projectItem.status = "running";
+    return `${JSON.stringify(project, null, 2)}\n`;
+  });
+  assert.throws(() => verifyModule7(root), /status must match its lifecycle scope/);
+});
+
+test("verifier rejects simultaneous active and completed lifecycle artifacts", () => {
+  const root = copiedRepository();
+  cpSync(
+    join(root, "xbrief", "completed", scopeFilename),
+    join(root, "xbrief", "active", scopeFilename),
+  );
+  assert.throws(() => verifyModule7(root), /exactly one active or completed lifecycle scope artifact/);
 });
 
 test("verifier rejects a weakened safety guard", () => {
