@@ -5,9 +5,9 @@ They are maintainer evidence, not a learner command reference.
 
 ## Verification context
 
-- Current-baseline verification date: 2026-09-09. Runtime proofs below retain
-  their original execution dates; Module 6 adds source and content-contract
-  verification, not a new CLI runtime claim.
+- Current-baseline verification date: 2026-09-10. Runtime proofs below retain
+  their original execution dates; each module section states its own source,
+  content-contract, and runtime evidence boundary.
 - Host used: macOS with zsh and Node.js 24.18.0.
 - Project direct pin: `@deftai/directive` 0.112.0 in `devDependencies`.
 - The training project had no project-local `node_modules` or lockfile; its exact direct pin
@@ -600,8 +600,44 @@ lesson and was not backported into the teaching contract.
 
 The Module 8 verifier is read-only. It checks lesson and solution structure, exact baseline,
 outcome evidence, posture, precedence, state paths and roles, source records, lifecycle
-registry agreement, local links, and Module 9's planned status. Its negative tests mutate only
+registry agreement, local links, and durable forward navigation. Its negative tests mutate only
 temporary copies and reject instructions to inspect live project state.
+
+## Module 9 source validation
+
+Validation date: 2026-09-10. The authoring worktree reported engine 0.114.0 and deposit
+0.114.0. Those values describe authoring drift only. Learner behavior was exercised with an
+exact 0.112.0 graph for CLI/core/content/types in the guarded disposable fixture.
+
+### Pinned sources and runtime evidence
+
+| Surface | Observed result |
+| --- | --- |
+| Exact 0.112.0 `directive commands` | Registered `session:start`, `verify:session-ritual`, `verify:story-ready`, `xbrief:preflight`, and `check`. |
+| Lab install and `directive --version` | Installed the exact 0.112.0 graph and reported engine 0.112.0. |
+| `verify:story-ready` on the clean active story | Exit `0` with one active/running xBRIEF and one-file placement metadata. |
+| Gated session ritual and active preflight | Exit `0` before product mutation. |
+| Supplied focused test before edit | Exit `1`, proving the named behavior was absent. |
+| Focused test after the one-file edit | Exit `0`; named, fallback, invalid-input, and fifty ordinary-name cases passed. |
+| CLI and diff evidence | `Hello, Ada!`, `Hello, teammate!`, exact `src/greeting.mjs` diff, and clean patch check. |
+
+The pinned story needed structured `intended_placement` metadata as well as `file_scope` for
+the released story-ready/preflight path. The current 0.114.0 migration preflight expects
+`.deft/core/xbrief/schemas`, while the refreshed deposit exposes the older
+`.deft/core/vbrief/schemas` path; that packaging drift was recorded and not taught as
+0.112.0 behavior. Gates, policy, and deposits were not edited to hide it.
+
+Platform evidence:
+
+- `module09-platform-proof:macos-zsh status=verified`
+- `module09-platform-proof:linux-bash status=candidate`
+- `module09-platform-proof:windows-powershell status=candidate`
+
+The Module 9 verifier checks lesson/lab/solution structure, exact baseline, readiness order,
+guard and one-file scope language, outcomes, evidence names, source records, package scripts,
+links, and Modules 10–11 planned state. Negative tests mutate only OS-temporary copies. The
+fixture suite additionally executes guard rejection, exact pinning, expected red, final
+behavior, narrow diff, fresh reset, and recoverable archive on the verified host.
 
 ## Source-file verification
 

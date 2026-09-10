@@ -7,10 +7,12 @@
     "check:module-6": "node scripts/verify-module-6.mjs",
     "check:module-7": "node scripts/verify-module-7.mjs",
     "check:module-8": "node scripts/verify-module-8.mjs",
+    "check:module-9": "node scripts/verify-module-9.mjs",
     "test:modules-4-5": "node --test scripts/projection-lab.test.mjs scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-modules-4-5.test.mjs",
     "test:module-6": "node --test scripts/verify-module-6.test.mjs",
     "test:module-7": "node --test scripts/lifecycle-lab.test.mjs scripts/verify-module-7.test.mjs",
     "test:module-8": "node --test scripts/verify-module-8.test.mjs",
+    "test:module-9": "node --test scripts/implementation-lab.test.mjs scripts/verify-module-9.test.mjs",
     "test:portability": "node --test scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs"
   },
   "devDependencies": {

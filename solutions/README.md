@@ -22,7 +22,8 @@ Every solution keeps these claim types separate.
 | [Module 6 — Creating Well-Shaped Work](../curriculum/modules/06-creating-well-shaped-work.md) | [Explained Module 6 solution](module-06-creating-well-shaped-work.md) | Available; command-free exercise |
 | [Module 7 — Scope Lifecycle and Implementation Authorization](../curriculum/modules/07-scope-lifecycle.md) | [Explained Lab 7 solution](lab-07-scope-lifecycle.md) | Available; lifecycle lab verified on macOS/zsh only |
 | [Module 8 — Session Start and Authorized Work Selection](../curriculum/modules/08-session-and-work-selection.md) | [Explained Module 8 solution](module-08-session-and-work-selection.md) | Available; command-free fixed-state exercise |
-| Modules 9–11 and the capstone | Follow the [curriculum map](../curriculum/README.md) | Not yet available |
+| [Module 9 — The Implementation Golden Path](../curriculum/modules/09-implementation-golden-path.md) | [Explained Lab 9 solution](lab-09-implementation-golden-path.md) | Available; executable lab verified on macOS/zsh only |
+| Modules 10–11 and the capstone | Follow the [curriculum map](../curriculum/README.md) | Not yet available |
 
 “Not yet available” is an explicit status. It does not represent completed or hidden content.
 

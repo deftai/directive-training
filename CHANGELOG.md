@@ -4,6 +4,11 @@
 
 ### Added
 
+- Module 9, a readiness-before-mutation lesson, guarded disposable implementation lab,
+  and explained solution for the one-file test-backed golden path.
+- Focused Module 9 content and fixture tests for exact Directive 0.112.0 pins, guarded
+  OS-temporary no-remote setup, red-green behavior, paired evidence, fresh reset, and
+  recoverable archive.
 - A refined Module 9 story xBRIEF, promoted to the pending backlog, that
   separates the implementation golden path from later testing-gate and review
   work with a guarded disposable lab, explicit readiness order, one-file
@@ -37,7 +42,10 @@
 
 ### Changed
 
-- Mark Module 8 learner-ready while keeping Modules 9–11 planned, and advance
+- Mark Module 9 learner-ready on its verified macOS/zsh path while keeping Modules 10–11
+  planned, and advance course, lab, assessment, solution, and reference navigation.
+- At the Module 8 milestone, mark Module 8 learner-ready while keeping Modules 9–11
+  planned, and advance
   course, assessment, solution, and Module 7 forward navigation.
 - Promote the validated Module 8 session-start and authorized-work-selection
   scope to the pending backlog after Modules 6–7 lifecycle completion.
@@ -48,8 +56,8 @@
   module's temporary lifecycle folder or status.
 - Clarify tactical/continue artifact lifetime and distinguish project-definition
   narratives from its rendered scope registry in the learner references.
-- Document projection help and missing-MAP freshness behavior. New lab platform
-  proof is limited to macOS/zsh; Modules 8–11 remain planned.
+- Document projection help and missing-MAP freshness behavior. At that milestone, new lab
+  platform proof was limited to macOS/zsh and Modules 8–11 remained planned.
 
 ### Fixed
 

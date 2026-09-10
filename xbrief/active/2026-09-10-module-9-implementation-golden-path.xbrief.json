@@ -3,13 +3,13 @@
     "version": "0.8",
     "description": "Proposed Module 9 story refined from the Modules 9-11 curriculum phase",
     "created": "2026-09-10T13:35:49Z",
-    "updated": "2026-09-10T13:43:55Z",
+    "updated": "2026-09-10T14:09:17Z",
     "author": "agent:codex"
   },
   "plan": {
     "id": "training.modules9-11.implementation",
     "title": "Module 9: The Implementation Golden Path",
-    "status": "pending",
+    "status": "running",
     "planRef": "proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
     "narratives": {
       "Description": "Deliver Module 9 and a guarded disposable Node.js lab that carries one already-active fictional story through the smallest coherent product change. The lab begins on a clean feature branch with no remote, an exact Directive 0.112.0 pin, one active/running xBRIEF, and a supplied failing focused test. The learner proves current readiness before mutation, changes only the allowed product file, and records focused behavioral and diff evidence. Test design, aggregate-gate diagnosis, PR creation, review handling, and lifecycle closeout remain in Modules 10 and 11.",
@@ -185,6 +185,20 @@
             "child_story_ids": [
               "training.modules9-11.implementation"
             ]
+          },
+          "training.modules9-11.gates": {
+            "disposition": "deferred",
+            "provenance": {
+              "reason": "Module 10 owns aggregate-gate diagnosis and proof.",
+              "target_story_id": "training.modules9-11.gates"
+            }
+          },
+          "training.modules9-11.review": {
+            "disposition": "deferred",
+            "provenance": {
+              "reason": "Module 11 owns review handling and lifecycle closeout.",
+              "target_story_id": "training.modules9-11.review"
+            }
           }
         },
         "parent_requirement_ids": [
@@ -220,8 +234,14 @@
         "type": "x-xbrief/user-request",
         "title": "David's request to refine Module 9",
         "TrustLevel": "internal"
+      },
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/34",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #34: Fix Module 9 parent-lineage preflight metadata",
+        "TrustLevel": "internal"
       }
     ],
-    "updated": "2026-09-10T13:43:55Z"
+    "updated": "2026-09-10T14:09:17Z"
   }
 }

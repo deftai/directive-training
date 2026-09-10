@@ -64,7 +64,7 @@
     },
     "references": [
       {
-        "uri": "pending/2026-09-10-module-9-implementation-golden-path.xbrief.json",
+        "uri": "active/2026-09-10-module-9-implementation-golden-path.xbrief.json",
         "type": "x-xbrief/plan",
         "title": "Module 9: The Implementation Golden Path",
         "TrustLevel": "internal"

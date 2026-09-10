@@ -159,6 +159,12 @@ npm run check:modules-4-5
 npm run test:modules-4-5
 npm run check:module-6
 node --test scripts/verify-module-6.test.mjs
+npm run check:module-7
+npm run test:module-7
+npm run check:module-8
+npm run test:module-8
+npm run check:module-9
+npm run test:module-9
 npm run test:portability
 directive verify:vbrief-conformance --project-root .
 ```
@@ -185,6 +191,12 @@ checks prove required sections, outcome coverage, source-bound terminology,
 safe local links, navigation, and the absence of executable shell blocks. The
 learner evidence is a fictional scratch note with literal read-only inspection;
 it makes no runtime, remote, deployment, or implementation-authority claim.
+
+Module 9 adds an executable golden-path lab. Revalidate the exact 0.112.0 package graph,
+clean guarded checkpoint, session/story/active-preflight order, expected focused red,
+one-file `src/greeting.mjs` boundary, named/fallback behavior, patch check, retained JSON
+evidence, fresh reset, and recoverable archive together. Platform support is macOS/zsh only
+until the same commands and safety negatives run natively elsewhere.
 
 Use the [native Windows revalidation handoff](WINDOWS-REVALIDATION.md) for the
 Modules 4–5 portability follow-up. Bind it to the published fix commit, preserve

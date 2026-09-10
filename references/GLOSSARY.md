@@ -1,7 +1,7 @@
 # Directive training glossary
 
 These definitions describe the course baseline: `@deftai/directive` 0.112.0
-and xBRIEF schema 0.8, verified through 2026-09-09. See
+and xBRIEF schema 0.8, verified through 2026-09-10. See
 [SOURCE-BASELINE.md](SOURCE-BASELINE.md) before applying them to another
 release.
 
@@ -114,6 +114,22 @@ not select work or supply implementation authority.
 The active/running scope xBRIEF together with the human operator's live
 instruction. A completed xBRIEF records prior lifecycle closeout; it does not authorize
 future work.
+
+**implementation readiness**
+Current proof that repository identity, branch, working state, session ritual, active scope,
+and required start gates are aligned before a product mutation. Readiness constrains when
+implementation may begin; it does not prove the implementation is correct.
+
+**focused check**
+The smallest test command that directly exercises the behavior under change. A focused
+check accelerates feedback but does not replace scope, diff, or aggregate evidence.
+
+**behavioral evidence**
+Test or runtime output proving what the product does for named inputs and conditions.
+
+**diff evidence**
+Repository output proving which tracked paths changed and whether the patch is mechanically
+clean. Diff evidence complements behavioral evidence; neither substitutes for the other.
 
 ## Durable state and lifecycle
 

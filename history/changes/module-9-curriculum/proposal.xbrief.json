@@ -1,0 +1,42 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Approved change proposal for the Module 9 curriculum scope",
+    "created": "2026-09-10T14:07:31Z",
+    "updated": "2026-09-10T14:07:31Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.module-9-curriculum",
+    "title": "module-9-curriculum",
+    "status": "approved",
+    "items": [],
+    "narratives": {
+      "Problem": "Learners can select authorized work through Module 8, but they cannot yet carry one active story through a bounded, test-backed implementation cycle while preserving scope, readiness, and evidence boundaries.",
+      "Change": "Author Module 9, its guarded disposable Node.js implementation lab and fictional fixture, an explained solution, source and navigation updates, and focused verifiers with negative and fixture tests.",
+      "Scope": "In scope: the paths and five acceptance clauses declared by training.modules9-11.implementation, the approved Module 9 cost record, the generated project and parent-scope lifecycle updates, and the governed pending-to-active child transition. Out of scope: Modules 10-11, business repositories, learner remotes, publishing, deployment, upstream framework changes, and a Directive release-pin change.",
+      "Impact": "Adds one learner-ready lesson and one reproducible disposable lab that prove readiness before mutation, constrain the product diff to src/greeting.mjs, and record focused behavioral and diff evidence without teaching later review or closeout material.",
+      "Risks": "The lab could touch the training repository, configure a remote, mutate before readiness, permit edits outside the one-file allowlist, overstate unexecuted platform behavior, or teach 0.114.0 behavior as the pinned 0.112.0 learner contract. Temporary-root guards, exact-pin checks, negative tests, source traces, and explicit platform labels must prevent those failures.",
+      "Approach": "Revalidate the pinned readiness and focused-check surfaces first, write failing verifier and fixture tests, implement the smallest guarded lab and lesson satisfying the five clauses, update navigation and source records, then run the literal focused checks, conformance check, and aggregate gate before remote delivery.",
+      "Alternatives": "Combining Modules 9-11 was rejected because the approved decomposition makes implementation, aggregate gates, and review independently verifiable stories. A live remote or business-repository lab was rejected because it would violate the disposable no-remote boundary.",
+      "Dependencies": "The completed Module 8 curriculum, the exact @deftai/directive 0.112.0 learner pin, the installed 0.114.0 authoring engine used only for drift comparison, Node.js 20 or newer, Git, npm, and the repository's existing Markdown, fixture, and verifier patterns.",
+      "Authorization": "David selected option 1, Build, after reviewing the Module 9 estimate, then answered yes to confirm /deft:directive:change module-9-curriculum. Earlier live instructions authorize preparation of the implementation through push, pull request, and merge-ready review. David's destructive-route rule still requires a separate route choice before the future Module 9 pull request is merged.",
+      "Stops": "Success: all Module 9 literal acceptance commands, focused negative and fixture tests, conformance, aggregate local gate, GitHub CI, and human review evidence pass and the pull request is merge-ready. Failure: at most five implementation fix iterations or three identical failures without progress, and at most three pre-PR review passes. Do not trigger, require, or wait for Greptile; it is disabled for this project. Stop before merge until David selects the merge route."
+    },
+    "references": [
+      {
+        "uri": "../../../xbrief/active/2026-09-10-module-9-implementation-golden-path.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Active Module 9 implementation contract",
+        "TrustLevel": "internal"
+      }
+    ],
+    "metadata": {
+      "change_name": "module-9-curriculum",
+      "confirmed_by": "David",
+      "confirmation_phrase": "yes",
+      "confirmed_at": "2026-09-10T14:07:31Z",
+      "cost_selection": "Option 1, Build"
+    }
+  }
+}

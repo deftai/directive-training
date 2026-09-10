@@ -34,7 +34,7 @@
       {
         "uri": "../COST-ESTIMATE.md",
         "type": "x-xbrief/spec-section",
-        "title": "Current Module 8 cost estimate with prior Module 7, Module 6, Modules 4-5, and historical Modules 2-3 decisions",
+        "title": "Current Module 9 cost estimate with prior Module 8, Module 7, Module 6, Modules 4-5, and historical Modules 2-3 decisions",
         "TrustLevel": "internal"
       }
     ],
@@ -114,10 +114,10 @@
       {
         "id": "2026-09-10-module-9-implementation-golden-path",
         "title": "Module 9: The Implementation Golden Path",
-        "status": "pending",
+        "status": "running",
         "metadata": {
-          "source_path": "pending/2026-09-10-module-9-implementation-golden-path.xbrief.json",
-          "lifecycle_folder": "pending",
+          "source_path": "active/2026-09-10-module-9-implementation-golden-path.xbrief.json",
+          "lifecycle_folder": "active",
           "references": [
             {
               "uri": "../PROJECT-DEFINITION.xbrief.json",

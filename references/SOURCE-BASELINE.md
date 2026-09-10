@@ -1,7 +1,7 @@
 # Directive source baseline
 
 This manifest fixes the curriculum's version-sensitive claims to Directive 0.112.0. It was
-revalidated through 2026-09-09 and must be refreshed when the project pin changes.
+revalidated through 2026-09-10 and must be refreshed when the project pin changes.
 
 ## Release identity
 
@@ -225,6 +225,30 @@ master. Therefore Module 8's release evidence used an explicit cached 0.112.0 np
 graph rather than treating the newer environment as the teaching baseline. Exact probes and
 the observed 0.114.0 migration-path drift are recorded in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-8-source-validation).
+
+## Module 9 implementation-readiness validation
+
+Module 9 exercises an exact CLI/core/content/types 0.112.0 package graph in a unique
+operating-system temporary, no-remote repository. The fixture begins on
+`training/module-09` with one active/running schema-0.8 story whose complete product
+allowlist is `src/greeting.mjs`.
+
+| Surface | Verified 0.112.0 result |
+| --- | --- |
+| `task deft:session:start` | Exit `0` under a fresh lab-local session ID. |
+| `task deft:verify:session-ritual -- --tier=gated` | Exit `0` before product mutation. |
+| `directive verify:story-ready --vbrief-path <active-story> --skip-routing` | Exit `0` for the guarded clean active story. |
+| `task deft:xbrief:preflight -- <active-story>` | Exit `0` under explicit lab implementation intent. |
+| Supplied focused test before edit | Exit `1`, naming intended greeting behavior. |
+| Focused test and named/fallback CLI after edit | Exit `0`; `Hello, Ada!` and `Hello, teammate!`. |
+| `git diff --name-only` and `git diff --check` | Exact `src/greeting.mjs` path and exit `0`. |
+
+Readiness evidence is retained before mutation; final evidence requires the readiness
+checkpoint, behavioral proof, and diff proof. Reset creates a different unique root while
+preserving the failed attempt. Cleanup moves one exact guarded parent into a recoverable
+temporary archive. Native execution is verified only on macOS/zsh; Linux/bash and native
+Windows/PowerShell remain candidates. Probe details are in
+[SOURCE-NOTES.md](./SOURCE-NOTES.md#module-9-source-validation).
 
 ## Deferred skill-contract validation
 

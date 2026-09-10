@@ -1,7 +1,7 @@
 # Directive learner quick reference
 
 Use this as a memory aid, not as an exhaustive command reference. It describes
-`@deftai/directive` 0.112.0 and xBRIEF 0.8, verified through 2026-09-09. Check
+`@deftai/directive` 0.112.0 and xBRIEF 0.8, verified through 2026-09-10. Check
 [the source baseline](SOURCE-BASELINE.md) before using it with another version.
 
 ## Mental model
@@ -197,6 +197,28 @@ Apply work-selection precedence:
 Selection never replaces the authority conjunction: active scope plus live
 implementation intent. See
 [Module 8](../curriculum/modules/08-session-and-work-selection.md).
+
+## Implementation golden path
+
+Establish current readiness before the product edit, then retain focused red and make the
+smallest coherent allowed change:
+
+```text
+task deft:session:start -- --session-id=<current-session-id>
+task deft:verify:session-ritual -- --tier=gated
+directive verify:story-ready --vbrief-path xbrief/active/<scope>.xbrief.json --skip-routing
+task deft:xbrief:preflight -- xbrief/active/<scope>.xbrief.json
+npm run test:focused                         # expected red at the clean start
+# change only the active file scope; Lab 9 permits src/greeting.mjs
+npm run test:focused                         # required green after implementation
+git diff --name-only
+git diff --check
+```
+
+Pair behavioral evidence from the focused check and runtime examples with diff evidence
+from the exact path list and patch check. If readiness, identity, or scope drifts, preserve
+the attempt and start from a fresh guarded root. See
+[Module 9](../curriculum/modules/09-implementation-golden-path.md).
 
 ## Evidence ladder
 

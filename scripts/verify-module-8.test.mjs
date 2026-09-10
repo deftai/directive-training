@@ -116,12 +116,12 @@ test("verifier rejects a stale or ranged teaching baseline", () => {
   assert.throws(() => verifyModule8(root), /stale or ranged Directive baseline/);
 });
 
-test("verifier rejects Module 9 becoming learner-ready in this scope", () => {
+test("verifier rejects Module 10 becoming learner-ready while Module 9 advances", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 09 | The implementation golden path (`09-implementation-golden-path.md`) | 70 min | Planned |",
-    "| 09 | The implementation golden path (`09-implementation-golden-path.md`) | 70 min | Learner-ready draft |",
+    "| 10 | Testing, gates, and evidence (`10-testing-gates-and-evidence.md`) | 65 min | Planned | Red-green-refactor and diagnose a gate failure |",
+    "| 10 | Testing, gates, and evidence (`10-testing-gates-and-evidence.md`) | 65 min | Learner-ready draft | Red-green-refactor and diagnose a gate failure |",
   ));
-  assert.throws(() => verifyModule8(root), /Module 9 must remain planned/);
+  assert.throws(() => verifyModule8(root), /Module 10 must remain planned/);
 });
 
 test("verifier rejects missing Module 8 source validation evidence", () => {

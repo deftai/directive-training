@@ -22,9 +22,10 @@ An assessment must not present a 3Ci preference as Directive behavior.
 | [Module 6 — Creating Well-Shaped Work](../curriculum/modules/06-creating-well-shaped-work.md) | The module's command-free worksheet and self-assessment | A complete vertical-slice record, a proposed-scope candidate with observable acceptance, and ordered slice rationales | [Explained Module 6 solution](../solutions/module-06-creating-well-shaped-work.md) |
 | [Module 7 — Scope Lifecycle and Implementation Authorization](../curriculum/modules/07-scope-lifecycle.md) | [Lab 7](../labs/07-scope-lifecycle.md) and module self-assessment | Proposed failure, Task lifecycle pairs, live intent plus session/preflight readiness, and preserved reset/archive evidence; macOS/zsh only | [Explained Lab 7 solution](../solutions/lab-07-scope-lifecycle.md) |
 | [Module 8 — Session Start and Authorized Work Selection](../curriculum/modules/08-session-and-work-selection.md) | The fixed-state decision matrix and self-assessment | Posture, recovery, ordered-plan precedence, state-role, authority, and next-safe-action decisions | [Explained Module 8 solution](../solutions/module-08-session-and-work-selection.md) |
-| Modules 9–11 and capstone | Not yet available | None required yet | Follow availability from the [curriculum map](../curriculum/README.md) |
+| [Module 9 — The Implementation Golden Path](../curriculum/modules/09-implementation-golden-path.md) | [Lab 9](../labs/09-implementation-golden-path.md) and module self-assessment | Current readiness, retained red-green behavior, exact one-file scope, paired behavior/diff evidence, and safe recovery; macOS/zsh only | [Explained Lab 9 solution](../solutions/lab-09-implementation-golden-path.md) |
+| Modules 10–11 and capstone | Not yet available | None required yet | Follow availability from the [curriculum map](../curriculum/README.md) |
 
-Modules 1–8 keep assessment beside the lesson or disposable lab so the attempt,
+Modules 1–9 keep assessment beside the lesson or disposable lab so the attempt,
 feedback, and retry path stay together. Later standalone assessments will
 appear in this directory and link back to their source modules. “Not yet
 available” is an explicit status, not completed content.
