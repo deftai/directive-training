@@ -5,17 +5,17 @@
 
 # Roadmap
 
-## Module 8: Session Start and Authorized Work Selection
+## Module 9: The Implementation Golden Path
 
-### training.modules6-8.sessions.baseline: Validate session and work-selection behavior `[proposed]`
+### training.modules9-11.implementation.baseline: Validate implementation-readiness behavior `[proposed]`
 
-### training.modules6-8.sessions.posture: Teach session posture and recovery decisions `[proposed]`
+### training.modules9-11.implementation.safety: Build the guarded active-story starting state `[proposed]`
 
-### training.modules6-8.sessions.selection: Teach ordered-plan and ranked-queue precedence `[proposed]`
+### training.modules9-11.implementation.readiness: Prove current readiness before product mutation `[proposed]`
 
-### training.modules6-8.sessions.state-map: Map authoritative and non-authorizing state `[proposed]`
+### training.modules9-11.implementation.change: Implement and prove the smallest coherent change `[proposed]`
 
-### training.modules6-8.sessions.quality: Add the explained solution and focused verifier `[proposed]`
+### training.modules9-11.implementation.quality: Verify the lesson, lab, recovery, and scope boundary `[proposed]`
 
 ---
 
@@ -34,6 +34,7 @@ _Scopes not yet promoted to pending. Orientation only — not a substitute for `
 
 ## Completed
 
+- Module 8: Session Start and Authorized Work Selection -- `[completed]`
 - Module 7: Scope Lifecycle and Implementation Authorization -- `[completed]`
 - Module 6: Creating Well-Shaped Work -- `[completed]`
 - Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries -- `[completed]`

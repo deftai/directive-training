@@ -4,6 +4,11 @@
 
 ### Added
 
+- A refined Module 9 story xBRIEF, promoted to the pending backlog, that
+  separates the implementation golden path from later testing-gate and review
+  work with a guarded disposable lab, explicit readiness order, one-file
+  product boundary, observable evidence, dependencies, and focused verification
+  contracts.
 - Module 8, a command-free fixed-state lesson and explained solution for session
   posture, recovery, ordered-plan precedence, ranked-queue selection, state
   roles, and the boundary between selection and implementation authority.

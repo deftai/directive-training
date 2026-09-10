@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Project definition for the private 3Ci Directive training curriculum",
     "created": "2026-09-05T14:54:49Z",
-    "updated": "2026-09-10T11:45:15Z",
+    "updated": "2026-09-10T13:44:08Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -112,29 +112,35 @@
         }
       },
       {
-        "id": "2026-09-08-module-8-session-start-and-authorized-work-selection",
-        "title": "Module 8: Session Start and Authorized Work Selection",
-        "status": "completed",
+        "id": "2026-09-10-module-9-implementation-golden-path",
+        "title": "Module 9: The Implementation Golden Path",
+        "status": "pending",
         "metadata": {
-          "source_path": "completed/2026-09-08-module-8-session-start-and-authorized-work-selection.xbrief.json",
-          "lifecycle_folder": "completed",
+          "source_path": "pending/2026-09-10-module-9-implementation-golden-path.xbrief.json",
+          "lifecycle_folder": "pending",
           "references": [
             {
               "uri": "../PROJECT-DEFINITION.xbrief.json",
               "type": "x-xbrief/spec-section",
-              "title": "Directive training session, state, and safety contracts",
+              "title": "Directive training implementation, baseline, and lab safety contracts",
               "TrustLevel": "internal"
             },
             {
               "uri": "../../curriculum/README.md",
               "type": "x-xbrief/spec-section",
-              "title": "Course sequence and Module 8 outcomes",
+              "title": "Course sequence and Module 9 outcomes",
               "TrustLevel": "internal"
             },
             {
               "uri": "../../references/SOURCE-BASELINE.md",
               "type": "x-xbrief/spec-section",
               "title": "Pinned Directive 0.112.0 source and runtime baseline",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "urn:3ci:directive-training:request:2026-09-10:module-9-refinement",
+              "type": "x-xbrief/user-request",
+              "title": "David's request to refine Module 9",
               "TrustLevel": "internal"
             }
           ]
@@ -269,6 +275,35 @@
               "uri": "../../curriculum/README.md",
               "type": "x-xbrief/spec-section",
               "title": "Course sequence and Module 7 outcomes",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../references/SOURCE-BASELINE.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Pinned Directive 0.112.0 source and runtime baseline",
+              "TrustLevel": "internal"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-08-module-8-session-start-and-authorized-work-selection",
+        "title": "Module 8: Session Start and Authorized Work Selection",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-08-module-8-session-start-and-authorized-work-selection.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "../PROJECT-DEFINITION.xbrief.json",
+              "type": "x-xbrief/spec-section",
+              "title": "Directive training session, state, and safety contracts",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../curriculum/README.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Course sequence and Module 8 outcomes",
               "TrustLevel": "internal"
             },
             {

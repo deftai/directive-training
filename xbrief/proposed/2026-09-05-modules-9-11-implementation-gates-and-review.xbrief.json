@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Proposed curriculum scope for core Modules 9 through 11",
     "created": "2026-09-05T19:43:46Z",
-    "updated": "2026-09-05T19:43:46Z",
+    "updated": "2026-09-10T13:35:49Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -61,6 +61,15 @@
         ],
         "size": "large"
       }
-    }
+    },
+    "references": [
+      {
+        "uri": "pending/2026-09-10-module-9-implementation-golden-path.xbrief.json",
+        "type": "x-xbrief/plan",
+        "title": "Module 9: The Implementation Golden Path",
+        "TrustLevel": "internal"
+      }
+    ],
+    "updated": "2026-09-10T13:35:49Z"
   }
 }

@@ -1,0 +1,227 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Proposed Module 9 story refined from the Modules 9-11 curriculum phase",
+    "created": "2026-09-10T13:35:49Z",
+    "updated": "2026-09-10T13:43:55Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "training.modules9-11.implementation",
+    "title": "Module 9: The Implementation Golden Path",
+    "status": "pending",
+    "planRef": "proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
+    "narratives": {
+      "Description": "Deliver Module 9 and a guarded disposable Node.js lab that carries one already-active fictional story through the smallest coherent product change. The lab begins on a clean feature branch with no remote, an exact Directive 0.112.0 pin, one active/running xBRIEF, and a supplied failing focused test. The learner proves current readiness before mutation, changes only the allowed product file, and records focused behavioral and diff evidence. Test design, aggregate-gate diagnosis, PR creation, review handling, and lifecycle closeout remain in Modules 10 and 11.",
+      "ImplementationPlan": "1. Revalidate the pinned Directive 0.112.0 session, story-ready, xBRIEF preflight, and focused-check behavior, then record any deposited-prose or newer-runtime disagreement in references/SOURCE-BASELINE.md and references/SOURCE-NOTES.md.\n2. Author curriculum/modules/09-implementation-golden-path.md, labs/09-implementation-golden-path.md, the guarded labs/fixtures/09-implementation-golden-path fixture, and solutions/lab-09-implementation-golden-path.md. The fixture must create a unique OS-temporary, no-remote repository on branch training/module-09 with one active/running fictional greeting story, a clean checkpoint, a supplied failing node:test case, and an explicit one-file product allowlist.\n3. Add scripts/verify-module-9.mjs, focused negative tests, and fixture tests; update the exact learner navigation, prior-module regression checks, source records, and package scripts; then run the focused content, fixture, portability, and xBRIEF conformance checks before the separate aggregate gate.",
+      "UserStory": "As a 3Ci engineer learning Directive, I want to carry one active story through a bounded, test-backed implementation cycle, so that I can make the smallest coherent change and support it with current readiness, behavior, and diff evidence.",
+      "Traces": "Parent training.modules9-11.implementation; PROJECT-DEFINITION LearningGoals: proof-driven implementation and aggregate checks; PROJECT-DEFINITION DirectiveBaseline, SupportedEnvironments, LabModel, DevelopmentPosture, and ProjectRules contracts",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance commands; do not weaken, rewrite, or embed that aggregate gate in plan.acceptance.commands."
+    },
+    "items": [
+      {
+        "id": "training.modules9-11.implementation.baseline",
+        "title": "Validate implementation-readiness behavior",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "The source and runtime record validates exact Directive 0.112.0 session, story-ready, xBRIEF preflight, and focused-check behavior, records relevant exit signals, and labels every newer-runtime disagreement or unexecuted platform without teaching it as pinned behavior.",
+          "Traces": "training.modules9-11.implementation"
+        }
+      },
+      {
+        "id": "training.modules9-11.implementation.safety",
+        "title": "Build the guarded active-story starting state",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "The supplied helper refuses mutation unless the canonical root is its unique OS-temporary repository, the repository has no remote, branch training/module-09 is clean at the named checkpoint, the exact Directive 0.112.0 graph is installed, and exactly one story is active/running with an explicit one-file product allowlist.",
+          "Traces": "training.modules9-11.implementation"
+        }
+      },
+      {
+        "id": "training.modules9-11.implementation.readiness",
+        "title": "Prove current readiness before product mutation",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "Before changing product content, the learner records a clean feature-branch check, the active contract and allowlist, a fresh gated session ritual, passing story-ready and xBRIEF preflight results, and the supplied focused test's expected failure; any failed readiness gate stops implementation and routes to bounded recovery.",
+          "Traces": "training.modules9-11.implementation"
+        }
+      },
+      {
+        "id": "training.modules9-11.implementation.change",
+        "title": "Implement and prove the smallest coherent change",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "The learner changes only src/greeting.mjs so the supplied focused node:test passes and the fictional CLI prints the required named and fallback greetings; git diff --check passes, the narrow diff contains no test, gate, scope, helper, credential, remote, or unrelated changes, and the evidence bundle records the literal commands, exit codes, relevant output, and final status.",
+          "Traces": "training.modules9-11.implementation"
+        }
+      },
+      {
+        "id": "training.modules9-11.implementation.quality",
+        "title": "Verify the lesson, lab, recovery, and scope boundary",
+        "status": "proposed",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "Focused negative tests reject a non-temporary or remote target, wrong branch or lifecycle state, dirty start, altered exact pin, mutation before readiness, edits outside src/greeting.mjs, missing behavioral or diff evidence, broken links or outcome mappings, unsupported platform claims, and any claim that Module 10 or 11 is learner-ready in this scope.",
+          "Traces": "training.modules9-11.implementation"
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "npm run check:module-9",
+        "npm run test:module-9",
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false,
+      "source_rung": "derived",
+      "derived_reason": "Derived five independently testable clauses from David's Module 9 refinement request, the parent phase, and the project learning and safety contracts before product implementation.",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "The source and runtime record validates exact Directive 0.112.0 session, story-ready, xBRIEF preflight, and focused-check behavior, records relevant exit signals, and labels newer-runtime disagreement or unexecuted platforms accurately.",
+          "artifact_path": "references/SOURCE-NOTES.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "The supplied helper creates and guards a unique OS-temporary no-remote repository on a clean training/module-09 branch with the exact Directive 0.112.0 graph, exactly one active/running story, and an explicit one-file product allowlist.",
+          "artifact_path": "labs/fixtures/09-implementation-golden-path/implementation-lab.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Before product mutation, the learner records the active contract, clean branch, fresh gated session ritual, passing story-ready and xBRIEF preflight results, and the supplied focused test's expected failure; failed readiness stops the run.",
+          "artifact_path": "labs/09-implementation-golden-path.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "The learner changes only src/greeting.mjs, obtains the required focused test and CLI behavior, passes git diff --check, and records a narrow evidence bundle without changing tests, gates, scope, helpers, remotes, credentials, or unrelated files.",
+          "artifact_path": "labs/09-implementation-golden-path.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Focused negative tests enforce the lab boundary, readiness order, exact pin, evidence contract, links, outcome mappings, platform labels, and Modules 10-11's planned status.",
+          "artifact_path": "scripts/verify-module-9.test.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "readiness": "sequential",
+        "parallel_safe": false,
+        "file_scope": [
+          "CHANGELOG.md",
+          "COST-ESTIMATE.md",
+          "README.md",
+          "assessments/README.md",
+          "curriculum/README.md",
+          "curriculum/modules/09-implementation-golden-path.md",
+          "history/changes/module-9-curriculum/proposal.xbrief.json",
+          "labs/09-implementation-golden-path.md",
+          "labs/README.md",
+          "labs/fixtures/09-implementation-golden-path/PROJECT-DEFINITION.xbrief.json",
+          "labs/fixtures/09-implementation-golden-path/implementation-lab.mjs",
+          "labs/fixtures/09-implementation-golden-path/package.json",
+          "labs/fixtures/09-implementation-golden-path/safety.mjs",
+          "labs/fixtures/09-implementation-golden-path/src/cli.mjs",
+          "labs/fixtures/09-implementation-golden-path/src/greeting.mjs",
+          "labs/fixtures/09-implementation-golden-path/test/greeting.test.mjs",
+          "maintainers/CURRICULUM-MAINTENANCE.md",
+          "package.json",
+          "references/GLOSSARY.md",
+          "references/QUICK-REFERENCE.md",
+          "references/SOURCE-BASELINE.md",
+          "references/SOURCE-NOTES.md",
+          "scripts/implementation-lab.test.mjs",
+          "scripts/verify-module-8.mjs",
+          "scripts/verify-module-8.test.mjs",
+          "scripts/verify-module-9.mjs",
+          "scripts/verify-module-9.test.mjs",
+          "solutions/README.md",
+          "solutions/lab-09-implementation-golden-path.md",
+          "xbrief/PROJECT-DEFINITION.xbrief.json",
+          "xbrief/active/2026-09-10-module-9-implementation-golden-path.xbrief.json",
+          "xbrief/proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:module-9",
+          "npm run test:module-9",
+          "directive verify:vbrief-conformance --project-root ."
+        ],
+        "expected_outputs": [
+          "Module 9 lesson, lab, and explained solution satisfy the self-directed content and safety contracts",
+          "The disposable fixture proves readiness before mutation and limits the product diff to src/greeting.mjs",
+          "Focused and negative tests enforce behavior, evidence, recovery, navigation, and future-module boundaries",
+          "Platform claims cite independent execution evidence or remain explicitly candidate",
+          "All xBRIEF 0.8 artifacts conform"
+        ],
+        "depends_on": [
+          "training.modules6-8.sessions"
+        ],
+        "conflict_group": "curriculum-core-navigation",
+        "size": "large",
+        "file_scope_confidence": "high",
+        "model_tier": "high"
+      },
+      "parent_lineage": {
+        "schema": "deft.scope.parent_lineage.v1",
+        "coverage_map": {
+          "training.modules9-11.implementation": {
+            "disposition": "covered",
+            "child_story_ids": [
+              "training.modules9-11.implementation"
+            ]
+          }
+        },
+        "parent_requirement_ids": [
+          "training.modules9-11.implementation",
+          "training.modules9-11.gates",
+          "training.modules9-11.review"
+        ],
+        "negative_invariant_ids": [],
+        "parent_plan_id": "training.modules9-11"
+      }
+    },
+    "references": [
+      {
+        "uri": "../PROJECT-DEFINITION.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Directive training implementation, baseline, and lab safety contracts",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../curriculum/README.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Course sequence and Module 9 outcomes",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../references/SOURCE-BASELINE.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Pinned Directive 0.112.0 source and runtime baseline",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "urn:3ci:directive-training:request:2026-09-10:module-9-refinement",
+        "type": "x-xbrief/user-request",
+        "title": "David's request to refine Module 9",
+        "TrustLevel": "internal"
+      }
+    ],
+    "updated": "2026-09-10T13:43:55Z"
+  }
+}
