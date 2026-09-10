@@ -2,13 +2,13 @@
 
 This is the navigation source for a twelve-hour, self-directed path: ten hours
 of core modules followed by a two-hour disposable capstone. The current
-internal-alpha milestone makes Modules 1–9 learner-ready drafts. Module 2's 0.112.0 pinned npm
+internal-alpha milestone makes Modules 1–10 learner-ready drafts. Module 2's 0.112.0 pinned npm
 path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell
 7.4+ on Windows Server 2022 by local and native-matrix evidence. Modules 4 and 6
 are command-free; Module 8 is also command-free and uses fixed fictional state.
 Module 5's projection lab and Module 7's lifecycle lab are verified only on macOS/zsh;
-their Linux and native Windows paths are not verified. Module 9's implementation lab is
-also verified only on macOS/zsh. Modules 10–11 and
+their Linux and native Windows paths are not verified. Modules 9 and 10 have executable labs
+verified only on macOS/zsh. Module 11 and
 the capstone remain planned until their files contain substantive, verified content.
 
 ## Audience and prerequisites
@@ -63,7 +63,7 @@ No step requires a live demonstration or an instructor's private knowledge.
 | 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready draft; lab verified on macOS/zsh only | Fail, promote, activate, establish current readiness, complete, and cancel |
 | 08 | [Session start and authorized work selection](modules/08-session-and-work-selection.md) | 45 min | Learner-ready draft; command-free fixed-state exercise | Trace posture and intake decisions |
 | 09 | [The implementation golden path](modules/09-implementation-golden-path.md) | 70 min | Learner-ready draft; lab verified on macOS/zsh only | Implement one test-backed active scope |
-| 10 | Testing, gates, and evidence (`10-testing-gates-and-evidence.md`) | 65 min | Planned | Red-green-refactor and diagnose a gate failure |
+| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready draft; lab verified on macOS/zsh only | Red-green-refactor and diagnose a gate failure |
 | 11 | PR, review, and actual completion (`11-review-and-completion.md`) | 55 min | Planned | Resolve simulated findings and classify completion evidence |
 
 The times total ten hours. Exercise time is included. Different hosts may add a
@@ -158,7 +158,7 @@ hints, recovery paths, and solutions. Their friction becomes revision input.
 - Previous: [Repository start](../README.md)
 - Next: [Module 1 — What Directive is](modules/01-what-directive-is.md)
 
-After Module 9, stop at the course map. Module 10 is still planned and has no
-learner-ready lesson yet. A learner without the verified Lab 5, Lab 7, or Lab 9 environment can
+After Module 10, stop at the course map. Module 11 is still planned and has no
+learner-ready lesson yet. A learner without the verified Lab 5, Lab 7, Lab 9, or Lab 10 environment can
 read the corresponding concepts, but must retain an environment-blocked practical outcome
 instead of treating an unexecuted candidate platform as verified.

@@ -23,7 +23,8 @@ Every solution keeps these claim types separate.
 | [Module 7 — Scope Lifecycle and Implementation Authorization](../curriculum/modules/07-scope-lifecycle.md) | [Explained Lab 7 solution](lab-07-scope-lifecycle.md) | Available; lifecycle lab verified on macOS/zsh only |
 | [Module 8 — Session Start and Authorized Work Selection](../curriculum/modules/08-session-and-work-selection.md) | [Explained Module 8 solution](module-08-session-and-work-selection.md) | Available; command-free fixed-state exercise |
 | [Module 9 — The Implementation Golden Path](../curriculum/modules/09-implementation-golden-path.md) | [Explained Lab 9 solution](lab-09-implementation-golden-path.md) | Available; executable lab verified on macOS/zsh only |
-| Modules 10–11 and the capstone | Follow the [curriculum map](../curriculum/README.md) | Not yet available |
+| [Module 10 — Testing, Gates, and Evidence](../curriculum/modules/10-testing-gates-and-evidence.md) | [Explained Lab 10 solution](lab-10-testing-gates-and-evidence.md) | Available; executable lab verified on macOS/zsh only |
+| Module 11 and the capstone | Follow the [curriculum map](../curriculum/README.md) | Not yet available |
 
 “Not yet available” is an explicit status. It does not represent completed or hidden content.
 

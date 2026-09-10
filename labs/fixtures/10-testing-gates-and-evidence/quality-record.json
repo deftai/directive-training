@@ -1,0 +1,14 @@
+{
+  "schema": "3ci.training.module10.quality-record.v1",
+  "status": "INCOMPLETE",
+  "evidence": {
+    "red": "",
+    "green": "",
+    "refactor": "",
+    "literalAcceptance": "",
+    "forwardCoverage": "",
+    "firstFailingSubcheck": "",
+    "repair": "",
+    "gateDefinitionsUnchanged": false
+  }
+}

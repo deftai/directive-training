@@ -124,6 +124,18 @@ implementation may begin; it does not prove the implementation is correct.
 The smallest test command that directly exercises the behavior under change. A focused
 check accelerates feedback but does not replace scope, diff, or aggregate evidence.
 
+**literal acceptance**
+Execution of the active xBRIEF's stored acceptance commands verbatim. It proves the declared
+command set ran; it does not replace forward coverage or the repository aggregate gate.
+
+**red-green-refactor**
+An evidence sequence: observe the intended test failure, implement until the frozen test
+passes, then improve the implementation while that same behavior stays green.
+
+**gate integrity**
+The rule that a failing product or process gate is repaired in the governed work or its
+legitimate cause, not by weakening the comparison method solely to obtain green output.
+
 **behavioral evidence**
 Test or runtime output proving what the product does for named inputs and conditions.
 

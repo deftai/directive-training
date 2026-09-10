@@ -1,0 +1,42 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Approved change proposal for the Module 10 curriculum scope",
+    "created": "2026-09-10T19:03:23Z",
+    "updated": "2026-09-10T19:03:23Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.module-10-curriculum",
+    "title": "module-10-curriculum",
+    "status": "approved",
+    "items": [],
+    "narratives": {
+      "Problem": "Learners can complete a bounded implementation cycle in Module 9, but they cannot yet distinguish a focused test, literal acceptance evidence, forward-coverage evidence, and the aggregate repository gate or diagnose a gate failure without weakening the gate.",
+      "Change": "Author Module 10, its guarded disposable Node.js testing-and-gates lab and fictional fixture, an explained solution, source and navigation updates, and focused verifiers with negative and fixture tests.",
+      "Scope": "In scope: the paths and five acceptance clauses declared by training.modules9-11.gates, the approved Module 10 cost record, the generated project and parent-scope lifecycle updates, and the governed pending-to-active child transition. Out of scope: Module 11, business repositories, learner remotes, publishing, deployment, upstream framework changes, and a Directive release-pin change.",
+      "Impact": "Adds one learner-ready lesson and one reproducible disposable lab that preserve ordered red-green-refactor evidence, freeze the focused test after the red checkpoint, expose a seeded aggregate-gate failure, and require repair of the governed evidence record while gate definitions remain unchanged.",
+      "Risks": "The lab could touch the training repository, configure a remote, skip or reorder red-green-refactor evidence, permit edits to tests or gate definitions after their checkpoints, overstate unexecuted platform behavior, or teach 0.114.0 behavior as the pinned 0.112.0 learner contract. Temporary-root guards, exact-pin and hash checks, negative tests, source traces, and explicit platform labels must prevent those failures.",
+      "Approach": "Revalidate the pinned focused-check, literal-acceptance, forward-coverage, aggregate-check, and gate-integrity surfaces first; write failing verifier and fixture tests; implement the smallest guarded lab and lesson satisfying the five clauses; update navigation and source records; then run the Module 10 literal checks, conformance check, and aggregate repository gate.",
+      "Alternatives": "Combining Modules 10-11 was rejected because aggregate-gate diagnosis and review closeout are independently verifiable stories. A live remote or business-repository lab was rejected because it would violate the disposable no-remote boundary. Repairing the seeded failure by changing a gate was rejected because the learning outcome requires repairing governed work instead.",
+      "Dependencies": "The completed Module 9 curriculum, the exact @deftai/directive 0.112.0 learner pin, the installed 0.114.0 authoring engine used only for drift comparison, Node.js 20 or newer, Git, npm, and the repository's existing Markdown, fixture, and verifier patterns.",
+      "Authorization": "David selected option 1, Build, after reviewing the Module 10 estimate, then answered approve to confirm both the decomposition and /deft:change module-10-curriculum. This authorizes local Module 10 implementation on the isolated feature branch only; it does not authorize push, pull-request creation, merge, deployment, publication, branch deletion, or worktree removal.",
+      "Stops": "Success: all Module 10 literal acceptance commands, focused negative and fixture tests, xBRIEF conformance, and the aggregate local gate pass. Failure: stop after at most five implementation fix iterations or three identical failures without progress. Do not trigger, require, or wait for Greptile; it is disabled for this project. Stop before any remote delivery or destructive cleanup because those actions are not authorized."
+    },
+    "references": [
+      {
+        "uri": "../../../xbrief/active/2026-09-10-module-10-testing-gates-and-evidence.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Active Module 10 testing and gates contract",
+        "TrustLevel": "internal"
+      }
+    ],
+    "metadata": {
+      "change_name": "module-10-curriculum",
+      "confirmed_by": "David",
+      "confirmation_phrase": "approve",
+      "confirmed_at": "2026-09-10T19:03:23Z",
+      "cost_selection": "Option 1, Build"
+    }
+  }
+}

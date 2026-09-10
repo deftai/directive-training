@@ -1,7 +1,92 @@
 <!-- deft:template -->
-<!-- Purpose: current Module 9 cost estimate with prior curriculum estimates retained -->
+<!-- Purpose: current Module 10 cost estimate with prior curriculum estimates retained -->
 
 # Cost & Budget Estimate
+
+## Current scope — Module 10 (2026-09-10)
+
+Currency: **USD**. Module 10 adds one Markdown lesson, one guarded disposable
+Node.js red-green-refactor lab, a seeded aggregate-gate failure, an explained
+solution, source trace and navigation updates, and focused validation with
+negative tests. It introduces no hosting service, paid account, publishing
+platform, production runtime, credential, learner-facing remote operation, or
+live review-bot dependency.
+
+### TL;DR
+
+For one private curriculum repository using existing 3Ci tooling, the expected
+incremental monthly service band is **low $0 / typical $0 / high $0**. The
+meaningful cost is approximately **24–44 hours** of focused command
+revalidation, guarded fixture and lab construction, lesson and solution
+authoring, source tracing, validation, and review. Ongoing maintenance
+attributable to this module is approximately **1–2 hours per month**.
+
+### Assumptions and scale considerations
+
+- The scale assumption is one private curriculum repository and one disposable
+  local red-green-refactor lab attempt per learner, using existing 3Ci GitHub,
+  coding-agent, workstation, Node.js, npm, and GitHub Actions access.
+- The lab creates only a unique OS-temporary repository, configures no remote,
+  and uses fictional data. It must demonstrate a failing test, the narrow
+  product repair, refactoring under green tests, literal acceptance, and a
+  seeded aggregate-gate failure repaired in the work rather than the gate.
+- The project remains pinned to Directive 0.112.0 for learner-facing claims;
+  the installed 0.114.0 authoring engine is used only to identify and record
+  drift.
+- macOS, Linux, and Windows claims require independent execution evidence;
+  unexecuted paths remain explicitly candidate or unsupported.
+- Publishing, paid services, business-repository exercises, a release-pin
+  change, Module 11, and the capstone are excluded and require a new estimate.
+
+### What you will need to sign up for
+
+No new account is expected. Contributors use the existing private 3Ci GitHub
+organization, approved coding-agent access, Git, Node.js 20 or later, npm, and
+the repository's existing GitHub Actions capability.
+
+### Hosting, infrastructure, and third-party fees
+
+None are expected for this scope. The lab runs only in a disposable local
+repository with no remote, and repository validation uses existing GitHub
+Actions access. It does not deploy, publish, use a paid external service, or
+require Greptile.
+
+### Monthly band
+
+- **Low** _(quiet month)_: about **$0 per month**
+- **Typical** _(one private repository and ordinary learner attempts)_: about
+  **$0 per month**
+- **High** _(heavier use within the same approved boundary)_: about **$0 per
+  month**
+
+The $0 band depends on existing 3Ci tooling access. Separately billed CI or
+agent usage, new paid accounts, publication, or remote lab infrastructure would
+change the boundary and require a new estimate.
+
+### Build and maintenance time
+
+- **Directive 0.112.0 gate and command revalidation**: about **4–8 hours**
+- **Guarded fixture, red-green-refactor flow, and seeded gate failure**: about
+  **8–14 hours**
+- **Lesson, explained solution, navigation, and source trace**: about **6–10
+  hours**
+- **Focused verifier, negative tests, portability evidence, and review**:
+  about **6–12 hours**
+- **Total build**: about **24–44 hours**
+- **Maintenance**: about **1–2 hours per month**, plus focused revalidation
+  after a material Directive release
+
+### Decision recorded — current scope
+
+- **Decision**: Build
+- **Date**: 2026-09-10
+- **Recorded by**: David
+- **Selection**: Option 1, Build
+- **Confirmation**: “1”
+- **Boundary**: Module 10 local implementation after its active-story and
+  change-proposal gates pass. This decision does not authorize a release-pin
+  change, Module 11 implementation, push, pull-request creation, merge,
+  deployment, publication, branch deletion, or worktree removal.
 
 ## Current scope — Module 9 (2026-09-10)
 

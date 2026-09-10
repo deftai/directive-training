@@ -35,13 +35,15 @@ this Markdown; they will not replace it as the source of truth.
    [Module 6: Creating Well-Shaped Work](curriculum/modules/06-creating-well-shaped-work.md),
    [Module 7: Scope Lifecycle and Implementation Authorization](curriculum/modules/07-scope-lifecycle.md),
    [Module 8: Session Start and Authorized Work Selection](curriculum/modules/08-session-and-work-selection.md),
-   and [Module 9: The Implementation Golden Path](curriculum/modules/09-implementation-golden-path.md)
+   [Module 9: The Implementation Golden Path](curriculum/modules/09-implementation-golden-path.md),
+   and [Module 10: Testing, Gates, and Evidence](curriculum/modules/10-testing-gates-and-evidence.md)
    in order.
 4. Run command work only in the specified disposable no-remote lab:
    [Lab 2](labs/02-disposable-initialization.md) or
    [Lab 5](labs/05-projection-drift-recovery.md), or
    [Lab 7](labs/07-scope-lifecycle.md), or
-   [Lab 9](labs/09-implementation-golden-path.md).
+   [Lab 9](labs/09-implementation-golden-path.md), or
+   [Lab 10](labs/10-testing-gates-and-evidence.md).
 5. Use the [glossary](references/GLOSSARY.md) and
    [quick reference](references/QUICK-REFERENCE.md) when a term or boundary is
    unclear.
@@ -53,13 +55,13 @@ The detailed [source baseline](references/SOURCE-BASELINE.md) is optional audit
 evidence for maintainers and curious learners. It includes legacy and advanced
 drift notes that are intentionally outside the beginner sequence.
 
-Modules 1–9 are learner-ready drafts in this internal alpha. Module 2's 0.112.0 pinned npm
+Modules 1–10 are learner-ready drafts in this internal alpha. Module 2's 0.112.0 pinned npm
 path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and
 Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence.
 Modules 4, 6, and 8 are command-free. Module 5's projection lab, Module 7's lifecycle lab,
-and Module 9's implementation lab are verified only on macOS/zsh; Linux and native Windows
-have not been verified for those labs.
-Modules 10–11 and the capstone
+Module 9's implementation lab, and Module 10's testing-and-gates lab are verified only on
+macOS/zsh; Linux and native Windows have not been verified for those labs.
+Module 11 and the capstone
 remain planned; a filename in the map is not a readiness claim.
 
 ## Safety boundary

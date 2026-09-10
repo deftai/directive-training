@@ -128,7 +128,9 @@ export function verifyModule8(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(module8Row, /08-session-and-work-selection\.md/, "Module 8 course row must link the lesson");
   assert.doesNotMatch(module8Row, /\|\s*Planned\s*\|/i, "Module 8 must no longer be planned");
   assert.match(courseModuleRow(course, 9), /09-implementation-golden-path\.md/, "Module 9 course row must remain navigable");
-  assert.match(courseModuleRow(course, 10), /\|\s*Planned\s*\|/i, "Module 10 must remain planned");
+  const module10Row = courseModuleRow(course, 10);
+  assert.match(module10Row, /10-testing-gates-and-evidence\.md/, "Module 10 course row must link the lesson");
+  assert.doesNotMatch(module10Row, /\|\s*Planned\s*\|/i, "Module 10 must remain learner-ready");
   for (const path of ["README.md", "curriculum/README.md", "solutions/README.md", "assessments/README.md"]) {
     requireModule8Link(content.get(path), path);
     verifyLinks(root, path, markdownParts(content.get(path)).prose);

@@ -1,0 +1,245 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Story xBRIEF decomposed from proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
+    "updated": "2026-09-10T19:31:58Z"
+  },
+  "plan": {
+    "id": "training.modules9-11.gates",
+    "title": "Module 10: Testing, Gates, and Evidence",
+    "status": "running",
+    "planRef": "proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
+    "narratives": {
+      "Description": "Deliver Module 10 and a guarded disposable Node.js lab that makes red-green-refactor evidence, literal acceptance, forward coverage, and the aggregate gate independently observable. The lab seeds one deliberate aggregate-gate failure after focused behavior is green, then requires the learner to diagnose the first failing subcheck and repair the governed evidence record without changing the test, gate, policy, or verifier.",
+      "ImplementationPlan": "1. Revalidate the pinned Directive 0.112.0 focused-check, literal-acceptance, forward-coverage, aggregate-check, and gate-integrity surfaces, recording any 0.114.0 authoring-runtime disagreement without teaching it as pinned behavior.\n2. Author the Module 10 lesson, guarded lab, fictional fixture, and explained solution around a staged red-green-refactor cycle followed by an intentional aggregate-gate failure whose only valid repair is the incomplete work record.\n3. Add focused verifier, negative, and fixture tests; update exact curriculum navigation and source records; then run the Module 10 checks, xBRIEF conformance, literal acceptance gate, and the separate aggregate repository gate.",
+      "UserStory": "As a 3Ci engineer learning Directive, I want to separate focused tests, literal acceptance, forward coverage, and the aggregate gate, so that I can diagnose failures and repair the work without weakening the gate.",
+      "Traces": "Parent training.modules9-11.gates; PROJECT-DEFINITION LearningGoals: proof-driven testing and aggregate checks; PROJECT-DEFINITION DirectiveBaseline, SupportedEnvironments, LabModel, DevelopmentPosture, and ProjectRules contracts",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance commands; do not weaken, rewrite, or embed that aggregate repository gate in plan.acceptance.commands."
+    },
+    "items": [
+      {
+        "id": "training.modules9-11.gates.baseline",
+        "title": "Validate testing and gate behavior",
+        "status": "pending",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "The source and runtime record validates exact Directive 0.112.0 focused-check, literal-acceptance, forward-coverage, aggregate-check, and gate-integrity behavior with relevant exit signals, while labeling every newer-runtime disagreement or unexecuted platform accurately.",
+          "Traces": "training.modules9-11.gates"
+        }
+      },
+      {
+        "id": "training.modules9-11.gates.safety",
+        "title": "Build the guarded gate-lab starting state",
+        "status": "pending",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "The supplied helper rejects mutation unless the canonical root is its unique OS-temporary no-remote repository, branch training/module-10 is clean at the named checkpoint, the exact Directive 0.112.0 graph is installed, exactly one story is active/running, and stage-specific mutable paths never include the Taskfile, gate verifier, policy, package scripts, or framework deposit.",
+          "Traces": "training.modules9-11.gates"
+        }
+      },
+      {
+        "id": "training.modules9-11.gates.rrr",
+        "title": "Produce red-green-refactor evidence",
+        "status": "pending",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "The learner adds one focused behavioral test, retains its expected assertion failure, implements only the authorized source behavior, reruns to green, refactors without changing behavior, and records each exit and diff checkpoint in order with the test frozen after the red checkpoint.",
+          "Traces": "training.modules9-11.gates"
+        }
+      },
+      {
+        "id": "training.modules9-11.gates.diagnosis",
+        "title": "Diagnose and repair the seeded aggregate failure",
+        "status": "pending",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "After focused and literal acceptance checks pass, the aggregate lab gate fails for the seeded incomplete quality record; the learner identifies the first failing subcheck, updates only that governed work record from observed evidence, leaves gate-definition hashes unchanged, and reruns focused, literal, forward-coverage, and aggregate checks to green.",
+          "Traces": "training.modules9-11.gates"
+        }
+      },
+      {
+        "id": "training.modules9-11.gates.quality",
+        "title": "Verify the lesson, lab, recovery, and boundary",
+        "status": "pending",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "The focused negative-test verifier rejects a non-temporary or remote target, wrong branch or lifecycle state, altered exact pin, skipped or reordered red-green-refactor evidence, gate or verifier edits, incomplete quality evidence, broken links or outcome mappings, unsupported platform claims, and any claim that Module 11 is learner-ready in this scope.",
+          "Traces": "training.modules9-11.gates"
+        }
+      }
+    ],
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "readiness": "sequential",
+        "parallel_safe": false,
+        "file_scope": [
+          "CHANGELOG.md",
+          "COST-ESTIMATE.md",
+          "README.md",
+          "assessments/README.md",
+          "curriculum/README.md",
+          "curriculum/modules/09-implementation-golden-path.md",
+          "curriculum/modules/10-testing-gates-and-evidence.md",
+          "history/changes/module-10-curriculum/proposal.xbrief.json",
+          "labs/10-testing-gates-and-evidence.md",
+          "labs/README.md",
+          "labs/fixtures/10-testing-gates-and-evidence/PROJECT-DEFINITION.xbrief.json",
+          "labs/fixtures/10-testing-gates-and-evidence/Taskfile.yml",
+          "labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs",
+          "labs/fixtures/10-testing-gates-and-evidence/package.json",
+          "labs/fixtures/10-testing-gates-and-evidence/quality-record.json",
+          "labs/fixtures/10-testing-gates-and-evidence/safety.mjs",
+          "labs/fixtures/10-testing-gates-and-evidence/scripts/verify-quality-record.mjs",
+          "labs/fixtures/10-testing-gates-and-evidence/src/summary.mjs",
+          "labs/fixtures/10-testing-gates-and-evidence/test/summary.test.mjs",
+          "maintainers/CURRICULUM-MAINTENANCE.md",
+          "package.json",
+          "references/GLOSSARY.md",
+          "references/QUICK-REFERENCE.md",
+          "references/SOURCE-BASELINE.md",
+          "references/SOURCE-NOTES.md",
+          "scripts/gates-lab.test.mjs",
+          "scripts/verify-module-7.mjs",
+          "scripts/verify-module-7.test.mjs",
+          "scripts/verify-module-8.mjs",
+          "scripts/verify-module-8.test.mjs",
+          "scripts/verify-module-9.mjs",
+          "scripts/verify-module-9.test.mjs",
+          "scripts/verify-module-10.mjs",
+          "scripts/verify-module-10.test.mjs",
+          "solutions/README.md",
+          "solutions/lab-10-testing-gates-and-evidence.md",
+          "xbrief/PROJECT-DEFINITION.xbrief.json",
+          "xbrief/active/2026-09-10-module-10-testing-gates-and-evidence.xbrief.json",
+          "xbrief/pending/2026-09-10-module-10-testing-gates-and-evidence.xbrief.json",
+          "xbrief/proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:module-10",
+          "npm run test:module-10",
+          "directive verify:vbrief-conformance --project-root ."
+        ],
+        "expected_outputs": [
+          "Module 10 lesson, lab, and explained solution distinguish focused, literal, forward-coverage, and aggregate evidence",
+          "The disposable fixture retains an ordered red-green-refactor record and freezes the focused test after the red checkpoint",
+          "The seeded aggregate failure is diagnosed and repaired through the governed quality record while gate-definition hashes remain unchanged",
+          "Focused and negative tests enforce behavior, evidence, recovery, navigation, future-module, and platform boundaries",
+          "All xBRIEF 0.8 artifacts conform"
+        ],
+        "depends_on": [],
+        "conflict_group": "curriculum-core-navigation",
+        "size": "large",
+        "file_scope_confidence": "high",
+        "model_tier": "high"
+      },
+      "parent_lineage": {
+        "schema": "deft.scope.parent_lineage.v1",
+        "coverage_map": {
+          "training.modules9-11.implementation": {
+            "disposition": "deferred",
+            "provenance": {
+              "reason": "Module 9 is already delivered under its completed story artifact.",
+              "target_path": "completed/2026-09-10-module-9-implementation-golden-path.xbrief.json"
+            }
+          },
+          "training.modules9-11.gates": {
+            "disposition": "covered",
+            "child_story_ids": [
+              "training.modules9-11.gates"
+            ]
+          },
+          "training.modules9-11.review": {
+            "disposition": "deferred",
+            "provenance": {
+              "reason": "Module 11 remains a separate future review and completion story.",
+              "target_story_id": "training.modules9-11.review"
+            }
+          }
+        },
+        "parent_requirement_ids": [
+          "training.modules9-11.implementation",
+          "training.modules9-11.gates",
+          "training.modules9-11.review"
+        ],
+        "negative_invariant_ids": [],
+        "parent_plan_id": "training.modules9-11"
+      }
+    },
+    "references": [
+      {
+        "uri": "../PROJECT-DEFINITION.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Directive training testing, baseline, and lab safety contracts",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../curriculum/README.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Course sequence and Module 10 outcomes",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../references/SOURCE-BASELINE.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Pinned Directive 0.112.0 source and runtime baseline",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "urn:3ci:directive-training:request:2026-09-10:module-10-implementation",
+        "type": "x-xbrief/user-request",
+        "title": "David's request to implement Module 10",
+        "TrustLevel": "internal"
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "npm run check:module-10",
+        "npm run test:module-10",
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false,
+      "source_rung": "derived",
+      "derived_reason": "derived 5 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "The source and runtime record validates exact Directive 0.112.0 focused-check, literal-acceptance, forward-coverage, aggregate-check, and gate-integrity behavior with relevant exit signals, while labeling every newer-runtime disagreement or unexecuted platform accurately.",
+          "artifact_path": "references/SOURCE-NOTES.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "The supplied helper rejects mutation unless the canonical root is its unique OS-temporary no-remote repository, branch training/module-10 is clean at the named checkpoint, the exact Directive 0.112.0 graph is installed, exactly one story is active/running, and stage-specific mutable paths never include the Taskfile, gate verifier, policy, package scripts, or framework deposit.",
+          "artifact_path": "labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "The learner adds one focused behavioral test, retains its expected assertion failure, implements only the authorized source behavior, reruns to green, refactors without changing behavior, and records each exit and diff checkpoint in order with the test frozen after the red checkpoint.",
+          "artifact_path": "labs/10-testing-gates-and-evidence.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "After focused and literal acceptance checks pass, the aggregate lab gate fails for the seeded incomplete quality record; the learner identifies the first failing subcheck, updates only that governed work record from observed evidence, leaves gate-definition hashes unchanged, and reruns focused, literal, forward-coverage, and aggregate checks to green.",
+          "artifact_path": "labs/10-testing-gates-and-evidence.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "The focused negative-test verifier rejects a non-temporary or remote target, wrong branch or lifecycle state, altered exact pin, skipped or reordered red-green-refactor evidence, gate or verifier edits, incomplete quality evidence, broken links or outcome mappings, unsupported platform claims, and any claim that Module 11 is learner-ready in this scope.",
+          "artifact_path": "scripts/verify-module-10.test.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "updated": "2026-09-10T19:28:16Z"
+  }
+}

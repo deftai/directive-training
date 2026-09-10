@@ -255,7 +255,7 @@ Use it to diagnose the smallest gap, then retry from a known state.
 - Previous: [Module 8 — Session Start and Authorized Work Selection](08-session-and-work-selection.md)
 - Course map: [3Ci Directive training](../README.md)
 - Practice: [Lab 9 — Implementation Golden Path](../../labs/09-implementation-golden-path.md)
-- Next: Module 10 — Testing, Gates, and Evidence is planned and not learner-ready.
+- Next: [Module 10 — Testing, Gates, and Evidence](10-testing-gates-and-evidence.md)
 
 ## Official sources
 

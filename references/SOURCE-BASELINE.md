@@ -250,6 +250,31 @@ temporary archive. Native execution is verified only on macOS/zsh; Linux/bash an
 Windows/PowerShell remain candidates. Probe details are in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-9-source-validation).
 
+## Module 10 testing-and-gates validation
+
+Module 10 exercises an exact CLI/core/content/types 0.112.0 graph in a unique
+operating-system temporary, no-remote repository on `training/module-10`. One
+active/running schema-0.8 story permits only the focused test, numeric-summary source,
+and governed quality record; stage guards narrow those paths further.
+
+| Surface | Verified 0.112.0 result |
+| --- | --- |
+| `directive commands` | Exit `0`; registered `verify:ac`, `verify:forward-coverage`, and `check`. |
+| `directive verify:ac --help` | Exit `2`; the verb rejects `--help`. |
+| `directive verify:forward-coverage --help` | Exit `0`; documents source-to-test existence, optional changed-branch coverage, and `--enforce`. |
+| `directive check --help` | Exit `2`; the verb rejects `--help`. |
+| Focused test at red, green, and refactor | Exits `1`, `0`, and `0`; the test digest stays frozen after red. |
+| Literal acceptance | Direct `node` and arbitrary npm scripts are safety-refused; allowed `npm run test:*` and `npm run check:*` commands pass. |
+| Forward coverage | Exit `0`; source-to-test correspondence passes and the missing-report path does not claim a coverage percentage. |
+| Aggregate `task check` | First fails at seeded `quality:record`, then passes after only `quality-record.json` is completed. |
+| Gate fingerprints | Taskfile, package scripts, verifier, helper, safety module, active acceptance, and pinned framework gate files remain unchanged. |
+
+The final work diff is exactly `quality-record.json`, `src/summary.mjs`, and
+`test/summary.test.mjs`. Reset creates a different unique root while preserving the old
+attempt; cleanup moves one exact guarded parent to a recoverable archive. Native execution
+is verified only on macOS/zsh. Linux/bash and Windows/PowerShell remain candidates. Probe
+details are in [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-10-source-validation).
+
 ## Deferred skill-contract validation
 
 The following pinned files are candidates, not blanket authority for modules that have not

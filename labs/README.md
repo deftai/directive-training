@@ -25,6 +25,11 @@ learner-ready draft verified on macOS/zsh only. It retains readiness-before-muta
 focused red-green behavior, a one-file product diff, paired evidence, fresh reset, and
 recoverable archive. Linux/bash and native Windows/PowerShell remain candidates.
 
+[Lab 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md) is a
+learner-ready draft verified on macOS/zsh only. It retains ordered red-green-refactor,
+literal, forward-coverage, seeded aggregate-failure, final, and unchanged-gate evidence.
+Linux/bash and native Windows/PowerShell remain candidates.
+
 ## Rule labels
 
 - **[Directive behavior]** identifies a claim verified against the pinned Directive release. The current pin and evidence live in [the source baseline](../references/SOURCE-BASELINE.md).
@@ -307,8 +312,9 @@ No instructor or review bot is required. If the documented recovery still cannot
 | [Lab 5 — Projection drift recovery](05-projection-drift-recovery.md) | Learner-ready draft; 0.112.0 pinned npm path verified on macOS 26.6.2/zsh only | Use its exact fixture, ordered tasks, evidence, fresh reset, and archive path |
 | [Lab 7 — Scope lifecycle](07-scope-lifecycle.md) | Learner-ready draft; 0.112.0 pinned lifecycle path verified on macOS 26.6.2/zsh only | Use its guarded no-remote fixture, Task-driven transitions, retained evidence, fresh reset, and recoverable archive |
 | [Lab 9 — Implementation golden path](09-implementation-golden-path.md) | Learner-ready draft; exact 0.112.0 implementation path verified on macOS 26.6.2/zsh only | Use its guarded no-remote fixture, readiness-before-mutation sequence, one-file diff, paired evidence, fresh reset, and recoverable archive |
+| [Lab 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md) | Learner-ready draft; exact 0.112.0 gate path verified on macOS/zsh only | Use its guarded no-remote fixture, frozen focused test, ordered stage evidence, seeded aggregate failure, fresh reset, and recoverable archive |
 | [Lab authoring template](../templates/lab-template.md) | Available to maintainers | Build a lab with tasks, checkpoints, literal gates, reset, cleanup, and a solution |
-| Labs for Module 6, Modules 8 and 10–11, and the capstone | Not yet available | Follow their module links from the [curriculum map](../curriculum/README.md) when released |
+| Labs for Module 6, Module 8, Module 11, and the capstone | Not yet available | Follow their module links from the [curriculum map](../curriculum/README.md) when released |
 
 An entry marked “not yet available” is not completed curriculum.
 

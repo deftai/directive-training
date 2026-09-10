@@ -4,6 +4,13 @@
 
 ### Added
 
+- Module 10, a testing-and-gates lesson, guarded disposable red-green-refactor lab,
+  seeded aggregate failure, and explained solution for evidence-driven gate diagnosis.
+- Focused Module 10 content and fixture tests for exact Directive 0.112.0 pins,
+  ordered stage evidence, frozen-test and gate-definition fingerprints, one-record
+  repair, fresh reset, and recoverable archive.
+- A decomposed and activated Module 10 story xBRIEF with approved local-build cost
+  and change records, explicit sequential scope, and literal acceptance commands.
 - Module 9, a readiness-before-mutation lesson, guarded disposable implementation lab,
   and explained solution for the one-file test-backed golden path.
 - Focused Module 9 content and fixture tests for exact Directive 0.112.0 pins, guarded
@@ -42,8 +49,10 @@
 
 ### Changed
 
-- Mark Module 9 learner-ready on its verified macOS/zsh path while keeping Modules 10–11
+- Mark Module 10 learner-ready on its verified macOS/zsh path while keeping Module 11
   planned, and advance course, lab, assessment, solution, and reference navigation.
+- Mark Module 9 learner-ready on its verified macOS/zsh path while keeping Modules 10–11
+  planned at that milestone, and advance course, lab, assessment, solution, and reference navigation.
 - At the Module 8 milestone, mark Module 8 learner-ready while keeping Modules 9–11
   planned, and advance
   course, assessment, solution, and Module 7 forward navigation.

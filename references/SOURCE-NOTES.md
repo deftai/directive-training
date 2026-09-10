@@ -639,6 +639,48 @@ links, and Modules 10–11 planned state. Negative tests mutate only OS-temporar
 fixture suite additionally executes guard rejection, exact pinning, expected red, final
 behavior, narrow diff, fresh reset, and recoverable archive on the verified host.
 
+## Module 10 source validation
+
+Validation date: 2026-09-10. The authoring worktree reported engine 0.114.0 and deposit
+0.114.0. Those values describe authoring drift only. Learner behavior was exercised with an
+exact 0.112.0 graph for CLI/core/content/types in the guarded disposable fixture.
+
+### Pinned sources and runtime evidence
+
+| Surface | Observed result |
+| --- | --- |
+| `directive --version` through the isolated package | Exit `0`; reported engine 0.112.0. |
+| Exact 0.112.0 `directive commands` | Exit `0`; registered `verify:ac`, `verify:forward-coverage`, and `check`. |
+| `directive verify:ac --help` | Exit `2`; `verify_ac: unrecognized argument: --help`. |
+| `directive verify:forward-coverage --help` | Exit `0`; listed project-root, staged/head, allow-list, coverage-report, enforce, and quiet options. |
+| `directive check --help` | Exit `2`; `check: unrecognized argument: --help`. |
+| Guarded fixture install | Installed the exact 0.112.0 package/core/content/types graph, restored its immutable local Taskfile, and created a clean checkpoint on `training/module-10` with no remote. |
+| Focused red | Exit `1`; the assertion diff named missing `average` behavior, then the helper froze the test digest. |
+| Focused green and refactor | Exit `0` twice; `{ count: 3, total: 12, average: 4 }` remained stable while the source digest changed for refactor. |
+| Literal acceptance | Direct `node src/summary.mjs 2 4 6` and arbitrary `npm run summary` were safety-refused; the test/check family commands in the supplied active contract passed. |
+| Forward coverage | Exit `0`; source-to-test correspondence passed. No coverage report existed, so no changed-branch percentage was claimed. |
+| Seeded aggregate failure | Focused, literal, and forward checks passed before `quality:record` failed with `quality record is incomplete`. |
+| Bounded repair and final aggregate | Only `quality-record.json` changed after diagnosis; the same aggregate passed and gate fingerprints were unchanged. |
+
+The literal allowlist observations are released 0.112.0 behavior. The current 0.114.0
+authoring engine was not substituted into the learner fixture. The aggregate is intentionally
+separate from the root story's literal acceptance list so it cannot recursively invoke itself.
+No Taskfile, verifier, policy, package script, active acceptance definition, or framework
+deposit was changed to clear a failure.
+
+Platform evidence:
+
+- `module10-platform-proof:macos-zsh status=verified`
+- `module10-platform-proof:linux-bash status=candidate`
+- `module10-platform-proof:windows-powershell status=candidate`
+
+The Module 10 verifier checks lesson/lab/solution structure, exact baseline, evidence order,
+gate-integrity language, outcome coverage, source records, package scripts, links, lifecycle
+registry agreement, and Module 11 planned state. Negative tests mutate only OS-temporary
+copies. The fixture suite additionally executes identity and remote guards, exact pinning,
+red-green-refactor sequencing, test freeze, literal and forward gates, the expected aggregate
+failure, the one-record repair, final aggregate, fresh reset, and recoverable archive.
+
 ## Source-file verification
 
 Hashes are SHA-256 over file bytes at the peeled release commit.

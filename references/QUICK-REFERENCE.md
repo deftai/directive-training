@@ -220,6 +220,23 @@ from the exact path list and patch check. If readiness, identity, or scope drift
 the attempt and start from a fresh guarded root. See
 [Module 9](../curriculum/modules/09-implementation-golden-path.md).
 
+## Testing and gate evidence
+
+Keep the evidence surfaces distinct and run the aggregate last:
+
+```text
+npm run test:focused
+task deft:verify:ac -- xbrief/active/<scope>.xbrief.json
+directive verify:forward-coverage --project-root . --head
+task check
+```
+
+Retain a meaningful `red -> green -> refactor` sequence with the focused test frozen after
+red. When the aggregate fails, name the first failing subcheck and repair the governed work,
+not the Taskfile, verifier, policy, or threshold. In [Lab 10](../labs/10-testing-gates-and-evidence.md),
+the seeded repair target is `quality-record.json`; the final evidence must show unchanged gate
+fingerprints as well as a passing aggregate.
+
 ## Evidence ladder
 
 | Claim | Minimum kind of evidence |

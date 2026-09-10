@@ -1,0 +1,30 @@
+version: '3'
+
+includes:
+  deft:
+    taskfile: ./.deft/core/Taskfile.yml
+    optional: true
+
+tasks:
+  literal:
+    desc: Run the active story's literal acceptance commands.
+    cmds:
+      - ./node_modules/.bin/directive verify:ac xbrief/active/fictional-summary.xbrief.json
+
+  forward-coverage:
+    desc: Check source-to-test correspondence and available changed-branch coverage.
+    cmds:
+      - ./node_modules/.bin/directive verify:forward-coverage --project-root . --head
+
+  quality:record:
+    desc: Verify the governed Module 10 quality record.
+    cmds:
+      - node scripts/verify-quality-record.mjs
+
+  check:
+    desc: Module 10 aggregate gate; repair work, never these commands.
+    cmds:
+      - npm run test:focused
+      - task: literal
+      - task: forward-coverage
+      - task: quality:record

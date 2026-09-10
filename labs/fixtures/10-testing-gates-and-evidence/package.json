@@ -1,0 +1,18 @@
+{
+  "name": "northstar-testing-gates-lab",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:behavior": "node src/summary.mjs 2 4 6",
+    "test:focused": "node --test test/summary.test.mjs",
+    "summary": "node src/summary.mjs"
+  },
+  "devDependencies": {
+    "@deftai/directive": "0.112.0"
+  },
+  "overrides": {
+    "@deftai/directive-core": "0.112.0",
+    "@deftai/directive-content": "0.112.0",
+    "@deftai/directive-types": "0.112.0"
+  }
+}

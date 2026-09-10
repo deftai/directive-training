@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Project definition for the private 3Ci Directive training curriculum",
     "created": "2026-09-05T14:54:49Z",
-    "updated": "2026-09-10T13:44:08Z",
+    "updated": "2026-09-10T19:04:08Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -34,7 +34,7 @@
       {
         "uri": "../COST-ESTIMATE.md",
         "type": "x-xbrief/spec-section",
-        "title": "Current Module 9 cost estimate with prior Module 8, Module 7, Module 6, Modules 4-5, and historical Modules 2-3 decisions",
+        "title": "Current Module 10 cost estimate with prior curriculum decisions",
         "TrustLevel": "internal"
       }
     ],
@@ -141,6 +141,41 @@
               "uri": "urn:3ci:directive-training:request:2026-09-10:module-9-refinement",
               "type": "x-xbrief/user-request",
               "title": "David's request to refine Module 9",
+              "TrustLevel": "internal"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-10-module-10-testing-gates-and-evidence",
+        "title": "Module 10: Testing, Gates, and Evidence",
+        "status": "running",
+        "metadata": {
+          "source_path": "active/2026-09-10-module-10-testing-gates-and-evidence.xbrief.json",
+          "lifecycle_folder": "active",
+          "references": [
+            {
+              "uri": "../PROJECT-DEFINITION.xbrief.json",
+              "type": "x-xbrief/spec-section",
+              "title": "Directive training testing, baseline, and lab safety contracts",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../curriculum/README.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Course sequence and Module 10 outcomes",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../references/SOURCE-BASELINE.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Pinned Directive 0.112.0 source and runtime baseline",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "urn:3ci:directive-training:request:2026-09-10:module-10-implementation",
+              "type": "x-xbrief/user-request",
+              "title": "David's request to implement Module 10",
               "TrustLevel": "internal"
             }
           ]

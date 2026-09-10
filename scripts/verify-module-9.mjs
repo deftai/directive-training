@@ -108,7 +108,7 @@ export function verifyModule9(root = fileURLToPath(new URL("../", import.meta.ur
     "smallest coherent change", "behavioral evidence", "diff evidence",
   ]) assert.ok(moduleProse.includes(phrase), `${module9} is missing implementation guidance: ${phrase}`);
   assert.match(section(moduleProse, "Navigation"), /\]\(08-session-and-work-selection\.md\)/, "Module 9 must link back to Module 8");
-  assert.match(section(moduleProse, "Navigation"), /Module 10[^\n]*planned/i, "Module 9 must identify Module 10 as planned");
+  assert.match(section(moduleProse, "Navigation"), /\]\(10-testing-gates-and-evidence\.md\)/, "Module 9 must link forward to Module 10");
 
   const labProse = parsed.get(lab9).prose;
   assert.match(labProse, /unique OS-temporary repository with no remote/, `${lab9} is missing its temporary no-remote boundary`);
@@ -129,7 +129,9 @@ export function verifyModule9(root = fileURLToPath(new URL("../", import.meta.ur
   const module9Row = courseModuleRow(course, 9);
   assert.match(module9Row, /09-implementation-golden-path\.md/, "Module 9 course row must link the lesson");
   assert.doesNotMatch(module9Row, /\|\s*Planned\s*\|/i, "Module 9 must no longer be planned");
-  assert.match(courseModuleRow(course, 10), /\|\s*Planned\s*\|/i, "Module 10 must remain planned");
+  const module10Row = courseModuleRow(course, 10);
+  assert.match(module10Row, /10-testing-gates-and-evidence\.md/, "Module 10 course row must link the lesson");
+  assert.doesNotMatch(module10Row, /\|\s*Planned\s*\|/i, "Module 10 must remain learner-ready");
   assert.match(courseModuleRow(course, 11), /\|\s*Planned\s*\|/i, "Module 11 must remain planned");
   for (const path of ["README.md", "curriculum/README.md", "labs/README.md", "solutions/README.md", "assessments/README.md"]) {
     requireModule9Link(content.get(path), path);

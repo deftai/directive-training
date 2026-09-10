@@ -165,6 +165,8 @@ npm run check:module-8
 npm run test:module-8
 npm run check:module-9
 npm run test:module-9
+npm run check:module-10
+npm run test:module-10
 npm run test:portability
 directive verify:vbrief-conformance --project-root .
 ```
@@ -197,6 +199,13 @@ clean guarded checkpoint, session/story/active-preflight order, expected focused
 one-file `src/greeting.mjs` boundary, named/fallback behavior, patch check, retained JSON
 evidence, fresh reset, and recoverable archive together. Platform support is macOS/zsh only
 until the same commands and safety negatives run natively elsewhere.
+
+Module 10 adds an executable testing-and-gates lab. Revalidate the exact 0.112.0 graph,
+meaningful red, frozen test digest, passing green and source-only refactor, literal `verify:ac`,
+forward coverage, the seeded `quality:record` aggregate failure, the one-record repair, final
+three-file diff, unchanged gate fingerprints, fresh reset, and recoverable archive together.
+Platform support is macOS/zsh only until the same commands and safety negatives run natively
+on Linux/bash and Windows/PowerShell.
 
 Use the [native Windows revalidation handoff](WINDOWS-REVALIDATION.md) for the
 Modules 4–5 portability follow-up. Bind it to the published fix commit, preserve
