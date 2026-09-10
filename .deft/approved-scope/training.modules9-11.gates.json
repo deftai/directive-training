@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "xbriefRelPath": "xbrief/active/2026-09-10-module-10-testing-gates-and-evidence.xbrief.json",
   "planId": "training.modules9-11.gates",
-  "approvedAt": "2026-09-10T19:43:46Z",
+  "approvedAt": "2026-09-10T21:09:55Z",
   "fileScope": [
     "assessments/README.md",
     "CHANGELOG.md",
@@ -47,11 +47,11 @@
   ],
   "fileScopeDigest": "233c3a005cf0bf51ed8acc029b601c40d7552d6648849303b0d99cd1fd12de8e",
   "humanApproval": {
-    "kind": "operator",
+    "kind": "renewed-approval",
     "actor": "David",
-    "mintedAt": "2026-09-10T19:43:46Z",
+    "mintedAt": "2026-09-10T21:09:55Z",
     "mintedVia": "scope:record-approved-scope"
   },
-  "intentDigest": "f0a40e802489fa3c23dc1f82e7d328bdf1bbc83d66c92818579f023bce701784",
+  "intentDigest": "dc4452f8f1a51f4d4b6df367a7552570ee50feb04697f6e4aa46624e36f51c33",
   "digestAlgo": "intent-extract-v1"
 }
