@@ -3,13 +3,13 @@
     "version": "0.8",
     "description": "Proposed Module 9 story refined from the Modules 9-11 curriculum phase",
     "created": "2026-09-10T13:35:49Z",
-    "updated": "2026-09-10T14:09:17Z",
+    "updated": "2026-09-10T18:03:34Z",
     "author": "agent:codex"
   },
   "plan": {
     "id": "training.modules9-11.implementation",
     "title": "Module 9: The Implementation Golden Path",
-    "status": "running",
+    "status": "completed",
     "planRef": "proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
     "narratives": {
       "Description": "Deliver Module 9 and a guarded disposable Node.js lab that carries one already-active fictional story through the smallest coherent product change. The lab begins on a clean feature branch with no remote, an exact Directive 0.112.0 pin, one active/running xBRIEF, and a supplied failing focused test. The learner proves current readiness before mutation, changes only the allowed product file, and records focused behavioral and diff evidence. Test design, aggregate-gate diagnosis, PR creation, review handling, and lifecycle closeout remain in Modules 10 and 11.",
@@ -22,51 +22,81 @@
       {
         "id": "training.modules9-11.implementation.baseline",
         "title": "Validate implementation-readiness behavior",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "The source and runtime record validates exact Directive 0.112.0 session, story-ready, xBRIEF preflight, and focused-check behavior, records relevant exit signals, and labels every newer-runtime disagreement or unexecuted platform without teaching it as pinned behavior.",
           "Traces": "training.modules9-11.implementation"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-9",
+          "recorded_at": "2026-09-10T18:03:27Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.modules9-11.implementation.safety",
         "title": "Build the guarded active-story starting state",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "The supplied helper refuses mutation unless the canonical root is its unique OS-temporary repository, the repository has no remote, branch training/module-09 is clean at the named checkpoint, the exact Directive 0.112.0 graph is installed, and exactly one story is active/running with an explicit one-file product allowlist.",
           "Traces": "training.modules9-11.implementation"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:module-9",
+          "recorded_at": "2026-09-10T18:03:27Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.modules9-11.implementation.readiness",
         "title": "Prove current readiness before product mutation",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Before changing product content, the learner records a clean feature-branch check, the active contract and allowlist, a fresh gated session ritual, passing story-ready and xBRIEF preflight results, and the supplied focused test's expected failure; any failed readiness gate stops implementation and routes to bounded recovery.",
           "Traces": "training.modules9-11.implementation"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:module-9",
+          "recorded_at": "2026-09-10T18:03:27Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.modules9-11.implementation.change",
         "title": "Implement and prove the smallest coherent change",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "The learner changes only src/greeting.mjs so the supplied focused node:test passes and the fictional CLI prints the required named and fallback greetings; git diff --check passes, the narrow diff contains no test, gate, scope, helper, credential, remote, or unrelated changes, and the evidence bundle records the literal commands, exit codes, relevant output, and final status.",
           "Traces": "training.modules9-11.implementation"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:module-9",
+          "recorded_at": "2026-09-10T18:03:27Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.modules9-11.implementation.quality",
         "title": "Verify the lesson, lab, recovery, and scope boundary",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "Focused negative tests reject a non-temporary or remote target, wrong branch or lifecycle state, dirty start, altered exact pin, mutation before readiness, edits outside src/greeting.mjs, missing behavioral or diff evidence, broken links or outcome mappings, unsupported platform claims, and any claim that Module 10 or 11 is learner-ready in this scope.",
           "Traces": "training.modules9-11.implementation"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:module-9",
+          "recorded_at": "2026-09-10T18:03:27Z",
+          "recorded_by": "agent:codex"
         }
       }
     ],
@@ -208,7 +238,31 @@
         ],
         "negative_invariant_ids": [],
         "parent_plan_id": "training.modules9-11"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 36,
+        "prBase": null,
+        "mergeCommit": "824cbe7c5a610d2a5508b5409618523a3f00ce54",
+        "deliveryBranch": "master",
+        "deliveryCommit": "824cbe7c5a610d2a5508b5409618523a3f00ce54",
+        "verifiedAt": "2026-09-10T18:03:34Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "51194820-4b28-4163-9d58-6fec1e734674"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-10T18:03:34Z"
+      },
+      "completedAt": "2026-09-10T18:03:34Z",
+      "completedSessionId": "51194820-4b28-4163-9d58-6fec1e734674"
     },
     "references": [
       {
@@ -242,6 +296,6 @@
         "TrustLevel": "internal"
       }
     ],
-    "updated": "2026-09-10T14:09:17Z"
+    "updated": "2026-09-10T18:03:34Z"
   }
 }
