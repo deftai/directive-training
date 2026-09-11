@@ -74,8 +74,14 @@
         "type": "x-xbrief/plan",
         "title": "Module 10: Testing, Gates, and Evidence",
         "TrustLevel": "internal"
+      },
+      {
+        "uri": "pending/2026-09-11-module-11-review-and-completion.xbrief.json",
+        "type": "x-xbrief/plan",
+        "title": "Module 11: PR, Review, and Actual Completion",
+        "TrustLevel": "internal"
       }
     ],
-    "updated": "2026-09-10T19:04:08Z"
+    "updated": "2026-09-11T14:36:44Z"
   }
 }
