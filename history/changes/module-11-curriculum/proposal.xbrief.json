@@ -1,0 +1,48 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Approved change proposal for the Module 11 curriculum scope",
+    "created": "2026-09-11T14:15:33Z",
+    "updated": "2026-09-11T14:15:33Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.module-11-curriculum",
+    "title": "module-11-curriculum",
+    "status": "approved",
+    "items": [],
+    "narratives": {
+      "Problem": "Learners can implement and verify a bounded change through Module 10, but they cannot yet conduct a complete pre-PR self-review, classify every review finding before editing, prepare one coherent fix batch, or make evidence-bounded completion claims.",
+      "Change": "Author Module 11 as a command-free fixed-state review and completion exercise, add its explained solution, update source and learner navigation, and add focused verifiers with negative tests. The exercise uses a deterministic fictional review packet and completion scenarios so every learner can finish without a live repository, bot, or instructor.",
+      "Scope": "In scope: the Module 11 story decomposed from training.modules9-11.review; the lesson, fixed review packet, explained solution, learner navigation, glossary and quick-reference material, source validation records, focused verifier and tests, and the related project and parent lifecycle records. Out of scope: the capstone, live GitHub or review-bot activity, Greptile, learner or business repositories, real CI, merge, deployment, UAT execution, a Directive release-pin change, publishing, push, pull-request creation, branch deletion, and worktree removal.",
+      "Impact": "Completes the eleven-module core path with a 55-minute host-neutral exercise that teaches the pre-PR Read-Write-Lint-Diff loop, read-all-first finding classification, one coherent P0/P1 fix batch, current-head re-review, and separate Git delivery, deployment, and UAT evidence axes.",
+      "Risks": "The material could overstate a PR-open or integration-merged state as complete, infer deployment or UAT from Git evidence, hide an unclassified or unresolved blocking finding, teach one push per finding, expand scope for an out-of-acceptance finding, depend on Greptile, or confuse the live 0.116.0 authoring deposit with the pinned 0.112.0 learner contract.",
+      "Approach": "Revalidate the immutable Directive 0.112.0 pre-PR, review, and lifecycle sources; write failing Module 11 verifier tests; author the smallest fixed packet, lesson, and solution that satisfy the five story criteria; update exact navigation and source records; then run the literal Module 11 checks, xBRIEF conformance, and aggregate local gate.",
+      "Alternatives": "A live pull request or review-bot lab was rejected because it would be mutable, platform-dependent, and contrary to the project's simulated-review and Greptile-disabled contracts. A disposable code-mutation lab was rejected because Module 10 already proves implementation and gates; Module 11's independent learning boundary is review judgment and evidence classification. Bundling the capstone was rejected because it remains a separate proposed scope.",
+      "Dependencies": "The completed Module 9 and Module 10 curriculum, the exact @deftai/directive 0.112.0 learner pin, the 0.116.0 deposited authoring framework used only for drift comparison, Node.js 20 or newer, Git, npm, and the repository's existing Markdown and verifier patterns.",
+      "Authorization": "David requested Module 11 implementation and replied confirmed to the explicit /deft:change module-11-curriculum confirmation request. The recorded cost choice is Option 1, Build. This authorizes local Module 11 implementation and its related lifecycle artifacts only; it does not authorize remote delivery or destructive cleanup.",
+      "Stops": "Success: all Module 11 literal acceptance commands, focused negative tests, xBRIEF conformance, and the aggregate local gate pass. Failure: stop after at most five implementation fix iterations or three identical failures without progress, and at most three pre-PR review passes. Stop before push, pull-request creation, merge, deployment, publication, branch deletion, or worktree removal pending separate authorization."
+    },
+    "references": [
+      {
+        "uri": "../../../xbrief/proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Parent Modules 9-11 implementation, gates, and review scope",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../../COST-ESTIMATE.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Approved Module 11 and capstone build decision",
+        "TrustLevel": "internal"
+      }
+    ],
+    "metadata": {
+      "change_name": "module-11-curriculum",
+      "confirmed_by": "David",
+      "confirmation_phrase": "confirmed",
+      "confirmed_at": "2026-09-11T14:15:33Z",
+      "cost_selection": "Option 1, Build"
+    }
+  }
+}

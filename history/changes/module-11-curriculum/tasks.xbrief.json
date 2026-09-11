@@ -1,0 +1,76 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Implementation tasks for the approved Module 11 curriculum change",
+    "created": "2026-09-11T14:15:33Z",
+    "updated": "2026-09-11T14:15:33Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.module-11-curriculum.tasks",
+    "title": "module-11-curriculum tasks",
+    "status": "approved",
+    "items": [
+      {
+        "id": "change.module-11-curriculum.baseline",
+        "title": "Revalidate pinned pre-PR, review, and lifecycle evidence",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.module-11-curriculum.contract-tests",
+        "title": "Write failing Module 11 content-contract tests",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.module-11-curriculum.lesson",
+        "title": "Author the fixed-state Module 11 lesson and review packet",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.module-11-curriculum.solution-navigation",
+        "title": "Add the explained solution and refresh navigation and references",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.module-11-curriculum.quality",
+        "title": "Run focused, conformance, and aggregate quality gates",
+        "type": "task",
+        "status": "pending"
+      }
+    ],
+    "edges": [
+      {
+        "from": "change.module-11-curriculum.baseline",
+        "to": "change.module-11-curriculum.contract-tests",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.module-11-curriculum.contract-tests",
+        "to": "change.module-11-curriculum.lesson",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.module-11-curriculum.lesson",
+        "to": "change.module-11-curriculum.solution-navigation",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.module-11-curriculum.solution-navigation",
+        "to": "change.module-11-curriculum.quality",
+        "type": "depends_on"
+      }
+    ],
+    "references": [
+      {
+        "uri": "../../../xbrief/proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Parent Modules 9-11 implementation, gates, and review scope",
+        "TrustLevel": "internal"
+      }
+    ]
+  }
+}

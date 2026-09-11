@@ -1,0 +1,236 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Story xBRIEF decomposed from proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
+    "created": "2026-09-11T14:36:44Z",
+    "updated": "2026-09-11T19:29:00Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "training.modules9-11.review",
+    "title": "Module 11: PR, Review, and Actual Completion",
+    "status": "pending",
+    "planRef": "proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
+    "narratives": {
+      "Description": "Deliver Module 11 as a command-free fixed-state exercise that teaches learners to review a fictional change before a PR, classify every supplied finding before editing, and prepare one coherent fix batch. The same independently buildable story teaches evidence-bounded completion claims without a live repository, review bot, Greptile signal, deployment, or UAT run.",
+      "ImplementationPlan": "Revalidate the immutable Directive 0.112.0 pre-PR, review-cycle, coding-review, and lifecycle sources, then write focused negative tests in scripts/verify-module-11.test.mjs for the fixed packet, finding classification, fix-batch, and completion-state contracts.\nAuthor curriculum/modules/11-review-and-completion.md and solutions/module-11-review-and-completion.md, implement scripts/verify-module-11.mjs, and update the exact learner navigation, source, package-script, verifier, and xBRIEF paths listed in file_scope.\nRun npm run check:module-11, npm run test:module-11, and directive verify:vbrief-conformance --project-root . before the separate task deft:check aggregate gate, retaining the first failure and final evidence without weakening any verifier.",
+      "UserStory": "As a 3Ci engineer learning Directive, I want to classify review findings and completion evidence before acting, so that I can resolve blocking work coherently and state only what the evidence proves.",
+      "Traces": "training.modules9-11.review, PROJECT-DEFINITION LearningGoals, ReviewModel, DirectiveBaseline, DevelopmentPosture, and ProjectRules",
+      "QualityGate": "Run task deft:check separately as the aggregate merge chokepoint after the literal acceptance commands; do not embed the aggregate gate in plan.acceptance.commands."
+    },
+    "items": [
+      {
+        "id": "training.modules9-11.review.baseline",
+        "title": "Validate review and completion behavior",
+        "status": "pending",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "Given the exact Directive 0.112.0 learner pin and the live 0.116.0 authoring deposit, the source record identifies immutable pre-PR, review, and lifecycle evidence, labels drift explicitly, and contains no Greptile or live-host dependency.",
+          "Traces": "training.modules9-11.review"
+        }
+      },
+      {
+        "id": "training.modules9-11.review.pre-pr",
+        "title": "Complete pre-PR review and classify every finding",
+        "status": "pending",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "Given the fixed fictional packet, the learner records the Read-Write-Lint-Diff loop through a zero-change full-gate pass and classifies every finding by P0, P1, or P2 severity, acceptance-criteria scope, blocking status, disposition, and evidence before any edit is proposed.",
+          "Traces": "training.modules9-11.review"
+        }
+      },
+      {
+        "id": "training.modules9-11.review.batch",
+        "title": "Prepare one coherent review fix batch",
+        "status": "pending",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "When the classified packet contains in-scope P0 and P1 findings, a nonblocking P2, and an out-of-scope follow-up, the learner resolves only the blocking in-scope findings in one coherent batch, checks cross-file and structured-data consistency, records the P2 and follow-up dispositions, and re-reviews evidence from the current head without one push per finding.",
+          "Traces": "training.modules9-11.review"
+        }
+      },
+      {
+        "id": "training.modules9-11.review.states",
+        "title": "Classify completion evidence without overclaiming",
+        "status": "pending",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "Given implemented, PR-open, merge-ready, integration-merged, delivered, deployed, and UAT-verified scenarios, the learner records only states supported by current-head evidence; stale review, unresolved P0 or P1, delivery-branch reachability, lifecycle closeout, deployment, and UAT are evaluated independently where required.",
+          "Traces": "training.modules9-11.review"
+        }
+      },
+      {
+        "id": "training.modules9-11.review.quality",
+        "title": "Verify the lesson, solution, navigation, and boundaries",
+        "status": "pending",
+        "effort": "L",
+        "narrative": {
+          "Acceptance": "The focused verifier and negative tests reject an unclassified finding, editing before classification, one-push-per-finding guidance, out-of-scope expansion, a stale or blocking merge-ready claim, delivery without reachability and closeout, deployment or UAT inferred from Git state, a live bot dependency, broken navigation or source records, and any claim that the capstone is learner-ready.",
+          "Traces": "training.modules9-11.review"
+        }
+      }
+    ],
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "readiness": "sequential",
+        "parallel_safe": false,
+        "file_scope": [
+          "CHANGELOG.md",
+          "COST-ESTIMATE.md",
+          "README.md",
+          "assessments/README.md",
+          "curriculum/README.md",
+          "curriculum/modules/10-testing-gates-and-evidence.md",
+          "curriculum/modules/11-review-and-completion.md",
+          "history/changes/module-11-curriculum/proposal.xbrief.json",
+          "history/changes/module-11-curriculum/tasks.xbrief.json",
+          "labs/README.md",
+          "maintainers/CURRICULUM-MAINTENANCE.md",
+          "package.json",
+          "references/GLOSSARY.md",
+          "references/QUICK-REFERENCE.md",
+          "references/SOURCE-BASELINE.md",
+          "references/SOURCE-NOTES.md",
+          "scripts/verify-module-7.test.mjs",
+          "scripts/verify-module-9.mjs",
+          "scripts/verify-module-9.test.mjs",
+          "scripts/verify-module-10.mjs",
+          "scripts/verify-module-10.test.mjs",
+          "scripts/verify-module-11.mjs",
+          "scripts/verify-module-11.test.mjs",
+          "solutions/README.md",
+          "solutions/lab-10-testing-gates-and-evidence.md",
+          "solutions/module-11-review-and-completion.md",
+          "xbrief/PROJECT-DEFINITION.xbrief.json",
+          "xbrief/active/2026-09-11-module-11-review-and-completion.xbrief.json",
+          "xbrief/pending/2026-09-11-module-11-review-and-completion.xbrief.json",
+          "xbrief/proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:module-11",
+          "npm run test:module-11",
+          "directive verify:vbrief-conformance --project-root ."
+        ],
+        "expected_outputs": [
+          "Module 11 provides a command-free fixed review packet and explained solution with no live host or bot dependency",
+          "Every finding is classified before editing and the in-scope P0 and P1 findings are resolved as one coherent batch",
+          "Completion scenarios distinguish Git delivery evidence from independent deployment and UAT evidence axes",
+          "Focused negative tests enforce review order, severity, scope, batching, current-head, lifecycle, navigation, and capstone boundaries",
+          "All new xBRIEF artifacts use version 0.8 and conform"
+        ],
+        "depends_on": [],
+        "conflict_group": "curriculum-core-navigation",
+        "size": "large",
+        "file_scope_confidence": "high",
+        "model_tier": "high"
+      },
+      "parent_lineage": {
+        "schema": "deft.scope.parent_lineage.v1",
+        "coverage_map": {
+          "training.modules9-11.implementation": {
+            "disposition": "deferred",
+            "provenance": {
+              "reason": "Module 9 is already delivered under its completed story artifact.",
+              "target_path": "completed/2026-09-10-module-9-implementation-golden-path.xbrief.json"
+            }
+          },
+          "training.modules9-11.gates": {
+            "disposition": "deferred",
+            "provenance": {
+              "reason": "Module 10 is already delivered under its completed story artifact.",
+              "target_path": "completed/2026-09-10-module-10-testing-gates-and-evidence.xbrief.json"
+            }
+          },
+          "training.modules9-11.review": {
+            "disposition": "covered",
+            "child_story_ids": [
+              "training.modules9-11.review"
+            ]
+          }
+        },
+        "parent_requirement_ids": [
+          "training.modules9-11.implementation",
+          "training.modules9-11.gates",
+          "training.modules9-11.review"
+        ],
+        "negative_invariant_ids": [],
+        "parent_plan_id": "training.modules9-11"
+      }
+    },
+    "references": [
+      {
+        "uri": "PROJECT-DEFINITION.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Directive training review, baseline, and safety contracts",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../curriculum/README.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Course sequence and Module 11 outcomes",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../references/SOURCE-BASELINE.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Pinned Directive 0.112.0 source and runtime baseline",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "urn:3ci:directive-training:request:2026-09-11:module-11-implementation",
+        "type": "x-xbrief/user-request",
+        "title": "David's request to implement Module 11",
+        "TrustLevel": "internal"
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "npm run check:module-11",
+        "npm run test:module-11",
+        "directive verify:vbrief-conformance --project-root ."
+      ],
+      "none_stated": false,
+      "source_rung": "derived",
+      "ambiguity_attestation": "none_found",
+      "derived_reason": "Derived five independently testable clauses from David's Module 11 implementation request and the approved parent requirement before product edits.",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "The source record identifies immutable Directive 0.112.0 pre-PR, review, and lifecycle evidence, labels authoring-runtime drift explicitly, and contains no Greptile or live-host dependency.",
+          "artifact_path": "references/SOURCE-NOTES.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "The fixed fictional packet records a complete zero-change pre-PR cycle and requires every finding to be classified by severity, scope, blocking status, disposition, and evidence before editing.",
+          "artifact_path": "curriculum/modules/11-review-and-completion.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "The explained resolution fixes only blocking in-scope findings in one coherent batch, records P2 and out-of-scope dispositions, and requires current-head re-review without one push per finding.",
+          "artifact_path": "solutions/module-11-review-and-completion.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Completion scenarios preserve implemented, PR-open, merge-ready, integration-merged, delivered, deployed, and UAT-verified evidence without inferring deployment or UAT from Git state.",
+          "artifact_path": "curriculum/modules/11-review-and-completion.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Focused and negative tests enforce review order, severity, scope, batching, current-head evidence, lifecycle, navigation, source, and still-planned capstone boundaries.",
+          "artifact_path": "scripts/verify-module-11.test.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ]
+    }
+  }
+}
