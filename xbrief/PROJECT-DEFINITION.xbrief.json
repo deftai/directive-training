@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Project definition for the private 3Ci Directive training curriculum",
     "created": "2026-09-05T14:54:49Z",
-    "updated": "2026-09-10T19:04:08Z",
+    "updated": "2026-09-11T14:51:26Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -112,70 +112,35 @@
         }
       },
       {
-        "id": "2026-09-10-module-9-implementation-golden-path",
-        "title": "Module 9: The Implementation Golden Path",
-        "status": "completed",
+        "id": "2026-09-11-module-11-review-and-completion",
+        "title": "Module 11: PR, Review, and Actual Completion",
+        "status": "running",
         "metadata": {
-          "source_path": "completed/2026-09-10-module-9-implementation-golden-path.xbrief.json",
-          "lifecycle_folder": "completed",
+          "source_path": "active/2026-09-11-module-11-review-and-completion.xbrief.json",
+          "lifecycle_folder": "active",
           "references": [
             {
-              "uri": "../PROJECT-DEFINITION.xbrief.json",
+              "uri": "PROJECT-DEFINITION.xbrief.json",
               "type": "x-xbrief/spec-section",
-              "title": "Directive training implementation, baseline, and lab safety contracts",
+              "title": "Directive training review, baseline, and safety contracts",
               "TrustLevel": "internal"
             },
             {
-              "uri": "../../curriculum/README.md",
+              "uri": "../curriculum/README.md",
               "type": "x-xbrief/spec-section",
-              "title": "Course sequence and Module 9 outcomes",
+              "title": "Course sequence and Module 11 outcomes",
               "TrustLevel": "internal"
             },
             {
-              "uri": "../../references/SOURCE-BASELINE.md",
+              "uri": "../references/SOURCE-BASELINE.md",
               "type": "x-xbrief/spec-section",
               "title": "Pinned Directive 0.112.0 source and runtime baseline",
               "TrustLevel": "internal"
             },
             {
-              "uri": "urn:3ci:directive-training:request:2026-09-10:module-9-refinement",
+              "uri": "urn:3ci:directive-training:request:2026-09-11:module-11-implementation",
               "type": "x-xbrief/user-request",
-              "title": "David's request to refine Module 9",
-              "TrustLevel": "internal"
-            }
-          ]
-        }
-      },
-      {
-        "id": "2026-09-10-module-10-testing-gates-and-evidence",
-        "title": "Module 10: Testing, Gates, and Evidence",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-10-module-10-testing-gates-and-evidence.xbrief.json",
-          "lifecycle_folder": "completed",
-          "references": [
-            {
-              "uri": "../PROJECT-DEFINITION.xbrief.json",
-              "type": "x-xbrief/spec-section",
-              "title": "Directive training testing, baseline, and lab safety contracts",
-              "TrustLevel": "internal"
-            },
-            {
-              "uri": "../../curriculum/README.md",
-              "type": "x-xbrief/spec-section",
-              "title": "Course sequence and Module 10 outcomes",
-              "TrustLevel": "internal"
-            },
-            {
-              "uri": "../../references/SOURCE-BASELINE.md",
-              "type": "x-xbrief/spec-section",
-              "title": "Pinned Directive 0.112.0 source and runtime baseline",
-              "TrustLevel": "internal"
-            },
-            {
-              "uri": "urn:3ci:directive-training:request:2026-09-10:module-10-implementation",
-              "type": "x-xbrief/user-request",
-              "title": "David's request to implement Module 10",
+              "title": "David's request to implement Module 11",
               "TrustLevel": "internal"
             }
           ]
@@ -345,6 +310,82 @@
               "uri": "../../references/SOURCE-BASELINE.md",
               "type": "x-xbrief/spec-section",
               "title": "Pinned Directive 0.112.0 source and runtime baseline",
+              "TrustLevel": "internal"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-10-module-10-testing-gates-and-evidence",
+        "title": "Module 10: Testing, Gates, and Evidence",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-10-module-10-testing-gates-and-evidence.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "../PROJECT-DEFINITION.xbrief.json",
+              "type": "x-xbrief/spec-section",
+              "title": "Directive training testing, baseline, and lab safety contracts",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../curriculum/README.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Course sequence and Module 10 outcomes",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../references/SOURCE-BASELINE.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Pinned Directive 0.112.0 source and runtime baseline",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "urn:3ci:directive-training:request:2026-09-10:module-10-implementation",
+              "type": "x-xbrief/user-request",
+              "title": "David's request to implement Module 10",
+              "TrustLevel": "internal"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-10-module-9-implementation-golden-path",
+        "title": "Module 9: The Implementation Golden Path",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-10-module-9-implementation-golden-path.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "../PROJECT-DEFINITION.xbrief.json",
+              "type": "x-xbrief/spec-section",
+              "title": "Directive training implementation, baseline, and lab safety contracts",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../curriculum/README.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Course sequence and Module 9 outcomes",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../references/SOURCE-BASELINE.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Pinned Directive 0.112.0 source and runtime baseline",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "urn:3ci:directive-training:request:2026-09-10:module-9-refinement",
+              "type": "x-xbrief/user-request",
+              "title": "David's request to refine Module 9",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "https://github.com/3Ci-Consulting/directive-training/issues/34",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #34: Fix Module 9 parent-lineage preflight metadata",
               "TrustLevel": "internal"
             }
           ]

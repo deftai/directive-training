@@ -4,6 +4,15 @@
 
 ### Added
 
+- Module 11, a command-free fixed-state pre-PR, review-finding, coherent-batch,
+  current-head, and evidence-bounded completion lesson with an explained solution.
+- Focused Module 11 verification and negative tests for exact Directive 0.112.0
+  source evidence, review order, all-finding classification, P0/P1/P2 scope and
+  blocking decisions, delivery proof, independent deployment/UAT axes, links,
+  lifecycle state, and the still-planned capstone.
+- A decomposed and activated Module 11 story xBRIEF with approved local-build
+  cost and change records, explicit sequential scope, and literal acceptance
+  commands.
 - Module 10, a testing-and-gates lesson, guarded disposable red-green-refactor lab,
   seeded aggregate failure, and explained solution for evidence-driven gate diagnosis.
 - Focused Module 10 content and fixture tests for exact Directive 0.112.0 pins,
@@ -49,6 +58,9 @@
 
 ### Changed
 
+- Mark Module 11 learner-ready as a command-free fixed-state exercise, complete
+  the eleven-module core path, and advance course, lab, assessment, solution,
+  maintenance, and reference navigation while keeping the capstone planned.
 - Mark Module 10 learner-ready on its verified macOS/zsh path while keeping Module 11
   planned, and advance course, lab, assessment, solution, and reference navigation.
 - Mark Module 9 learner-ready on its verified macOS/zsh path while keeping Modules 10–11

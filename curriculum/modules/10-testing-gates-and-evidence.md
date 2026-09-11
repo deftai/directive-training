@@ -155,7 +155,7 @@ After a good-faith attempt, compare your evidence with the [explained Lab 10 sol
 
 - Previous: [Module 9 — The Implementation Golden Path](09-implementation-golden-path.md)
 - Practice: [Lab 10 — Testing, Gates, and Evidence](../../labs/10-testing-gates-and-evidence.md)
-- Next: Module 11 — Review Findings and Completion is planned and is not learner-ready in this scope.
+- Next: [Module 11 — PR, review, and actual completion](11-review-and-completion.md)
 - Course map: [curriculum README](../README.md)
 
 ## Official sources

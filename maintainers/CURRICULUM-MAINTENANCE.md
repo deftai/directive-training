@@ -167,6 +167,8 @@ npm run check:module-9
 npm run test:module-9
 npm run check:module-10
 npm run test:module-10
+npm run check:module-11
+npm run test:module-11
 npm run test:portability
 directive verify:vbrief-conformance --project-root .
 ```
@@ -206,6 +208,15 @@ forward coverage, the seeded `quality:record` aggregate failure, the one-record 
 three-file diff, unchanged gate fingerprints, fresh reset, and recoverable archive together.
 Platform support is macOS/zsh only until the same commands and safety negatives run natively
 on Linux/bash and Windows/PowerShell.
+
+Module 11 is a command-free fixed-state exercise. Revalidate the complete H1
+packet, Read-Write-Lint-Diff zero-change exit, classify-before-editing order,
+P0/P1/P2 severity and scope decisions, one coherent F1/F2 batch with one commit
+and push, H2-bound checks and review with no push during review,
+delivery-branch reachability plus lifecycle closeout, and the separate
+Git/delivery, deployment, and UAT axes. It needs no platform execution or live
+reviewer. Reset and recovery use a fresh scratch worksheet, not a repository
+reset. Keep the capstone planned until its separate scope is delivered.
 
 Use the [native Windows revalidation handoff](WINDOWS-REVALIDATION.md) for the
 Modules 4–5 portability follow-up. Bind it to the published fix commit, preserve

@@ -109,7 +109,7 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
     "task check", "first failing subcheck", "repair the work, not the gate", "gate-definition hashes",
   ]) assert.ok(moduleProse.includes(phrase), `${module10} is missing gate-integrity guidance: ${phrase}`);
   assert.match(section(moduleProse, "Navigation"), /\]\(09-implementation-golden-path\.md\)/, "Module 10 must link back to Module 9");
-  assert.match(section(moduleProse, "Navigation"), /Module 11[^\n]*planned/i, "Module 10 must identify Module 11 as planned");
+  assert.match(section(moduleProse, "Navigation"), /\]\(11-review-and-completion\.md\)/, "Module 10 must link forward to Module 11");
 
   const labProse = parsed.get(lab10).prose;
   assert.match(labProse, /unique OS-temporary repository with no remote/, `${lab10} is missing its temporary no-remote boundary`);
@@ -130,7 +130,13 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
   const module10Row = courseModuleRow(course, 10);
   assert.match(module10Row, /10-testing-gates-and-evidence\.md/, "Module 10 course row must link the lesson");
   assert.doesNotMatch(module10Row, /\|\s*Planned\s*\|/i, "Module 10 must no longer be planned");
-  assert.match(courseModuleRow(course, 11), /\|\s*Planned\s*\|/i, "Module 11 must remain planned");
+  const module11Row = courseModuleRow(course, 11);
+  assert.match(
+    module11Row,
+    /\[PR, review, and actual completion\]\(modules\/11-review-and-completion\.md\)/,
+    "Module 11 course row must link the lesson",
+  );
+  assert.match(module11Row, /\|\s*Learner-ready\b/i, "Module 11 must remain learner-ready");
   for (const path of ["README.md", "curriculum/README.md", "labs/README.md", "solutions/README.md", "assessments/README.md"]) {
     requireModule10Link(content.get(path), path);
     verifyLinks(root, path, markdownParts(content.get(path)).prose);

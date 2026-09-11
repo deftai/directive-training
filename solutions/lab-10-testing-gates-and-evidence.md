@@ -190,4 +190,4 @@ Use the lab's reset helper to create a fresh attempt while preserving the origin
 
 ## Continue
 
-Return to the [Module 10 self-assessment](../curriculum/modules/10-testing-gates-and-evidence.md#self-assessment). Module 11 remains planned and is not learner-ready in this scope.
+Return to the [Module 10 self-assessment](../curriculum/modules/10-testing-gates-and-evidence.md#self-assessment), then continue to [Module 11 — PR, review, and actual completion](../curriculum/modules/11-review-and-completion.md).

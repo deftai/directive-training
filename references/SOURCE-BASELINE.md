@@ -1,17 +1,17 @@
 # Directive source baseline
 
 This manifest fixes the curriculum's version-sensitive claims to Directive 0.112.0. It was
-revalidated through 2026-09-10 and must be refreshed when the project pin changes.
+revalidated through 2026-09-11 and must be refreshed when the project pin changes.
 
 ## Release identity
 
 | Evidence | Verified result |
 | --- | --- |
 | Consumer project pin | `package.json` has exact dev dependency `@deftai/directive: 0.112.0`. |
-| Executables used for probes | Earlier Modules 2–6 probes used a then-current global 0.112.0 CLI. Module 7 used a disposable repository's explicit `node_modules/.bin/directive` and isolated Task PATH from the exact fixture pin; the now-global 0.113.0 CLI was detected and excluded. |
-| Installed packages | The global CLI/core/content graph and the disposable repository's CLI/core/content/types graph all resolved to 0.112.0. The training repository itself records a pin but intentionally contains no project-local install or lockfile. |
-| Runtime version report | The Module 7 local binary reported `@deftai/directive (engine: @deftai/directive-core@0.112.0)`. The shell-global 0.113.0 report is not evidence for this baseline. |
-| Consumer deposit | `.deft/GENERATION.json` records payload, templates, skills, and docs at 0.112.0. |
+| Executables used for probes | Earlier Modules 2–6 probes used a then-current global 0.112.0 CLI. Modules 7, 9, and 10 used disposable repositories' explicit pin-matched launchers. Module 11 inspected immutable 0.112.0 source. During Module 11 validation, the default unqualified shell CLI reported engine 0.114.0. Final authoring gates explicitly selected the NVM-managed CLI, which reported engine 0.116.0, to match the current 0.116.0 deposit. These versions are authoring-runtime context, not learner-behavior evidence. |
+| Installed packages | Historical learner proof at 0.112.0 used a global CLI/core/content graph and disposable repositories' CLI/core/content/types graphs that all resolved to 0.112.0. The training repository itself records a pin but intentionally contains no project-local install or lockfile. |
+| Runtime version report | The historical Module 7 local binary reported `@deftai/directive (engine: @deftai/directive-core@0.112.0)`. A shell-global 0.113.0 report observed during earlier authoring was not evidence for this baseline. Current default and selected authoring runtimes are recorded in the executable row above. |
+| Consumer deposit | The pinned baseline proof recorded payload, templates, skills, and docs at 0.112.0. The current authoring deposit is 0.116.0 and is not learner-behavior evidence. |
 | Release tag | Annotated tag `v0.112.0`; tag object `5f30e544eedb72c313ba61934818eb49506fe61b`. |
 | Release commit | `7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808`. The tag peel and npm `gitHead` agree. |
 | npm artifact | Version 0.112.0; integrity `sha512-c5fOMWk2p1C/M6q8B3DrAJDjceNPeU6AvCesTA/zQAw/V+vbiPltfeo8NIBndoxRAaDtbVSQzEKnQ93f6sDS1w==`. |
@@ -26,7 +26,8 @@ When evidence disagrees, use this order:
 
 1. Observed behavior from the installed, pin-matched CLI or deterministic gate.
 1. Source at the immutable release commit.
-1. The 0.112.0 content reconstituted under `.deft/core/`.
+1. Preserved 0.112.0 package/deposit bytes and hashes recorded during the
+   module-specific proofs.
 1. This curriculum's explanation.
 
 The first three layers define upstream behavior. The curriculum paraphrases them and labels
@@ -60,6 +61,8 @@ release.
 | The workflow has an inception phase and a recurring session phase; strategy, triage, slicing, implementation, review, and shipping can loop. | [content/docs/directive-lifecycle.md][src-lifecycle] — `The two phases`, `Stage → real surface`, `Why it loops`. |
 | Session start is the ordinary re-entry point, while mutation work adds ritual, story-ready, and xBRIEF preflight gates. | [content/docs/directive-lifecycle.md][src-lifecycle] — `Resume (the usual entry, every session)`; [content/commands.md][src-commands] — `Session-start ritual (#1149)`, `Session routing (#2176)`. |
 | Deterministic checks are evidence; focused checks support iteration and the full check is the merge chokepoint. | [docs/CONCEPTS.md][src-concepts] — `Quality Gates`; [content/commands.md][src-commands] — `Quality And Verification Commands`, `Gate throughput — iteration fast lane (#1704)`. |
+| Pre-PR self-review follows Read, Write, Lint, Diff, and Loop; any edit restarts the pass and exit requires a complete pass with no further edits. | [deft-directive-pre-pr][skill-pre-pr] — `Loop Phases`, `Phase 1 -- Read` through `Phase 5 -- Loop`, `Exit Condition`. |
+| Review findings are read and classified before editing; severity, acceptance scope, blocking status, and disposition remain explicit. | [content/coding/review.md][src-review] — `Universal Requirements`, `Severity and merge gate`, `Anti-Patterns`; [deft-directive-review-cycle][skill-review] — `Principle Authority`, Steps 1–3 and 5–6. |
 | Durable edits belong in xBRIEF source; rendered specification, PRD, roadmap, and project views are regenerated. | [content/commands.md][src-commands] — `Generated Document Commands`; [docs/CONCEPTS.md][src-concepts] — `Source Of Truth Vs Projection`. |
 | Preparatory strategies inform a later specification; spec-generating strategies create lifecycle artifacts. | [content/strategies/README.md][src-strategies] — `Available Strategies`, `Strategy Types`, `v0.20 Output Contract (for spec-generating strategies)`. |
 | An idea can enter a bounded strategy choice, including a structured interview, and current setup can record the result directly as proposed scope; `specification.xbrief.json` is optional compatibility state, not a required intermediate artifact. | [content/docs/directive-lifecycle.md][src-lifecycle] — `Stage → real surface`; [content/strategies/interview.md][src-interview] — choice and interview sections; [deft-directive-setup][skill-setup] — current strategy dispatch and compatibility handling. |
@@ -275,6 +278,30 @@ attempt; cleanup moves one exact guarded parent to a recoverable archive. Native
 is verified only on macOS/zsh. Linux/bash and Windows/PowerShell remain candidates. Probe
 details are in [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-10-source-validation).
 
+## Module 11 review-and-completion validation
+
+Module 11 is a command-free exercise over a fixed fictional packet. Its behavior claims
+were revalidated against immutable source at the 0.112.0 release commit:
+
+| Pinned source | Teaching contract |
+| --- | --- |
+| [deft-directive-pre-pr][skill-pre-pr] | Read, Write, Lint, Diff, Loop, restart after edits, and the zero-change exit. |
+| [content/coding/review.md][src-review] | Read all findings, severity, merge blocking, coherent repair, and review anti-patterns. |
+| [deft-directive-review-cycle][skill-review] | Classification before editing, acceptance-scope disposition, one fix batch, and current-head review. |
+| [Directive lifecycle][src-lifecycle] | Implemented, PR-open, merge-ready, integration-merged, delivered, deployed, and UAT evidence boundaries. |
+
+The learner pin remains exactly 0.112.0. During Module 11 validation, the default unqualified
+shell CLI reported engine 0.114.0. Final authoring gates explicitly selected the NVM-managed
+CLI, which reported engine 0.116.0, to match the current 0.116.0 deposit. Both CLI versions
+are authoring-runtime context and neither defines learner behavior. The current 0.116.0
+deposit differs from the pinned source on newer policy and adapter mechanics, including
+aggregate-gate placement in the current pre-PR skill. Those differences are recorded as
+drift and are not taught as 0.112.0 behavior. The exercise implements the project's
+simulated-review policy: it requires no live GitHub repository, external review bot, CI run,
+merge, deployment, or UAT execution.
+Exact hashes and adaptation notes are in
+[SOURCE-NOTES.md](./SOURCE-NOTES.md#module-11-source-validation).
+
 ## Deferred skill-contract validation
 
 The following pinned files are candidates, not blanket authority for modules that have not
@@ -284,8 +311,6 @@ corresponding module is written.
 | Curriculum area | Revalidation source |
 | --- | --- |
 | Implementation and quality gates | [deft-directive-build][skill-build] |
-| Pre-PR self-review | [deft-directive-pre-pr][skill-pre-pr] |
-| Review and fix cycles | [deft-directive-review-cycle][skill-review] |
 | Backlog refinement | [deft-directive-refinement][skill-refinement] |
 | Parallel work allocation | [deft-directive-swarm][skill-swarm] |
 
@@ -312,7 +337,8 @@ a substantial copy.
 Refresh this baseline when any of these occurs:
 
 - `package.json` changes the Directive pin.
-- `.deft/GENERATION.json` no longer matches the pin.
+- The authoring engine or deposit version changes, or its difference from the
+  learner pin is not explicitly recorded as drift.
 - A module first teaches one of the deferred skill contracts.
 - A tested command, help surface, source heading, or consumer Task namespace changes.
 
@@ -335,6 +361,7 @@ Record probe-level results, disagreements, and unresolved coverage in
 [src-interview]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/strategies/interview.md
 [src-verification]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/verification/verification.md
 [src-plan-checking]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/verification/plan-checking.md
+[src-review]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/coding/review.md
 [src-glossary-upstream]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/glossary.md
 [src-license]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/LICENSE
 [skill-setup]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-setup/SKILL.md

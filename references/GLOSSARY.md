@@ -1,7 +1,7 @@
 # Directive training glossary
 
 These definitions describe the course baseline: `@deftai/directive` 0.112.0
-and xBRIEF schema 0.8, verified through 2026-09-10. See
+and xBRIEF schema 0.8, verified through 2026-09-11. See
 [SOURCE-BASELINE.md](SOURCE-BASELINE.md) before applying them to another
 release.
 
@@ -285,6 +285,28 @@ It complements focused checks and the aggregate gate.
 
 ## Work selection and delivery states
 
+**pre-PR review**
+The `Read -> Write -> Lint -> Diff -> Loop` self-review performed before a PR
+handoff. Any edit restarts the loop; exit requires one complete zero-change
+pass.
+
+**P0 / P1 / P2**
+Review severities. In the Module 11 fixed policy, P0 is critical, P1 is a
+serious correctness or acceptance defect, and P2 is nonblocking. The supplied
+P0 and P1 are in scope and block; severity and acceptance scope remain separate
+judgments.
+
+**coherent fix batch**
+One related repair that resolves all blocking in-scope findings, includes the
+necessary tests and cross-file consistency work, records other dispositions,
+and creates one reviewed head rather than one push per finding. Do not push
+again while review of that head is in progress. New blocking findings start a
+new classify-and-batch iteration.
+
+**current-head review**
+Review evidence bound to the revision now proposed for merge. A review of an
+earlier head is stale after a fix creates a new head.
+
 **ordered plan**
 An operator-set short sequence that binds bare continuation language such as
 “proceed” to its current entry. An active ordered plan takes precedence over the
@@ -312,8 +334,19 @@ A pull request exists. This alone does not mean review is complete or the change
 is safe to merge.
 
 **merge-ready**
-Required current checks and reviews support merging, subject to the repository's
-human or automated merge authority.
+Required current checks and current-head review support merging, with zero
+unresolved P0 or P1 findings, subject to the repository's separate human or
+automated merge authority.
+
+**integration-merged**
+The change is merged into an integration branch but is not yet proven reachable
+from the configured delivery branch. Directive's exact machine state is
+`merged_to_integration`.
+
+**delivery branch**
+The configured branch whose reachable history supplies the Git half of
+delivery evidence. An integration-branch merge is not delivery-branch
+reachability.
 
 **delivered**
 The accepted change is present on the intended delivery branch and its lifecycle

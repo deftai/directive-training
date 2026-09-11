@@ -138,6 +138,22 @@ test("verifier rejects Module 10 regressing to planned after release", () => {
   assert.throws(() => verifyModule9(root), /Module 10 must remain learner-ready/);
 });
 
+test("verifier rejects Module 11 regressing to planned after release", () => {
+  const root = changedCopy("curriculum/README.md", (body) => body.replace(
+    "| 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Learner-ready draft; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |",
+    "| 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Planned | Resolve simulated findings and classify completion evidence |",
+  ));
+  assert.throws(() => verifyModule9(root), /Module 11 must remain learner-ready/);
+});
+
+test("verifier rejects Module 11 becoming unavailable under another label", () => {
+  const root = changedCopy("curriculum/README.md", (body) => body.replace(
+    "| 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Learner-ready draft; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |",
+    "| 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Not yet available | Resolve simulated findings and classify completion evidence |",
+  ));
+  assert.throws(() => verifyModule9(root), /Module 11 must remain learner-ready/);
+});
+
 test("verifier rejects a missing Module 9 outcome mapping", () => {
   const root = changedCopy("curriculum/modules/09-implementation-golden-path.md", (body) => body.replaceAll("O9.5", "O9.X"));
   assert.throws(() => verifyModule9(root), /missing O9\.5/);

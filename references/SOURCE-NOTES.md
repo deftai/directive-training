@@ -5,18 +5,24 @@ They are maintainer evidence, not a learner command reference.
 
 ## Verification context
 
-- Current-baseline verification date: 2026-09-10. Runtime proofs below retain
+- Current-baseline verification date: 2026-09-11. Runtime proofs below retain
   their original execution dates; each module section states its own source,
   content-contract, and runtime evidence boundary.
 - Host used: macOS with zsh and Node.js 24.18.0.
 - Project direct pin: `@deftai/directive` 0.112.0 in `devDependencies`.
 - The training project had no project-local `node_modules` or lockfile; its exact direct pin
   is a reconstitution anchor, not proof of a local install.
-- Executed CLI: global `/Users/davidcall/.nvm/versions/node/v24.18.0/bin/directive` and the
-  disposable repository's explicit project-local binary.
-- Installed CLI, core engine, content, and types packages: 0.112.0 each on the applicable
-  package graph.
-- Reconstituted deposit generation: 0.112.0 on all recorded surfaces.
+- Historical learner-baseline executable context: Modules 2–6 used a then-current global
+  CLI that reported 0.112.0; later executable learner proofs used disposable repositories'
+  explicit pin-matched binaries. No global path from those proofs is assumed current.
+- Historical learner-baseline installed package graph: CLI, core engine, content, and types
+  resolved to 0.112.0 on each applicable learner-proof graph.
+- Historical learner-baseline deposit proof: reconstituted surfaces reported 0.112.0. This
+  is preserved evidence, not a description of the current authoring deposit.
+- Current Module 11 authoring context: during Module 11 validation, the default unqualified
+  shell CLI reported engine 0.114.0. Final authoring gates explicitly selected the NVM-managed
+  CLI, which reported engine 0.116.0, to match the current 0.116.0 deposit. These versions are
+  authoring-runtime context, not learner-behavior evidence.
 - Official tag: `v0.112.0`; peeled commit and npm `gitHead`:
   `7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808`.
 - The complete macOS/zsh Module 2 rehearsal used two unique disposable, no-remote Git
@@ -28,7 +34,10 @@ They are maintainer evidence, not a learner command reference.
   used Node.js 24.20.0 on `macos-15`, `ubuntu-24.04`, and `windows-2022`; all three
   jobs passed at exact candidate head `3f2f996bcfb53c4361cc5c5e949d9c9cd2c83a39`.
 
-## Version and provenance probes
+## Historical 0.112.0 learner-baseline version and provenance probes
+
+These rows preserve the 2026-09-07 learner-baseline probe set. They are not a
+current authoring-environment report.
 
 | Probe | Exit | Result |
 | --- | ---: | --- |
@@ -635,7 +644,7 @@ Platform evidence:
 
 The Module 9 verifier checks lesson/lab/solution structure, exact baseline, readiness order,
 guard and one-file scope language, outcomes, evidence names, source records, package scripts,
-links, and Modules 10–11 planned state. Negative tests mutate only OS-temporary copies. The
+links, and durable forward navigation through learner-ready Modules 10–11. Negative tests mutate only OS-temporary copies. The
 fixture suite additionally executes guard rejection, exact pinning, expected red, final
 behavior, narrow diff, fresh reset, and recoverable archive on the verified host.
 
@@ -676,10 +685,59 @@ Platform evidence:
 
 The Module 10 verifier checks lesson/lab/solution structure, exact baseline, evidence order,
 gate-integrity language, outcome coverage, source records, package scripts, links, lifecycle
-registry agreement, and Module 11 planned state. Negative tests mutate only OS-temporary
+registry agreement, and learner-ready Module 11 navigation. Negative tests mutate only OS-temporary
 copies. The fixture suite additionally executes identity and remote guards, exact pinning,
 red-green-refactor sequencing, test freeze, literal and forward gates, the expected aggregate
 failure, the one-record repair, final aggregate, fresh reset, and recoverable archive.
+
+## Module 11 source validation
+
+Validation date: 2026-09-11. The learner baseline remains 0.112.0. During Module
+11 validation, the default unqualified shell CLI reported engine 0.114.0. Final
+authoring gates explicitly selected the NVM-managed CLI, which reported engine
+0.116.0, to match the current 0.116.0 deposit. These authoring values describe
+drift only; they are not substituted for the pinned learner contract.
+
+### Immutable source evidence
+
+All hashes below are SHA-256 over bytes at release commit
+`7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808`.
+
+| Pinned source | SHA-256 | Contract used by Module 11 |
+| --- | --- | --- |
+| `content/skills/deft-directive-pre-pr/SKILL.md` | `f60a8eaee395cc65d550b95fab6da8348817de023c3f63accebfbdfc88eeea42` | `Loop Phases`, Read through Loop, restart after edits, and the zero-change exit condition. |
+| `content/skills/deft-directive-review-cycle/SKILL.md` | `ff0337151f6f545999367df87a307c3892707df79ffdadeb06c6ef2c10f15082` | Principle authority, read/classify before editing, acceptance-scope disposition, one fix batch, and current-head re-review. |
+| `content/coding/review.md` | `f00e769f61d6be1494294d334c30983b07716bcc41584524424069f7e0d3b8bf` | Universal review requirements, P0/P1/P2 severity and merge gate, and review anti-patterns. |
+| `content/docs/directive-lifecycle.md` | `14ea6bfd92cc8d49bdce173206f4d73670e24c87abdb0bf620b6bbe218799c52` | Delivery integrity versus deployment and UAT, including the integration-merge boundary. |
+
+The first three current 0.116.0 deposit files differ from the pinned hashes. In
+particular, the newer pre-PR skill moves aggregate-gate placement and the
+review material contains newer policy and adapter mechanics. The lifecycle
+source remains byte-identical for the cited delivery boundary. Module 11
+teaches the pinned 0.112.0 contract only.
+
+### Exercise adaptation and safety
+
+The fixed packet paraphrases the four sources and supplies fictional H1/H2
+evidence. It contains one in-scope P0 configured-secret-value exposure, one
+in-scope P1 cross-file contract mismatch, one nonblocking P2, and one
+out-of-scope P2.
+The learner classifies all four before proposing a coherent F1/F2 batch, then
+requires checks and review bound to H2.
+
+The exercise implements the project ReviewModel with simulated findings. It
+uses no live review bot, GitHub repository, CI run, merge, deployment, UAT,
+credential value, client data, or host automation. Greptile is disabled for
+this project, so no Greptile adapter, confidence, polling, or status behavior is
+part of the learner path.
+
+The Module 11 verifier checks the fixed packet, blank pre-PR worksheet and
+phase order, unique semantic classification rows, contradiction rejection,
+coherent batching, current-head evidence, three independent completion axes,
+source records, navigation, lifecycle registry, exact package scripts, and the
+still-planned capstone. Its negative tests mutate only unique OS-temporary
+copies of repository content. Because the exercise is command-free, it makes
+no platform-runtime claim.
 
 ## Source-file verification
 
@@ -692,6 +750,9 @@ Hashes are SHA-256 over file bytes at the peeled release commit.
 | `docs/CONCEPTS.md` | `20fe9d9a0ab72c9922b7c4fb22ed6944f41d73c7730b25347c41af9c27c79161` | Source-repository-only; not in `.deft/core/`. |
 | `content/conventions/references.md` | `a07578a13eeb1bfb20f10d08aff4e71549a63e3f7585bb5be9d32827d2ebaf98` | Reconstituted at `.deft/core/conventions/references.md` with the deposit marker and one relative-link rewrite; deposited hash `1a31bb6c4406189acbf1bb95c1832f55389bfe300e190a5946f60025366435d4`. |
 | `content/docs/directive-lifecycle.md` | `14ea6bfd92cc8d49bdce173206f4d73670e24c87abdb0bf620b6bbe218799c52` | Byte-identical at `.deft/core/docs/directive-lifecycle.md`. |
+| `content/coding/review.md` | `f00e769f61d6be1494294d334c30983b07716bcc41584524424069f7e0d3b8bf` | Current 0.116.0 deposit differs; Module 11 uses the immutable release bytes. |
+| `content/skills/deft-directive-pre-pr/SKILL.md` | `f60a8eaee395cc65d550b95fab6da8348817de023c3f63accebfbdfc88eeea42` | Current 0.116.0 deposit differs; Module 11 uses the immutable release bytes. |
+| `content/skills/deft-directive-review-cycle/SKILL.md` | `ff0337151f6f545999367df87a307c3892707df79ffdadeb06c6ef2c10f15082` | Current 0.116.0 deposit differs; only its universal review boundary is adapted. |
 | `content/commands.md` | `eb012055fe7c3d410016e5e8ee386dc232de997dd9d57ba245125b25d6f45c50` | Byte-identical at `.deft/core/commands.md`. |
 | `content/strategies/README.md` | `e21090a90ca0ed3c4b324afebef53392292a4e43e86e2b9ea74a1058659de8aa` | Reconstituted at `.deft/core/strategies/README.md` with deposit-only rewrites. |
 | `LICENSE` | `4322170c478362f7beb21558b4585f706a8b9e8d22fbda53f81d90f9aebfaeb5` | Notice text matches `.deft/core/LICENSE.md`; the deposited copy adds a Markdown heading marker. |
@@ -797,7 +858,8 @@ Unresolved or deliberately deferred evidence:
   global packages were verified, but a future install's full dependency graph is not locked
   here.
 - The release tag was resolved but no cryptographic tag signature was present or verified.
-- Build, pre-PR, review-cycle, refinement, and swarm procedure details beyond the bounded
-  Module 6 shaping and decomposition excerpts remain deferred until their curriculum modules
-  are authored and revalidated. Setup and authority material needed for Modules 2–3 and the
-  setup/decomposition claims used by Module 6 were revalidated in their respective passes.
+- Build, refinement, and swarm procedure details beyond the bounded curriculum excerpts
+  remain deferred until their modules are authored and revalidated. Pre-PR and review-cycle
+  behavior used by Module 11 is now revalidated at the immutable 0.112.0 commit. Setup and
+  authority material needed for Modules 2–3 and the setup/decomposition claims used by
+  Module 6 were revalidated in their respective passes.

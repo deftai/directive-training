@@ -36,8 +36,11 @@ maintenance attributable to these final two course units is approximately
   configures no remote, and provides bounded reset and cleanup paths. It must
   not mutate this training repository or any business repository.
 - The project remains pinned to Directive 0.112.0 for learner-facing claims;
-  the installed 0.114.0 authoring engine is used only to identify and record
-  drift.
+  during Module 11 validation, the default unqualified shell CLI reported
+  engine 0.114.0. Final authoring gates explicitly selected the NVM-managed CLI,
+  which reported engine 0.116.0, to match the current 0.116.0 deposit. These
+  versions are final-gate authoring context, not learner-behavior evidence; they
+  do not change the 2026-09-10 build decision.
 - macOS, Linux, and Windows claims require independent execution evidence;
   unexecuted paths remain explicitly candidate or unsupported.
 - Publishing, paid services, business-repository exercises, a release-pin

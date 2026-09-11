@@ -313,8 +313,11 @@ No instructor or review bot is required. If the documented recovery still cannot
 | [Lab 7 — Scope lifecycle](07-scope-lifecycle.md) | Learner-ready draft; 0.112.0 pinned lifecycle path verified on macOS 26.6.2/zsh only | Use its guarded no-remote fixture, Task-driven transitions, retained evidence, fresh reset, and recoverable archive |
 | [Lab 9 — Implementation golden path](09-implementation-golden-path.md) | Learner-ready draft; exact 0.112.0 implementation path verified on macOS 26.6.2/zsh only | Use its guarded no-remote fixture, readiness-before-mutation sequence, one-file diff, paired evidence, fresh reset, and recoverable archive |
 | [Lab 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md) | Learner-ready draft; exact 0.112.0 gate path verified on macOS/zsh only | Use its guarded no-remote fixture, frozen focused test, ordered stage evidence, seeded aggregate failure, fresh reset, and recoverable archive |
+| [Module 6 — Creating well-shaped work](../curriculum/modules/06-creating-well-shaped-work.md) | Available; command-free exercise | Complete its embedded vertical-slice worksheet; no lab fixture is required |
+| [Module 8 — Session start and authorized work selection](../curriculum/modules/08-session-and-work-selection.md) | Available; command-free fixed-state exercise | Complete its embedded request-card matrix; no lab fixture is required |
+| [Module 11 — PR, review, and actual completion](../curriculum/modules/11-review-and-completion.md) | Available; command-free fixed-state exercise | Use the embedded fictional review packet and completion cards; Module 11 has no lab fixture |
 | [Lab authoring template](../templates/lab-template.md) | Available to maintainers | Build a lab with tasks, checkpoints, literal gates, reset, cleanup, and a solution |
-| Labs for Module 6, Module 8, Module 11, and the capstone | Not yet available | Follow their module links from the [curriculum map](../curriculum/README.md) when released |
+| Capstone | Not yet available | Follow its entry from the [curriculum map](../curriculum/README.md) when released |
 
 An entry marked “not yet available” is not completed curriculum.
 

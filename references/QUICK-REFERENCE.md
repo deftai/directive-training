@@ -1,7 +1,7 @@
 # Directive learner quick reference
 
 Use this as a memory aid, not as an exhaustive command reference. It describes
-`@deftai/directive` 0.112.0 and xBRIEF 0.8, verified through 2026-09-10. Check
+`@deftai/directive` 0.112.0 and xBRIEF 0.8, verified through 2026-09-11. Check
 [the source baseline](SOURCE-BASELINE.md) before using it with another version.
 
 ## Mental model
@@ -237,6 +237,38 @@ not the Taskfile, verifier, policy, or threshold. In [Lab 10](../labs/10-testing
 the seeded repair target is `quality-record.json`; the final evidence must show unchanged gate
 fingerprints as well as a passing aggregate.
 
+## Review and current-head completion
+
+Complete pre-PR review in this order:
+
+```text
+Read -> Write -> Lint -> Diff -> Loop
+```
+
+Any edit restarts the sequence at Read. Exit only after a complete pass produces
+zero changes; that result does not prove another reviewer cannot find a defect.
+
+When review findings arrive, classify all findings before editing. Record
+severity, acceptance scope, merge-blocking status, disposition, and evidence for
+each one. Under the Module 11 fixed policy, in-scope P0 and P1 findings block;
+P2 findings do not block but still require a disposition. Out-of-scope work
+needs separate authorization.
+
+Resolve the blocking in-scope findings in one coherent fix batch. Include the
+necessary tests, cross-file search, and structured-data consistency checks.
+After the complete finding set is classified, create one batch commit and one
+push for the new head. Old checks and review are then stale. Do not push again
+while current-head review is in progress. Merge-ready requires current-head
+checks and review with zero unresolved P0 or P1 findings. New blockers start a
+new classify-and-batch iteration.
+
+Integration-merged is not delivered. Delivery requires both delivery-branch reachability
+and lifecycle closeout with delivered provenance. Git evidence
+proves neither deployment nor UAT; evaluate those evidence axes independently.
+
+See [Module 11](../curriculum/modules/11-review-and-completion.md) and its
+[explained solution](../solutions/module-11-review-and-completion.md).
+
 ## Evidence ladder
 
 | Claim | Minimum kind of evidence |
@@ -244,12 +276,13 @@ fingerprints as well as a passing aggregate.
 | Implemented | Scoped files plus current local acceptance output |
 | PR-open | Pull-request URL and head revision |
 | Merge-ready | Current required checks and classified review findings |
+| Integration-merged | Merge evidence on an integration branch; delivery-branch reachability is still absent |
 | Delivered | Change on the intended delivery branch plus lifecycle closeout |
 | Deployed | Environment-specific deployment evidence |
 | UAT-verified | Recorded authorized user-acceptance result |
 
-State the narrowest claim the evidence supports. Do not use “done” to collapse
-these distinct states.
+State the furthest claim whose complete evidence is present. Do not skip an
+unsupported link in the chain or use “done” to collapse these distinct states.
 
 ## 3Ci safety overlay
 

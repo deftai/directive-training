@@ -9,7 +9,7 @@
   "plan": {
     "id": "training.modules9-11.review",
     "title": "Module 11: PR, Review, and Actual Completion",
-    "status": "pending",
+    "status": "running",
     "planRef": "proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
     "narratives": {
       "Description": "Deliver Module 11 as a command-free fixed-state exercise that teaches learners to review a fictional change before a PR, classify every supplied finding before editing, and prepare one coherent fix batch. The same independently buildable story teaches evidence-bounded completion claims without a live repository, review bot, Greptile signal, deployment, or UAT run.",
@@ -231,6 +231,7 @@
           "provenance": "statement"
         }
       ]
-    }
+    },
+    "updated": "2026-09-11T14:51:06Z"
   }
 }
