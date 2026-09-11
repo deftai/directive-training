@@ -3,13 +3,13 @@
     "version": "0.8",
     "description": "Story xBRIEF decomposed from proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
     "created": "2026-09-11T14:36:44Z",
-    "updated": "2026-09-11T19:29:00Z",
+    "updated": "2026-09-11T21:12:18Z",
     "author": "agent:codex"
   },
   "plan": {
     "id": "training.modules9-11.review",
     "title": "Module 11: PR, Review, and Actual Completion",
-    "status": "running",
+    "status": "completed",
     "planRef": "proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
     "narratives": {
       "Description": "Deliver Module 11 as a command-free fixed-state exercise that teaches learners to review a fictional change before a PR, classify every supplied finding before editing, and prepare one coherent fix batch. The same independently buildable story teaches evidence-bounded completion claims without a live repository, review bot, Greptile signal, deployment, or UAT run.",
@@ -22,51 +22,93 @@
       {
         "id": "training.modules9-11.review.baseline",
         "title": "Validate review and completion behavior",
-        "status": "pending",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Given the exact Directive 0.112.0 learner pin and the live 0.116.0 authoring deposit, the source record identifies immutable pre-PR, review, and lifecycle evidence, labels drift explicitly, and contains no Greptile or live-host dependency.",
           "Traces": "training.modules9-11.review"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #45 HEAD b840121d9b89618461848663674c013be97bb0e7: npm run check:module-11 reported 22 artifacts checked and 0 missing; all four GitHub CI checks completed successfully.",
+          "recorded_at": "2026-09-11T21:08:00Z",
+          "recorded_by": "agent:codex/module11_merge_closeout"
         }
       },
       {
         "id": "training.modules9-11.review.pre-pr",
         "title": "Complete pre-PR review and classify every finding",
-        "status": "pending",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "Given the fixed fictional packet, the learner records the Read-Write-Lint-Diff loop through a zero-change full-gate pass and classifies every finding by P0, P1, or P2 severity, acceptance-criteria scope, blocking status, disposition, and evidence before any edit is proposed.",
           "Traces": "training.modules9-11.review"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #45 HEAD b840121d9b89618461848663674c013be97bb0e7: npm run test:module-11 passed 36/36 tests with 0 failures and 0 skipped.",
+          "recorded_at": "2026-09-11T21:08:00Z",
+          "recorded_by": "agent:codex/module11_merge_closeout"
         }
       },
       {
         "id": "training.modules9-11.review.batch",
         "title": "Prepare one coherent review fix batch",
-        "status": "pending",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "When the classified packet contains in-scope P0 and P1 findings, a nonblocking P2, and an out-of-scope follow-up, the learner resolves only the blocking in-scope findings in one coherent batch, checks cross-file and structured-data consistency, records the P2 and follow-up dispositions, and re-reviews evidence from the current head without one push per finding.",
           "Traces": "training.modules9-11.review"
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "PR #45 HEAD b840121d9b89618461848663674c013be97bb0e7: independent final diff audit passed after cross-file version-role enforcement; REST issue comments, inline comments, and reviews contained 0 blocking findings immediately before merge.",
+          "recorded_at": "2026-09-11T21:08:00Z",
+          "recorded_by": "agent:codex/module11_merge_closeout"
         }
       },
       {
         "id": "training.modules9-11.review.states",
         "title": "Classify completion evidence without overclaiming",
-        "status": "pending",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Given implemented, PR-open, merge-ready, integration-merged, delivered, deployed, and UAT-verified scenarios, the learner records only states supported by current-head evidence; stale review, unresolved P0 or P1, delivery-branch reachability, lifecycle closeout, deployment, and UAT are evaluated independently where required.",
           "Traces": "training.modules9-11.review"
+        },
+        "x-directive/disposition": {
+          "disposition": "not_applicable",
+          "reason": "David's approved Module 11 scope teaches evidence classification in a command-free fictional exercise and explicitly excludes live deployment and UAT; PR #45 was verified delivered on origin/master without claiming either state.",
+          "provenance": {
+            "kind": "operator-session",
+            "actor": "David",
+            "mintedAt": "2026-09-11T21:00:00Z",
+            "mintedVia": "Codex chat",
+            "eventRef": "David approved Module 11 merge and lifecycle closeout, then selected Squash"
+          },
+          "recorded_at": "2026-09-11T21:08:00Z"
         }
       },
       {
         "id": "training.modules9-11.review.quality",
         "title": "Verify the lesson, solution, navigation, and boundaries",
-        "status": "pending",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "The focused verifier and negative tests reject an unclassified finding, editing before classification, one-push-per-finding guidance, out-of-scope expansion, a stale or blocking merge-ready claim, delivery without reachability and closeout, deployment or UAT inferred from Git state, a live bot dependency, broken navigation or source records, and any claim that the capstone is learner-ready.",
           "Traces": "training.modules9-11.review"
+        },
+        "x-directive/disposition": {
+          "disposition": "not_applicable",
+          "reason": "Live deployment and UAT are outside David's approved pre-release curriculum scope. Quality was instead proven on PR #45 HEAD b840121d9b89618461848663674c013be97bb0e7 by 36/36 focused tests, clean xBRIEF conformance, and full task deft:check.",
+          "provenance": {
+            "kind": "operator-session",
+            "actor": "David",
+            "mintedAt": "2026-09-11T21:00:00Z",
+            "mintedVia": "Codex chat",
+            "eventRef": "David approved Module 11 merge and lifecycle closeout, then selected Squash"
+          },
+          "recorded_at": "2026-09-11T21:08:00Z"
         }
       }
     ],
@@ -156,7 +198,31 @@
         ],
         "negative_invariant_ids": [],
         "parent_plan_id": "training.modules9-11"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 45,
+        "prBase": null,
+        "mergeCommit": "fb8cfa6bc6577cf417f9d9bfdcae075d376327fe",
+        "deliveryBranch": "master",
+        "deliveryCommit": "fb8cfa6bc6577cf417f9d9bfdcae075d376327fe",
+        "verifiedAt": "2026-09-11T21:12:18Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMDkwYjctYzNiZi03NDAyLWE2ZjctNmQ1MmRhNzU1MjEw"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-11T21:12:18Z"
+      },
+      "completedAt": "2026-09-11T21:12:18Z",
+      "completedSessionId": "host:codex:v1:MDFhMDkwYjctYzNiZi03NDAyLWE2ZjctNmQ1MmRhNzU1MjEw"
     },
     "references": [
       {
@@ -232,6 +298,6 @@
         }
       ]
     },
-    "updated": "2026-09-11T14:51:06Z"
+    "updated": "2026-09-11T21:12:18Z"
   }
 }
