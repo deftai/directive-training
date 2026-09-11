@@ -18,7 +18,7 @@ Scoped work, ranked queue, and tracked bugs live in authoritative sources — no
 
 (Optional) Ephemeral shell quirks or uncommitted local artifacts only — not tracked work state.
 
-<!-- deft:managed-section v3 sha=unknown refreshed=2026-09-11T13:13:11Z session=d522493c1f5a -->
+<!-- deft:managed-section v3 sha=unknown refreshed=2026-09-11T21:29:17Z session=7a9a9c803259 -->
 # Deft — AI Development Framework
 
 Deft is installed in .deft/core/. Full guidelines: .deft/core/main.md
@@ -96,6 +96,7 @@ Deft is installed in .deft/core/. Full guidelines: .deft/core/main.md
 ! **Dual stop (#2442):** multi-iteration work MUST have success + failure/budget stop (max iters / no-progress / budget); single-turn exempt; halt with operator-visible report; ⊗ thrash. Defaults: build, swarm, review-cycle skills. See main.md Dual Stop Rule. Ledger #3143 (`packages/core/src/delivery-attempt/`).
 ## Rule Authority [AXIOM]
 ! Prefer `task deft:*` over AGENTS.md prose. See main.md.
+! Merge chokepoint (#4379 / #2893): prefer `deft check`; else `task deft:check` on include-only consumers. One gate, not two runs.
 ## Thin Fail-Closed Design (#3265)
 ! One fail-closed `task deft:*` check + one remediation. See main.md.
 ## Writing bar (#3368)
