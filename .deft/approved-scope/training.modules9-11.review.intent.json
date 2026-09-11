@@ -121,6 +121,7 @@
       ],
       "none_stated": false,
       "source_rung": "derived",
+      "ambiguity_attestation": "none_found",
       "derived_reason": "Derived five independently testable clauses from David's Module 11 implementation request and the approved parent requirement before product edits.",
       "clauses": [
         {

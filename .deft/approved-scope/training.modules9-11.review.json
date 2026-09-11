@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "xbriefRelPath": "xbrief/active/2026-09-11-module-11-review-and-completion.xbrief.json",
   "planId": "training.modules9-11.review",
-  "approvedAt": "2026-09-11T14:42:00Z",
+  "approvedAt": "2026-09-11T19:31:35Z",
   "fileScope": [
     "assessments/README.md",
     "CHANGELOG.md",
@@ -39,9 +39,9 @@
   "humanApproval": {
     "kind": "operator",
     "actor": "David",
-    "mintedAt": "2026-09-11T14:42:00Z",
+    "mintedAt": "2026-09-11T19:31:35Z",
     "mintedVia": "scope:record-approved-scope"
   },
-  "intentDigest": "3241ba0db495877be70c8fec0698a5350036bc053248eb1bba3412f1b4755adf",
+  "intentDigest": "bc2ac4c344c9fc8dbc34e118e1ba6b7c81e622f7e818854db499670623c1ae81",
   "digestAlgo": "intent-extract-v1"
 }
