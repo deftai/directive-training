@@ -415,7 +415,7 @@ high band.
 - **Maintenance**: about **2–3 hours per month**, plus focused revalidation
   after a material Directive release
 
-### Decision point — current scope
+### Decision point — prior scope
 
 1. **Build** -- accept the cost and start the build phase.
 2. **Rescope** -- keep building but reduce cost first.
