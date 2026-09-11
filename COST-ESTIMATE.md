@@ -96,7 +96,7 @@ services would change the boundary and require a new estimate.
   a release-pin change, push, pull-request creation, merge, deployment,
   publication, branch deletion, or worktree removal.
 
-## Current scope — Module 10 (2026-09-10)
+## Prior scope — Module 10 (2026-09-10)
 
 Currency: **USD**. Module 10 adds one Markdown lesson, one guarded disposable
 Node.js red-green-refactor lab, a seeded aggregate-gate failure, an explained
@@ -169,7 +169,7 @@ change the boundary and require a new estimate.
 - **Maintenance**: about **1–2 hours per month**, plus focused revalidation
   after a material Directive release
 
-### Decision recorded — current scope
+### Decision recorded — prior scope
 
 - **Decision**: Build
 - **Date**: 2026-09-10
@@ -181,7 +181,7 @@ change the boundary and require a new estimate.
   change, Module 11 implementation, push, pull-request creation, merge,
   deployment, publication, branch deletion, or worktree removal.
 
-## Current scope — Module 9 (2026-09-10)
+## Prior scope — Module 9 (2026-09-10)
 
 Currency: **USD**. Module 9 adds one Markdown lesson, one guarded disposable
 Node.js implementation lab, a fictional fixture, an explained solution, source
@@ -254,7 +254,7 @@ change the boundary and require a new estimate.
 - **Maintenance**: about **1–2 hours per month**, plus focused revalidation
   after a material Directive release
 
-### Decision recorded — current scope
+### Decision recorded — prior scope
 
 - **Decision**: Build
 - **Date**: 2026-09-10
@@ -422,7 +422,7 @@ high band.
 3. **No-build** -- stop here and record the reason.
 4. **Skip** -- skip the cost phase and record a short reason.
 
-### Decision recorded — current scope
+### Decision recorded — prior scope
 
 - **Decision**: Build
 - **Date**: 2026-09-09
@@ -466,7 +466,7 @@ module is approximately **1–2 hours per month**.
 - **Maintenance**: about **1–2 hours per month**, plus focused revalidation
   after a material Directive release
 
-### Decision recorded — current scope
+### Decision recorded — prior scope
 
 - **Decision**: Build
 - **Date**: 2026-09-09
@@ -513,8 +513,8 @@ Re-estimate before introducing any remaining item or changing the release pin.
 ## Historical estimate — Modules 2–3
 
 The remainder records an earlier scope and its prior decision. It does not
-replace either the current Module 6 estimate or the prior Modules 4–5 estimate
-above.
+replace the current Module 11 and capstone estimate or any prior module
+estimate above.
 
 > All figures are in **US dollars (USD)**. These are loose ranges, not
 > guarantees. Re-estimate if the approved scope or service assumptions change.
