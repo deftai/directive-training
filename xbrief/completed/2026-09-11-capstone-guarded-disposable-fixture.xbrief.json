@@ -2,12 +2,12 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Story xBRIEF 1 decomposed from proposed/2026-09-05-disposable-end-to-end-capstone.xbrief.json",
-    "updated": "2026-09-12T03:27:47Z"
+    "updated": "2026-09-12T14:34:35Z"
   },
   "plan": {
     "id": "training.capstone.fixture-runtime",
     "title": "Capstone: Guarded Disposable End-to-End Fixture",
-    "status": "running",
+    "status": "completed",
     "planRef": "proposed/2026-09-05-disposable-end-to-end-capstone.xbrief.json",
     "narratives": {
       "Description": "Build the fictional Node.js capstone runtime that creates one unique OS-temporary Git repository and carries a learner through a complete solo Directive-managed change. The helper must enforce the no-remote, exact-pin, narrow-write, ordered-evidence, reset, archive, and protected-root boundaries independently of the learner-facing walkthrough.",
@@ -21,41 +21,65 @@
       {
         "id": "training.capstone.fixture-runtime.safe-create",
         "title": "Create an exact, isolated starting repository",
-        "status": "pending",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Given an explicit create command from outside the training repository, the helper creates a unique OS-temporary Git repository on branch training/capstone with no remotes, the exact learner Directive pin, a fictional work-items CLI, supplied failing tests, deterministic project gates, and exactly one proposed capstone story; it refuses the training root, business-like roots, broad workspace roots, and reused destinations before writing.",
           "Traces": "training.capstone.fixture; PROJECT-DEFINITION LabModel and ProjectRules"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #48 HEAD 4f8ca7e36723e094ed1a19aa9593f01c0b798cdf: npm run test:capstone passed 8/8 with 0 failures and 0 skipped; the full rehearsal created and guarded one unique no-remote OS-temporary repository.",
+          "recorded_at": "2026-09-12T14:33:52Z",
+          "recorded_by": "agent:codex/capstone-closeout"
         }
       },
       {
         "id": "training.capstone.fixture-runtime.ordered-flow",
         "title": "Enforce lifecycle and evidence order",
-        "status": "pending",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "Given the untouched attempt, stage commands refuse out-of-order mutation and then record orientation, scope promotion and activation, session and preflight readiness, red-green implementation, focused checks, literal acceptance, aggregate-gate diagnosis, zero-change pre-PR review, simulated finding resolution, and evidence-based closeout while permitting product edits only in the declared source file and preserving supplied tests, gates, scope, remotes, and helpers.",
           "Traces": "parent Acceptance and QualityGate; PROJECT-DEFINITION LearningGoals and ReviewModel"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #48 HEAD 4f8ca7e36723e094ed1a19aa9593f01c0b798cdf: the 8/8 fixture suite completed orientation, activation, readiness, red-green, focused, literal, expected aggregate failure, zero-change pre-PR, review repair, and local closeout in order.",
+          "recorded_at": "2026-09-12T14:33:52Z",
+          "recorded_by": "agent:codex/capstone-closeout"
         }
       },
       {
         "id": "training.capstone.fixture-runtime.reset-cleanup",
         "title": "Reset and retire attempts safely",
-        "status": "pending",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Given a failed or completed attempt, reset creates a fresh unique attempt without overwriting the prior repository or its evidence, and archive or cleanup accepts only one explicit canonical attempt root outside protected locations, refuses traversal, symlink and Git-redirection escapes, and preserves recoverable evidence according to the documented disposition.",
           "Traces": "training.capstone.fixture; parent Acceptance; PROJECT-DEFINITION LabModel"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #48 HEAD 4f8ca7e36723e094ed1a19aa9593f01c0b798cdf: reset/archive and adversarial path tests passed within npm run test:capstone, including traversal, symlink, reused-destination, Git-redirection, and protected-root refusals.",
+          "recorded_at": "2026-09-12T14:33:52Z",
+          "recorded_by": "agent:codex/capstone-closeout"
         }
       },
       {
         "id": "training.capstone.fixture-runtime.portability",
         "title": "Prove fixture behavior and platform boundaries",
-        "status": "pending",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "When the focused Node suite runs, it passes positive and negative fixture cases on the authoring platform; the pinned macOS, Ubuntu, and Windows workflow runs only the disposable no-remote fixture tests with read-only repository permissions; and learner-facing platform claims remain candidate until corresponding native evidence is observed.",
           "Traces": "PROJECT-DEFINITION SupportedEnvironments, LabModel, and ProjectRules"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #48 HEAD 4f8ca7e36723e094ed1a19aa9593f01c0b798cdf: macos-node24, linux-node24, windows-node24, and no-mixed-core-and-app all completed successfully before squash merge commit 1ad4c23f03498af745eec972e7c3f5a63b97d4b4.",
+          "recorded_at": "2026-09-12T14:33:52Z",
+          "recorded_by": "agent:codex/capstone-closeout"
         }
       }
     ],
@@ -114,7 +138,31 @@
         ],
         "negative_invariant_ids": [],
         "parent_plan_id": "training.capstone"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 48,
+        "prBase": null,
+        "mergeCommit": "1ad4c23f03498af745eec972e7c3f5a63b97d4b4",
+        "deliveryBranch": "master",
+        "deliveryCommit": "1ad4c23f03498af745eec972e7c3f5a63b97d4b4",
+        "verifiedAt": "2026-09-12T14:34:35Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMDkyODctN2I0Ny03NTQxLTlhYTgtYjk0YWYxN2JhNjA3"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-12T14:34:35Z"
+      },
+      "completedAt": "2026-09-12T14:34:35Z",
+      "completedSessionId": "host:codex:v1:MDFhMDkyODctN2I0Ny03NTQxLTlhYTgtYjk0YWYxN2JhNjA3"
     },
     "references": [
       {
@@ -173,6 +221,6 @@
       ],
       "ambiguity_attestation": "none_found"
     },
-    "updated": "2026-09-12T03:27:47Z"
+    "updated": "2026-09-12T14:34:35Z"
   }
 }
