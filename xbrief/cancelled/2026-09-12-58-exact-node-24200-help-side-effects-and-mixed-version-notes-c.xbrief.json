@@ -2,14 +2,15 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #58",
-    "updated": "2026-09-12T21:37:10Z"
+    "updated": "2026-09-12T22:47:54Z"
   },
   "plan": {
     "title": "Exact Node 24.20.0, --help side effects, and mixed version notes confuse the golden path",
-    "status": "pending",
+    "status": "cancelled",
     "narratives": {
       "Description": "Exact Node 24.20.0, --help side effects, and mixed version notes confuse the golden path",
       "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/58",
+      "Disposition": "This duplicate issue-ingest record was superseded by the combined active scope for issues 55-58, which delivered issue #58 in merged PR #63. The cancellation reconciles the duplicate lifecycle record; it does not indicate that the fix was abandoned.",
       "Overview": "## What happened\n\nSeveral version and help-surface inconsistencies made the golden path harder than the ideas being taught.\n\n1. **Capstone requires Node.js `v24.20.0` exactly.** Other modules accept Node 20+. This machine had 24.18.0 until I installed 24.20.0. The justification (Directive 0.112.0 uses `fs.globSync`, Node 22+) does not require a patch-exact 24.20.0. Lab 2 even documents verified local 24.18.0 vs matrix 24.20.0.\n\n2. **Module 2 teaches “probe `--help` before use.”** Lab 5 then documents that `codebase:map --help` **writes the MAP** and `verify:codebase-map-fresh --help` **runs the check**. I reproduced `Codebase MAP written` from `--help`. That is a real 0.112.0 footgun; Module 2 should warn before Lab 5.\n\n3. **`toolchain:check --help` is expected to exit 2** (`unrecognized argument: --help`). Learners are told this is a known defect they must assert. Fine as evidence of “don’t invent syntax,” but it feels like a trick rather than a concept.\n\n4. **Doctor on a freshly inited Lab 2 consumer** exits 0 with a `Missing directory: xbrief/` warning even though `xbrief/PROJECT-DEFINITION.xbrief.json` exists. Module 2 already records a similar disagreement; it is still confusing in 0.112.0.\n\n5. **Master SOURCE-BASELINE** says the learner pin is 0.112.0, then spends a paragraph on 0.114 / 0.116 / 0.117 authoring CLIs. Easy to over-install.\n\n## Suggested repair\n\n- Capstone: require Node 22+ or 24.x, not a single patch.\n- Put the `--help` side-effect warning in Module 2 / quick reference, not only Lab 5.\n- Keep doctor’s missing-`xbrief/` warning labeled as a known false negative, or fix the doctor check.\n- Trim authoring-runtime versions out of the learner-facing baseline.\n\n\n---\n\n## Issue comment thread\n\n_The issue body is the original write-up; maintainer comments below may supersede it. Read the full thread before building a dispatch envelope (#2143)._\n\n### Comment by @dbcall2 (2026-09-12T21:05:37Z)\n\nReproduced again on 2026-09-12 during a full official-lab re-run of the 0.112.0 course from `origin/master` (Node v24.20.0, macOS/zsh, learner identity `appcell26`). This issue is still valid."
     },
     "items": [],
@@ -46,6 +47,10 @@
         "github_issue_id": 5435700367,
         "origin": "3ci-consulting/directive-training#58",
         "id": "github.issue.5435700367"
+      },
+      "lifecycleWrite": {
+        "action": "cancel",
+        "writtenAt": "2026-09-12T22:46:44Z"
       }
     },
     "acceptance": {
@@ -79,6 +84,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5435700367",
-    "updated": "2026-09-12T21:37:10Z"
+    "updated": "2026-09-12T22:46:44Z"
   }
 }

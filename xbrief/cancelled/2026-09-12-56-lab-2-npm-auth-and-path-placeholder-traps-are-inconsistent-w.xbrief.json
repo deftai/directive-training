@@ -2,14 +2,15 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #56",
-    "updated": "2026-09-12T21:37:10Z"
+    "updated": "2026-09-12T22:47:54Z"
   },
   "plan": {
     "title": "Lab 2 npm auth and path-placeholder traps are inconsistent with later isolated labs",
-    "status": "pending",
+    "status": "cancelled",
     "narratives": {
       "Description": "Lab 2 npm auth and path-placeholder traps are inconsistent with later isolated labs",
       "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/56",
+      "Disposition": "This duplicate issue-ingest record was superseded by the combined active scope for issues 55-58, which delivered issue #56 in merged PR #63. The cancellation reconciles the duplicate lifecycle record; it does not indicate that the fix was abandoned.",
       "Overview": "## What happened\n\nLab 2’s first `npm install --ignore-scripts --no-audit --no-fund` failed with `E401 Incorrect or missing password`. The npm debug log named both `https://cfa.jfrog.io` and `https://registry.npmjs.org`. The host also warned `Unknown user config \"always-auth\"`.\n\nThe lab’s recovery path worked: preserve attempt-01, create attempt-02, isolate an empty `NPM_CONFIG_USERCONFIG`, retry. After that, init/doctor/toolchain/accept passed on `@deftai/directive@0.112.0`.\n\n## Why this is hard for a human\n\n1. Lab 2’s start script begins with `export DIRECTIVE_TRAINING_ROOT=\"/absolute/path/to/directive-training\"`. If a learner exports the real path *before* pasting the block, the placeholder overwrites it and start fails with `could not resolve the curriculum clone`. The prose says the path is learner input, but the snippet still contains a fake path.\n2. Lab 2’s fixture has no `.npmrc`. Labs 5, 7, 9, 10, and the capstone all write a public-registry `.npmrc` and often use `env -i` / stripped `NPM_CONFIG_*`. A learner who survives Lab 2 via tribal knowledge never sees that later labs already solved this.\n3. Lab 2 is a ~1000-line paste of zsh/PowerShell functions. Later labs are `node <helper> create|guard|install|...`. The UX drop is large.\n\n## Suggested repair\n\n- Require the learner to replace the placeholder, or read `DIRECTIVE_TRAINING_ROOT` only if already set.\n- Give Lab 2 the same public-registry `.npmrc` + env isolation as Lab 5, and keep the E401 drill as a *provided* failure (it already has one).\n- Consider a Lab 2 helper so humans are not asked to paste a page of shell for a 25–35 minute lab.\n\n\n---\n\n## Issue comment thread\n\n_The issue body is the original write-up; maintainer comments below may supersede it. Read the full thread before building a dispatch envelope (#2143)._\n\n### Comment by @dbcall2 (2026-09-12T21:05:36Z)\n\nReproduced again on 2026-09-12 during a full official-lab re-run of the 0.112.0 course from `origin/master` (Node v24.20.0, macOS/zsh, learner identity `appcell26`). This issue is still valid."
     },
     "items": [],
@@ -38,9 +39,13 @@
         "github_issue_id": 5435700129,
         "origin": "3ci-consulting/directive-training#56",
         "id": "github.issue.5435700129"
+      },
+      "lifecycleWrite": {
+        "action": "cancel",
+        "writtenAt": "2026-09-12T22:46:42Z"
       }
     },
     "id": "github.issue.5435700129",
-    "updated": "2026-09-12T21:37:10Z"
+    "updated": "2026-09-12T22:46:42Z"
   }
 }

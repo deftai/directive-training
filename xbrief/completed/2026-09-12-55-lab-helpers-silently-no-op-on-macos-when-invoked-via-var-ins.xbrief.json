@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #55",
-    "updated": "2026-09-12T21:37:17Z"
+    "updated": "2026-09-12T22:46:40Z"
   },
   "plan": {
     "title": "Official lab replay fixes for issues 55-58",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Resolve the four related portability and learner-contract defects reported by issues 55-58.",
       "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/55",
@@ -18,29 +18,53 @@
         "id": "github.issue.5435699955.path-entry",
         "title": "Make lab helper entry detection canonical-path safe",
         "type": "task",
-        "status": "pending",
-        "effort": "S"
+        "status": "completed",
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:lab-helper-entry",
+          "recorded_at": "2026-09-12T22:46:01Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
         "id": "github.issue.5435700129.lab-2",
         "title": "Isolate Lab 2 path input and npm configuration",
         "type": "task",
-        "status": "pending",
-        "effort": "M"
+        "status": "completed",
+        "effort": "M",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:modules-2-3",
+          "recorded_at": "2026-09-12T22:46:01Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
         "id": "github.issue.5435700260.frozen-contracts",
         "title": "Align Lab 9 and capstone frozen expectations",
         "type": "task",
-        "status": "pending",
-        "effort": "S"
+        "status": "completed",
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:module-9 && npm run test:capstone",
+          "recorded_at": "2026-09-12T22:46:01Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
         "id": "github.issue.5435700367.guidance",
         "title": "Clarify learner runtime and command-discovery guidance",
         "type": "task",
-        "status": "pending",
-        "effort": "M"
+        "status": "completed",
+        "effort": "M",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:cold-start && npm run check:modules-2-3 && npm run check:capstone",
+          "recorded_at": "2026-09-12T22:46:01Z",
+          "recorded_by": "agent:codex"
+        }
       }
     ],
     "references": [
@@ -110,7 +134,31 @@
         "github_issue_id": 5435699955,
         "origin": "3ci-consulting/directive-training#55",
         "id": "github.issue.5435699955"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 63,
+        "prBase": "master",
+        "mergeCommit": "ab71ca16fa142f6df5eb9543a0c4a71022043926",
+        "deliveryBranch": "master",
+        "deliveryCommit": "ab71ca16fa142f6df5eb9543a0c4a71022043926",
+        "verifiedAt": "2026-09-12T22:46:40Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMDk3NzgtM2QwZi03MDcxLThjYTYtODMyNjNmNjIyMWFm"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-12T22:46:40Z"
+      },
+      "completedAt": "2026-09-12T22:46:40Z",
+      "completedSessionId": "host:codex:v1:MDFhMDk3NzgtM2QwZi03MDcxLThjYTYtODMyNjNmNjIyMWFm"
     },
     "acceptance": {
       "commands": [],
@@ -150,6 +198,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5435699955",
-    "updated": "2026-09-12T21:37:17Z"
+    "updated": "2026-09-12T22:46:40Z"
   }
 }
