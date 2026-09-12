@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-11-capstone-solo-lifecycle-learning-experience.xbrief.json",
+  "planId": "training.capstone.learning-experience",
+  "approvedAt": "2026-09-12T17:35:31Z",
+  "fileScope": [
+    "assessments/capstone-end-to-end.md",
+    "assessments/README.md",
+    "CHANGELOG.md",
+    "curriculum/capstone-end-to-end.md",
+    "curriculum/modules/11-review-and-completion.md",
+    "curriculum/README.md",
+    "labs/capstone-end-to-end.md",
+    "labs/README.md",
+    "maintainers/CURRICULUM-MAINTENANCE.md",
+    "package.json",
+    "README.md",
+    "references/GLOSSARY.md",
+    "references/QUICK-REFERENCE.md",
+    "references/SOURCE-BASELINE.md",
+    "references/SOURCE-NOTES.md",
+    "scripts/verify-capstone.mjs",
+    "scripts/verify-capstone.test.mjs",
+    "scripts/verify-module-10.test.mjs",
+    "scripts/verify-module-11.mjs",
+    "scripts/verify-module-11.test.mjs",
+    "scripts/verify-module-7.test.mjs",
+    "scripts/verify-module-8.test.mjs",
+    "scripts/verify-module-9.test.mjs",
+    "solutions/capstone-end-to-end.md",
+    "solutions/module-11-review-and-completion.md",
+    "solutions/README.md"
+  ],
+  "fileScopeDigest": "f855f1c07657d853667c3fe0be4a2cfd3c470a0aa341f92fc925d6494ff40366",
+  "humanApproval": {
+    "kind": "renewed-approval",
+    "actor": "David",
+    "mintedAt": "2026-09-12T17:35:31Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "39e890216db054c4b3e41edfec09df4ef5feee91ab06cf27e1ad76cfa817fd5e",
+  "digestAlgo": "intent-extract-v1"
+}

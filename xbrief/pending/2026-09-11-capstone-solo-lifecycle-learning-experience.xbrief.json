@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Story xBRIEF 2 decomposed from proposed/2026-09-05-disposable-end-to-end-capstone.xbrief.json",
-    "updated": "2026-09-12T01:39:01Z"
+    "updated": "2026-09-12T14:43:43Z"
   },
   "plan": {
     "id": "training.capstone.learning-experience",
@@ -79,6 +79,7 @@
           "assessments/capstone-end-to-end.md",
           "curriculum/README.md",
           "curriculum/capstone-end-to-end.md",
+          "curriculum/modules/11-review-and-completion.md",
           "labs/README.md",
           "labs/capstone-end-to-end.md",
           "maintainers/CURRICULUM-MAINTENANCE.md",
@@ -89,8 +90,11 @@
           "references/SOURCE-NOTES.md",
           "scripts/verify-capstone.mjs",
           "scripts/verify-capstone.test.mjs",
+          "scripts/verify-module-11.mjs",
+          "scripts/verify-module-11.test.mjs",
           "solutions/README.md",
-          "solutions/capstone-end-to-end.md"
+          "solutions/capstone-end-to-end.md",
+          "solutions/module-11-review-and-completion.md"
         ],
         "verify_commands": [
           "npm run check:capstone",
