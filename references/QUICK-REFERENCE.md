@@ -1,7 +1,7 @@
 # Directive learner quick reference
 
 Use this as a memory aid, not as an exhaustive command reference. It describes
-`@deftai/directive` 0.112.0 and xBRIEF 0.8, verified through 2026-09-11. Check
+`@deftai/directive` 0.112.0 and xBRIEF 0.8, verified through 2026-09-12. Check
 [the source baseline](SOURCE-BASELINE.md) before using it with another version.
 
 ## Mental model
@@ -268,6 +268,31 @@ proves neither deployment nor UAT; evaluate those evidence axes independently.
 
 See [Module 11](../curriculum/modules/11-review-and-completion.md) and its
 [explained solution](../solutions/module-11-review-and-completion.md).
+
+## End-to-end capstone route
+
+Use the learner-ready
+[capstone](../curriculum/capstone-end-to-end.md) only in its guarded disposable
+repository. The Directive proof requires Node.js 24.20.0 and the exact
+`@deftai/directive@0.112.0` graph; the fictional application source remains
+Node.js 20-compatible.
+
+```text
+CREATED -> CHECKPOINT -> ORIENTED -> SCOPED -> READY -> RED -> GREEN
+-> FOCUSED -> LITERAL -> AGGREGATE_RED -> PREPR -> REVIEWED -> COMPLETE
+```
+
+Run focused checks, then stored literal acceptance, then the separate aggregate.
+The first aggregate intentionally captures missing `review:evidence`. Record
+`CAP-P1-001` without changing the green diff, then repair only
+`src/work-items.mjs` and re-review the current product bytes. Closeout commits
+those unchanged reviewed bytes and reruns the aggregate on the commit.
+
+The maximum capstone claim is `implemented` with `local_pass`; ship,
+deployment, and UAT remain `not_started`, and the active xBRIEF remains running.
+Finish by creating a distinct reset attempt and recoverably archiving both
+explicit roots. `COMPLETE` is the helper's terminal exercise stage, not
+Directive lifecycle completion or delivery.
 
 ## Evidence ladder
 

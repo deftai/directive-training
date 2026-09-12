@@ -39,16 +39,18 @@ this Markdown; they will not replace it as the source of truth.
    [Module 10: Testing, Gates, and Evidence](curriculum/modules/10-testing-gates-and-evidence.md),
    and [Module 11: PR, Review, and Actual Completion](curriculum/modules/11-review-and-completion.md)
    in order.
-4. Run command work only in the specified disposable no-remote lab:
+4. Complete the [two-hour end-to-end capstone](curriculum/capstone-end-to-end.md).
+5. Run command work only in the specified disposable no-remote lab:
    [Lab 2](labs/02-disposable-initialization.md) or
    [Lab 5](labs/05-projection-drift-recovery.md), or
    [Lab 7](labs/07-scope-lifecycle.md), or
-   [Lab 9](labs/09-implementation-golden-path.md), or
-   [Lab 10](labs/10-testing-gates-and-evidence.md).
-5. Use the [glossary](references/GLOSSARY.md) and
+   [Lab 9](labs/09-implementation-golden-path.md),
+   [Lab 10](labs/10-testing-gates-and-evidence.md), or the
+   [capstone lab](labs/capstone-end-to-end.md).
+6. Use the [glossary](references/GLOSSARY.md) and
    [quick reference](references/QUICK-REFERENCE.md) when a term or boundary is
    unclear.
-6. Use the [assessment policy](assessments/README.md) to evaluate practical
+7. Use the [assessment policy](assessments/README.md) to evaluate practical
    evidence and the [solution policy](solutions/README.md) to compare and retry
    after a suggested first attempt.
 
@@ -56,14 +58,17 @@ The detailed [source baseline](references/SOURCE-BASELINE.md) is optional audit
 evidence for maintainers and curious learners. It includes legacy and advanced
 drift notes that are intentionally outside the beginner sequence.
 
-Modules 1–11 are learner-ready drafts in this internal alpha. Module 2's 0.112.0 pinned npm
+Modules 1–11 and the capstone are implemented and learner-ready. The curriculum
+remains an internal alpha until representative learner pilots complete; that
+release-maturity label does not mean the authored modules are partial. Module 2's 0.112.0 pinned npm
 path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and
 Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence.
 Modules 4, 6, 8, and 11 are command-free. Module 5's projection lab, Module 7's lifecycle lab,
 Module 9's implementation lab, and Module 10's testing-and-gates lab are verified only on
 macOS/zsh; Linux and native Windows have not been verified for those labs.
 Module 11 uses a fixed fictional review packet and needs no lab fixture. The
-capstone remains planned; a filename in the map is not a readiness claim.
+guarded capstone fixture is verified on macOS, Ubuntu, and Windows runners; an
+independent learner walkthrough on each environment remains a separate pilot claim.
 
 ## Safety boundary
 

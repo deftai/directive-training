@@ -271,8 +271,8 @@ test("verifier rejects a Markdown-bullet Greptile dependency", () => {
 
 test("verifier rejects a live review dependency in the Module 11 source record", () => {
   const root = changedCopy("references/SOURCE-NOTES.md", (body) => body.replace(
-    "## Source-file verification",
-    "- Greptile approval is required.\n\n## Source-file verification",
+    "## Capstone source validation",
+    "- Greptile approval is required.\n\n## Capstone source validation",
   ));
   assert.throws(() => verifyModule11(root), /live review dependency/);
 });
@@ -359,18 +359,34 @@ test("verifier rejects current authoring values substituted into historical prob
   }
 });
 
-test("verifier rejects the capstone becoming learner-ready", () => {
+test("verifier rejects regression to a planned capstone", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "The planned two-hour capstone",
-    "The learner-ready two-hour capstone",
+    "The learner-ready [two-hour capstone]",
+    "The planned [two-hour capstone]",
   ));
-  assert.throws(() => verifyModule11(root), /capstone must remain planned/);
+  assert.throws(() => verifyModule11(root), /capstone must remain learner-ready/);
+});
+
+test("verifier rejects a missing Module 11 capstone forward link", () => {
+  const root = changedCopy("curriculum/modules/11-review-and-completion.md", (body) => body.replace(
+    "../capstone-end-to-end.md",
+    "../README.md",
+  ));
+  assert.throws(() => verifyModule11(root), /link forward to the learner-ready capstone/);
+});
+
+test("verifier rejects a missing Module 11 solution capstone link", () => {
+  const root = changedCopy("solutions/module-11-review-and-completion.md", (body) => body.replace(
+    "../curriculum/capstone-end-to-end.md",
+    "../curriculum/README.md",
+  ));
+  assert.throws(() => verifyModule11(root), /continue to the learner-ready capstone/);
 });
 
 test("verifier rejects an unlinked or unavailable Module 11 course row", () => {
-  const linked = "| 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Learner-ready draft; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |";
+  const linked = "| 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Learner-ready; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |";
   for (const replacement of [
-    "| 11 | `PR, review, and actual completion (modules/11-review-and-completion.md)` | 55 min | Learner-ready draft; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |",
+    "| 11 | `PR, review, and actual completion (modules/11-review-and-completion.md)` | 55 min | Learner-ready; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |",
     "| 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Not yet available | Resolve simulated findings and classify completion evidence |",
   ]) {
     const root = changedCopy("curriculum/README.md", (body) => body.replace(linked, replacement));

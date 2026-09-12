@@ -25,9 +25,7 @@ Every solution keeps these claim types separate.
 | [Module 9 — The Implementation Golden Path](../curriculum/modules/09-implementation-golden-path.md) | [Explained Lab 9 solution](lab-09-implementation-golden-path.md) | Available; executable lab verified on macOS/zsh only |
 | [Module 10 — Testing, Gates, and Evidence](../curriculum/modules/10-testing-gates-and-evidence.md) | [Explained Lab 10 solution](lab-10-testing-gates-and-evidence.md) | Available; executable lab verified on macOS/zsh only |
 | [Module 11 — PR, Review, and Actual Completion](../curriculum/modules/11-review-and-completion.md) | [Explained Module 11 solution](module-11-review-and-completion.md) | Available; command-free fixed-state exercise |
-| Capstone | Follow the [curriculum map](../curriculum/README.md) | Not yet available |
-
-“Not yet available” is an explicit status. It does not represent completed or hidden content.
+| [Capstone — End-to-End Solo Directive Lifecycle](../curriculum/capstone-end-to-end.md) | [Capstone explained solution](capstone-end-to-end.md) | Learner-ready; use after a genuine first attempt, then retry with fresh evidence |
 
 ## When to open a solution
 

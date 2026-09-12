@@ -391,7 +391,7 @@ differ.
 
 - Previous: [Module 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md)
 - Course map: [curriculum README](../README.md)
-- Next: the capstone remains planned and is not learner-ready.
+- Next: [Capstone — End-to-End Solo Directive Lifecycle](../capstone-end-to-end.md)
 
 ## Official sources
 

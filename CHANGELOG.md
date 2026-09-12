@@ -4,12 +4,19 @@
 
 ### Added
 
+- A learner-ready [end-to-end capstone](curriculum/capstone-end-to-end.md) with
+  a guarded two-hour lab, independently assessable rubric, progressive hints,
+  failure-specific recovery, reset-and-archive drill, and explained solution.
+- Focused capstone verification and negative tests for the exact Directive
+  0.112.0 graph, Node.js 24.20.0 runtime boundary, lifecycle/evidence order,
+  gate integrity, state claims, platform provenance, navigation, recovery,
+  rubric, and worked-solution contracts.
 - Module 11, a command-free fixed-state pre-PR, review-finding, coherent-batch,
   current-head, and evidence-bounded completion lesson with an explained solution.
 - Focused Module 11 verification and negative tests for exact Directive 0.112.0
   source evidence, review order, all-finding classification, P0/P1/P2 scope and
   blocking decisions, delivery proof, independent deployment/UAT axes, links,
-  lifecycle state, and the still-planned capstone.
+  lifecycle state, and the learner-ready capstone transition.
 - A decomposed and activated Module 11 story xBRIEF with approved local-build
   cost and change records, explicit sequential scope, and literal acceptance
   commands.
@@ -58,9 +65,10 @@
 
 ### Changed
 
-- Mark Module 11 learner-ready as a command-free fixed-state exercise, complete
-  the eleven-module core path, and advance course, lab, assessment, solution,
-  maintenance, and reference navigation while keeping the capstone planned.
+- Complete the learner-ready Module 1–11 core path and advance the course,
+  Module 11, lab, assessment, solution, maintenance, and reference surfaces
+  into the learner-ready capstone. Internal-alpha remains the pilot maturity
+  label; it no longer means the modules are partial drafts.
 - Mark Module 10 learner-ready on its verified macOS/zsh path while keeping Module 11
   planned, and advance course, lab, assessment, solution, and reference navigation.
 - Mark Module 9 learner-ready on its verified macOS/zsh path while keeping Modules 10–11

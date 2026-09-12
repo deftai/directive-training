@@ -169,6 +169,8 @@ npm run check:module-10
 npm run test:module-10
 npm run check:module-11
 npm run test:module-11
+npm run check:capstone
+npm run test:capstone
 npm run test:portability
 directive verify:vbrief-conformance --project-root .
 ```
@@ -216,7 +218,17 @@ and push, H2-bound checks and review with no push during review,
 delivery-branch reachability plus lifecycle closeout, and the separate
 Git/delivery, deployment, and UAT axes. It needs no platform execution or live
 reviewer. Reset and recovery use a fresh scratch worksheet, not a repository
-reset. Keep the capstone planned until its separate scope is delivered.
+reset.
+
+The learner-ready
+[capstone](../curriculum/capstone-end-to-end.md) combines the course lifecycle
+in one guarded no-remote fixture. Revalidate the exact 0.112.0 graph on Node.js
+24.20.0, the full stage and evidence order, meaningful red and intentional
+review-evidence aggregate failure, source-only green and P1 repair, simulated
+current-product review timing, implemented/local-pass closeout boundary, fresh
+reset, and separate recoverable archives. Run both capstone commands above.
+The native fixture matrix proves macOS, Ubuntu, and Windows runner behavior;
+record independent learner walkthrough pilots separately.
 
 Use the [native Windows revalidation handoff](WINDOWS-REVALIDATION.md) for the
 Modules 4–5 portability follow-up. Bind it to the published fix commit, preserve

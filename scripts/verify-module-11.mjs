@@ -28,6 +28,7 @@ const requiredFiles = [
   "README.md",
   "CHANGELOG.md",
   "curriculum/README.md",
+  "curriculum/capstone-end-to-end.md",
   "curriculum/modules/10-testing-gates-and-evidence.md",
   "labs/README.md",
   "solutions/README.md",
@@ -215,7 +216,8 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   assert.match(moduleProse, /configured secret value/i, `${module11} must establish the supplied P0 impact`);
   assert.match(moduleProse, /value is redacted/i, `${module11} must keep the fictional secret value redacted`);
   assert.match(section(moduleProse, "Navigation"), /\]\(10-testing-gates-and-evidence\.md\)/, "Module 11 must link back to Module 10");
-  assert.match(section(moduleProse, "Navigation"), /capstone[^\n]*planned/i, "Module 11 must keep the capstone planned");
+  assert.match(section(moduleProse, "Navigation"), /\]\(\.\.\/capstone-end-to-end\.md\)/, "Module 11 must link forward to the learner-ready capstone");
+  assert.doesNotMatch(section(moduleProse, "Navigation"), /\b(?:planned|not learner-ready|not yet available)\b/i, "Module 11 capstone link must remain learner-ready");
 
   const solutionProse = parsed.get(solution11).prose;
   requireOutcomes(solution11, solutionProse, ["Outcome map", "Acceptance evidence"]);
@@ -338,6 +340,11 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   );
   assert.match(solutionProse, /Deployment is an independent evidence axis; Git delivery does not prove it\./, `${solution11} must separate deployment evidence`);
   assert.match(solutionProse, /UAT is an independent evidence axis; Git delivery does not prove it\./, `${solution11} must separate UAT evidence`);
+  assert.match(
+    section(solutionProse, "Continue"),
+    /\]\(\.\.\/curriculum\/capstone-end-to-end\.md\)/,
+    "Module 11 solution must continue to the learner-ready capstone",
+  );
 
   const course = content.get("curriculum/README.md");
   const module11Row = courseModuleRow(course, 11);
@@ -349,8 +356,9 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   assert.match(module11Row, /\|\s*Learner-ready\b/i, "Module 11 course row must be learner-ready");
   assert.match(module11Row, /command-free/i, "Module 11 course row must identify the command-free exercise");
   const capstone = section(markdownParts(course).prose, "Capstone");
-  assert.match(capstone, /The planned two-hour capstone/, "capstone must remain planned");
-  assert.doesNotMatch(capstone, /learner-ready/i, "capstone must remain planned");
+  assert.match(capstone, /learner-ready/i, "capstone must remain learner-ready");
+  assert.match(capstone, /\]\(capstone-end-to-end\.md\)/, "course map must link the learner-ready capstone");
+  assert.doesNotMatch(capstone, /\b(?:planned|not yet available|not learner-ready)\b/i, "capstone must remain learner-ready");
 
   for (const path of [
     "README.md",

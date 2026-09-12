@@ -1,17 +1,17 @@
 # Directive source baseline
 
 This manifest fixes the curriculum's version-sensitive claims to Directive 0.112.0. It was
-revalidated through 2026-09-11 and must be refreshed when the project pin changes.
+revalidated through 2026-09-12 and must be refreshed when the project pin changes.
 
 ## Release identity
 
 | Evidence | Verified result |
 | --- | --- |
 | Consumer project pin | `package.json` has exact dev dependency `@deftai/directive: 0.112.0`. |
-| Executables used for probes | Earlier Modules 2–6 probes used a then-current global 0.112.0 CLI. Modules 7, 9, and 10 used disposable repositories' explicit pin-matched launchers. Module 11 inspected immutable 0.112.0 source. During Module 11 validation, the default unqualified shell CLI reported engine 0.114.0. Final authoring gates explicitly selected the NVM-managed CLI, which reported engine 0.116.0, to match the current 0.116.0 deposit. These versions are authoring-runtime context, not learner-behavior evidence. |
+| Executables used for probes | Earlier Modules 2–6 probes used a then-current global 0.112.0 CLI. Modules 7, 9, and 10 used disposable repositories' explicit pin-matched launchers. Module 11 inspected immutable 0.112.0 source. During Module 11 validation, the default unqualified shell CLI reported engine 0.114.0. Final authoring gates explicitly selected the NVM-managed CLI, which reported engine 0.116.0, to match the current 0.116.0 deposit for that Module 11 pass. Current capstone authoring uses CLI/engine and deposit 0.117.0. These versions are authoring-runtime context, not learner-behavior evidence. |
 | Installed packages | Historical learner proof at 0.112.0 used a global CLI/core/content graph and disposable repositories' CLI/core/content/types graphs that all resolved to 0.112.0. The training repository itself records a pin but intentionally contains no project-local install or lockfile. |
 | Runtime version report | The historical Module 7 local binary reported `@deftai/directive (engine: @deftai/directive-core@0.112.0)`. A shell-global 0.113.0 report observed during earlier authoring was not evidence for this baseline. Current default and selected authoring runtimes are recorded in the executable row above. |
-| Consumer deposit | The pinned baseline proof recorded payload, templates, skills, and docs at 0.112.0. The current authoring deposit is 0.116.0 and is not learner-behavior evidence. |
+| Consumer deposit | The pinned baseline proof recorded payload, templates, skills, and docs at 0.112.0. The current authoring deposit is 0.117.0 and is not learner-behavior evidence. |
 | Release tag | Annotated tag `v0.112.0`; tag object `5f30e544eedb72c313ba61934818eb49506fe61b`. |
 | Release commit | `7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808`. The tag peel and npm `gitHead` agree. |
 | npm artifact | Version 0.112.0; integrity `sha512-c5fOMWk2p1C/M6q8B3DrAJDjceNPeU6AvCesTA/zQAw/V+vbiPltfeo8NIBndoxRAaDtbVSQzEKnQ93f6sDS1w==`. |
@@ -292,8 +292,10 @@ were revalidated against immutable source at the 0.112.0 release commit:
 
 The learner pin remains exactly 0.112.0. During Module 11 validation, the default unqualified
 shell CLI reported engine 0.114.0. Final authoring gates explicitly selected the NVM-managed
-CLI, which reported engine 0.116.0, to match the current 0.116.0 deposit. Both CLI versions
-are authoring-runtime context and neither defines learner behavior. The current 0.116.0
+CLI, which reported engine 0.116.0, to match the current 0.116.0 deposit for that
+Module 11 pass. Current capstone authoring reports CLI/engine and deposit 0.117.0. These
+authoring versions do not define
+learner behavior. The current 0.117.0
 deposit differs from the pinned source on newer policy and adapter mechanics, including
 aggregate-gate placement in the current pre-PR skill. Those differences are recorded as
 drift and are not taught as 0.112.0 behavior. The exercise implements the project's
@@ -301,6 +303,37 @@ simulated-review policy: it requires no live GitHub repository, external review 
 merge, deployment, or UAT execution.
 Exact hashes and adaptation notes are in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-11-source-validation).
+
+## Capstone end-to-end validation
+
+The [learner-ready capstone](../curriculum/capstone-end-to-end.md) combines the
+Module 7–11 contracts in one guarded, disposable repository. Its learner
+package graph remains exactly `@deftai/directive@0.112.0` with
+`@deftai/directive-core`, `@deftai/directive-content`, and
+`@deftai/directive-types` also resolved to `0.112.0`.
+
+Directive 0.112.0 imports `node:fs` `globSync`, which is unavailable before
+Node.js 22. The complete Directive proof therefore runs on Node.js
+`24.20.0`. The fictional application source is Node.js 20-compatible as a
+source-level design constraint; no isolated Node.js 20 execution is claimed,
+and that property does not make the full Directive lab a Node.js 20 runtime
+path.
+
+| Surface | Bounded validation contract |
+| --- | --- |
+| Runtime matrix | `macos-15`, `ubuntu-24.04`, and `windows-2022`, each with Node.js `24.20.0`, Task `3.50.0`, and uv `0.11.10`; the Windows job also uses Python `3.13.13`. |
+| Guarded route | `CREATED → CHECKPOINT → ORIENTED → SCOPED → READY → RED → GREEN → FOCUSED → LITERAL → AGGREGATE_RED → PREPR → REVIEWED → COMPLETE`. |
+| Expected failure | The outer `red` and `aggregate` helpers exit `0` and print `"EXPECTED_FAILURE"` only after retaining a nonzero nested focused or aggregate result. |
+| Review timing | `pre-pr` records the seeded finding without mutation; `review` verifies repaired current-product bytes before the final commit; `close` proves those bytes are unchanged, commits them, and reruns the aggregate on that commit. |
+| Completion boundary | Helper stage `COMPLETE` is not Directive lifecycle completion. The fictional xBRIEF remains `active/running`; the strongest local claim is `implemented` with `local_pass`. |
+| Reset and archive | Reset creates a distinct `CREATED` attempt while preserving the prior repository and evidence. Archive moves each exact attempt parent to a recoverable OS-temporary location; neither operation emits JSON. |
+| Dependency boundary | Initial package installation contacts the configured npm registry. The remaining exercise needs no instructor, Greptile, live reviewer, GitHub mutation, deployment, publication, or UAT service. |
+
+The successful native jobs prove the guarded fixture on only those images and
+tool versions. They do not prove every shell, package manager, coding-agent
+host, or an independent learner walkthrough. Probe-level commits, job links,
+and the local fixture result are recorded in
+[SOURCE-NOTES.md](./SOURCE-NOTES.md#capstone-source-validation).
 
 ## Deferred skill-contract validation
 

@@ -25,12 +25,11 @@ An assessment must not present a 3Ci preference as Directive behavior.
 | [Module 9 — The Implementation Golden Path](../curriculum/modules/09-implementation-golden-path.md) | [Lab 9](../labs/09-implementation-golden-path.md) and module self-assessment | Current readiness, retained red-green behavior, exact one-file scope, paired behavior/diff evidence, and safe recovery; macOS/zsh only | [Explained Lab 9 solution](../solutions/lab-09-implementation-golden-path.md) |
 | [Module 10 — Testing, Gates, and Evidence](../curriculum/modules/10-testing-gates-and-evidence.md) | [Lab 10](../labs/10-testing-gates-and-evidence.md) and module self-assessment | Ordered red-green-refactor, distinct literal and forward evidence, seeded aggregate diagnosis, and unchanged-gate repair; macOS/zsh only | [Explained Lab 10 solution](../solutions/lab-10-testing-gates-and-evidence.md) |
 | [Module 11 — PR, Review, and Actual Completion](../curriculum/modules/11-review-and-completion.md) | Fixed review-packet worksheets and module self-assessment | Complete finding classification, coherent-batch reasoning, current-head review evidence, and completion-state decisions | [Explained Module 11 solution](../solutions/module-11-review-and-completion.md) |
-| Capstone | Not yet available | None required yet | Follow availability from the [curriculum map](../curriculum/README.md) |
+| [Capstone — End-to-End Solo Directive Lifecycle](../curriculum/capstone-end-to-end.md) | [Capstone evidence assessment](capstone-end-to-end.md) | Ordered orientation, scope, readiness, red/green, layered gates, zero-change review, repair, bounded closeout, reset, and archive evidence | [Capstone explained solution](../solutions/capstone-end-to-end.md) |
 
 Modules 1–11 keep assessment beside the lesson or disposable lab so the attempt,
-feedback, and retry path stay together. Later standalone assessments will
-appear in this directory and link back to their source modules. “Not yet
-available” is an explicit status, not completed content.
+feedback, and retry path stay together. The capstone uses the standalone rubric
+in this directory because it evaluates the full course path.
 
 ## How to complete an assessment
 

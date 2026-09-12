@@ -317,9 +317,7 @@ No instructor or review bot is required. If the documented recovery still cannot
 | [Module 8 — Session start and authorized work selection](../curriculum/modules/08-session-and-work-selection.md) | Available; command-free fixed-state exercise | Complete its embedded request-card matrix; no lab fixture is required |
 | [Module 11 — PR, review, and actual completion](../curriculum/modules/11-review-and-completion.md) | Available; command-free fixed-state exercise | Use the embedded fictional review packet and completion cards; Module 11 has no lab fixture |
 | [Lab authoring template](../templates/lab-template.md) | Available to maintainers | Build a lab with tasks, checkpoints, literal gates, reset, cleanup, and a solution |
-| Capstone | Not yet available | Follow its entry from the [curriculum map](../curriculum/README.md) when released |
-
-An entry marked “not yet available” is not completed curriculum.
+| [Capstone — End-to-End Solo Directive Lifecycle](capstone-end-to-end.md) | Learner-ready; guarded fixture verified on macOS 15, Ubuntu 24.04, and Windows Server 2022 with Node.js 24.20.0 | Use its exact two-hour orientation-to-local-closeout route, retained evidence, fresh reset drill, and recoverable archive of both attempts |
 
 ## Maintainer acceptance
 

@@ -5,7 +5,7 @@ They are maintainer evidence, not a learner command reference.
 
 ## Verification context
 
-- Current-baseline verification date: 2026-09-11. Runtime proofs below retain
+- Current-baseline verification date: 2026-09-12. Runtime proofs below retain
   their original execution dates; each module section states its own source,
   content-contract, and runtime evidence boundary.
 - Host used: macOS with zsh and Node.js 24.18.0.
@@ -19,9 +19,10 @@ They are maintainer evidence, not a learner command reference.
   resolved to 0.112.0 on each applicable learner-proof graph.
 - Historical learner-baseline deposit proof: reconstituted surfaces reported 0.112.0. This
   is preserved evidence, not a description of the current authoring deposit.
-- Current Module 11 authoring context: during Module 11 validation, the default unqualified
-  shell CLI reported engine 0.114.0. Final authoring gates explicitly selected the NVM-managed
-  CLI, which reported engine 0.116.0, to match the current 0.116.0 deposit. These versions are
+- Current authoring context: during Module 11 validation, the default unqualified
+  shell CLI reported engine 0.114.0. Final authoring gates explicitly selected the NVM-managed CLI,
+  which reported engine 0.116.0, to match the current 0.116.0 deposit for that Module 11
+  pass. Capstone authoring now reports CLI/engine and deposit 0.117.0. These versions are
   authoring-runtime context, not learner-behavior evidence.
 - Official tag: `v0.112.0`; peeled commit and npm `gitHead`:
   `7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808`.
@@ -695,8 +696,9 @@ failure, the one-record repair, final aggregate, fresh reset, and recoverable ar
 Validation date: 2026-09-11. The learner baseline remains 0.112.0. During Module
 11 validation, the default unqualified shell CLI reported engine 0.114.0. Final
 authoring gates explicitly selected the NVM-managed CLI, which reported engine
-0.116.0, to match the current 0.116.0 deposit. These authoring values describe
-drift only; they are not substituted for the pinned learner contract.
+0.116.0, to match the current 0.116.0 deposit for that Module 11 pass. Current
+capstone authoring reports CLI/engine and deposit 0.117.0. These authoring values describe drift
+only; they are not substituted for the pinned learner contract.
 
 ### Immutable source evidence
 
@@ -710,7 +712,7 @@ All hashes below are SHA-256 over bytes at release commit
 | `content/coding/review.md` | `f00e769f61d6be1494294d334c30983b07716bcc41584524424069f7e0d3b8bf` | Universal review requirements, P0/P1/P2 severity and merge gate, and review anti-patterns. |
 | `content/docs/directive-lifecycle.md` | `14ea6bfd92cc8d49bdce173206f4d73670e24c87abdb0bf620b6bbe218799c52` | Delivery integrity versus deployment and UAT, including the integration-merge boundary. |
 
-The first three current 0.116.0 deposit files differ from the pinned hashes. In
+The first three current 0.117.0 deposit files differ from the pinned hashes. In
 particular, the newer pre-PR skill moves aggregate-gate placement and the
 review material contains newer policy and adapter mechanics. The lifecycle
 source remains byte-identical for the cited delivery boundary. Module 11
@@ -733,11 +735,79 @@ part of the learner path.
 
 The Module 11 verifier checks the fixed packet, blank pre-PR worksheet and
 phase order, unique semantic classification rows, contradiction rejection,
-coherent batching, current-head evidence, three independent completion axes,
-source records, navigation, lifecycle registry, exact package scripts, and the
-still-planned capstone. Its negative tests mutate only unique OS-temporary
-copies of repository content. Because the exercise is command-free, it makes
-no platform-runtime claim.
+coherent batching, current-product evidence, three independent completion
+axes, source records, navigation, lifecycle registry, exact package scripts,
+and the learner-ready capstone transition. Its negative tests mutate only
+unique OS-temporary copies of repository content. Because the exercise is
+command-free, it makes no platform-runtime claim.
+
+## Capstone source validation
+
+Validation date: 2026-09-12. The
+[learner-ready capstone](../curriculum/capstone-end-to-end.md) preserves the
+exact `@deftai/directive@0.112.0` learner graph. The complete Directive proof
+uses Node.js `24.20.0`. The fictional application source remains Node.js
+20-compatible as a source-level design constraint based on source review; no
+isolated Node.js 20 execution or workflow job is claimed.
+
+### Fixture and evidence sources
+
+The fixture helper owns guarded creation, identity checks, strict stage
+transitions, evidence generation, fresh reset, and recoverable archive. The
+fixture test exercises direct entry, shell-independent argument handling,
+command parsing, guarded no-remote creation, unsafe-root refusal, path safety,
+reset/archive behavior, and the full local rehearsal. A fresh local run on
+2026-09-12 passed 8/8 tests.
+
+The fixture Taskfile keeps the fictional story's literal acceptance commands
+(`npm run test:focused` and `npm run check:behavior`) separate from the
+aggregate `check` task. The aggregate runs focused tests, literal acceptance,
+forward coverage, and `review:evidence` in that order. The workflow runs only
+the fixture suite on the three named native images with Node.js `24.20.0`,
+Task `3.50.0`, uv `0.11.10`, and Python `3.13.13` on Windows.
+
+### Immutable fixture provenance
+
+Fixture PR [#48](https://github.com/3Ci-Consulting/directive-training/pull/48)
+was squash-merged on 2026-09-12. Its head was
+`4f8ca7e36723e094ed1a19aa9593f01c0b798cdf`; the merge commit was
+`1ad4c23f03498af745eec972e7c3f5a63b97d4b4`. A same-session probe reported
+these successful checks:
+
+| Check | Image or boundary | Evidence |
+| --- | --- | --- |
+| `macos-node24` | `macos-15` | [GitHub Actions job 103507813471](https://github.com/3Ci-Consulting/directive-training/actions/runs/34676736925/job/103507813471) |
+| `linux-node24` | `ubuntu-24.04` | [GitHub Actions job 103507813395](https://github.com/3Ci-Consulting/directive-training/actions/runs/34676736925/job/103507813395) |
+| `windows-node24` | `windows-2022` | [GitHub Actions job 103507813491](https://github.com/3Ci-Consulting/directive-training/actions/runs/34676736925/job/103507813491) |
+| `no-mixed-core-and-app` | repository boundary | [GitHub Actions job 103507813463](https://github.com/3Ci-Consulting/directive-training/actions/runs/34676736936/job/103507813463) |
+
+- `capstone-platform-proof:macos-node24 status=verified date=2026-09-12 evidence=gha-run-34676736925-job-103507813471`
+- `capstone-platform-proof:linux-node24 status=verified date=2026-09-12 evidence=gha-run-34676736925-job-103507813395`
+- `capstone-platform-proof:windows-node24 status=verified date=2026-09-12 evidence=gha-run-34676736925-job-103507813491`
+
+This matrix proves the fixture implementation on those bounded runners. It
+does not claim that an independent learner completed the written walkthrough,
+nor does it generalize to other operating-system images, shells, package
+managers, or coding-agent hosts.
+
+### Semantic boundary retained in the learner material
+
+- The outer `red` and `aggregate` helper processes exit `0` and print
+  `"EXPECTED_FAILURE"` when the intended inner command fails; the nested
+  evidence carries the nonzero exit.
+- `pre-pr` records `CAP-P1-001` without editing. `review` checks the
+  repaired current-product bytes before the final commit, and `close` proves
+  the bytes are unchanged before committing and rerunning the aggregate.
+- Helper stage `COMPLETE` is not Directive lifecycle completion. The fictional
+  scope remains `active/running`, and closeout records only
+  `implemented`/`local_pass`.
+- Reset creates a different fresh root and preserves earlier evidence. Archive
+  is a recoverable move of one exact attempt parent. Neither reset nor archive
+  emits JSON, and both attempts' launcher roots and residual launcher
+  directories remain named OS-temporary cleanup items.
+- Installation contacts the configured npm registry; no instructor, Greptile,
+  live reviewer, remote mutation, deployment, publication, or UAT service is
+  required after that prerequisite.
 
 ## Source-file verification
 
@@ -750,17 +820,18 @@ Hashes are SHA-256 over file bytes at the peeled release commit.
 | `docs/CONCEPTS.md` | `20fe9d9a0ab72c9922b7c4fb22ed6944f41d73c7730b25347c41af9c27c79161` | Source-repository-only; not in `.deft/core/`. |
 | `content/conventions/references.md` | `a07578a13eeb1bfb20f10d08aff4e71549a63e3f7585bb5be9d32827d2ebaf98` | Reconstituted at `.deft/core/conventions/references.md` with the deposit marker and one relative-link rewrite; deposited hash `1a31bb6c4406189acbf1bb95c1832f55389bfe300e190a5946f60025366435d4`. |
 | `content/docs/directive-lifecycle.md` | `14ea6bfd92cc8d49bdce173206f4d73670e24c87abdb0bf620b6bbe218799c52` | Byte-identical at `.deft/core/docs/directive-lifecycle.md`. |
-| `content/coding/review.md` | `f00e769f61d6be1494294d334c30983b07716bcc41584524424069f7e0d3b8bf` | Current 0.116.0 deposit differs; Module 11 uses the immutable release bytes. |
-| `content/skills/deft-directive-pre-pr/SKILL.md` | `f60a8eaee395cc65d550b95fab6da8348817de023c3f63accebfbdfc88eeea42` | Current 0.116.0 deposit differs; Module 11 uses the immutable release bytes. |
-| `content/skills/deft-directive-review-cycle/SKILL.md` | `ff0337151f6f545999367df87a307c3892707df79ffdadeb06c6ef2c10f15082` | Current 0.116.0 deposit differs; only its universal review boundary is adapted. |
-| `content/commands.md` | `eb012055fe7c3d410016e5e8ee386dc232de997dd9d57ba245125b25d6f45c50` | Byte-identical at `.deft/core/commands.md`. |
-| `content/strategies/README.md` | `e21090a90ca0ed3c4b324afebef53392292a4e43e86e2b9ea74a1058659de8aa` | Reconstituted at `.deft/core/strategies/README.md` with deposit-only rewrites. |
+| `content/coding/review.md` | `f00e769f61d6be1494294d334c30983b07716bcc41584524424069f7e0d3b8bf` | Current 0.117.0 deposit differs; Module 11 uses the immutable release bytes. |
+| `content/skills/deft-directive-pre-pr/SKILL.md` | `f60a8eaee395cc65d550b95fab6da8348817de023c3f63accebfbdfc88eeea42` | Current 0.117.0 deposit differs; Module 11 uses the immutable release bytes. |
+| `content/skills/deft-directive-review-cycle/SKILL.md` | `ff0337151f6f545999367df87a307c3892707df79ffdadeb06c6ef2c10f15082` | Current 0.117.0 deposit differs; only its universal review boundary is adapted. |
+| `content/commands.md` | `eb012055fe7c3d410016e5e8ee386dc232de997dd9d57ba245125b25d6f45c50` | Current 0.117.0 deposit differs; deposited hash `a181ef68c78de1808450cb5e4a3b432a24e0505d8423f200859e0c2a19308e7b`. Learner claims use the pinned source. |
+| `content/strategies/README.md` | `e21090a90ca0ed3c4b324afebef53392292a4e43e86e2b9ea74a1058659de8aa` | Current 0.117.0 deposit differs; deposited hash `59c3d08371ffaafad8881736a61cdb561abb88b0eea403b68193fa185a8db03f`. Learner claims use the pinned source. |
 | `LICENSE` | `4322170c478362f7beb21558b4585f706a8b9e8d22fbda53f81d90f9aebfaeb5` | Notice text matches `.deft/core/LICENSE.md`; the deposited copy adds a Markdown heading marker. |
 
-The reconstituted strategy file differs in two known ways: it adds a
-`deft:deposit-link-rewrite` marker and changes one example link from
-`../strategies/interview.md` to `interview.md`. The headings and teaching claims used by this
-baseline are otherwise unchanged.
+An earlier reconstitution comparison found two strategy-file rewrites: a
+`deft:deposit-link-rewrite` marker and one relative example link. The current
+0.117.0 deposit has a different hash and was not substituted for pinned learner
+evidence; any new teaching claim from that current file requires a fresh
+content comparison.
 
 ## Recorded disagreements and curriculum decisions
 

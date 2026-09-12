@@ -1,7 +1,7 @@
 # Directive training glossary
 
 These definitions describe the course baseline: `@deftai/directive` 0.112.0
-and xBRIEF schema 0.8, verified through 2026-09-11. See
+and xBRIEF schema 0.8, verified through 2026-09-12. See
 [SOURCE-BASELINE.md](SOURCE-BASELINE.md) before applying them to another
 release.
 
@@ -270,6 +270,12 @@ The project's full required check surface, run after focused iteration checks.
 When it fails, fix the work or its legitimate cause; do not weaken the gate
 merely to obtain a passing result.
 
+**expected-failure capture**
+A successful wrapper result that preserves an intended nested failure as
+evidence. In the [capstone](../curriculum/capstone-end-to-end.md), the `red` and
+first `aggregate` helper verbs exit successfully and print `EXPECTED_FAILURE`;
+the retained JSON contains the nested nonzero exit.
+
 **acceptance criterion**
 An observable condition that must be true for scoped work to be accepted.
 Strong criteria state evidence a learner or reviewer can actually inspect.
@@ -306,6 +312,17 @@ new classify-and-batch iteration.
 **current-head review**
 Review evidence bound to the revision now proposed for merge. A review of an
 earlier head is stale after a fix creates a new head.
+
+**current-product review**
+Evidence bound to the current uncommitted product digest. The capstone's
+simulated `currentHeadReview: CLEAN` value has this narrower meaning: closeout
+must prove the reviewed bytes are unchanged, commit them, and rerun the
+aggregate before any current-head gate claim is possible.
+
+**capstone helper completion**
+The fixture stage `COMPLETE`, meaning the guarded exercise sequence finished.
+It does not mean the active xBRIEF was completed, the work was delivered, or a
+deployment or UAT event occurred.
 
 **ordered plan**
 An operator-set short sequence that binds bare continuation language such as

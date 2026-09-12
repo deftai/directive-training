@@ -106,8 +106,8 @@ test("verifier rejects a broken local navigation link", () => {
 
 test("verifier rejects an unavailable range that still includes Lab 7", () => {
   const root = changedCopy("labs/README.md", (body) => body.replace(
-    "| Capstone | Not yet available |",
-    "Labs for Modules 6–11 and the capstone",
+    "## Lab navigation",
+    "Labs for Modules 6–11 and the capstone are not yet available.\n\n## Lab navigation",
   ));
   assert.throws(() => verifyModule7(root), /unavailable Modules 6–11 range/);
 });

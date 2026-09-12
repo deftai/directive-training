@@ -247,5 +247,6 @@ cleanup command is required.
 
 ## Continue
 
-Return to the [course map](../curriculum/README.md). The capstone remains
-planned and is not learner-ready.
+Continue to the learner-ready
+[Capstone — End-to-End Solo Directive Lifecycle](../curriculum/capstone-end-to-end.md),
+or return to the [course map](../curriculum/README.md).

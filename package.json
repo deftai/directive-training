@@ -10,6 +10,7 @@
     "check:module-9": "node scripts/verify-module-9.mjs",
     "check:module-10": "node scripts/verify-module-10.mjs",
     "check:module-11": "node scripts/verify-module-11.mjs",
+    "check:capstone": "node scripts/verify-capstone.mjs",
     "test:modules-4-5": "node --test scripts/projection-lab.test.mjs scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-modules-4-5.test.mjs",
     "test:module-6": "node --test scripts/verify-module-6.test.mjs",
     "test:module-7": "node --test scripts/lifecycle-lab.test.mjs scripts/verify-module-7.test.mjs",
@@ -17,7 +18,7 @@
     "test:module-9": "node --test scripts/implementation-lab.test.mjs scripts/verify-module-9.test.mjs",
     "test:module-10": "node --test scripts/gates-lab.test.mjs scripts/verify-module-10.test.mjs",
     "test:module-11": "node --test scripts/verify-module-11.test.mjs",
-    "test:capstone": "node --test scripts/capstone-lab.test.mjs && node --check labs/fixtures/capstone-end-to-end/capstone-lab.mjs && git diff --check",
+    "test:capstone": "node --test scripts/capstone-lab.test.mjs scripts/verify-capstone.test.mjs && node --check labs/fixtures/capstone-end-to-end/capstone-lab.mjs && git diff --check",
     "test:portability": "node --test scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs"
   },
   "devDependencies": {

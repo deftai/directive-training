@@ -1,15 +1,18 @@
 # 3Ci Directive training course map
 
 This is the navigation source for a twelve-hour, self-directed path: ten hours
-of core modules followed by a two-hour disposable capstone. The current
-internal-alpha milestone makes Modules 1–11 learner-ready drafts. Module 2's 0.112.0 pinned npm
+of core modules followed by a two-hour disposable capstone. Modules 1–11 and
+the capstone are implemented and learner-ready. The course remains an internal
+alpha pending representative learner pilots; that maturity label is separate
+from authored-content completeness. Module 2's 0.112.0 pinned npm
 path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell
 7.4+ on Windows Server 2022 by local and native-matrix evidence. Modules 4 and 6
 are command-free; Modules 8 and 11 are also command-free and use fixed fictional state.
 Module 5's projection lab and Module 7's lifecycle lab are verified only on macOS/zsh;
 their Linux and native Windows paths are not verified. Modules 9 and 10 have executable labs
-verified only on macOS/zsh. The capstone remains planned until its files contain
-substantive, verified content.
+verified only on macOS/zsh. The guarded capstone fixture is verified on
+macOS 15, Ubuntu 24.04, and Windows Server 2022; independent walkthrough pilot
+evidence remains separate.
 
 ## Audience and prerequisites
 
@@ -21,10 +24,15 @@ deterministic gates.
 
 For command-based modules you will need:
 
-- Node.js 20 or newer;
+- Node.js 20 or newer for the core modules; the capstone Directive proof
+  requires Node.js 24.20.0 exactly;
 - Git and GitHub CLI;
 - npm as the primary package manager, with pnpm differences called out where
   they matter;
+- Task and uv for executable lifecycle labs; the capstone matrix uses Task
+  3.50.0 and uv 0.11.10;
+- Python on Windows for Directive verification; the capstone matrix uses
+  Python 3.13.13;
 - macOS or Linux with zsh or Bash, or Windows with PowerShell 7.4 or newer; and
 - Codex, Claude Code, or Cursor for host-specific notes. The core instruction is
   host-neutral.
@@ -54,17 +62,17 @@ No step requires a live demonstration or an instructor's private knowledge.
 
 | ID | Module | Time | Status | Primary practice |
 | --- | --- | ---: | --- | --- |
-| 01 | [What Directive is](modules/01-what-directive-is.md) | 45 min | Learner-ready draft | Classify tools and scenarios by responsibility |
-| 02 | [Installation and project anatomy](modules/02-installation-and-anatomy.md) | 60 min | Learner-ready draft; 0.112.0 pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence | Initialize and inspect a disposable consumer repository |
-| 03 | [Authority and context](modules/03-authority-and-context.md) | 45 min | Learner-ready draft | Resolve conflicting sample rules |
-| 04 | [xBRIEF as durable state](modules/04-xbrief-as-durable-state.md) | 45 min | Learner-ready draft; command-free | Classify project and work-state artifacts |
-| 05 | [Sources versus projections](modules/05-sources-versus-projections.md) | 50 min | Learner-ready draft; lab verified on macOS/zsh only | Repair projection drift through its source |
-| 06 | [Creating well-shaped work](modules/06-creating-well-shaped-work.md) | 55 min | Learner-ready draft; command-free | Turn a horizontal plan into a vertical slice |
-| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready draft; lab verified on macOS/zsh only | Fail, promote, activate, establish current readiness, complete, and cancel |
-| 08 | [Session start and authorized work selection](modules/08-session-and-work-selection.md) | 45 min | Learner-ready draft; command-free fixed-state exercise | Trace posture and intake decisions |
-| 09 | [The implementation golden path](modules/09-implementation-golden-path.md) | 70 min | Learner-ready draft; lab verified on macOS/zsh only | Implement one test-backed active scope |
-| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready draft; lab verified on macOS/zsh only | Red-green-refactor and diagnose a gate failure |
-| 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Learner-ready draft; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |
+| 01 | [What Directive is](modules/01-what-directive-is.md) | 45 min | Learner-ready | Classify tools and scenarios by responsibility |
+| 02 | [Installation and project anatomy](modules/02-installation-and-anatomy.md) | 60 min | Learner-ready; 0.112.0 pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence | Initialize and inspect a disposable consumer repository |
+| 03 | [Authority and context](modules/03-authority-and-context.md) | 45 min | Learner-ready | Resolve conflicting sample rules |
+| 04 | [xBRIEF as durable state](modules/04-xbrief-as-durable-state.md) | 45 min | Learner-ready; command-free | Classify project and work-state artifacts |
+| 05 | [Sources versus projections](modules/05-sources-versus-projections.md) | 50 min | Learner-ready; lab verified on macOS/zsh only | Repair projection drift through its source |
+| 06 | [Creating well-shaped work](modules/06-creating-well-shaped-work.md) | 55 min | Learner-ready; command-free | Turn a horizontal plan into a vertical slice |
+| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; lab verified on macOS/zsh only | Fail, promote, activate, establish current readiness, complete, and cancel |
+| 08 | [Session start and authorized work selection](modules/08-session-and-work-selection.md) | 45 min | Learner-ready; command-free fixed-state exercise | Trace posture and intake decisions |
+| 09 | [The implementation golden path](modules/09-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh only | Implement one test-backed active scope |
+| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh only | Red-green-refactor and diagnose a gate failure |
+| 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Learner-ready; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |
 
 The times total ten hours. Exercise time is included. Different hosts may add a
 small setup cost, but host-specific mechanics must not change the core outcomes.
@@ -119,12 +127,16 @@ small setup cost, but host-specific mechanics must not change the core outcomes.
 
 ## Capstone
 
-The planned two-hour capstone uses one disposable fictional repository. A
-learner will independently orient, establish active scope, pass preflight,
-implement a tested behavior, run focused and aggregate checks, conduct pre-PR
-review, handle a simulated review, and make an evidence-based closeout decision.
-**[3Ci policy]** The capstone will not use a business repository, real
-deployment, or destructive remote action.
+The learner-ready [two-hour capstone](capstone-end-to-end.md) uses one guarded,
+disposable fictional repository. A learner independently orients, establishes
+active scope, passes readiness gates, preserves red/green evidence, runs focused
+and literal checks before the separate aggregate, classifies and resolves a
+simulated review finding, and makes an evidence-bounded closeout decision.
+Use its [lab](../labs/capstone-end-to-end.md),
+[assessment](../assessments/capstone-end-to-end.md), and
+[explained solution](../solutions/capstone-end-to-end.md).
+**[3Ci policy]** The capstone does not use a business repository, remote
+mutation, real deployment, or destructive cleanup.
 
 ## Future advanced electives
 
@@ -159,7 +171,7 @@ hints, recovery paths, and solutions. Their friction becomes revision input.
 - Next: [Module 1 — What Directive is](modules/01-what-directive-is.md)
 
 After Module 10, continue to [Module 11](modules/11-review-and-completion.md).
-After Module 11, stop at the course map because the capstone remains planned. A
+After Module 11, continue to the [end-to-end capstone](capstone-end-to-end.md). A
 learner without the verified Lab 5, Lab 7, Lab 9, or Lab 10 environment can
 read the corresponding concepts, but must retain an environment-blocked practical outcome
 instead of treating an unexecuted candidate platform as verified.
