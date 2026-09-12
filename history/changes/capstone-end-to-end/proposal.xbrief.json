@@ -1,0 +1,65 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Approved change proposal for the disposable end-to-end capstone",
+    "created": "2026-09-12T00:15:22Z",
+    "updated": "2026-09-12T01:39:01Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.capstone-end-to-end",
+    "title": "capstone-end-to-end",
+    "status": "approved",
+    "items": [],
+    "narratives": {
+      "Problem": "Modules 1 through 11 teach the Directive lifecycle in bounded lessons, but the curriculum does not yet provide the promised two-hour solo capstone where a learner proves the complete workflow in one safe disposable repository.",
+      "Change": "Build a guarded fictional Node.js fixture, then author the learner walkthrough, assessment rubric, progressive hints, recovery guidance, and explained solution around that fixture's exact stage and evidence contract. Add focused positive and adversarial verification plus a read-only cross-platform workflow without changing the pinned learner release.",
+      "Scope": "In scope: the two approved sequential child stories training.capstone.fixture-runtime and training.capstone.learning-experience; their declared fixture, workflow, curriculum, assessment, solution, navigation, source-record, verifier, package, and lifecycle paths; and push plus pull-request creation for the fixture child only. Out of scope: real repositories or client data, remote mutation by learners, live review bots, Greptile, deployment, publication, a Directive learner-pin change, backward-compatibility shims, merge, remote delivery of the learning-experience child, branch deletion, and worktree removal.",
+      "Impact": "Completes the approximately twelve-hour core curriculum by adding the final two-hour independent exercise. The fixture becomes the executable contract consumed by the walkthrough and rubric, while existing module behavior and the exact Directive 0.112.0 learner baseline remain unchanged.",
+      "Risks": "The helper could write outside a unique temporary repository, allow a remote or redirected Git directory, overstate unobserved platform support, permit out-of-order or forged evidence, weaken supplied tests or gates, conflate local implementation with remote delivery, or let prose drift from executable fixture behavior.",
+      "Approach": "Implement the fixture story first with failing positive and adversarial tests, make the smallest guarded runtime pass its focused checks, and deliver that child through its own reviewed pull request. After the fixture merges and its lifecycle record is completed, activate the dependent learning-experience story on a separate feature branch, write failing content-contract tests, author the walkthrough and supporting material against the proven fixture, update exact navigation and source records, and run that story's literal acceptance plus aggregate gate.",
+      "Alternatives": "A documentation-only capstone was rejected because it would not prove safe execution or ordered evidence. A live GitHub or bot-driven learner exercise was rejected because it would be mutable, unavailable to some learners, and contrary to the project's simulated-review boundary. A single cross-story branch was rejected because the one-active-story lifecycle requires the fixture to merge and complete before the dependent learning-experience story can activate.",
+      "Dependencies": "Completed Modules 1 through 11, the exact @deftai/directive 0.112.0 learner pin, Node.js 20 or newer, Git, npm, the approved capstone decomposition, and the recorded Option 1 Build cost decision.",
+      "Authorization": "David requested capstone implementation, explicitly approved the two-story decomposition, minted the structural decomposition grant, and confirmed /deft:change capstone-end-to-end. After the fixture checkpoint, David explicitly approved pushing this feature branch and opening the fixture pull request. Merge, remote delivery of the dependent learning-experience story, deployment, publication, destructive cleanup, branch deletion, and worktree removal remain unauthorized.",
+      "Stops": "Current delivery checkpoint: the fixture acceptance contract, focused positive and negative tests, literal xBRIEF acceptance, portability regression checks, a zero-change pre-PR pass, the aggregate local gate, branch push, and fixture pull-request creation. Overall success remains both story acceptance contracts and final aggregate evidence. Failure: stop after at most five implementation fix iterations or three identical failures without progress, and at most three pre-PR review passes. Stop before merge, deployment, publication, remote delivery of the learning-experience child, branch deletion, or worktree removal pending separate authorization."
+    },
+    "references": [
+      {
+        "uri": "../../../xbrief/proposed/2026-09-05-disposable-end-to-end-capstone.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Disposable end-to-end solo Directive capstone parent scope",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../../xbrief/active/2026-09-11-capstone-guarded-disposable-fixture.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Guarded disposable fixture story",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../../xbrief/pending/2026-09-11-capstone-solo-lifecycle-learning-experience.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Solo lifecycle learning-experience story",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../../COST-ESTIMATE.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Approved Module 11 and capstone build decision",
+        "TrustLevel": "internal"
+      }
+    ],
+    "metadata": {
+      "change_name": "capstone-end-to-end",
+      "confirmed_by": "David",
+      "confirmation_phrase": "yes",
+      "confirmed_at": "2026-09-12T00:15:22Z",
+      "cost_selection": "Option 1, Build",
+      "batching_rationale": "The learning experience depends on the fixture's exact stage and evidence contract. The fixture ships first; after merge and lifecycle completion, the dependent story starts on a separate feature branch so only one scope is active at a time.",
+      "story_order": [
+        "training.capstone.fixture-runtime",
+        "training.capstone.learning-experience"
+      ]
+    }
+  }
+}

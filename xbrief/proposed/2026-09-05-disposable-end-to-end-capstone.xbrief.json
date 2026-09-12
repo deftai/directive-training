@@ -52,6 +52,20 @@
         ],
         "size": "large"
       }
-    }
+    },
+    "references": [
+      {
+        "uri": "active/2026-09-11-capstone-guarded-disposable-fixture.xbrief.json",
+        "type": "x-xbrief/plan",
+        "title": "Capstone: Guarded Disposable End-to-End Fixture",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "pending/2026-09-11-capstone-solo-lifecycle-learning-experience.xbrief.json",
+        "type": "x-xbrief/plan",
+        "title": "Capstone: Solo Lifecycle Walkthrough, Rubric, and Solution",
+        "TrustLevel": "internal"
+      }
+    ]
   }
 }

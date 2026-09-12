@@ -1,0 +1,104 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Implementation tasks for the approved disposable end-to-end capstone change",
+    "created": "2026-09-12T00:15:22Z",
+    "updated": "2026-09-12T01:39:01Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.capstone-end-to-end.tasks",
+    "title": "capstone-end-to-end tasks",
+    "status": "approved",
+    "items": [
+      {
+        "id": "change.capstone-end-to-end.fixture-tests",
+        "title": "Write failing fixture and safety contract tests",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.capstone-end-to-end.fixture-runtime",
+        "title": "Implement the guarded disposable fixture runtime",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.capstone-end-to-end.fixture-evidence",
+        "title": "Verify fixture lifecycle, evidence, reset, and portability boundaries",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.capstone-end-to-end.content-tests",
+        "title": "Write failing capstone content-contract tests",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.capstone-end-to-end.learning-experience",
+        "title": "Author the walkthrough, rubric, hints, recovery, and solution",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.capstone-end-to-end.navigation",
+        "title": "Integrate learner navigation and source records",
+        "type": "task",
+        "status": "pending"
+      },
+      {
+        "id": "change.capstone-end-to-end.quality",
+        "title": "Run focused, literal, portability, conformance, and aggregate gates",
+        "type": "task",
+        "status": "pending"
+      }
+    ],
+    "edges": [
+      {
+        "from": "change.capstone-end-to-end.fixture-tests",
+        "to": "change.capstone-end-to-end.fixture-runtime",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.capstone-end-to-end.fixture-runtime",
+        "to": "change.capstone-end-to-end.fixture-evidence",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.capstone-end-to-end.fixture-evidence",
+        "to": "change.capstone-end-to-end.content-tests",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.capstone-end-to-end.content-tests",
+        "to": "change.capstone-end-to-end.learning-experience",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.capstone-end-to-end.learning-experience",
+        "to": "change.capstone-end-to-end.navigation",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.capstone-end-to-end.navigation",
+        "to": "change.capstone-end-to-end.quality",
+        "type": "depends_on"
+      }
+    ],
+    "references": [
+      {
+        "uri": "../../../xbrief/active/2026-09-11-capstone-guarded-disposable-fixture.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Guarded disposable fixture story",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../../xbrief/pending/2026-09-11-capstone-solo-lifecycle-learning-experience.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Solo lifecycle learning-experience story",
+        "TrustLevel": "internal"
+      }
+    ]
+  }
+}

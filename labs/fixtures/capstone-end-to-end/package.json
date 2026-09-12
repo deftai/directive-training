@@ -1,0 +1,18 @@
+{
+  "name": "northstar-directive-capstone",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:behavior": "node src/cli.mjs check",
+    "test:focused": "node --test test/work-items.test.mjs",
+    "work-items": "node src/cli.mjs"
+  },
+  "devDependencies": {
+    "@deftai/directive": "0.112.0"
+  },
+  "overrides": {
+    "@deftai/directive-core": "0.112.0",
+    "@deftai/directive-content": "0.112.0",
+    "@deftai/directive-types": "0.112.0"
+  }
+}

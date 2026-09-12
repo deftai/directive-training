@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "deft.decision.v1",
+  "id": "run-the-capstone-directive-proof-on-pinned-node-js-24-20-0-while",
+  "decision": "Run the capstone Directive proof on pinned Node.js 24.20.0 while keeping the fictional application Node.js 20-compatible",
+  "governingRule": {
+    "description": "Observed behavior from the exact learner pin outranks prose, and pre-release compatibility shims are forbidden",
+    "path": "xbrief/PROJECT-DEFINITION.xbrief.json",
+    "rfc2119": "MUST"
+  },
+  "alternativesConsidered": [
+    {
+      "option": "Keep Node.js 20.20.2 and shim node:fs globSync"
+    },
+    {
+      "option": "Change the exact Directive 0.112.0 learner pin"
+    }
+  ],
+  "whyWinner": "Directive 0.112.0 imports fs.globSync, which is unavailable before Node.js 22; Node.js 24.20.0 is already the repository's pinned native consumer proof and preserves the Node.js 20-compatible application surface without a shim or pin change",
+  "confidence": "high",
+  "activeScopeRefs": [
+    "xbrief/active/2026-09-11-capstone-guarded-disposable-fixture.xbrief.json"
+  ],
+  "timestamp": "2026-09-12T03:26:26Z",
+  "revisitTrigger": "Revisit when the learner Directive pin both declares and passes a different supported Node.js runtime",
+  "tags": [
+    "capstone",
+    "runtime"
+  ]
+}

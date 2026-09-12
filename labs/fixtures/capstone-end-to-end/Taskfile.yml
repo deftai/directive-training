@@ -1,0 +1,30 @@
+version: '3'
+
+includes:
+  deft:
+    taskfile: ./.deft/core/Taskfile.yml
+    optional: true
+
+tasks:
+  literal:
+    desc: Run the active capstone story's literal acceptance commands.
+    cmds:
+      - node node_modules/@deftai/directive/dist/bin.js verify:ac xbrief/active/fictional-work-items.xbrief.json
+
+  forward-coverage:
+    desc: Check source-to-test correspondence and available changed-branch coverage.
+    cmds:
+      - node node_modules/@deftai/directive/dist/bin.js verify:forward-coverage --project-root . --head
+
+  review:evidence:
+    desc: Verify the retained pre-PR and simulated-review evidence.
+    cmds:
+      - node scripts/verify-evidence.mjs
+
+  check:
+    desc: Capstone aggregate gate; repair product work or evidence, never these commands.
+    cmds:
+      - npm run test:focused
+      - task: literal
+      - task: forward-coverage
+      - task: review:evidence

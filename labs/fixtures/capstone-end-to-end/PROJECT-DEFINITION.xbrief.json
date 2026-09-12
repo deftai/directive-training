@@ -1,0 +1,32 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Project definition for the fictional Northstar Directive capstone"
+  },
+  "plan": {
+    "title": "Northstar Work Items Capstone",
+    "status": "running",
+    "narratives": {
+      "Overview": "A fictional disposable no-remote repository for rehearsing one complete evidence-driven Directive change.",
+      "Product": "A tiny immutable work-items library and CLI whose supplied tests define the learner's bounded implementation task.",
+      "Audience": "3Ci Directive learners completing the solo end-to-end capstone.",
+      "SourceOfTruth": "The active xBRIEF owns the one-file product scope; immutable fixture gates remain in the repository and stage evidence remains outside it.",
+      "DevelopmentPosture": "Private pre-release training fixture with no compatibility layer.",
+      "ProjectRules": "Use fictional data only. Keep every mutation inside the unique operating-system temporary repository. After readiness, change only src/work-items.mjs and preserve tests, gates, scope, helpers, branch, and the empty remote set. Do not push, open a pull request, merge, deploy, publish, or release."
+    },
+    "items": [],
+    "metadata": {
+      "staleness_flags": [],
+      "testBoundary": {
+        "sourceRoots": ["src"],
+        "testRoots": ["test"],
+        "sourceExtensions": [".mjs"],
+        "testSuffixes": [".test.mjs"]
+      }
+    },
+    "x-directive/policy": {
+      "allowDirectCommitsToMaster": false,
+      "requireHumanMerge": false
+    }
+  }
+}
