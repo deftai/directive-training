@@ -2,12 +2,12 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Story xBRIEF 2 decomposed from proposed/2026-09-05-disposable-end-to-end-capstone.xbrief.json",
-    "updated": "2026-09-12T17:32:36Z"
+    "updated": "2026-09-12T19:16:11Z"
   },
   "plan": {
     "id": "training.capstone.learning-experience",
     "title": "Capstone: Solo Lifecycle Walkthrough, Rubric, and Solution",
-    "status": "running",
+    "status": "completed",
     "planRef": "proposed/2026-09-05-disposable-end-to-end-capstone.xbrief.json",
     "narratives": {
       "Description": "Author the two-hour self-directed capstone that teaches a learner to supervise the guarded fixture from orientation through evidence-based closeout. The curriculum, practical lab, assessment rubric, progressive hints, recovery guidance, and explained solution must be complete without undocumented instructor help or a live review service.",
@@ -19,51 +19,93 @@
       {
         "id": "training.capstone.learning-experience.walkthrough",
         "title": "Author the complete two-hour solo walkthrough",
-        "status": "pending",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "Given the guarded fixture, the learner-facing capstone provides an approximately two-hour ordered route through orientation, active-scope authorization, story-ready and xBRIEF preflight, test-backed implementation, focused checks, literal acceptance, the separate aggregate gate, zero-change pre-PR review, simulated review resolution, and evidence-based closeout, with explicit stop conditions and no remote mutation, deployment, publication, Greptile, or instructor dependency.",
           "Traces": "training.capstone.walkthrough; parent Acceptance and QualityGate; PROJECT-DEFINITION CourseShape and LearningGoals"
+        },
+        "x-directive/disposition": {
+          "disposition": "not_applicable",
+          "reason": "Live deployment is explicitly outside the capstone scope David approved. The complete two-hour solo route was instead verified on PR #52 HEAD 5e7826c84648aa1fb9a2f387846ae9624924d377 by the focused capstone checks, portability tests, and all four GitHub CI checks.",
+          "provenance": {
+            "kind": "operator-session",
+            "actor": "David",
+            "mintedAt": "2026-09-12T19:13:29Z",
+            "mintedVia": "Codex chat",
+            "eventRef": "David instructed cascade merge all and approved proceeding after the documented master-CI exception"
+          },
+          "recorded_at": "2026-09-12T19:13:29Z"
         }
       },
       {
         "id": "training.capstone.learning-experience.assessment",
         "title": "Make completion independently assessable",
-        "status": "pending",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Given a learner submission, the assessment maps every capstone outcome to named artifacts and observable evidence, distinguishes implemented, PR-open, merge-ready, delivered, deployed, and UAT-verified states, supplies a self-evaluation rubric and completion statement, and does not award completion for reading the solution or presenting stale or unsupported evidence.",
           "Traces": "parent Acceptance; PROJECT-DEFINITION LearningGoals and ReviewModel"
+        },
+        "x-directive/disposition": {
+          "disposition": "not_applicable",
+          "reason": "The capstone teaches learners to distinguish deployed and UAT-verified states, but the approved pre-release curriculum scope excludes live deployment and UAT. The assessment and rubric were verified on PR #52 HEAD 5e7826c84648aa1fb9a2f387846ae9624924d377 without claiming either state.",
+          "provenance": {
+            "kind": "operator-session",
+            "actor": "David",
+            "mintedAt": "2026-09-12T19:13:29Z",
+            "mintedVia": "Codex chat",
+            "eventRef": "David instructed cascade merge all and approved proceeding after the documented master-CI exception"
+          },
+          "recorded_at": "2026-09-12T19:13:29Z"
         }
       },
       {
         "id": "training.capstone.learning-experience.recovery-solution",
         "title": "Provide progressive help and an explained solution",
-        "status": "pending",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Given a failed starting check or stage gate, the capstone shows progressive hints one at a time, provides failure-specific recovery without weakening tests or gates, creates a fresh attempt on reset, and lets the learner compare a genuine first attempt against a complete explained solution that includes reasoning, exact expected evidence, valid alternatives, misconceptions, retry, archive, and cleanup.",
           "Traces": "training.capstone.walkthrough; parent Acceptance; PROJECT-DEFINITION CourseShape and LabModel"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #52 HEAD 5e7826c84648aa1fb9a2f387846ae9624924d377: npm run check:capstone and npm run test:capstone passed, covering progressive hints, failure-specific recovery, fresh reset attempts, archive and cleanup, and the complete explained solution in solutions/capstone-end-to-end.md.",
+          "recorded_at": "2026-09-12T19:13:29Z",
+          "recorded_by": "agent:codex/capstone-lifecycle-closeout"
         }
       },
       {
         "id": "training.capstone.learning-experience.trace-navigation",
         "title": "Integrate accurate source, platform, and navigation records",
-        "status": "pending",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "When the capstone reaches the corresponding readiness level, the repository start page, course map, lab, assessment and solution indexes, maintenance guide, source baseline and notes, glossary, quick reference, and changelog link it consistently, preserve the exact learner pin, label only observed platform runs verified, and replace every stale 'planned' capstone statement.",
           "Traces": "parent Traces; PROJECT-DEFINITION DirectiveBaseline, SupportedEnvironments, SourceOfTruth, and Maintenance"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #52 HEAD 5e7826c84648aa1fb9a2f387846ae9624924d377: npm run check:capstone verified 36 linked artifacts, and the Linux/bash, macOS/zsh, Windows/PowerShell 7, and no-mixed-core-and-app GitHub checks all passed.",
+          "recorded_at": "2026-09-12T19:13:29Z",
+          "recorded_by": "agent:codex/capstone-lifecycle-closeout"
         }
       },
       {
         "id": "training.capstone.learning-experience.quality",
         "title": "Enforce the full capstone content contract",
-        "status": "pending",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "When the focused verifier and negative tests run, they reject missing artifacts or outcome mappings, broken links, unfinished markers, unsafe executable commands, reordered lifecycle stages, omitted checkpoints or evidence, weakened gates, live-service dependencies, unsupported platform claims, stale planned-status text, altered pins, and incomplete reset, archive, cleanup, rubric, or solution sections; the parent literal conformance command and separate aggregate merge gate pass afterward.",
           "Traces": "parent Acceptance and QualityGate; PROJECT-DEFINITION ProjectRules"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #52 HEAD 5e7826c84648aa1fb9a2f387846ae9624924d377: npm run test:capstone passed 41/41 tests, npm run test:portability passed 49/49 tests, directive verify:vbrief-conformance --project-root . passed, and the separate aggregate deft check passed.",
+          "recorded_at": "2026-09-12T19:13:29Z",
+          "recorded_by": "agent:codex/capstone-lifecycle-closeout"
         }
       }
     ],
@@ -141,7 +183,31 @@
         ],
         "negative_invariant_ids": [],
         "parent_plan_id": "training.capstone"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 52,
+        "prBase": "master",
+        "mergeCommit": "3c42a1091577a08749018e51aab657b4d3019900",
+        "deliveryBranch": "master",
+        "deliveryCommit": "3c42a1091577a08749018e51aab657b4d3019900",
+        "verifiedAt": "2026-09-12T19:16:11Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMDkyODctN2I0Ny03NTQxLTlhYTgtYjk0YWYxN2JhNjA3"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-12T19:16:11Z"
+      },
+      "completedAt": "2026-09-12T19:16:11Z",
+      "completedSessionId": "host:codex:v1:MDFhMDkyODctN2I0Ny03NTQxLTlhYTgtYjk0YWYxN2JhNjA3"
     },
     "references": [
       {
@@ -213,6 +279,6 @@
       ],
       "ambiguity_attestation": "none_found"
     },
-    "updated": "2026-09-12T17:32:36Z"
+    "updated": "2026-09-12T19:16:11Z"
   }
 }
