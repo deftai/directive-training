@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-11-capstone-guarded-disposable-fixture.xbrief.json",
+  "planId": "training.capstone.fixture-runtime",
+  "approvedAt": "2026-09-12T03:51:35Z",
+  "fileScope": [
+    ".github/workflows/capstone-platform-validation.yml",
+    "labs/fixtures/capstone-end-to-end/capstone-lab.mjs",
+    "labs/fixtures/capstone-end-to-end/package.json",
+    "labs/fixtures/capstone-end-to-end/PROJECT-DEFINITION.xbrief.json",
+    "labs/fixtures/capstone-end-to-end/safety.mjs",
+    "labs/fixtures/capstone-end-to-end/scripts/verify-evidence.mjs",
+    "labs/fixtures/capstone-end-to-end/src/cli.mjs",
+    "labs/fixtures/capstone-end-to-end/src/work-items.mjs",
+    "labs/fixtures/capstone-end-to-end/Taskfile.yml",
+    "labs/fixtures/capstone-end-to-end/test/work-items.test.mjs",
+    "package.json",
+    "scripts/capstone-lab.test.mjs"
+  ],
+  "fileScopeDigest": "4d8bf6a74bfc1afd9922d30ebd76a364e2d1ac58c39c4616c67db36e467e4b7f",
+  "humanApproval": {
+    "kind": "renewed-approval",
+    "actor": "David",
+    "mintedAt": "2026-09-12T03:51:35Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "32fb8379472f88f20467ca5c9f02854cf36db02ad785e107f3e65d9deca2c071",
+  "digestAlgo": "intent-extract-v1"
+}

@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "algo": "intent-extract-v1",
+  "plan": {
+    "parentId": "training.capstone",
+    "id": "training.capstone.fixture-runtime",
+    "title": "Capstone: Guarded Disposable End-to-End Fixture",
+    "narratives": {
+      "Description": "Build the fictional Node.js capstone runtime that creates one unique OS-temporary Git repository and carries a learner through a complete solo Directive-managed change. The helper must enforce the no-remote, exact-pin, narrow-write, ordered-evidence, reset, archive, and protected-root boundaries independently of the learner-facing walkthrough.",
+      "ImplementationPlan": "1. Add a minimal fictional work-items CLI, supplied tests, Directive project state, Taskfile gate, evidence verifier, and a guarded helper that creates and advances an isolated capstone attempt without writing in the training repository.\n2. Add test-first positive and adversarial coverage for creation, lifecycle order, allowed product edits, immutable tests and gates, simulated review evidence, reset, archive, path traversal, symlinks, Git redirection, remotes, and platform-specific path handling; add a pinned GitHub Actions matrix for the same fixture suite.",
+      "UserStory": "As a Directive learner, I want a guarded disposable repository for the complete solo lifecycle, so that I can practice implementation and closeout without risking training or business repositories.",
+      "Traces": "training.capstone.fixture; parent Acceptance, QualityGate, and ProjectRules; PROJECT-DEFINITION CourseShape, LabModel, SupportedEnvironments, ReviewModel",
+      "Decisions": "- xbrief/decisions/2026-09-12-run-the-capstone-directive-proof-on-pinned-node-js-24-20-0-while.decision.json — Run the capstone Directive proof on pinned Node.js 24.20.0 while keeping the fictional application Node.js 20-compatible",
+      "PortabilityAmendment": "On 2026-09-12 David approved changing the capstone native proof from Node.js 20.20.2 to Node.js 24.20.0 after CI established that exact Directive 0.112.0 imports node:fs globSync, which is unavailable before Node.js 22. Preserve Node.js 20 compatibility for the fictional application source, the exact Directive pin, all three native OS jobs, read-only permissions, and no-remote behavior. Compare Windows Git roots by filesystem identity so equivalent short and long path spellings do not weaken the existing root guards. Merge remains separately gated."
+    },
+    "items": [
+      {
+        "id": "training.capstone.fixture-runtime.ordered-flow",
+        "title": "Enforce lifecycle and evidence order",
+        "narrative": {
+          "Acceptance": "Given the untouched attempt, stage commands refuse out-of-order mutation and then record orientation, scope promotion and activation, session and preflight readiness, red-green implementation, focused checks, literal acceptance, aggregate-gate diagnosis, zero-change pre-PR review, simulated finding resolution, and evidence-based closeout while permitting product edits only in the declared source file and preserving supplied tests, gates, scope, remotes, and helpers.",
+          "Traces": "parent Acceptance and QualityGate; PROJECT-DEFINITION LearningGoals and ReviewModel"
+        }
+      },
+      {
+        "id": "training.capstone.fixture-runtime.portability",
+        "title": "Prove fixture behavior and platform boundaries",
+        "narrative": {
+          "Acceptance": "When the focused Node suite runs, it passes positive and negative fixture cases on the authoring platform; the pinned macOS, Ubuntu, and Windows workflow runs only the disposable no-remote fixture tests with read-only repository permissions; and learner-facing platform claims remain candidate until corresponding native evidence is observed.",
+          "Traces": "PROJECT-DEFINITION SupportedEnvironments, LabModel, and ProjectRules"
+        }
+      },
+      {
+        "id": "training.capstone.fixture-runtime.reset-cleanup",
+        "title": "Reset and retire attempts safely",
+        "narrative": {
+          "Acceptance": "Given a failed or completed attempt, reset creates a fresh unique attempt without overwriting the prior repository or its evidence, and archive or cleanup accepts only one explicit canonical attempt root outside protected locations, refuses traversal, symlink and Git-redirection escapes, and preserves recoverable evidence according to the documented disposition.",
+          "Traces": "training.capstone.fixture; parent Acceptance; PROJECT-DEFINITION LabModel"
+        }
+      },
+      {
+        "id": "training.capstone.fixture-runtime.safe-create",
+        "title": "Create an exact, isolated starting repository",
+        "narrative": {
+          "Acceptance": "Given an explicit create command from outside the training repository, the helper creates a unique OS-temporary Git repository on branch training/capstone with no remotes, the exact learner Directive pin, a fictional work-items CLI, supplied failing tests, deterministic project gates, and exactly one proposed capstone story; it refuses the training root, business-like roots, broad workspace roots, and reused destinations before writing.",
+          "Traces": "training.capstone.fixture; PROJECT-DEFINITION LabModel and ProjectRules"
+        }
+      }
+    ],
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "file_scope": [
+          ".github/workflows/capstone-platform-validation.yml",
+          "labs/fixtures/capstone-end-to-end/PROJECT-DEFINITION.xbrief.json",
+          "labs/fixtures/capstone-end-to-end/Taskfile.yml",
+          "labs/fixtures/capstone-end-to-end/package.json",
+          "labs/fixtures/capstone-end-to-end/capstone-lab.mjs",
+          "labs/fixtures/capstone-end-to-end/safety.mjs",
+          "labs/fixtures/capstone-end-to-end/scripts/verify-evidence.mjs",
+          "labs/fixtures/capstone-end-to-end/src/cli.mjs",
+          "labs/fixtures/capstone-end-to-end/src/work-items.mjs",
+          "labs/fixtures/capstone-end-to-end/test/work-items.test.mjs",
+          "package.json",
+          "scripts/capstone-lab.test.mjs"
+        ]
+      }
+    },
+    "references": [
+      {
+        "uri": "../PROJECT-DEFINITION.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Directive training capstone, safety, and platform contracts"
+      },
+      {
+        "uri": "../../references/SOURCE-BASELINE.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Pinned Directive learner baseline"
+      },
+      {
+        "uri": "urn:3ci:directive-training:request:2026-09-11:capstone-implementation",
+        "type": "x-xbrief/user-request",
+        "title": "David's request to implement the capstone"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Given an explicit create command from outside the training repository, the helper creates a unique OS-temporary Git repository on branch training/capstone with no remotes, the exact learner Directive pin, a fictional work-items CLI, supplied failing tests, deterministic project gates, and exactly one proposed capstone story; it refuses the training root, business-like roots, broad workspace roots, and reused destinations before writing.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Given the untouched attempt, stage commands refuse out-of-order mutation and then record orientation, scope promotion and activation, session and preflight readiness, red-green implementation, focused checks, literal acceptance, aggregate-gate diagnosis, zero-change pre-PR review, simulated finding resolution, and evidence-based closeout while permitting product edits only in the declared source file and preserving supplied tests, gates, scope, remotes, and helpers.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Given a failed or completed attempt, reset creates a fresh unique attempt without overwriting the prior repository or its evidence, and archive or cleanup accepts only one explicit canonical attempt root outside protected locations, refuses traversal, symlink and Git-redirection escapes, and preserves recoverable evidence according to the documented disposition.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "When the focused Node suite runs, it passes positive and negative fixture cases on the authoring platform; the pinned macOS, Ubuntu, and Windows workflow runs only the disposable no-remote fixture tests with read-only repository permissions; and learner-facing platform claims remain candidate until corresponding native evidence is observed.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    }
+  },
+  "approvedRepos": [
+    "3ci-consulting/directive-training"
+  ],
+  "unknownPaths": [
+    "metadata.kind"
+  ]
+}
