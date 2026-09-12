@@ -83,7 +83,7 @@ function validateItems(items) {
 
 export function addWorkItem(items, title) {
   validateItems(items);
-  if (typeof title !== "string" || title.trim() === "") throw new TypeError("title must be a nonempty title");
+  if (typeof title !== "string" || title.trim() === "") throw new TypeError("title must be nonempty");
   const highest = items.reduce((value, item) => Math.max(value, Number(item.id.slice(3))), 0);
   return [...items, { id: \`WI-\${String(highest + 1).padStart(3, "0")}\`, title: title.trim(), status: "open" }];
 }

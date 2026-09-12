@@ -401,6 +401,12 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
     ["SOURCE-NOTES Module 11 validation", module11Notes, /learner baseline remains 0\.112\.0/i],
   ]) {
     assert.match(source, learnerPinPattern, `${label} is missing the Module 11 version-role distinction: learner pin 0.112.0`);
+  }
+  for (const [label, source] of [
+    ["COST-ESTIMATE current Module 11 scope", costScope],
+    ["SOURCE-NOTES verification context", verificationContext],
+    ["SOURCE-NOTES Module 11 validation", module11Notes],
+  ]) {
     for (const pattern of authoringEnvironmentPatterns) {
       assert.match(source, pattern, `${label} is missing the Module 11 version-role distinction: ${pattern}`);
     }
@@ -408,6 +414,17 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
       source,
       /authoring engine and deposit (?:were )?0\.116\.0/i,
       `${label} must not collapse the default CLI, selected CLI, and deposit versions`,
+    );
+  }
+  for (const [label, source] of [
+    ["SOURCE-BASELINE release identity", releaseIdentity],
+    ["SOURCE-BASELINE Module 11 validation", baselineModule11],
+  ]) {
+    assert.match(source, /maintainer(?:-only)? (?:source notes|evidence)|maintainer source notes/i, `${label} must route authoring drift to maintainer notes`);
+    assert.doesNotMatch(
+      source,
+      /(?:0\.113\.0|0\.114\.0|0\.116\.0|0\.117\.0)/,
+      `${label} must keep authoring-runtime versions out of the learner baseline`,
     );
   }
   assert.match(releaseIdentity, /Historical learner proof at 0\.112\.0/, "SOURCE-BASELINE release identity must time-bound the learner package graph");

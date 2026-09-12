@@ -1,0 +1,100 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Implementation tasks for official-lab replay fixes from issues 55-58",
+    "created": "2026-09-12T21:35:13Z",
+    "updated": "2026-09-12T21:35:13Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.official-lab-replay-fixes-55-58.tasks",
+    "title": "official-lab-replay-fixes-55-58 tasks",
+    "status": "approved",
+    "items": [
+      {
+        "id": "change.official-lab-replay-fixes-55-58.contract-tests",
+        "title": "Write failing helper and content-contract regression tests",
+        "type": "task",
+        "status": "pending",
+        "effort": "M"
+      },
+      {
+        "id": "change.official-lab-replay-fixes-55-58.path-entry",
+        "title": "Canonicalize lab-helper executable entry paths",
+        "type": "task",
+        "status": "pending",
+        "effort": "S"
+      },
+      {
+        "id": "change.official-lab-replay-fixes-55-58.lab-2",
+        "title": "Align Lab 2 path input and npm isolation",
+        "type": "task",
+        "status": "pending",
+        "effort": "M"
+      },
+      {
+        "id": "change.official-lab-replay-fixes-55-58.frozen-contracts",
+        "title": "Align Lab 9 and capstone frozen expectations with fixture behavior",
+        "type": "task",
+        "status": "pending",
+        "effort": "S"
+      },
+      {
+        "id": "change.official-lab-replay-fixes-55-58.learner-guidance",
+        "title": "Clarify runtime, help side effects, doctor output, and source baseline",
+        "type": "task",
+        "status": "pending",
+        "effort": "M"
+      },
+      {
+        "id": "change.official-lab-replay-fixes-55-58.quality",
+        "title": "Run focused, literal, coverage, and aggregate gates",
+        "type": "task",
+        "status": "pending",
+        "effort": "M"
+      }
+    ],
+    "edges": [
+      {
+        "from": "change.official-lab-replay-fixes-55-58.contract-tests",
+        "to": "change.official-lab-replay-fixes-55-58.path-entry",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.official-lab-replay-fixes-55-58.contract-tests",
+        "to": "change.official-lab-replay-fixes-55-58.lab-2",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.official-lab-replay-fixes-55-58.contract-tests",
+        "to": "change.official-lab-replay-fixes-55-58.frozen-contracts",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.official-lab-replay-fixes-55-58.contract-tests",
+        "to": "change.official-lab-replay-fixes-55-58.learner-guidance",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.official-lab-replay-fixes-55-58.path-entry",
+        "to": "change.official-lab-replay-fixes-55-58.quality",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.official-lab-replay-fixes-55-58.lab-2",
+        "to": "change.official-lab-replay-fixes-55-58.quality",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.official-lab-replay-fixes-55-58.frozen-contracts",
+        "to": "change.official-lab-replay-fixes-55-58.quality",
+        "type": "depends_on"
+      },
+      {
+        "from": "change.official-lab-replay-fixes-55-58.learner-guidance",
+        "to": "change.official-lab-replay-fixes-55-58.quality",
+        "type": "depends_on"
+      }
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #57",
+    "updated": "2026-09-12T21:37:10Z"
+  },
+  "plan": {
+    "title": "Frozen Lab 9 and capstone tests reject implementations that match fixture style",
+    "status": "pending",
+    "narratives": {
+      "Description": "Frozen Lab 9 and capstone tests reject implementations that match fixture style",
+      "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/57",
+      "Overview": "## What happened\n\nTwo frozen tests/specs reject implementations that follow the surrounding fixture style.\n\n### Lab 9 — greeting CLI vs unit test\n\n`src/cli.mjs` is `console.log(greeting(process.argv[2]));`.\n\nWith no argument, Node passes `undefined` (arity 1). The unit test uses `greeting()` (arity 0) for the teammate fallback.\n\nA learner who writes `if (arguments.length > 0 && typeof name !== \"string\") throw ...` passes the test and fails the helper’s fallback CLI check.\n\nThe task text says “missing or blank” but does not say the CLI always passes `argv[2]`.\n\n### Capstone — `/nonempty title/` vs fixture phrasing\n\nStarter `validateItems` throws `work-item title must be nonempty`.\n\nThe frozen test is:\n\n```js\nassert.throws(() => addWorkItem([], \"   \"), /nonempty title/);\n```\n\n`\"work-item title must be nonempty\"` does **not** contain the substring `\"nonempty title\"` (the words are reversed: “title … nonempty”).\n\nOn Node 24.20.0, `/nonempty title/.test(\"work-item title must be nonempty\") === false`.\n\nAfter red, the test is frozen. Learners who copy the fixture’s own error phrasing cannot go green. The passing message is something like `nonempty title is required`.\n\nThe duplicate-title finding *does* specify an exact phrase. The blank-title case does not.\n\n## Suggested repair\n\n- Lab 9: document that the CLI passes `process.argv[2]`, which may be `undefined`, or call `greeting` only when the arg is present.\n- Capstone: change the regex to `/nonempty/` or `/title must be nonempty/`, or state the required message before red.\n\n\n---\n\n## Issue comment thread\n\n_The issue body is the original write-up; maintainer comments below may supersede it. Read the full thread before building a dispatch envelope (#2143)._\n\n### Comment by @dbcall2 (2026-09-12T21:05:36Z)\n\nReproduced again on 2026-09-12 during a full official-lab re-run of the 0.112.0 course from `origin/master` (Node v24.20.0, macOS/zsh, learner identity `appcell26`). This issue is still valid."
+    },
+    "items": [],
+    "references": [
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/57",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #57: Frozen Lab 9 and capstone tests reject implementations that match fixture style"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 1 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Capstone: change the regex to `/nonempty/` or `/title must be nonempty/`, or state the required message before red.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5435700260,
+        "origin": "3ci-consulting/directive-training#57",
+        "id": "github.issue.5435700260"
+      }
+    },
+    "id": "github.issue.5435700260",
+    "updated": "2026-09-12T21:37:10Z"
+  }
+}

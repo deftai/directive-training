@@ -8,7 +8,7 @@
 | Status | Learner-ready |
 | Estimated time | 120 minutes |
 | Directive baseline | `@deftai/directive@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
-| Directive runtime | Node.js `24.20.0` exactly |
+| Directive runtime | Node.js `22 or newer`; the verified platform matrix used `24.20.0` |
 | Application compatibility | Node.js 20-compatible source is a source-level design constraint; no isolated Node.js 20 execution is claimed |
 | Prerequisite | [Module 11 — PR, Review, and Actual Completion](modules/11-review-and-completion.md) |
 | Practical work | [End-to-end capstone lab](../labs/capstone-end-to-end.md) |
@@ -46,8 +46,8 @@ an unmet safety, lifecycle, or evidence outcome.
 Before starting, confirm all of the following:
 
 1. You completed Modules 1–11 or can produce their completion evidence.
-2. Node.js reports exactly `v24.20.0` for the Directive proof. A newer, older,
-   or ranged runtime is not the tested capstone environment.
+2. Node.js reports major version 22 or newer for the Directive proof. Record the
+   exact version you use; the verified platform matrix used `v24.20.0`.
 3. You know the absolute path to this curriculum checkout, but your shell is in
    a new dedicated launcher under the operating-system temporary directory.
 4. The launcher is not a Git repository, the curriculum repository, a home or
@@ -55,9 +55,10 @@ Before starting, confirm all of the following:
 5. You will use only the fictional Northstar data supplied by the fixture.
 
 The application exercise itself remains Node.js 20-compatible as a source-level
-design constraint; no isolated Node.js 20 run is claimed. Node.js `24.20.0` is
-required because the pinned Directive proof uses runtime behavior that is
-unavailable on Node.js 20.
+design constraint; no isolated Node.js 20 run is claimed. The full proof needs
+Node.js 22 or newer because pinned Directive 0.112.0 imports `globSync` from
+`node:fs`. Patch version `24.20.0` describes the verified matrix, not a learner
+requirement.
 
 If any check differs, stop before `create`. Use the matching recovery in the
 [lab](../labs/capstone-end-to-end.md#expected-failures-and-recovery).

@@ -10,7 +10,7 @@
 | Last verified | 2026-09-12 |
 | Suggested first attempt | 45 minutes before opening the solution |
 | Directive baseline | `@deftai/directive@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
-| Directive runtime | Node.js `24.20.0` exactly; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
+| Directive runtime | Node.js `22 or newer`; the verified matrix used `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
 | Fixture | [`fixtures/capstone-end-to-end`](fixtures/capstone-end-to-end/) |
 | Platform evidence | Automated guarded fixture passed on macOS, Ubuntu, and Windows; independent learner walkthrough pilot remains separate |
 
@@ -42,13 +42,14 @@ deployment, instructor, Greptile, or other live reviewer.
 
 ## Environment and starting-state check
 
-Use Node.js `24.20.0` exactly for the Directive proof, npm, Git, Task, and uv.
-The verified matrix used Task `3.50.0`, uv `0.11.10`, and Python `3.13.13` on
-Windows. Node.js `24.20.0` is the hard capstone runtime requirement.
+Use Node.js 22 or newer for the Directive proof. Record the exact runtime you
+use. The verified matrix used Node.js `24.20.0`, Task `3.50.0`, uv `0.11.10`,
+and Python `3.13.13` on Windows; those patch versions describe bounded evidence,
+not the Node.js learner requirement.
 
 Directive 0.112.0 imports `node:fs` `globSync`, which is unavailable before
-Node.js 22. The complete Directive proof therefore runs on the pinned Node.js
-24.20.0 environment. The fictional application files remain Node.js
+Node.js 22. The complete Directive proof therefore requires Node.js 22 or
+newer. The fictional application files remain Node.js
 20-compatible as a source-level design constraint; no isolated Node.js 20 run
 is claimed, and that design property does not make the full Directive lab a
 Node.js 20 runtime path.
@@ -58,8 +59,8 @@ path. Then create a dedicated launcher and a separate private notes directory
 directly under the operating-system temporary directory. Neither may already be
 a Git repository, and the notes directory must remain outside both launcher
 directories and both attempt parents. The helper does not assert or record
-`process.version`, so the wrapper commands below must perform the exact Node
-check before `create`.
+`process.version`, so the wrapper commands below must perform the Node major
+version check before `create`.
 
 ### macOS and Linux
 
@@ -70,7 +71,7 @@ export CAPSTONE_HELPER="$COURSE_ROOT/labs/fixtures/capstone-end-to-end/capstone-
 test -f "$CAPSTONE_HELPER"
 export CAPSTONE_NODE_VERSION="$(node --version)"
 printf '%s\n' "$CAPSTONE_NODE_VERSION"
-test "$CAPSTONE_NODE_VERSION" = "v24.20.0"
+node -e 'const major = Number(process.versions.node.split(".")[0]); if (!Number.isInteger(major) || major < 22) process.exit(1)'
 npm --version
 git --version
 task --version
@@ -100,7 +101,8 @@ $CapstoneHelper = Join-Path $CourseRoot "labs/fixtures/capstone-end-to-end/capst
 if (-not (Test-Path -LiteralPath $CapstoneHelper -PathType Leaf)) { throw "Capstone helper not found." }
 $CapstoneNodeVersion = ((& node --version | Out-String).Trim())
 $CapstoneNodeVersion
-if ($CapstoneNodeVersion -ne "v24.20.0") { throw "Capstone requires Node.js 24.20.0 exactly." }
+& node -e 'const major = Number(process.versions.node.split(".")[0]); if (!Number.isInteger(major) || major < 22) process.exit(1)'
+if ($LASTEXITCODE -ne 0) { throw "Capstone requires Node.js 22 or newer." }
 npm --version
 git --version
 task --version
@@ -122,8 +124,8 @@ if (@(& git -C $CapstoneRoot remote).Count -ne 0) { throw "Capstone must have no
 git -C $CapstoneRoot status --short --branch
 ```
 
-Expected: the Node assertion passes. Record the printed Node value, successful
-assertion, operating system and shell, and observed npm, Git, Task, uv, and—on
+Expected: the Node major-version assertion passes. Record the printed Node value,
+successful assertion, operating system and shell, and observed npm, Git, Task, uv, and—on
 Windows—Python versions in the private assessment note. Confirm Task and uv
 against the verified `3.50.0` and `0.11.10` context; on Windows, confirm Python
 is available (`3.13.13` in the verified native environment). Guard prints the exact root;
@@ -449,8 +451,9 @@ fresh reset root to produce new evidence for any unmet outcome.
 
 ## Done statement
 
-> I demonstrated `CAP.1`–`CAP.4` against `@deftai/directive@0.112.0` on Node.js
-> `24.20.0`. I preserved ordered readiness, red/green, focused, literal,
+> I demonstrated `CAP.1`–`CAP.4` against `@deftai/directive@0.112.0` on my
+> recorded Node.js 22-or-newer runtime. I preserved ordered readiness,
+> red/green, focused, literal,
 > aggregate, zero-change review, repair, current-product review, and closeout
 > evidence. The fictional work is `implemented` with `local_pass`; ship,
 > deployment, and UAT are `not_started`. I created a distinct reset root,

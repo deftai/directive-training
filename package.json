@@ -19,7 +19,7 @@
     "test:module-10": "node --test scripts/gates-lab.test.mjs scripts/verify-module-10.test.mjs",
     "test:module-11": "node --test scripts/verify-module-11.test.mjs",
     "test:capstone": "node --test scripts/capstone-lab.test.mjs scripts/verify-capstone.test.mjs && node --check labs/fixtures/capstone-end-to-end/capstone-lab.mjs && git diff --check",
-    "test:portability": "node --test scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs"
+    "test:portability": "node --test scripts/lab-helper-entry.test.mjs scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs"
   },
   "devDependencies": {
     "@deftai/directive": "0.112.0"

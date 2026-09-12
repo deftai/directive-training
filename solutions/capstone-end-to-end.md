@@ -9,7 +9,7 @@
 | Status | Learner-ready |
 | Last verified | 2026-09-12 |
 | Directive baseline | Exact `@deftai/directive@0.112.0` CLI/core/content/types graph; [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
-| Execution runtime | Node.js `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
+| Execution runtime | Node.js `22 or newer`; the verified matrix used `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
 | Lesson | [Capstone — End-to-End Solo Directive Lifecycle](../curriculum/capstone-end-to-end.md) |
 | Assessment | [Capstone assessment](../assessments/capstone-end-to-end.md) |
 | Lab | [End-to-end capstone lab](../labs/capstone-end-to-end.md) |
@@ -129,7 +129,7 @@ in `red.json.focused.exitCode` and
 
 ### 1. Establish the trusted attempt
 
-Run the lab's exact Node assertion before `create`. The helper creates a
+Run the lab's Node 22-or-newer capability assertion before `create`. The helper creates a
 unique OS-temporary repository on `training/capstone` with no remote.
 `install` contacts the public npm registry, verifies the exact 0.112.0 graph,
 deposits Directive, and creates the clean fixture checkpoint.
@@ -357,7 +357,7 @@ aggregate on the resulting commit. It leaves the active xBRIEF running.
 
 | Evidence | Correct result |
 | --- | --- |
-| Runtime note | `node --version` is exactly `v24.20.0`; assertion exit `0`; OS/shell and observed npm, Git, Task, uv, and Windows Python versions recorded |
+| Runtime note | `node --version` records the runtime; the Node.js 22 or newer assertion exits `0`; OS/shell and observed npm, Git, Task, uv, and Windows Python versions recorded |
 | `orientation.json` | `PASS`; exact project, branch, empty remote, pin, proposed story, checkpoint |
 | `scope.json` | `PASS`; exactly one active story and one product path |
 | `readiness.json` | `READY`; session, ritual, story-ready, and preflight exit `0` |

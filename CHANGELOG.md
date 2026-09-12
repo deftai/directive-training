@@ -8,7 +8,7 @@
   a guarded two-hour lab, independently assessable rubric, progressive hints,
   failure-specific recovery, reset-and-archive drill, and explained solution.
 - Focused capstone verification and negative tests for the exact Directive
-  0.112.0 graph, Node.js 24.20.0 runtime boundary, lifecycle/evidence order,
+  0.112.0 graph, Node.js 22-or-newer runtime boundary, lifecycle/evidence order,
   gate integrity, state claims, platform provenance, navigation, recovery,
   rubric, and worked-solution contracts.
 - Module 11, a command-free fixed-state pre-PR, review-finding, coherent-batch,

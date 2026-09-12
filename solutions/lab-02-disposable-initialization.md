@@ -123,13 +123,15 @@ The walkthrough below assumes the lab's complete macOS/zsh starting-state block 
 `training_root`, `fixture`, `lab_parent`, `lab_root`, `evidence_note`,
 `assert_lab_root`, and `assert_no_remote`, and that the current directory is the new Git root on
 `training/module-02` containing only
-`.gitignore` and the fictional `package.json`. That linked block is part of this worked
+`.gitignore`, `.npmrc`, and the fictional `package.json`. That linked block is part of this worked
 approach; do not substitute an existing repository.
 
 ### Step 1 — Install and prove the pinned local executable
 
 **Action:** Run the lab's complete `module_02_initialize` block on the fresh attempt. Its
-first phase checks the fixture pin, installs without lifecycle scripts, sets `local_bin` to
+first phase checks the fixture pin and installs from the public-registry `.npmrc`
+with inherited `NPM_CONFIG_*` values removed from the child process. The install
+uses a lab-local cache and no lifecycle scripts. It then sets `local_bin` to
 the attempt's `node_modules/.bin`, prepends it to `PATH`, and proves both
 `directive_path` and the resolved `deft` command are inside that exact directory. It then
 checks every installed Directive package and captures the CLI version before inspecting the
@@ -159,7 +161,9 @@ as evidence instead of “fixed” by inventing a different flag. Init runs only
 remote, and version are proven.
 
 **Observe:** In the verified run, init exited 0 and selected the brownfield path. The managed
-integration and ignored core deposit appeared. Init did not add a remote.
+integration and ignored core deposit appeared. The tracked `.npmrc` remained the
+normal-path registry contract, `.npm-cache/` remained ignored, and init did not
+add a remote.
 
 ### Step 3 — Inspect and commit only the accepted path set
 
@@ -188,15 +192,18 @@ verbose `git check-ignore` commands listed in the lab to build the table at
 **Why:** Doctor and toolchain output answer different questions. Git inspection supplies
 tracking evidence; source ownership supplies the anatomy classification.
 
-**Observe:** The verified attempt recorded `doctor_exit=0 toolchain_exit=0`. Doctor reported
-the npm provenance/migration signpost and a missing `xbrief/` directory despite an xBRIEF
-envelope. The consumer check reported all required tools available.
+**Observe:** The verified attempt recorded `doctor_exit=0 toolchain_exit=0`.
+This **known false negative** appeared in 0.112.0: doctor reported
+`Missing directory: xbrief/` even though `xbrief/PROJECT-DEFINITION.xbrief.json`
+was present. Preserve both observations and do not create a competing xBRIEF
+tree. The consumer check reported all required tools available.
 
 A correct anatomy table looks like this:
 
 | Path or region | Git relation | Owner | Anatomy class |
 | --- | --- | --- | --- |
 | `package.json` exact pin | tracked | consumer project | reconstitution anchor / authoritative dependency choice |
+| `.npmrc` public-registry settings | tracked | consumer project | normal-path dependency isolation |
 | `AGENTS.md` project header | tracked | consumer project | authoritative project guidance |
 | `AGENTS.md` marked Directive section | tracked | Directive installer | managed integration |
 | `.deft/GENERATION.json` | tracked | Directive installer | managed generation metadata |
@@ -204,6 +211,7 @@ A correct anatomy table looks like this:
 | `.deft/core/` | ignored | Directive package | reconstitutable deposit |
 | `.deft/.cli/` | ignored | Directive package | reconstitutable CLI adapter |
 | `.deft-cache/` | ignored | local runtime | runtime cache state |
+| `.npm-cache/` | ignored | npm child process | attempt-local dependency cache |
 | `.deft/ritual-state.json` or `xbrief/.triage-cache/` | ignored | local runtime | session/ritual or triage runtime state |
 | conceptual shared `USER.md` row | external and never copied | individual/organization | personal authority source |
 

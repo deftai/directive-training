@@ -38,7 +38,7 @@ test("summarizes open and completed work", () => {
 
 test("rejects malformed collections, titles, identifiers, and missing work items", () => {
   assert.throws(() => addWorkItem("not-an-array", "Evidence"), /array of work items/);
-  assert.throws(() => addWorkItem([], "   "), /nonempty title/);
+  assert.throws(() => addWorkItem([], "   "), /nonempty/);
   assert.throws(() => completeWorkItem([], "bad-id"), /WI-NNN/);
   assert.throws(() => completeWorkItem([], "WI-001"), /not found/);
   assert.throws(() => summarizeWorkItems([{ id: "WI-001", title: "Bad", status: "unknown" }]), /open or done/);

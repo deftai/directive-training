@@ -1,0 +1,61 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Approved change proposal for official-lab replay fixes from issues 55-58",
+    "created": "2026-09-12T21:35:13Z",
+    "updated": "2026-09-12T21:35:13Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "change.official-lab-replay-fixes-55-58",
+    "title": "official-lab-replay-fixes-55-58",
+    "status": "approved",
+    "items": [],
+    "narratives": {
+      "Problem": "A full learner replay exposed four reproducible traps: macOS /var symlink entry paths can make lab helpers exit successfully without running; Lab 2 overwrites learner path input and inherits private npm credentials; frozen Lab 9 and capstone expectations reject fixture-consistent implementations; and learner-facing runtime, help-side-effect, doctor, and source-baseline guidance is inconsistent.",
+      "Change": "Add focused regression coverage, canonicalize executable entry paths, isolate Lab 2 npm configuration while preserving its explicit E401 exercise, align frozen expectations with the documented fixture contracts, and simplify learner-facing runtime and command-discovery guidance.",
+      "Scope": "In scope: issues 55-58; their affected helpers, fixtures, tests, learner modules, labs, assessments, solutions, quick reference, source baseline, navigation, and focused verifiers. Out of scope: upstream Directive fixes, changing the exact @deftai/directive@0.112.0 learner pin, introducing a new Lab 2 helper, real credentials or client data, publishing, deployment, push, pull-request creation, merge, and issue closure.",
+      "Impact": "The change crosses the existing Modules 2, 5, 7, 9, 10, and capstone surfaces because the same lab-entry and learner-guidance defects recur across them. Existing disposable-repository and no-remote safety guards remain unchanged.",
+      "Risks": "A broad text replacement could weaken verified-platform claims, alter frozen learner tests after red, or hide the npm failure lesson. Focused negative tests, targeted content assertions, retained explicit failure drills, and the aggregate gate bound those risks.",
+      "Approach": "Write regression tests for /var executable aliases and each inconsistent content contract first; observe the focused failures; implement the smallest helper, fixture, and prose changes; then run affected suites, literal acceptance, forward-coverage checks, and one aggregate merge chokepoint.",
+      "Alternatives": "Four separate branches were rejected because all findings came from one official-lab replay and share the same cross-module verification surface. Replacing Lab 2's shell walkthrough with a new helper was deferred because the two concrete path and npm-isolation defects can be fixed without redesigning the exercise.",
+      "Dependencies": "The current origin/master course, the exact @deftai/directive@0.112.0 learner package graph, Node.js 22 or newer for Directive execution, Node's built-in test runner, Git, npm, and go-task.",
+      "Authorization": "David requested fixes for issues 55-58 and explicitly approved /deft:change official-lab-replay-fixes-55-58. This approval also authorizes batching the four related findings on one local feature branch; no remote delivery action is authorized.",
+      "BatchingRationale": "All four issues were reproduced in the same official-lab replay and require coordinated updates to shared fixtures, learner guidance, and repository verifiers. One batch avoids four conflicting edits to the same capstone and reference surfaces and reserves the aggregate gate for the completed unit.",
+      "Stops": "Success: focused regression suites, literal acceptance, relevant static coverage gates, and the aggregate local gate pass. Failure: at most five implementation fix iterations or three consecutive identical failures without material progress. Stop before push, pull-request creation, merge, remote issue mutation, or destructive cleanup pending separate authorization."
+    },
+    "references": [
+      {
+        "uri": "../../../xbrief/proposed/2026-09-12-55-lab-helpers-silently-no-op-on-macos-when-invoked-via-var-ins.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Issue 55 ingested scope",
+        "TrustLevel": "external"
+      },
+      {
+        "uri": "../../../xbrief/proposed/2026-09-12-56-lab-2-npm-auth-and-path-placeholder-traps-are-inconsistent-w.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Issue 56 ingested scope",
+        "TrustLevel": "external"
+      },
+      {
+        "uri": "../../../xbrief/proposed/2026-09-12-57-frozen-lab-9-and-capstone-tests-reject-implementations-that.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Issue 57 ingested scope",
+        "TrustLevel": "external"
+      },
+      {
+        "uri": "../../../xbrief/proposed/2026-09-12-58-exact-node-24200-help-side-effects-and-mixed-version-notes-c.xbrief.json",
+        "type": "x-xbrief/spec-section",
+        "title": "Issue 58 ingested scope",
+        "TrustLevel": "external"
+      }
+    ],
+    "metadata": {
+      "change_name": "official-lab-replay-fixes-55-58",
+      "confirmed_by": "David",
+      "confirmation_phrase": "Approved",
+      "confirmed_at": "2026-09-12T21:35:13Z",
+      "cost_selection": "Existing recorded Build decision"
+    }
+  }
+}

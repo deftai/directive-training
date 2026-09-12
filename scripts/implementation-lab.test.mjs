@@ -112,13 +112,9 @@ test("readiness must precede the one-file implementation and final evidence", { 
 
   writeFileSync(greetingPath, [
     "export function greeting(name) {",
-    "  assertName(name);",
+    '  if (arguments.length > 0 && typeof name !== "string") throw new TypeError("name must be a string");',
     '  const recipient = name?.trim() || "teammate";',
     '  return `Hello, ${recipient}!`;',
-    "}",
-    "",
-    "function assertName(name) {",
-    '  if (name !== undefined && typeof name !== "string") throw new TypeError("name must be a string");',
     "}",
     "",
   ].join("\n"));

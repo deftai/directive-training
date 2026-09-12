@@ -579,7 +579,7 @@ export function main(args = process.argv.slice(2)) {
   throw new Error("Use: create | guard <absolute-root> | install <absolute-root> | red <absolute-root> | green <absolute-root> | refactor <absolute-root> | literal <absolute-root> | aggregate <absolute-root> | final <absolute-root> | reset <absolute-root> | archive <absolute-root>.");
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+if (process.argv[1] && realpathSync(resolve(process.argv[1])) === realpathSync(fileURLToPath(import.meta.url))) {
   try {
     console.log(main());
   } catch (error) {

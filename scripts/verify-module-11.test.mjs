@@ -314,16 +314,27 @@ test("verifier rejects a missing version role in every current Module 11 context
     ["references/SOURCE-NOTES.md", "## Verification context", /Project direct pin:[^\n]*0\.112\.0/i],
     ["references/SOURCE-NOTES.md", "## Module 11 source validation", /learner baseline remains 0\.112\.0/i],
   ];
-  const sharedRoles = [
+  for (const [path, heading, learnerPinPattern] of contexts) {
+    const root = changedCopy(path, (body) => replaceAfterHeading(body, heading, learnerPinPattern, "learner pin omitted"));
+    assert.throws(
+      () => verifyModule11(root),
+      /version-role distinction/,
+      `${path} ${heading} must reject an omitted learner pin`,
+    );
+  }
+
+  const authoringContexts = [
+    ["COST-ESTIMATE.md", "## Current scope — Module 11 and capstone (2026-09-10)"],
+    ["references/SOURCE-NOTES.md", "## Verification context"],
+    ["references/SOURCE-NOTES.md", "## Module 11 source validation"],
+  ];
+  const authoringRoles = [
     [/default unqualified\s+shell CLI reported\s+engine 0\.114\.0/i, "default authoring CLI omitted"],
     [/Final\s+authoring gates explicitly selected the NVM-managed\s+CLI,\s+which reported engine\s+0\.116\.0/i, "selected authoring CLI omitted"],
     [/current 0\.116\.0 deposit/i, "current deposit omitted"],
   ];
-  for (const [path, heading, learnerPinPattern] of contexts) {
-    for (const [pattern, replacement] of [
-      [learnerPinPattern, "learner pin omitted"],
-      ...sharedRoles,
-    ]) {
+  for (const [path, heading] of authoringContexts) {
+    for (const [pattern, replacement] of authoringRoles) {
       const root = changedCopy(path, (body) => replaceAfterHeading(body, heading, pattern, replacement));
       assert.throws(
         () => verifyModule11(root),
@@ -332,6 +343,14 @@ test("verifier rejects a missing version role in every current Module 11 context
       );
     }
   }
+});
+
+test("verifier rejects authoring runtime versions in the learner baseline", () => {
+  const root = changedCopy("references/SOURCE-BASELINE.md", (body) => body.replace(
+    "Authoring-runtime drift is maintainer evidence",
+    "Authoring-runtime drift at 0.117.0 is maintainer evidence",
+  ));
+  assert.throws(() => verifyModule11(root), /authoring-runtime versions out of the learner baseline/);
 });
 
 test("verifier rejects unbounded historical learner-baseline context", () => {

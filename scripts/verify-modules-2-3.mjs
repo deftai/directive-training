@@ -278,6 +278,26 @@ for (const requiredEnvironmentCleanup of [
     "Lab 2 must restore the caller environment: " + requiredEnvironmentCleanup,
   );
 }
+assert.doesNotMatch(
+  lab2,
+  /export DIRECTIVE_TRAINING_ROOT=["']\/absolute\/path|GetFullPath\(["']C:\\absolute\\path/i,
+  "Lab 2 must not overwrite learner-supplied curriculum-root input with a placeholder",
+);
+assert.match(
+  lab2,
+  /DIRECTIVE_TRAINING_ROOT[^\n]{0,180}(?:must be set|Set DIRECTIVE_TRAINING_ROOT)/i,
+  "Lab 2 must fail clearly when the learner has not supplied the curriculum root",
+);
+for (const npmIsolationPattern of [
+  /registry=https:\/\/registry\.npmjs\.org\//,
+  /env -i PATH="\$PATH" HOME="\$HOME" npm install --userconfig "\$lab_root\/\.npmrc" --globalconfig \/dev\/null --cache "\$lab_root\/\.npm-cache"/,
+  /Object\.entries\(process\.env\)\.filter\(\(\[key\]\) => !\/\^npm_config_\/i\.test\(key\)\)/,
+  /"--userconfig", "\.npmrc", "--globalconfig", "NUL", "--cache", "\.npm-cache"/,
+]) {
+  assert.match(lab2, npmIsolationPattern, "Lab 2 must isolate its normal public-registry npm install");
+}
+assert.match(lab2, /\?\? \.npmrc/, "Lab 2 starting status must include its public-registry npm config");
+assert.match(lab2, /\.npmrc\|/, "Lab 2 staging allowlist must include its npm config");
 for (const [relativePath, content] of [
   ["curriculum/modules/01-what-directive-is.md", module1],
   ["solutions/module-01-what-directive-is.md", module1Solution],
@@ -337,6 +357,27 @@ for (const requiredPhrase of [
   "directive toolchain:check --help",
 ]) {
   assert.ok(module2.includes(requiredPhrase), `Module 2 is missing verified surface: ${requiredPhrase}`);
+}
+assert.match(
+  module2,
+  /codebase:map --help[\s\S]{0,220}(?:writes|renders)[\s\S]{0,80}MAP/i,
+  "Module 2 must warn that command-specific help can write a MAP",
+);
+assert.match(
+  module2,
+  /verify:codebase-map-fresh --help[\s\S]{0,220}(?:runs|performs)[\s\S]{0,80}check/i,
+  "Module 2 must warn that command-specific help can execute a verifier",
+);
+for (const [relativePath, content] of [
+  ["curriculum/modules/02-installation-and-anatomy.md", module2],
+  ["labs/02-disposable-initialization.md", lab2],
+  ["solutions/lab-02-disposable-initialization.md", lab2Solution],
+]) {
+  assert.match(
+    content,
+    /known false negative[\s\S]{0,180}(?:Missing directory: )?`?xbrief\/`?[\s\S]{0,220}PROJECT-DEFINITION\.xbrief\.json[\s\S]{0,120}(?:exists|present)/i,
+    relativePath + " must label the 0.112.0 doctor xbrief warning as a known false negative",
+  );
 }
 
 for (const requiredPhrase of [
@@ -409,6 +450,26 @@ for (const forbiddenField of ["dependencies", "scripts"]) {
 }
 
 const workflow = read(".github/workflows/modules-2-3-platform-validation.yml");
+assert.equal(
+  [...workflow.matchAll(/registry=https:\/\/registry\.npmjs\.org\//g)].length,
+  3,
+  "platform workflow must create the public-registry npm config on all three targets",
+);
+assert.equal(
+  [...workflow.matchAll(/env -i PATH="\$PATH" HOME="\$HOME" npm install --userconfig "\$lab_root\/\.npmrc" --globalconfig \/dev\/null --cache "\$lab_root\/\.npm-cache"/g)].length,
+  2,
+  "macOS and Linux workflow jobs must strip inherited npm configuration",
+);
+assert.equal(
+  [...workflow.matchAll(/Object\.entries\(process\.env\)\.filter\(\(\[key\]\) => !\/\^npm_config_\/i\.test\(key\)\)/g)].length,
+  1,
+  "Windows workflow job must strip inherited npm configuration",
+);
+assert.doesNotMatch(
+  workflow,
+  /NPM_CONFIG_USERCONFIG/,
+  "platform workflow must not fall back to the old empty-userconfig recovery path",
+);
 for (const [label, content] of [
   ["platform workflow", workflow],
   ["Module 2 solution", lab2Solution],
@@ -494,11 +555,6 @@ assert.match(
   workflow,
   /node-version:\s*["']24\.20\.0["']/,
   "platform workflow must pin the Node.js version used by the recorded proof",
-);
-assert.equal(
-  (workflow.match(/npm install --ignore-scripts --no-audit --no-fund/g) ?? []).length,
-  3,
-  "every native job must execute the pinned npm fixture path",
 );
 assert.doesNotMatch(workflow, /\bpnpm\b/i, "platform workflow must not imply unexecuted pnpm proof");
 assert.ok(

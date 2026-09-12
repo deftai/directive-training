@@ -273,7 +273,7 @@ See [Module 11](../curriculum/modules/11-review-and-completion.md) and its
 
 Use the learner-ready
 [capstone](../curriculum/capstone-end-to-end.md) only in its guarded disposable
-repository. The Directive proof requires Node.js 24.20.0 and the exact
+repository. The Directive proof requires Node.js 22 or newer and the exact
 `@deftai/directive@0.112.0` graph; the fictional application source remains
 Node.js 20-compatible.
 

@@ -9,7 +9,7 @@
 | Status | Learner-ready |
 | Last verified | 2026-09-12 |
 | Directive baseline | `@deftai/directive@0.112.0`; engine, content, and types `0.112.0`; [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
-| Execution runtime | Node.js `24.20.0` for the fixture proof; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
+| Execution runtime | Node.js `22 or newer`; the verified fixture matrix used `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
 | Suggested duration | 105–120 minutes, including evidence review, reset, and recoverable archive |
 | Suggested first attempt | 45 minutes before opening the explained solution |
 | Attempt conditions | Open-book; guarded disposable local repositories; fictional data only; no remote |
@@ -137,7 +137,7 @@ broader temporary directory, workspace, or home recursively.
 
 | Artifact or observation | Exact passing evidence |
 | --- | --- |
-| `capstone-assessment-note.md` — runtime observation | `node --version` printed exactly `v24.20.0`; the exact-version assertion exited `0`; OS and shell are named; observed npm, Git, Task, and uv versions are recorded; Windows evidence also records Python |
+| `capstone-assessment-note.md` — runtime observation | `node --version` records the runtime; the Node.js 22 or newer major-version assertion exited `0`; OS and shell are named; observed npm, Git, Task, and uv versions are recorded; Windows evidence also records Python |
 | `orientation.json` | Schema `3ci.training.capstone.orientation-evidence.v1`; `finalStatus: PASS`; project `Northstar Work Items Capstone`; branch `training/capstone`; empty remote; proposed contract `xbrief/proposed/fictional-work-items.xbrief.json`; baseline engine `0.112.0`; version command exit `0` |
 | `scope.json` | `finalStatus: PASS`; transition from the proposed path to `xbrief/active/fictional-work-items.xbrief.json`; allowed files exactly `["src/work-items.mjs"]`; promote and activate exit `0`; lifecycle checkpoint recorded |
 | `readiness.json` | `finalStatus: READY`; checkpoint matches `scope.json`; active contract and allowlist match; `sessionStart`, `sessionRitual`, `storyReady`, and `activePreflight` each exit `0` |

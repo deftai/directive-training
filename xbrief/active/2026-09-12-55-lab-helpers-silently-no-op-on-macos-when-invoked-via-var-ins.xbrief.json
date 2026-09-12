@@ -1,0 +1,155 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #55",
+    "updated": "2026-09-12T21:37:17Z"
+  },
+  "plan": {
+    "title": "Official lab replay fixes for issues 55-58",
+    "status": "running",
+    "narratives": {
+      "Description": "Resolve the four related portability and learner-contract defects reported by issues 55-58.",
+      "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/55",
+      "BatchScope": "David explicitly approved grouping issues 55-58 on one local feature branch. The shared scope covers macOS helper-entry canonicalization, Lab 2 path and npm isolation, Lab 9 and capstone frozen-contract alignment, and learner-facing runtime/help/doctor/source-baseline guidance. Push, pull-request creation, merge, and issue closure remain out of scope.",
+      "Overview": "## What happened\n\nLater labs (5, 7, 9, 10, capstone) dispatch CLI verbs with:\n\n```js\nif (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {\n  console.log(main());\n}\n```\n\n`path.resolve` does not realpath. On macOS `/var` is a symlink to `/private/var`. If the helper is invoked via a `/var/folders/...` path, `argv[1]` and `import.meta.url` differ, `main()` never runs, Node exits 0, and stdout is empty.\n\n`lab_root=\"$(node \"$helper\" create)\"` then becomes empty. Subsequent `git -C \"$lab_root\"` and `node \"$lab_root/node_modules/.bin/directive\"` run against the wrong tree (or `/node_modules/...`).\n\n## Repro\n\n```sh\n# helper via /var path (no-op, exit 0, no stdout)\nnode /var/folders/.../lifecycle-lab.mjs create\n\n# helper via realpath (prints the repo root)\nnode /private/var/folders/.../lifecycle-lab.mjs create\n```\n\nObserved 2026-09-12 on macOS with the course extracted under `$TMPDIR`.\n\nA checkout under `$HOME` that is not reached through `/var` will not hit this. A learner who copies the course to `/tmp`, or whose `pwd` is not `-P`, can.\n\nLab 7 instructions use `course_root=\"$(pwd -P)\"`, which usually saves a careful learner. Lab 2 and ad-hoc helper paths do not always.\n\n## Suggested repair\n\nCompare `realpathSync(process.argv[1])` to `fileURLToPath(import.meta.url)`, or always `import.meta.url` as the CLI entry without argv identity checks. Fail loudly if the entry did not run (`create` must not exit 0 with empty stdout).\n\n\n---\n\n## Issue comment thread\n\n_The issue body is the original write-up; maintainer comments below may supersede it. Read the full thread before building a dispatch envelope (#2143)._\n\n### Comment by @dbcall2 (2026-09-12T21:05:35Z)\n\nReproduced again on 2026-09-12 during a full official-lab re-run of the 0.112.0 course from `origin/master` (Node v24.20.0, macOS/zsh, learner identity `appcell26`). This issue is still valid."
+    },
+    "items": [
+      {
+        "id": "github.issue.5435699955.path-entry",
+        "title": "Make lab helper entry detection canonical-path safe",
+        "type": "task",
+        "status": "pending",
+        "effort": "S"
+      },
+      {
+        "id": "github.issue.5435700129.lab-2",
+        "title": "Isolate Lab 2 path input and npm configuration",
+        "type": "task",
+        "status": "pending",
+        "effort": "M"
+      },
+      {
+        "id": "github.issue.5435700260.frozen-contracts",
+        "title": "Align Lab 9 and capstone frozen expectations",
+        "type": "task",
+        "status": "pending",
+        "effort": "S"
+      },
+      {
+        "id": "github.issue.5435700367.guidance",
+        "title": "Clarify learner runtime and command-discovery guidance",
+        "type": "task",
+        "status": "pending",
+        "effort": "M"
+      }
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/55",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #55: Lab helpers silently no-op on macOS when invoked via /var instead of /private/var",
+        "TrustLevel": "external"
+      },
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/56",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #56: Lab 2 npm auth and path-placeholder traps are inconsistent with later isolated labs",
+        "TrustLevel": "external"
+      },
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/57",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #57: Frozen Lab 9 and capstone tests reject implementations that match fixture style",
+        "TrustLevel": "external"
+      },
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/58",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #58: Exact Node 24.20.0, --help side effects, and mixed version notes confuse the golden path",
+        "TrustLevel": "external"
+      }
+    ],
+    "metadata": {
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "node /var/folders/.../lifecycle-lab.mjs create",
+          "reason": "first token \"node\" is not in the literal-AC allowlist",
+          "sourceSpan": "fence@L19:sh"
+        },
+        {
+          "command": "node /private/var/folders/.../lifecycle-lab.mjs create",
+          "reason": "first token \"node\" is not in the literal-AC allowlist",
+          "sourceSpan": "fence@L19:sh"
+        },
+        {
+          "command": "lab_root=\"$(node \"$helper\" create)\"",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L15"
+        },
+        {
+          "command": "git -C \"$lab_root\"",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L15"
+        },
+        {
+          "command": "node \"$lab_root/node_modules/.bin/directive\"",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L15"
+        }
+      ],
+      "swarm": {},
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5435699955,
+        "origin": "3ci-consulting/directive-training#55",
+        "id": "github.issue.5435699955"
+      }
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "The operator and issue threads state outcomes but no literal shell acceptance commands; focused repository tests and the aggregate gate are the derived proof surface.",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Invoking each affected lab helper through the macOS /var alias runs its CLI entry instead of exiting successfully with empty output.",
+          "artifact_path": "labs/fixtures",
+          "ambiguous": false,
+          "provenance": "issue-55"
+        },
+        {
+          "id": 2,
+          "text": "Lab 2 does not overwrite a learner-supplied curriculum root and uses isolated public-registry npm configuration for the normal path while retaining an explicit provided E401 exercise.",
+          "artifact_path": "labs/02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "issue-56"
+        },
+        {
+          "id": 3,
+          "text": "Lab 9 fallback invocation and capstone blank-title assertions accept implementations that follow the surrounding fixture contract.",
+          "artifact_path": "labs/fixtures",
+          "ambiguous": false,
+          "provenance": "issue-57"
+        },
+        {
+          "id": 4,
+          "text": "Learner-facing material uses a capability-based Node requirement, warns about command-specific --help side effects early, labels the known doctor false negative, and keeps authoring-runtime drift out of the learner baseline summary.",
+          "artifact_path": "curriculum",
+          "ambiguous": false,
+          "provenance": "issue-58"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5435699955",
+    "updated": "2026-09-12T21:37:17Z"
+  }
+}

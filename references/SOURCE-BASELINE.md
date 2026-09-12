@@ -8,10 +8,10 @@ revalidated through 2026-09-12 and must be refreshed when the project pin change
 | Evidence | Verified result |
 | --- | --- |
 | Consumer project pin | `package.json` has exact dev dependency `@deftai/directive: 0.112.0`. |
-| Executables used for probes | Earlier Modules 2–6 probes used a then-current global 0.112.0 CLI. Modules 7, 9, and 10 used disposable repositories' explicit pin-matched launchers. Module 11 inspected immutable 0.112.0 source. During Module 11 validation, the default unqualified shell CLI reported engine 0.114.0. Final authoring gates explicitly selected the NVM-managed CLI, which reported engine 0.116.0, to match the current 0.116.0 deposit for that Module 11 pass. Current capstone authoring uses CLI/engine and deposit 0.117.0. These versions are authoring-runtime context, not learner-behavior evidence. |
+| Executables used for probes | Earlier Modules 2–6 probes used a pin-matched 0.112.0 CLI. Modules 7, 9, and 10 used disposable repositories' explicit pin-matched launchers. Module 11 inspected immutable 0.112.0 source. Authoring-runtime drift is maintainer evidence in [SOURCE-NOTES.md](./SOURCE-NOTES.md), not a learner install target or behavior baseline. |
 | Installed packages | Historical learner proof at 0.112.0 used a global CLI/core/content graph and disposable repositories' CLI/core/content/types graphs that all resolved to 0.112.0. The training repository itself records a pin but intentionally contains no project-local install or lockfile. |
-| Runtime version report | The historical Module 7 local binary reported `@deftai/directive (engine: @deftai/directive-core@0.112.0)`. A shell-global 0.113.0 report observed during earlier authoring was not evidence for this baseline. Current default and selected authoring runtimes are recorded in the executable row above. |
-| Consumer deposit | The pinned baseline proof recorded payload, templates, skills, and docs at 0.112.0. The current authoring deposit is 0.117.0 and is not learner-behavior evidence. |
+| Runtime version report | The historical Module 7 local binary reported `@deftai/directive (engine: @deftai/directive-core@0.112.0)`. Non-pinned authoring runtimes are excluded from this learner baseline and retained only in maintainer source notes. |
+| Consumer deposit | The pinned baseline proof recorded payload, templates, skills, and docs at 0.112.0. Current authoring-deposit drift is retained only in maintainer source notes. |
 | Release tag | Annotated tag `v0.112.0`; tag object `5f30e544eedb72c313ba61934818eb49506fe61b`. |
 | Release commit | `7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808`. The tag peel and npm `gitHead` agree. |
 | npm artifact | Version 0.112.0; integrity `sha512-c5fOMWk2p1C/M6q8B3DrAJDjceNPeU6AvCesTA/zQAw/V+vbiPltfeo8NIBndoxRAaDtbVSQzEKnQ93f6sDS1w==`. |
@@ -223,10 +223,8 @@ operator names a target or explicitly asks for queue/backlog selection. A queue 
 a candidate; implementation requires active scope plus the operator's live implementation
 instruction and passing applicable readiness gates.
 
-The local authoring environment was already on engine and deposit 0.114.0 after pulling
-master. Therefore Module 8's release evidence used an explicit cached 0.112.0 npm package
-graph rather than treating the newer environment as the teaching baseline. Exact probes and
-the observed 0.114.0 migration-path drift are recorded in
+Module 8's release evidence used an explicit cached 0.112.0 npm package graph.
+Authoring-runtime and migration-path drift are maintainer evidence recorded in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-8-source-validation).
 
 ## Module 9 implementation-readiness validation
@@ -290,15 +288,9 @@ were revalidated against immutable source at the 0.112.0 release commit:
 | [deft-directive-review-cycle][skill-review] | Classification before editing, acceptance-scope disposition, one fix batch, and current-head review. |
 | [Directive lifecycle][src-lifecycle] | Implemented, PR-open, merge-ready, integration-merged, delivered, deployed, and UAT evidence boundaries. |
 
-The learner pin remains exactly 0.112.0. During Module 11 validation, the default unqualified
-shell CLI reported engine 0.114.0. Final authoring gates explicitly selected the NVM-managed
-CLI, which reported engine 0.116.0, to match the current 0.116.0 deposit for that
-Module 11 pass. Current capstone authoring reports CLI/engine and deposit 0.117.0. These
-authoring versions do not define
-learner behavior. The current 0.117.0
-deposit differs from the pinned source on newer policy and adapter mechanics, including
-aggregate-gate placement in the current pre-PR skill. Those differences are recorded as
-drift and are not taught as 0.112.0 behavior. The exercise implements the project's
+The learner pin remains exactly 0.112.0. Authoring-runtime and deposit drift do
+not define learner behavior; exact hashes and adaptation notes remain in the
+maintainer-only source notes. The exercise implements the project's
 simulated-review policy: it requires no live GitHub repository, external review bot, CI run,
 merge, deployment, or UAT execution.
 Exact hashes and adaptation notes are in
@@ -313,8 +305,8 @@ package graph remains exactly `@deftai/directive@0.112.0` with
 `@deftai/directive-types` also resolved to `0.112.0`.
 
 Directive 0.112.0 imports `node:fs` `globSync`, which is unavailable before
-Node.js 22. The complete Directive proof therefore runs on Node.js
-`24.20.0`. The fictional application source is Node.js 20-compatible as a
+Node.js 22. The complete Directive proof therefore requires Node.js 22 or newer.
+The fictional application source is Node.js 20-compatible as a
 source-level design constraint; no isolated Node.js 20 execution is claimed,
 and that property does not make the full Directive lab a Node.js 20 runtime
 path.

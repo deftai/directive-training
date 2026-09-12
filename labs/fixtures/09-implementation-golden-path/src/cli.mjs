@@ -1,3 +1,4 @@
 import { greeting } from "./greeting.mjs";
 
-console.log(greeting(process.argv[2]));
+const name = process.argv[2];
+console.log(name === undefined ? greeting() : greeting(name));

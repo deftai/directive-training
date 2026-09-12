@@ -161,6 +161,12 @@ directive toolchain:check --consumer --project-root .
 Do not generalize the defect into permission to guess syntax. It is evidence that published
 examples need release-specific verification.
 
+> **Warning — command-specific help may have side effects.** In 0.112.0,
+> `codebase:map --help` writes a MAP and `verify:codebase-map-fresh --help`
+> runs the freshness check instead of showing ordinary usage. Probe an unknown
+> verb only in a guarded disposable repository, and read its release-specific
+> note before assuming `--help` is read-only.
+
 ### 2. Pin before initialization
 
 **[Directive behavior]** Released prose says init creates a committed package pin, but the
@@ -196,9 +202,11 @@ fix. Record:
 3. the single recommended next action;
 4. whether the action is within the disposable boundary.
 
-In the verified macOS run, doctor warned about npm provenance/migration and reported a
-missing `xbrief/` directory while inspecting an existing xBRIEF envelope. The lesson records
-that disagreement rather than promising warning-free output.
+Treat this 0.112.0 result as a **known false negative**: in the verified macOS
+run, doctor reported `Missing directory: xbrief/` even though
+`xbrief/PROJECT-DEFINITION.xbrief.json` was present. Retain the warning and the
+contradictory path evidence, but do not create a second xBRIEF tree or claim
+the warning proves the directory is absent.
 
 ### 5. Recovery begins with a fresh, preserved attempt
 

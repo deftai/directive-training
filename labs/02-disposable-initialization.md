@@ -36,7 +36,9 @@ Northstar Route Checker is a fictional future JavaScript route-validation tool; 
 - Node.js 20 or newer; the verified local 0.112.0 run used 24.18.0 and the 0.112.0 native matrix used 24.20.0.
 - npm, Git, GitHub CLI, and either zsh, bash, or PowerShell 7.4 or newer.
 - A local clone of this private curriculum repository, used only to read the fixture.
-- Access to the approved npm registry for `@deftai/directive@0.112.0`.
+- Access to the public npm registry for `@deftai/directive@0.112.0`. The normal
+  path uses a project-local public-registry `.npmrc`; if 3Ci policy requires a
+  different approved route, stop and use the recovery boundary instead.
 
 First run:
 
@@ -52,10 +54,12 @@ your organization's approved tool installation path before continuing.
 
 ### macOS 15/zsh — verified locally and natively; Linux/bash — verified on Ubuntu 24.04
 
-Start in a neutral terminal directory and set `DIRECTIVE_TRAINING_ROOT` to the absolute path of your private curriculum clone; this path is learner input, not an authoring placeholder.
+Start in a neutral terminal directory. In a separate command, export
+`DIRECTIVE_TRAINING_ROOT` with the absolute path of your private curriculum
+clone. The block below reads and validates that learner-supplied value; it does
+not replace it with an authoring placeholder.
 
 ```sh
-export DIRECTIVE_TRAINING_ROOT="/absolute/path/to/directive-training"
 module_02_original_path="$PATH"
 if test "${NPM_CONFIG_USERCONFIG+x}" = x; then
   module_02_had_npm_userconfig=1
@@ -66,6 +70,10 @@ else
 fi
 
 module_02_start() {
+  test -n "${DIRECTIVE_TRAINING_ROOT:-}" || {
+    echo "DIRECTIVE_TRAINING_ROOT must be set to the absolute curriculum clone path" >&2
+    return 2
+  }
   training_root="$(cd "$DIRECTIVE_TRAINING_ROOT" && pwd -P)" || {
     echo "could not resolve the curriculum clone" >&2
     return 2
@@ -137,7 +145,8 @@ module_02_start() {
   git switch -c training/module-02 || return 2
   assert_no_remote || return 2
   cp "$fixture" package.json || return 2
-  printf 'node_modules/\n/USER.md\n/.deft/USER.md\n' > .gitignore || return 2
+  printf 'node_modules/\n/.npm-cache/\n/USER.md\n/.deft/USER.md\n' > .gitignore || return 2
+  printf 'registry=https://registry.npmjs.org/\naudit=false\nfund=false\nignore-scripts=true\n' > .npmrc || return 2
   git status --short || return 2
   printf 'lab_root=%s\nevidence_note=%s\n' "$lab_root" "$evidence_note"
 }
@@ -155,6 +164,7 @@ Required starting status, in lexical order:
 
 ```text
 ?? .gitignore
+?? .npmrc
 ?? package.json
 ```
 
@@ -163,7 +173,9 @@ No other path may appear. Continue only after `module_02_start=ready`. Keep the 
 
 ### Windows/PowerShell 7.4+ — verified on Windows Server 2022
 
-Set the first value to the absolute path of your private curriculum clone.
+Before pasting the block, set the process environment variable
+`DIRECTIVE_TRAINING_ROOT` to the absolute path of your private curriculum clone.
+The block fails clearly if that learner input is absent.
 
 ```powershell
 if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
@@ -174,7 +186,10 @@ $Module02OriginalErrorActionPreference = $ErrorActionPreference
 $Module02OriginalNativePreference = $PSNativeCommandUseErrorActionPreference
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
-$TrainingRoot = [IO.Path]::GetFullPath('C:\absolute\path\to\directive-training').TrimEnd([IO.Path]::DirectorySeparatorChar)
+if ([string]::IsNullOrWhiteSpace($env:DIRECTIVE_TRAINING_ROOT)) {
+  throw 'Set DIRECTIVE_TRAINING_ROOT to the absolute curriculum clone path before running this block.'
+}
+$TrainingRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)
 $Fixture = Join-Path $TrainingRoot 'labs/fixtures/02-disposable-initialization/package.json'
 if (-not (Test-Path -LiteralPath $Fixture -PathType Leaf)) { throw "fixture not found: $Fixture" }
 
@@ -231,7 +246,8 @@ git switch -c training/module-02
 if ($LASTEXITCODE -ne 0) { throw 'feature branch creation failed' }
 Assert-NoRemote
 Copy-Item -LiteralPath $Fixture -Destination (Join-Path $LabRoot 'package.json')
-[IO.File]::WriteAllText((Join-Path $LabRoot '.gitignore'), "node_modules/`n/USER.md`n/.deft/USER.md`n", [Text.UTF8Encoding]::new($false))
+[IO.File]::WriteAllText((Join-Path $LabRoot '.gitignore'), "node_modules/`n/.npm-cache/`n/USER.md`n/.deft/USER.md`n", [Text.UTF8Encoding]::new($false))
+[IO.File]::WriteAllText((Join-Path $LabRoot '.npmrc'), "registry=https://registry.npmjs.org/`naudit=false`nfund=false`nignore-scripts=true`n", [Text.UTF8Encoding]::new($false))
 git status --short
 "lab_root=$LabRoot"
 "evidence_note=$EvidenceNote"
@@ -241,6 +257,7 @@ Required status:
 
 ```text
 ?? .gitignore
+?? .npmrc
 ?? package.json
 ```
 
@@ -258,7 +275,12 @@ at `$EvidenceNote`, beside the attempt and outside its Git working tree.
 
 ## Starting checkpoint
 
-This checkpoint proves the local executable, help surfaces, initialization, ignore rules, and inspected staging allowlist before committing the fictional start; it never uses `git add --all`.
+This checkpoint proves the local executable, help surfaces, initialization,
+ignore rules, and inspected staging allowlist before committing the fictional
+start; it never uses `git add --all`. The normal install uses the tracked
+public-registry `.npmrc`, a lab-local cache, and a child environment without
+inherited `NPM_CONFIG_*` values. The provided E401 exercise remains a written
+decision drill; do not weaken this isolation to manufacture it.
 
 ### macOS/zsh or Linux/bash
 
@@ -266,7 +288,7 @@ This checkpoint proves the local executable, help surfaces, initialization, igno
 module_02_initialize() {
   assert_no_remote || return 2
   node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.112.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.112.0")) process.exit(2)' || return 2
-  npm install --ignore-scripts --no-audit --no-fund || return 2
+  env -i PATH="$PATH" HOME="$HOME" npm install --userconfig "$lab_root/.npmrc" --globalconfig /dev/null --cache "$lab_root/.npm-cache" --ignore-scripts --no-audit --no-fund || return 2
   assert_no_remote || return 2
 
   local_bin="$lab_root/node_modules/.bin"
@@ -311,6 +333,7 @@ module_02_initialize() {
     Taskfile.yml \
     .deft/GENERATION.json \
     .githooks/pre-commit \
+    .npmrc \
     xbrief/PROJECT-DEFINITION.xbrief.json
   do
     test -f "$required_tracked_path" || {
@@ -334,6 +357,7 @@ module_02_initialize() {
     .deft/ritual-state.json \
     xbrief/.triage-cache/candidates.jsonl \
     USER.md \
+    .npm-cache/example \
     node_modules/example
   do
     git check-ignore -q -- "$ignored_path" || return 2
@@ -351,7 +375,7 @@ module_02_initialize() {
   while IFS= read -r relative_path
   do
     case "$relative_path" in
-      .agents/*|.claude/*|.codex/*|.cursor/*|.deft/GENERATION.json|.deft/approved-scope/*|.gitattributes|.githooks/*|.github/*|.gitignore|.grok/*|.prettierignore|AGENTS.md|Taskfile.yml|greptile.json|package.json|package-lock.json|xbrief/*) ;;
+      .agents/*|.claude/*|.codex/*|.cursor/*|.deft/GENERATION.json|.deft/approved-scope/*|.gitattributes|.githooks/*|.github/*|.gitignore|.grok/*|.npmrc|.prettierignore|AGENTS.md|Taskfile.yml|greptile.json|package.json|package-lock.json|xbrief/*) ;;
       *) echo "unexpected trackable path: $relative_path" >&2; return 2 ;;
     esac
   done <"$trackable_files"
@@ -363,6 +387,7 @@ module_02_initialize() {
     Taskfile.yml \
     .deft/GENERATION.json \
     .githooks/pre-commit \
+    .npmrc \
     xbrief/PROJECT-DEFINITION.xbrief.json
   do
     git ls-files --error-unmatch -- "$required_tracked_path" >/dev/null 2>&1 || {
@@ -396,7 +421,8 @@ If the allowlist rejects a path, preserve the attempt and compare that path with
 ```powershell
 Assert-NoRemote
 node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.112.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.112.0")) process.exit(2)'
-npm install --ignore-scripts --no-audit --no-fund
+node -e 'const { spawnSync } = require("node:child_process"); const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => !/^npm_config_/i.test(key))); const result = spawnSync("npm.cmd", ["install", "--userconfig", ".npmrc", "--globalconfig", "NUL", "--cache", ".npm-cache", "--ignore-scripts", "--no-audit", "--no-fund"], { env, stdio: "inherit", shell: true }); process.exit(result.status ?? 1)'
+if ($LASTEXITCODE -ne 0) { throw 'isolated npm install failed' }
 Assert-NoRemote
 
 $LocalBin = [IO.Path]::GetFullPath((Join-Path $LabRoot 'node_modules/.bin'))
@@ -438,6 +464,7 @@ $RequiredTrackedPaths = @(
   'Taskfile.yml',
   '.deft/GENERATION.json',
   '.githooks/pre-commit',
+  '.npmrc',
   'xbrief/PROJECT-DEFINITION.xbrief.json'
 )
 foreach ($RequiredTrackedPath in $RequiredTrackedPaths) {
@@ -458,6 +485,7 @@ $IgnoredPaths = @(
   '.deft/ritual-state.json',
   'xbrief/.triage-cache/candidates.jsonl',
   'USER.md',
+  '.npm-cache/example',
   'node_modules/example'
 )
 foreach ($IgnoredPath in $IgnoredPaths) {
@@ -473,7 +501,7 @@ $TrackableFiles = @(
 if ($LASTEXITCODE -ne 0 -or $TrackableFiles.Count -eq 0) { throw 'no trackable files found' }
 [IO.File]::WriteAllLines($TrackableFilesPath, $TrackableFiles, [Text.UTF8Encoding]::new($false))
 $TrackableFiles | ForEach-Object { Write-Output $_ }
-$AllowedPath = '^(\.agents/|\.claude/|\.codex/|\.cursor/|\.deft/GENERATION\.json$|\.deft/approved-scope/|\.gitattributes$|\.githooks/|\.github/|\.gitignore$|\.grok/|\.prettierignore$|AGENTS\.md$|Taskfile\.yml$|greptile\.json$|package\.json$|package-lock\.json$|xbrief/)'
+$AllowedPath = '^(\.agents/|\.claude/|\.codex/|\.cursor/|\.deft/GENERATION\.json$|\.deft/approved-scope/|\.gitattributes$|\.githooks/|\.github/|\.gitignore$|\.grok/|\.npmrc$|\.prettierignore$|AGENTS\.md$|Taskfile\.yml$|greptile\.json$|package\.json$|package-lock\.json$|xbrief/)'
 foreach ($RelativePath in $TrackableFiles) {
   if ($RelativePath -notmatch $AllowedPath) { throw "unexpected trackable path: $RelativePath" }
 }
@@ -572,6 +600,11 @@ if ($DoctorExit -ne 0 -or $ToolchainExit -ne 0) { throw 'diagnosis did not pass;
 **Checkpoint:** both exits are 0. Warnings may remain; record them exactly enough to identify
 the classification and recommendation, without copying unrelated environment data.
 
+Label this 0.112.0 **known false negative** if it appears: doctor prints
+`Missing directory: xbrief/` while `xbrief/PROJECT-DEFINITION.xbrief.json` is
+present. Preserve both observations; do not create another xBRIEF directory
+or weaken the diagnostic check.
+
 **Keep as evidence:** version, both exits, toolchain pass, doctor classifications, and empty remote (O2.2, O2.4).
 
 ### Task 3 — Classify the repository anatomy
@@ -584,11 +617,13 @@ Inspect at least these paths:
 
 ```text
 package.json
+.npmrc
 AGENTS.md project header
 AGENTS.md managed section
 .deft/GENERATION.json
 .deft/core/
 .deft-cache/
+.npm-cache/
 xbrief/ or its schemas if present
 USER.md (conceptual external row; do not resolve or copy it in this lab)
 ```
@@ -603,6 +638,7 @@ git check-ignore -v -- .deft/.cli/example
 git check-ignore -v -- .deft-cache/example
 git check-ignore -v -- .deft/ritual-state.json
 git check-ignore -v -- xbrief/.triage-cache/candidates.jsonl
+git check-ignore -v -- .npm-cache/example
 git check-ignore -v -- USER.md
 ```
 

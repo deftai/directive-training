@@ -527,7 +527,12 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
     assert.match(body, /notes directory locally only until assessment or approved[\s\S]{0,100}normal OS[\s-]*cleanup|approved private evidence-retention policy/i, path + " must state the private notes-directory disposition");
   }
   assert.match(assessment, /Evidence-chain checks[\s\S]{0,600}generatedAt[\s\S]{0,500}productCheckpoint/, "assessment is missing evidence-chain correlation checks");
-  assert.match(assessment, /runtime observation[\s\S]{0,250}v24\.20\.0[\s\S]{0,250}OS and shell[\s\S]{0,180}Task[\s\S]{0,80}uv/i, "assessment is missing retained runtime identity evidence");
+  assert.match(assessment, /runtime observation[\s\S]{0,250}Node\.js 22 or newer[\s\S]{0,250}OS and shell[\s\S]{0,180}Task[\s\S]{0,80}uv/i, "assessment is missing retained runtime identity evidence");
+  assert.match(
+    content.get(labPath),
+    /Number\(process\.versions\.node\.split\("\."\)\[0\]\)[\s\S]{0,120}major < 22/,
+    "capstone lab must enforce the Node.js 22+ capability boundary",
+  );
   assert.match(assessment, /classification timing is learner-authored and self-attested[\s\S]{0,180}helper[\s\S]{0,180}finding existed/i, "assessment must distinguish learner-attested classification timing from helper evidence");
   assert.match(combinedCore, /private[\s\S]{0,80}capstone-assessment-note\.md/i, "capstone is missing the reset/archive disposition note");
 
@@ -539,7 +544,7 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
     "node --test scripts/capstone-lab.test.mjs scripts/verify-capstone.test.mjs && node --check labs/fixtures/capstone-end-to-end/capstone-lab.mjs && git diff --check",
     "package scripts must expose the complete test:capstone contract",
   );
-  assert.equal(packageJson.scripts?.["test:portability"], "node --test scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs", "test:portability changed");
+  assert.equal(packageJson.scripts?.["test:portability"], "node --test scripts/lab-helper-entry.test.mjs scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs", "test:portability changed");
 
   const fixturePackage = JSON.parse(content.get(fixturePackagePath));
   assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.112.0", "fixture package must retain the exact Directive pin");
@@ -548,10 +553,18 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   }
   for (const path of [curriculumPath, labPath, assessmentPath, solutionPath]) {
     const body = content.get(path);
-    assert.match(body, /Node\.js[\s\x60]*24\.20\.0/, path + " must state the Node.js 24.20.0 Directive runtime");
+    assert.match(body, /Node\.js[\s\x60]*22 or newer/i, path + " must state the Node.js 22+ Directive runtime");
+    assert.doesNotMatch(body, /(?:requires?|requirement|must use|reports?)\b[^\n]{0,100}(?:exactly\s+)?`?v?24\.20\.0`?/i, path + " must not require one Node.js patch release");
     assert.match(body, /Node\.js 20-compatible/, path + " must preserve Node.js 20-compatible application scope");
     assert.match(body, /Node\.js 20-compatible[\s\S]{0,180}source-level design constraint[\s\S]{0,180}(?:not|no)[\s\S]{0,100}(?:execution|run|runtime)/i, path + " must label Node.js 20 compatibility as an unexecuted source constraint");
   }
+  const frozenFixtureTest = content.get(fixtureTestPath);
+  assert.match(
+    frozenFixtureTest,
+    /assert\.throws\(\(\) => addWorkItem\(\[\], " {3}"\), \/nonempty\//,
+    "capstone blank-title test must accept the fixture's nonempty-title phrasing",
+  );
+  assert.doesNotMatch(frozenFixtureTest, /\/nonempty title\//, "capstone blank-title test must not require reversed word order");
   const decision = JSON.parse(content.get(decisionPath));
   assert.equal(
     decision.decision,
@@ -611,14 +624,19 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   const baseline = content.get("references/SOURCE-BASELINE.md");
   assert.match(baseline, /^## Capstone end-to-end validation\s*$/m, "SOURCE-BASELINE is missing capstone validation");
   assert.match(notes, /^## Capstone source validation\s*$/m, "SOURCE-NOTES is missing capstone source validation");
-  for (const source of [
-    section(markdownParts(baseline).prose, "Capstone end-to-end validation"),
-    section(markdownParts(notes).prose, "Capstone source validation"),
-  ]) {
+  const baselineCapstone = section(markdownParts(baseline).prose, "Capstone end-to-end validation");
+  const notesCapstone = section(markdownParts(notes).prose, "Capstone source validation");
+  for (const source of [baselineCapstone, notesCapstone]) {
     assert.match(source, /0\.112\.0/, "capstone source record is missing learner pin");
-    assert.match(source, /24\.20\.0/, "capstone source record is missing runtime");
     assert.match(source, /Node\.js\s+20-compatible/, "capstone source record is missing application compatibility");
   }
+  assert.match(baselineCapstone, /Node\.js 22 or newer/i, "learner baseline must state the capability-based runtime");
+  assert.match(notesCapstone, /24\.20\.0/, "maintainer source notes must retain the tested runtime");
+  assert.doesNotMatch(
+    baseline,
+    /(?:0\.113\.0|0\.114\.0|0\.116\.0|0\.117\.0)/,
+    "learner-facing SOURCE-BASELINE must not include authoring-runtime versions",
+  );
 
   const currentAvailabilityPaths = [
     "README.md",
