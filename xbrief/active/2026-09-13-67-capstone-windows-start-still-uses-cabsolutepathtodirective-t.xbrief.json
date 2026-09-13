@@ -1,0 +1,63 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #67",
+    "updated": "2026-09-13T02:29:39Z"
+  },
+  "plan": {
+    "title": "Capstone Windows start still uses C:\\absolute\\path\\to\\directive-training placeholder",
+    "status": "running",
+    "narratives": {
+      "Description": "Capstone Windows start still uses C:\\absolute\\path\\to\\directive-training placeholder",
+      "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/67",
+      "Overview": "## What happened\n\nThe capstone lab Windows start block still contains a fake path:\n\n$CourseRoot = (Resolve-Path \"C:\\absolute\\path\\to\\directive-training\").Path\n\nLab 2 Windows was already changed to read DIRECTIVE_TRAINING_ROOT and fail if unset (after #56). The capstone block will throw Resolve-Path on the placeholder if a learner pastes it without editing.\n\nI completed the capstone on Windows after substituting the real clone path. Node v26.8.1, Task 3.50.0, uv 0.11.14, Python 3.12.10. Helper sequence create through close, then reset and both archives, all passed. Closeout: implemented / local_pass / ship, deployment, and UAT not_started.\n\n## Why this is hard for a human\n\nSame class of trap as closed #56: prose says the path is learner input, the snippet still contains a fake path. A paste-first learner never reaches create.\n\n## Suggested repair\n\nMatch Lab 2 Windows: require $env:DIRECTIVE_TRAINING_ROOT (or $CourseRoot) to be set before the block, and do not overwrite it with a placeholder.\r\n\n"
+    },
+    "items": [],
+    "references": [
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/67",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #67: Capstone Windows start still uses C:\\absolute\\path\\to\\directive-training placeholder"
+      },
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/56",
+        "type": "x-xbrief/closes",
+        "title": "Issue #56"
+      }
+    ],
+    "metadata": {
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "CourseRoot = (Resolve-Path \"C:\\absolute\\path\\to\\directive-training\").Path",
+          "reason": "shell metacharacter \"(\" is not allowed in literal AC commands",
+          "sourceSpan": "prompt@L7"
+        }
+      ],
+      "swarm": {},
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5436993719,
+        "origin": "3ci-consulting/directive-training#67",
+        "id": "github.issue.5436993719"
+      }
+    },
+    "acceptance": {
+      "commands": [
+        "npm run test:capstone-content",
+        "npm run check:capstone"
+      ],
+      "none_stated": false,
+      "source_rung": "derived",
+      "derived_reason": "The focused negative mutation proves that fake Windows roots are rejected, and the capstone content contract proves the learner-supplied root path is present."
+    },
+    "id": "github.issue.5436993719",
+    "updated": "2026-09-13T02:29:39Z"
+  }
+}

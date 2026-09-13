@@ -190,13 +190,25 @@ export function verifyModules45(root = fileURLToPath(new URL("../", import.meta.
   for (const platform of ["macos-zsh", "linux-bash", "windows-pwsh7"]) {
     const markers = [...proofNotes.matchAll(new RegExp(`lab05-platform-proof:${platform} status=(verified|candidate) date=(\\d{4}-\\d{2}-\\d{2}) evidence=([^\\s\x60]+)`, "g"))];
     assert.equal(markers.length, 1, `SOURCE-NOTES must contain exactly one Lab 5 proof marker for ${platform}`);
-    assert.equal(markers[0][1], platform === "macos-zsh" ? "verified" : "candidate", `${platform}: native Lab 5 proof is bounded to macOS/zsh in this scope`);
-    if (platform === "macos-zsh") assert.doesNotMatch(markers[0][3], /^(?:none|not-run|pending|unknown)$/, "Lab 5 macOS proof must cite actual evidence");
+    assert.equal(markers[0][1], platform === "linux-bash" ? "candidate" : "verified", `${platform}: Lab 5 proof status does not match the supported paths`);
+    if (platform !== "linux-bash") assert.doesNotMatch(markers[0][3], /^(?:none|not-run|pending|unknown)$/, `Lab 5 ${platform} proof must cite actual evidence`);
   }
   const platformRecord = section(parsed.get(lab5).prose, "Lab record");
   assert.match(platformRecord, /macOS[^\n]*zsh/i, "Lab 5 must identify its verified macOS/zsh path");
+  assert.match(platformRecord, /Windows[^\n]*PowerShell 7\.4\+/i, "Lab 5 must identify its verified Windows/PowerShell 7.4+ path");
+  const powershellCommands = parsed.get(lab5).blocks.filter(({ language }) => /^(?:powershell|pwsh)$/.test(language)).map(({ content: block }) => block).join("\n");
+  for (const verb of ["create", "guard", "verify-pin", "checkpoint", "inject-drift", "verify-result", "archive"]) {
+    assert.match(powershellCommands, new RegExp(`projection-lab\\.mjs[^\\n]*\\b${verb}\\b`), `Lab 5 must provide a PowerShell command for helper verb ${verb}`);
+  }
+  for (const command of ["codebase:map", "verify:codebase-map-fresh"]) {
+    assert.match(powershellCommands, new RegExp(`directive\\.cmd[^\\n]*\\b${command}\\b`), `Lab 5 must provide a PowerShell command for ${command}`);
+  }
+  assert.match(powershellCommands, /(?:npm\.cmd\s+install\b|spawnSync\("npm\.cmd", \["install")/, "Lab 5 must provide its isolated Windows npm install command");
+  const doneStatement = section(parsed.get(lab5).prose, "Done statement");
+  assert.match(doneStatement, /actual (?:operating system|OS)[^\n]*shell/i, "Lab 5 done statement must require the learner's actual OS and shell");
+  assert.doesNotMatch(doneStatement, /completed[^\n]*recorded\s+macOS\//i, "Lab 5 done statement must not require macOS/zsh");
   for (const path of [lab5, solution5, module5]) {
-    for (const line of parsed.get(path).prose.split("\n").filter((line) => /Linux|Windows/i.test(line))) {
+    for (const line of parsed.get(path).prose.split("\n").filter((line) => /Linux/i.test(line))) {
       const noNegation = line.replace(/\b(?:not|never)\s+(?:yet\s+)?(?:verified|tested|learner-ready)\b/gi, "untested");
       assert.ok(!/\b(?:verified|learner-ready)\b/i.test(noNegation) || /\b(?:candidate|untested|unverified|not claimed)\b/i.test(noNegation), `${path} contains an unsupported native Lab 5 claim: ${line}`);
     }

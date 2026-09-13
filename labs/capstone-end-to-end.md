@@ -93,10 +93,21 @@ git -C "$CAPSTONE_ROOT" status --short --branch
 
 ### Windows PowerShell 7.4+
 
+Before pasting the block, set the process environment variable
+`DIRECTIVE_TRAINING_ROOT` to the absolute path of your private curriculum clone.
+The block fails clearly if that learner input is absent or not absolute.
+
 ```powershell
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $true
-$CourseRoot = (Resolve-Path "C:\absolute\path\to\directive-training").Path
+if ([string]::IsNullOrWhiteSpace($env:DIRECTIVE_TRAINING_ROOT)) {
+  throw "Set DIRECTIVE_TRAINING_ROOT to the absolute curriculum clone path before running this block."
+}
+if (-not [IO.Path]::IsPathFullyQualified($env:DIRECTIVE_TRAINING_ROOT)) {
+  throw "DIRECTIVE_TRAINING_ROOT must be an absolute path."
+}
+$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)
+if (-not (Test-Path -LiteralPath $CourseRoot -PathType Container)) { throw "Curriculum clone not found: $CourseRoot" }
 $CapstoneHelper = Join-Path $CourseRoot "labs/fixtures/capstone-end-to-end/capstone-lab.mjs"
 if (-not (Test-Path -LiteralPath $CapstoneHelper -PathType Leaf)) { throw "Capstone helper not found." }
 $CapstoneNodeVersion = ((& node --version | Out-String).Trim())

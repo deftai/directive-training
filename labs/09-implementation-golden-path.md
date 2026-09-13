@@ -16,6 +16,11 @@
 Labels separate **[Directive behavior]**, **[3Ci policy]**, and **[Course guidance]**.
 The helper is course tooling, not a new Directive command.
 
+On the native Windows candidate path, `create` and `guard` remain available for safe
+inspection, but `install` stops before invoking npm with the learner-facing candidate-platform message above. Preserve
+that attempt and continue on a verified environment; an `npm.cmd EINVAL` error is not the
+intended platform boundary.
+
 ## Goal and done condition
 
 Implement one named-and-fallback greeting only after current readiness passes.

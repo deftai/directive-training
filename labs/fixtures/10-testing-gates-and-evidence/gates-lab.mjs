@@ -155,8 +155,12 @@ function findExecutable(name) {
   throw new Error(`Required executable not found: ${name}`);
 }
 
+/** Reject platforms without a learner-ready command path before installation mutates the attempt. */
+export function assertLearnerReadyPlatform(platform = process.platform) {
+  assert.notEqual(platform, "win32", "Native Windows/PowerShell is a candidate path and is not learner-ready in this release.");
+}
+
 function createIsolatedTools(root) {
-  assert.notEqual(process.platform, "win32", "Native Windows/PowerShell is a candidate path and is not learner-ready in this release.");
   const directory = safePath(root, ".lab-tools");
   mkdirSync(directory, { recursive: true });
   for (const [name, target] of new Map([
@@ -340,8 +344,9 @@ export function verifyPin(root = process.cwd()) {
 }
 
 /** Install the exact release, deposit its Task surface, and create the clean checkpoint. */
-export function installAttempt(root = process.cwd()) {
+export function installAttempt(root = process.cwd(), platform = process.platform) {
   root = guardAttempt(root);
+  assertLearnerReadyPlatform(platform);
   const initial = verifyAttemptIdentity(root).marker;
   requireStage(initial, "CREATED");
   assert.ok(!existsSync(join(root, "node_modules")), "Stop: install requires a fresh attempt; use reset after a partial install.");

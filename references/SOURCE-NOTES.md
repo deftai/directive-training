@@ -232,7 +232,7 @@ Lab-specific proof markers consumed by the focused verifier:
 
 - `lab05-platform-proof:macos-zsh status=verified date=2026-09-07 evidence=local-0.112.0-lab05-eol-BcQ9WF`
 - `lab05-platform-proof:linux-bash status=candidate date=2026-09-07 evidence=not-run`
-- `lab05-platform-proof:windows-pwsh7 status=candidate date=2026-09-07 evidence=native-324b5f7-incomplete-paused`
+- `lab05-platform-proof:windows-pwsh7 status=verified date=2026-09-12 evidence=local-0.112.0-lab05-windows-iUxLAC+issue-65`
 
 ### Native Windows revalidation and archive follow-up
 
@@ -397,6 +397,24 @@ host configuration change, test skip, or gate change is part of this batch.
 The [Windows handoff](../maintainers/WINDOWS-REVALIDATION.md) is retained as a
 historical assignment. Implementation completion is separate from merge and
 post-merge scope closeout; the active scope records that delivery boundary.
+
+### Reported native Windows learner walkthrough
+
+A later learner report in issue 65 supersedes the earlier command-path disposition without
+retroactively changing the incomplete maintainer test run above. On 2026-09-12 the learner
+reported completing the full Lab 5 sequence with PowerShell 7.6.6, Node.js 26.8.1, and npm
+11.19.0: create, guard, isolated `npm.cmd` install, pin verification, checkpoint, both stale
+exit-1 observations and recoveries, all five final checks, fresh reset, and both archives.
+
+Proof `local-0.112.0-lab05-windows-iUxLAC` independently replayed that route on Windows 11
+build 26200 with PowerShell 7.6.5, Node.js 26.8.1, and npm 11.19.0. The real pinned install,
+checkpoint, both stale/recovery pairs, all five final checks, distinct reset, and both
+outside-directory archives passed. The completed `iUxLAC` and reset `dYHJI7` attempts remain
+under the OS-temp `3ci-directive-lab-archive` directory.
+
+The course now publishes that PowerShell 7.4+ route and requires the done statement to record
+the learner's actual OS and shell. This bounded proof is not an automated Windows matrix
+result and does not claim that the host's separate symlink-capability tests pass.
 
 ### Local tooling verification
 
@@ -690,6 +708,15 @@ registry agreement, and learner-ready Module 11 navigation. Negative tests mutat
 copies. The fixture suite additionally executes identity and remote guards, exact pinning,
 red-green-refactor sequencing, test freeze, literal and forward gates, the expected aggregate
 failure, the one-record repair, final aggregate, fresh reset, and recoverable archive.
+
+### Native Windows candidate-platform stop
+
+On 2026-09-12, direct CLI checks on Windows 11 build 26200 with PowerShell 7.6.5 and
+Node.js 26.8.1 created guarded attempts for Labs 7, 9, and 10, then invoked each helper's
+`install` verb. All three exited `1` with the intended native Windows candidate-platform
+message before creating `node_modules` or `.npm-cache`; none emitted `npm.cmd EINVAL`.
+Each untouched attempt then archived successfully. This proves the early learner-facing
+stop, not Windows learner readiness for those labs.
 
 ## Module 11 source validation
 

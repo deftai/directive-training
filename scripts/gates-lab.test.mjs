@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import {
   archiveAttempt,
+  assertLearnerReadyPlatform,
   createAttempt,
   guardAttempt,
   installAttempt,
@@ -21,6 +22,15 @@ import { git } from "../labs/fixtures/10-testing-gates-and-evidence/safety.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(path, "utf8");
+
+test("install rejects native Windows before creating package state", () => {
+  const root = createAttempt();
+  assert.throws(() => assertLearnerReadyPlatform("win32"), /candidate path and is not learner-ready/);
+  assert.throws(() => installAttempt(root, "win32"), /candidate path and is not learner-ready/);
+  assert.equal(existsSync(join(root, "node_modules")), false);
+  assert.equal(existsSync(join(root, ".npm-cache")), false);
+  archiveAttempt(root);
+});
 
 function addAverageTest(root) {
   const path = join(root, "test/summary.test.mjs");

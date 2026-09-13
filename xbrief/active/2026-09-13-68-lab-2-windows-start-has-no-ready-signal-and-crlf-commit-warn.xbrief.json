@@ -1,0 +1,48 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #68",
+    "updated": "2026-09-13T02:29:41Z"
+  },
+  "plan": {
+    "title": "Lab 2 Windows start has no ready signal and CRLF commit warnings look like failure",
+    "status": "running",
+    "narratives": {
+      "Description": "Lab 2 Windows start has no ready signal and CRLF commit warnings look like failure",
+      "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/68",
+      "Overview": "## What happened\n\nLab 2 on Windows PowerShell 7.6.6 completed (init, doctor exit 0, toolchain exit 0, accept PASS, archive). Two instruction problems remain.\n\n1. The Unix start function prints module_02_start=ready. The Windows start block never prints that token. The Unix section says Continue only after module_02_start=ready. A Windows learner searching the page for that signal will not find it in their session.\n\n2. After directive init, git commit of the checkpoint emits a large block of \"LF will be replaced by CRLF\" warnings for deposited skill/command files. The recovery table does not mention this. It is easy to read as a failed checkpoint. The commit still succeeded (checkpoint: initialize fictional Directive consumer on training/module-02).\n\nDoctor also printed the documented false negative Missing directory: xbrief/ while xbrief/PROJECT-DEFINITION.xbrief.json existed, plus canonical-vendored-npm-signpost. Those are already taught; the CRLF noise is not.\n\n## Suggested repair\n\nPrint an explicit Windows ready signal, or stop telling Windows learners to wait for the Unix token. Add a recovery row: CRLF replacement warnings on core.autocrlf=true hosts are expected and do not fail the checkpoint.\r\n\n"
+    },
+    "items": [],
+    "references": [
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/68",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #68: Lab 2 Windows start has no ready signal and CRLF commit warnings look like failure"
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "npm run check:modules-2-3"
+      ],
+      "none_stated": false,
+      "source_rung": "derived",
+      "derived_reason": "The Modules 2-3 content contract requires the Windows-only ready signal and the bounded core.autocrlf checkpoint-warning guidance."
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5436993740,
+        "origin": "3ci-consulting/directive-training#68",
+        "id": "github.issue.5436993740"
+      }
+    },
+    "id": "github.issue.5436993740",
+    "updated": "2026-09-13T02:29:41Z"
+  }
+}

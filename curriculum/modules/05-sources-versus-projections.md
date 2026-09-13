@@ -8,12 +8,12 @@ repair drift there, and prove the view reflects the intended change.
 | Field | Value |
 | --- | --- |
 | Stable ID | `module-05-sources-versus-projections` |
-| Status | Learner-ready draft; executable lab limited to macOS/zsh |
-| Last content update | 2026-09-07 |
-| Last verified | 2026-09-07 |
+| Status | Learner-ready draft; executable lab verified on macOS/zsh and Windows/PowerShell 7.4+ |
+| Last content update | 2026-09-12 |
+| Last verified | 2026-09-12 |
 | Directive baseline | Package and engine 0.112.0; xBRIEF 0.8; [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 45–60 minutes, including Lab 5 and self-assessment |
-| Prerequisites | Modules 1–4; Git, Node.js 20+, npm; the verified Lab 5 environment |
+| Prerequisites | Modules 1–4; Git, Node.js 20+, npm; zsh on macOS or PowerShell 7.4+ on Windows |
 
 **[Directive behavior]** labels checked upstream behavior. **[3Ci policy]**
 labels this course's requirements. **[Course guidance]** labels learning advice.
@@ -161,14 +161,15 @@ and lifecycle execution are later topics.
 ### Actions and observations
 
 1. **Lab action to observe:** render within the guarded lab with
-   `./node_modules/.bin/directive codebase:map --project-root .`.
+   `./node_modules/.bin/directive codebase:map --project-root .` on zsh or
+   `.\node_modules\.bin\directive.cmd codebase:map --project-root .` on PowerShell.
    **Observe:** the MAP includes “Normalize fictional stop codes.”
    **Meaning:** purpose text comes from the authored module entry.
 1. **Lab action to observe:** compare the generated banner and JSON purpose.
    **Observe:** the source points to the project definition's architecture.
    **Meaning:** a durable wording change belongs in that source.
 1. **Lab action to observe:** use the lab's intentional drift step, then run
-   `./node_modules/.bin/directive verify:codebase-map-fresh --project-root .`.
+   the shell-specific `verify:codebase-map-fresh --project-root .` command from the lab.
    **Observe:** exit `1` rejects the changed view.
    **Meaning:** the drift is reproducible.
 1. **Checkpoint:** predict a rerender with the source unchanged, then compare

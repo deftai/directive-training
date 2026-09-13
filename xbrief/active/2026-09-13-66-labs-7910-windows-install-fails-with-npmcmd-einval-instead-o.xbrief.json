@@ -1,0 +1,51 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #66",
+    "updated": "2026-09-13T02:29:37Z"
+  },
+  "plan": {
+    "title": "Labs 7/9/10 Windows install fails with npm.cmd EINVAL instead of the documented not-learner-ready stop",
+    "status": "running",
+    "narratives": {
+      "Description": "Labs 7/9/10 Windows install fails with npm.cmd EINVAL instead of the documented not-learner-ready stop",
+      "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/66",
+      "Overview": "## What happened\n\nLabs 7, 9, and 10 document native Windows/PowerShell as a candidate, not learner-ready. Their helpers also contain assert.notEqual(process.platform, \"win32\", \"Native Windows/PowerShell is a candidate path and is not learner-ready in this release.\").\n\nOn this Windows host, create succeeded for all three under %TEMP%\\3ci-directive-lab0{7,9,10}-*/repo. install then failed before the documented stop:\n\nLab 7 stopped: spawnSync C:\\Program Files\\nodejs\\npm.cmd EINVAL\nLab 9 stopped: spawnSync C:\\Program Files\\nodejs\\npm.cmd EINVAL\nLab 10 stopped: spawnSync C:\\Program Files\\nodejs\\npm.cmd EINVAL\n\nNode v26.8.1, npm 11.19.0. createIsolatedTools never ran, so the learner never sees \"not learner-ready.\" The capstone helper already avoids this by invoking process.execPath plus npm-cli.js on win32.\n\n## Why this is hard for a human\n\nThe lab text says \"Use a dedicated zsh terminal.\" There is no Windows paste path. A mid-level engineer who reasonably adapts node <helper> create gets a Node EINVAL on npm.cmd under C:\\Program Files\\nodejs\\ (space in path / .cmd without shell:true). That looks like a broken fixture, not an intentional environment block. Recovery tables do not mention EINVAL.\n\nPractical outcomes for Modules 7, 9, and 10 are environment-blocked on this Windows host. Capstone (which has a real Windows path) completed.\n\n## Suggested repair\n\nFail create on win32 with the existing not-learner-ready message, or reuse the capstone runNpm pattern and ship a PowerShell path, or put a boxed Windows stop before any create command. Do not leave create succeeding and install dying with EINVAL.\r\n\n"
+    },
+    "items": [],
+    "references": [
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/66",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #66: Labs 7/9/10 Windows install fails with npm.cmd EINVAL instead of the documented not-learner-ready stop"
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "npm run test:windows-install-stop",
+        "npm run check:module-7",
+        "npm run check:module-9",
+        "npm run check:module-10"
+      ],
+      "none_stated": false,
+      "source_rung": "derived",
+      "derived_reason": "Issue #66 states the intended pre-npm Windows stop but no shell commands; these focused tests prove all three helpers stop before package state and their content contracts remain valid."
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5436993707,
+        "origin": "3ci-consulting/directive-training#66",
+        "id": "github.issue.5436993707"
+      }
+    },
+    "id": "github.issue.5436993707",
+    "updated": "2026-09-13T02:29:37Z"
+  }
+}

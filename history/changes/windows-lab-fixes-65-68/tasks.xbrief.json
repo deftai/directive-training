@@ -1,0 +1,40 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8"
+  },
+  "plan": {
+    "title": "windows-lab-fixes-65-68",
+    "status": "completed",
+    "items": [
+      {
+        "id": "issue-65",
+        "title": "Publish the bounded Lab 5 PowerShell route and environment-neutral completion record",
+        "status": "completed",
+        "effort": "M"
+      },
+      {
+        "id": "issue-66",
+        "title": "Make Labs 7, 9, and 10 reject native Windows before npm invocation",
+        "status": "completed",
+        "effort": "M"
+      },
+      {
+        "id": "issue-67",
+        "title": "Replace the capstone fake Windows clone path with DIRECTIVE_TRAINING_ROOT validation",
+        "status": "completed",
+        "effort": "S"
+      },
+      {
+        "id": "issue-68",
+        "title": "Add the Lab 2 Windows ready signal and CRLF warning recovery guidance",
+        "status": "completed",
+        "effort": "S"
+      }
+    ],
+    "edges": [
+      { "from": "issue-65", "to": "issue-66" },
+      { "from": "issue-66", "to": "issue-67" },
+      { "from": "issue-67", "to": "issue-68" }
+    ]
+  }
+}

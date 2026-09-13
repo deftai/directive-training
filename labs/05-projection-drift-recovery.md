@@ -6,12 +6,12 @@
 | --- | --- |
 | Stable ID | `lab-05-projection-drift-recovery` |
 | Supports | Module 5 outcomes O5.1 (ownership), O5.2 (recovery), O5.3 (evidence and reset) |
-| Status | Learner-ready draft for the verified macOS/zsh path |
-| Last verified | 2026-09-07 |
+| Status | Learner-ready draft for verified macOS/zsh and Windows/PowerShell paths |
+| Last verified | 2026-09-12 |
 | Directive baseline | `@deftai/directive@0.112.0` and core/content/types 0.112.0; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 30–35 minutes, including checks, retry, and archive |
-| Platforms verified | macOS 26.6.2, zsh 5.9, Node.js 24.18.0, npm 11.16.0, Git 2.50.1 |
-| Other platforms | Linux/bash and native Windows/PowerShell are not verified for this lab; no learner command path is claimed |
+| Platforms verified | macOS 26.6.2/zsh 5.9; Windows/PowerShell 7.4+ path verified on Windows 11 with PowerShell 7.6.5, Node.js 26.8.1, npm 11.19.0, plus a learner report on PowerShell 7.6.6 |
+| Other platforms | Linux/bash is not verified for this lab; no Linux learner command path is claimed |
 
 Labels distinguish **[Directive behavior]** from **[3Ci policy]** and **[Course guidance]**.
 The first means released behavior, the second a local requirement, and the third a learning
@@ -39,9 +39,10 @@ It supplies a pinned CLI, xBRIEF source, and a local Git checkpoint; it does not
 
 ## Environment and starting-state check
 
-Complete Modules 2–4 first. Open a dedicated zsh terminal at this curriculum repository's
-root. The first helper reads course fixtures and creates a new repository in the operating
-system temporary directory. It does not initialize or edit the curriculum checkout.
+Complete Modules 2–4 first. Open a dedicated zsh terminal or PowerShell 7.4+ session at this
+curriculum repository's root. The first helper reads course fixtures and creates a new
+repository in the operating system temporary directory. It does not initialize or edit the
+curriculum checkout. Use the command blocks for your shell throughout the lab.
 
 ### Create the exact disposable fixture
 
@@ -56,6 +57,31 @@ git --version
 lab_root="$(node "$fixture_dir/projection-lab.mjs" create)"
 cd "$lab_root"
 test "$(pwd -P)" = "$lab_root"
+node projection-lab.mjs guard
+git remote
+git status --short
+```
+
+Windows/PowerShell 7.4+:
+
+```powershell
+if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
+$Lab05OriginalErrorActionPreference = $ErrorActionPreference
+$Lab05OriginalNativePreference = $PSNativeCommandUseErrorActionPreference
+$ErrorActionPreference = 'Stop'
+$PSNativeCommandUseErrorActionPreference = $true
+$CourseRoot = (Resolve-Path -LiteralPath '.').Path
+$FixtureDir = Join-Path $CourseRoot 'labs/fixtures/05-projection-drift-recovery'
+if (-not (Test-Path -LiteralPath (Join-Path $FixtureDir 'projection-lab.mjs') -PathType Leaf)) {
+  throw "fixture not found: $FixtureDir"
+}
+node --version
+npm.cmd --version
+git --version
+$LabRoot = (& node (Join-Path $FixtureDir 'projection-lab.mjs') create | Out-String).Trim()
+if ($LASTEXITCODE -ne 0) { throw 'Lab 5 fixture creation failed' }
+Set-Location -LiteralPath $LabRoot
+if ((Resolve-Path -LiteralPath '.').Path -ne $LabRoot) { throw 'working directory differs from the recorded lab root' }
 node projection-lab.mjs guard
 git remote
 git status --short
@@ -92,6 +118,19 @@ test -x ./node_modules/.bin/directive
 ./node_modules/.bin/directive --version
 ```
 
+Windows/PowerShell 7.4+:
+
+```powershell
+node projection-lab.mjs guard
+node -e 'const { spawnSync } = require("node:child_process"); const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => !/^npm_config_/i.test(key))); const result = spawnSync("npm.cmd", ["install", "--userconfig", ".npmrc", "--globalconfig", "NUL", "--cache", ".npm-cache", "--ignore-scripts", "--no-audit", "--no-fund"], { env, stdio: "inherit", shell: true }); process.exit(result.status ?? 1)'
+if ($LASTEXITCODE -ne 0) { throw 'isolated npm install failed' }
+node projection-lab.mjs verify-pin
+if (-not (Test-Path -LiteralPath '.\node_modules\.bin\directive.cmd' -PathType Leaf)) {
+  throw 'project-local Directive CLI is missing'
+}
+& .\node_modules\.bin\directive.cmd --version
+```
+
 **Pass:** the helper prints `OK: CLI/core/content/types 0.112.0`; the explicit local CLI
 reports core 0.112.0. The fixture pins the CLI and overrides its core, content, and types
 packages to 0.112.0. Package-count and npm notices can vary; they are not acceptance evidence.
@@ -125,6 +164,15 @@ If it names such a variable, open a fresh terminal without that override; never 
 ## Starting checkpoint
 
 ```sh
+node projection-lab.mjs guard
+node projection-lab.mjs checkpoint
+git show --no-patch --oneline lab-05-start
+git status --short
+```
+
+Windows/PowerShell 7.4+:
+
+```powershell
 node projection-lab.mjs guard
 node projection-lab.mjs checkpoint
 git show --no-patch --oneline lab-05-start
@@ -176,6 +224,20 @@ test -f .planning/codebase/MAP.md
 ./node_modules/.bin/directive verify:codebase-map-fresh --help
 ```
 
+Windows/PowerShell 7.4+:
+
+```powershell
+node projection-lab.mjs guard
+& .\node_modules\.bin\directive.cmd --help
+& .\node_modules\.bin\directive.cmd commands
+& .\node_modules\.bin\directive.cmd verify:codebase-map-fresh --help
+if (Test-Path -LiteralPath '.planning/codebase/MAP.md') { throw 'MAP should still be absent' }
+node projection-lab.mjs guard
+& .\node_modules\.bin\directive.cmd codebase:map --help
+if (-not (Test-Path -LiteralPath '.planning/codebase/MAP.md' -PathType Leaf)) { throw 'MAP was not written' }
+& .\node_modules\.bin\directive.cmd verify:codebase-map-fresh --help
+```
+
 **Observe:** top help and the command registry exit 0. The first freshness probe also
 exits 0 even though no MAP exists. The renderer probe then reports `Codebase MAP written`;
 the final freshness probe reports `OK: generated codebase MAP is fresh`.
@@ -205,6 +267,23 @@ test "$projection_status" -eq 1
 git diff --exit-code lab-05-start -- xbrief/PROJECT-DEFINITION.xbrief.json
 ```
 
+Windows/PowerShell 7.4+:
+
+```powershell
+node projection-lab.mjs guard
+node projection-lab.mjs inject-drift
+$Lab05ExpectedFailurePreference = $PSNativeCommandUseErrorActionPreference
+try {
+  $PSNativeCommandUseErrorActionPreference = $false
+  & .\node_modules\.bin\directive.cmd verify:codebase-map-fresh --project-root .
+  $ProjectionStatus = $LASTEXITCODE
+} finally {
+  $PSNativeCommandUseErrorActionPreference = $Lab05ExpectedFailurePreference
+}
+if ($ProjectionStatus -ne 1) { throw "expected stale-MAP exit 1; got $ProjectionStatus" }
+git diff --exit-code lab-05-start -- xbrief/PROJECT-DEFINITION.xbrief.json
+```
+
 **Observe:** the MAP ends with `SIMULATED DIRECT EDIT`. Freshness exits 1 with a stale-MAP
 diagnostic. The source diff check exits 0: no source fact changed.
 
@@ -215,6 +294,14 @@ exit before regenerating from the unchanged source:
 node projection-lab.mjs guard
 ./node_modules/.bin/directive codebase:map --project-root .
 ./node_modules/.bin/directive verify:codebase-map-fresh --project-root .
+```
+
+Windows/PowerShell 7.4+:
+
+```powershell
+node projection-lab.mjs guard
+& .\node_modules\.bin\directive.cmd codebase:map --project-root .
+& .\node_modules\.bin\directive.cmd verify:codebase-map-fresh --project-root .
 ```
 
 **Checkpoint:** both commands exit 0; the simulated note disappears, and the original
@@ -255,6 +342,26 @@ node projection-lab.mjs guard
 node projection-lab.mjs verify-result
 ```
 
+Windows/PowerShell 7.4+ (make the source edit in your editor before this block):
+
+```powershell
+node projection-lab.mjs guard
+git diff -- xbrief/PROJECT-DEFINITION.xbrief.json
+$Lab05ExpectedFailurePreference = $PSNativeCommandUseErrorActionPreference
+try {
+  $PSNativeCommandUseErrorActionPreference = $false
+  & .\node_modules\.bin\directive.cmd verify:codebase-map-fresh --project-root .
+  $ProjectionStatus = $LASTEXITCODE
+} finally {
+  $PSNativeCommandUseErrorActionPreference = $Lab05ExpectedFailurePreference
+}
+if ($ProjectionStatus -ne 1) { throw "expected stale-MAP exit 1; got $ProjectionStatus" }
+node projection-lab.mjs guard
+& .\node_modules\.bin\directive.cmd codebase:map --project-root .
+& .\node_modules\.bin\directive.cmd verify:codebase-map-fresh --project-root .
+node projection-lab.mjs verify-result
+```
+
 **Checkpoint:** the pre-render freshness check exits 1 because source and output differ.
 After rendering, freshness and the helper both exit 0. The map's module row contains the
 new purpose, `src/*.js`, and file count `1`. Only the project JSON differs from the checkpoint.
@@ -278,6 +385,16 @@ Run exactly from the current disposable repository root:
 node projection-lab.mjs guard
 node projection-lab.mjs verify-pin
 ./node_modules/.bin/directive verify:codebase-map-fresh --project-root .
+node projection-lab.mjs verify-result
+git diff --check
+```
+
+Windows/PowerShell 7.4+:
+
+```powershell
+node projection-lab.mjs guard
+node projection-lab.mjs verify-pin
+& .\node_modules\.bin\directive.cmd verify:codebase-map-fresh --project-root .
 node projection-lab.mjs verify-result
 git diff --check
 ```
@@ -369,6 +486,22 @@ test ! -e .planning/codebase/MAP.md
 git remote
 ```
 
+Windows/PowerShell 7.4+:
+
+```powershell
+$PreviousLabRoot = $LabRoot
+$LabRoot = (& node (Join-Path $FixtureDir 'projection-lab.mjs') create | Out-String).Trim()
+if ($LASTEXITCODE -ne 0) { throw 'Lab 5 reset fixture creation failed' }
+if ($LabRoot -eq $PreviousLabRoot) { throw 'reset must create a distinct lab root' }
+if (-not (Test-Path -LiteralPath (Join-Path (Split-Path -Parent $PreviousLabRoot) 'evidence.md') -PathType Leaf)) {
+  throw 'previous evidence is missing'
+}
+Set-Location -LiteralPath $LabRoot
+node projection-lab.mjs guard
+if (Test-Path -LiteralPath '.planning/codebase/MAP.md') { throw 'fresh reset must not contain a MAP' }
+git remote
+```
+
 This demonstrates reset without deleting evidence. Repeat install, checkpoint, and the
 exercise in this new root if retrying an unmet outcome. If the first attempt already passed,
 the new root and no-MAP check are sufficient reset evidence; archive this unused reset
@@ -396,6 +529,19 @@ test ! -e "$lab_root"
 test -f "$archived_reset/repo/package.json"
 ```
 
+Windows/PowerShell 7.4+:
+
+```powershell
+node projection-lab.mjs guard
+Set-Location -LiteralPath $CourseRoot
+$ArchivedReset = (& node (Join-Path $FixtureDir 'projection-lab.mjs') archive $LabRoot | Out-String).Trim()
+if ($LASTEXITCODE -ne 0) { throw 'reset attempt archive failed' }
+if (Test-Path -LiteralPath $LabRoot) { throw 'reset attempt still exists at its old path' }
+if (-not (Test-Path -LiteralPath (Join-Path $ArchivedReset 'repo/package.json') -PathType Leaf)) {
+  throw 'archived reset package is missing'
+}
+```
+
 Then archive the earlier completed attempt:
 
 ```sh
@@ -406,6 +552,25 @@ archived_completed="$(node "$fixture_dir/projection-lab.mjs" archive "$previous_
 test ! -e "$previous_lab_root"
 test -f "$archived_completed/evidence.md"
 test -f "$archived_completed/repo/.planning/codebase/MAP.md"
+```
+
+Windows/PowerShell 7.4+:
+
+```powershell
+Set-Location -LiteralPath $PreviousLabRoot
+node projection-lab.mjs guard
+Set-Location -LiteralPath $CourseRoot
+$ArchivedCompleted = (& node (Join-Path $FixtureDir 'projection-lab.mjs') archive $PreviousLabRoot | Out-String).Trim()
+if ($LASTEXITCODE -ne 0) { throw 'completed attempt archive failed' }
+if (Test-Path -LiteralPath $PreviousLabRoot) { throw 'completed attempt still exists at its old path' }
+if (-not (Test-Path -LiteralPath (Join-Path $ArchivedCompleted 'evidence.md') -PathType Leaf)) {
+  throw 'completed evidence is missing from the archive'
+}
+if (-not (Test-Path -LiteralPath (Join-Path $ArchivedCompleted 'repo/.planning/codebase/MAP.md') -PathType Leaf)) {
+  throw 'completed MAP is missing from the archive'
+}
+$ErrorActionPreference = $Lab05OriginalErrorActionPreference
+$PSNativeCommandUseErrorActionPreference = $Lab05OriginalNativePreference
 ```
 
 Keep the printed/archive variable paths in your private completion note. The destination
@@ -423,8 +588,11 @@ No instructor unlock is needed.
 
 ## Done statement
 
-> I completed lab-05-projection-drift-recovery against Directive 0.112.0 on the recorded
-> macOS/zsh environment. Both expected stale states returned 1, and all five final acceptance
+Replace the bracketed values with the actual operating system and shell used for the
+successful run.
+
+> I completed lab-05-projection-drift-recovery against Directive 0.112.0 on [actual OS and
+> version] using [actual shell and version]. Both expected stale states returned 1, and all five final acceptance
 > commands returned 0. My evidence covers O5.1–O5.3. Reset created a new guarded repository
 > and preserved prior evidence. Both attempt locations and their archive/retained states are
 > recorded. No remote, credentials, or business repository was used.

@@ -516,6 +516,21 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   ]) {
     assert.match(labEnvironment, pattern, "lab must establish the private note path: " + label);
   }
+  assert.match(
+    labEnvironment,
+    /\[string\]::IsNullOrWhiteSpace\(\$env:DIRECTIVE_TRAINING_ROOT\)/,
+    "capstone Windows start must reject a missing DIRECTIVE_TRAINING_ROOT",
+  );
+  assert.match(
+    labEnvironment,
+    /\$CourseRoot\s*=\s*\[IO\.Path\]::GetFullPath\(\$env:DIRECTIVE_TRAINING_ROOT\)/,
+    "capstone Windows start must resolve DIRECTIVE_TRAINING_ROOT",
+  );
+  assert.doesNotMatch(
+    labEnvironment,
+    /C:\\absolute\\path\\to\\directive-training/i,
+    "capstone Windows start must not contain a fake absolute clone path",
+  );
   for (const path of [labPath, assessmentPath, solutionPath]) {
     const body = content.get(path);
     assert.match(body, /lab-state\.json\.launcherRoot/, path + " must record both launcher roots");

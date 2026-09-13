@@ -11,9 +11,9 @@ examples below are not substitutes for a released lab's
 exact commands.
 
 [Lab 5 — Projection drift recovery](05-projection-drift-recovery.md) is a
-learner-ready draft verified on macOS/zsh only. It uses a minimal prepared
-projection fixture and a guarded helper; Linux and native Windows execution
-are not verified for Lab 5. Module 2's platform evidence does not transfer to it.
+learner-ready draft verified on macOS/zsh and native Windows/PowerShell 7.4+.
+It uses a minimal prepared projection fixture and a guarded helper;
+Linux execution is not verified for Lab 5. Module 2's platform evidence does not transfer to it.
 
 [Lab 7 — Scope lifecycle](07-scope-lifecycle.md) is a learner-ready draft
 verified on macOS/zsh only. It uses an exact 0.112.0 package graph, isolated Task
@@ -309,7 +309,7 @@ No instructor or review bot is required. If the documented recovery still cannot
 | [Module 1 — What Directive Is](../curriculum/modules/01-what-directive-is.md) | Available | Complete its embedded fictional classification exercise; it does not mutate a repository |
 | [Lab 2 — Initialize a Disposable Directive Consumer](02-disposable-initialization.md) | Learner-ready draft; 0.112.0 pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence | Use its exact fixture, guards, checkpoints, acceptance, reset, and archive path |
 | [Module 4 — xBRIEF as Durable State](../curriculum/modules/04-xbrief-as-durable-state.md) | Available | Complete its embedded artifact-classification exercise without mutating a repository |
-| [Lab 5 — Projection drift recovery](05-projection-drift-recovery.md) | Learner-ready draft; 0.112.0 pinned npm path verified on macOS 26.6.2/zsh only | Use its exact fixture, ordered tasks, evidence, fresh reset, and archive path |
+| [Lab 5 — Projection drift recovery](05-projection-drift-recovery.md) | Learner-ready draft; 0.112.0 path verified on macOS 26.6.2/zsh and native Windows/PowerShell 7.4+ | Use its exact fixture, ordered tasks, evidence, fresh reset, and archive path |
 | [Lab 7 — Scope lifecycle](07-scope-lifecycle.md) | Learner-ready draft; 0.112.0 pinned lifecycle path verified on macOS 26.6.2/zsh only | Use its guarded no-remote fixture, Task-driven transitions, retained evidence, fresh reset, and recoverable archive |
 | [Lab 9 — Implementation golden path](09-implementation-golden-path.md) | Learner-ready draft; exact 0.112.0 implementation path verified on macOS 26.6.2/zsh only | Use its guarded no-remote fixture, readiness-before-mutation sequence, one-file diff, paired evidence, fresh reset, and recoverable archive |
 | [Lab 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md) | Learner-ready draft; exact 0.112.0 gate path verified on macOS/zsh only | Use its guarded no-remote fixture, frozen focused test, ordered stage evidence, seeded aggregate failure, fresh reset, and recoverable archive |

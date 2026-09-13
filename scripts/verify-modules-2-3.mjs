@@ -288,6 +288,19 @@ assert.match(
   /DIRECTIVE_TRAINING_ROOT[^\n]{0,180}(?:must be set|Set DIRECTIVE_TRAINING_ROOT)/i,
   "Lab 2 must fail clearly when the learner has not supplied the curriculum root",
 );
+const windowsStartBlock = lab2.match(
+  /### Windows\/PowerShell 7\.4\+[\s\S]*?```powershell\n([\s\S]*?)\n```/,
+)?.[1] ?? "";
+assert.match(
+  windowsStartBlock,
+  /module_02_start=ready/,
+  "Lab 2 Windows start must emit the same ready signal as the Unix start",
+);
+assert.match(
+  lab2,
+  /LF will be replaced by CRLF[\s\S]{0,300}core\.autocrlf=true[\s\S]{0,500}(?:exit code|checkpoint)/i,
+  "Lab 2 recovery must explain non-failing autocrlf checkpoint warnings",
+);
 for (const npmIsolationPattern of [
   /registry=https:\/\/registry\.npmjs\.org\//,
   /env -i PATH="\$PATH" HOME="\$HOME" npm install --userconfig "\$lab_root\/\.npmrc" --globalconfig \/dev\/null --cache "\$lab_root\/\.npm-cache"/,

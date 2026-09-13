@@ -90,6 +90,11 @@
 
 ### Fixed
 
+- Complete the native Windows learner path across Labs 2 and 5, the capstone,
+  and the candidate-only Labs 7, 9, and 10: publish the verified Lab 5
+  PowerShell route, stop unsupported installs before npm, require an explicit
+  capstone course root, and clarify Lab 2 readiness and CRLF warnings (#65,
+  #66, #67, #68).
 - Accept CRLF checkouts in the cold-start and Modules 2–3 content verifiers
   without relaxing their content assertions.
 - Validate complete known Windows npm command shims and their exact local CLI

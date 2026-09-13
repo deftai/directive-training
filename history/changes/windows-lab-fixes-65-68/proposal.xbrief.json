@@ -1,0 +1,20 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8"
+  },
+  "plan": {
+    "title": "windows-lab-fixes-65-68",
+    "status": "approved",
+    "narratives": {
+      "Problem": "Windows learners encounter four avoidable gaps: Lab 5 has a working reported PowerShell route but publishes none; Labs 7, 9, and 10 expose npm.cmd EINVAL before their intended platform stop; the capstone embeds a fake clone path; and Lab 2 omits its Windows ready signal and CRLF-warning recovery guidance.",
+      "Change": "Resolve GitHub issues 65 through 68 as one bounded Windows learner-experience batch while preserving each lab's verified-versus-candidate platform claims.",
+      "Scope": "In scope: affected lab instructions, helper behavior, source evidence, navigation/status summaries, and focused regression tests. Out of scope: Directive pin changes, publishing, deployment, remote learner operations, or promoting Labs 7, 9, and 10 to Windows learner-ready.",
+      "Impact": "Markdown curriculum and solution surfaces, JavaScript lab helpers, and their repository verifiers/tests may change. The batch is isolated on codex/issues-65-68.",
+      "Risks": "Platform wording can overstate evidence; Windows command blocks can drift from helper behavior; early platform rejection can break cross-platform fixture tests. Focused negative tests and the aggregate consumer gate mitigate these risks.",
+      "Approach": "Implement in issue order. Add failing assertions first, make the smallest product or documentation change that satisfies each issue, run focused verification per issue, then run the full Deft consumer gate once at the end.",
+      "Alternatives": "Removing Lab 5 Windows support would discard demonstrated helper capability. Shipping full Windows paths for Labs 7, 9, and 10 would require new end-to-end evidence; this change instead makes their existing candidate-platform stop deterministic before npm invocation.",
+      "Dependencies": "Directive 0.112.0 remains the learner-facing baseline. The issue reports and existing native Windows evidence supply the bounded platform context; no new external service is required.",
+      "Approval": "Flynn explicitly confirmed /deft:change windows-lab-fixes-65-68 on 2026-09-12."
+    }
+  }
+}

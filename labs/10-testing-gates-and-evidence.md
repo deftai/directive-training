@@ -12,6 +12,11 @@
 | Fixture | [`fixtures/10-testing-gates-and-evidence`](fixtures/10-testing-gates-and-evidence/) |
 | Verified environment | macOS with zsh; Linux/bash and Windows/PowerShell remain candidate paths |
 
+On the native Windows candidate path, `create` and `guard` remain available for safe
+inspection, but `install` stops before invoking npm with a clear not-learner-ready message. Preserve that attempt and
+continue on a verified environment; an `npm.cmd EINVAL` error is not the intended platform
+boundary.
+
 ## Goal and done condition
 
 Add average behavior test-first, retain a `red -> green -> refactor` record, run literal acceptance and forward coverage separately, diagnose the seeded aggregate failure, and repair only the governed quality record. You are done when `final.json` reports `PASS`, the diff contains three named work files, and gate-definition hashes remain unchanged.

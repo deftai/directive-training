@@ -7,11 +7,11 @@
 | Stable ID | `solution-lab-05-projection-drift-recovery` |
 | Solves | [Lab 5 — Projection drift recovery](../labs/05-projection-drift-recovery.md) |
 | Outcomes covered | O5.1, O5.2, O5.3 |
-| Status | Learner-ready draft for the verified macOS/zsh path |
-| Last verified | 2026-09-07 |
+| Status | Learner-ready draft for macOS/zsh and Windows/PowerShell 7.4+ paths |
+| Last verified | 2026-09-12 |
 | Directive baseline | CLI/core/content/types 0.112.0; [source baseline](../references/SOURCE-BASELINE.md) |
-| Verified environment | macOS 26.6.2, zsh 5.9, Node.js 24.18.0, npm 11.16.0, Git 2.50.1 |
-| Platform limit | Linux/bash and native Windows/PowerShell are not verified for this lab |
+| Verified environment | macOS 26.6.2/zsh 5.9; Windows 11/PowerShell 7.6.5, Node.js 26.8.1, npm 11.19.0, plus a learner report on PowerShell 7.6.6 |
+| Platform limit | Linux/bash is not verified for this lab |
 
 Claims use **[Directive behavior]**, **[3Ci policy]**, and **[Course guidance]** as defined in
 the lab. The fixture and helper are course tooling, not new Directive features.
@@ -353,7 +353,8 @@ to `3ci-directive-lab-archive`.
 | Side-effecting help and advisory absent MAP | Directive behavior | Disposable 0.112.0 probes recorded in [source notes](../references/SOURCE-NOTES.md) |
 | Disposable paths, no credentials/remotes, recoverable reset | 3Ci policy | [Lab environment contract](../labs/README.md) and [Lab 5](../labs/05-projection-drift-recovery.md) |
 
-All behavior claims were verified on 2026-09-07. Explanations are original teaching
+The macOS behavior claims were verified on 2026-09-07; a native Windows replay and separate
+learner walkthrough were recorded on 2026-09-12. Explanations are original teaching
 adaptations; exact names, commands, and short output fragments retain the released spelling.
 
 ## Continue

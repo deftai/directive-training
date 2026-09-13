@@ -1,0 +1,49 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #65",
+    "updated": "2026-09-13T02:29:35Z"
+  },
+  "plan": {
+    "title": "Lab 5 helper completes on Windows but the lab claims no Windows path",
+    "status": "running",
+    "narratives": {
+      "Description": "Lab 5 helper completes on Windows but the lab claims no Windows path",
+      "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/65",
+      "Overview": "## What happened\n\nI took the course as a Windows learner (PowerShell 7.6.6, Node v26.8.1, npm 11.19.0).\n\nLab 5 is labeled macOS/zsh-only: Module 5 says executable lab limited to macOS/zsh; Lab 5 says Linux/bash and native Windows/PowerShell are not verified and no learner command path is claimed; the done statement requires the recorded macOS/zsh environment.\n\nThe helper already contains Windows launcher hash checks (windowsShimHashes in projection-lab.mjs). Following the zsh verbs from PowerShell (node projection-lab.mjs create|guard|verify-pin|checkpoint|inject-drift|verify-result|archive, plus isolated npm.cmd install matching Lab 2), the full path passed: pin 0.112.0, lab-05-start checkpoint, codebase:map --help writes MAP, inject-drift freshness exit 1 with source unchanged, purpose-only source edit then verify-result OK, reset created a different root with no MAP, both attempt parents archived under the OS temp archive.\n\n## Why this is hard for a human\n\nA Windows engineer following the written course will stop at \"no learner command path\" and record an environment block, even though the helper can complete the practical outcomes. The done statement cannot be filled truthfully after a successful Windows run.\n\n## Suggested repair\n\nAdd a PowerShell 7.4+ command path for Lab 5, or remove Windows shim support if Windows is intentionally out of scope. Change the done statement so it records the actual OS/shell instead of requiring macOS/zsh.\r\n\n"
+    },
+    "items": [],
+    "references": [
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/65",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #65: Lab 5 helper completes on Windows but the lab claims no Windows path"
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "npm run test:modules-4-5-content",
+        "npm run check:modules-4-5"
+      ],
+      "none_stated": false,
+      "source_rung": "derived",
+      "derived_reason": "Issue #65 states observable documentation and completion requirements but no shell commands; these focused checks enforce the PowerShell route, platform evidence, and actual-environment done statement."
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5436992897,
+        "origin": "3ci-consulting/directive-training#65",
+        "id": "github.issue.5436992897"
+      }
+    },
+    "id": "github.issue.5436992897",
+    "updated": "2026-09-13T02:29:35Z"
+  }
+}

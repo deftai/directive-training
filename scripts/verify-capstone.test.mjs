@@ -84,6 +84,16 @@ test("verifier rejects a missing assessment artifact", () => {
   assert.throws(() => verifyCapstone(root), /missing required artifact/);
 });
 
+test("verifier rejects a fake Windows course root instead of learner input", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => body
+    .replace(/if \(\[string\]::IsNullOrWhiteSpace\(\$env:DIRECTIVE_TRAINING_ROOT\)\) \{[\s\S]*?\}\r?\n/, "")
+    .replace(
+      "$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)",
+      '$CourseRoot = (Resolve-Path "C:\\absolute\\path\\to\\directive-training").Path',
+    ));
+  assert.throws(() => verifyCapstone(root), /DIRECTIVE_TRAINING_ROOT|fake absolute clone path/);
+});
+
 test("verifier rejects a missing outcome mapping", () => {
   const root = changedCopy("assessments/capstone-end-to-end.md", (body) =>
     body.replace("| `CAP.3` — Review, classify, repair, and re-check the current product", "| Review outcome omitted"));

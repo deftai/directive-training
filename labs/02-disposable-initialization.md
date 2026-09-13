@@ -251,6 +251,7 @@ Copy-Item -LiteralPath $Fixture -Destination (Join-Path $LabRoot 'package.json')
 git status --short
 "lab_root=$LabRoot"
 "evidence_note=$EvidenceNote"
+"module_02_start=ready"
 ```
 
 Required status:
@@ -263,6 +264,7 @@ Required status:
 
 Keep the variables and functions in the same PowerShell session. Store written evidence only
 at `$EvidenceNote`, beside the attempt and outside its Git working tree.
+Continue only after PowerShell prints `module_02_start=ready`.
 `git branch --show-current` must print `training/module-02`.
 
 ## Safety boundary
@@ -819,6 +821,7 @@ required.
 | Local binary is missing but another `directive` runs | Test the exact `node_modules/.bin` path | Do not accept the global result. Correct the install in a fresh attempt and use the explicit path. | Exact local path and version both pass |
 | Init reports `brownfield-install` | Confirm `.git` exists | Continue. This is expected released behavior for the lab's Git-first safety path. | Init exits 0 and managed integration appears |
 | Checkpoint commit is refused on `main` | Run `git branch --show-current`; the branch gate protects the default branch | Preserve the gate. Switch the unborn lab repository to `training/module-02`, re-inspect the complete staged-plus-untracked allowlist, then retry the commit. | Commit succeeds on `training/module-02` |
+| Checkpoint commit prints `warning: LF will be replaced by CRLF` | Confirm the host uses `core.autocrlf=true`, then check the commit exit code and `git log -1 --format=%s` | Treat the line-ending notice as an expected warning, not a failed checkpoint. Do not change global Git configuration or bypass the hook. | Exit code is 0, the checkpoint subject is exact, and tracked status is clean |
 | Toolchain help exits 2 | Inspect `toolchain-help.txt` for the known unrecognized argument | Record the 0.112.0 defect; verify registration with `commands`, then run the tested consumer form. | Consumer toolchain command exits 0 |
 | Doctor exits 0 with warnings | Record severity and recommended action | Treat the result as evidence and classify the recommendation. Do not execute migration or another untaught recovery in this module. Use Task 4's provided failure for the required recovery decision. | Exit and warnings are both represented accurately |
 | Init prints generic push, PR, or merge next steps | The installer is describing an ordinary repository lifecycle, not granting this lab remote authority | Do not follow those steps. Re-run the no-remote guard and continue only with the local lab. | `git remote` remains empty |

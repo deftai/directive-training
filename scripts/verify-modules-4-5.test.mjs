@@ -48,14 +48,15 @@ function fixture(t) {
   }));
   write(module6, "# Module 6\n");
   write(lab5, document(labHeadings, outcomes5, {
-    "Lab record": record + "\n| Platforms verified | macOS/zsh verified; Linux/bash and Windows/PowerShell are candidate paths, untested for Lab 5 |",
-    "Literal acceptance commands": `\`\`\`zsh\n"$directive_path" codebase:map\n"$directive_path" verify:codebase-map-fresh\nnode projection-lab.mjs verify-result\n\`\`\`\n\n${outcomes5}`,
+    "Lab record": record + "\n| Platforms verified | macOS/zsh verified; Windows/PowerShell 7.4+ reported verified; Linux/bash remains a candidate |",
+    "Literal acceptance commands": `\`\`\`zsh\n"$directive_path" codebase:map\n"$directive_path" verify:codebase-map-fresh\nnode projection-lab.mjs verify-result\n\`\`\`\n\n\`\`\`powershell\nnode projection-lab.mjs create\nnode projection-lab.mjs guard\nnpm.cmd install\nnode projection-lab.mjs verify-pin\nnode projection-lab.mjs checkpoint\nnode projection-lab.mjs inject-drift\n& .\\node_modules\\.bin\\directive.cmd codebase:map\n& .\\node_modules\\.bin\\directive.cmd verify:codebase-map-fresh\nnode projection-lab.mjs verify-result\nnode projection-lab.mjs archive C:\\temp\\lab\\repo\n\`\`\`\n\n${outcomes5}`,
     "Safety boundary": "[3Ci policy] Use a disposable repository with no remote. Mutations cannot touch the curriculum repository or a business repository.",
+    "Done statement": "Record the actual operating system and shell used for the successful run. O5.1 O5.2 O5.3",
   }));
   write(solution4, document(solutionHeadings, outcomes4, { "Solution record": record }));
   write(solution5, document(solutionHeadings, outcomes5, { "Solution record": record }));
   write("curriculum/README.md", "# Course\n\n| [Module 4](modules/04-xbrief-as-durable-state.md) | Learner-ready draft |\n| [Module 5](modules/05-sources-versus-projections.md) | Learner-ready draft — macOS/zsh |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| Module 7 | Learner-ready draft |\n");
-  write("references/SOURCE-NOTES.md", "# Proof\n\n- `lab05-platform-proof:macos-zsh status=verified date=2026-09-07 evidence=local-disposable-lab5-full`\n- `lab05-platform-proof:linux-bash status=candidate date=2026-09-07 evidence=not-run`\n- `lab05-platform-proof:windows-pwsh7 status=candidate date=2026-09-07 evidence=not-run`\n");
+  write("references/SOURCE-NOTES.md", "# Proof\n\n- `lab05-platform-proof:macos-zsh status=verified date=2026-09-07 evidence=local-disposable-lab5-full`\n- `lab05-platform-proof:linux-bash status=candidate date=2026-09-07 evidence=not-run`\n- `lab05-platform-proof:windows-pwsh7 status=verified date=2026-09-12 evidence=issue-65-reported-native-walkthrough`\n");
   write("package.json", JSON.stringify({ private: true, devDependencies: { "@deftai/directive": "0.112.0" } }));
   return {
     root, write,
@@ -154,7 +155,9 @@ test("rejects an unpinned package version", (t) => {
 
 test("requires actual renderer and freshness commands, not help alone", (t) => {
   const files = fixture(t);
-  files.change(lab5, (body) => body.replace('"$directive_path" codebase:map\n', '"$directive_path" codebase:map --help\n'));
+  files.change(lab5, (body) => body
+    .replace('"$directive_path" codebase:map\n', '"$directive_path" codebase:map --help\n')
+    .replace("directive.cmd codebase:map\n", "directive.cmd codebase:map --help\n"));
   assert.throws(() => verifyModules45(files.root), /literal renderer/);
 });
 
@@ -167,10 +170,20 @@ test("rejects borrowing a native Lab 2 proof for Lab 5", (t) => {
 test("rejects unsupported native proof markers and prose claims", (t) => {
   const files = fixture(t);
   files.change("references/SOURCE-NOTES.md", (body) => body.replace("linux-bash status=candidate", "linux-bash status=verified"));
-  assert.throws(() => verifyModules45(files.root), /native Lab 5 proof/);
+  assert.throws(() => verifyModules45(files.root), /Lab 5 proof status/);
   files.change("references/SOURCE-NOTES.md", (body) => body.replace("linux-bash status=verified", "linux-bash status=candidate"));
-  files.change(lab5, (body) => body.replace("Linux/bash and Windows/PowerShell are candidate paths, untested for Lab 5", "Linux/bash verified; Windows/PowerShell verified"));
+  files.change(lab5, (body) => body.replace("Windows/PowerShell 7.4+ reported verified; Linux/bash remains a candidate", "Windows/PowerShell 7.4+ reported verified; Linux/bash verified"));
   assert.throws(() => verifyModules45(files.root), /unsupported native/);
+});
+
+test("requires a complete PowerShell helper route and actual-environment done statement", (t) => {
+  const files = fixture(t);
+  files.change(lab5, (body) => body.replace("node projection-lab.mjs archive C:\\temp\\lab\\repo\n", ""));
+  assert.throws(() => verifyModules45(files.root), /PowerShell command for helper verb archive/);
+
+  const doneFiles = fixture(t);
+  doneFiles.change(lab5, (body) => body.replace("Record the actual operating system and shell used for the successful run.", "I completed the lab on the recorded macOS/zsh environment."));
+  assert.throws(() => verifyModules45(doneFiles.root), /actual OS and shell/);
 });
 
 test("rejects planned availability for released Modules 4–6", (t) => {

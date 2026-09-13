@@ -5,6 +5,7 @@ import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import {
   archiveAttempt,
+  assertLearnerReadyPlatform,
   createAttempt,
   guardAttempt,
   installAttempt,
@@ -16,6 +17,15 @@ import {
 import { git, safePath } from "../labs/fixtures/09-implementation-golden-path/safety.mjs";
 
 const read = (path) => readFileSync(path, "utf8");
+
+test("install rejects native Windows before creating package state", () => {
+  const root = createAttempt();
+  assert.throws(() => assertLearnerReadyPlatform("win32"), /candidate path and is not learner-ready/);
+  assert.throws(() => installAttempt(root, "win32"), /candidate path and is not learner-ready/);
+  assert.equal(existsSync(join(root, "node_modules")), false);
+  assert.equal(existsSync(join(root, ".npm-cache")), false);
+  archiveAttempt(root);
+});
 
 test("create produces a unique guarded no-remote Module 9 fixture", () => {
   const root = createAttempt();

@@ -142,8 +142,9 @@ support the concrete behavior; learners do not need to inspect framework interna
 | `task deft:roadmap:render` | Present in this consumer's Taskfile include. `roadmap:render` is not in the 0.112.0 CLI inventory; do not invent a direct CLI equivalent. |
 
 Lab 5 has its own platform evidence in [source notes](./SOURCE-NOTES.md#modules-45-verification).
-Module 2's native matrix does not establish Lab 5 platform support. Linux/bash and native
-Windows/PowerShell Lab 5 paths remain candidates and have no published executable path.
+Module 2's native matrix does not establish Lab 5 platform support. A bounded native replay
+and separate learner report establish the published Windows/PowerShell 7.4+ path; Linux/bash
+remains a candidate.
 
 ## Module 6 source boundary
 
@@ -188,7 +189,7 @@ The fixture writes the expected failure before promotion, creates a different un
 reset, and uses an exact-parent rename into a recoverable temporary archive for cleanup. The
 focused verifier checks those mechanisms and rejects remote/destructive command surfaces; it
 does not execute Markdown commands. Native execution is currently bounded to macOS/zsh.
-Linux/bash and Windows/PowerShell remain candidates.
+Linux/bash and Windows/PowerShell remain candidates; native Windows install stops before npm.
 
 Probe details, exact help disagreements, platform markers, and the isolated runtime evidence
 are in [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-7-source-validation).
@@ -248,7 +249,8 @@ Readiness evidence is retained before mutation; final evidence requires the read
 checkpoint, behavioral proof, and diff proof. Reset creates a different unique root while
 preserving the failed attempt. Cleanup moves one exact guarded parent into a recoverable
 temporary archive. Native execution is verified only on macOS/zsh; Linux/bash and native
-Windows/PowerShell remain candidates. Probe details are in
+Windows/PowerShell remain candidates, with the Windows stop enforced before npm. Probe
+details are in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-9-source-validation).
 
 ## Module 10 testing-and-gates validation
@@ -273,8 +275,9 @@ and governed quality record; stage guards narrow those paths further.
 The final work diff is exactly `quality-record.json`, `src/summary.mjs`, and
 `test/summary.test.mjs`. Reset creates a different unique root while preserving the old
 attempt; cleanup moves one exact guarded parent to a recoverable archive. Native execution
-is verified only on macOS/zsh. Linux/bash and Windows/PowerShell remain candidates. Probe
-details are in [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-10-source-validation).
+is verified only on macOS/zsh. Linux/bash and Windows/PowerShell remain candidates; native
+Windows install stops before npm. Probe details are in
+[SOURCE-NOTES.md](./SOURCE-NOTES.md#module-10-source-validation).
 
 ## Module 11 review-and-completion validation
 
