@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #67",
-    "updated": "2026-09-13T02:29:39Z"
+    "updated": "2026-09-13T02:45:32Z"
   },
   "plan": {
     "title": "Capstone Windows start still uses C:\\absolute\\path\\to\\directive-training placeholder",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Capstone Windows start still uses C:\\absolute\\path\\to\\directive-training placeholder",
       "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/67",
@@ -46,7 +46,31 @@
         "github_issue_id": 5436993719,
         "origin": "3ci-consulting/directive-training#67",
         "id": "github.issue.5436993719"
-      }
+      },
+      "completionProvenance": {
+        "repository": "3Ci-Consulting/directive-training",
+        "implementationCommit": "eef7c506cd2e81f0bb66959a0d9541a9880dc37c",
+        "prNumber": 70,
+        "prBase": "master",
+        "mergeCommit": "326cf03a40b1bab8543c88bd9f43c7e39f9dc551",
+        "deliveryBranch": "master",
+        "deliveryCommit": "326cf03a40b1bab8543c88bd9f43c7e39f9dc551",
+        "verifiedAt": "2026-09-13T02:45:32Z",
+        "verifier": "swarm:finalize-cohort",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "/root/delivery_worker"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-13T02:45:32Z"
+      },
+      "completedAt": "2026-09-13T02:45:32Z",
+      "completedSessionId": "/root/delivery_worker"
     },
     "acceptance": {
       "commands": [
@@ -58,6 +82,6 @@
       "derived_reason": "The focused negative mutation proves that fake Windows roots are rejected, and the capstone content contract proves the learner-supplied root path is present."
     },
     "id": "github.issue.5436993719",
-    "updated": "2026-09-13T02:29:39Z"
+    "updated": "2026-09-13T02:45:32Z"
   }
 }

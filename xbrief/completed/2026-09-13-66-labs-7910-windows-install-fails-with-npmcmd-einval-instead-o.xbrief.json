@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #66",
-    "updated": "2026-09-13T02:29:37Z"
+    "updated": "2026-09-13T02:45:31Z"
   },
   "plan": {
     "title": "Labs 7/9/10 Windows install fails with npm.cmd EINVAL instead of the documented not-learner-ready stop",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Labs 7/9/10 Windows install fails with npm.cmd EINVAL instead of the documented not-learner-ready stop",
       "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/66",
@@ -43,9 +43,33 @@
         "github_issue_id": 5436993707,
         "origin": "3ci-consulting/directive-training#66",
         "id": "github.issue.5436993707"
-      }
+      },
+      "completionProvenance": {
+        "repository": "3Ci-Consulting/directive-training",
+        "implementationCommit": "eef7c506cd2e81f0bb66959a0d9541a9880dc37c",
+        "prNumber": 70,
+        "prBase": "master",
+        "mergeCommit": "326cf03a40b1bab8543c88bd9f43c7e39f9dc551",
+        "deliveryBranch": "master",
+        "deliveryCommit": "326cf03a40b1bab8543c88bd9f43c7e39f9dc551",
+        "verifiedAt": "2026-09-13T02:45:31Z",
+        "verifier": "swarm:finalize-cohort",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "/root/delivery_worker"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-13T02:45:31Z"
+      },
+      "completedAt": "2026-09-13T02:45:31Z",
+      "completedSessionId": "/root/delivery_worker"
     },
     "id": "github.issue.5436993707",
-    "updated": "2026-09-13T02:29:37Z"
+    "updated": "2026-09-13T02:45:31Z"
   }
 }
