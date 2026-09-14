@@ -3,12 +3,12 @@
     "version": "0.8",
     "description": "Remove claim labels throughout current course documentation and organization-specific wording from all course modules",
     "created": "2026-09-14T13:12:00Z",
-    "updated": "2026-09-14T13:47:35Z"
+    "updated": "2026-09-14T14:46:12Z"
   },
   "plan": {
     "id": "training.remove-claim-labels-and-3ci-module-language",
     "title": "Remove claim labels and 3Ci-specific module language",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Remove the three claim-type labels and their explanatory taxonomy from every learner-facing course artifact while retaining the underlying guidance. Rewrite all organization-specific 3Ci wording in the eleven numbered modules as neutral course, repository, or safety language.",
       "Scope": "Current course Markdown under README.md, curriculum/, labs/, solutions/, assessments/, templates/, references/, and maintainers/ that contains the retired claim-label taxonomy; the project-definition rule that requires those labels; every 3Ci reference under curriculum/modules/; and the JavaScript content contracts and tests that enforce the label system.",
@@ -165,8 +165,14 @@
         ],
         "module_boundary": "Learner-facing course prose, organization-neutral numbered modules, and content-contract verification",
         "cohesion_exemption": "The existing long Lab 2 document is touched only to remove the shared claim-label presentation convention. Splitting its cohesive end-to-end walkthrough is outside this content-only cleanup and would add unrelated navigation churn."
-      }
+      },
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-14T14:46:12Z"
+      },
+      "completedAt": "2026-09-14T14:46:12Z",
+      "completedSessionId": "host:codex:v1:MDFhMGEwMDEtNDU0OC03M2IyLWE2OTEtN2JkNjJmY2VhYjc2"
     },
-    "updated": "2026-09-14T13:47:35Z"
+    "updated": "2026-09-14T14:46:12Z"
   }
 }
