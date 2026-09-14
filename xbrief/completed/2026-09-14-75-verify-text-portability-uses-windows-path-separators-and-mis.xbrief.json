@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #75",
-    "updated": "2026-09-14T20:51:45Z"
+    "updated": "2026-09-14T23:11:49Z"
   },
   "plan": {
     "title": "verify-text-portability uses Windows path separators and misses four mutation fixtures",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "verify-text-portability uses Windows path separators and misses four mutation fixtures",
       "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/75",
@@ -50,7 +50,31 @@
         "github_issue_id": 5451653226,
         "origin": "3ci-consulting/directive-training#75",
         "id": "github.issue.5451653226"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 79,
+        "prBase": null,
+        "mergeCommit": "aa56c6d1a22c4b16dfcea367d88fc76ba29431ad",
+        "deliveryBranch": "master",
+        "deliveryCommit": "aa56c6d1a22c4b16dfcea367d88fc76ba29431ad",
+        "verifiedAt": "2026-09-14T23:11:49Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "b28a6040-4d11-464e-8837-ff11cb6cd44a"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-14T23:11:49Z"
+      },
+      "completedAt": "2026-09-14T23:11:49Z",
+      "completedSessionId": "b28a6040-4d11-464e-8837-ff11cb6cd44a"
     },
     "acceptance": {
       "commands": [],
@@ -83,6 +107,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5451653226",
-    "updated": "2026-09-14T20:51:45Z"
+    "updated": "2026-09-14T23:11:49Z"
   }
 }

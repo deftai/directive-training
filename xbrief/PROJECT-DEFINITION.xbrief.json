@@ -130,10 +130,10 @@
       {
         "id": "2026-09-14-75-verify-text-portability-uses-windows-path-separators-and-mis",
         "title": "verify-text-portability uses Windows path separators and misses four mutation fixtures",
-        "status": "running",
+        "status": "completed",
         "metadata": {
-          "source_path": "active/2026-09-14-75-verify-text-portability-uses-windows-path-separators-and-mis.xbrief.json",
-          "lifecycle_folder": "active",
+          "source_path": "completed/2026-09-14-75-verify-text-portability-uses-windows-path-separators-and-mis.xbrief.json",
+          "lifecycle_folder": "completed",
           "references": [
             {
               "uri": "https://github.com/3Ci-Consulting/directive-training/issues/75",
@@ -146,10 +146,10 @@
       {
         "id": "2026-09-14-76-capstone-negative-verifier-tests-fail-on-crlf-checkouts-and",
         "title": "Capstone negative verifier tests fail on CRLF checkouts and mutate the wrong package script",
-        "status": "running",
+        "status": "completed",
         "metadata": {
-          "source_path": "active/2026-09-14-76-capstone-negative-verifier-tests-fail-on-crlf-checkouts-and.xbrief.json",
-          "lifecycle_folder": "active",
+          "source_path": "completed/2026-09-14-76-capstone-negative-verifier-tests-fail-on-crlf-checkouts-and.xbrief.json",
+          "lifecycle_folder": "completed",
           "references": [
             {
               "uri": "https://github.com/3Ci-Consulting/directive-training/issues/76",
@@ -162,10 +162,10 @@
       {
         "id": "2026-09-14-77-labs-7910-happy-path-tests-run-unconditionally-on-unsupporte",
         "title": "Labs 7/9/10 happy-path tests run unconditionally on unsupported Windows",
-        "status": "running",
+        "status": "completed",
         "metadata": {
-          "source_path": "active/2026-09-14-77-labs-7910-happy-path-tests-run-unconditionally-on-unsupporte.xbrief.json",
-          "lifecycle_folder": "active",
+          "source_path": "completed/2026-09-14-77-labs-7910-happy-path-tests-run-unconditionally-on-unsupporte.xbrief.json",
+          "lifecycle_folder": "completed",
           "references": [
             {
               "uri": "https://github.com/3Ci-Consulting/directive-training/issues/77",
