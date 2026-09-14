@@ -42,8 +42,6 @@ function fixture(t) {
   const record = [
     "| Directive baseline | `@deftai/directive@0.112.0`, engine `@deftai/directive-core@0.112.0` |",
     "| Status | learner-ready draft; command-free |",
-    "",
-    "**[Directive behavior]** **[3Ci policy]** **[Course guidance]**",
   ].join("\n");
   write(module6, document(moduleHeadings, {
     "Module record": record,

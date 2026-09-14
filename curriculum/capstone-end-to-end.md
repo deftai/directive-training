@@ -15,12 +15,6 @@
 | Assessment | [Capstone evidence assessment](../assessments/capstone-end-to-end.md) |
 | Explained solution | [Capstone explained solution](../solutions/capstone-end-to-end.md) |
 
-Claim labels used here:
-
-- **[Directive behavior]** — observed behavior of the exact pinned release.
-- **[3Ci policy]** — a local training, safety, or delivery boundary.
-- **[Course guidance]** — a recommended learning technique.
-
 The guarded fixture has automated native evidence on macOS, Ubuntu, and
 Windows. Independent learner walkthrough validation is a separate pilot claim;
 do not infer it from CI.
@@ -115,7 +109,7 @@ deposits the exact 0.112.0 graph and creates a clean checkpoint. `orient` record
 project, branch, remote, pin, proposed contract, and checkpoint. `activate`
 promotes and activates the one story, then commits that lifecycle state.
 
-**[Directive behavior]** `ready` runs session start, the gated ritual,
+`ready` runs session start, the gated ritual,
 story-ready, and active-xBRIEF preflight through the pinned local CLI. A passing
 readiness record means the named story is active and the current session may
 begin the bounded edit; it does not authorize a remote action.
@@ -159,7 +153,7 @@ runs the aggregate again on that current commit. Its record says:
 - UAT: `not_started`; and
 - proof status: `n/a-no-remote-claim`.
 
-**[3Ci policy]** Do not relabel that state as PR-open, merge-ready, delivered,
+Do not relabel that state as PR-open, merge-ready, delivered,
 deployed, or UAT-verified. Those claims need independent remote or environment
 evidence that this capstone intentionally does not create.
 

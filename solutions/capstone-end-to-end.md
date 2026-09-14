@@ -14,12 +14,6 @@
 | Assessment | [Capstone assessment](../assessments/capstone-end-to-end.md) |
 | Lab | [End-to-end capstone lab](../labs/capstone-end-to-end.md) |
 
-Claim labels:
-
-- **[Directive behavior]** — observed behavior of the exact pinned release.
-- **[3Ci policy]** — a local training, safety, or delivery boundary.
-- **[Course guidance]** — a recommended learning or recovery technique.
-
 ## Before you use this solution
 
 Spend at least 45 minutes on a genuine attempt. Preserve its root and retained

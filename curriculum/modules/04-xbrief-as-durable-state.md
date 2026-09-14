@@ -19,12 +19,6 @@ Suggested pacing: 5 minutes for the starting check, 15 for the lesson and walkth
 20 for the exercise, and 10 for solution comparison. This is a command-free exercise on
 macOS, Linux, or Windows; no CLI, shell, repository, or service setup is needed.
 
-Claim labels used here:
-
-- **[Directive behavior]** — behavior or convention verified against the pinned release.
-- **[3Ci policy]** — a requirement of this private curriculum.
-- **[Course guidance]** — a learning technique or fictional example.
-
 ## Learning outcomes
 
 By the end of this module, you can:
@@ -57,7 +51,7 @@ then retry in a fresh note. This module uses the stated 0.112.0 course baseline,
 version installed on your computer. If your reference copy uses another release, reopen
 the pinned sources at the end of this page before comparing claims.
 
-**[3Ci policy]** Use only the fictional evidence below. Do not inspect or copy a real
+Use only the fictional evidence below. Do not inspect or copy a real
 project's private scope, chat, or shared `USER.md`. Keep every repository unchanged.
 
 ## Why this matters
@@ -66,30 +60,30 @@ A chat can contain an idea, a rejected alternative, and a confident completion c
 the same conversation. A new session needs a smaller, inspectable answer to “what is the
 project?” and “what work is active?”
 
-**[Directive behavior]** xBRIEF stores structured project and work state outside the
+xBRIEF stores structured project and work state outside the
 conversation. Scope records preserve accepted work across sessions. A tactical plan and
 an interruption checkpoint help resume that work, but serve shorter purposes. Generated
 views help people read the sources; they do not replace the sources.
 
-**[Course guidance]** Ask two separate questions about any artifact: “What does this
+Ask two separate questions about any artifact: “What does this
 record describe?” and “What authority does it have now?” A durable record can answer the
 first question well while granting no new action.
 
 ## Terminology
 
-| Term | Meaning in this module | Claim type |
-| --- | --- | --- |
-| xBRIEF | Structured JSON used for Directive project and work state; current new writes use schema 0.8. | **[Directive behavior]** |
-| Durable scope | A work record that persists across sessions, with requirements, acceptance, and lifecycle state. | **[Directive behavior]** |
-| Tactical plan | The session's steps and progress: how to carry out already-scoped work now. | **[Directive behavior]** |
-| Continue checkpoint | A temporary recovery record naming completed work, remaining work, decisions, hazards, and a resume point. | **[Directive behavior]** |
-| Lifecycle | The relationship between a scope's state and its folder under `xbrief/`. | **[Directive behavior]** |
-| Projection | A generated representation of another source, such as a roadmap or registry entry. | **[Directive behavior]** |
-| Current contract | The active xBRIEF together with the human operator's live instruction; both constrain the present work. | **[Directive behavior]** |
+| Term | Meaning in this module |
+| --- | --- |
+| xBRIEF | Structured JSON used for Directive project and work state; current new writes use schema 0.8. |
+| Durable scope | A work record that persists across sessions, with requirements, acceptance, and lifecycle state. |
+| Tactical plan | The session's steps and progress: how to carry out already-scoped work now. |
+| Continue checkpoint | A temporary recovery record naming completed work, remaining work, decisions, hazards, and a resume point. |
+| Lifecycle | The relationship between a scope's state and its folder under `xbrief/`. |
+| Projection | A generated representation of another source, such as a roadmap or registry entry. |
+| Current contract | The active xBRIEF together with the human operator's live instruction; both constrain the present work. |
 
 ## Mental model
 
-**[Course guidance]** Read the project definition for identity, the specification for
+Read the project definition for identity, the specification for
 design, the scope for accepted work, the plan for current steps, and the checkpoint for
 resuming those steps. Follow a generated view back to its source before proposing a change.
 
@@ -107,7 +101,7 @@ later lifecycle modules teach governed transitions and their gates.
 
 ### 1. Read the five artifact roles
 
-**[Directive behavior]** These are project-relative paths. The operational filenames are
+These are project-relative paths. The operational filenames are
 singular; dated scope files live in lifecycle folders.
 
 | Artifact | Question it answers | Authority and lifetime |
@@ -122,7 +116,7 @@ The file named `plan.xbrief.json` is not the same thing as the JSON object named
 Each xBRIEF role uses a `plan` object. Read the filename, purpose, and fields together
 before classifying it.
 
-**[Directive behavior]** Plans and checkpoints reference the scope they concern through
+Plans and checkpoints reference the scope they concern through
 `planRef` when scopes exist. A reference connects records; it does not duplicate the
 scope's acceptance or confer new permission. Not every project has a separate
 specification, tactical plan, or checkpoint at every moment. Do not create missing
@@ -135,7 +129,7 @@ guidance. Legacy schema examples are not templates for new work.
 
 ### 2. Separate scope state from item state
 
-**[Directive behavior]** The scope's top-level `plan.status` describes its lifecycle.
+The scope's top-level `plan.status` describes its lifecycle.
 The folder must agree with that status. The following published folder/status conventions
 cover this module's exercise:
 
@@ -158,7 +152,7 @@ pending task. An item's completed status does not prove that the whole scope com
 Likewise, `PROJECT-DEFINITION`'s own `plan.status: running` describes the project; it
 does not make every registered scope active.
 
-**[Directive behavior]** Use governed lifecycle operations to keep state, paths, and
+Use governed lifecycle operations to keep state, paths, and
 references consistent. Do not move files by hand. Implementation preflight requires
 both `active/` and `plan.status: running`; `active/` with `pending` is a mismatch, and
 `active/` with `blocked` is not ready for implementation. These classifications do not
@@ -171,7 +165,7 @@ this module; do not infer them from this teaching table or an overview diagram.
 
 ### 3. Persist the work without turning memory into authority
 
-**[Directive behavior]** A scope remains useful when the original chat is unavailable.
+A scope remains useful when the original chat is unavailable.
 Its requirements and acceptance can be inspected by a later session. A checkpoint
 preserves a resume point; a tactical plan preserves current steps. Neither can authorize
 an unrelated addition or override the active scope and live instruction.
@@ -180,7 +174,7 @@ For example, a checkpoint may record “next: inspect the empty-input test.” T
 new session where to resume after checking current state. It does not prove the test still
 exists or permit implementing when the live request is read-only.
 
-**[Directive behavior]** A completed scope records lifecycle closeout with its evidence
+A completed scope records lifecycle closeout with its evidence
 and disposition. Closeout can record delivery or an explicit non-delivery outcome; the
 folder or status alone does not prove the work shipped. It has zero authority over what
 to build next. Historical chat and conversation summaries also cannot supply
@@ -193,7 +187,7 @@ UAT][lifecycle], and [Continue-Here — checkpoint contents and lifecycle][conti
 
 ### 4. Classify ownership at the field level
 
-**[Directive behavior]** A `.json` extension does not mean every field is an authored
+A `.json` extension does not mean every field is an authored
 source. `PROJECT-DEFINITION` mixes durable authored project narratives with an `items`
 registry refreshed from lifecycle scopes. A scope's title or lifecycle state comes from
 its scope record, not a manually altered registry copy.
@@ -207,7 +201,8 @@ its scope record, not a manually altered registry copy.
 | Generated `SPECIFICATION.md` | A readable specification export | Its declared xBRIEF source, followed by regeneration |
 | Authored course Markdown | The learner explanation | This repository's approved curriculum authoring workflow |
 
-The last row is **[3Ci policy]**; the other rows describe **[Directive behavior]**.
+The last row is authored course content; the other rows describe project state or generated
+projections.
 The generated banner or declared source determines ownership. Do not infer it from the
 extension or whether Git tracks the file. Module 5 applies this boundary to a generated
 codebase map.
@@ -299,7 +294,7 @@ the deliberately inconsistent examples.
 
 ### Constraints
 
-- **[3Ci policy]** Work only with these fictional cards and a personal scratch note.
+- Work only with these fictional cards and a personal scratch note.
 - Keep the training repository and every business repository unchanged.
 - Do not initialize a project, move a lifecycle file, edit a registry, run a gate, or contact
   an instructor or review bot for this exercise.
@@ -408,7 +403,7 @@ Answer without reopening the lesson, then compare with the explained solution.
 
 After a suggested first attempt, use the [explained solution](../../solutions/module-04-xbrief-as-durable-state.md).
 It includes every card, lifecycle verdict, self-assessment answer, and a retry route.
-**[3Ci policy]** No instructor approval or automation unlock is required.
+No instructor approval or automation unlock is required.
 
 ## Navigation
 
@@ -420,16 +415,16 @@ It includes every card, lifecycle verdict, self-assessment answer, and a retry r
 
 ## Official sources
 
-| Claim supported | Source type | Pinned source and heading | Verified date | Notes |
-| --- | --- | --- | --- | --- |
-| Five artifact roles and generated views | Directive behavior | [Concepts — xBRIEF Is The Durable State][concepts] | 2026-09-07 | Current public xBRIEF paths |
-| Current 0.8 writes; active scope plus live instruction; completed boundary | Directive behavior | [main — xBRIEF Persistence and Schema version: v0.8][main] | 2026-09-07 | Explicit current authoring rule controls legacy examples |
-| Completion and delivery evidence are distinct | Directive behavior | [Lifecycle — Delivery integrity vs deploy / UAT][lifecycle] | 2026-09-07 | Explicit non-delivery dispositions can close a lifecycle |
-| Artifact lifetimes, `planRef`, lifecycle vocabulary, project narrative/registry ownership | Directive behavior | [Artifact taxonomy — File Taxonomy, Coexistence, and PROJECT-DEFINITION][taxonomy] | 2026-09-07 | Legacy names/schema examples normalized against current main rule; failure-transition destination is not taught |
-| Draft/proposed and approved/pending are schema values | Directive behavior | [xBRIEF 0.8 core schema][schema] | 2026-09-07 | Scope status and item status are different field levels |
-| Lifecycle consistency and generated registry refresh | Directive behavior | [Commands — Scope xBRIEF Lifecycle and Generated Document Commands][commands] | 2026-09-07 | Contextual source evidence, not learner commands in this module |
-| Checkpoint contents and temporary lifetime | Directive behavior | [Continue-Here — Continue Checkpoint Contents and Lifecycle][continue] | 2026-09-07 | Resume aids do not replace current state verification |
-| Fictional-only, command-free work and available solutions | 3Ci policy | [Project definition](../../xbrief/PROJECT-DEFINITION.xbrief.json) ProjectRules and LabModel | 2026-09-07 | Local course rules |
+| Statement supported | Pinned source and heading | Verified date | Notes |
+| --- | --- | --- | --- |
+| Five artifact roles and generated views | [Concepts — xBRIEF Is The Durable State][concepts] | 2026-09-07 | Current public xBRIEF paths |
+| Current 0.8 writes; active scope plus live instruction; completed boundary | [main — xBRIEF Persistence and Schema version: v0.8][main] | 2026-09-07 | Explicit current authoring rule controls legacy examples |
+| Completion and delivery evidence are distinct | [Lifecycle — Delivery integrity vs deploy / UAT][lifecycle] | 2026-09-07 | Explicit non-delivery dispositions can close a lifecycle |
+| Artifact lifetimes, `planRef`, lifecycle vocabulary, project narrative/registry ownership | [Artifact taxonomy — File Taxonomy, Coexistence, and PROJECT-DEFINITION][taxonomy] | 2026-09-07 | Legacy names/schema examples normalized against current main rule; failure-transition destination is not taught |
+| Draft/proposed and approved/pending are schema values | [xBRIEF 0.8 core schema][schema] | 2026-09-07 | Scope status and item status are different field levels |
+| Lifecycle consistency and generated registry refresh | [Commands — Scope xBRIEF Lifecycle and Generated Document Commands][commands] | 2026-09-07 | Contextual source evidence, not learner commands in this module |
+| Checkpoint contents and temporary lifetime | [Continue-Here — Continue Checkpoint Contents and Lifecycle][continue] | 2026-09-07 | Resume aids do not replace current state verification |
+| Fictional-only, command-free work and available solutions | [Project definition](../../xbrief/PROJECT-DEFINITION.xbrief.json) ProjectRules and LabModel | 2026-09-07 | Local course rules |
 
 This lesson is an original paraphrase and fictional teaching adaptation. See the
 [source baseline](../../references/SOURCE-BASELINE.md) and [glossary](../../references/GLOSSARY.md).

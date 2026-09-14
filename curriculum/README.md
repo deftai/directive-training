@@ -37,7 +37,7 @@ For command-based modules you will need:
 - Codex, Claude Code, or Cursor for host-specific notes. The core instruction is
   host-neutral.
 
-**[3Ci policy]** Do not install or initialize lab tooling in this training
+Do not install or initialize lab tooling in this training
 repository. Each lab that changes files supplies a disposable starting
 repository and reset path.
 
@@ -135,7 +135,7 @@ simulated review finding, and makes an evidence-bounded closeout decision.
 Use its [lab](../labs/capstone-end-to-end.md),
 [assessment](../assessments/capstone-end-to-end.md), and
 [explained solution](../solutions/capstone-end-to-end.md).
-**[3Ci policy]** The capstone does not use a business repository, remote
+The capstone does not use a business repository, remote
 mutation, real deployment, or destructive cleanup.
 
 ## Future advanced electives

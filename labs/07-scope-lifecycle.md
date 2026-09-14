@@ -13,7 +13,6 @@
 | Platforms verified | macOS 26.6.2, zsh 5.9, Node.js 24.18.0, npm 11.16.0, Git 2.50.1, go-task 3.50.0 |
 | Candidate platforms | Linux/bash and native Windows/PowerShell are not verified or learner-ready for this lab |
 
-Labels separate **[Directive behavior]**, **[3Ci policy]**, and **[Course guidance]**.
 The helper is course tooling; it does not add a new Directive feature.
 
 On the native Windows candidate path, `create` and `guard` remain available for safe
@@ -95,15 +94,15 @@ fixture excludes.
 
 ## Safety boundary
 
-- **[3Ci policy]** Every mutation must stay inside the exact guarded temporary root or its
+- Every mutation must stay inside the exact guarded temporary root or its
   named parent evidence directory.
-- **[3Ci policy]** The fixture must remain private, on `training/module-07`, with no remote
+- The fixture must remain private, on `training/module-07`, with no remote
   and exact CLI/core/content/types 0.112.0 pins.
-- **[3Ci policy]** Do not use a business repository, client data, credentials, production
+- Do not use a business repository, client data, credentials, production
   logs, a remote action, deployment, publication, or release.
-- **[3Ci policy]** Run `guard` before install, lifecycle execution, reset, or archive. A
+- Run `guard` before install, lifecycle execution, reset, or archive. A
   rejected guard is a stop, not a request to weaken the helper.
-- **[Course guidance]** Keep the supplied helper, safety module, package manifest, project
+- Keep the supplied helper, safety module, package manifest, project
   definition, and story records unchanged. The exercise is observation, not fixture repair.
 
 The guard rejects inherited Git redirection variables, noncanonical paths, symlinked
@@ -131,7 +130,7 @@ Before the lifecycle run, predict the sequence in private notes:
 | Active preflight | `active/running` | `0` | The named durable scope passes after live intent and session gates. |
 | Complete | `active/running` | `0` | Creates `completed/completed`. |
 
-**[Directive behavior]** The pinned engine's proposed preflight exit is `1`. On the verified
+The pinned engine's proposed preflight exit is `1`. On the verified
 host, go-task 3.50.0 exposes the failing Task invocation as `201`; treat that as Task runner
 evidence, not a cross-platform Directive engine promise.
 
@@ -148,7 +147,7 @@ node "$helper" guard "$lab_root"
 node "$helper" run "$lab_root" --intent=implement
 ```
 
-**[Course guidance]** Before pressing Enter, say what the flag does not mean: it is not
+Before pressing Enter, say what the flag does not mean: it is not
 standing permission for another attempt, another scope, product code, or a remote action.
 
 Open `../evidence/proposed-preflight.json` relative to `lab_root`. Confirm:

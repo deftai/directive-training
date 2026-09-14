@@ -14,12 +14,6 @@
 | Duration | Setup, task, checking, and cleanup time |
 | Platforms verified | macOS with zsh, Linux with bash, and Windows with PowerShell 7; remove any platform that was not tested and state the limitation |
 
-Claim labels used in this lab:
-
-- **[Directive behavior]** — verified behavior of the pinned Directive release.
-- **[3Ci policy]** — a local safety or delivery requirement. It is not an upstream guarantee.
-- **[Course guidance]** — a recommended learning technique.
-
 ## Goal and done condition
 
 **Goal:** `{{ONE_PRACTICAL_RESULT_TIED_TO_THE_MODULE_OUTCOMES}}`
@@ -70,11 +64,11 @@ If any condition differs, stop. Do not try to make the current directory disposa
 
 ## Safety boundary
 
-- **[3Ci policy]** Work only inside the disposable directory created for this lab. Never initialize, reset, clean, or implement inside this curriculum repository or a business repository.
-- **[3Ci policy]** Do not add or push a remote. Do not open a pull request, deploy, publish, release, or call a production service.
-- **[3Ci policy]** Use only the fictional data in this lab. Never paste credentials, client data, proprietary source, production logs, or confidential issue content into an artifact or evidence bundle.
-- **[3Ci policy]** Mutations are limited to: `{{EXACT_RELATIVE_PATH_ALLOWLIST}}`.
-- **[Directive behavior]** Product commands in this lab are claims about the pinned release only. Confirm syntax with the recorded help surface when output differs.
+- Work only inside the disposable directory created for this lab. Never initialize, reset, clean, or implement inside this curriculum repository or a business repository.
+- Do not add or push a remote. Do not open a pull request, deploy, publish, release, or call a production service.
+- Use only the fictional data in this lab. Never paste credentials, client data, proprietary source, production logs, or confidential issue content into an artifact or evidence bundle.
+- Mutations are limited to: `{{EXACT_RELATIVE_PATH_ALLOWLIST}}`.
+- Product commands in this lab are claims about the pinned release only. Confirm syntax with the recorded help surface when output differs.
 
 Stop and use the reset path if a command would cross this boundary. A surprising prompt, path, remote, or credential request is a stop signal, not an invitation to improvise.
 
@@ -259,5 +253,5 @@ If any clause is not true, state the gap and return to the matching recovery ste
 - Confirm each command has an expected exit code and observable signal.
 - Confirm the scenario and fixtures are fictional and self-contained.
 - Confirm no step touches this curriculum repository, a business repository, a remote, production, or client data.
-- Confirm all Directive behavior and 3Ci policy claims are labeled and sourced.
+- Confirm all version-sensitive product statements and local requirements cite their sources.
 - Confirm the lab and solution links work without an instructor.

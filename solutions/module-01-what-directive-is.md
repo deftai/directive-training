@@ -20,7 +20,7 @@ outcomes that your evidence does not yet demonstrate.
 
 Spend 12–15 minutes on the [exercise](../curriculum/modules/01-what-directive-is.md#exercise-classify-the-northstar-stack) before reading further. If you are stuck, use the module’s three progressive hints in order. Then compare your **reasoning and evidence**, not only your category codes.
 
-> **[3Ci policy]** The solution is intentionally available without an instructor. A suggested first attempt is part of the learning method, not an access restriction.
+> The solution is intentionally available without an instructor. A suggested first attempt is part of the learning method, not an access restriction.
 
 ## Result summary
 
@@ -209,7 +209,7 @@ If the same distinction remains unclear after two attempts, reread the module’
 
 ## Source note
 
-The reasoning in this solution uses the same pinned official source headings listed in the module’s [Official sources](../curriculum/modules/01-what-directive-is.md#official-sources). It adds no new Directive behavior. The scenario names and organizations are fictional.
+The reasoning in this solution uses the same pinned official source headings listed in the module’s [Official sources](../curriculum/modules/01-what-directive-is.md#official-sources). It adds no new statements about how Directive behaves. The scenario names and organizations are fictional.
 
 ## Navigation
 

@@ -9,9 +9,9 @@
 | Evidence type | Explained fixed-state decision matrix |
 | Safety boundary | No live backlog, cache, repository, or client data |
 
-**[Directive behavior]** The answers follow the pinned work-selection and
-session contracts. **[3Ci policy]** Keep any learner notes private and
-sanitized. **[Course guidance]** Compare reasons, not just final labels.
+The answers follow the pinned work-selection and
+session contracts. Keep any learner notes private and
+sanitized. Compare reasons, not just final labels.
 
 ## Before you use this solution
 

@@ -30,7 +30,7 @@ Run file-changing exercises only through the supplied helper. It creates a uniqu
 
 A green focused test is valuable but narrow. It does not prove that the declared acceptance commands ran, that new source has a test partner, or that the repository's complete quality gate passes. Treating every green signal as interchangeable produces weak evidence and makes failures harder to diagnose.
 
-**[3Ci policy]** A failing gate is evidence about the work. Preserve it, find the first failing subcheck, and change the governed work only. Never weaken a Taskfile, verifier, policy, test threshold, or required check merely to turn the result green.
+A failing gate is evidence about the work. Preserve it, find the first failing subcheck, and change the governed work only. Never weaken a Taskfile, verifier, policy, test threshold, or required check merely to turn the result green.
 
 ## Terminology
 
@@ -63,13 +63,13 @@ Use `red -> green -> refactor` as an event sequence:
 
 ### Focused tests answer one behavior question
 
-`npm run test:focused` shortens feedback while implementing. **[Course guidance]** Read its assertion message before editing; red is useful only when it names the intended missing behavior. An import error or wrong-directory failure is not the red evidence this exercise asks for.
+`npm run test:focused` shortens feedback while implementing. Read its assertion message before editing; red is useful only when it names the intended missing behavior. An import error or wrong-directory failure is not the red evidence this exercise asks for.
 
 After the expected red result, freeze the focused test. Editing both the test and implementation until they agree destroys the independent comparison.
 
 ### Literal acceptance answers a contract question
 
-**[Directive behavior]** On the pinned release, `task deft:verify:ac -- <active-xbrief>` reads the active contract and runs its accepted command list verbatim. Direct `node` commands and arbitrary npm scripts are safety-refused by the 0.112.0 literal-command allowlist; the lab therefore uses the allowed test/check script families. A safety refusal is not a product failure and must not be relabeled as one.
+On the pinned release, `task deft:verify:ac -- <active-xbrief>` reads the active contract and runs its accepted command list verbatim. Direct `node` commands and arbitrary npm scripts are safety-refused by the 0.112.0 literal-command allowlist; the lab therefore uses the allowed test/check script families. A safety refusal is not a product failure and must not be relabeled as one.
 
 ### Forward coverage answers a correspondence question
 

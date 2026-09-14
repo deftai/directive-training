@@ -15,18 +15,12 @@ applying behavior specificity, rule strength, authorization, or operator escalat
 | Directive baseline | `@deftai/directive@0.112.0`, engine `@deftai/directive-core@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Module 3 conflict exercise](../curriculum/modules/03-authority-and-context.md#exercise) |
 
-Claim labels used here:
-
-- **[Directive behavior]** — verified behavior of the pinned Directive release.
-- **[3Ci policy]** — a local requirement for this curriculum or 3Ci work.
-- **[Course guidance]** — a useful reasoning technique, not a product guarantee.
-
 ## Before you use this solution
 
 Spend 12–15 minutes on the exercise and use its three hints first. Keep your original table
 so you can compare the reason for each decision rather than copying the final words.
 
-This is not an access gate. **[3Ci policy]** The solution is available without an instructor,
+This is not an access gate. The solution is available without an instructor,
 private message, review bot, credential, or automation unlock.
 
 If you opened it first, read the mental model and result summary, close the solution, and
@@ -57,18 +51,18 @@ focused question.
 
 ### 1. Establish the controlling facts
 
-- **[Directive behavior]** `USER.md Personal` is the highest-precedence personal behavior
+- `USER.md Personal` is the highest-precedence personal behavior
   source. `PROJECT-DEFINITION` overrides `USER.md Defaults` for project-scoped choices.
-- **[Directive behavior]** Deterministic evidence is stronger than Taskfile, xBRIEF policy,
+- Deterministic evidence is stronger than Taskfile, xBRIEF policy,
   RFC2119 instruction, or prose about the same gate-controlled action.
-- **[Directive behavior]** Product requirements and behavior rules answer different
+- Product requirements and behavior rules answer different
   questions and normally both apply.
-- **[Directive behavior]** Implementation authority requires an active xBRIEF plus live
+- Implementation authority requires an active xBRIEF plus live
   implementation intent. Required gate passes separately decide whether mutation may proceed
   now. A completed xBRIEF supplies historical evidence only.
-- **[Directive behavior]** Lazy loading begins with orientation sources and adds only the
+- Lazy loading begins with orientation sources and adds only the
   language, tool, strategy, or skill guidance needed for the present task.
-- **[3Ci policy]** Scope expansion and unresolved material
+- Scope expansion and unresolved material
   product choices go back to the operator; agents do not guess.
 
 ### 2. Choose an approach
@@ -259,13 +253,13 @@ Never copy the actual contents of a shared `USER.md` into the scratch note.
 
 ## Sources
 
-| Claim | Type | Pinned source or policy | Verified date |
-| --- | --- | --- | --- |
-| Personal/project/Defaults precedence and lazy loading | Directive behavior | [Core skill — `Core Principle: Rule Precedence` and `File Reading Strategy (Lazy Loading)`](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/SKILL.md) | 2026-09-07 |
-| Deterministic enforcement order | Directive behavior | [Concepts — `Rule Strength` and `Lazy Loading And Modularity`](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/docs/CONCEPTS.md) | 2026-09-07 |
-| Active scope plus live intent; completed-scope boundary | Directive behavior | [main.md — xBRIEF Persistence](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/main.md#xbrief-persistence) | 2026-09-07 |
-| Session posture and implementation intent | Directive behavior | [Commands — `Session routing (#2176)` and `Scope xBRIEF Lifecycle`](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md) | 2026-09-07 |
-| Bounded operator escalation and no shared USER.md copying | 3Ci policy | `xbrief/PROJECT-DEFINITION.xbrief.json` ProjectRules and [Module 3](../curriculum/modules/03-authority-and-context.md) | 2026-09-07 |
+| Statement | Pinned source or policy | Verified date |
+| --- | --- | --- |
+| Personal/project/Defaults precedence and lazy loading | [Core skill — `Core Principle: Rule Precedence` and `File Reading Strategy (Lazy Loading)`](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/SKILL.md) | 2026-09-07 |
+| Deterministic enforcement order | [Concepts — `Rule Strength` and `Lazy Loading And Modularity`](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/docs/CONCEPTS.md) | 2026-09-07 |
+| Active scope plus live intent; completed-scope boundary | [main.md — xBRIEF Persistence](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/main.md#xbrief-persistence) | 2026-09-07 |
+| Session posture and implementation intent | [Commands — `Session routing (#2176)` and `Scope xBRIEF Lifecycle`](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md) | 2026-09-07 |
+| Bounded operator escalation and no shared USER.md copying | `xbrief/PROJECT-DEFINITION.xbrief.json` ProjectRules and [Module 3](../curriculum/modules/03-authority-and-context.md) | 2026-09-07 |
 
 This solution is an original paraphrase/adaptation. See the complete
 [source baseline](../references/SOURCE-BASELINE.md).

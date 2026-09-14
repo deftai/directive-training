@@ -33,7 +33,7 @@ function fixture(t) {
     mkdirSync(dirname(join(root, path)), { recursive: true });
     writeFileSync(join(root, path), content);
   };
-  const record = "| Directive baseline | @deftai/directive 0.112.0; engine 0.112.0 |\n\n[Directive behavior] [3Ci policy] [Course guidance]";
+  const record = "| Directive baseline | @deftai/directive 0.112.0; engine 0.112.0 |";
   write(module4, document(moduleHeadings, outcomes4, {
     "Module record": record,
     "Guided explanation": "xBRIEF 0.8 uses xBRIEFInfo. PROJECT-DEFINITION.xbrief.json specification.xbrief.json scope plan.xbrief.json continue.xbrief.json. proposed/ pending/ active/ completed/ cancelled/. Chat is context; completed scope records delivered work.",
@@ -50,7 +50,7 @@ function fixture(t) {
   write(lab5, document(labHeadings, outcomes5, {
     "Lab record": record + "\n| Platforms verified | macOS/zsh verified; Windows/PowerShell 7.4+ reported verified; Linux/bash remains a candidate |",
     "Literal acceptance commands": `\`\`\`zsh\n"$directive_path" codebase:map\n"$directive_path" verify:codebase-map-fresh\nnode projection-lab.mjs verify-result\n\`\`\`\n\n\`\`\`powershell\nnode projection-lab.mjs create\nnode projection-lab.mjs guard\nnpm.cmd install\nnode projection-lab.mjs verify-pin\nnode projection-lab.mjs checkpoint\nnode projection-lab.mjs inject-drift\n& .\\node_modules\\.bin\\directive.cmd codebase:map\n& .\\node_modules\\.bin\\directive.cmd verify:codebase-map-fresh\nnode projection-lab.mjs verify-result\nnode projection-lab.mjs archive C:\\temp\\lab\\repo\n\`\`\`\n\n${outcomes5}`,
-    "Safety boundary": "[3Ci policy] Use a disposable repository with no remote. Mutations cannot touch the curriculum repository or a business repository.",
+    "Safety boundary": "Use a disposable repository with no remote. Mutations cannot touch the curriculum repository or a business repository.",
     "Done statement": "Record the actual operating system and shell used for the successful run. O5.1 O5.2 O5.3",
   }));
   write(solution4, document(solutionHeadings, outcomes4, { "Solution record": record }));

@@ -1,0 +1,20 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8"
+  },
+  "plan": {
+    "title": "remove-claim-labels-and-3ci-module-language",
+    "status": "approved",
+    "narratives": {
+      "Problem": "Claim-type labels interrupt the course prose, and organization-specific 3Ci wording makes every module less reusable than the underlying Directive guidance.",
+      "Change": "Remove the Directive behavior, 3Ci policy, and Course guidance label system from current course documentation while preserving the guidance itself. Rewrite every 3Ci-specific reference in Modules 1 through 11 as organization-neutral course, repository, or safety language.",
+      "Scope": "In scope: current learner, author, maintainer, and reference documentation that contains the three claim labels; the project-definition rule that requires those labels; all 3Ci-specific wording in curriculum/modules/; and content verifiers/tests that currently require those labels. Out of scope: changing how Directive behaves, the 0.112.0 learner baseline, lab commands, framework gates, historical completed xBRIEF records, private repository identity and project governance unrelated to the labels, publishing, pushing, pull requests, merging, deployment, or release.",
+      "Impact": "Current course documentation becomes unlabeled, and every numbered module becomes organization-neutral. Existing content-contract verifiers must reject reintroduced labels instead of requiring them.",
+      "Risks": "Mechanical removal could leave broken sentences, erase substantive safety guidance, or weaken source traceability. Preserve the underlying rules, rewrite attribution-dependent sentences for natural grammar, and verify zero remaining label markers plus zero 3Ci references in all eleven modules.",
+      "Approach": "First change focused verifier expectations so the current content fails for retained labels. Then remove label taxonomy sections and markers across current course documentation, genericize every module-level 3Ci reference without deleting its safety meaning, and run focused plus aggregate checks.",
+      "Alternatives": "Deleting every labeled passage was rejected because it would remove substantive safety and authority guidance. Restricting label removal to module files was rejected because it would leave the disliked label system in labs, solutions, assessments, templates, references, and maintainer guidance.",
+      "Dependencies": "The branch starts from origin/master commit 5231b11248bd666490d9826bffa20cba6a4e0280. The existing course verifiers and aggregate Deft check remain the quality boundary.",
+      "Approval": "David explicitly approved the preserve-and-generalize route for /deft:change remove-claim-labels-and-3ci-module-language on 2026-09-14."
+    }
+  }
+}

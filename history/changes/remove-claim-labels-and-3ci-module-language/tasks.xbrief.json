@@ -1,0 +1,39 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8"
+  },
+  "plan": {
+    "title": "remove-claim-labels-and-3ci-module-language",
+    "status": "completed",
+    "items": [
+      {
+        "id": "labels",
+        "title": "Remove claim-label markers and taxonomy from current course documentation",
+        "status": "completed",
+        "effort": "M"
+      },
+      {
+        "id": "module-language",
+        "title": "Rewrite all 3Ci-specific language in Modules 1 through 11",
+        "status": "completed",
+        "effort": "S"
+      },
+      {
+        "id": "verification",
+        "title": "Update content contracts and verify the complete cleanup",
+        "status": "completed",
+        "effort": "S"
+      }
+    ],
+    "edges": [
+      {
+        "from": "labels",
+        "to": "module-language"
+      },
+      {
+        "from": "module-language",
+        "to": "verification"
+      }
+    ]
+  }
+}

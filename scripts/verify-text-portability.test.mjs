@@ -27,6 +27,7 @@ const modulesFiles = new Map([
   [modulesVerifier, readSource(modulesVerifier)],
   [workflowPath, readSource(workflowPath)],
   ["labs/fixtures/02-disposable-initialization/package.json", readSource("labs/fixtures/02-disposable-initialization/package.json")],
+  ["xbrief/PROJECT-DEFINITION.xbrief.json", readSource("xbrief/PROJECT-DEFINITION.xbrief.json")],
 ]);
 
 function collectMarkdown(directory) {
@@ -119,5 +120,15 @@ for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
   test(`Modules 2-3 verifier rejects a broken heading link with ${label}`, () => {
     const files = changed(modulesFiles, "README.md", (text) => text + "\n[Missing heading](references/GLOSSARY.md#missing-portability-heading)\n");
     assertRejected(runVerifier(`modules-heading-${label}`, modulesVerifier, files, eol), /broken local heading link/);
+  });
+
+  test(`Modules 2-3 verifier rejects a reintroduced claim label with ${label}`, () => {
+    const files = changed(modulesFiles, "templates/module-template.md", (text) => text + "\n[Directive behavior] Reintroduced label.\n");
+    assertRejected(runVerifier(`modules-claim-label-${label}`, modulesVerifier, files, eol), /claim label/);
+  });
+
+  test(`Modules 2-3 verifier rejects organization-specific module language with ${label}`, () => {
+    const files = changed(modulesFiles, "curriculum/modules/03-authority-and-context.md", (text) => text + "\n3Ci internal policy.\n");
+    assertRejected(runVerifier(`modules-organization-language-${label}`, modulesVerifier, files, eol), /organization-specific/);
   });
 }

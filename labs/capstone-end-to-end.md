@@ -14,12 +14,6 @@
 | Fixture | [`fixtures/capstone-end-to-end`](fixtures/capstone-end-to-end/) |
 | Platform evidence | Automated guarded fixture passed on macOS, Ubuntu, and Windows; independent learner walkthrough pilot remains separate |
 
-Claim labels:
-
-- **[Directive behavior]** — verified behavior of the pinned release.
-- **[3Ci policy]** — a local safety or delivery requirement.
-- **[Course guidance]** — a recommended learning technique.
-
 ## Goal and done condition
 
 Supervise one fictional work-items change from safe orientation through local
@@ -147,11 +141,11 @@ expected shape.
 
 ## Safety boundary
 
-- **[3Ci policy]** Apply product edits only inside the unique repository root
+- Apply product edits only inside the unique repository root
   printed by `create`. The only learner-authored file outside an attempt is the
   private note at the exact path established above. Never edit this curriculum
   repository, a business repository, a broad workspace, or home.
-- **[3Ci policy]** Do not add a remote, push, open a pull request, deploy,
+- Do not add a remote, push, open a pull request, deploy,
   publish, release, or contact a live review service.
 - Change only `src/work-items.mjs`. Supplied tests, Taskfile, helper, safety
   module, package files, xBRIEF acceptance, and `.deft/core/` are comparisons.
@@ -320,7 +314,7 @@ npm run test:focused
 npm run check:behavior
 ```
 
-**[Directive behavior]** The `literal` helper invokes the pinned
+The `literal` helper invokes the pinned
 `verify:ac` runner for those commands. The subsequent aggregate `task check` is
 separate and broader; literal acceptance must precede it.
 

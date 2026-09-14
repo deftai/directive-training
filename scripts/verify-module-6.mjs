@@ -101,9 +101,7 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
       assert.ok(section(parts.prose, heading).trim(), `${path} has an empty section: ${heading}`);
     }
     exactBaseline(path, parts.prose, recordHeading);
-    for (const label of ["Directive behavior", "3Ci policy", "Course guidance"]) {
-      assert.ok(parts.prose.includes(`[${label}]`), `${path} is missing claim label: ${label}`);
-    }
+    assert.doesNotMatch(parts.prose, /\b(?:Directive behavior|3Ci policy|Course guidance)\b/i, `${path} contains a removed claim label`);
     assert.ok(!parts.blocks.some(({ language }) => shellLanguage.test(language)), `${path} is command-free and must not contain a shell code fence`);
     verifyLinks(root, path, parts.prose);
   }

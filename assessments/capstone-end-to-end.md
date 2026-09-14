@@ -27,12 +27,6 @@ installation does contact the configured public npm registry. If that
 prerequisite remains unavailable after documented recovery, record
 `Blocked by environment`; do not convert it into a knowledge failure.
 
-Claim labels:
-
-- **[Directive behavior]** — observed behavior of the exact pinned release.
-- **[3Ci policy]** — a local training, safety, or delivery boundary.
-- **[Course guidance]** — a recommended learning or assessment technique.
-
 ## Purpose
 
 Prove that you can supervise one bounded Directive-managed change from safe
@@ -55,7 +49,7 @@ Reading or copying the explained solution is not completion evidence.
 
 ## Preserve and avoid
 
-- **[3Ci policy]** Preserve the exact Directive 0.112.0 package graph, supplied
+- Preserve the exact Directive 0.112.0 package graph, supplied
   test, Taskfile, helper, evidence verifier, project definition, active story
   contract, control deposits, `training/capstone` branch, and empty remote list.
 - Before readiness and meaningful red, make no product edit.

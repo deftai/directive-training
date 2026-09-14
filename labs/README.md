@@ -30,21 +30,13 @@ learner-ready draft verified on macOS/zsh only. It retains ordered red-green-ref
 literal, forward-coverage, seeded aggregate-failure, final, and unchanged-gate evidence.
 Linux/bash and native Windows/PowerShell remain candidates.
 
-## Rule labels
-
-- **[Directive behavior]** identifies a claim verified against the pinned Directive release. The current pin and evidence live in [the source baseline](../references/SOURCE-BASELINE.md).
-- **[3Ci policy]** identifies a local safety or delivery requirement. It is not an upstream Directive guarantee.
-- **[Course guidance]** identifies a recommended learning technique.
-
-These labels are not interchangeable.
-
 ## Non-negotiable boundary
 
-- **[3Ci policy]** Never initialize, reset, clean, or implement a lab in this curriculum repository.
-- **[3Ci policy]** Never use a client repository, a 3Ci business repository, a production checkout, or a directory nested inside one.
-- **[3Ci policy]** Use only fictional names, requirements, code, logs, and issue text supplied by the lab.
-- **[3Ci policy]** Do not add a Git remote, use a credential, push, open a pull request, deploy, publish, release, or call a production service.
-- **[3Ci policy]** Keep Directive cache, session, and framework-deposit state untracked.
+- Never initialize, reset, clean, or implement a lab in this curriculum repository.
+- Never use a client repository, a 3Ci business repository, a production checkout, or a directory nested inside one.
+- Use only fictional names, requirements, code, logs, and issue text supplied by the lab.
+- Do not add a Git remote, use a credential, push, open a pull request, deploy, publish, release, or call a production service.
+- Keep Directive cache, session, and framework-deposit state untracked.
 
 If you cannot prove the current directory is the disposable repository named by the lab, stop. Create a new disposable directory. Do not try to make an uncertain checkout “safe enough.”
 
@@ -182,7 +174,8 @@ A start check is a gate. Reading the commands or seeing a plausible path is not 
 - Use `directive --help`, `directive commands`, and `directive <verb> --help` when the lab tells you to confirm a version-sensitive command.
 - Stop if output requests credentials, names a remote action, or points outside the lab.
 
-**[Directive behavior]** applies only where the course cites the pinned release. **[3Ci policy]** supplies the stricter repository and data boundaries above.
+Statements about Directive apply only where the course cites the pinned release.
+The course's local requirements supply the stricter repository and data boundaries above.
 
 ## Deterministic reset
 
@@ -328,6 +321,6 @@ A lab is learner-ready only when:
 - every task maps to an observable outcome and evidence item;
 - all paths and mutations stay inside a disposable repository;
 - no remote, credential, client data, proprietary source, or live deployment is required;
-- every Directive behavior claim cites the pinned baseline;
-- every local constraint is labeled **[3Ci policy]**; and
+- every version-sensitive product statement cites the pinned baseline;
+- every local constraint is explicit and cites its source; and
 - a learner can finish and diagnose common failures without an instructor.

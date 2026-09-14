@@ -1,0 +1,172 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Remove claim labels throughout current course documentation and organization-specific wording from all course modules",
+    "created": "2026-09-14T13:12:00Z",
+    "updated": "2026-09-14T13:47:35Z"
+  },
+  "plan": {
+    "id": "training.remove-claim-labels-and-3ci-module-language",
+    "title": "Remove claim labels and 3Ci-specific module language",
+    "status": "running",
+    "narratives": {
+      "Description": "Remove the three claim-type labels and their explanatory taxonomy from every learner-facing course artifact while retaining the underlying guidance. Rewrite all organization-specific 3Ci wording in the eleven numbered modules as neutral course, repository, or safety language.",
+      "Scope": "Current course Markdown under README.md, curriculum/, labs/, solutions/, assessments/, templates/, references/, and maintainers/ that contains the retired claim-label taxonomy; the project-definition rule that requires those labels; every 3Ci reference under curriculum/modules/; and the JavaScript content contracts and tests that enforce the label system.",
+      "OutOfScope": "Directive behavior changes, release-pin changes, lab-command changes, project identity and private-repository governance unrelated to the retired labels, historical completed xBRIEF records, framework changes, publishing, remote delivery, and lifecycle closeout.",
+      "Approval": "David approved the preserve-and-generalize route on 2026-09-14."
+    },
+    "items": [
+      {
+        "id": "training.labels.remove",
+        "title": "Remove claim-label syntax and explanatory sections",
+        "status": "completed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "No current learner, author, maintainer, or reference documentation contains [Directive behavior], [3Ci policy], or [Course guidance], and the prose remains grammatical without label-taxonomy instructions."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Local feature-branch scan returned zero retired label terms across README, curriculum, labs, solutions, assessments, templates, maintainers, references, and PROJECT-DEFINITION; all content contracts passed.",
+          "recorded_at": "2026-09-14T13:47:35Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "training.modules.genericize",
+        "title": "Remove organization-specific wording from all numbered modules",
+        "status": "completed",
+        "effort": "S",
+        "narrative": {
+          "Acceptance": "A case-insensitive search of curriculum/modules/ finds no 3Ci, 3 Ci, or 3-Ci reference, while each former policy passage retains its applicable course or safety meaning."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Case-insensitive scan of curriculum/modules returned zero 3Ci, 3 Ci, or 3-Ci matches; Modules 2-11 and the Modules 4-5 combined content contracts passed.",
+          "recorded_at": "2026-09-14T13:47:35Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "training.labels.verify",
+        "title": "Replace positive label requirements with regression checks",
+        "status": "completed",
+        "effort": "S",
+        "narrative": {
+          "Acceptance": "Focused verifier tests and the aggregate project gate pass, and the verifier suite rejects any reintroduced claim label."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "test:portability passed 54/54 including LF and CRLF negative cases for reintroduced labels and module-specific organization language; all module/capstone content checks and task deft:check exited 0.",
+          "recorded_at": "2026-09-14T13:47:35Z",
+          "recorded_by": "agent:codex"
+        }
+      }
+    ],
+    "references": [
+      {
+        "uri": "urn:3ci:directive-training:request:2026-09-14:remove-claim-labels",
+        "type": "x-xbrief/user-request",
+        "title": "David's request to remove all claim labels and organization-specific language from every course module",
+        "TrustLevel": "internal"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 3 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "No current learner, author, maintainer, or reference documentation contains [Directive behavior], [3Ci policy], or [Course guidance], and the prose remains grammatical without label-taxonomy instructions.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "A case-insensitive search of curriculum/modules/ finds no 3Ci, 3 Ci, or 3-Ci reference, while each former policy passage retains its applicable course or safety meaning.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Focused verifier tests and the aggregate project gate pass, and the verifier suite rejects any reintroduced claim label.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [
+          "README.md",
+          "assessments/README.md",
+          "assessments/capstone-end-to-end.md",
+          "curriculum/README.md",
+          "curriculum/capstone-end-to-end.md",
+          "curriculum/modules/01-what-directive-is.md",
+          "curriculum/modules/02-installation-and-anatomy.md",
+          "curriculum/modules/03-authority-and-context.md",
+          "curriculum/modules/04-xbrief-as-durable-state.md",
+          "curriculum/modules/05-sources-versus-projections.md",
+          "curriculum/modules/06-creating-well-shaped-work.md",
+          "curriculum/modules/07-scope-lifecycle.md",
+          "curriculum/modules/08-session-and-work-selection.md",
+          "curriculum/modules/09-implementation-golden-path.md",
+          "curriculum/modules/10-testing-gates-and-evidence.md",
+          "curriculum/modules/11-review-and-completion.md",
+          "labs/02-disposable-initialization.md",
+          "labs/05-projection-drift-recovery.md",
+          "labs/07-scope-lifecycle.md",
+          "labs/09-implementation-golden-path.md",
+          "labs/10-testing-gates-and-evidence.md",
+          "labs/README.md",
+          "labs/capstone-end-to-end.md",
+          "maintainers/CURRICULUM-MAINTENANCE.md",
+          "references/GLOSSARY.md",
+          "references/QUICK-REFERENCE.md",
+          "references/SOURCE-BASELINE.md",
+          "references/SOURCE-NOTES.md",
+          "scripts/verify-capstone.mjs",
+          "scripts/verify-module-10.mjs",
+          "scripts/verify-module-11.mjs",
+          "scripts/verify-module-6.mjs",
+          "scripts/verify-module-6.test.mjs",
+          "scripts/verify-module-7.mjs",
+          "scripts/verify-module-8.mjs",
+          "scripts/verify-module-9.mjs",
+          "scripts/verify-modules-4-5.mjs",
+          "scripts/verify-modules-4-5.test.mjs",
+          "scripts/verify-modules-2-3.mjs",
+          "scripts/verify-text-portability.test.mjs",
+          "solutions/README.md",
+          "solutions/capstone-end-to-end.md",
+          "solutions/lab-02-disposable-initialization.md",
+          "solutions/lab-05-projection-drift-recovery.md",
+          "solutions/lab-07-scope-lifecycle.md",
+          "solutions/lab-09-implementation-golden-path.md",
+          "solutions/lab-10-testing-gates-and-evidence.md",
+          "solutions/module-01-what-directive-is.md",
+          "solutions/module-03-authority-and-context.md",
+          "solutions/module-04-xbrief-as-durable-state.md",
+          "solutions/module-06-creating-well-shaped-work.md",
+          "solutions/module-08-session-and-work-selection.md",
+          "solutions/module-11-review-and-completion.md",
+          "templates/assessment-template.md",
+          "templates/lab-template.md",
+          "templates/module-template.md",
+          "templates/solution-template.md",
+          "xbrief/PROJECT-DEFINITION.xbrief.json"
+        ],
+        "module_boundary": "Learner-facing course prose, organization-neutral numbered modules, and content-contract verification",
+        "cohesion_exemption": "The existing long Lab 2 document is touched only to remove the shared claim-label presentation convention. Splitting its cohesive end-to-end walkthrough is outside this content-only cleanup and would add unrelated navigation churn."
+      }
+    },
+    "updated": "2026-09-14T13:47:35Z"
+  }
+}

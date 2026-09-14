@@ -13,8 +13,7 @@
 | Verified environment | macOS 26.6.2/zsh 5.9; Windows 11/PowerShell 7.6.5, Node.js 26.8.1, npm 11.19.0, plus a learner report on PowerShell 7.6.6 |
 | Platform limit | Linux/bash is not verified for this lab |
 
-Claims use **[Directive behavior]**, **[3Ci policy]**, and **[Course guidance]** as defined in
-the lab. The fixture and helper are course tooling, not new Directive features.
+The fixture and helper are course tooling, not new Directive features.
 
 ## Before you use this solution
 
@@ -47,15 +46,15 @@ unchanged, and no implementation scope, remote, PR, deployment, or publishing ac
 
 ### 1. Establish the controlling facts
 
-- **[Directive behavior]** The map banner points to
+- The map banner points to
   `xbrief/PROJECT-DEFINITION.xbrief.json plan.architecture.codeStructure`.
-- **[Directive behavior]** The renderer combines authored module intent with observed files
+- The renderer combines authored module intent with observed files
   matched by `src/*.js`. The fixture matches one fictional JavaScript file.
-- **[Directive behavior]** A present MAP is compared against the current expected rendering.
+- A present MAP is compared against the current expected rendering.
   An absent MAP is advisory and returns success in 0.112.0.
-- **[3Ci policy]** All exercise mutations remain in the unique no-remote temporary attempt.
+- All exercise mutations remain in the unique no-remote temporary attempt.
   The learner changes only its declared source purpose.
-- **[Course guidance]** The simulated direct edit supplies a reproducible failure without
+- The simulated direct edit supplies a reproducible failure without
   making accidental corruption a prerequisite.
 
 ### 2. Choose an approach
@@ -346,12 +345,12 @@ to `3ci-directive-lab-archive`.
 
 ## Sources
 
-| Claim | Type | Verified source |
-| --- | --- | --- |
-| Authored structure, default extraction, generated MAP, and freshness | Directive behavior | Pinned [command reference](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md), “Project And Architecture Commands”; observed 0.112.0 renderer and freshness commands |
-| Source authority and projection boundary | Directive behavior | Pinned [Concepts](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/docs/CONCEPTS.md), “Source Of Truth Vs Projection” |
-| Side-effecting help and advisory absent MAP | Directive behavior | Disposable 0.112.0 probes recorded in [source notes](../references/SOURCE-NOTES.md) |
-| Disposable paths, no credentials/remotes, recoverable reset | 3Ci policy | [Lab environment contract](../labs/README.md) and [Lab 5](../labs/05-projection-drift-recovery.md) |
+| Statement | Verified source |
+| --- | --- |
+| Authored structure, default extraction, generated MAP, and freshness | Pinned [command reference](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md), “Project And Architecture Commands”; observed 0.112.0 renderer and freshness commands |
+| Source authority and projection boundary | Pinned [Concepts](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/docs/CONCEPTS.md), “Source Of Truth Vs Projection” |
+| Side-effecting help and advisory absent MAP | Disposable 0.112.0 probes recorded in [source notes](../references/SOURCE-NOTES.md) |
+| Disposable paths, no credentials/remotes, recoverable reset | [Lab environment contract](../labs/README.md) and [Lab 5](../labs/05-projection-drift-recovery.md) |
 
 The macOS behavior claims were verified on 2026-09-07; a native Windows replay and separate
 learner walkthrough were recorded on 2026-09-12. Explanations are original teaching

@@ -17,19 +17,13 @@ and native-matrix evidence.
 | Directive baseline | `@deftai/directive@0.112.0`, engine `@deftai/directive-core@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Lab 2](../labs/02-disposable-initialization.md) |
 
-Claim labels used here:
-
-- **[Directive behavior]** — verified behavior of the pinned release.
-- **[3Ci policy]** — a local safety or operating requirement.
-- **[Course guidance]** — a useful route, not an upstream guarantee.
-
 ## Before you use this solution
 
 Spend at least 10 minutes on the lab and open its three hints in order. Keep passing command
 evidence, any actual failure evidence, and the required provided-case recovery decision. The
 goal is to compare mechanisms and outcomes, not reproduce the wording below.
 
-This is a suggestion, not an access gate. **[3Ci policy]** The solution is available without
+This is a suggestion, not an access gate. The solution is available without
 an instructor, private message, review bot, credential, or automation unlock.
 
 If you opened it first, read the reasoning, create a fresh disposable attempt, close this
@@ -66,17 +60,17 @@ learner to manufacture a live failure.
 
 ### 1. Establish the controlling facts
 
-- **[Directive behavior]** `init` is the consumer entry path when no existing Directive
+- `init` is the consumer entry path when no existing Directive
   footprint is present; `update` reconciles an initialized footprint; `doctor` classifies an
   unknown or unhealthy state. Sources: pinned Concepts, setup skill, and live help.
-- **[Directive behavior]** Directive 0.112.0 classifies an otherwise empty repository with
+- Directive 0.112.0 classifies an otherwise empty repository with
   `.git` as brownfield. The classification does not mean the learner selected the wrong
   command.
-- **[Directive behavior]** The released init path did not create the package pin promised by
+- The released init path did not create the package pin promised by
   prose. The fixture must provide and verify the exact pin first.
-- **[3Ci policy]** Executable exercises use a unique temporary no-remote repository, fictional
+- Executable exercises use a unique temporary no-remote repository, fictional
   data, explicit paths, bounded mutation, and recoverable cleanup.
-- **[Course guidance]** Preserve a failed attempt and retry in a fresh directory. This keeps
+- Preserve a failed attempt and retry in a fresh directory. This keeps
   evidence and avoids guessing which generated paths are safe to erase.
 
 The state-to-command answer is:
@@ -372,12 +366,12 @@ deletion, or a home-directory target.
 
 ## Sources
 
-| Claim | Type | Pinned source or policy | Verified date |
-| --- | --- | --- | --- |
-| Consumer install and anatomy | Directive behavior | [README — Getting Started and tracked/ignored](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/README.md); [Concepts — Installer Layout](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/docs/CONCEPTS.md) | 2026-09-07 |
-| Consumer versus maintainer boundary | Directive behavior | [Setup skill contract](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-setup/SKILL.md) | 2026-09-07 |
-| Help, init, doctor, toolchain, package-pin, and brownfield observations | Directive behavior | [Course source notes](../references/SOURCE-NOTES.md) tied to 0.112.0 | 2026-09-07 |
-| Disposable/no-remote/archive-only practice | 3Ci policy | [Lab safety model](../labs/README.md) and project definition | 2026-09-07 |
+| Statement | Pinned source or policy | Verified date |
+| --- | --- | --- |
+| Consumer install and anatomy | [README — Getting Started and tracked/ignored](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/README.md); [Concepts — Installer Layout](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/docs/CONCEPTS.md) | 2026-09-07 |
+| Consumer versus maintainer boundary | [Setup skill contract](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-setup/SKILL.md) | 2026-09-07 |
+| Help, init, doctor, toolchain, package-pin, and brownfield observations | [Course source notes](../references/SOURCE-NOTES.md) tied to 0.112.0 | 2026-09-07 |
+| Disposable/no-remote/archive-only practice | [Lab safety model](../labs/README.md) and project definition | 2026-09-07 |
 
 The solution paraphrases the official sources. Exact identifiers and short diagnostic text
 are retained for reproducibility.

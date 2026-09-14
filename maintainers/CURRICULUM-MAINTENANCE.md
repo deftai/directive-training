@@ -2,7 +2,7 @@
 
 This document governs the authored 3Ci Directive curriculum. It describes the
 0.112.0 internal-alpha baseline and must be reviewed whenever the project pin,
-Directive behavior, course outcomes, or publication target changes.
+how Directive behaves, course outcomes, or the publication target changes.
 
 ## Ownership and release status
 
@@ -23,8 +23,8 @@ exit criterion and must be resolved in the proposed pilot-and-revision scope.
 | Project identity, policy, and goals | `xbrief/PROJECT-DEFINITION.xbrief.json` | Change through approved Directive setup or project-definition workflow |
 | Planned and active work | xBRIEF 0.8 lifecycle artifacts under `xbrief/` | Use lifecycle commands; activate one coherent scope at a time |
 | Lesson, lab, assessment, solution, and reference prose | Authored Markdown in this repository | Edit on an authorized feature branch and validate links and learner evidence |
-| Official Directive behavior | Pinned release, tested CLI, and official same-release sources | Verify; do not let this course define upstream behavior |
-| Claim traceability | `references/SOURCE-BASELINE.md` and `references/SOURCE-NOTES.md` | Update source heading, test surface, adaptation method, date, and discrepancies |
+| Product behavior | Pinned release, tested CLI, and official same-release sources | Verify; do not let this course define upstream behavior |
+| Statement traceability | `references/SOURCE-BASELINE.md` and `references/SOURCE-NOTES.md` | Update source heading, test surface, adaptation method, date, and discrepancies |
 | Future wiki, Confluence, or SharePoint pages | Generated or governed publishing projection | Regenerate from repository Markdown; never repair drift only in the projection |
 | Learner runtime state | Learner's disposable repository or approved private notes | Keep out of this repository and out of business repositories |
 

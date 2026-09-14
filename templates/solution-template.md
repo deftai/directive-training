@@ -14,17 +14,11 @@
 | Directive baseline | Exact package and engine versions plus the source-baseline link |
 | Source exercise | Relative link to the exercise |
 
-Claim labels used here:
-
-- **[Directive behavior]** — verified behavior of the pinned Directive release.
-- **[3Ci policy]** — a local requirement for this curriculum or 3Ci work.
-- **[Course guidance]** — one useful approach, not a product guarantee.
-
 ## Before you use this solution
 
 Spend `{{SUGGESTED_FIRST_ATTEMPT_MINUTES}}` minutes on the exercise and use its progressive hints first. Keep your artifacts, decisions, and observations so you can compare evidence rather than memory. When commands run, also keep failed commands, exit codes, and relevant output.
 
-This is a suggestion, not an access gate. Open the solution whenever you need it. **[3Ci policy]** Solutions are available without instructor approval, private messages, or an automation unlock.
+This is a suggestion, not an access gate. Open the solution whenever you need it. Solutions are available without instructor approval, private messages, or an automation unlock.
 
 If you opened the solution before attempting the task, use it as a worked example. If the source exercise changes files, use its bounded reset or create a fresh disposable repository. For a conceptual exercise, begin with a fresh scratch note. Then complete the task without copying the final artifact or answer.
 
@@ -49,11 +43,11 @@ This solution is one valid route. The outcome checks, not textual similarity to 
 
 List the facts the exercise provides and the source of each rule used.
 
-- **[Directive behavior]** `{{VERIFIED_PRODUCT_FACT_AND_SOURCE}}`
-- **[3Ci policy]** `{{LOCAL_REQUIREMENT_AND_SOURCE}}`
-- **[Course guidance]** `{{OPTIONAL_TECHNIQUE_AND_WHY_IT_HELPS}}`
+- Product fact: `{{VERIFIED_PRODUCT_FACT_AND_SOURCE}}`
+- Local requirement: `{{LOCAL_REQUIREMENT_AND_SOURCE}}`
+- Optional technique: `{{OPTIONAL_TECHNIQUE_AND_WHY_IT_HELPS}}`
 
-Do not turn a 3Ci preference into a Directive guarantee. If the result depends on a version-sensitive command, cite the pinned help output or official release source.
+Do not turn a local preference into a Directive guarantee. If the result depends on a version-sensitive command, cite the pinned help output or official release source.
 
 ### 2. Choose an approach
 
@@ -198,11 +192,11 @@ The cleanup must leave this curriculum repository and all business repositories 
 
 ## Sources
 
-| Claim | Type | Pinned source or policy | Verified date |
-|---|---|---|---|
-| `{{CLAIM_1}}` | Directive behavior | `{{OFFICIAL_RELEASE_FILE_HEADING_OR_HELP_COMMAND}}` | `YYYY-MM-DD` |
-| `{{CLAIM_2}}` | Directive behavior | `{{OFFICIAL_RELEASE_FILE_HEADING_OR_HELP_COMMAND}}` | `YYYY-MM-DD` |
-| `{{LOCAL_RULE}}` | 3Ci policy | `{{LOCAL_POLICY_SOURCE}}` | `YYYY-MM-DD` |
+| Statement | Pinned source or policy | Verified date |
+|---|---|---|
+| `{{STATEMENT_1}}` | `{{OFFICIAL_RELEASE_FILE_HEADING_OR_HELP_COMMAND}}` | `YYYY-MM-DD` |
+| `{{STATEMENT_2}}` | `{{OFFICIAL_RELEASE_FILE_HEADING_OR_HELP_COMMAND}}` | `YYYY-MM-DD` |
+| `{{LOCAL_RULE}}` | `{{LOCAL_POLICY_SOURCE}}` | `YYYY-MM-DD` |
 
 Link the course source baseline. Record any disagreement between prose and released behavior rather than concealing it.
 
@@ -219,6 +213,6 @@ Link the course source baseline. Record any disagreement between prose and relea
 - Reproduce the worked approach from a fresh disposable environment.
 - Reproduce each documented failure and recovery.
 - Distinguish valid alternatives from approaches that fail a gate.
-- Confirm every Directive behavior and 3Ci policy claim is labeled and sourced.
+- Confirm every version-sensitive Directive statement is sourced and every local requirement is explicit.
 - Confirm the solution is available after a suggested first attempt without instructor access.
 - Confirm the solution uses only fictional data and requires no remote, deployment, credential, or proprietary source.

@@ -13,9 +13,8 @@
 | Platforms verified | macOS 26.6.2/zsh 5.9; Windows/PowerShell 7.4+ path verified on Windows 11 with PowerShell 7.6.5, Node.js 26.8.1, npm 11.19.0, plus a learner report on PowerShell 7.6.6 |
 | Other platforms | Linux/bash is not verified for this lab; no Linux learner command path is claimed |
 
-Labels distinguish **[Directive behavior]** from **[3Ci policy]** and **[Course guidance]**.
-The first means released behavior, the second a local requirement, and the third a learning
-technique.
+Version-sensitive statements cite the pinned release. Local requirements name their source,
+and learning techniques explain their purpose.
 
 ## Goal and done condition
 
@@ -104,7 +103,7 @@ guards), `evidence.md`, and an empty Git template directory. Keep your notes in
 
 ### Install and verify the pin
 
-**[3Ci policy]** This lab uses only the public npm package registry. The child install gets
+This lab uses only the public npm package registry. The child install gets
 a minimal environment, the lab's npm configuration, and a lab-local cache. It does not
 change your shell environment, global npm configuration, or credentials. If your environment
 requires an authenticated registry or proxy, stop and retain the failure; that setup is
@@ -142,16 +141,16 @@ Do not substitute a global executable or install in this course repository.
 
 ## Safety boundary
 
-- **[3Ci policy]** Mutations stay in the exact disposable attempt. Never initialize, reset,
+- Mutations stay in the exact disposable attempt. Never initialize, reset,
   or implement in the training repository or any business repository.
-- **[3Ci policy]** Use no remote, push, PR, deployment, publishing, credentials, or client data.
-- **[3Ci policy]** Setup may create the fixture, local package install/cache, Git metadata,
+- Use no remote, push, PR, deployment, publishing, credentials, or client data.
+- Setup may create the fixture, local package install/cache, Git metadata,
   and the named parent evidence/marker files. The learner's only authored exercise change is
   the `purpose` string in `xbrief/PROJECT-DEFINITION.xbrief.json`.
-- **[3Ci policy]** The helper's `inject-drift` verb deliberately inserts one labeled fault
+- The helper's `inject-drift` verb deliberately inserts one labeled fault
   into `.planning/codebase/MAP.md`. This is a supplied failure state, not a recommended edit.
   Subsequent MAP writes belong to the released renderer.
-- **[3Ci policy]** Leave `.gitattributes`, fixture helpers, source globs, projection paths, source JavaScript,
+- Leave `.gitattributes`, fixture helpers, source globs, projection paths, source JavaScript,
   pin, and gates unchanged. Run `guard` immediately before each mutation.
 
 The helper checks canonical real paths, source/output ancestors, Git metadata, the original
@@ -207,7 +206,7 @@ Read `xbrief/PROJECT-DEFINITION.xbrief.json` in your editor. Find
 `plan.architecture.codeStructure.modules[0]` and its `purpose` and `pathGlobs`.
 The glob `src/*.js` matches the one supplied fictional file. It excludes the generated map.
 
-**[Directive behavior]** The following 0.112.0 help probes have side effects:
+The following 0.112.0 help probes have side effects:
 `codebase:map --help` **writes the MAP**, and `verify:codebase-map-fresh --help` **runs the
 check** instead of displaying help. Probe them only here, after the guard. Do not assume
 that an arbitrary command's `--help` is read-only.
@@ -242,7 +241,7 @@ if (-not (Test-Path -LiteralPath '.planning/codebase/MAP.md' -PathType Leaf)) { 
 exits 0 even though no MAP exists. The renderer probe then reports `Codebase MAP written`;
 the final freshness probe reports `OK: generated codebase MAP is fresh`.
 
-**[Directive behavior]** An absent MAP is advisory in this release. A freshness exit 0 alone
+An absent MAP is advisory in this release. A freshness exit 0 alone
 does not prove that a useful map exists. Final acceptance adds existence, banner, source,
 purpose, matched-file count, and diff checks.
 

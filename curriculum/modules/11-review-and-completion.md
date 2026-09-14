@@ -12,10 +12,10 @@
 | Prerequisite | [Module 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md) |
 | Evidence | A pre-PR decision worksheet, four-row finding classification, coherent-batch plan, and three-axis completion-card matrix |
 
-**[Directive behavior]** This module paraphrases the pre-PR, review, and
-delivery contracts from the pinned release. **[3Ci policy]** Use only the fixed
+This module paraphrases the pre-PR, review, and
+delivery contracts from the pinned release. Use only the fixed
 fictional packet below. Do not open a repository, pull request, review service,
-deployment system, or UAT environment. **[Course guidance]** Complete each
+deployment system, or UAT environment. Complete each
 worksheet before comparing it with the explained solution.
 
 ## Learning outcomes
@@ -61,10 +61,10 @@ narrower than “the change was delivered.” A reviewer can also find a valid
 blocking defect after a careful self-review. None of those facts contradicts
 the earlier evidence; each describes a different head or evidence surface.
 
-**[Directive behavior]** A pre-PR review finishes only after a full pass makes
+A pre-PR review finishes only after a full pass makes
 no further edits. Review findings are classified before repair, blocking
 in-scope findings are handled coherently, and merge readiness depends on
-current-head checks and review. **[3Ci policy]** This course uses simulated
+current-head checks and review. This course uses simulated
 findings so every learner can practice those judgments without external
 access.
 

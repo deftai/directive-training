@@ -15,18 +15,12 @@ proposed-state boundary, and decompose the broader disruption idea into three us
 | Directive baseline | `@deftai/directive@0.112.0`, engine `@deftai/directive-core@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Module 6 shaping exercise](../curriculum/modules/06-creating-well-shaped-work.md#exercise) |
 
-Claim labels used here:
-
-- **[Directive behavior]** — verified release behavior or convention.
-- **[3Ci policy]** — a local curriculum requirement.
-- **[Course guidance]** — one useful approach or fictional example.
-
 ## Before you use this solution
 
 Spend 12–15 minutes on the exercise and open the hints one at a time. Keep your original
 horizontal plan, slice record, proposed artifact, and decomposition for comparison.
 
-This is a suggestion, not an access gate. **[3Ci policy]** You may read this solution
+This is a suggestion, not an access gate. You may read this solution
 without an instructor, private message, account, review bot, or automation unlock.
 
 If you opened it first, read the reasoning once, close it, and retry in a fresh scratch-note
@@ -63,7 +57,7 @@ The component list names possible implementation work, but none of its entries i
 a dispatcher alone. A preview of one delayed route is the smallest result that crosses the
 relevant data, selection, formatting, and display concerns.
 
-**[Directive behavior]** A feature has an independently demoable, human-observable sentence.
+A feature has an independently demoable, human-observable sentence.
 A tracer bullet is narrow and complete through the layers relevant to that sentence. It
 need not include every interface, workflow, or future delivery path.
 
@@ -73,7 +67,7 @@ The fictional idea does not need external research. It needs decisions about the
 visible fields, exclusions, and evidence. Interview fits that uncertainty. This reason is
 stronger than “Interview is the default,” because it states what the strategy must resolve.
 
-**[Directive behavior]** Strategy analysis shapes artifacts. The current setup contract can
+Strategy analysis shapes artifacts. The current setup contract can
 write project narratives and proposed scope directly; a standalone
 `specification.xbrief.json` is optional compatibility output, not a universal prerequisite.
 
@@ -83,7 +77,7 @@ The acceptance statement is specific enough to review, but clear prose does not 
 story. The proposed artifact remains in candidate state. Later promotion, activation, live
 implementation intent, and preflight evidence are deliberately absent from this exercise.
 
-**[Directive behavior]** The current implementation contract is active scope plus the human
+The current implementation contract is active scope plus the human
 operator's live instruction. Proposed-state approval is not that conjunction.
 
 ### 4. Split the epic by useful capability
@@ -98,7 +92,7 @@ each step.
 
 ### Step 1 — Record the vertical slice
 
-This table is **[Course guidance]** evidence for the exercise, not a canonical xBRIEF shape.
+This table is evidence for the exercise, not a canonical xBRIEF shape.
 
 | Artifact | User-visible outcome | Exclusions | Literal inspection |
 | --- | --- | --- | --- |
@@ -240,7 +234,7 @@ can only verify [result], so I will [bounded correction].”
 | Choose Discuss instead of Interview | A focused tradeoff may be the only uncertainty | Name the exact decision and return artifact | It becomes an unbounded conversation or skips proposed scope |
 | Preview the disruption reason before delay minutes | Either can be the first usable observation | One user-visible outcome, explicit fields, and exclusions | It silently includes acknowledgement or bulk behavior |
 | Put export before acknowledgement | A general delay report need not consume acknowledgement | State that independence and change its input/evidence | The artifact still claims “acknowledged” without slice 2 |
-| Use prose instead of JSON for the worksheet | Worksheet format is course guidance | Separately retain a valid schema-0.8 proposed-scope artifact | The proposed artifact or status/authority boundary disappears |
+| Use prose instead of JSON for the worksheet | Worksheet format is a course convention | Separately retain a valid schema-0.8 proposed-scope artifact | The proposed artifact or status/authority boundary disappears |
 
 An alternate does not pass if it requires a standalone specification file, invents an
 `Exclusions` schema key, makes the proposal active, or treats a component as value.
@@ -329,15 +323,15 @@ needed nor authorized.
 
 ## Sources
 
-| Claim | Type | Pinned source | Verified date |
-| --- | --- | --- | --- |
-| Idea/strategy loop and lifecycle surfaces | Directive behavior | [Lifecycle overview][lifecycle] | 2026-09-09 |
-| Strategy categories and Interview choices | Directive behavior | [Strategy index][strategies] and [Interview][interview] | 2026-09-09 |
-| Current setup output and optional specification | Directive behavior | [Setup skill][setup] | 2026-09-09 |
-| Observable story acceptance, evidence, and DAG decomposition | Directive behavior | [Decompose skill][decompose], [xBRIEF taxonomy][taxonomy], and [verification][verification] | 2026-09-09 |
-| Vertical feature and tracer-bullet shape | Directive behavior | [Upstream glossary][upstream-glossary] and [slicing skill][gh-slice] | 2026-09-09 |
-| Proposed lifecycle and current contract | Directive behavior | [Commands][commands] and [main][main] | 2026-09-09 |
-| Fictional command-free boundary and accessible solution | 3Ci policy | [Project definition](../xbrief/PROJECT-DEFINITION.xbrief.json) ProjectRules and LabModel | 2026-09-09 |
+| Statement | Pinned source | Verified date |
+| --- | --- | --- |
+| Idea/strategy loop and lifecycle surfaces | [Lifecycle overview][lifecycle] | 2026-09-09 |
+| Strategy categories and Interview choices | [Strategy index][strategies] and [Interview][interview] | 2026-09-09 |
+| Current setup output and optional specification | [Setup skill][setup] | 2026-09-09 |
+| Observable story acceptance, evidence, and DAG decomposition | [Decompose skill][decompose], [xBRIEF taxonomy][taxonomy], and [verification][verification] | 2026-09-09 |
+| Vertical feature and tracer-bullet shape | [Upstream glossary][upstream-glossary] and [slicing skill][gh-slice] | 2026-09-09 |
+| Proposed lifecycle and current contract | [Commands][commands] and [main][main] | 2026-09-09 |
+| Fictional command-free boundary and accessible solution | [Project definition](../xbrief/PROJECT-DEFINITION.xbrief.json) ProjectRules and LabModel | 2026-09-09 |
 
 This is an original paraphrase and fictional adaptation. The pinned sources retain legacy
 command, vBRIEF, specification, dependency, and path wording; the [source baseline](../references/SOURCE-BASELINE.md)

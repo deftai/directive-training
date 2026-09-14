@@ -243,7 +243,7 @@ also summarize relationships with `plan.metadata.dependencies`.
 **source of truth**
 The authoritative artifact for a fact. In this project, xBRIEF owns project and
 work state, repository Markdown owns lesson text, and upstream released sources
-own official Directive behavior.
+define how Directive behaves.
 
 **projection**
 Generated or rendered output derived from a source, such as a specification
@@ -384,9 +384,9 @@ proves the other.
 A temporary local repository or designated per-learner training repository that
 can be reset without affecting this course repository or any business system.
 
-**3Ci policy overlay**
-A rule selected by 3Ci for this training or its repositories, clearly labeled
-so learners do not mistake it for a universal Directive default.
+**local policy overlay**
+A rule selected by the organization for this training or its repositories, stated with its
+source so learners do not mistake it for a universal Directive default.
 
 **independent-learner pilot**
 A validation exercise in which representative engineers complete the material

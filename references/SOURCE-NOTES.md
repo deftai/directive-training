@@ -136,7 +136,7 @@ workflow and all learner Windows checks now select the first application in PATH
 the subsequent passing 0.111.0 run
 [34040576589](https://github.com/3Ci-Consulting/directive-training/actions/runs/34040576589)
 first verified the correction, and the current passing Windows job confirms it remains fixed
-under 0.112.0. This was not a Directive behavior disagreement.
+under 0.112.0. This was not a disagreement with the pinned product.
 
 This current evidence is bounded to those runner labels, shells, the npm fixture path, and
 the pinned 0.112.0 graph. It does not verify pnpm, other operating-system images, or coding-host

@@ -82,7 +82,7 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
     parsed.set(path, parts);
     for (const heading of headings) assert.ok(section(parts.prose, heading).trim(), `${path} has an empty section: ${heading}`);
     exactBaseline(path, parts.prose, record);
-    for (const label of ["Directive behavior", "3Ci policy", "Course guidance"]) assert.ok(parts.prose.includes(`[${label}]`), `${path} is missing claim label: ${label}`);
+    assert.doesNotMatch(parts.prose, /\b(?:Directive behavior|3Ci policy|Course guidance)\b/i, `${path} contains a removed claim label`);
     for (const block of parts.blocks.filter(({ language }) => /^(?:sh|shell|bash|zsh|powershell|pwsh|console)$/.test(language))) {
       const commands = block.content.split("\n").filter((line) => !/^\s*#/.test(line)).join("\n");
       assert.doesNotMatch(commands, forbiddenShell, `${path} contains a forbidden remote or destructive command`);

@@ -12,8 +12,8 @@
 | Directive baseline | CLI/core/content/types `0.112.0`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Platform limit | Linux/bash and native Windows/PowerShell are candidates and are not verified or learner-ready for this lab |
 
-Claims use **[Directive behavior]**, **[3Ci policy]**, and **[Course guidance]**. The lab
-helper is course tooling around released commands; it is not itself a Directive guarantee.
+The lab helper is course tooling around released commands; it is not itself a
+Directive guarantee.
 
 ## Before you use this solution
 
@@ -47,7 +47,7 @@ exact guarded parent into a recoverable temporary archive. No product code or re
 
 ### 1. Keep state, intent, and evidence separate
 
-**[Directive behavior]** Lifecycle state is durable repository data. Live implementation
+Lifecycle state is durable repository data. Live implementation
 intent is a current human instruction. Session and preflight gates test readiness. These facts
 work together, but none should be relabeled as another:
 
@@ -63,7 +63,7 @@ completed lifecycle exercise cannot honestly be called delivered software.
 
 ### 2. Require lifecycle commands to keep the pair coherent
 
-**[Directive behavior]** In the verified sequence:
+In the verified sequence:
 
 | Command role | Before | After | Exit |
 | --- | --- | --- | ---: |
@@ -82,7 +82,7 @@ The helper invokes both the exact local Directive binary and the consumer Task s
 engine exits `1`. On the verified go-task 3.50.0 host, the Task process returns `201` while
 reporting its child exit `1`.
 
-**[Course guidance]** Retain both. Use `1` for the Directive 0.112.0 behavior claim. Use the
+Retain both. Use `1` for the Directive 0.112.0 behavior claim. Use the
 Task result as environment evidence and require only that it is nonzero on an unverified Task
 version or platform. Hiding one exit loses useful diagnostic context; treating `201` as an
 engine guarantee overclaims it.
@@ -94,7 +94,7 @@ cannot erase the original authorization decision. `lifecycle-run.json` then reco
 ordered sequence, including pin, environment, intent boundary, exits, outputs, final pairs,
 and the empty remote value.
 
-**[3Ci policy]** This evidence lives outside the disposable repository so it cannot be staged
+This evidence lives outside the disposable repository so it cannot be staged
 by lifecycle commands. It stays inside the exact marked temporary parent and moves with that
 parent during archive.
 

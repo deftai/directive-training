@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync, realpathSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, realpathSync, statSync } from "node:fs";
 import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -31,6 +31,27 @@ const requiredFiles = [
 const readText = (path) => readFileSync(path, "utf8").replace(/\r\n/g, "\n");
 const read = (relativePath) => readText(resolve(root, relativePath));
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const courseMarkdownRoots = ["assessments", "curriculum", "labs", "maintainers", "references", "solutions", "templates"];
+const courseSourceFiles = ["README.md", "xbrief/PROJECT-DEFINITION.xbrief.json"];
+const collectMarkdown = (directory) => {
+  for (const entry of readdirSync(resolve(root, directory), { withFileTypes: true })) {
+    const path = `${directory}/${entry.name}`;
+    if (entry.isDirectory()) collectMarkdown(path);
+    else if (entry.isFile() && entry.name.endsWith(".md")) courseSourceFiles.push(path);
+  }
+};
+for (const directory of courseMarkdownRoots) collectMarkdown(directory);
+
+const claimLabel = /\b(?:Directive behavior|3Ci policy|Course guidance)\b/i;
+for (const relativePath of courseSourceFiles) {
+  assert.doesNotMatch(read(relativePath), claimLabel, `${relativePath} contains a removed claim label`);
+}
+for (const entry of readdirSync(resolve(root, "curriculum/modules"), { withFileTypes: true })) {
+  if (!entry.isFile() || !entry.name.endsWith(".md")) continue;
+  const relativePath = `curriculum/modules/${entry.name}`;
+  assert.doesNotMatch(read(relativePath), /\b3(?:\s|-)?ci\b/i, `${relativePath} contains organization-specific 3Ci language`);
+}
 
 for (const relativePath of requiredFiles) {
   const absolutePath = resolve(root, relativePath);
@@ -195,9 +216,6 @@ for (const [label, content] of [
   ["Module 3", module3],
 ]) {
   assert.match(content, /<details>[\s\S]*?<details>[\s\S]*?<details>/, `${label} needs three progressive hints`);
-  assert.match(content, /\[Directive behavior\]/, `${label} must label Directive behavior`);
-  assert.match(content, /\[3Ci policy\]/, `${label} must label 3Ci policy`);
-  assert.match(content, /\[Course guidance\]/, `${label} must label course guidance`);
 }
 
 for (const content of [module2, lab2, lab2Solution]) {

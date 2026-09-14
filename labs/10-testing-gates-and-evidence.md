@@ -54,7 +54,7 @@ Expected: guard succeeds, the branch is `training/module-10`, and the remote com
 
 ## Safety boundary
 
-**[3Ci policy]** The helper refuses mutation unless the target is the canonical `repo` inside one unique OS-temporary no-remote attempt, the branch is `training/module-10`, exactly one xBRIEF 0.8 story is active/running, and the exact Directive graph is 0.112.0 after install.
+The helper refuses mutation unless the target is the canonical `repo` inside one unique OS-temporary no-remote attempt, the branch is `training/module-10`, exactly one xBRIEF 0.8 story is active/running, and the exact Directive graph is 0.112.0 after install.
 
 Stage-specific work paths are:
 
@@ -156,7 +156,7 @@ npm run test:focused
 npm run check:behavior
 ```
 
-**[Directive behavior]** The pinned `verify:ac` runner executes these safe commands verbatim. The lab's helper invokes it through the project-local 0.112.0 binary. The aggregate `task check` is deliberately separate and broader.
+The pinned `verify:ac` runner executes these safe commands verbatim. The lab's helper invokes it through the project-local 0.112.0 binary. The aggregate `task check` is deliberately separate and broader.
 
 ## Evidence bundle
 
@@ -169,7 +169,7 @@ Evidence is outside the repository in the attempt's sibling `evidence` directory
 - `aggregate-failure.json` — first failing subcheck and unchanged gate fingerprints;
 - `final.json` — passing aggregate, final three-file diff, and `gateDefinitionsUnchanged: true`.
 
-**[Course guidance]** Review the smallest relevant fields; do not publish full environment output.
+Review the smallest relevant fields; do not publish full environment output.
 
 ## Progressive hints
 

@@ -150,9 +150,7 @@ export function verifyModules45(root = fileURLToPath(new URL("../", import.meta.
     assert.ok(baseline?.includes("0.112.0"), `${path} must declare the exact Directive 0.112.0 baseline`);
     assert.deepEqual([...new Set(baseline.match(/\b\d+\.\d+\.\d+\b/g))], ["0.112.0"], `${path} contains a stale baseline version`);
     assert.doesNotMatch(body, /"(?:xBRIEFInfo|vBRIEFInfo)"\s*:\s*\{[^}]*"version"\s*:\s*"0\.6"/, `${path} teaches a legacy xBRIEF write envelope`);
-    for (const label of ["Directive behavior", "3Ci policy", "Course guidance"]) {
-      assert.ok(parts.prose.includes(`[${label}]`), `${path} is missing claim label: ${label}`);
-    }
+    assert.doesNotMatch(parts.prose, /\b(?:Directive behavior|3Ci policy|Course guidance)\b/i, `${path} contains a removed claim label`);
     for (const block of parts.blocks.filter(({ language }) => /^(?:sh|shell|bash|zsh|powershell|pwsh|console)$/.test(language))) {
       const commands = block.content.split("\n").filter((line) => !/^\s*#/.test(line)).join("\n");
       assert.doesNotMatch(commands, forbiddenCommand, `${path} contains a forbidden executable remote/publish/destructive command`);

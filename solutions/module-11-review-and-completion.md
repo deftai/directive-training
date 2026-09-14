@@ -9,9 +9,9 @@
 | Evidence type | Explained fixed-state review worksheets |
 | Safety boundary | No live repository, PR, review bot, CI, merge, deployment, UAT, credential, or client data |
 
-**[Directive behavior]** The worked answer applies the pinned pre-PR, review,
-and lifecycle contracts. **[3Ci policy]** Keep the packet fictional and any
-learner note private and sanitized. **[Course guidance]** Compare the reasons
+The worked answer applies the pinned pre-PR, review,
+and lifecycle contracts. Keep the packet fictional and any
+learner note private and sanitized. Compare the reasons
 and evidence, not only the final labels.
 
 ## Before you use this solution

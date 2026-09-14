@@ -20,12 +20,6 @@ walkthrough, 20 for the exercise, and 10–20 for evidence and solution comparis
 exercise is command-free on macOS, Linux, or Windows. Use only a personal scratch note;
 no CLI, repository, service, or account is required.
 
-Claim labels used here:
-
-- **[Directive behavior]** — behavior or convention verified against the pinned release.
-- **[3Ci policy]** — a requirement of this private curriculum.
-- **[Course guidance]** — a learning technique or fictional example.
-
 ## Learning outcomes
 
 By the end of this module, you can:
@@ -59,7 +53,7 @@ candidate state and does not authorize implementation.
 Rewrite each activity as “a person can observe …” and retry. This module uses the pinned
 0.112.0 course sources, not an installed version on your computer.
 
-**[3Ci policy]** Keep the exercise fictional and in a scratch note. Do not inspect a real
+Keep the exercise fictional and in a scratch note. Do not inspect a real
 backlog, client requirement, repository, or shared `USER.md`. Do not run a command or make
 a remote change.
 
@@ -69,36 +63,36 @@ A plan can look thorough while postponing value. “Build the model, then the se
 the interface” creates horizontal layers whose integration risk stays hidden until the
 end. Completion of a layer does not show that anyone can use the capability.
 
-**[Directive behavior]** Directive describes a feature as an independently demoable,
+Directive describes a feature as an independently demoable,
 human-observable capability. A narrow tracer-bullet slice crosses the relevant layers and
 can be demonstrated or verified on its own. Evidence checks the outcome, not whether a
 list of implementation steps was marked complete.
 
-**[Course guidance]** Start with one observation a person could make. Name the smallest
+Start with one observation a person could make. Name the smallest
 artifact that carries that result, what the slice excludes, and the literal inspection
 that would disprove a false completion claim.
 
-**[3Ci policy]** A planning exercise may require explicit worksheet fields beyond the
+A planning exercise may require explicit worksheet fields beyond the
 xBRIEF schema. Those fields improve learning evidence; they are not invented canonical
 xBRIEF keys.
 
 ## Terminology
 
-| Term | Meaning in this module | Claim type | Do not confuse it with |
-| --- | --- | --- | --- |
-| Idea | An unshaped need or opportunity that still contains uncertainty | Directive behavior | An approved implementation scope |
-| Strategy | A bounded approach for reducing the relevant uncertainty or generating work artifacts | Directive behavior | Automatic authorization to build |
-| Testable specification statement | A concise behavior statement with observable conditions and evidence | Course guidance | A required standalone specification file |
-| Horizontal plan | Work grouped by component or technical layer instead of a usable outcome | Directive behavior | A vertical slice |
-| Vertical slice | An independently demoable, human-observable capability crossing every layer relevant to that outcome | Directive behavior | A promise that every slice is independently deployable |
-| Proposed scope | A schema-0.8 lifecycle record shaped for review, with `plan.status: proposed` | Directive behavior | Active/running work |
-| Epic | Work too broad to be one independently buildable and verifiable story | Directive behavior | A long task list inside one story |
-| Dependency rationale | Why a slice must follow another slice, or why it has no predecessor | Course guidance | An excuse to make all slices one batch |
-| Boundary rationale | Why the slice includes and excludes specific behavior | Course guidance | A canonical xBRIEF field name |
+| Term | Meaning in this module | Do not confuse it with |
+| --- | --- | --- |
+| Idea | An unshaped need or opportunity that still contains uncertainty | An approved implementation scope |
+| Strategy | A bounded approach for reducing the relevant uncertainty or generating work artifacts | Automatic authorization to build |
+| Testable specification statement | A concise behavior statement with observable conditions and evidence | A required standalone specification file |
+| Horizontal plan | Work grouped by component or technical layer instead of a usable outcome | A vertical slice |
+| Vertical slice | An independently demoable, human-observable capability crossing every layer relevant to that outcome | A promise that every slice is independently deployable |
+| Proposed scope | A schema-0.8 lifecycle record shaped for review, with `plan.status: proposed` | Active/running work |
+| Epic | Work too broad to be one independently buildable and verifiable story | A long task list inside one story |
+| Dependency rationale | Why a slice must follow another slice, or why it has no predecessor | An excuse to make all slices one batch |
+| Boundary rationale | Why the slice includes and excludes specific behavior | A canonical xBRIEF field name |
 
 ## Mental model
 
-**[Course guidance]** Move from uncertainty to evidence:
+Move from uncertainty to evidence:
 
 ```text
 idea → bounded strategy → observable statement → proposed scope → vertical slices
@@ -121,7 +115,7 @@ proof.
 
 ### 1. Choose a strategy for the uncertainty
 
-**[Directive behavior]** An idea enters an iterative strategy-analysis loop. Preparatory
+An idea enters an iterative strategy-analysis loop. Preparatory
 strategies gather information and return to the strategy gate; spec-generating strategies
 produce project and lifecycle artifacts. Interview is the ordinary default for a new
 project, while Research, Discuss, Probe, and Map address different information gaps.
@@ -141,7 +135,7 @@ Evidence: the pinned [lifecycle overview][lifecycle], [strategy categories][stra
 
 ### 2. Write acceptance as an observable result
 
-**[Directive behavior]** Story acceptance belongs at the item level and should contain
+Story acceptance belongs at the item level and should contain
 roughly two to five concrete criteria, expected evidence, focused verification, and traces.
 “Complete the interface” is activity. “Given one delayed route, the preview shows its route
 code and delay reason” is observable.
@@ -156,7 +150,7 @@ truths][verification], and [specific plan checks][plan-checking].
 
 ### 3. Replace horizontal layers with one vertical path
 
-**[Directive behavior]** A vertical feature has a one-sentence human-observable demo.
+A vertical feature has a one-sentence human-observable demo.
 Horizontal work such as “database layer complete” is the wrong unit when it cannot produce
 that demonstration. A tracer bullet is narrow but complete through every layer relevant to
 its outcome.
@@ -179,7 +173,7 @@ Evidence: the pinned [feature and vertical-slice glossary][upstream-glossary] an
 
 ### 4. Keep proposal separate from implementation authority
 
-**[Directive behavior]** Current lifecycle moves through `proposed/`, `pending/`,
+Current lifecycle moves through `proposed/`, `pending/`,
 `active/`, and `completed/`. Promotion and activation are separate commitments. Product
 implementation requires an active/running scope, the human operator's live implementation
 instruction, and passing applicable preflight gates.
@@ -193,7 +187,7 @@ and [the current-contract rule][main].
 
 ### 5. Turn an epic into a dependency graph
 
-**[Directive behavior]** Epic or phase records preserve broad planning context. Executable
+Epic or phase records preserve broad planning context. Executable
 concurrent work should be story-shaped: observable acceptance, expected evidence, narrow
 file scope, focused verification, traces, and resolvable dependency IDs. Dependencies form
 a directed acyclic graph, not a circular list.
@@ -305,7 +299,7 @@ order. Do not use “everything depends on everything” or hide multiple outcom
 
 ### Constraints
 
-- **[3Ci policy]** Work only with this fictional scenario and a personal scratch note.
+- Work only with this fictional scenario and a personal scratch note.
 - Keep this training repository and every business repository unchanged.
 - Do not run a CLI, open a terminal exercise, create a lifecycle file, contact a remote,
   promote or activate scope, or implement any behavior.
@@ -418,7 +412,7 @@ Confidence alone is not completion evidence.
 
 After a suggested first attempt, use the [explained solution](../../solutions/module-06-creating-well-shaped-work.md).
 It provides complete fictional artifacts, reasoning, valid alternatives, recovery, and a
-bounded retry. **[3Ci policy]** No instructor, review bot, account, or automation unlock is
+bounded retry. No instructor, review bot, account, or automation unlock is
 required.
 
 ## Navigation
@@ -431,15 +425,15 @@ required.
 
 ## Official sources
 
-| Claim supported | Source type | Pinned source and heading | Verified date | Notes or disagreement |
-| --- | --- | --- | --- | --- |
-| Idea-to-strategy loop and lifecycle surfaces | Directive behavior | [Lifecycle — inception and stage surfaces][lifecycle] | 2026-09-09 | Original course paraphrase |
-| Preparatory versus spec-generating strategies and Interview choice | Directive behavior | [Strategy categories][strategies] and [Interview choices][interview] | 2026-09-09 | Strategy prose retains deprecated slash-command and vBRIEF wording |
-| Current greenfield output and optional compatibility specification | Directive behavior | [Setup — current output contract][setup] | 2026-09-09 | New setup does not require `specification.xbrief.json` |
-| Story acceptance, evidence, traces, and decomposition DAG | Directive behavior | [Decompose skill][decompose], [xBRIEF taxonomy][taxonomy], and [verification guidance][verification] | 2026-09-09 | Story dependencies use `swarm.depends_on`; phase/epic metadata may supplement it |
-| Vertical capability and tracer-bullet shape | Directive behavior | [Glossary — feature and vertical slice][upstream-glossary] and [GitHub slicing guidance][gh-slice] | 2026-09-09 | Independently demoable/verifiable, not universally independently deployable |
-| Proposed lifecycle and current implementation contract | Directive behavior | [Commands — scope lifecycle][commands] and [main — xBRIEF Persistence][main] | 2026-09-09 | Proposal remains candidate state |
-| Fictional, command-free exercise and explicit worksheet evidence | 3Ci policy | [Project definition](../../xbrief/PROJECT-DEFINITION.xbrief.json) LabModel and ProjectRules | 2026-09-09 | Worksheet fields are not canonical schema keys |
+| Statement supported | Pinned source and heading | Verified date | Notes or disagreement |
+| --- | --- | --- | --- |
+| Idea-to-strategy loop and lifecycle surfaces | [Lifecycle — inception and stage surfaces][lifecycle] | 2026-09-09 | Original course paraphrase |
+| Preparatory versus spec-generating strategies and Interview choice | [Strategy categories][strategies] and [Interview choices][interview] | 2026-09-09 | Strategy prose retains deprecated slash-command and vBRIEF wording |
+| Current greenfield output and optional compatibility specification | [Setup — current output contract][setup] | 2026-09-09 | New setup does not require `specification.xbrief.json` |
+| Story acceptance, evidence, traces, and decomposition DAG | [Decompose skill][decompose], [xBRIEF taxonomy][taxonomy], and [verification guidance][verification] | 2026-09-09 | Story dependencies use `swarm.depends_on`; phase/epic metadata may supplement it |
+| Vertical capability and tracer-bullet shape | [Glossary — feature and vertical slice][upstream-glossary] and [GitHub slicing guidance][gh-slice] | 2026-09-09 | Independently demoable/verifiable, not universally independently deployable |
+| Proposed lifecycle and current implementation contract | [Commands — scope lifecycle][commands] and [main — xBRIEF Persistence][main] | 2026-09-09 | Proposal remains candidate state |
+| Fictional, command-free exercise and explicit worksheet evidence | [Project definition](../../xbrief/PROJECT-DEFINITION.xbrief.json) LabModel and ProjectRules | 2026-09-09 | Worksheet fields are not canonical schema keys |
 
 This lesson is an original paraphrase and fictional teaching adaptation. See the
 [source baseline](../../references/SOURCE-BASELINE.md), [Module 6 verification notes](../../references/SOURCE-NOTES.md#module-6-verification),

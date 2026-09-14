@@ -2,13 +2,7 @@
 
 Assessments show whether a learner can apply a module's outcomes and support the result with evidence. They are self-directed, practical, and recoverable. A learner does not need an instructor, reviewer, or review bot to attempt or evaluate one.
 
-## Rule labels
-
-- **[Directive behavior]** identifies a claim verified against the pinned Directive release and [source baseline](../references/SOURCE-BASELINE.md).
-- **[3Ci policy]** identifies a local requirement for this private curriculum or 3Ci work. It is not an upstream Directive guarantee.
-- **[Course guidance]** identifies a recommended learning technique.
-
-An assessment must not present a 3Ci preference as Directive behavior.
+An assessment must distinguish local requirements from statements grounded in the pinned Directive release.
 
 ## Available assessment path
 
@@ -58,7 +52,7 @@ Each outcome needs practical evidence. Reading the lesson, completing steps, or 
 | Recovery | Original symptom or supplied failure record, diagnosed cause, bounded recovery, and either a passing retry or an observable retry gate when manufacturing the failure would be unsafe | “It worked after I tried again” |
 | Explanation | A short causal account tied to the mental model and evidence | Memorized wording without an observed example |
 
-Keep evidence small enough to review. **[3Ci policy]** Do not include credentials, client information, proprietary source, production logs, confidential issue content, full environment dumps, or unrelated repository state. Evidence stays local unless a separate authorized 3Ci process names an approved destination.
+Keep evidence small enough to review. Do not include credentials, client information, proprietary source, production logs, confidential issue content, full environment dumps, or unrelated repository state. Evidence stays local unless a separate authorized 3Ci process names an approved destination.
 
 ## Self-evaluation
 
@@ -81,7 +75,7 @@ Useful feedback has three parts:
 
 Examples:
 
-- Useful: “Your classification names the correct tool, but it does not distinguish the product behavior from the 3Ci policy. Revisit ‘Rule labels,’ add one source for each claim, and retry Outcome 2.”
+- Useful: “Your classification names the correct tool, but it does not distinguish product behavior from a local requirement. Add one source for each statement and retry Outcome 2.”
 - Useful: “The artifact is correct, but the stated acceptance command exited `1`. Use the failure table for that command and retain the error before retrying.”
 - Not useful: “Incorrect. Review the material.”
 - Not useful: “Follow the sample exactly.” An alternate approach passes when it satisfies the same outcome, safety boundary, and required validation.
@@ -108,7 +102,8 @@ If the observed Directive command or behavior differs from an assessment:
 3. align to the course pin or record the environment as blocked;
 4. do not guess at newer syntax or silently change the expected answer.
 
-**[Directive behavior]** claims remain scoped to the recorded release. **[3Ci policy]** may be stricter and remains labeled separately.
+Version-sensitive Directive statements remain scoped to the recorded release.
+Local requirements may be stricter and must cite their governing source.
 
 ## Safety boundary
 
@@ -118,7 +113,7 @@ If the observed Directive command or behavior differs from an assessment:
 - Do not add a remote, push, open a pull request, deploy, publish, release, or use production credentials.
 - Prefer a fresh disposable attempt when reset targets are uncertain.
 
-These are **[3Ci policy]** requirements for the curriculum. They do not describe every capability of Directive.
+These are local requirements for the curriculum. They do not describe every capability of Directive.
 
 ## For assessment authors
 
@@ -130,7 +125,7 @@ Start with [the assessment template](../templates/assessment-template.md). An as
 - every literal command was run on every claimed platform, while command-free outcomes name a reproducible inspection;
 - an expected miss leads through the documented feedback to a successful retry;
 - alternate valid approaches can pass;
-- Directive behavior and 3Ci policy are labeled and sourced;
+- version-sensitive product statements and local requirements cite their sources;
 - the solution is available after a suggested first attempt; and
 - no instructor, proprietary data, business repository, external review bot, or production action is required.
 

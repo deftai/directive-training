@@ -94,7 +94,7 @@ implementation mutation readiness: implementation authority + passing required g
 | Project identity and policy | Authored narratives/policy in `xbrief/PROJECT-DEFINITION.xbrief.json` | Derived summaries; its `items` registry is separately refreshed from lifecycle scopes |
 | Work lifecycle and acceptance | Lifecycle files under `xbrief/` | Summaries and status views |
 | Training lessons | Authored repository Markdown | Future wiki, Confluence, or SharePoint pages |
-| Official Directive behavior | Pinned release, tested CLI, and official same-release sources | This course's paraphrases |
+| Product behavior | Pinned release, tested CLI, and official same-release sources | This course's paraphrases |
 | Code structure | `plan.architecture.codeStructure` when defined | Generated codebase map |
 
 If a projection drifts, edit its authoritative source, regenerate it with the

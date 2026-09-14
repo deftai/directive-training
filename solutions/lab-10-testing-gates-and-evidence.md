@@ -14,7 +14,7 @@
 
 Preserve your attempt's error and the matching evidence file. Spend about 35 minutes on the lab before comparing. If you opened this earlier, use it to identify the smallest missed outcome, then retry from a fresh guarded root.
 
-**[3Ci policy]** Keep every command inside the supplied disposable local workflow. Do not adapt this solution to a business repository or add a remote.
+Keep every command inside the supplied disposable local workflow. Do not adapt this solution to a business repository or add a remote.
 
 ## Result summary
 
@@ -43,7 +43,7 @@ The focused test asks whether average works. Literal acceptance asks whether the
 
 ### 3. Repair the governed work
 
-The aggregate reached `quality:record` only after the earlier checks passed. That made the incomplete record the diagnosed work defect. **[Course guidance]** The smallest valid change was the record; touching the Taskfile or verifier would have replaced the comparison rather than satisfied it.
+The aggregate reached `quality:record` only after the earlier checks passed. That made the incomplete record the diagnosed work defect. The smallest valid change was the record; touching the Taskfile or verifier would have replaced the comparison rather than satisfied it.
 
 ## Worked approach
 
@@ -92,7 +92,7 @@ The refactor helper observed a new source digest and the same passing behavior.
 
 ### Step 5 — Run contract and coverage evidence
 
-**[Directive behavior]** The pinned literal gate accepted `npm run test:focused` and `npm run check:behavior`. It safety-refused direct `node` and arbitrary npm script forms during validation, so the supplied contract uses the released allowlist rather than a bypass. Forward coverage passed its source-to-test correspondence; without a coverage report, it did not claim changed-branch percentage evidence.
+The pinned literal gate accepted `npm run test:focused` and `npm run check:behavior`. It safety-refused direct `node` and arbitrary npm script forms during validation, so the supplied contract uses the released allowlist rather than a bypass. Forward coverage passed its source-to-test correspondence; without a coverage report, it did not claim changed-branch percentage evidence.
 
 ### Step 6 — Diagnose and repair the aggregate
 

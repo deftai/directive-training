@@ -12,9 +12,8 @@
 | Prerequisites | Modules 1–6; Node.js 20+, npm, Git, Task, `uv`, and a dedicated terminal |
 | Native platform evidence | macOS/zsh verified; Linux/bash and Windows/PowerShell are candidates, not learner-ready claims |
 
-Claims are labeled **[Directive behavior]**, **[3Ci policy]**, or **[Course guidance]**.
-The first describes the pinned release, the second a local safety rule, and the third a
-teaching technique.
+Version-sensitive statements cite the pinned release. Local safety rules name their source,
+and teaching techniques explain their purpose.
 
 ## Learning outcomes
 
@@ -43,7 +42,7 @@ Without running a command, classify each statement as true or false:
 All four are false. If any felt true, reread [Module 4](04-xbrief-as-durable-state.md) and
 [Module 6](06-creating-well-shaped-work.md) before entering the lab.
 
-**[Course guidance]** Write one sentence for each false statement. This exposes the exact
+Write one sentence for each false statement. This exposes the exact
 boundary you need to observe rather than turning the module into command memorization.
 
 ## Why this matters
@@ -53,12 +52,12 @@ Well-shaped work is still only candidate work. A repository needs a durable answ
 now?” Confusing those questions produces two common failures: starting unapproved work, or
 treating an old completed record as permission for a new change.
 
-**[Directive behavior]** The lifecycle file records durable state. The current
+The lifecycle file records durable state. The current
 implementation contract is an active/running xBRIEF plus the operator's live implementation
 instruction. Deterministic gates then establish readiness. No single file, chat message, or
 green check substitutes for the whole conjunction.
 
-**[3Ci policy]** In this course, lifecycle commands run only in the supplied fictional,
+In this course, lifecycle commands run only in the supplied fictional,
 no-remote, operating-system temporary repository. The lesson does not authorize a push,
 pull request, merge, deployment, publication, or change in a business repository.
 
@@ -95,7 +94,7 @@ defect, not as a judgment call about which half “really” wins.
 
 ### 1. Proposed is reviewable, not runnable
 
-**[Directive behavior]** `proposed/` holds shaped work for consideration. At 0.112.0,
+`proposed/` holds shaped work for consideration. At 0.112.0,
 preflight against the fictional proposed story exits `1` in the pinned Directive engine and
 prints that only `active/` is eligible. On the verified host, go-task 3.50.0 wraps that child
 failure as process exit `201`. Both are retained: the engine exit is the release-bound claim;
@@ -106,7 +105,7 @@ validation and audit behavior. Use the command surface.
 
 ### 2. Promotion and activation answer different questions
 
-**[Directive behavior]** Promotion means “approved into pending work.” Activation means
+Promotion means “approved into pending work.” Activation means
 “this is the current running scope.” The consumer Task spellings are:
 
 ```text
@@ -120,12 +119,12 @@ documentation disagreement, not permission to use the legacy model. New course w
 
 ### 3. Active state is necessary, not sufficient
 
-**[Directive behavior]** An active/running scope supplies the durable half of the current
+An active/running scope supplies the durable half of the current
 contract. The operator's live implementation instruction supplies the human-intent half.
 The lab makes that instruction explicit with `--intent=implement`, which applies only to the
 current helper invocation and is recorded as such.
 
-**[Course guidance]** Think in three rows:
+Think in three rows:
 
 | Question | Evidence | If missing |
 | --- | --- | --- |
@@ -137,11 +136,11 @@ A gate tests a condition; it does not expand scope or invent human permission.
 
 ### 4. Completion and cancellation preserve history
 
-**[Directive behavior]** `scope:complete` closes an active scope as
+`scope:complete` closes an active scope as
 `completed/completed`. `scope:cancel` preserves a no-longer-wanted scope as
 `cancelled/cancelled`. Neither outcome should be imitated by deletion or manual movement.
 
-**[Course guidance]** In the lab, the completion story has no product edit or remote delivery.
+In the lab, the completion story has no product edit or remote delivery.
 Its completion proves the lifecycle mechanism, not that software shipped. This deliberate
 limit keeps lifecycle state separate from the evidence ladder taught later.
 
@@ -250,18 +249,18 @@ retain the failure first and retry in a fresh attempt.
 ## Navigation
 
 - Previous: [Module 6 — Creating Well-Shaped Work](06-creating-well-shaped-work.md)
-- Course map: [3Ci Directive training](../README.md)
+- Course map: [Directive training](../README.md)
 - Practice: [Lab 7 — Scope Lifecycle](../../labs/07-scope-lifecycle.md)
 - Next: [Module 8 — Session Start and Authorized Work Selection](08-session-and-work-selection.md)
 
 ## Official sources
 
-| Claim | Type | Source | Checked |
-| --- | --- | --- | --- |
-| Lifecycle transitions and consumer Task forms | Directive behavior | [Commands — Scope xBRIEF Lifecycle][commands] | 2026-09-09 |
-| Active contract plus live operator instruction | Directive behavior | [Main — xBRIEF Persistence][main] | 2026-09-09 |
-| Session routing and gated ritual | Directive behavior | [Commands — Session routing and ritual][commands] | 2026-09-09 |
-| Release-specific runtime exits and Task wrapper result | Observed evidence | [Module 7 source validation](../../references/SOURCE-NOTES.md#module-7-source-validation) | 2026-09-09 |
+| Statement | Source | Checked |
+| --- | --- | --- |
+| Lifecycle transitions and consumer Task forms | [Commands — Scope xBRIEF Lifecycle][commands] | 2026-09-09 |
+| Active contract plus live operator instruction | [Main — xBRIEF Persistence][main] | 2026-09-09 |
+| Session routing and gated ritual | [Commands — Session routing and ritual][commands] | 2026-09-09 |
+| Release-specific runtime exits and Task wrapper result | [Module 7 source validation](../../references/SOURCE-NOTES.md#module-7-source-validation) | 2026-09-09 |
 
 [commands]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md
 [main]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/main.md

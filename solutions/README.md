@@ -2,13 +2,7 @@
 
 Solutions are part of the self-directed curriculum. They explain how and why a result satisfies the learning outcomes, how to recover from common failures, and how to judge valid alternatives. They are not instructor-only answer keys.
 
-## Rule labels
-
-- **[Directive behavior]** identifies a claim verified against the pinned Directive release and [source baseline](../references/SOURCE-BASELINE.md).
-- **[3Ci policy]** identifies a local requirement for this curriculum or 3Ci work. It is not an upstream Directive guarantee.
-- **[Course guidance]** identifies a recommended learning technique or example approach.
-
-Every solution keeps these claim types separate.
+Every solution separates pinned product facts, local requirements, and learning advice through clear prose and citations.
 
 ## Available solutions
 
@@ -56,7 +50,7 @@ A learner-ready explained solution includes:
 
 - source exercise, stable ID, status, date, and exact Directive baseline;
 - outcome-to-evidence mapping;
-- controlling **[Directive behavior]** and **[3Ci policy]** claims with sources;
+- controlling product facts and local requirements with sources;
 - the decision criteria, not only a sequence of commands;
 - complete reproducible artifacts, commands, or inspection steps;
 - predicted and observed evidence;
@@ -75,7 +69,7 @@ Use this order:
 |---|---|---|
 | Baseline | Are package version, engine version, platform, and shell the same? | Align to the course pin or record an environment block. |
 | Starting state | Did both attempts begin from the declared fixture and checkpoint? | Use the source exercise's start recovery. |
-| Rule source | Is the decision based on Directive behavior, 3Ci policy, or course guidance? | Return to the cited source; do not blend claim types. |
+| Rule source | Is the decision based on the pinned product, a local requirement, or learning advice? | Return to the cited source and preserve the distinction. |
 | Artifact | Does your artifact satisfy the same observable condition? | Keep valid alternatives; change only what a gate disproves. |
 | Validation or inspection | Did the exact command or stated inspection produce the required result? | Preserve the mismatch and follow its recovery. |
 | Cleanup | Is the exact disposable directory archived, retained for retry, or otherwise handled as stated? | Finish the recoverable cleanup before declaring done. |
@@ -101,7 +95,7 @@ Use [the lab environment guide](../labs/README.md) for deterministic reset and r
 
 ## Version drift
 
-**[Directive behavior]** in a solution is valid for the recorded baseline. If local output differs:
+A version-sensitive product statement in a solution is valid for the recorded baseline. If local output differs:
 
 1. capture `directive --version`;
 2. capture the relevant `directive <verb> --help` output;
@@ -109,14 +103,14 @@ Use [the lab environment guide](../labs/README.md) for deterministic reset and r
 4. align to the course pin or record the attempt as blocked by environment; and
 5. report the discrepancy through the repository's authorized maintenance path.
 
-Do not silently update a solution from remembered behavior. Do not reinterpret a **[3Ci policy]** requirement as an upstream product feature.
+Do not silently update a solution from remembered behavior. Do not reinterpret a local requirement as an upstream product feature.
 
 ## Safety and privacy
 
-- **[3Ci policy]** Run solution commands only in the exercise's disposable local repository.
-- **[3Ci policy]** Never run reset, cleanup, or implementation commands in this curriculum repository or a business repository.
-- **[3Ci policy]** Use fictional data only. Do not copy client information, proprietary source, production logs, credentials, or confidential backlog content into an attempt or evidence note.
-- **[3Ci policy]** Do not add a remote, push, open a pull request, deploy, publish, release, or contact production.
+- Run solution commands only in the exercise's disposable local repository.
+- Never run reset, cleanup, or implementation commands in this curriculum repository or a business repository.
+- Use fictional data only. Do not copy client information, proprietary source, production logs, credentials, or confidential backlog content into an attempt or evidence note.
+- Do not add a remote, push, open a pull request, deploy, publish, release, or contact production.
 
 A solution must explain a safe local substitute if an upstream feature can perform a remote or destructive action.
 
@@ -144,8 +138,8 @@ Start with [the solution template](../templates/solution-template.md). Before li
 - map every source outcome to practical evidence;
 - explain the mental model and decision criteria;
 - identify valid alternatives without weakening the gates;
-- cite each Directive behavior claim against the pinned release;
-- label every 3Ci rule as **[3Ci policy]**;
+- cite each version-sensitive product statement against the pinned release;
+- make every local requirement explicit and cite its source;
 - confirm the source exercise, reset, cleanup, and next links work; and
 - confirm that no instructor, proprietary data, business repository, live deployment, or external review bot is required.
 

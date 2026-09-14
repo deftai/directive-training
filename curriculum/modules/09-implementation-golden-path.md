@@ -12,9 +12,6 @@
 | Prerequisites | Modules 1–8; Node.js 20+, npm, Git, Task, `uv`, and a dedicated zsh terminal |
 | Native platform evidence | macOS/zsh verified; Linux/bash and Windows/PowerShell are candidates |
 
-Claims use **[Directive behavior]**, **[3Ci policy]**, and **[Course guidance]**.
-The labels distinguish pinned product behavior, local safeguards, and teaching advice.
-
 ## Learning outcomes
 
 By the end of this module, you can:
@@ -43,7 +40,7 @@ All four answers are **no**. A focused red test describes the desired behavior, 
 readiness must authorize the mutation first. Behavioral and diff evidence answer different
 questions. A failed gate is diagnostic evidence, not permission to weaken the check.
 
-**[Course guidance]** If any answer was yes, write the evidence that would disprove it.
+If any answer was yes, write the evidence that would disprove it.
 Then continue to the mental model.
 
 ## Why this matters
@@ -52,11 +49,11 @@ Implementation is where a sound scope can still drift. A developer may begin fro
 branch, treat a plausible task as authorized, change extra files, or stop after one green
 test. The golden path makes each boundary observable.
 
-**[Directive behavior]** At the pinned release, session start, the gated session ritual,
+At the pinned release, session start, the gated session ritual,
 story readiness, and active xBRIEF preflight establish current process readiness. They do
 not write the product change.
 
-**[3Ci policy]** This exercise runs only in its guarded fictional repository. It authorizes
+This exercise runs only in its guarded fictional repository. It authorizes
 no remote, push, pull request, merge, deployment, publication, release, or business-repository
 mutation.
 
@@ -115,7 +112,7 @@ In prose, the exact sequence is `task deft:session:start -- --session-id=<curren
 `task deft:xbrief:preflight -- xbrief/active/fictional-greeting.xbrief.json`, and
 `npm run test:focused`. Final patch proof includes `git diff --check`.
 
-**[Directive behavior]** The active/running contract and live implementation instruction
+The active/running contract and live implementation instruction
 supply authority; current gates establish readiness. A prior green session or completed
 story is not a substitute.
 
@@ -126,7 +123,7 @@ for a named greeting, a fallback greeting, a clear non-string error, and fifty o
 fictional names. The starting implementation always returns `Hello!`, so the focused suite
 fails before any edit.
 
-**[Course guidance]** Read the failure, test, active acceptance statement, and one-file
+Read the failure, test, active acceptance statement, and one-file
 allowlist together. Do not expand the task into refactoring the CLI, test suite, manifest,
 or framework files.
 
@@ -136,7 +133,7 @@ The active scope permits only `src/greeting.mjs`. A coherent change handles all 
 cases in that file: trim a string, use `teammate` for missing or blank input, and reject a
 provided non-string. Partial work that makes one assertion green is small but not coherent.
 
-**[3Ci policy]** Only the exact allowlisted product file may differ from the checkpoint.
+Only the exact allowlisted product file may differ from the checkpoint.
 If another path changes, stop and preserve the attempt. Do not widen the scope after the
 fact to legitimize an unrelated edit.
 
@@ -157,7 +154,7 @@ The guard rejects a non-temporary root, changed branch, added remote, version dr
 multiple active stories, altered immutable fixture, expanded file list, or invalid evidence.
 This is a safe stop. It is not a puzzle to solve by modifying the helper.
 
-**[Course guidance]** Prefer the reset verb. It creates a new unique attempt while leaving
+Prefer the reset verb. It creates a new unique attempt while leaving
 the failed attempt and its evidence intact. Archive later moves one explicitly named attempt
 parent to a recoverable temporary archive.
 
@@ -253,18 +250,18 @@ Use it to diagnose the smallest gap, then retry from a known state.
 ## Navigation
 
 - Previous: [Module 8 — Session Start and Authorized Work Selection](08-session-and-work-selection.md)
-- Course map: [3Ci Directive training](../README.md)
+- Course map: [Directive training](../README.md)
 - Practice: [Lab 9 — Implementation Golden Path](../../labs/09-implementation-golden-path.md)
 - Next: [Module 10 — Testing, Gates, and Evidence](10-testing-gates-and-evidence.md)
 
 ## Official sources
 
-| Claim | Type | Source | Checked |
-| --- | --- | --- | --- |
-| Session routing and gated ritual | Directive behavior | [Directive commands][commands] | 2026-09-10 |
-| Story readiness and active preflight | Directive behavior | [Directive commands][commands] | 2026-09-10 |
-| Gate integrity | Directive behavior | [Directive main][main] | 2026-09-10 |
-| Exact runtime observations | Observed evidence | [Module 9 source validation](../../references/SOURCE-NOTES.md#module-9-source-validation) | 2026-09-10 |
+| Statement | Source | Checked |
+| --- | --- | --- |
+| Session routing and gated ritual | [Directive commands][commands] | 2026-09-10 |
+| Story readiness and active preflight | [Directive commands][commands] | 2026-09-10 |
+| Gate integrity | [Directive main][main] | 2026-09-10 |
+| Exact runtime observations | [Module 9 source validation](../../references/SOURCE-NOTES.md#module-9-source-validation) | 2026-09-10 |
 
 [commands]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md
 [main]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/main.md

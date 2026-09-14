@@ -37,7 +37,7 @@ Northstar Route Checker is a fictional future JavaScript route-validation tool; 
 - npm, Git, GitHub CLI, and either zsh, bash, or PowerShell 7.4 or newer.
 - A local clone of this private curriculum repository, used only to read the fixture.
 - Access to the public npm registry for `@deftai/directive@0.112.0`. The normal
-  path uses a project-local public-registry `.npmrc`; if 3Ci policy requires a
+  path uses a project-local public-registry `.npmrc`; if organizational policy requires a
   different approved route, stop and use the recovery boundary instead.
 
 First run:
@@ -269,9 +269,9 @@ Continue only after PowerShell prints `module_02_start=ready`.
 
 ## Safety boundary
 
-- **[3Ci policy]** Work only in the exact `lab_root` or `$LabRoot`; never initialize, reset, clean, or implement in this curriculum or a business repository.
-- **[3Ci policy]** Keep `git remote` empty; do not push, open a pull request, deploy, release, publish, or call production.
-- **[3Ci policy]** Do not put tokens, credentials, environment dumps, client data, proprietary code, production logs, or confidential issues in commands or evidence.
+- Work only in the exact `lab_root` or `$LabRoot`; never initialize, reset, clean, or implement in this curriculum or a business repository.
+- Keep `git remote` empty; do not push, open a pull request, deploy, release, publish, or call production.
+- Do not put tokens, credentials, environment dumps, client data, proprietary code, production logs, or confidential issues in commands or evidence.
 - Mutations are limited to the exact temporary parent, its Git metadata, fixture files, dependency state, Directive integration/runtime state, and adjacent evidence lists.
 - Stop if the root guard fails, a remote appears, the pin differs from 0.112.0, or a command requests unexpected credentials or external action.
 

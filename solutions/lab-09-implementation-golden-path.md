@@ -13,15 +13,13 @@
 | Directive baseline | CLI/core/content/types `0.112.0`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Lab 9](../labs/09-implementation-golden-path.md) |
 
-Claims use **[Directive behavior]**, **[3Ci policy]**, and **[Course guidance]**.
-
 ## Before you use this solution
 
 Spend about ten minutes on the lab after preserving the expected focused failure. Keep the
 attempt and evidence so you can compare observations, not memory. This is advice, not an
 access gate.
 
-**[3Ci policy]** Run this approach only in the exact guarded fictional attempt. Do not paste
+Run this approach only in the exact guarded fictional attempt. Do not paste
 the answer into this curriculum checkout or a business repository. Do not add a remote or
 perform a remote delivery action.
 
@@ -49,11 +47,11 @@ implementation is valid if it preserves the same behavior, boundary, and evidenc
 
 ### 1. Establish the controlling facts
 
-- **[Directive behavior]** At 0.112.0, the fixture's session ritual, story-ready check, and
+- At 0.112.0, the fixture's session ritual, story-ready check, and
   active xBRIEF preflight must pass before its implementation phase.
-- **[3Ci policy]** The active file scope is the complete mutation boundary: only
+- The active file scope is the complete mutation boundary: only
   `src/greeting.mjs` may change in this no-remote lab.
-- **[Course guidance]** Retain the focused red first so the later green supports a causal
+- Retain the focused red first so the later green supports a causal
   implementation claim rather than merely reporting a currently passing test.
 
 The tests are product expectations, not editable suggestions. The helper and evidence

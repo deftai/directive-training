@@ -37,7 +37,7 @@ Set a timer for three minutes. In a scratch note, answer these questions without
 
 **If the check does not pass:** If question 1 is blank, review the audience and prerequisites in the [curriculum map](../README.md) before continuing. If question 2 or 3 is blank, write “not sure” and continue—the terminology and walkthrough below provide the missing model. This module requires no installation or command recovery.
 
-> **[3Ci policy]** This module is conceptual. Do not initialize Directive or change files in this training repository, a client repository, or another business repository. Use paper or a personal, untracked scratch note. Later labs use disposable repositories and fictional data.
+> This module is conceptual. Do not initialize Directive or change files in this training repository, a client repository, or another business repository. Use paper or a personal, untracked scratch note. Later labs use disposable repositories and fictional data.
 
 ## Why this matters
 
@@ -45,29 +45,23 @@ Teams often compare AI tools as if every tool performs the same job. That leads 
 
 Directive addresses a narrower and more durable problem: how humans and coding agents share the same repository practices even when the host, session, or contributor changes. Correctly locating Directive in the tool stack helps you decide what it can govern, what it can complement, and what must be supplied by something else.
 
-Throughout this course, statements use three labels:
-
-- **[Directive behavior]** — behavior grounded in the pinned official release.
-- **[3Ci policy]** — an internal safety or operating rule for this curriculum and 3Ci use.
-- **[Course guidance]** — a teaching recommendation, not an upstream product requirement.
-
 ## Terminology
 
-| Term | Working definition for this course | Claim type |
-| --- | --- | --- |
-| **Coding-agent host** | The editor, CLI, or other environment that runs the coding agent and exposes files, tools, approvals, and conversation. | **[Directive behavior]** |
-| **Skill pack** | Reusable instructions or techniques that improve how an agent handles a kind of task, usually through the host’s skill mechanism. | **[Directive behavior]** |
-| **Directive practice layer** | An installable repository practice layer that gives humans and coding agents shared standards, durable work state, and automated gates. | **[Directive behavior]** |
-| **Application-agent orchestrator** | Runtime code in a product that coordinates agents as part of the product’s behavior. It operates inside the application, not as the repository’s delivery practice. | **[Directive behavior]** |
-| **Shared standards** | Layered, version-aware rules and guidance that contributors load for the work they are doing. | **[Directive behavior]** |
-| **Durable work state** | Structured project and work records that survive chat boundaries. In current Directive projects, xBRIEF files provide this state. | **[Directive behavior]** |
-| **Deterministic gate** | An executable check with an observable result. Given its declared inputs and rules, it reports pass or failure instead of depending on an agent remembering prose. | **[Directive behavior]** |
-| **xBRIEF** | Directive’s current public name for structured project and work-state files. New xBRIEFs use schema version `0.8`. | **[Directive behavior]** |
-| **Deft / Directive** | Deft is the company and the name used in paths and package scope; Directive is the product installed as `@deftai/directive` and run with `directive` (`deft` is also an alias). | **[Directive behavior]** |
+| Term | Working definition for this course |
+| --- | --- |
+| **Coding-agent host** | The editor, CLI, or other environment that runs the coding agent and exposes files, tools, approvals, and conversation. |
+| **Skill pack** | Reusable instructions or techniques that improve how an agent handles a kind of task, usually through the host’s skill mechanism. |
+| **Directive practice layer** | An installable repository practice layer that gives humans and coding agents shared standards, durable work state, and automated gates. |
+| **Application-agent orchestrator** | Runtime code in a product that coordinates agents as part of the product’s behavior. It operates inside the application, not as the repository’s delivery practice. |
+| **Shared standards** | Layered, version-aware rules and guidance that contributors load for the work they are doing. |
+| **Durable work state** | Structured project and work records that survive chat boundaries. In current Directive projects, xBRIEF files provide this state. |
+| **Deterministic gate** | An executable check with an observable result. Given its declared inputs and rules, it reports pass or failure instead of depending on an agent remembering prose. |
+| **xBRIEF** | Directive’s current public name for structured project and work-state files. New xBRIEFs use schema version `0.8`. |
+| **Deft / Directive** | Deft is the company and the name used in paths and package scope; Directive is the product installed as `@deftai/directive` and run with `directive` (`deft` is also an alias). |
 
 ## Mental model
 
-**[Directive behavior]** Classify by **job and boundary**, not by whether a tool mentions “agents,” “skills,” or “workflow.” Ask these four questions:
+Classify by **job and boundary**, not by whether a tool mentions “agents,” “skills,” or “workflow.” Ask these four questions:
 
 | Question | Category |
 | --- | --- |
@@ -88,7 +82,7 @@ The model identifies a component’s job. It does not say that the component is 
 
 ### 1. A host is the execution environment
 
-**[Directive behavior]** Directive is not an editor, terminal, chat UI, model provider, or coding-agent runtime. A coding-agent host supplies those interaction and execution surfaces. Directive feeds repository instructions and work context to a compatible host; the host still runs the agent.
+Directive is not an editor, terminal, chat UI, model provider, or coding-agent runtime. A coding-agent host supplies those interaction and execution surfaces. Directive feeds repository instructions and work context to a compatible host; the host still runs the agent.
 
 Changing hosts therefore does not automatically change the repository’s accepted work or its checks. Host-specific capabilities can change, but the repository practice layer remains a separate concern.
 
@@ -96,11 +90,11 @@ Changing hosts therefore does not automatically change the repository’s accept
 
 A skill can teach an agent a repeatable technique: diagnose before fixing, write a structured plan, or review a diff in a particular order. That is valuable, but a technique alone does not necessarily record accepted work in the repository or enforce a check after the conversation ends.
 
-**[Directive behavior]** Directive includes skills, but it is not *only* a skill pack. Skills are one part of a larger repository deposit that also includes structured work state and executable gates.
+Directive includes skills, but it is not *only* a skill pack. Skills are one part of a larger repository deposit that also includes structured work state and executable gates.
 
 ### 3. Directive is a repository practice layer
 
-**[Directive behavior]** Directive materializes versioned practice for a Git repository. Its current model has three reinforcing pillars:
+Directive materializes versioned practice for a Git repository. Its current model has three reinforcing pillars:
 
 1. **Shared standards answer “how should work be done?”** Layered guidance lets an agent load general, project, language, tool, and workflow rules as needed. Lazy loading keeps the context focused instead of placing every rule in one enormous prompt.
 2. **Durable work state answers “what is true about the project and this work?”** Current projects use xBRIEF `0.8` records for project identity and scoped work. Lifecycle folders such as `proposed`, `pending`, `active`, `completed`, and `cancelled` make work status visible outside a chat transcript.
@@ -120,7 +114,7 @@ No single pillar is the whole product model. A committed instruction file is use
 
 An orchestrator routes messages, tools, memory, or roles among agents while an application is operating. Its boundary is the product’s runtime behavior—for example, a support application that sends a request to a classifier and then a response agent.
 
-**[Directive behavior]** Directive may govern a coding agent's repository work. That does not turn Directive into an application-agent orchestrator. The deciding question is whether the workflow governs delivery of the repository or runs as behavior inside the shipped application.
+Directive may govern a coding agent's repository work. That does not turn Directive into an application-agent orchestrator. The deciding question is whether the workflow governs delivery of the repository or runs as behavior inside the shipped application.
 
 ### 5. “Deterministic” does not mean “infallible”
 
@@ -128,7 +122,7 @@ A deterministic gate makes the decision surface explicit and repeatable: a comma
 
 ### 6. Directive connects inception to repeated delivery work
 
-**[Directive behavior]** Directive’s conceptual lifecycle begins by turning a concept into a project definition and proposed scopes. Daily sessions then resume from durable state, select and refine work, implement it, verify it, and feed new learning or issues back into the next cycle. It is deliberately re-entered; it is not a one-time prompt or a pipeline that is forgotten after setup.
+Directive’s conceptual lifecycle begins by turning a concept into a project definition and proposed scopes. Daily sessions then resume from durable state, select and refine work, implement it, verify it, and feed new learning or issues back into the next cycle. It is deliberately re-entered; it is not a one-time prompt or a pipeline that is forgotten after setup.
 
 ## Walkthrough: the Atlas Notes team
 
@@ -138,7 +132,7 @@ Classify every component in a small tool stack and predict what persists when th
 
 ### Safe setup
 
-**[Course guidance]** Atlas Notes is a fictional command-line application. Read the scenario and use only your scratch note; do not change a repository.
+Atlas Notes is a fictional command-line application. Read the scenario and use only your scratch note; do not change a repository.
 
 ### Actions and observations
 
@@ -212,7 +206,7 @@ Keep the following in your scratch note:
 
 After a first attempt, use the hints progressively. Then compare with the explained solution. A successful attempt has at least five of six Part A cards correct, identifies every missing pillar in Part B, and explains the repository-delivery versus application-runtime boundary in Part C. If you miss the threshold, follow the recovery guidance in the solution and retry only the missed items.
 
-> **[3Ci policy]** Solutions are available for independent study after a suggested first attempt. There is no instructor-access gate. Use the solution to inspect your reasoning, not merely to copy codes.
+> Solutions are available for independent study after a suggested first attempt. There is no instructor-access gate. Use the solution to inspect your reasoning, not merely to copy codes.
 
 ## Progressive hints
 
@@ -252,7 +246,7 @@ Editor/CLI execution points to `H`; reusable task method points to `S`; shared r
 
 ## Common misconceptions
 
-**[Directive behavior]** The corrections below restate the pinned category and concepts model.
+The corrections below restate the pinned category and concepts model.
 
 - **“Directive is the agent.”** The coding host runs the agent; Directive supplies repository practice.
 - **“A collection of skills is equivalent to Directive.”** Skills can be part of the stack, but skills alone do not establish all three pillars.
@@ -291,7 +285,7 @@ Make a first attempt and use the progressive hints before opening the [Module 1 
 
 - **Previous:** [Curriculum map](../README.md)
 - **Next:** [Module 2 — Installation and Project Anatomy](02-installation-and-anatomy.md)
-- **Course home:** [3Ci Directive Training](../../README.md)
+- **Course home:** [Directive Training](../../README.md)
 
 ## Official sources
 

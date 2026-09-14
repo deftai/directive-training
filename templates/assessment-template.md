@@ -15,12 +15,6 @@
 | Attempt conditions | Open-book or closed-note, permitted tools, and disposable environment requirement |
 | Explained solution | Relative path to the learner-accessible solution |
 
-Use claim labels consistently:
-
-- **[Directive behavior]** — verified behavior of the pinned Directive release.
-- **[3Ci policy]** — a local expectation for this course or 3Ci work.
-- **[Course guidance]** — advice about how to learn or attempt the assessment.
-
 ## Purpose
 
 `{{WHAT_THE_ASSESSMENT_PROVES_AND_WHY_THE_EVIDENCE_IS_USEFUL}}`
@@ -35,7 +29,7 @@ This assessment measures practical outcomes. It does not measure confidence, mem
 4. Keep a small evidence record with artifacts, observations, and written decisions. When the assessment runs commands, also keep their exit codes and relevant output.
 5. Plan a first attempt of at least `{{SUGGESTED_FIRST_ATTEMPT_MINUTES}}` minutes before opening the solution.
 
-**[3Ci policy]** Never perform the assessment in this curriculum repository or a business repository. Use only fictional data. Do not use credentials, production access, client information, proprietary source, production logs, or confidential backlog content.
+Never perform the assessment in this curriculum repository or a business repository. Use only fictional data. Do not use credentials, production access, client information, proprietary source, production logs, or confidential backlog content.
 
 ## Outcomes and evidence map
 
@@ -142,7 +136,7 @@ the artifact and reasoning that expose the mismatch.
 Use one to three short prompts to test decisions that command output cannot prove.
 
 1. `{{EXPLAIN_A_DECISION_AND_CITE_OBSERVED_EVIDENCE}}`
-2. `{{DISTINGUISH_DIRECTIVE_BEHAVIOR_FROM_3CI_POLICY}}`
+2. `{{DISTINGUISH_PRODUCT_BEHAVIOR_FROM_LOCAL_REQUIREMENTS}}`
 3. `{{DESCRIBE_A_SAFE_RECOVERY_FOR_A_GIVEN_FAILURE_OR_REMOVE}}`
 
 Each acceptable answer must name the relevant evidence or source. Avoid trivia that a learner can answer without applying the module.
@@ -211,6 +205,6 @@ If that statement is not fully supported, record the specific outcome as Nearly 
 - Run every literal command on every claimed platform. For a command-free outcome, test the stated inspection and retain its evidence.
 - Test at least one expected miss and confirm the feedback leads to a successful retry.
 - Confirm alternate correct approaches can pass.
-- Confirm Directive behavior and 3Ci policy are separate and sourced.
+- Confirm version-sensitive product statements and local requirements cite their sources.
 - Confirm the learner can attempt, evaluate, recover, and continue without an instructor.
 - Confirm no task requires business repositories, proprietary data, credentials, live deployment, or an external review bot.

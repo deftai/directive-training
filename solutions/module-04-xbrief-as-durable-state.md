@@ -15,18 +15,12 @@ session may do.
 | Directive baseline | `@deftai/directive@0.112.0`, engine `@deftai/directive-core@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Module 4 artifact exercise](../curriculum/modules/04-xbrief-as-durable-state.md#exercise) |
 
-Claim labels used here:
-
-- **[Directive behavior]** — verified release behavior or convention.
-- **[3Ci policy]** — a local curriculum requirement.
-- **[Course guidance]** — one useful approach or fictional example.
-
 ## Before you use this solution
 
 Spend 12–15 minutes on the exercise and try one hint at a time. Keep the original table,
 lifecycle verdicts, resumption note, and authorization decisions for comparison.
 
-This is a suggestion, not an access gate. **[3Ci policy]** You may read the solution
+This is a suggestion, not an access gate. You may read the solution
 without an instructor, private message, review bot, or automation unlock.
 
 If you opened it first, use the reasoning as a worked example. Close it and retry the
@@ -57,21 +51,21 @@ its generated registry in L.
 
 ### 1. Establish the controlling facts
 
-- **[Directive behavior]** The current public format is xBRIEF under `xbrief/`, with
+- The current public format is xBRIEF under `xbrief/`, with
   `xBRIEFInfo.version: "0.8"` for new writes.
-- **[Directive behavior]** The scope's `plan.status` must match its lifecycle folder;
+- The scope's `plan.status` must match its lifecycle folder;
   an item's status is a separate level of state.
-- **[Directive behavior]** The current contract is active scope plus the human's live
+- The current contract is active scope plus the human's live
   instruction. Required passing gates remain separate readiness evidence.
-- **[Directive behavior]** Scope records outlive sessions; plans describe present steps;
+- Scope records outlive sessions; plans describe present steps;
   continue checkpoints temporarily preserve a resume point.
-- **[Directive behavior]** Completed scope records lifecycle closeout and its evidence
+- Completed scope records lifecycle closeout and its evidence
   and disposition. A completed status alone does not prove delivery; explicit non-delivery
   dispositions can close the lifecycle too. F's delivery is a provided scenario fact.
-- **[Directive behavior]** Generated registry entries and Markdown views derive from
+- Generated registry entries and Markdown views derive from
   declared sources. Authored project narratives do not become generated merely because
   they share a JSON file with the registry.
-- **[3Ci policy]** This exercise uses only the provided fictional cards and a scratch note;
+- This exercise uses only the provided fictional cards and a scratch note;
   no repository may change.
 
 The pinned evidence for these statements is listed in [Sources](#sources).
@@ -97,7 +91,7 @@ blocked and K as inconsistent, and keeps the two live-instruction decisions diff
 
 ### Step 1 — Classify all fourteen cards
 
-These are **[Course guidance]** applications of the release rules to the fictional facts.
+These are applications of the release rules to the fictional facts.
 
 | Card | Artifact role | Lifetime/ownership | Evidence field or source | What it can establish | What it cannot authorize |
 | --- | --- | --- | --- | --- | --- |
@@ -311,16 +305,16 @@ repository reset.
 
 ## Sources
 
-| Claim | Type | Pinned source or policy | Verified date |
-| --- | --- | --- | --- |
-| Five artifact roles and generated views | Directive behavior | [Concepts — xBRIEF Is The Durable State][concepts] | 2026-09-07 |
-| Current 0.8 format; current contract; completed boundary | Directive behavior | [main — xBRIEF Persistence][main] | 2026-09-07 |
-| Closeout and delivery evidence are distinct | Directive behavior | [Lifecycle — Delivery integrity vs deploy / UAT][lifecycle] | 2026-09-07 |
-| Scope/plan/checkpoint lifetimes, status convention, identity versus registry | Directive behavior | [Artifact taxonomy — File Taxonomy, Coexistence, PROJECT-DEFINITION][taxonomy] | 2026-09-07 |
-| Draft/proposed and approved/pending vocabulary | Directive behavior | [xBRIEF 0.8 schema][schema] | 2026-09-07 |
-| Folder/status consistency and generated registry/roadmap | Directive behavior | [Commands — Scope xBRIEF Lifecycle and Generated Document Commands][commands] | 2026-09-07 |
-| Checkpoint contents, scope reference, consumed-on-resume lifetime | Directive behavior | [Continue-Here][continue] | 2026-09-07 |
-| Fictional-only work and available solutions | 3Ci policy | [Project definition](../xbrief/PROJECT-DEFINITION.xbrief.json) ProjectRules and LabModel | 2026-09-07 |
+| Statement | Pinned source or policy | Verified date |
+| --- | --- | --- |
+| Five artifact roles and generated views | [Concepts — xBRIEF Is The Durable State][concepts] | 2026-09-07 |
+| Current 0.8 format; current contract; completed boundary | [main — xBRIEF Persistence][main] | 2026-09-07 |
+| Closeout and delivery evidence are distinct | [Lifecycle — Delivery integrity vs deploy / UAT][lifecycle] | 2026-09-07 |
+| Scope/plan/checkpoint lifetimes, status convention, identity versus registry | [Artifact taxonomy — File Taxonomy, Coexistence, PROJECT-DEFINITION][taxonomy] | 2026-09-07 |
+| Draft/proposed and approved/pending vocabulary | [xBRIEF 0.8 schema][schema] | 2026-09-07 |
+| Folder/status consistency and generated registry/roadmap | [Commands — Scope xBRIEF Lifecycle and Generated Document Commands][commands] | 2026-09-07 |
+| Checkpoint contents, scope reference, consumed-on-resume lifetime | [Continue-Here][continue] | 2026-09-07 |
+| Fictional-only work and available solutions | [Project definition](../xbrief/PROJECT-DEFINITION.xbrief.json) ProjectRules and LabModel | 2026-09-07 |
 
 This is an original paraphrase and fictional adaptation. Legacy taxonomy spelling is
 normalized against the release's explicit main rule; no schema 0.6 example is used for new

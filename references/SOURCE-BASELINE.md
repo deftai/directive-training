@@ -30,14 +30,14 @@ When evidence disagrees, use this order:
    module-specific proofs.
 1. This curriculum's explanation.
 
-The first three layers define upstream behavior. The curriculum paraphrases them and labels
-any 3Ci-specific practice as 3Ci policy.
+The first three layers define upstream behavior. The curriculum paraphrases them; any local
+practice must be explicit and cite its governing source.
 
 Upstream source-repository docs usually show unprefixed `task <verb>` commands. This consumer
 repository includes the framework Taskfile as `deft`, so its root-level spelling is
 `task deft:<verb>`. Use `directive <verb>` only when `directive commands` registers that verb.
 
-## Claim-to-source map
+## Statement-to-source map
 
 The source locations and uniquely named headings or labels below are exact in the pinned
 release.

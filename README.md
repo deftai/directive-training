@@ -73,13 +73,13 @@ independent learner walkthrough on each environment remains a separate pilot cla
 
 ## Safety boundary
 
-**[3Ci policy]** Do not run learner exercises in this repository or in a 3Ci
+Do not run learner exercises in this repository or in a 3Ci
 business or client repository. When a module asks you to change files,
 create the disposable repository described in [the lab model](labs/README.md).
 Use only its fictional project and mock data. Never add credentials, client
 information, production logs, or confidential issue content.
 
-**[3Ci policy]** Reading the course does not authorize a push, pull request,
+Reading the course does not authorize a push, pull request,
 merge, deployment, release, or publication. Follow the explicit authorization
 and policy for the repository where work is performed.
 

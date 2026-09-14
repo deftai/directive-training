@@ -15,8 +15,8 @@ repair drift there, and prove the view reflects the intended change.
 | Estimated duration | 45–60 minutes, including Lab 5 and self-assessment |
 | Prerequisites | Modules 1–4; Git, Node.js 20+, npm; zsh on macOS or PowerShell 7.4+ on Windows |
 
-**[Directive behavior]** labels checked upstream behavior. **[3Ci policy]**
-labels this course's requirements. **[Course guidance]** labels learning advice.
+Version-sensitive product statements cite the pinned release. Local requirements name their
+source, and learning advice explains its purpose.
 
 ## Learning outcomes
 
@@ -51,23 +51,23 @@ A generated map looks like ordinary Markdown. Editing its sentence can make
 the display look correct while leaving the source unchanged. Regeneration
 then replaces the edit, and another reader may act on the older information.
 
-**[Directive behavior]** the codebase MAP combines authored architecture
+The codebase MAP combines authored architecture
 metadata with facts obtained by its extractor or provider. Its banner names
 the source and regeneration route. It does not replace the active scope.
 
-**[3Ci policy]** this course's Markdown is authored content. Future wiki or
+This course's Markdown is authored content. Future wiki or
 SharePoint pages will be governed projections. A filename extension alone
 cannot tell you where an edit belongs.
 
 ## Terminology
 
-| Term | Meaning here | Claim type | Do not confuse it with |
-| --- | --- | --- | --- |
-| Authoritative source | Input where the intended durable change belongs | Directive behavior | The most recently opened display |
-| Projection | A view produced from declared inputs | Directive behavior | An independently authored requirement |
-| Drift | A view differs from the rendering of current inputs | Directive behavior | Permission to expand scope |
-| Freshness | Agreement between an existing view and its expected rendering | Directive behavior | Correct product behavior or delivery |
-| Recovery evidence | Failing observation, repair, and passing retry | Course guidance | A success message without an artifact |
+| Term | Meaning here | Do not confuse it with |
+| --- | --- | --- |
+| Authoritative source | Input where the intended durable change belongs | The most recently opened display |
+| Projection | A view produced from declared inputs | An independently authored requirement |
+| Drift | A view differs from the rendering of current inputs | Permission to expand scope |
+| Freshness | Agreement between an existing view and its expected rendering | Correct product behavior or delivery |
+| Recovery evidence | Failing observation, repair, and passing retry | A success message without an artifact |
 
 ## Mental model
 
@@ -87,7 +87,7 @@ of requirements, permission to implement, deployment, or application behavior.
 
 ### 1. Find the owner before choosing a command
 
-**Claim — [Directive behavior]:** generated artifacts have distinct owners.
+Generated artifacts have distinct owners.
 
 | View or registry | Source | Consumer command surface |
 | --- | --- | --- |
@@ -111,7 +111,7 @@ artifact. Do not create one just because the table names it.
 
 ### 2. Inspect the banner and its actual input
 
-**Claim — [Directive behavior]:** the MAP has a generated banner, source
+The MAP has a generated banner, source
 pointer, provider information, and source/artifact digest fields. The pinned
 freshness verifier compares its body with an expected rendering.
 
@@ -128,7 +128,7 @@ that behavior in the fictional source code.
 
 ### 3. Combine evidence
 
-**Claim — [Directive behavior]:** 0.112.0 permits an absent MAP in its freshness
+Directive 0.112.0 permits an absent MAP in its freshness
 check. A successful freshness command therefore does not prove a MAP exists.
 An existing tampered or stale MAP is rejected.
 
@@ -142,7 +142,7 @@ the released freshness command.
 
 **Boundary:** those checks do not demonstrate deployment or code validation.
 
-**[Course guidance]** `--help` is not universally read-only: in this release,
+`--help` is not universally read-only: in this release,
 `codebase:map --help` still renders, and the freshness verb's `--help` still
 checks. Use the tested lab forms within its disposable boundary. See the
 [recorded probes](../../references/SOURCE-NOTES.md).
@@ -189,7 +189,7 @@ staleness, regenerate, and retain passing evidence.
 
 ### Constraints and evidence to keep
 
-- **[3Ci policy]** work in the lab's exact no-remote directory with its fictional
+- work in the lab's exact no-remote directory with its fictional
   data and allowed paths only.
 - Preserve the generated banner and earlier attempt's evidence.
 - Do not alter a verifier, force overwrite, or claim application behavior
@@ -294,7 +294,7 @@ valid alternative approaches.
 | Generated-document ownership | [0.112.0 command families][commands] | 2026-09-07 | Commands serve different artifacts |
 | MAP source and renderer | [Released MAP source][map-source] | 2026-09-07 | Maintainer traceability; learners use public CLI |
 | Missing/tampered/stale MAP behavior | [Released freshness source][fresh-source] and [course probes](../../references/SOURCE-NOTES.md) | 2026-09-07 | Proof is limited to executed environments |
-| Disposable-only boundary | [3Ci lab policy](../../labs/README.md) | 2026-09-07 | Course requirement |
+| Disposable-only boundary | [Lab safety policy](../../labs/README.md) | 2026-09-07 | Course requirement |
 
 [commands]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md
 [map-source]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/packages/core/src/codebase/map.ts

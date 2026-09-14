@@ -10,9 +10,9 @@
 | Exercise model | Command-free analysis of fixed fictional state |
 | Evidence | A completed decision matrix with one reason per decision |
 
-**[Directive behavior]** This module describes the pinned release named above.
-**[3Ci policy]** Use only the fictional cards and snapshots on this page; use no
-live GitHub backlog, cache, repository, or client data. **[Course guidance]**
+This module describes the pinned release named above.
+Use only the fictional cards and snapshots on this page; use no
+live GitHub backlog, cache, repository, or client data.
 Make each decision before reading the explained solution.
 
 ## Learning outcomes
@@ -50,10 +50,9 @@ A session can be correctly aligned yet select the wrong work. It can also select
 the right work without having authority to change anything. These are different
 failures.
 
-**[Directive behavior]** Read-only orientation and mutation use different
+Read-only orientation and mutation use different
 ceremony. An active ordered plan changes what a bare “proceed” means. A ranked
-queue suggests candidate work only when the plan gate permits it. **[3Ci
-policy]** The training exercise separates those judgments so a learner never
+queue suggests candidate work only when the plan gate permits it. The training exercise separates those judgments so a learner never
 needs access to a confidential backlog.
 
 ## Terminology
@@ -123,7 +122,7 @@ does not widen either one.
 | Resume mutation in the same worktree after a compact or stale ritual | Mutation | `session:ready` or an allowed `session:start --rearm`, then re-check gates |
 | Write only disposable, allowlisted scratch notes | Assist, when project rules permit | Keep the write inside the approved scratch boundary |
 
-**[Directive behavior]** Read-only work does not need the mutation ritual.
+Read-only work does not need the mutation ritual.
 Mutation does. Recovery is valid only when its same-worktree and continuity
 conditions hold; otherwise use the cold route.
 
@@ -323,7 +322,7 @@ If any cell differs, use the retry plan there and repeat only the affected case.
 ## Navigation
 
 - Previous: [Module 7 — Scope lifecycle and implementation authorization](07-scope-lifecycle.md)
-- Course map: [3Ci Directive training course map](../README.md)
+- Course map: [Directive training course map](../README.md)
 - Next: Module 9 — The implementation golden path is still planned and is not
   learner-ready.
 

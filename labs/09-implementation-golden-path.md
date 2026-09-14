@@ -13,7 +13,6 @@
 | Platforms verified | macOS 26.6.2, zsh 5.9, Node.js 24.18.0, npm 11.16.0, Git 2.50.1, go-task 3.50.0 |
 | Candidate platforms | Linux/bash and native Windows/PowerShell are not verified for this lab |
 
-Labels separate **[Directive behavior]**, **[3Ci policy]**, and **[Course guidance]**.
 The helper is course tooling, not a new Directive command.
 
 On the native Windows candidate path, `create` and `guard` remain available for safe
@@ -76,19 +75,19 @@ git -C "$lab_root" status --short
 **Pass:** the helper reports Directive 0.112.0, the explicit local CLI reports engine
 0.112.0, and status is empty. The fixture pins CLI/core/content/types exactly.
 
-**[Directive behavior]** The deposited Task surface belongs to that exact local install.
+The deposited Task surface belongs to that exact local install.
 Do not substitute a newer global executable.
 
 ## Safety boundary
 
-- **[3Ci policy]** Work only in the exact guarded temporary attempt.
-- **[3Ci policy]** Only `src/greeting.mjs` is mutable after readiness. The helper, tests,
+- Work only in the exact guarded temporary attempt.
+- Only `src/greeting.mjs` is mutable after readiness. The helper, tests,
   manifest, active scope, CLI wrapper, Git metadata, and evidence contract stay unchanged.
-- **[3Ci policy]** Keep branch `training/module-09`, exact 0.112.0 pins, one active/running
+- Keep branch `training/module-09`, exact 0.112.0 pins, one active/running
   story, and an empty remote list.
-- **[3Ci policy]** Do not add a remote, use credentials, push, open a pull request, merge,
+- Do not add a remote, use credentials, push, open a pull request, merge,
   deploy, publish, release, or copy business/client data.
-- **[Course guidance]** A guard refusal is a stop. Preserve the attempt and use reset; do not
+- A guard refusal is a stop. Preserve the attempt and use reset; do not
   modify the helper or gate.
 
 The evidence directory is beside the repository, not inside it. The helper never prints Git
@@ -144,7 +143,7 @@ supplied test. You need a function that:
 3. substitutes `teammate` when the value is missing or blank; and
 4. returns `Hello, <recipient>!`.
 
-**[Course guidance]** Keep the exported function and implement only what the test requires.
+Keep the exported function and implement only what the test requires.
 Do not edit the test to agree with the old result.
 
 Checkpoint:

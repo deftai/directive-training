@@ -357,9 +357,7 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
     const parts = markdownParts(body);
     parsed.set(path, parts);
     requireHeadings(path, parts.prose, headings);
-    for (const label of ["Directive behavior", "3Ci policy", "Course guidance"]) {
-      assert.ok(parts.prose.includes("[" + label + "]"), path + " is missing claim label: " + label);
-    }
+    assert.doesNotMatch(parts.prose, /\b(?:Directive behavior|3Ci policy|Course guidance)\b/i, path + " contains a removed claim label");
     assertSafeExecutableBlocks(parts, path);
     assertNoLiveDependency(parts.prose, path);
     verifyLinks(root, path, parts.prose);

@@ -14,13 +14,8 @@
 | Estimated duration | One realistic range that includes the exercise and self-check |
 | Prerequisites | Prior modules, tools, and knowledge; write `None beyond course prerequisites` when none apply |
 
-Use these labels whenever the module makes a rule or product claim:
-
-- **[Directive behavior]** means behavior verified against the pinned Directive release or its official sources.
-- **[3Ci policy]** means a local requirement for this private curriculum or 3Ci work. It is not upstream Directive behavior.
-- **[Course guidance]** means a recommended learning technique or example. It is neither a product guarantee nor a 3Ci rule.
-
-Do not blend the labels. If a sentence contains more than one kind of claim, split it into separate sentences.
+State version-sensitive product behavior precisely and cite its official source.
+State local exercise boundaries and learning advice directly in the prose.
 
 ## Learning outcomes
 
@@ -57,17 +52,17 @@ Complete this check before reading the main lesson. It should take no more than 
 
 Separate product facts from local expectations. Example structure:
 
-- **[Directive behavior]** `{{VERIFIED_PRODUCT_FACT}}`
-- **[3Ci policy]** `{{LOCAL_EXPECTATION_AND_REASON}}`
-- **[Course guidance]** `{{WHEN_THE_TECHNIQUE_IS_USEFUL}}`
+- Product fact: `{{VERIFIED_PRODUCT_FACT}}`
+- Local expectation: `{{LOCAL_EXPECTATION_AND_REASON}}`
+- Learning advice: `{{WHEN_THE_TECHNIQUE_IS_USEFUL}}`
 
 ## Terminology
 
-| Term | Meaning in this module | Claim type | Do not confuse it with |
-|---|---|---|---|
-| `{{TERM_1}}` | `{{PLAIN_LANGUAGE_DEFINITION}}` | Directive behavior / 3Ci policy / course guidance | `{{NEARBY_TERM}}` |
-| `{{TERM_2}}` | `{{PLAIN_LANGUAGE_DEFINITION}}` | Directive behavior / 3Ci policy / course guidance | `{{NEARBY_TERM}}` |
-| `{{TERM_3_OR_REMOVE}}` | `{{PLAIN_LANGUAGE_DEFINITION}}` | Directive behavior / 3Ci policy / course guidance | `{{NEARBY_TERM}}` |
+| Term | Meaning in this module | Do not confuse it with |
+|---|---|---|
+| `{{TERM_1}}` | `{{PLAIN_LANGUAGE_DEFINITION}}` | `{{NEARBY_TERM}}` |
+| `{{TERM_2}}` | `{{PLAIN_LANGUAGE_DEFINITION}}` | `{{NEARBY_TERM}}` |
+| `{{TERM_3_OR_REMOVE}}` | `{{PLAIN_LANGUAGE_DEFINITION}}` | `{{NEARBY_TERM}}` |
 
 Define a term on first use. Use the same term for the same concept throughout the module.
 
@@ -92,17 +87,17 @@ Teach the smallest set of ideas needed for the outcomes. Use short sections in t
 
 ### 1. {{CONCEPT_NAME}}
 
-**Claim:** **[Directive behavior / 3Ci policy / Course guidance]** `{{ONE_CLEAR_CLAIM}}`
+**Statement:** `{{ONE_CLEAR_STATEMENT}}`
 
-**Reason:** `{{WHY_THE_CLAIM_MATTERS}}`
+**Reason:** `{{WHY_THE_STATEMENT_MATTERS}}`
 
 **Evidence:** `{{PINNED_SOURCE_HELP_OUTPUT_OR_LOCAL_POLICY_LINK}}`
 
-**Boundary:** `{{WHAT_THE_CLAIM_DOES_NOT_MEAN}}`
+**Boundary:** `{{WHAT_THE_STATEMENT_DOES_NOT_MEAN}}`
 
 ### 2. {{CONCEPT_NAME}}
 
-Repeat the claim, reason, evidence, and boundary pattern. Add sections only when they support a stated outcome.
+Repeat the statement, reason, evidence, and boundary pattern. Add sections only when they support a stated outcome.
 
 ## Walkthrough
 
@@ -238,15 +233,15 @@ After the suggested first attempt, use [the explained solution]({{RELATIVE_SOLUT
 
 ## Official sources
 
-Every Directive behavior claim must trace to the pinned release. Prefer released behavior and deterministic help output when prose disagrees.
+Every version-sensitive product statement must trace to the pinned release. Prefer released behavior and deterministic help output when prose disagrees.
 
-| Claim supported | Source type | Pinned source, command, or heading | Verified date | Notes or disagreement |
-|---|---|---|---|---|
-| `{{CLAIM_1}}` | Directive behavior | `{{OFFICIAL_RELEASE_FILE_HEADING_OR_HELP_COMMAND}}` | `YYYY-MM-DD` | `{{NONE_OR_EXPLICIT_DISAGREEMENT}}` |
-| `{{CLAIM_2}}` | Directive behavior | `{{OFFICIAL_RELEASE_FILE_HEADING_OR_HELP_COMMAND}}` | `YYYY-MM-DD` | `{{NONE_OR_EXPLICIT_DISAGREEMENT}}` |
-| `{{LOCAL_RULE}}` | 3Ci policy | `{{LOCAL_POLICY_SOURCE}}` | `YYYY-MM-DD` | Not an upstream Directive guarantee |
+| Statement supported | Pinned source, command, or heading | Verified date | Notes or disagreement |
+|---|---|---|---|
+| `{{STATEMENT_1}}` | `{{OFFICIAL_RELEASE_FILE_HEADING_OR_HELP_COMMAND}}` | `YYYY-MM-DD` | `{{NONE_OR_EXPLICIT_DISAGREEMENT}}` |
+| `{{STATEMENT_2}}` | `{{OFFICIAL_RELEASE_FILE_HEADING_OR_HELP_COMMAND}}` | `YYYY-MM-DD` | `{{NONE_OR_EXPLICIT_DISAGREEMENT}}` |
+| `{{LOCAL_RULE}}` | `{{LOCAL_POLICY_SOURCE}}` | `YYYY-MM-DD` | Not an upstream Directive guarantee |
 
-Also link the course source baseline at `{{RELATIVE_SOURCE_BASELINE_PATH}}` and any relevant glossary entries. Do not cite remembered behavior, package internals outside the consumer path, or this module itself as authority for Directive behavior.
+Also link the course source baseline at `{{RELATIVE_SOURCE_BASELINE_PATH}}` and any relevant glossary entries. Do not cite remembered behavior, package internals outside the consumer path, or this module itself as authority for how Directive behaves.
 
 ## Author release check
 
@@ -257,7 +252,7 @@ Before changing the status from `draft`:
 - Run every literal learner command from a fresh disposable environment on each claimed platform.
 - Confirm all completion evidence maps to an outcome.
 - Follow each recovery path from the failure state it claims to repair.
-- Verify every Directive behavior claim against the recorded baseline.
-- Confirm every 3Ci rule is labeled **[3Ci policy]**.
+- Verify every version-sensitive product statement against the recorded baseline.
+- Confirm every local requirement is explicit and cites its source.
 - Check all navigation and solution links.
 - Confirm a learner can finish without an instructor, proprietary data, production access, or undocumented steps.

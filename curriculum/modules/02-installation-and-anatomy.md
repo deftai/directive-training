@@ -61,7 +61,7 @@ answers name an operating-system temporary path, no remote output, and `package.
 the intended repository is not clearly disposable or `git remote` would name a remote, do
 not adapt it for this exercise. Use the fresh-directory setup in the lab.
 
-> **[3Ci policy]** Never run this module's initialization, reset, or cleanup commands in the
+> Never run this module's initialization, reset, or cleanup commands in the
 > training repository, a client repository, or another business repository. The linked lab
 > creates a fictional repository under the operating system's temporary directory.
 
@@ -76,25 +76,19 @@ decision from visible state, run the exact released consumer surface, and unders
 files well enough to preserve their ownership boundaries. That model makes recovery more
 reliable than deleting whatever looks unfamiliar.
 
-Statements in this module use three labels:
-
-- **[Directive behavior]** — behavior verified against Directive 0.112.0.
-- **[3Ci policy]** — an internal safety or operating requirement.
-- **[Course guidance]** — a recommended learning route, not an upstream guarantee.
-
 ## Terminology
 
-| Term | Working definition | Claim type |
-| --- | --- | --- |
-| **Consumer project** | An application or content repository that installs and uses Directive but is not the `deftai/directive` source repository. | **[Directive behavior]** |
-| **Directive footprint** | Evidence that Directive has already integrated a repository, such as `.deft/GENERATION.json`, the managed `AGENTS.md` section, Taskfile integration, or xBRIEF schemas. | **[Directive behavior]** |
-| **Project pin** | The exact `@deftai/directive` version recorded in the consumer's `package.json`; it anchors reconstitution. | **[Directive behavior]** |
-| **Deposit** | The versioned framework content materialized under `.deft/core/`. It is ignored and can be recreated from the pin. | **[Directive behavior]** |
-| **Managed integration** | Tracked files or sections that Directive owns or refreshes, such as its `AGENTS.md` section, Taskfile include, adapters, schemas, and generation metadata. | **[Directive behavior]** |
-| **Runtime state** | Local cache, session, ritual, occupancy, or diagnostic state that should not become durable project source. | **[Directive behavior]** |
-| **Authoritative source** | The file that humans and agents edit to change a durable project fact, requirement, or authored product. | **[Directive behavior]** |
-| **Reconstitutable** | Safe to regenerate from a named tracked anchor; not synonymous with unimportant or safe to hand-edit. | **[Directive behavior]** |
-| **Brownfield init** | The 0.112.0 route used when the target already contains Git or application signals. An otherwise empty `git init` repository takes this route. | **[Directive behavior]** |
+| Term | Working definition |
+| --- | --- |
+| **Consumer project** | An application or content repository that installs and uses Directive but is not the `deftai/directive` source repository. |
+| **Directive footprint** | Evidence that Directive has already integrated a repository, such as `.deft/GENERATION.json`, the managed `AGENTS.md` section, Taskfile integration, or xBRIEF schemas. |
+| **Project pin** | The exact `@deftai/directive` version recorded in the consumer's `package.json`; it anchors reconstitution. |
+| **Deposit** | The versioned framework content materialized under `.deft/core/`. It is ignored and can be recreated from the pin. |
+| **Managed integration** | Tracked files or sections that Directive owns or refreshes, such as its `AGENTS.md` section, Taskfile include, adapters, schemas, and generation metadata. |
+| **Runtime state** | Local cache, session, ritual, occupancy, or diagnostic state that should not become durable project source. |
+| **Authoritative source** | The file that humans and agents edit to change a durable project fact, requirement, or authored product. |
+| **Reconstitutable** | Safe to regenerate from a named tracked anchor; not synonymous with unimportant or safe to hand-edit. |
+| **Brownfield init** | The 0.112.0 route used when the target already contains Git or application signals. An otherwise empty `git init` repository takes this route. |
 
 ## Mental model
 
@@ -110,11 +104,11 @@ Use this loop:
 | Existing, recognizable Directive footprint that needs reconciliation with its pin | `directive update` | Refresh the managed integration; do not manually re-scaffold it. `init` detects an existing footprint and delegates, but `update` states the intent clearly. |
 | State is unknown, incomplete, or unhealthy | `directive doctor` | Classify the condition and follow its one primary next action before choosing a mutating recovery. |
 
-**[Directive behavior]** `doctor` does not repair tracked product state by default and does
+`doctor` does not repair tracked product state by default and does
 not change a remote, but 0.112.0 can write ignored diagnostic throttle metadata. Call it a
 diagnostic, not a promise of zero filesystem writes.
 
-**[Directive behavior]** In 0.112.0, `.git` alone makes an otherwise empty directory take
+In 0.112.0, `.git` alone makes an otherwise empty directory take
 the brownfield route. That label is expected in this module's lab because the safety check
 creates the Git repository first.
 
@@ -138,7 +132,7 @@ truth.
 
 ### 1. Verify the command surface before using it
 
-**[Directive behavior]** The release exposes a curated help page and a larger registry. The
+The release exposes a curated help page and a larger registry. The
 course verified these exact probes:
 
 ```text
@@ -169,7 +163,7 @@ examples need release-specific verification.
 
 ### 2. Pin before initialization
 
-**[Directive behavior]** Released prose says init creates a committed package pin, but the
+Released prose says init creates a committed package pin, but the
 0.112.0 runtime path did not do so in the disposable probe. The lab therefore starts with a
 fictional, private `package.json` that pins exactly:
 
@@ -182,7 +176,7 @@ missing local install from silently falling through to an unrelated global execu
 
 ### 3. Keep consumer and maintainer commands on their own sides
 
-**[Directive behavior]** A 3Ci application or training repository is a Directive consumer.
+An application or training repository is a Directive consumer.
 Its supported entry surfaces are the installed `directive` CLI (also exposed as `deft`) and
 its namespaced consumer tasks such as `task deft:doctor` or `task deft:check`.
 
@@ -210,14 +204,14 @@ the warning proves the directory is absent.
 
 ### 5. Recovery begins with a fresh, preserved attempt
 
-**[3Ci policy]** When setup fails, leave that exact disposable directory intact long enough
+When setup fails, leave that exact disposable directory intact long enough
 to retain the command, exit code, and relevant output. Create a second unique temporary
 directory and repeat the starting check. This avoids `git reset --hard`, broad `git clean`,
 and uncertain recursive deletion.
 
 The recorded first probe failed npm authentication because of stale host configuration. The
-second probe used a fresh attempt and isolated public-registry configuration. In actual 3Ci
-work, preserve organization-approved registry settings and use the documented registry
+second probe used a fresh attempt and isolated public-registry configuration. In
+organization-managed work, preserve approved registry settings and use the documented registry
 support path; never paste credentials into course evidence.
 
 ## Walkthrough
@@ -269,7 +263,7 @@ is no client, production service, deployment, or real backlog.
 - Work only in the disposable path created by the lab.
 - Keep `git remote` empty.
 - Stage only the inspected allowlist; never use `git add --all`.
-- Do not push, publish, deploy, use credentials, or use real 3Ci/client data.
+- Do not push, publish, deploy, use credentials, or use real organizational or client data.
 - Do not treat a doctor warning as either success or failure without its classification.
 
 ### Evidence to keep
@@ -342,7 +336,7 @@ attempt and use the fresh-directory reset.
 | Doctor exits 0 with warnings. | Health classification can be non-fatal. | Record the warning and single recommended action; do not weaken or skip the check. |
 | `directive toolchain:check --help` exits 2. | The released verb rejects the uniform help flag. | Record the known disagreement, confirm registration with `directive commands`, and use the tested consumer invocation. |
 | Unexpected files or a remote appear. | The starting boundary or environment differs from the fixture. | Stop mutations, preserve evidence, and create a new unique temporary attempt. Do not clean the surprising repository. |
-| Init prints generic instructions to push or open a PR. | The installer is describing a normal delivery path, not this lab's authorization. | Do not follow them. The 3Ci no-remote lab boundary remains controlling. |
+| Init prints generic instructions to push or open a PR. | The installer is describing a normal delivery path, not this lab's authorization. | Do not follow them. The course's no-remote lab boundary remains controlling. |
 
 ## Common misconceptions
 
@@ -390,7 +384,7 @@ drill, and a safe retry route. No instructor unlock is required.
 ## Navigation
 
 - Previous: [Module 1 — What Directive Is](01-what-directive-is.md)
-- Course map: [3Ci Directive training](../README.md)
+- Course map: [Directive training](../README.md)
 - Lab: [Initialize a Disposable Directive Consumer](../../labs/02-disposable-initialization.md)
 - Next: [Module 3 — Authority and Context](03-authority-and-context.md)
 

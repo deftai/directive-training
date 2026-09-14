@@ -55,7 +55,7 @@ rest of the hierarchy is not yet familiar.
 govern the method, grant present action, or report an observation? This module and exercise
 are command-free. Use a personal scratch note and do not edit any repository.
 
-> **[3Ci policy]** Never copy a shared `USER.md` into a training artifact. You may name the
+> Never copy a shared `USER.md` into a training artifact. You may name the
 > controlling section and paraphrase the applicable rule, but personal or organizational
 > content stays at its resolved location.
 
@@ -72,27 +72,21 @@ invent authority. A two-axis model keeps the questions separate: what kind of st
 this, which source governs that kind of statement, what does the gate say, and is the action
 authorized now?
 
-Statements use these labels:
-
-- **[Directive behavior]** — verified against the pinned Directive release.
-- **[3Ci policy]** — an internal safety or operating rule.
-- **[Course guidance]** — a teaching technique, not an upstream guarantee.
-
 ## Terminology
 
-| Term | Working definition | Claim type |
-| --- | --- | --- |
-| **Behavior rule** | A constraint on how an agent or engineer performs work, such as branch, safety, testing, or communication rules. | **[Directive behavior]** |
-| **Product requirement** | An observable property of the project or accepted scope: what must exist or happen. | **[Directive behavior]** |
-| **Implementation authorization** | Present permission to mutate for a bounded scope. In current Directive work, it requires an active scope and live implementation intent. | **[Directive behavior]** |
-| **Deterministic evidence** | A pass/fail result produced by a command, hook, test, or policy gate from declared state. | **[Directive behavior]** |
-| **Personal preference** | A rule in the `USER.md Personal` section resolved for the current session; that resolved source is the highest-precedence behavior preference. | **[Directive behavior]** |
-| **Project definition** | `xbrief/PROJECT-DEFINITION.xbrief.json`, the durable source for project identity, policy, and project-scoped defaults. | **[Directive behavior]** |
-| **User default** | A fallback in `USER.md Defaults` used only when the project does not make the project-scoped choice. | **[Directive behavior]** |
-| **Task-specific guidance** | A language, tool, strategy, skill, or workflow contract loaded because the current task triggers it. It applies inside stronger personal, project, and deterministic boundaries. | **[Directive behavior]** |
-| **Framework default** | General behavior from `main.md` or another broad Directive source used when no more specific controlling rule applies. | **[Directive behavior]** |
-| **Lazy loading** | Reading the orientation sources first, then only the task-relevant guidance needed for the next decision. | **[Directive behavior]** |
-| **Material ambiguity** | An unresolved choice whose answer would change approved scope, safety, authorization, or observable behavior. It requires a bounded operator question. | **[3Ci policy]** |
+| Term | Working definition |
+| --- | --- |
+| **Behavior rule** | A constraint on how an agent or engineer performs work, such as branch, safety, testing, or communication rules. |
+| **Product requirement** | An observable property of the project or accepted scope: what must exist or happen. |
+| **Implementation authorization** | Present permission to mutate for a bounded scope. In current Directive work, it requires an active scope and live implementation intent. |
+| **Deterministic evidence** | A pass/fail result produced by a command, hook, test, or policy gate from declared state. |
+| **Personal preference** | A rule in the `USER.md Personal` section resolved for the current session; that resolved source is the highest-precedence behavior preference. |
+| **Project definition** | `xbrief/PROJECT-DEFINITION.xbrief.json`, the durable source for project identity, policy, and project-scoped defaults. |
+| **User default** | A fallback in `USER.md Defaults` used only when the project does not make the project-scoped choice. |
+| **Task-specific guidance** | A language, tool, strategy, skill, or workflow contract loaded because the current task triggers it. It applies inside stronger personal, project, and deterministic boundaries. |
+| **Framework default** | General behavior from `main.md` or another broad Directive source used when no more specific controlling rule applies. |
+| **Lazy loading** | Reading the orientation sources first, then only the task-relevant guidance needed for the next decision. |
+| **Material ambiguity** | An unresolved choice whose answer would change approved scope, safety, authorization, or observable behavior. It requires a bounded operator question. |
 
 ## Mental model
 
@@ -108,7 +102,7 @@ Use four questions in order:
 
 ### Axis 1: behavior-source specificity
 
-**[Directive behavior]** For behavior preferences and project-scoped choices, use this
+For behavior preferences and project-scoped choices, use this
 specificity order:
 
 ```text
@@ -132,7 +126,7 @@ diagram lists it late.
 
 ### Axis 2: enforcement strength
 
-**[Directive behavior]** When two behavior surfaces speak to the same action, Directive's
+When two behavior surfaces speak to the same action, Directive's
 rule-strength order is:
 
 ```text
@@ -145,7 +139,7 @@ contract that gate checks. It does not grant extra scope or make a product requi
 
 ### Authorization is a conjunction
 
-**[Directive behavior]** Current implementation authority is:
+Current implementation authority is:
 
 ```text
 implementation authority = active xBRIEF + live implementation intent
@@ -173,7 +167,7 @@ of inventing a tie-breaker.
 
 ### 1. Resolve USER.md rather than copying it
 
-**[Directive behavior]** Session orientation resolves the applicable `USER.md` and reports
+Session orientation resolves the applicable `USER.md` and reports
 its location. The resolved path can come from an override, workspace configuration, or the
 platform's user configuration. Read its `Personal` and `Defaults` sections in place. Do not
 manufacture a repository copy: that would create a stale duplicate and could distribute
@@ -205,7 +199,7 @@ A build skill is relevant to implementation. GitHub guidance is relevant when us
 TypeScript guidance is relevant when the accepted work touches TypeScript. A Markdown-only
 authority exercise does not need deployment, swarm, release, Python, or database material.
 
-**[Course guidance]** Write one sentence before loading a deep source: “I need this file to
+Write one sentence before loading a deep source: “I need this file to
 decide [named question].” If you cannot complete the sentence, the file is probably not yet
 needed.
 
@@ -417,7 +411,7 @@ instructor unlock is required.
 ## Navigation
 
 - Previous: [Module 2 — Installation and Project Anatomy](02-installation-and-anatomy.md)
-- Course map: [3Ci Directive training](../README.md)
+- Course map: [Directive training](../README.md)
 - Solution: [Explained Module 3 solution](../../solutions/module-03-authority-and-context.md)
 - Next: [Module 4 — xBRIEF as Durable State](04-xbrief-as-durable-state.md)
 
