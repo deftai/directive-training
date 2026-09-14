@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "deft.decision.v1",
+  "id": "separate-training-from-linked-path-safety",
+  "decision": "Separate baseline training validation from privileged linked-path safety validation",
+  "governingRule": {
+    "description": "Training must remain least-privilege while full symlink attack-boundary assertions remain fail-closed",
+    "path": "xbrief/active/2026-09-14-74-windows-symlink-capability-failures-lack-a-clear-validation.xbrief.json",
+    "rfc2119": "MUST"
+  },
+  "alternativesConsidered": [
+    {
+      "option": "Require Developer Mode or elevation for every Windows training run",
+      "whyNot": "Adds an unrelated administrative prerequisite to ordinary course completion."
+    },
+    {
+      "option": "Remove symbolic-link security assertions",
+      "whyNot": "Would regress linked-path attack-boundary coverage."
+    }
+  ],
+  "whyWinner": "Ordinary learners can complete the course without administrative capability, while a named full-safety suite still requires and executes real file and directory symlink cases.",
+  "confidence": "high",
+  "activeScopeRefs": [
+    "xbrief/active/2026-09-14-74-windows-symlink-capability-failures-lack-a-clear-validation.xbrief.json"
+  ],
+  "timestamp": "2026-09-14T21:55:20Z",
+  "revisitTrigger": "Revisit if the course teaches symbolic links directly or every supported Windows training environment guarantees unprivileged file and directory symlink creation.",
+  "tags": [
+    "security",
+    "curriculum",
+    "windows"
+  ],
+  "relatedIssues": [
+    74,
+    78
+  ]
+}

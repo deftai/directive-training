@@ -5,17 +5,278 @@
 
 # Roadmap
 
-## Module 9: The Implementation Golden Path
+## Windows symlink capability failures lack a clear validation preflight (#74)
 
-### training.modules9-11.implementation.baseline: Validate implementation-readiness behavior `[proposed]`
+## Summary
 
-### training.modules9-11.implementation.safety: Build the guarded active-story starting state `[proposed]`
+On a standard non-administrator Windows account without Developer Mode symlink capability, the Windows validation suites reach individual linked-path fixtures and fail with raw `EPERM: operation not permitted, symlink` stack traces.
 
-### training.modules9-11.implementation.readiness: Prove current readiness before product mutation `[proposed]`
+This is not a request to skip or pass the linked-path security assertions. The maintainer contract correctly requires a symlink-capable process for full Windows safety sign-off. The problem is that the missing host capability is discovered repeatedly and opaquely instead of being reported once as a validation precondition.
 
-### training.modules9-11.implementation.change: Implement and prove the smallest coherent change `[proposed]`
+## Environment
 
-### training.modules9-11.implementation.quality: Verify the lesson, lab, recovery, and scope boundary `[proposed]`
+- Windows 11 Home 10.0.26200, ARM64
+- PowerShell 7.6.5
+- Node.js v26.8.1
+- Git 2.54.0.windows.1
+- Repository commit `767f800e2b3adcfb9a86e00e0e686527f0cc2214`
+- Non-administrator process; file and directory symlink probes both fail with `A required privilege is not held by the client`
+
+## Reproduction
+
+Run the documented Windows validation matrix from a process that cannot create symlinks:
+
+```powershell
+npm run test:modules-4-5
+npm run test:portability
+```
+
+Observed deterministic failures include:
+
+- `test:modules-4-5`: 71/75 pass; four fixtures fail during symlink creation.
+- `test:portability`: 48/54 pass on exact rerun; `lab-helper-entry.test.mjs` and `windows-shim.test.mjs` each fail during symlink creation (the other four failures are tracked separately).
+
+The individual failures surface Node `EPERM` stacks rather than a single capability diagnosis and remediation path.
+
+## Expected behavior
+
+The Windows validation entry point should preflight file/directory symlink capability before entering suites that require it. If capability is missing, it should:
+
+1. fail the overall safety validation (full safety sign-off is not complete),
+2. identify the missing Windows privilege or Developer Mode capability once,
+3. give an actionable remediation/rerun instruction, and
+4. avoid representing any unexecuted linked-path assertion as passed or silently skipped.
+
+A symlink-capable Windows lane must continue to execute every linked-path negative assertion.
+
+## Acceptance criteria
+
+- A non-symlink-capable Windows process receives one clear preflight failure with remediation guidance.
+- The result explicitly says that full Windows safety sign-off is incomplete.
+- No linked-path security assertion is marked passed or silently skipped.
+- A symlink-capable Windows process runs all linked-path cases and preserves their fail-closed expectations.
+
+## Evidence
+
+Full validation evidence was captured under `C:\Users\codem\.codex\validation-evidence\full-course-windows-20260914-083722`.
+
+
+
+### A non-symlink-capable Windows process receives one clear preflight failure with remediation guidance. `[proposed]`
+
+### The result explicitly says that full Windows safety sign-off is incomplete. `[proposed]`
+
+### No linked-path security assertion is marked passed or silently skipped. `[proposed]`
+
+### A symlink-capable Windows process runs all linked-path cases and preserves their fail-closed expectations. `[proposed]`
+
+---
+
+## verify-text-portability uses Windows path separators and misses four mutation fixtures (#75)
+
+## Summary
+
+`scripts/verify-text-portability.test.mjs` stores recursively collected Markdown paths using the host-native separator, then looks them up with repository-style forward-slash keys. On Windows, four negative tests fail before invoking the verifier because their fixture keys are absent.
+
+Validated at repository commit `767f800e2b3adcfb9a86e00e0e686527f0cc2214`.
+
+## Environment
+
+- Windows 11 Home 10.0.26200, ARM64
+- PowerShell 7.6.5
+- Node.js 26.8.1
+- Git `core.autocrlf=true`
+
+## Reproduction
+
+Run:
+
+```text
+node --test scripts/verify-text-portability.test.mjs
+```
+
+Result: 16 pass / 4 fail. Both LF and CRLF variants of these tests fail:
+
+- `Modules 2-3 verifier rejects a reintroduced claim label`
+- `Modules 2-3 verifier rejects organization-specific module language`
+
+The diagnostic is `fixture must contain templates/module-template.md` or `fixture must contain curriculum/modules/03-authority-and-context.md`.
+
+## Cause
+
+`collectMarkdown()` builds map keys with `join(directory, entry.name)`. On Windows those keys contain backslashes. The mutations at lines 126 and 131 request forward-slash keys, so `files.has(path)` is false.
+
+## Expected
+
+Fixture-map keys should use one canonical repository-path representation on every host, while filesystem reads continue to use native paths.
+
+## Actual
+
+Four portability tests never mutate content and never exercise `verify-modules-2-3.mjs`.
+
+## Acceptance
+
+- `node --test scripts/verify-text-portability.test.mjs` passes all 20 cases on Windows.
+- The same suite remains green on POSIX.
+- Both LF and CRLF negative mutations reach and fail the verifier for the intended claim-label and organization-language diagnostics.
+
+
+
+---
+
+## Capstone negative verifier tests fail on CRLF checkouts and mutate the wrong package script (#76)
+
+## Summary
+
+The independent capstone learner workflow passes completely on Windows, but `scripts/verify-capstone.test.mjs` fails 9 of 34 negative tests on a normal `core.autocrlf=true` checkout. Eight mutations assume LF bytes; a ninth removes the first of two matching script fragments and therefore edits `test:capstone-content` instead of `test:capstone`.
+
+Validated at repository commit `767f800e2b3adcfb9a86e00e0e686527f0cc2214`.
+
+## Environment
+
+- Windows 11 Home 10.0.26200, ARM64
+- PowerShell 7.6.5
+- Node.js 26.8.1
+- Git 2.54.0.windows.1 with `core.autocrlf=true`
+
+## Reproduction
+
+Run:
+
+```text
+node --test scripts/verify-capstone.test.mjs
+```
+
+Result: 25 pass / 9 fail.
+
+The following mutations report `negative mutation must change ...` because their multiline strings or line regexes do not match CRLF content:
+
+- unconditional reset recovery for invalid identity
+- omitted checkpoint stage
+- missing reset/archive disposition note
+- missing launcher disposition
+- private note retained in a launcher
+- omitted runtime identity
+- averaged rubric
+- source record without application compatibility
+
+The package-script drift test does change `package.json`, but the needle ` scripts/verify-capstone.test.mjs` occurs twice. `replace()` removes the occurrence from `test:capstone-content`, leaves `test:capstone` intact, and `verifyCapstone()` correctly does not throw; the test then reports `Missing expected exception`.
+
+`npm run test:capstone` therefore fails even though its guarded full rehearsal passes. An independent learner walkthrough also completed every stage from create/install through close, final checks, reset, and both archives with CAP.1-CAP.4 demonstrated.
+
+## Expected
+
+Negative mutators should be EOL-agnostic and should assert they changed the exact contract surface named by the test.
+
+## Actual
+
+Eight tests fail in mutation setup on CRLF bytes, and one mutates the wrong package script.
+
+## Acceptance
+
+- `node --test scripts/verify-capstone.test.mjs` passes all 34 cases with both LF and CRLF checkouts.
+- The package mutation targets the `test:capstone` value specifically and proves that exact value changed.
+- `npm run test:capstone` is green on the documented Windows environment.
+
+
+
+---
+
+## Labs 7/9/10 happy-path tests run unconditionally on unsupported Windows (#77)
+
+## Summary
+
+Labs 7, 9, and 10 now stop native Windows installs clearly and safely, but each module's required test script also runs a substantive happy-path test unconditionally. On Windows those tests call `installAttempt(root)` with the real `process.platform`, hit the intentional candidate-platform guard, and make the documented maintainer acceptance matrix red.
+
+Validated at repository commit `767f800e2b3adcfb9a86e00e0e686527f0cc2214`.
+
+## Environment
+
+- Windows 11 Home 10.0.26200, ARM64
+- PowerShell 7.6.5
+- Node.js 26.8.1
+- npm 11.19.0
+
+## Reproduction
+
+- `npm run test:module-7` -> 20 pass / 1 fail
+- `npm run test:module-9` -> 19 pass / 1 fail
+- `npm run test:module-10` -> 17 pass / 2 fail
+
+Every failure is the deliberate assertion:
+
+```text
+Native Windows/PowerShell is a candidate path and is not learner-ready in this release.
+```
+
+The same files already contain a separate passing test that asserts Windows install rejection. The failures occur because later happy-path cases call the default install function rather than running only on learner-ready platforms or selecting an isolated POSIX test mode.
+
+## Expected
+
+The maintainer acceptance commands documented in `maintainers/CURRICULUM-MAINTENANCE.md` should have a defined passing result on every supported maintainer host. While the learner workflow remains unsupported on Windows, substantive POSIX-only cases should be explicitly skipped/isolated and the Windows safe-stop behavior should remain tested.
+
+## Actual
+
+The required Windows acceptance matrix is deterministically red by construction, even though create/guard/safe-stop/reset/archive behave correctly.
+
+## Acceptance
+
+- All three package test scripts exit 0 on Windows while clearly reporting which substantive learner path is not exercised there.
+- The explicit Windows pre-npm safe-stop assertions remain covered.
+- POSIX lanes continue to execute the full happy paths.
+
+Related: #66 fixed the earlier `npm.cmd EINVAL` failure by adding the intended safe stop; this issue concerns the test-suite contract after that fix.
+
+
+
+---
+
+## Complete native Windows learner paths for Labs 7, 9, and 10 (#78)
+
+## Summary
+
+A complete native Windows course run is currently impossible because Labs 7, 9, and 10 intentionally stop before package installation. Their module content is available, and create/guard/reset/archive work safely on Windows, but the practical outcomes for scope lifecycle, implementation, and testing/gates cannot be executed.
+
+Validated at repository commit `767f800e2b3adcfb9a86e00e0e686527f0cc2214`.
+
+## Evidence
+
+On Windows 11 / PowerShell 7.6.5 / Node.js 26.8.1:
+
+1. `create` succeeded for each fixture and produced the expected no-remote feature-branch repository.
+2. `guard` succeeded.
+3. `install` exited 1 before creating `node_modules` or `package-lock.json` with:
+
+```text
+Native Windows/PowerShell is a candidate path and is not learner-ready in this release.
+```
+
+4. Each preserved attempt could be reset to a distinct root and both roots archived recoverably.
+
+Consequently:
+
+- Lab 7 cannot execute proposed-preflight, promote, activate, session readiness, active preflight, complete, and cancel evidence on Windows.
+- Lab 9 cannot execute readiness, one-file implementation, behavioral verification, and final evidence on Windows.
+- Lab 10 cannot execute red/green/refactor, literal acceptance, aggregate diagnosis, and quality-record repair on Windows.
+
+Modules 2 and 5 and the complete capstone did pass their independent native Windows learner walkthroughs in the same validation session.
+
+## Expected outcome
+
+Provide documented PowerShell 7.4+ learner paths and fixture support for Labs 7, 9, and 10 so every practical course outcome can be completed on a native Windows host without spoofing `process.platform`, bypassing guards, or substituting a global Directive CLI.
+
+## Acceptance
+
+- Each lab documents a literal PowerShell starting-state, execution, acceptance, recovery/reset, and archive path.
+- Each helper installs and verifies the exact CLI/core/content/types 0.112.0 graph on Windows.
+- Lab 7 records the complete governed lifecycle sequence.
+- Lab 9 records readiness before the one-file implementation and its behavioral evidence.
+- Lab 10 records red/green/refactor, literal acceptance, aggregate diagnosis, and final repair.
+- Native Windows CI and an independent learner walkthrough both pass before the platform is marked learner-ready.
+
+Related: #66 deliberately changed an opaque `npm.cmd EINVAL` into the current safe candidate-platform stop. This issue tracks completing, rather than merely stopping, the Windows path.
+
+
 
 ---
 
@@ -34,6 +295,17 @@ _Scopes not yet promoted to pending. Orientation only — not a substitute for `
 
 ## Completed
 
+- Remove claim labels and 3Ci-specific module language -- `[completed]`
+- **#68** -- Lab 2 Windows start has no ready signal and CRLF commit warnings look like failure -- `[completed]`
+- **#67** -- Capstone Windows start still uses C:\absolute\path\to\directive-training placeholder -- `[completed]`
+- **#66** -- Labs 7/9/10 Windows install fails with npm.cmd EINVAL instead of the documented not-learner-ready stop -- `[completed]`
+- **#65** -- Lab 5 helper completes on Windows but the lab claims no Windows path -- `[completed]`
+- **#55** -- Official lab replay fixes for issues 55-58 -- `[completed]`
+- Capstone: Solo Lifecycle Walkthrough, Rubric, and Solution -- `[completed]`
+- Capstone: Guarded Disposable End-to-End Fixture -- `[completed]`
+- Module 11: PR, Review, and Actual Completion -- `[completed]`
+- Module 10: Testing, Gates, and Evidence -- `[completed]`
+- **#34** -- Module 9: The Implementation Golden Path -- `[completed]`
 - Module 8: Session Start and Authorized Work Selection -- `[completed]`
 - Module 7: Scope Lifecycle and Implementation Authorization -- `[completed]`
 - Module 6: Creating Well-Shaped Work -- `[completed]`

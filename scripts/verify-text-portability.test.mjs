@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join } from "node:path";
+import { dirname, join, posix } from "node:path";
 import { after, test } from "node:test";
 import { fileURLToPath } from "node:url";
 
@@ -32,7 +32,7 @@ const modulesFiles = new Map([
 
 function collectMarkdown(directory) {
   for (const entry of readdirSync(join(repositoryRoot, directory), { withFileTypes: true })) {
-    const path = join(directory, entry.name);
+    const path = posix.join(directory, entry.name);
     if (entry.isDirectory()) collectMarkdown(path);
     else if (entry.isFile() && entry.name.endsWith(".md")) modulesFiles.set(path, readSource(path));
   }

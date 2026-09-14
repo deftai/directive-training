@@ -327,6 +327,13 @@ and [Node 26.8.1's Windows filesystem implementation](https://github.com/nodejs/
 These prerequisites do not authorize changing host settings or replacing symlink
 tests with junctions. The new line-ending behavior still requires native replay.
 
+On 2026-09-14 the validation contract was split at the privilege boundary.
+`test:modules-4-5` and `test:portability` now contain only ordinary training and
+portability cases. `test:linked-path-safety` owns the Windows privilege-dependent
+file/directory symbolic-link attack fixtures and retains the fail-closed capability preflight.
+This lets a standard Windows learner complete the course without elevation while
+preserving a distinct, non-skippable full-safety sign-off surface.
+
 The regression first reproduced the native shape before product changes:
 CRLF course copies with `core.autocrlf=true` and a CRLF purpose edit produced
 plain `git diff --check` exit 2 on source line 22, despite a 1/1 numstat.
@@ -561,6 +568,10 @@ recoverable temporary archive; they did not delete them.
 
 `lab07-platform-proof:windows-pwsh7 status=candidate date=2026-09-09 evidence=not-run`
 
+On 2026-09-14 the native Windows automated helper test completed the exact
+0.112.0 install and governed lifecycle with no skipped cases. The marker remains
+candidate until a separate learner walkthrough is recorded.
+
 The macOS run used Node.js 24.18.0, npm 11.16.0, Git 2.50.1, zsh 5.9, and
 go-task 3.50.0. Linux/bash and native Windows/PowerShell require independent execution before
 their markers or learner-facing status may become verified.
@@ -661,6 +672,10 @@ Platform evidence:
 - `module09-platform-proof:linux-bash status=candidate`
 - `module09-platform-proof:windows-powershell status=candidate`
 
+On 2026-09-14 the native Windows automated helper test completed readiness,
+the bounded one-file implementation, behavioral/diff evidence, and recovery with
+the exact 0.112.0 graph. Independent learner sign-off remains outstanding.
+
 The Module 9 verifier checks lesson/lab/solution structure, exact baseline, readiness order,
 guard and one-file scope language, outcomes, evidence names, source records, package scripts,
 links, and durable forward navigation through learner-ready Modules 10–11. Negative tests mutate only OS-temporary copies. The
@@ -701,6 +716,11 @@ Platform evidence:
 - `module10-platform-proof:macos-zsh status=verified`
 - `module10-platform-proof:linux-bash status=candidate`
 - `module10-platform-proof:windows-powershell status=candidate`
+
+On 2026-09-14 the native Windows automated helper test completed red, green,
+refactor, literal acceptance, aggregate diagnosis, quality-record repair, and
+final verification with the exact 0.112.0 graph and no skipped cases. Independent
+learner sign-off remains outstanding.
 
 The Module 10 verifier checks lesson/lab/solution structure, exact baseline, evidence order,
 gate-integrity language, outcome coverage, source records, package scripts, links, lifecycle

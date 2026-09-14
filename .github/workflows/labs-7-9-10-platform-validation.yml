@@ -1,0 +1,71 @@
+name: labs-7-9-10-platform-validation
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/labs-7-9-10-platform-validation.yml"
+      - "labs/07-scope-lifecycle.md"
+      - "labs/09-implementation-golden-path.md"
+      - "labs/10-testing-gates-and-evidence.md"
+      - "labs/fixtures/07-scope-lifecycle/**"
+      - "labs/fixtures/09-implementation-golden-path/**"
+      - "labs/fixtures/10-testing-gates-and-evidence/**"
+      - "scripts/lifecycle-lab.test.mjs"
+      - "scripts/implementation-lab.test.mjs"
+      - "scripts/gates-lab.test.mjs"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  disposable-lab-proof:
+    name: ${{ matrix.proof }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - proof: macos-node24
+            os: macos-15
+          - proof: linux-node24
+            os: ubuntu-24.04
+          - proof: windows-node24
+            os: windows-2022
+    steps:
+      - name: Check out authored training source
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Select Node.js 24 LTS
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24.20.0"
+          check-latest: false
+          package-manager-cache: false
+
+      - name: Select uv 0.11.10
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: "0.11.10"
+          enable-cache: false
+
+      - name: Select Python 3.13.13 for Directive verification
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13.13"
+          check-latest: false
+
+      - name: Select Task 3.50.0
+        uses: arduino/setup-task@b91d5d2c96a56797b48ac1e0e89220bf64044611 # v2.0.0
+        with:
+          version: "3.50.0"
+
+      - name: Exercise Labs 7, 9, and 10 through their native learner paths
+        run: |
+          npm run test:module-7
+          npm run test:module-9
+          npm run test:module-10

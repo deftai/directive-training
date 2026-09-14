@@ -557,7 +557,9 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
     "node --test scripts/capstone-lab.test.mjs scripts/verify-capstone.test.mjs && node --check labs/fixtures/capstone-end-to-end/capstone-lab.mjs && git diff --check",
     "package scripts must expose the complete test:capstone contract",
   );
-  assert.equal(packageJson.scripts?.["test:portability"], "node --test scripts/lab-helper-entry.test.mjs scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs", "test:portability changed");
+  assert.equal(packageJson.scripts?.["test:modules-4-5"], "node --test scripts/projection-lab.test.mjs scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-modules-4-5.test.mjs", "test:modules-4-5 changed");
+  assert.equal(packageJson.scripts?.["test:portability"], "node --test scripts/verify-symlink-capability.test.mjs scripts/linked-path-suite-boundary.test.mjs scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs", "test:portability changed");
+  assert.equal(packageJson.scripts?.["test:linked-path-safety"], "node scripts/verify-symlink-capability.mjs && node --test scripts/linked-path-safety.test.mjs", "test:linked-path-safety changed");
 
   const fixturePackage = JSON.parse(content.get(fixturePackagePath));
   assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.112.0", "fixture package must retain the exact Directive pin");

@@ -6,19 +6,19 @@
 | --- | --- |
 | Stable ID | `lab-09-implementation-golden-path` |
 | Supports | O9.1 readiness, O9.2 red-green, O9.3 bounded scope, O9.4 paired evidence, O9.5 recovery |
-| Status | Learner-ready draft for the verified macOS/zsh path |
+| Status | Learner-ready on macOS/zsh; native Windows helper path implemented and automated, pending an independent learner walkthrough |
 | Last verified | 2026-09-10 |
 | Directive baseline | CLI/core/content/types `0.112.0`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 40–45 minutes, including install, implementation, evidence, and cleanup |
 | Platforms verified | macOS 26.6.2, zsh 5.9, Node.js 24.18.0, npm 11.16.0, Git 2.50.1, go-task 3.50.0 |
-| Candidate platforms | Linux/bash and native Windows/PowerShell are not verified for this lab |
+| Candidate platforms | Linux/bash is not verified; native Windows/PowerShell awaits independent learner sign-off |
 
 The helper is course tooling, not a new Directive command.
 
-On the native Windows candidate path, `create` and `guard` remain available for safe
-inspection, but `install` stops before invoking npm with the learner-facing candidate-platform message above. Preserve
-that attempt and continue on a verified environment; an `npm.cmd EINVAL` error is not the
-intended platform boundary.
+The native Windows helper path now performs the same exact local 0.112.0 install,
+readiness proof, one-file implementation verification, reset, and archive operations.
+Automated Windows validation is not a substitute for the independent learner
+walkthrough required before changing the remaining candidate label.
 
 ## Goal and done condition
 
@@ -275,6 +275,40 @@ test -d "$archive_path/repo"
 
 This is the recoverable `implementation-lab.mjs archive` operation. Repeat separately for
 each root you intentionally want to archive. Nothing is recursively deleted.
+
+## Native Windows PowerShell 7.4+ route
+
+Run this from the curriculum repository. After `readiness` reports `READY`, make
+only the `src/greeting.mjs` edit described above, then continue with `verify`:
+
+```powershell
+$ErrorActionPreference = "Stop"
+$CourseRoot = (Resolve-Path -LiteralPath .).Path
+$Helper = Join-Path $CourseRoot "labs/fixtures/09-implementation-golden-path/implementation-lab.mjs"
+$Launcher = Join-Path ([IO.Path]::GetTempPath()) ("3ci-lab09-launch-" + [guid]::NewGuid().ToString("N"))
+[void](New-Item -ItemType Directory -Path $Launcher)
+Set-Location -LiteralPath $Launcher
+$LabRoot = ((& node $Helper create) | Out-String).Trim()
+& node $Helper guard $LabRoot
+& node $Helper install $LabRoot
+& node $Helper readiness $LabRoot
+if ($LASTEXITCODE -ne 0) { throw "Lab 9 readiness failed; do not edit product code." }
+# Edit only (Join-Path $LabRoot "src/greeting.mjs") as specified in the implementation step.
+& node $Helper verify $LabRoot
+if ($LASTEXITCODE -ne 0) { throw "Lab 9 behavioral verification failed." }
+$EvidenceRoot = Join-Path (Split-Path -Parent $LabRoot) "evidence"
+foreach ($Name in "readiness.json", "implementation.json") {
+  if (-not (Test-Path -LiteralPath (Join-Path $EvidenceRoot $Name) -PathType Leaf)) { throw "Missing $Name" }
+}
+$FreshRoot = ((& node $Helper reset $LabRoot) | Out-String).Trim()
+& node $Helper guard $FreshRoot
+Set-Location -LiteralPath $CourseRoot
+$Archive = ((& node $Helper archive $LabRoot) | Out-String).Trim()
+if (-not (Test-Path -LiteralPath (Join-Path $Archive "repo") -PathType Container)) { throw "Archive is incomplete." }
+```
+
+`readiness.json` must predate the one-file diff, and `implementation.json` must
+record both named/fallback behavior plus the exact one-file status and diff.
 
 ## Explained solution
 

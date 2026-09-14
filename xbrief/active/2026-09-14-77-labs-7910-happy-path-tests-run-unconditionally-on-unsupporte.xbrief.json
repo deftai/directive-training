@@ -1,0 +1,98 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #77",
+    "updated": "2026-09-14T20:52:00Z"
+  },
+  "plan": {
+    "title": "Labs 7/9/10 happy-path tests run unconditionally on unsupported Windows",
+    "status": "running",
+    "narratives": {
+      "Description": "Labs 7/9/10 happy-path tests run unconditionally on unsupported Windows",
+      "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/77",
+      "Overview": "## Summary\n\nLabs 7, 9, and 10 now stop native Windows installs clearly and safely, but each module's required test script also runs a substantive happy-path test unconditionally. On Windows those tests call `installAttempt(root)` with the real `process.platform`, hit the intentional candidate-platform guard, and make the documented maintainer acceptance matrix red.\n\nValidated at repository commit `767f800e2b3adcfb9a86e00e0e686527f0cc2214`.\n\n## Environment\n\n- Windows 11 Home 10.0.26200, ARM64\n- PowerShell 7.6.5\n- Node.js 26.8.1\n- npm 11.19.0\n\n## Reproduction\n\n- `npm run test:module-7` -> 20 pass / 1 fail\n- `npm run test:module-9` -> 19 pass / 1 fail\n- `npm run test:module-10` -> 17 pass / 2 fail\n\nEvery failure is the deliberate assertion:\n\n```text\nNative Windows/PowerShell is a candidate path and is not learner-ready in this release.\n```\n\nThe same files already contain a separate passing test that asserts Windows install rejection. The failures occur because later happy-path cases call the default install function rather than running only on learner-ready platforms or selecting an isolated POSIX test mode.\n\n## Expected\n\nThe maintainer acceptance commands documented in `maintainers/CURRICULUM-MAINTENANCE.md` should have a defined passing result on every supported maintainer host. While the learner workflow remains unsupported on Windows, substantive POSIX-only cases should be explicitly skipped/isolated and the Windows safe-stop behavior should remain tested.\n\n## Actual\n\nThe required Windows acceptance matrix is deterministically red by construction, even though create/guard/safe-stop/reset/archive behave correctly.\n\n## Acceptance\n\n- All three package test scripts exit 0 on Windows while clearly reporting which substantive learner path is not exercised there.\n- The explicit Windows pre-npm safe-stop assertions remain covered.\n- POSIX lanes continue to execute the full happy paths.\n\nRelated: #66 fixed the earlier `npm.cmd EINVAL` failure by adding the intended safe stop; this issue concerns the test-suite contract after that fix.\n\n",
+      "Labels": "bug"
+    },
+    "items": [],
+    "tags": [
+      "bug"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/77",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #77: Labs 7/9/10 happy-path tests run unconditionally on unsupported Windows"
+      }
+    ],
+    "metadata": {
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "Native Windows/PowerShell is a candidate path and is not learner-ready in this release",
+          "reason": "first token \"native\" is not in the literal-AC allowlist",
+          "sourceSpan": "fence@L24:text"
+        },
+        {
+          "command": "npm run test:module-7",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L18"
+        },
+        {
+          "command": "npm run test:module-9",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L19"
+        },
+        {
+          "command": "npm run test:module-10",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L20"
+        }
+      ],
+      "swarm": {},
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5451654512,
+        "origin": "3ci-consulting/directive-training#77",
+        "id": "github.issue.5451654512"
+      }
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 3 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "All three package test scripts exit 0 on Windows while clearly reporting which substantive learner path is not exercised there.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "The explicit Windows pre-npm safe-stop assertions remain covered.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "POSIX lanes continue to execute the full happy paths.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5451654512",
+    "updated": "2026-09-14T20:52:00Z"
+  }
+}

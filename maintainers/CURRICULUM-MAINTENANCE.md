@@ -167,6 +167,7 @@ npm run check:module-9
 npm run test:module-9
 npm run check:module-10
 npm run test:module-10
+npm run test:windows-install
 npm run check:module-11
 npm run test:module-11
 npm run check:capstone
@@ -174,6 +175,24 @@ npm run test:capstone
 npm run test:portability
 directive verify:vbrief-conformance --project-root .
 ```
+
+The milestone matrix is a least-privilege training and portability gate. Full
+linked-path security validation is separate and requires an operator-approved
+process that can create both file and directory symbolic links:
+
+```text
+npm run test:linked-path-safety
+```
+
+That command fails closed at its capability preflight. A capability failure
+leaves full linked-path safety sign-off incomplete, but it does not prevent the
+ordinary training matrix from exercising its privilege-free cases.
+
+Pull requests that touch Labs 7, 9, or 10 also run
+`.github/workflows/labs-7-9-10-platform-validation.yml` on macOS, Ubuntu, and
+Windows. The Windows job must execute the substantive learner paths, not a
+platform spoof or skip. Keep Windows marked candidate until both that job and a
+separate learner walkthrough have evidence.
 
 Run the aggregate Directive consumer gate separately after the literal commands:
 
@@ -248,9 +267,12 @@ fixtures; previous attempts and evidence remain protected.
 
 Lab 5 archive now takes an explicit absolute attempt root and runs from outside
 that attempt parent. Keep the learner cleanup blocks and Windows handoff aligned
-with this interface. Windows safety verification also requires successful Node
-file and directory symlink probes; a capability failure must remain visible and
-must not be converted to passing or skipped safety assertions.
+with this interface. `npm run test:modules-4-5` and `npm run test:portability`
+must remain privilege-free. Windows privilege-dependent symbolic-link attack fixtures live in
+`npm run test:linked-path-safety`, which requires successful Node file and
+directory probes. A capability failure must remain visible, state that full
+safety sign-off is incomplete, and must not be converted to passing or skipped
+linked-path assertions.
 
 Fresh Lab 5 text copies use LF, and its guarded `.gitattributes` normalizes the
 source JSON in Git. The checkpoint now contains nine files. Revalidate LF and

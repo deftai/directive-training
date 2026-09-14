@@ -1,9 +1,90 @@
 <!-- deft:template -->
-<!-- Purpose: current Module 11 and capstone cost estimate with prior curriculum estimates retained -->
+<!-- Purpose: current Windows portability issue cohort cost estimate with prior curriculum estimates retained -->
 
 # Cost & Budget Estimate
 
-## Current scope — Module 11 and capstone (2026-09-10)
+## Current scope — Windows portability issues 74–78 (2026-09-14)
+
+Currency: **USD**. This scope fixes five linked Windows validation and learner-path
+issues: one symlink-capability preflight, two cross-platform verifier-test defects,
+one unsupported-platform test-contract defect, and native PowerShell 7.4+ learner
+support for Labs 7, 9, and 10. It introduces no hosting service, paid account,
+publishing platform, production runtime, credential, or business-repository exercise.
+
+### TL;DR
+
+For one private curriculum repository using existing 3Ci tooling, the expected
+incremental monthly service band is **low $0 / typical $0 / high $0**. The
+meaningful cost is approximately **40–72 hours** of Windows fixture work,
+PowerShell learner-path authoring, exact dependency-graph validation, negative-test
+repair, CI coverage, and an independent walkthrough. Ongoing maintenance
+attributable to these Windows paths is approximately **2–4 hours per month**.
+
+### Assumptions and scale considerations
+
+- The scale assumption is one private curriculum repository and one native Windows
+  attempt for each affected lab, using existing 3Ci GitHub, coding-agent,
+  workstation, Node.js, npm, and GitHub Actions access.
+- Labs continue to use fictional data and disposable repositories with no remote.
+- Full Windows safety sign-off requires a symlink-capable process. A host without
+  that capability must fail once with clear remediation and must not report linked-
+  path assertions as passed or silently skipped.
+- Native learner readiness requires both Windows CI and an independent walkthrough;
+  documentation alone does not satisfy the scope.
+- The course remains pinned to the exact Directive 0.112.0 CLI/core/content/types
+  graph. A pin change, publishing, paid services, or production use requires a new
+  estimate.
+
+### What you will need to sign up for
+
+No new account is expected. Contributors use the existing private 3Ci GitHub
+organization, approved coding-agent access, Git, PowerShell 7.4 or later, Node.js,
+npm, and the repository's existing GitHub Actions capability. Windows Developer
+Mode or an equivalent symlink-capable process is required only for full linked-path
+safety validation.
+
+### Hosting, infrastructure, and third-party fees
+
+None are expected. The work changes local fixtures, tests, documentation, and CI;
+it does not deploy, publish, call a paid API, or create a hosted learner service.
+
+### Monthly band
+
+- **Low** _(quiet month)_: about **$0 per month**
+- **Typical** _(ordinary learner and maintainer use)_: about **$0 per month**
+- **High** _(heavier use within the same approved boundary)_: about **$0 per month**
+
+The $0 band depends on existing 3Ci tooling access. Separately billed CI or agent
+usage, new paid accounts, publication, remote lab infrastructure, or a Directive
+release-pin change would require a new estimate.
+
+### Build and maintenance time
+
+- **Symlink-capability preflight and fail-closed coverage (#74)**: about **4–8 hours**
+- **Portable Markdown fixture keys (#75)**: about **1–3 hours**
+- **CRLF-safe capstone mutations and exact package-script targeting (#76)**: about **3–6 hours**
+- **Windows-safe module test contracts (#77)**: about **2–5 hours**
+- **Native Windows Lab 7, 9, and 10 learner paths, CI, and walkthrough (#78)**: about **30–50 hours**
+- **Total build**: about **40–72 hours**
+- **Maintenance**: about **2–4 hours per month**, plus focused revalidation after a material Directive release
+
+### Decision point — current scope
+
+1. **Build** -- accept the cost and start the build phase.
+2. **Rescope** -- keep building but reduce cost first.
+3. **No-build** -- stop here and record the reason.
+4. **Skip** -- skip the cost phase and record a short reason.
+5. **Discuss** -- ask follow-up questions before deciding.
+6. **Back** -- return to the issue scope.
+
+### Decision recorded — current scope
+
+- **Decision**: Build
+- **Date**: 2026-09-14
+- **Recorded by**: Flynn
+- **Reason**: Flynn selected option 1 after reviewing the Windows portability cohort estimate.
+
+## Prior scope — Module 11 and capstone (2026-09-10)
 
 Currency: **USD**. This scope completes the core course with a 55-minute Module
 11 lesson and simulated review exercise, then adds a two-hour disposable

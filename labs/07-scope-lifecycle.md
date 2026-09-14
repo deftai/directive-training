@@ -6,19 +6,19 @@
 | --- | --- |
 | Stable ID | `lab-07-scope-lifecycle` |
 | Supports | O7.1 proposed failure, O7.2 lifecycle transitions, O7.3 current readiness, O7.4 evidence and recovery |
-| Status | Learner-ready draft for the verified macOS/zsh path |
+| Status | Learner-ready on macOS/zsh; candidate native Windows helper path implemented and automated, pending an independent learner walkthrough |
 | Last verified | 2026-09-09 |
 | Directive baseline | CLI/core/content/types `0.112.0`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 35–40 minutes, including install, prediction, evidence review, reset, and archive |
 | Platforms verified | macOS 26.6.2, zsh 5.9, Node.js 24.18.0, npm 11.16.0, Git 2.50.1, go-task 3.50.0 |
-| Candidate platforms | Linux/bash and native Windows/PowerShell are not verified or learner-ready for this lab |
+| Candidate platforms | Linux/bash is not verified; native Windows/PowerShell awaits independent learner sign-off |
 
 The helper is course tooling; it does not add a new Directive feature.
 
-On the native Windows candidate path, `create` and `guard` remain available for safe
-inspection, but `install` stops before invoking npm with the learner-facing candidate-platform message above. Preserve
-that attempt and continue on a verified environment; an `npm.cmd EINVAL` error is not the
-intended platform boundary.
+The candidate native Windows helper path now performs the same exact local 0.112.0 install,
+governed lifecycle, reset, and archive operations. Automated Windows validation is
+not a substitute for the independent learner walkthrough required before changing
+the remaining candidate label.
 
 ## Goal and done condition
 
@@ -321,6 +321,41 @@ destination, then moves the exact parent—repository, marker, and evidence—un
 `3ci-directive-lab-archive` in the operating-system temporary directory. Record the archive
 paths. The archive remains recoverable until an operator applies their normal retention
 policy outside this course.
+
+## Candidate native Windows PowerShell 7.4+ route
+
+Run this from the curriculum repository. It covers starting state, execution,
+acceptance, fresh reset, and recoverable archive without spoofing the platform:
+
+```powershell
+$ErrorActionPreference = "Stop"
+$CourseRoot = (Resolve-Path -LiteralPath .).Path
+$Helper = Join-Path $CourseRoot "labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs"
+$Launcher = Join-Path ([IO.Path]::GetTempPath()) ("3ci-lab07-launch-" + [guid]::NewGuid().ToString("N"))
+[void](New-Item -ItemType Directory -Path $Launcher)
+Set-Location -LiteralPath $Launcher
+$LabRoot = ((& node $Helper create) | Out-String).Trim()
+& node $Helper guard $LabRoot
+& node $Helper install $LabRoot
+& node $Helper run $LabRoot --intent=implement
+if ($LASTEXITCODE -ne 0) { throw "Lab 7 lifecycle execution failed." }
+$EvidenceRoot = Join-Path (Split-Path -Parent $LabRoot) "evidence"
+foreach ($Name in "proposed-preflight.json", "lifecycle-run.json") {
+  if (-not (Test-Path -LiteralPath (Join-Path $EvidenceRoot $Name) -PathType Leaf)) { throw "Missing $Name" }
+}
+$FreshRoot = ((& node $Helper reset $LabRoot) | Out-String).Trim()
+if ([StringComparer]::OrdinalIgnoreCase.Equals($FreshRoot, $LabRoot)) { throw "Reset reused the original root." }
+& node $Helper guard $FreshRoot
+Set-Location -LiteralPath $CourseRoot
+$FirstArchive = ((& node $Helper archive $LabRoot) | Out-String).Trim()
+$SecondArchive = ((& node $Helper archive $FreshRoot) | Out-String).Trim()
+foreach ($Archive in $FirstArchive, $SecondArchive) {
+  if (-not (Test-Path -LiteralPath (Join-Path $Archive "repo") -PathType Container)) { throw "Archive is incomplete." }
+}
+```
+
+The lifecycle record must show proposed preflight refusal, promotion, activation,
+session readiness, active preflight, completion, and cancellation in order.
 
 ## Explained solution
 

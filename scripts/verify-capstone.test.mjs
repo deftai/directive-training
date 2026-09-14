@@ -38,7 +38,7 @@ function copiedRepository() {
 function changedCopy(path, transform) {
   const root = copiedRepository();
   const target = join(root, path);
-  const before = readFileSync(target, "utf8");
+  const before = readFileSync(target, "utf8").replace(/\r\n/g, "\n");
   const after = transform(before);
   assert.notEqual(after, before, "negative mutation must change " + path);
   writeFileSync(target, after);
@@ -273,9 +273,33 @@ test("verifier rejects a delivered local closeout claim", () => {
 });
 
 test("verifier rejects capstone package-script drift", () => {
-  const root = changedCopy("package.json", (body) =>
-    body.replace(" scripts/verify-capstone.test.mjs", ""));
+  const root = changedCopy("package.json", (body) => {
+    const packageJson = JSON.parse(body);
+    const before = packageJson.scripts["test:capstone"];
+    packageJson.scripts["test:capstone"] = before.replace(" scripts/verify-capstone.test.mjs", "");
+    assert.notEqual(packageJson.scripts["test:capstone"], before, "test:capstone mutation must change that exact script");
+    return JSON.stringify(packageJson, null, 2) + "\n";
+  });
   assert.throws(() => verifyCapstone(root), /test:capstone/);
+});
+
+test("verifier rejects a privileged preflight in ordinary portability validation", () => {
+  const root = changedCopy("package.json", (body) => {
+    const packageJson = JSON.parse(body);
+    packageJson.scripts["test:portability"] =
+      "node scripts/verify-symlink-capability.mjs && " + packageJson.scripts["test:portability"];
+    return JSON.stringify(packageJson, null, 2) + "\n";
+  });
+  assert.throws(() => verifyCapstone(root), /test:portability/);
+});
+
+test("verifier rejects removal of dedicated linked-path safety validation", () => {
+  const root = changedCopy("package.json", (body) => {
+    const packageJson = JSON.parse(body);
+    delete packageJson.scripts["test:linked-path-safety"];
+    return JSON.stringify(packageJson, null, 2) + "\n";
+  });
+  assert.throws(() => verifyCapstone(root), /test:linked-path-safety/);
 });
 
 test("verifier rejects mutated fixture provenance", () => {

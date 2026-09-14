@@ -4,6 +4,12 @@
 
 ### Added
 
+- Native Windows/PowerShell learner paths and a three-platform CI proof for
+  Labs 7, 9, and 10, including the exact Directive 0.112.0 dependency graph
+  and each lab's complete disposable workflow (#78).
+- A dedicated fail-closed linked-path safety suite whose Windows preflight
+  clearly reports missing file/directory symlink capability without requiring
+  that privilege for ordinary training validation (#74).
 - A learner-ready [end-to-end capstone](curriculum/capstone-end-to-end.md) with
   a guarded two-hour lab, independently assessable rubric, progressive hints,
   failure-specific recovery, reset-and-archive drill, and explained solution.
@@ -90,6 +96,10 @@
 
 ### Fixed
 
+- Normalize repository-style fixture keys across platforms, make capstone
+  negative mutations LF/CRLF-safe and exact-script-specific, and keep Labs 7,
+  9, and 10 happy paths executable on their supported host lanes (#75, #76,
+  #77).
 - Complete the native Windows learner path across Labs 2 and 5, the capstone,
   and the candidate-only Labs 7, 9, and 10: publish the verified Lab 5
   PowerShell route, stop unsupported installs before npm, require an explicit

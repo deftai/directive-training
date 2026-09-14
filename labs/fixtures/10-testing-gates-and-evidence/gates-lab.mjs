@@ -17,7 +17,7 @@ import {
 import { devNull, tmpdir } from "node:os";
 import { basename, delimiter, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
-import { assertNoGitRedirection, assertPlainTree, git, safePath } from "./safety.mjs";
+import { assertNoGitRedirection, assertPlainTree, git, safePath, sameFileSystemEntry } from "./safety.mjs";
 
 const fixture = dirname(fileURLToPath(import.meta.url));
 const read = (path) => readFileSync(path, "utf8");
@@ -139,7 +139,7 @@ function commandResult(command, args, options = {}) {
 }
 
 function requireSuccess(name, result) {
-  assert.equal(result.exitCode, 0, `${name} failed (${result.exitCode}): ${result.stderr || result.stdout}`);
+  assert.equal(result.exitCode, 0, `${name} failed (${result.exitCode}): ${result.stderr}${result.stdout}`);
   return result;
 }
 
@@ -155,9 +155,9 @@ function findExecutable(name) {
   throw new Error(`Required executable not found: ${name}`);
 }
 
-/** Reject platforms without a learner-ready command path before installation mutates the attempt. */
+/** Accept only platforms with a documented learner command path. */
 export function assertLearnerReadyPlatform(platform = process.platform) {
-  assert.notEqual(platform, "win32", "Native Windows/PowerShell is a candidate path and is not learner-ready in this release.");
+  assert.ok(["darwin", "linux", "win32"].includes(platform), `Unsupported learner platform: ${platform}`);
 }
 
 function createIsolatedTools(root) {
@@ -168,10 +168,16 @@ function createIsolatedTools(root) {
     ["task", findExecutable("task")],
     ["npm", findExecutable("npm")],
     ["git", findExecutable("git")],
+    ["python", findExecutable("python")],
     ["uv", findExecutable("uv")],
   ])) {
-    const link = join(directory, name);
-    if (!existsSync(link)) symlinkSync(target, link);
+    const link = join(directory, process.platform === "win32" ? name + ".cmd" : name);
+    if (!existsSync(link)) {
+      if (process.platform === "win32") {
+        assert.ok(!/[\r\n"%]/.test(target), `unsupported character in local ${name} launcher path`);
+        writeFileSync(link, `@echo off\r\n"${target}" %*\r\n`);
+      } else symlinkSync(target, link);
+    }
   }
   return directory;
 }
@@ -185,10 +191,37 @@ function withoutHostNpmConfig(overrides = {}) {
   return { ...environment, ...overrides };
 }
 
+function runNpm(root, args) {
+  const npmCommand = findExecutable("npm");
+  const candidates = [process.env.npm_execpath, join(dirname(npmCommand), "node_modules/npm/bin/npm-cli.js"), join(dirname(process.execPath), "node_modules/npm/bin/npm-cli.js")];
+  const npmCli = candidates.find((candidate) => candidate && existsSync(candidate));
+  return commandResult(npmCli ? process.execPath : npmCommand, npmCli ? [npmCli, ...args] : args, {
+    cwd: root,
+    env: withoutHostNpmConfig({
+      NPM_CONFIG_USERCONFIG: join(root, ".npmrc"),
+      NPM_CONFIG_GLOBALCONFIG: devNull,
+      NPM_CONFIG_CACHE: join(root, ".npm-cache"),
+      NPM_CONFIG_REGISTRY: "https://registry.npmjs.org/",
+    }),
+    timeout: 180_000,
+  });
+}
+
+function runDirective(root, args) {
+  return commandResult(process.execPath, [join(root, "node_modules/@deftai/directive/dist/bin.js"), ...args], {
+    cwd: root,
+    env: isolatedEnv(root),
+    timeout: 180_000,
+  });
+}
+
 function isolatedEnv(root) {
+  const systemTools = process.platform === "win32"
+    ? [dirname(process.execPath), dirname(findExecutable("git")), dirname(findExecutable("python")), dirname(process.env.ComSpec ?? join(process.env.SystemRoot ?? "C:\\Windows", "System32", "cmd.exe"))]
+    : [dirname(process.execPath), "/usr/bin", "/bin"];
   return {
     ...withoutHostNpmConfig(),
-    PATH: [join(root, "node_modules/.bin"), join(root, ".lab-tools"), "/usr/bin", "/bin"].join(delimiter),
+    PATH: [join(root, "node_modules/.bin"), join(root, ".lab-tools"), ...systemTools].join(delimiter),
     DEFT_SESSION_ID: "module-10-lab-session",
     DEFT_SESSION_SLASH_VERB: "implement",
     NPM_CONFIG_USERCONFIG: join(root, ".npmrc"),
@@ -199,7 +232,7 @@ function isolatedEnv(root) {
 }
 
 function runTask(root, taskName) {
-  return commandResult(join(root, ".lab-tools", "task"), ["--silent", taskName], {
+  return commandResult(findExecutable("task"), ["--silent", taskName], {
     cwd: root,
     env: isolatedEnv(root),
     timeout: 180_000,
@@ -318,7 +351,8 @@ function verifyAttemptIdentity(input = process.cwd()) {
   for (const path of [".git", ".git/config", ".git/index", ".git/hooks", ".git/objects", ".git/refs", ".git/HEAD", ".gitattributes", ".gitignore", ".npmrc", "Taskfile.yml", "package.json", "src", "test", "scripts", "xbrief", "xbrief/PROJECT-DEFINITION.xbrief.json", storyPath]) safePath(root, path);
   assert.ok(lstatSync(join(root, ".git")).isDirectory(), "Stop: expected a local .git directory.");
   assertPlainTree(root, ".git");
-  assert.equal(realpathSync(git(root, ["rev-parse", "--show-toplevel"]).trim()), root, "Stop: Git root differs from the lab.");
+  const gitRoot = git(root, ["rev-parse", "--show-toplevel"]).trim();
+  assert.ok(sameFileSystemEntry(root, gitRoot), "Stop: Git root differs from the lab.");
   assert.equal(git(root, ["branch", "--show-current"]).trim(), "training/module-10", "Stop: expected training/module-10.");
   assert.equal(git(root, ["remote"]).trim(), "", "Stop: lab must have no remote.");
   return { root, marker };
@@ -350,23 +384,12 @@ export function installAttempt(root = process.cwd(), platform = process.platform
   const initial = verifyAttemptIdentity(root).marker;
   requireStage(initial, "CREATED");
   assert.ok(!existsSync(join(root, "node_modules")), "Stop: install requires a fresh attempt; use reset after a partial install.");
-  const npm = findExecutable("npm");
-  const install = commandResult(npm, ["install", "--userconfig", join(root, ".npmrc"), "--globalconfig", devNull, "--cache", join(root, ".npm-cache"), "--registry", "https://registry.npmjs.org/", "--ignore-scripts", "--no-audit", "--no-fund"], {
-    cwd: root,
-    env: withoutHostNpmConfig({
-      NPM_CONFIG_USERCONFIG: join(root, ".npmrc"),
-      NPM_CONFIG_GLOBALCONFIG: devNull,
-      NPM_CONFIG_CACHE: join(root, ".npm-cache"),
-      NPM_CONFIG_REGISTRY: "https://registry.npmjs.org/",
-    }),
-    timeout: 180_000,
-  });
+  const install = runNpm(root, ["install", "--userconfig", join(root, ".npmrc"), "--globalconfig", devNull, "--cache", join(root, ".npm-cache"), "--registry", "https://registry.npmjs.org/", "--ignore-scripts", "--no-audit", "--no-fund"]);
   requireSuccess("npm install", install);
   verifyInstalledGraph(root);
-  const cli = join(root, "node_modules/.bin/directive");
-  requireSuccess("directive init", commandResult(cli, ["init", "--yes", "--repo-root", root, "--json"], {
+  requireSuccess("directive init", commandResult(process.execPath, [join(root, "node_modules/@deftai/directive/dist/bin.js"), "init", "--yes", "--repo-root", root, "--json"], {
     cwd: root,
-    env: withoutHostNpmConfig(),
+    env: isolatedEnv(root),
     timeout: 180_000,
   }));
   assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.112\.0'/, "installed content deposit must be 0.112.0");
@@ -400,7 +423,7 @@ export function recordRed(root = process.cwd()) {
   assertMutableFiles(root, [testPath], "red");
   assert.equal(digest(read(safePath(root, sourcePath))), marker.startingDigests[sourcePath], "Stop: source changed before red evidence.");
   assert.equal(digest(read(safePath(root, qualityPath))), marker.startingDigests[qualityPath], "Stop: quality record changed before aggregate diagnosis.");
-  const focused = commandResult(join(root, ".lab-tools/node"), ["--test", testPath], { cwd: root, env: isolatedEnv(root) });
+  const focused = commandResult(process.execPath, ["--test", testPath], { cwd: root, env: isolatedEnv(root) });
   assert.equal(focused.exitCode, 1, "Stop: the focused test must fail at the red checkpoint.");
   assert.match(focused.stdout + focused.stderr, /average/, "Stop: the red failure must describe the intended average behavior.");
   const evidence = {
@@ -426,8 +449,8 @@ export function recordGreen(root = process.cwd()) {
   assert.equal(digest(read(safePath(root, testPath))), marker.redTestDigest, "Stop: focused test changed after the red checkpoint.");
   assert.notEqual(digest(read(safePath(root, sourcePath))), marker.startingDigests[sourcePath], "Stop: green requires a source implementation.");
   assert.equal(digest(read(safePath(root, qualityPath))), marker.startingDigests[qualityPath], "Stop: quality record changed before aggregate diagnosis.");
-  const focused = requireSuccess("focused test", commandResult(join(root, ".lab-tools/node"), ["--test", testPath], { cwd: root, env: isolatedEnv(root) }));
-  const cli = requireSuccess("numeric summary CLI", commandResult(join(root, ".lab-tools/node"), [sourcePath, "2", "4", "6"], { cwd: root, env: isolatedEnv(root) }));
+  const focused = requireSuccess("focused test", commandResult(process.execPath, ["--test", testPath], { cwd: root, env: isolatedEnv(root) }));
+  const cli = requireSuccess("numeric summary CLI", commandResult(process.execPath, [sourcePath, "2", "4", "6"], { cwd: root, env: isolatedEnv(root) }));
   assert.deepEqual(JSON.parse(cli.stdout), { count: 3, total: 12, average: 4 }, "green CLI behavior is incorrect");
   const evidence = {
     schema: "3ci.training.module10.green-evidence.v1",
@@ -453,8 +476,8 @@ export function recordRefactor(root = process.cwd()) {
   assert.equal(digest(read(safePath(root, testPath))), marker.redTestDigest, "Stop: focused test changed after the red checkpoint.");
   const sourceDigest = digest(read(safePath(root, sourcePath)));
   assert.notEqual(sourceDigest, marker.greenSourceDigest, "Stop: refactor requires an observable source-only change after green.");
-  const focused = requireSuccess("focused test after refactor", commandResult(join(root, ".lab-tools/node"), ["--test", testPath], { cwd: root, env: isolatedEnv(root) }));
-  const cli = requireSuccess("numeric summary CLI after refactor", commandResult(join(root, ".lab-tools/node"), [sourcePath, "2", "4", "6"], { cwd: root, env: isolatedEnv(root) }));
+  const focused = requireSuccess("focused test after refactor", commandResult(process.execPath, ["--test", testPath], { cwd: root, env: isolatedEnv(root) }));
+  const cli = requireSuccess("numeric summary CLI after refactor", commandResult(process.execPath, [sourcePath, "2", "4", "6"], { cwd: root, env: isolatedEnv(root) }));
   assert.deepEqual(JSON.parse(cli.stdout), { count: 3, total: 12, average: 4 }, "refactor changed CLI behavior");
   const evidence = {
     schema: "3ci.training.module10.refactor-evidence.v1",
@@ -479,9 +502,8 @@ export function runLiteralAcceptance(root = process.cwd()) {
   assertMutableFiles(root, [sourcePath, testPath], "literal acceptance");
   assert.equal(digest(read(safePath(root, testPath))), marker.redTestDigest, "Stop: focused test changed after the red checkpoint.");
   assert.equal(digest(read(safePath(root, sourcePath))), marker.refactorSourceDigest, "Stop: source changed after refactor evidence.");
-  const cli = join(root, "node_modules/.bin/directive");
-  const literalAcceptance = requireSuccess("literal acceptance", commandResult(cli, ["verify:ac", storyPath], { cwd: root, env: isolatedEnv(root), timeout: 180_000 }));
-  const forwardCoverage = requireSuccess("forward coverage", commandResult(cli, ["verify:forward-coverage", "--project-root", ".", "--head"], { cwd: root, env: isolatedEnv(root), timeout: 180_000 }));
+  const literalAcceptance = requireSuccess("literal acceptance", runDirective(root, ["verify:ac", storyPath]));
+  const forwardCoverage = requireSuccess("forward coverage", runDirective(root, ["verify:forward-coverage", "--project-root", ".", "--head"]));
   const evidence = {
     schema: "3ci.training.module10.literal-evidence.v1",
     generatedAt: new Date().toISOString(),

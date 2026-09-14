@@ -1,0 +1,119 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #74",
+    "updated": "2026-09-14T20:13:08Z"
+  },
+  "plan": {
+    "title": "Windows symlink capability failures lack a clear validation preflight",
+    "status": "running",
+    "narratives": {
+      "Description": "Windows symlink capability failures lack a clear validation preflight",
+      "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/74",
+      "Overview": "## Summary\n\nOn a standard non-administrator Windows account without Developer Mode symlink capability, the Windows validation suites reach individual linked-path fixtures and fail with raw `EPERM: operation not permitted, symlink` stack traces.\n\nThis is not a request to skip or pass the linked-path security assertions. The maintainer contract correctly requires a symlink-capable process for full Windows safety sign-off. The problem is that the missing host capability is discovered repeatedly and opaquely instead of being reported once as a validation precondition.\n\n## Environment\n\n- Windows 11 Home 10.0.26200, ARM64\n- PowerShell 7.6.5\n- Node.js v26.8.1\n- Git 2.54.0.windows.1\n- Repository commit `767f800e2b3adcfb9a86e00e0e686527f0cc2214`\n- Non-administrator process; file and directory symlink probes both fail with `A required privilege is not held by the client`\n\n## Reproduction\n\nRun the documented Windows validation matrix from a process that cannot create symlinks:\n\n```powershell\nnpm run test:modules-4-5\nnpm run test:portability\n```\n\nObserved deterministic failures include:\n\n- `test:modules-4-5`: 71/75 pass; four fixtures fail during symlink creation.\n- `test:portability`: 48/54 pass on exact rerun; `lab-helper-entry.test.mjs` and `windows-shim.test.mjs` each fail during symlink creation (the other four failures are tracked separately).\n\nThe individual failures surface Node `EPERM` stacks rather than a single capability diagnosis and remediation path.\n\n## Expected behavior\n\nThe Windows validation entry point should preflight file/directory symlink capability before entering suites that require it. If capability is missing, it should:\n\n1. fail the overall safety validation (full safety sign-off is not complete),\n2. identify the missing Windows privilege or Developer Mode capability once,\n3. give an actionable remediation/rerun instruction, and\n4. avoid representing any unexecuted linked-path assertion as passed or silently skipped.\n\nA symlink-capable Windows lane must continue to execute every linked-path negative assertion.\n\n## Acceptance criteria\n\n- A non-symlink-capable Windows process receives one clear preflight failure with remediation guidance.\n- The result explicitly says that full Windows safety sign-off is incomplete.\n- No linked-path security assertion is marked passed or silently skipped.\n- A symlink-capable Windows process runs all linked-path cases and preserves their fail-closed expectations.\n\n## Evidence\n\nFull validation evidence was captured under `C:\\Users\\codem\\.codex\\validation-evidence\\full-course-windows-20260914-083722`.\n\n",
+      "Labels": "bug",
+      "Decisions": "- xbrief/decisions/2026-09-14-separate-training-from-linked-path-safety.decision.json — Separate baseline training validation from privileged linked-path safety validation"
+    },
+    "items": [
+      {
+        "title": "A non-symlink-capable Windows process receives one clear preflight failure with remediation guidance.",
+        "status": "proposed"
+      },
+      {
+        "title": "The result explicitly says that full Windows safety sign-off is incomplete.",
+        "status": "proposed"
+      },
+      {
+        "title": "No linked-path security assertion is marked passed or silently skipped.",
+        "status": "proposed"
+      },
+      {
+        "title": "A symlink-capable Windows process runs all linked-path cases and preserves their fail-closed expectations.",
+        "status": "proposed"
+      }
+    ],
+    "tags": [
+      "bug"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/74",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #74: Windows symlink capability failures lack a clear validation preflight"
+      }
+    ],
+    "metadata": {
+      "literal_acceptance_commands": [
+        {
+          "command": "npm run test:modules-4-5",
+          "source": "task_statement",
+          "sourceSpan": "fence@L22:powershell"
+        },
+        {
+          "command": "npm run test:portability",
+          "source": "task_statement",
+          "sourceSpan": "fence@L22:powershell"
+        }
+      ],
+      "swarm": {},
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5451652711,
+        "origin": "3ci-consulting/directive-training#74",
+        "id": "github.issue.5451652711"
+      }
+    },
+    "acceptance": {
+      "commands": [
+        {
+          "command": "npm run test:modules-4-5"
+        },
+        {
+          "command": "npm run test:portability"
+        }
+      ],
+      "none_stated": false,
+      "source_rung": "stated",
+      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "A non-symlink-capable Windows process receives one clear preflight failure with remediation guidance.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "The result explicitly says that full Windows safety sign-off is incomplete.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "No linked-path security assertion is marked passed or silently skipped.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "A symlink-capable Windows process runs all linked-path cases and preserves their fail-closed expectations.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5451652711",
+    "updated": "2026-09-14T20:13:08Z"
+  }
+}

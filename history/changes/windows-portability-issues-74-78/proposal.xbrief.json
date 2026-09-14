@@ -1,0 +1,20 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8"
+  },
+  "plan": {
+    "title": "windows-portability-issues-74-78",
+    "status": "approved",
+    "narratives": {
+      "Problem": "Windows validation currently fails through five related gaps: opaque symlink privilege errors, host-native fixture-map keys, CRLF-sensitive capstone mutations, unconditional POSIX happy paths, and incomplete native learner workflows for Labs 7, 9, and 10.",
+      "Change": "Resolve GitHub issues 74 through 78 as one bounded Windows portability batch while preserving fail-closed linked-path safety and the exact Directive 0.112.0 learner dependency graph.",
+      "Scope": "In scope: affected JavaScript helpers and verifier tests, PowerShell learner instructions and solutions, maintainer acceptance documentation, Windows CI coverage, and evidence needed to mark Labs 7, 9, and 10 learner-ready. Out of scope: Directive pin changes, publishing, deployment, business-repository exercises, or weakening linked-path security assertions.",
+      "Impact": "Repository validation entry points, module and capstone tests, disposable lab helpers, learner-facing Markdown, and CI may change. The batch is isolated on codex/issues-74-78.",
+      "Risks": "A capability preflight could accidentally hide linked-path tests; portability fixes could mutate the wrong fixture surface; learner-ready language could outrun independent Windows evidence. Focused negative tests, literal acceptance, native walkthrough evidence, and the aggregate consumer gate mitigate these risks.",
+      "Approach": "Implement in issue order. Add or confirm failing assertions first, make the smallest change that satisfies each issue, run focused verification per issue, and run the full Deft consumer gate once at the end of the five-issue batch.",
+      "Alternatives": "Leaving Labs 7, 9, and 10 as candidate-only would avoid the larger fixture effort but would not satisfy issue 78. Silently skipping symlink tests would produce false safety confidence and is explicitly excluded.",
+      "Dependencies": "Directive 0.112.0 remains the learner-facing baseline. Native Windows PowerShell 7.4+, Node.js, npm, Git, a symlink-capable validation lane, and the existing GitHub Actions account are required; no new paid service is introduced.",
+      "Approval": "Flynn explicitly confirmed /deft:change windows-portability-issues-74-78 on 2026-09-14."
+    }
+  }
+}

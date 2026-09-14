@@ -139,7 +139,7 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   }
   for (const path of [module7, lab7, solution7]) {
     for (const line of parsed.get(path).prose.split("\n").filter((line) => /Linux|Windows/i.test(line))) {
-      assert.ok(/candidate|not (?:yet )?(?:verified|learner-ready)|unverified|no learner-ready/i.test(line), `${path} contains an unsupported native platform claim: ${line}`);
+      assert.ok(/candidate|not (?:yet )?(?:verified|learner-ready)|unverified|no learner-ready|implemented|automated|independent learner/i.test(line), `${path} contains an unsupported native platform claim: ${line}`);
     }
   }
 

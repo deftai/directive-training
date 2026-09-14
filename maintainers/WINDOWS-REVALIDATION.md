@@ -232,6 +232,8 @@ Run these commands separately from the course root and capture stdout, stderr, a
 node scripts/verify-cold-start-readme.mjs
 node scripts/verify-modules-2-3.mjs
 node scripts/verify-modules-4-5.mjs
+node --test scripts/verify-symlink-capability.test.mjs
+node --test scripts/linked-path-suite-boundary.test.mjs
 node --test scripts/verify-text-portability.test.mjs
 node --test scripts/windows-shim.test.mjs
 node --test scripts/projection-lab.test.mjs
@@ -242,15 +244,30 @@ node --test scripts/restore-validation-deposit.test.mjs
 Run the combined suite and coverage as separate checks. Their normal new-fixture cleanup is authorized above:
 
 ```powershell
-node --test scripts/projection-lab.test.mjs scripts/projection-lab-eol.test.mjs scripts/verify-modules-4-5.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs
-node --test --experimental-test-coverage '--test-coverage-include=labs/fixtures/05-projection-drift-recovery/*.mjs' '--test-coverage-include=scripts/verify-modules-4-5.mjs' '--test-coverage-include=scripts/restore-validation-deposit.mjs' --test-coverage-lines=90 --test-coverage-branches=90 --test-coverage-functions=90 scripts/projection-lab.test.mjs scripts/projection-lab-eol.test.mjs scripts/verify-modules-4-5.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs
+node --test scripts/verify-symlink-capability.test.mjs scripts/linked-path-suite-boundary.test.mjs scripts/projection-lab.test.mjs scripts/projection-lab-eol.test.mjs scripts/verify-modules-4-5.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs
+node --test --experimental-test-coverage '--test-coverage-include=labs/fixtures/05-projection-drift-recovery/*.mjs' '--test-coverage-include=scripts/verify-modules-4-5.mjs' '--test-coverage-include=scripts/restore-validation-deposit.mjs' --test-coverage-lines=90 --test-coverage-branches=90 --test-coverage-functions=90 scripts/verify-symlink-capability.test.mjs scripts/linked-path-suite-boundary.test.mjs scripts/projection-lab.test.mjs scripts/projection-lab-eol.test.mjs scripts/verify-modules-4-5.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs
 ```
+
+Those commands are the privilege-free training and portability surface. After
+the file and directory probes above both pass in the same approved process,
+run the real linked-path attack fixtures separately:
+
+```powershell
+npm run test:linked-path-safety
+```
+
+Do not substitute the ordinary green suite for this full-safety command.
 
 Report actual totals; the previous 46-test total is obsolete. Report coverage for its explicitly included files, not as whole-repository coverage. Record aggregate and per-file lines/branches/functions, command exit, every failure, and every skip.
 
-The text tests must accept LF and CRLF while still rejecting invalid content. Do not normalize the checkout or change `core.autocrlf` to make them pass. Windows fake package graphs should use ordinary npm command shims; actual symlink-rejection tests must still execute their intended assertions.
+The text tests must accept LF and CRLF while still rejecting invalid content. Do not normalize the checkout or change `core.autocrlf` to make them pass. Windows fake package graphs should use ordinary npm command shims; privilege-dependent symlink-rejection tests must execute through `test:linked-path-safety`.
 
-If file/directory symlink creation fails with a privilege error, identify the affected tests and mark safety validation incomplete. Do not skip them into a green result or claim their assertions ran. A separate real-install attempt may proceed only if its own prerequisites and guards pass; a unit-test environment limitation is not a successful full-suite result.
+If file/directory symlink creation fails with a privilege error, mark only the
+linked-path safety validation incomplete and retain the preflight failure.
+Continue the privilege-free training and portability commands, but do not skip
+the attack fixtures into a green full-safety result or claim their assertions
+ran. A separate real-install attempt may proceed only if its own prerequisites
+and guards pass.
 
 ## 4. Replay the real installed Lab 5
 

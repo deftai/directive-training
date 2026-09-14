@@ -1,0 +1,104 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #78",
+    "updated": "2026-09-14T20:52:02Z"
+  },
+  "plan": {
+    "title": "Complete native Windows learner paths for Labs 7, 9, and 10",
+    "status": "running",
+    "narratives": {
+      "Description": "Complete native Windows learner paths for Labs 7, 9, and 10",
+      "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/78",
+      "Overview": "## Summary\n\nA complete native Windows course run is currently impossible because Labs 7, 9, and 10 intentionally stop before package installation. Their module content is available, and create/guard/reset/archive work safely on Windows, but the practical outcomes for scope lifecycle, implementation, and testing/gates cannot be executed.\n\nValidated at repository commit `767f800e2b3adcfb9a86e00e0e686527f0cc2214`.\n\n## Evidence\n\nOn Windows 11 / PowerShell 7.6.5 / Node.js 26.8.1:\n\n1. `create` succeeded for each fixture and produced the expected no-remote feature-branch repository.\n2. `guard` succeeded.\n3. `install` exited 1 before creating `node_modules` or `package-lock.json` with:\n\n```text\nNative Windows/PowerShell is a candidate path and is not learner-ready in this release.\n```\n\n4. Each preserved attempt could be reset to a distinct root and both roots archived recoverably.\n\nConsequently:\n\n- Lab 7 cannot execute proposed-preflight, promote, activate, session readiness, active preflight, complete, and cancel evidence on Windows.\n- Lab 9 cannot execute readiness, one-file implementation, behavioral verification, and final evidence on Windows.\n- Lab 10 cannot execute red/green/refactor, literal acceptance, aggregate diagnosis, and quality-record repair on Windows.\n\nModules 2 and 5 and the complete capstone did pass their independent native Windows learner walkthroughs in the same validation session.\n\n## Expected outcome\n\nProvide documented PowerShell 7.4+ learner paths and fixture support for Labs 7, 9, and 10 so every practical course outcome can be completed on a native Windows host without spoofing `process.platform`, bypassing guards, or substituting a global Directive CLI.\n\n## Acceptance\n\n- Each lab documents a literal PowerShell starting-state, execution, acceptance, recovery/reset, and archive path.\n- Each helper installs and verifies the exact CLI/core/content/types 0.112.0 graph on Windows.\n- Lab 7 records the complete governed lifecycle sequence.\n- Lab 9 records readiness before the one-file implementation and its behavioral evidence.\n- Lab 10 records red/green/refactor, literal acceptance, aggregate diagnosis, and final repair.\n- Native Windows CI and an independent learner walkthrough both pass before the platform is marked learner-ready.\n\nRelated: #66 deliberately changed an opaque `npm.cmd EINVAL` into the current safe candidate-platform stop. This issue tracks completing, rather than merely stopping, the Windows path.\n\n",
+      "Labels": "enhancement"
+    },
+    "items": [],
+    "tags": [
+      "enhancement"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/78",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #78: Complete native Windows learner paths for Labs 7, 9, and 10"
+      }
+    ],
+    "metadata": {
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "Native Windows/PowerShell is a candidate path and is not learner-ready in this release",
+          "reason": "first token \"native\" is not in the literal-AC allowlist",
+          "sourceSpan": "fence@L17:text"
+        }
+      ],
+      "swarm": {},
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5451655012,
+        "origin": "3ci-consulting/directive-training#78",
+        "id": "github.issue.5451655012"
+      }
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 6 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Each lab documents a literal PowerShell starting-state, execution, acceptance, recovery/reset, and archive path.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Each helper installs and verifies the exact CLI/core/content/types 0.112.0 graph on Windows.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Lab 7 records the complete governed lifecycle sequence.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Lab 9 records readiness before the one-file implementation and its behavioral evidence.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Lab 10 records red/green/refactor, literal acceptance, aggregate diagnosis, and final repair.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "Native Windows CI and an independent learner walkthrough both pass before the platform is marked learner-ready.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5451655012",
+    "updated": "2026-09-14T20:52:02Z"
+  }
+}

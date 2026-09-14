@@ -1,0 +1,88 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #75",
+    "updated": "2026-09-14T20:51:45Z"
+  },
+  "plan": {
+    "title": "verify-text-portability uses Windows path separators and misses four mutation fixtures",
+    "status": "running",
+    "narratives": {
+      "Description": "verify-text-portability uses Windows path separators and misses four mutation fixtures",
+      "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/75",
+      "Overview": "## Summary\n\n`scripts/verify-text-portability.test.mjs` stores recursively collected Markdown paths using the host-native separator, then looks them up with repository-style forward-slash keys. On Windows, four negative tests fail before invoking the verifier because their fixture keys are absent.\n\nValidated at repository commit `767f800e2b3adcfb9a86e00e0e686527f0cc2214`.\n\n## Environment\n\n- Windows 11 Home 10.0.26200, ARM64\n- PowerShell 7.6.5\n- Node.js 26.8.1\n- Git `core.autocrlf=true`\n\n## Reproduction\n\nRun:\n\n```text\nnode --test scripts/verify-text-portability.test.mjs\n```\n\nResult: 16 pass / 4 fail. Both LF and CRLF variants of these tests fail:\n\n- `Modules 2-3 verifier rejects a reintroduced claim label`\n- `Modules 2-3 verifier rejects organization-specific module language`\n\nThe diagnostic is `fixture must contain templates/module-template.md` or `fixture must contain curriculum/modules/03-authority-and-context.md`.\n\n## Cause\n\n`collectMarkdown()` builds map keys with `join(directory, entry.name)`. On Windows those keys contain backslashes. The mutations at lines 126 and 131 request forward-slash keys, so `files.has(path)` is false.\n\n## Expected\n\nFixture-map keys should use one canonical repository-path representation on every host, while filesystem reads continue to use native paths.\n\n## Actual\n\nFour portability tests never mutate content and never exercise `verify-modules-2-3.mjs`.\n\n## Acceptance\n\n- `node --test scripts/verify-text-portability.test.mjs` passes all 20 cases on Windows.\n- The same suite remains green on POSIX.\n- Both LF and CRLF negative mutations reach and fail the verifier for the intended claim-label and organization-language diagnostics.\n\n",
+      "Labels": "bug"
+    },
+    "items": [],
+    "tags": [
+      "bug"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/75",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #75: verify-text-portability uses Windows path separators and misses four mutation fixtures"
+      }
+    ],
+    "metadata": {
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "node --test scripts/verify-text-portability.test.mjs",
+          "reason": "first token \"node\" is not in the literal-AC allowlist",
+          "sourceSpan": "fence@L20:text"
+        },
+        {
+          "command": "node --test scripts/verify-text-portability.test.mjs",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L45"
+        }
+      ],
+      "swarm": {},
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5451653226,
+        "origin": "3ci-consulting/directive-training#75",
+        "id": "github.issue.5451653226"
+      }
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 3 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "`node --test scripts/verify-text-portability.test.mjs` passes all 20 cases on Windows.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "The same suite remains green on POSIX.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Both LF and CRLF negative mutations reach and fail the verifier for the intended claim-label and organization-language diagnostics.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5451653226",
+    "updated": "2026-09-14T20:51:45Z"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #76",
+    "updated": "2026-09-14T20:51:57Z"
+  },
+  "plan": {
+    "title": "Capstone negative verifier tests fail on CRLF checkouts and mutate the wrong package script",
+    "status": "running",
+    "narratives": {
+      "Description": "Capstone negative verifier tests fail on CRLF checkouts and mutate the wrong package script",
+      "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/76",
+      "Overview": "## Summary\n\nThe independent capstone learner workflow passes completely on Windows, but `scripts/verify-capstone.test.mjs` fails 9 of 34 negative tests on a normal `core.autocrlf=true` checkout. Eight mutations assume LF bytes; a ninth removes the first of two matching script fragments and therefore edits `test:capstone-content` instead of `test:capstone`.\n\nValidated at repository commit `767f800e2b3adcfb9a86e00e0e686527f0cc2214`.\n\n## Environment\n\n- Windows 11 Home 10.0.26200, ARM64\n- PowerShell 7.6.5\n- Node.js 26.8.1\n- Git 2.54.0.windows.1 with `core.autocrlf=true`\n\n## Reproduction\n\nRun:\n\n```text\nnode --test scripts/verify-capstone.test.mjs\n```\n\nResult: 25 pass / 9 fail.\n\nThe following mutations report `negative mutation must change ...` because their multiline strings or line regexes do not match CRLF content:\n\n- unconditional reset recovery for invalid identity\n- omitted checkpoint stage\n- missing reset/archive disposition note\n- missing launcher disposition\n- private note retained in a launcher\n- omitted runtime identity\n- averaged rubric\n- source record without application compatibility\n\nThe package-script drift test does change `package.json`, but the needle ` scripts/verify-capstone.test.mjs` occurs twice. `replace()` removes the occurrence from `test:capstone-content`, leaves `test:capstone` intact, and `verifyCapstone()` correctly does not throw; the test then reports `Missing expected exception`.\n\n`npm run test:capstone` therefore fails even though its guarded full rehearsal passes. An independent learner walkthrough also completed every stage from create/install through close, final checks, reset, and both archives with CAP.1-CAP.4 demonstrated.\n\n## Expected\n\nNegative mutators should be EOL-agnostic and should assert they changed the exact contract surface named by the test.\n\n## Actual\n\nEight tests fail in mutation setup on CRLF bytes, and one mutates the wrong package script.\n\n## Acceptance\n\n- `node --test scripts/verify-capstone.test.mjs` passes all 34 cases with both LF and CRLF checkouts.\n- The package mutation targets the `test:capstone` value specifically and proves that exact value changed.\n- `npm run test:capstone` is green on the documented Windows environment.\n\n",
+      "Labels": "bug"
+    },
+    "items": [],
+    "tags": [
+      "bug"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/3Ci-Consulting/directive-training/issues/76",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #76: Capstone negative verifier tests fail on CRLF checkouts and mutate the wrong package script"
+      }
+    ],
+    "metadata": {
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "node --test scripts/verify-capstone.test.mjs",
+          "reason": "first token \"node\" is not in the literal-AC allowlist",
+          "sourceSpan": "fence@L20:text"
+        },
+        {
+          "command": "npm run test:capstone",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L39"
+        },
+        {
+          "command": "node --test scripts/verify-capstone.test.mjs",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L51"
+        }
+      ],
+      "swarm": {},
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5451653969,
+        "origin": "3ci-consulting/directive-training#76",
+        "id": "github.issue.5451653969"
+      }
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 3 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "`node --test scripts/verify-capstone.test.mjs` passes all 34 cases with both LF and CRLF checkouts.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "The package mutation targets the `test:capstone` value specifically and proves that exact value changed.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "`npm run test:capstone` is green on the documented Windows environment.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5451653969",
+    "updated": "2026-09-14T20:51:57Z"
+  }
+}

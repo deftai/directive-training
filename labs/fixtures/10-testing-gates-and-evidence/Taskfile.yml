@@ -9,12 +9,12 @@ tasks:
   literal:
     desc: Run the active story's literal acceptance commands.
     cmds:
-      - ./node_modules/.bin/directive verify:ac xbrief/active/fictional-summary.xbrief.json
+      - node node_modules/@deftai/directive/dist/bin.js verify:ac xbrief/active/fictional-summary.xbrief.json
 
   forward-coverage:
     desc: Check source-to-test correspondence and available changed-branch coverage.
     cmds:
-      - ./node_modules/.bin/directive verify:forward-coverage --project-root . --head
+      - node node_modules/@deftai/directive/dist/bin.js verify:forward-coverage --project-root . --head
 
   quality:record:
     desc: Verify the governed Module 10 quality record.

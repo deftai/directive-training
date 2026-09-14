@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { lstatSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, symlinkSync, writeFileSync } from "node:fs";
+import { lstatSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
@@ -75,19 +75,6 @@ test("rejects local Node interpreter shadowing without deleting it", () => {
 
 test("POSIX still rejects a regular Windows shim", () => {
   assert.throws(() => verifyLocalBinary(fixture(), "darwin"), /local CLI link/);
-});
-
-test("Windows rejects symlinked launcher or target instead of trusting their contents", () => {
-  const root = fixture();
-  const launcher = join(root, "node_modules/.bin/directive.cmd");
-  renameSync(launcher, launcher + ".retained");
-  symlinkSync(launcher + ".retained", launcher);
-  assert.throws(() => verifyLocalBinary(root, "win32"), /symlink/);
-  const second = fixture();
-  const target = join(second, "node_modules/@deftai/directive/dist/bin.js");
-  renameSync(target, target + ".retained");
-  symlinkSync(target + ".retained", target);
-  assert.throws(() => verifyLocalBinary(second, "win32"), /symlink/);
 });
 
 test("Git redirection names are rejected case-insensitively", () => {

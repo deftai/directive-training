@@ -10,12 +10,12 @@
 | Directive baseline | `@deftai/directive@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source module | [Module 10 — Testing, Gates, and Evidence](../curriculum/modules/10-testing-gates-and-evidence.md) |
 | Fixture | [`fixtures/10-testing-gates-and-evidence`](fixtures/10-testing-gates-and-evidence/) |
-| Verified environment | macOS with zsh; Linux/bash and Windows/PowerShell remain candidate paths |
+| Verified environment | macOS/zsh learner path; native Windows helper path implemented and automated, pending an independent learner walkthrough; Linux/bash remains candidate |
 
-On the native Windows candidate path, `create` and `guard` remain available for safe
-inspection, but `install` stops before invoking npm with a clear not-learner-ready message. Preserve that attempt and
-continue on a verified environment; an `npm.cmd EINVAL` error is not the intended platform
-boundary.
+The native Windows helper path now performs the exact local 0.112.0 install and
+the same red, green, refactor, literal, aggregate-diagnosis, final-repair, reset,
+and archive sequence. Automated Windows validation is not a substitute for the
+independent learner walkthrough required before removing its candidate label.
 
 ## Goal and done condition
 
@@ -209,6 +209,46 @@ node labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs archive "$LAB10_R
 ```
 
 The helper moves the named attempt under the operating-system temporary `3ci-directive-lab-archive` directory. It refuses an implicit path, symlink, remote, wrong branch, or caller still inside the attempt parent.
+
+## Native Windows PowerShell 7.4+ route
+
+Run this from the curriculum repository. Make only the test, source, and quality-
+record edits described by the corresponding steps above:
+
+```powershell
+$ErrorActionPreference = "Stop"
+$CourseRoot = (Resolve-Path -LiteralPath .).Path
+$Helper = Join-Path $CourseRoot "labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs"
+$Launcher = Join-Path ([IO.Path]::GetTempPath()) ("3ci-lab10-launch-" + [guid]::NewGuid().ToString("N"))
+[void](New-Item -ItemType Directory -Path $Launcher)
+Set-Location -LiteralPath $Launcher
+$LabRoot = ((& node $Helper create) | Out-String).Trim()
+& node $Helper guard $LabRoot
+& node $Helper install $LabRoot
+# Add only the specified average test, then retain the meaningful failure.
+& node $Helper red $LabRoot
+# Implement the specified source behavior, then retain green and the source-only refactor.
+& node $Helper green $LabRoot
+& node $Helper refactor $LabRoot
+& node $Helper literal $LabRoot
+$Aggregate = ((& node $Helper aggregate $LabRoot) | Out-String).Trim()
+if ($LASTEXITCODE -ne 0 -or $Aggregate -notmatch "EXPECTED_FAILURE") { throw "The seeded quality-record diagnosis was not retained." }
+# Repair only quality-record.json from retained evidence, then verify the unchanged aggregate.
+& node $Helper final $LabRoot
+if ($LASTEXITCODE -ne 0) { throw "Lab 10 final verification failed." }
+$EvidenceRoot = Join-Path (Split-Path -Parent $LabRoot) "evidence"
+foreach ($Name in "red.json", "green.json", "refactor.json", "literal.json", "aggregate-failure.json", "final.json") {
+  if (-not (Test-Path -LiteralPath (Join-Path $EvidenceRoot $Name) -PathType Leaf)) { throw "Missing $Name" }
+}
+$FreshRoot = ((& node $Helper reset $LabRoot) | Out-String).Trim()
+& node $Helper guard $FreshRoot
+Set-Location -LiteralPath $CourseRoot
+$Archive = ((& node $Helper archive $LabRoot) | Out-String).Trim()
+if (-not (Test-Path -LiteralPath (Join-Path $Archive "repo") -PathType Container)) { throw "Archive is incomplete." }
+```
+
+The six evidence files must preserve the ordered red/green/refactor/literal/
+aggregate/final sequence, with only `quality-record.json` repaired after diagnosis.
 
 ## Explained solution
 

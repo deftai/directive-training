@@ -24,6 +24,14 @@ export function git(root, args, accepted = [0]) {
   return result.stdout;
 }
 
+/** Compare existing paths by filesystem identity rather than textual spelling. */
+export function sameFileSystemEntry(left, right) {
+  const leftStat = lstatSync(left, { bigint: true });
+  const rightStat = lstatSync(right, { bigint: true });
+  return leftStat.ino !== 0n && rightStat.ino !== 0n &&
+    leftStat.dev === rightStat.dev && leftStat.ino === rightStat.ino;
+}
+
 /** Resolve one nonempty relative path and reject traversal, links, and escapes. */
 export function safePath(root, relativePath) {
   assert.ok(

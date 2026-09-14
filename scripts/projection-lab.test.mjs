@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, symlinkSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -106,43 +106,16 @@ test("guard rejects unexpected remote without changing config", () => {
   writeFileSync(path, original);
   archiveAttempt(root);
 });
-test("guard rejects marker changes and symlinked source ancestors", () => {
+test("guard rejects marker changes", () => {
   const root = createAttempt();
   const path = join(root, "../lab-state.json");
   const original = read(path);
   writeFileSync(path, original.replace('"module-05"', '"other-lab"'));
   assert.throws(() => guardAttempt(root), /marker/);
   writeFileSync(path, original);
-  renameSync(join(root, "xbrief"), join(root, "xbrief-original"));
-  symlinkSync(join(root, "xbrief-original"), join(root, "xbrief"), "dir");
-  assert.throws(() => guardAttempt(root), /symlink/);
-  assert.throws(() => archiveAttempt(root), /symlink/);
-  renameSync(join(root, "xbrief"), join(root, "xbrief-link"));
-  renameSync(join(root, "xbrief-original"), join(root, "xbrief"));
-  const attributes = read(join(root, ".gitattributes"));
-  renameSync(join(root, ".gitattributes"), join(root, "../attributes-original"));
-  symlinkSync(join(root, "../attributes-original"), join(root, ".gitattributes"), "file");
-  assert.throws(() => checkpoint(root), /symlink/);
-  assert.throws(() => archiveAttempt(root), /symlink/);
-  assert.equal(read(join(root, "../attributes-original")), attributes);
-  renameSync(join(root, ".gitattributes"), join(root, "../attributes-link-retained"));
-  renameSync(join(root, "../attributes-original"), join(root, ".gitattributes"));
-  symlinkSync(join(root, ".gitattributes"), join(root, "xbrief/.gitattributes"), "file");
-  assert.throws(() => guardAttempt(root), /symlink/);
-  renameSync(join(root, "xbrief/.gitattributes"), join(root, "../nested-attributes-link-retained"));
   archiveAttempt(root);
 });
-test("MAP symlink is refused before a mutation can reach evidence", () => {
-  const root = createAttempt();
-  const outside = join(root, "../evidence.md");
-  const original = read(outside);
-  symlinkSync(outside, join(root, ".planning/codebase/MAP.md"));
-  assert.throws(() => injectDrift(root), /symlink/);
-  assert.equal(read(outside), original);
-  renameSync(join(root, ".planning/codebase/MAP.md"), join(root, "map-link"));
-  archiveAttempt(root);
-});
-test("verifyPin rejects missing, changed, and symlinked package graphs", () => {
+test("verifyPin rejects missing and changed package graphs", () => {
   const root = createAttempt();
   assert.throws(() => verifyPin(root), /ENOENT/);
   fakeGraph(root);
@@ -151,11 +124,6 @@ test("verifyPin rejects missing, changed, and symlinked package graphs", () => {
   writeFileSync(path, '{"version":"0.113.0"}');
   assert.throws(() => verifyPin(root), /0.112.0/);
   writeFileSync(path, '{"version":"0.112.0"}');
-  renameSync(join(root, "node_modules"), join(root, "node_modules-original"));
-  symlinkSync(join(root, "node_modules-original"), join(root, "node_modules"), "dir");
-  assert.throws(() => verifyPin(root), /symlink/);
-  renameSync(join(root, "node_modules"), join(root, "node_modules-link"));
-  renameSync(join(root, "node_modules-original"), join(root, "node_modules"));
   archiveAttempt(root);
 });
 test("checkpoint refuses unexpected staged data and stages only the allowlist", () => {
