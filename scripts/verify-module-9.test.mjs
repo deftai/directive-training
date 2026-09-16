@@ -122,17 +122,25 @@ test("verifier rejects a broken local navigation link", () => {
   assert.throws(() => verifyModule9(root), /broken local link/);
 });
 
-test("verifier rejects an unsupported platform marked verified", () => {
+test("verifier rejects a verified Windows marker without independent evidence", () => {
   const root = changedCopy("references/SOURCE-NOTES.md", (body) => body.replace(
-    "module09-platform-proof:windows-powershell status=candidate",
-    "module09-platform-proof:windows-powershell status=verified",
+    "module09-platform-proof:windows-powershell status=verified date=2026-09-15 evidence=independent-native-pwsh-walkthrough",
+    "module09-platform-proof:windows-powershell status=verified date=2026-09-15 evidence=pending",
   ));
-  assert.throws(() => verifyModule9(root), /Windows must remain candidate/);
+  assert.throws(() => verifyModule9(root), /Module 9 evidence is missing/);
+});
+
+test("verifier rejects a stale macOS-only course index", () => {
+  const root = changedCopy("curriculum/README.md", (body) => body.replace(
+    "| 09 | [The implementation golden path](modules/09-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell | Implement one test-backed active scope |",
+    "| 09 | [The implementation golden path](modules/09-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh only | Implement one test-backed active scope |",
+  ));
+  assert.throws(() => verifyModule9(root), /verified native Windows support/);
 });
 
 test("verifier rejects Module 10 regressing to planned after release", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh only | Red-green-refactor and diagnose a gate failure |",
+    "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell | Red-green-refactor and diagnose a gate failure |",
     "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Planned | Red-green-refactor and diagnose a gate failure |",
   ));
   assert.throws(() => verifyModule9(root), /Module 10 must remain learner-ready/);

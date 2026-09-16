@@ -10,7 +10,7 @@ path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerS
 are command-free; Modules 8 and 11 are also command-free and use fixed fictional state.
 Module 5's projection lab is verified on macOS/zsh and native Windows/PowerShell 7.4+;
 its Linux path is not verified. Module 7 and the executable labs in
-Modules 9 and 10 remain verified only on macOS/zsh. The guarded capstone fixture is verified on
+Modules 9 and 10 are verified on macOS/zsh and native Windows/PowerShell. The guarded capstone fixture is verified on
 macOS 15, Ubuntu 24.04, and Windows Server 2022; independent walkthrough pilot
 evidence remains separate.
 
@@ -68,10 +68,10 @@ No step requires a live demonstration or an instructor's private knowledge.
 | 04 | [xBRIEF as durable state](modules/04-xbrief-as-durable-state.md) | 45 min | Learner-ready; command-free | Classify project and work-state artifacts |
 | 05 | [Sources versus projections](modules/05-sources-versus-projections.md) | 50 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell 7.4+ | Repair projection drift through its source |
 | 06 | [Creating well-shaped work](modules/06-creating-well-shaped-work.md) | 55 min | Learner-ready; command-free | Turn a horizontal plan into a vertical slice |
-| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; lab verified on macOS/zsh only | Fail, promote, activate, establish current readiness, complete, and cancel |
+| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell | Fail, promote, activate, establish current readiness, complete, and cancel |
 | 08 | [Session start and authorized work selection](modules/08-session-and-work-selection.md) | 45 min | Learner-ready; command-free fixed-state exercise | Trace posture and intake decisions |
-| 09 | [The implementation golden path](modules/09-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh only | Implement one test-backed active scope |
-| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh only | Red-green-refactor and diagnose a gate failure |
+| 09 | [The implementation golden path](modules/09-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell | Implement one test-backed active scope |
+| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell | Red-green-refactor and diagnose a gate failure |
 | 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Learner-ready; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |
 
 The times total ten hours. Exercise time is included. Different hosts may add a

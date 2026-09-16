@@ -10,12 +10,12 @@
 | Directive baseline | `@deftai/directive@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source module | [Module 10 — Testing, Gates, and Evidence](../curriculum/modules/10-testing-gates-and-evidence.md) |
 | Fixture | [`fixtures/10-testing-gates-and-evidence`](fixtures/10-testing-gates-and-evidence/) |
-| Verified environment | macOS/zsh learner path; native Windows helper path implemented and automated, pending an independent learner walkthrough; Linux/bash remains candidate |
+| Verified environment | macOS/zsh and native Windows/PowerShell learner paths; Linux/bash remains candidate |
 
 The native Windows helper path now performs the exact local 0.112.0 install and
 the same red, green, refactor, literal, aggregate-diagnosis, final-repair, reset,
-and archive sequence. Automated Windows validation is not a substitute for the
-independent learner walkthrough required before removing its candidate label.
+and archive sequence. An independent PowerShell walkthrough completed that route
+on 2026-09-15 with unchanged gate-definition hashes.
 
 ## Goal and done condition
 

@@ -110,6 +110,7 @@ export function verifyModule9(root = fileURLToPath(new URL("../", import.meta.ur
 
   const labProse = parsed.get(lab9).prose;
   assert.match(labProse, /unique OS-temporary repository with no remote/, `${lab9} is missing its temporary no-remote boundary`);
+  assert.match(labProse, /Learner-ready on macOS\/zsh and native Windows\/PowerShell/, `${lab9} must retain verified native Windows support`);
   assert.match(labProse, /Only `src\/greeting\.mjs` is mutable/, `${lab9} is missing its one-file product allowlist`);
   for (const verb of ["create", "install", "readiness", "verify", "reset", "archive"]) {
     assert.match(labProse, new RegExp(`implementation-lab\\.mjs ${verb}`), `${lab9} is missing helper verb: ${verb}`);
@@ -127,6 +128,7 @@ export function verifyModule9(root = fileURLToPath(new URL("../", import.meta.ur
   const module9Row = courseModuleRow(course, 9);
   assert.match(module9Row, /09-implementation-golden-path\.md/, "Module 9 course row must link the lesson");
   assert.doesNotMatch(module9Row, /\|\s*Planned\s*\|/i, "Module 9 must no longer be planned");
+  assert.match(module9Row, /verified on macOS\/zsh and native Windows\/PowerShell/i, "Module 9 course row must retain verified native Windows support");
   const module10Row = courseModuleRow(course, 10);
   assert.match(module10Row, /10-testing-gates-and-evidence\.md/, "Module 10 course row must link the lesson");
   assert.doesNotMatch(module10Row, /\|\s*Planned\s*\|/i, "Module 10 must remain learner-ready");
@@ -141,6 +143,11 @@ export function verifyModule9(root = fileURLToPath(new URL("../", import.meta.ur
     requireModule9Link(content.get(path), path);
     verifyLinks(root, path, markdownParts(content.get(path)).prose);
   }
+  assert.match(
+    content.get("labs/README.md"),
+    /^\| \[Lab 9[^\n]*\]\(09-implementation-golden-path\.md\) \| Learner-ready draft;[^\n]*macOS[^\n]*native Windows\/PowerShell[^\n]*\|/m,
+    "labs/README.md must list Lab 9 as learner-ready on its verified macOS and native Windows paths",
+  );
 
   for (const term of ["focused check", "behavioral evidence", "diff evidence", "implementation readiness"]) {
     assert.match(content.get("references/GLOSSARY.md"), new RegExp(term, "i"), `glossary is missing Module 9 term: ${term}`);
@@ -151,13 +158,12 @@ export function verifyModule9(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(content.get("references/SOURCE-BASELINE.md"), /^## Module 9 implementation-readiness validation\s*$/m, "source baseline is missing Module 9 validation");
   const notes = content.get("references/SOURCE-NOTES.md");
   assert.match(notes, /^## Module 9 source validation\s*$/m, "SOURCE-NOTES is missing the Module 9 source validation record");
-  assert.doesNotMatch(notes, /module09-platform-proof:windows-powershell status=verified/, "Windows must remain candidate for Module 9");
   assert.doesNotMatch(notes, /module09-platform-proof:linux-bash status=verified/, "Linux must remain candidate for Module 9");
   for (const token of [
     "engine 0.114.0", "deposit 0.114.0", "exact 0.112.0 graph", "verify:story-ready",
     "module09-platform-proof:macos-zsh status=verified",
     "module09-platform-proof:linux-bash status=candidate",
-    "module09-platform-proof:windows-powershell status=candidate",
+    "module09-platform-proof:windows-powershell status=verified date=2026-09-15 evidence=independent-native-pwsh-walkthrough",
   ]) assert.ok(notes.includes(token), `SOURCE-NOTES Module 9 evidence is missing: ${token}`);
 
   const fixturePackage = JSON.parse(content.get("labs/fixtures/09-implementation-golden-path/package.json"));

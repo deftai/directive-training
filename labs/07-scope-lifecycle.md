@@ -6,19 +6,18 @@
 | --- | --- |
 | Stable ID | `lab-07-scope-lifecycle` |
 | Supports | O7.1 proposed failure, O7.2 lifecycle transitions, O7.3 current readiness, O7.4 evidence and recovery |
-| Status | Learner-ready on macOS/zsh; candidate native Windows helper path implemented and automated, pending an independent learner walkthrough |
-| Last verified | 2026-09-09 |
+| Status | Learner-ready on macOS/zsh and native Windows/PowerShell; Linux/bash remains candidate |
+| Last verified | 2026-09-15 |
 | Directive baseline | CLI/core/content/types `0.112.0`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 35–40 minutes, including install, prediction, evidence review, reset, and archive |
-| Platforms verified | macOS 26.6.2, zsh 5.9, Node.js 24.18.0, npm 11.16.0, Git 2.50.1, go-task 3.50.0 |
-| Candidate platforms | Linux/bash is not verified; native Windows/PowerShell awaits independent learner sign-off |
+| Platforms verified | macOS 26.6.2 with zsh 5.9; Windows 11 build 26200 with PowerShell 7.6.5; go-task 3.50.0 |
+| Candidate platforms | Linux/bash is not verified |
 
 The helper is course tooling; it does not add a new Directive feature.
 
-The candidate native Windows helper path now performs the same exact local 0.112.0 install,
-governed lifecycle, reset, and archive operations. Automated Windows validation is
-not a substitute for the independent learner walkthrough required before changing
-the remaining candidate label.
+The verified native Windows helper path performs the same exact local 0.112.0 install,
+governed lifecycle, reset, and archive operations. An independent PowerShell
+walkthrough completed that route on 2026-09-15 with no skipped lifecycle step.
 
 ## Goal and done condition
 
@@ -322,7 +321,7 @@ destination, then moves the exact parent—repository, marker, and evidence—un
 paths. The archive remains recoverable until an operator applies their normal retention
 policy outside this course.
 
-## Candidate native Windows PowerShell 7.4+ route
+## Native Windows PowerShell 7.4+ route
 
 Run this from the curriculum repository. It covers starting state, execution,
 acceptance, fresh reset, and recoverable archive without spoofing the platform:

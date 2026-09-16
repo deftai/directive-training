@@ -13,6 +13,9 @@ on:
       - "scripts/lifecycle-lab.test.mjs"
       - "scripts/implementation-lab.test.mjs"
       - "scripts/gates-lab.test.mjs"
+      - "scripts/linked-path-safety.test.mjs"
+      - "scripts/verify-symlink-capability.mjs"
+      - "package.json"
   workflow_dispatch:
 
 permissions:
@@ -69,3 +72,27 @@ jobs:
           npm run test:module-7
           npm run test:module-9
           npm run test:module-10
+
+  linked-path-safety-windows:
+    name: windows-linked-path-safety
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - name: Check out authored training source
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Select Node.js 24 LTS
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24.20.0"
+          check-latest: false
+          package-manager-cache: false
+
+      - name: Exercise real linked-path attack fixtures
+        run: npm run test:linked-path-safety
+        env:
+          TEMP: ${{ runner.temp }}
+          TMP: ${{ runner.temp }}

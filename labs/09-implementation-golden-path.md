@@ -6,19 +6,19 @@
 | --- | --- |
 | Stable ID | `lab-09-implementation-golden-path` |
 | Supports | O9.1 readiness, O9.2 red-green, O9.3 bounded scope, O9.4 paired evidence, O9.5 recovery |
-| Status | Learner-ready on macOS/zsh; native Windows helper path implemented and automated, pending an independent learner walkthrough |
-| Last verified | 2026-09-10 |
+| Status | Learner-ready on macOS/zsh and native Windows/PowerShell; Linux/bash remains candidate |
+| Last verified | 2026-09-15 |
 | Directive baseline | CLI/core/content/types `0.112.0`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 40–45 minutes, including install, implementation, evidence, and cleanup |
-| Platforms verified | macOS 26.6.2, zsh 5.9, Node.js 24.18.0, npm 11.16.0, Git 2.50.1, go-task 3.50.0 |
-| Candidate platforms | Linux/bash is not verified; native Windows/PowerShell awaits independent learner sign-off |
+| Platforms verified | macOS 26.6.2 with zsh 5.9; Windows 11 build 26200 with PowerShell 7.6.5; go-task 3.50.0 |
+| Candidate platforms | Linux/bash is not verified |
 
 The helper is course tooling, not a new Directive command.
 
 The native Windows helper path now performs the same exact local 0.112.0 install,
 readiness proof, one-file implementation verification, reset, and archive operations.
-Automated Windows validation is not a substitute for the independent learner
-walkthrough required before changing the remaining candidate label.
+An independent PowerShell walkthrough completed that route on 2026-09-15 and
+retained readiness before the one-file product edit.
 
 ## Goal and done condition
 
@@ -204,8 +204,8 @@ node "$helper" verify "$lab_root"
 | path comparison | 0 | Exact one-file equality | O9.3 |
 | `verify` | 0 | `"PASS"` | O9.1–O9.5 |
 
-Native Windows/PowerShell and Linux/bash remain candidate paths. This release does not
-publish unverified platform-specific acceptance blocks.
+Linux/bash remains a candidate path. The verified native Windows/PowerShell acceptance
+route appears below.
 
 ## Evidence bundle
 

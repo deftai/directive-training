@@ -566,15 +566,16 @@ recoverable temporary archive; they did not delete them.
 
 `lab07-platform-proof:linux-bash status=candidate date=2026-09-09 evidence=not-run`
 
-`lab07-platform-proof:windows-pwsh7 status=candidate date=2026-09-09 evidence=not-run`
+`lab07-platform-proof:windows-pwsh7 status=verified date=2026-09-15 evidence=independent-native-pwsh-walkthrough`
 
-On 2026-09-14 the native Windows automated helper test completed the exact
-0.112.0 install and governed lifecycle with no skipped cases. The marker remains
-candidate until a separate learner walkthrough is recorded.
+On 2026-09-15 an independent native PowerShell walkthrough completed the exact
+0.112.0 install, proposed refusal, promotion, activation, session readiness,
+active preflight, completion, cancellation, fresh reset, and recoverable archive
+sequence. The earlier automated Windows helper proof remained green.
 
 The macOS run used Node.js 24.18.0, npm 11.16.0, Git 2.50.1, zsh 5.9, and
-go-task 3.50.0. Linux/bash and native Windows/PowerShell require independent execution before
-their markers or learner-facing status may become verified.
+go-task 3.50.0. Linux/bash still requires independent execution before its
+marker or learner-facing status may become verified.
 
 ### Module 7 source disagreements
 
@@ -670,11 +671,11 @@ Platform evidence:
 
 - `module09-platform-proof:macos-zsh status=verified`
 - `module09-platform-proof:linux-bash status=candidate`
-- `module09-platform-proof:windows-powershell status=candidate`
+- `module09-platform-proof:windows-powershell status=verified date=2026-09-15 evidence=independent-native-pwsh-walkthrough`
 
-On 2026-09-14 the native Windows automated helper test completed readiness,
-the bounded one-file implementation, behavioral/diff evidence, and recovery with
-the exact 0.112.0 graph. Independent learner sign-off remains outstanding.
+On 2026-09-15 an independent native PowerShell walkthrough completed readiness
+before mutation, the bounded one-file implementation, named and fallback behavior,
+diff evidence, fresh reset, and recoverable archive with the exact 0.112.0 graph.
 
 The Module 9 verifier checks lesson/lab/solution structure, exact baseline, readiness order,
 guard and one-file scope language, outcomes, evidence names, source records, package scripts,
@@ -715,12 +716,12 @@ Platform evidence:
 
 - `module10-platform-proof:macos-zsh status=verified`
 - `module10-platform-proof:linux-bash status=candidate`
-- `module10-platform-proof:windows-powershell status=candidate`
+- `module10-platform-proof:windows-powershell status=verified date=2026-09-15 evidence=independent-native-pwsh-walkthrough`
 
-On 2026-09-14 the native Windows automated helper test completed red, green,
-refactor, literal acceptance, aggregate diagnosis, quality-record repair, and
-final verification with the exact 0.112.0 graph and no skipped cases. Independent
-learner sign-off remains outstanding.
+On 2026-09-15 an independent native PowerShell walkthrough completed red, green,
+refactor, literal acceptance, aggregate diagnosis, quality-record repair, final
+verification, fresh reset, and recoverable archive with the exact 0.112.0 graph.
+The final record reported `PASS` with unchanged gate-definition hashes.
 
 The Module 10 verifier checks lesson/lab/solution structure, exact baseline, evidence order,
 gate-integrity language, outcome coverage, source records, package scripts, links, lifecycle
@@ -729,14 +730,15 @@ copies. The fixture suite additionally executes identity and remote guards, exac
 red-green-refactor sequencing, test freeze, literal and forward gates, the expected aggregate
 failure, the one-record repair, final aggregate, fresh reset, and recoverable archive.
 
-### Native Windows candidate-platform stop
+### Historical native Windows candidate-platform stop (2026-09-12)
 
 On 2026-09-12, direct CLI checks on Windows 11 build 26200 with PowerShell 7.6.5 and
 Node.js 26.8.1 created guarded attempts for Labs 7, 9, and 10, then invoked each helper's
 `install` verb. All three exited `1` with the intended native Windows candidate-platform
 message before creating `node_modules` or `.npm-cache`; none emitted `npm.cmd EINVAL`.
 Each untouched attempt then archived successfully. This proves the early learner-facing
-stop, not Windows learner readiness for those labs.
+stop, not Windows learner readiness for those labs. The independent 2026-09-15
+walkthroughs recorded above supersede that earlier support disposition.
 
 ## Module 11 source validation
 

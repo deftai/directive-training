@@ -117,9 +117,17 @@ test("verifier rejects reset that reuses the failed root", () => {
   assert.throws(() => verifyModule7(root), /fresh-attempt reset/);
 });
 
-test("verifier rejects an unsupported Windows learner-ready claim", () => {
-  const root = changedCopy("references/SOURCE-NOTES.md", (body) => body.replace("lab07-platform-proof:windows-pwsh7 status=candidate", "lab07-platform-proof:windows-pwsh7 status=verified"));
+test("verifier rejects a verified Windows marker without independent evidence", () => {
+  const root = changedCopy("references/SOURCE-NOTES.md", (body) => body.replace("evidence=independent-native-pwsh-walkthrough", "evidence=pending"));
   assert.throws(() => verifyModule7(root), /windows-pwsh7/);
+});
+
+test("verifier rejects a stale macOS-only course index", () => {
+  const root = changedCopy("curriculum/README.md", (body) => body.replace(
+    "| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell | Fail, promote, activate, establish current readiness, complete, and cancel |",
+    "| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; lab verified on macOS/zsh only | Fail, promote, activate, establish current readiness, complete, and cancel |",
+  ));
+  assert.throws(() => verifyModule7(root), /verified native Windows support/);
 });
 
 test("verifier rejects remote mutation text in executable fixture code", () => {

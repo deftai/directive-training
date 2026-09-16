@@ -131,29 +131,34 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
 
   const notes = content.get("references/SOURCE-NOTES.md");
   assert.match(notes, /^## Module 7 (?:source validation|verification)\s*$/m, "SOURCE-NOTES is missing the Module 7 source validation record");
-  for (const [platform, expected] of [["macos-zsh", "verified"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
+  for (const [platform, expected] of [["macos-zsh", "verified"], ["linux-bash", "candidate"], ["windows-pwsh7", "verified"]]) {
     const matches = [...notes.matchAll(new RegExp(`lab07-platform-proof:${platform} status=(verified|candidate) date=(\\d{4}-\\d{2}-\\d{2}) evidence=([^\\s\x60]+)`, "g"))];
     assert.equal(matches.length, 1, `SOURCE-NOTES must contain exactly one Lab 7 proof marker for ${platform}`);
     assert.equal(matches[0][1], expected, `${platform}: unsupported Module 7 native claim`);
     if (expected === "verified") assert.doesNotMatch(matches[0][3], /^(?:none|not-run|pending|unknown)$/, `${platform}: verified status requires evidence`);
   }
   for (const path of [module7, lab7, solution7]) {
-    for (const line of parsed.get(path).prose.split("\n").filter((line) => /Linux|Windows/i.test(line))) {
-      assert.ok(/candidate|not (?:yet )?(?:verified|learner-ready)|unverified|no learner-ready|implemented|automated|independent learner/i.test(line), `${path} contains an unsupported native platform claim: ${line}`);
+    for (const line of parsed.get(path).prose.split("\n").filter((line) => /Linux|Windows/i.test(line) && !/^#{1,6}\s/.test(line))) {
+      assert.ok(/candidate|not (?:yet )?(?:verified|learner-ready)|unverified|no learner-ready|implemented|automated|independent learner|verified|learner-ready/i.test(line), `${path} contains an unsupported native platform claim: ${line}`);
     }
   }
 
   const course = content.get("curriculum/README.md");
+  assert.ok(
+    course.replace(/\s+/g, " ").includes("Module 7 and the executable labs in Modules 9 and 10 are verified on macOS/zsh and native Windows/PowerShell."),
+    "course overview must retain verified native Windows support for Labs 7, 9, and 10",
+  );
   const module7Row = courseModuleRow(course, 7);
   assert.match(module7Row, /07-scope-lifecycle\.md/, "Module 7 course row must link the lesson");
   assert.doesNotMatch(module7Row, /\|\s*Planned\s*\|/i, "Module 7 must no longer be planned");
+  assert.match(module7Row, /verified on macOS\/zsh and native Windows\/PowerShell/i, "Module 7 course row must retain verified native Windows support");
   assert.match(courseModuleRow(course, 8), /08-session-and-work-selection\.md/, "Module 8 course row must retain its lesson link");
   for (const path of ["README.md", "curriculum/README.md", "labs/README.md", "solutions/README.md", "assessments/README.md"]) {
     requireModule7Link(content.get(path), path);
     verifyLinks(root, path, markdownParts(content.get(path)).prose);
   }
   const labsIndex = content.get("labs/README.md");
-  assert.match(labsIndex, /^\| \[Lab 7[^\n]*\]\(07-scope-lifecycle\.md\) \| Learner-ready draft;[^\n]*macOS[^\n]*\|/m, "labs/README.md must list Lab 7 as learner-ready on its verified macOS path");
+  assert.match(labsIndex, /^\| \[Lab 7[^\n]*\]\(07-scope-lifecycle\.md\) \| Learner-ready draft;[^\n]*macOS[^\n]*native Windows\/PowerShell[^\n]*\|/m, "labs/README.md must list Lab 7 as learner-ready on its verified macOS and native Windows paths");
   assert.doesNotMatch(labsIndex, /Labs for Modules? 6(?:[–-]| through )11/, "labs/README.md must not classify Lab 7 inside an unavailable Modules 6–11 range");
   for (const term of ["promotion", "activation", "live implementation intent", "lifecycle evidence"]) assert.match(content.get("references/GLOSSARY.md"), new RegExp(term, "i"), `glossary is missing Module 7 term: ${term}`);
   for (const phrase of ["task deft:scope:promote", "task deft:scope:activate", "task deft:xbrief:preflight", "live implementation intent"]) assert.match(content.get("references/QUICK-REFERENCE.md"), new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"), `quick reference is missing Module 7 guidance: ${phrase}`);

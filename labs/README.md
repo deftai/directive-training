@@ -16,19 +16,19 @@ It uses a minimal prepared projection fixture and a guarded helper;
 Linux execution is not verified for Lab 5. Module 2's platform evidence does not transfer to it.
 
 [Lab 7 — Scope lifecycle](07-scope-lifecycle.md) is a learner-ready draft
-verified on macOS/zsh only. It uses an exact 0.112.0 package graph, isolated Task
+verified on macOS/zsh and native Windows/PowerShell. It uses an exact 0.112.0 package graph, isolated Task
 PATH, guarded no-remote fixture, preserved failure evidence, fresh reset, and
-recoverable archive. Linux/bash and native Windows/PowerShell remain candidates.
+recoverable archive. Linux/bash remains a candidate.
 
 [Lab 9 — Implementation golden path](09-implementation-golden-path.md) is a
-learner-ready draft verified on macOS/zsh only. It retains readiness-before-mutation,
+learner-ready draft verified on macOS/zsh and native Windows/PowerShell. It retains readiness-before-mutation,
 focused red-green behavior, a one-file product diff, paired evidence, fresh reset, and
-recoverable archive. Linux/bash and native Windows/PowerShell remain candidates.
+recoverable archive. Linux/bash remains a candidate.
 
 [Lab 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md) is a
-learner-ready draft verified on macOS/zsh only. It retains ordered red-green-refactor,
+learner-ready draft verified on macOS/zsh and native Windows/PowerShell. It retains ordered red-green-refactor,
 literal, forward-coverage, seeded aggregate-failure, final, and unchanged-gate evidence.
-Linux/bash and native Windows/PowerShell remain candidates.
+Linux/bash remains a candidate.
 
 ## Non-negotiable boundary
 
@@ -303,9 +303,9 @@ No instructor or review bot is required. If the documented recovery still cannot
 | [Lab 2 — Initialize a Disposable Directive Consumer](02-disposable-initialization.md) | Learner-ready draft; 0.112.0 pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence | Use its exact fixture, guards, checkpoints, acceptance, reset, and archive path |
 | [Module 4 — xBRIEF as Durable State](../curriculum/modules/04-xbrief-as-durable-state.md) | Available | Complete its embedded artifact-classification exercise without mutating a repository |
 | [Lab 5 — Projection drift recovery](05-projection-drift-recovery.md) | Learner-ready draft; 0.112.0 path verified on macOS 26.6.2/zsh and native Windows/PowerShell 7.4+ | Use its exact fixture, ordered tasks, evidence, fresh reset, and archive path |
-| [Lab 7 — Scope lifecycle](07-scope-lifecycle.md) | Learner-ready draft; 0.112.0 pinned lifecycle path verified on macOS 26.6.2/zsh only | Use its guarded no-remote fixture, Task-driven transitions, retained evidence, fresh reset, and recoverable archive |
-| [Lab 9 — Implementation golden path](09-implementation-golden-path.md) | Learner-ready draft; exact 0.112.0 implementation path verified on macOS 26.6.2/zsh only | Use its guarded no-remote fixture, readiness-before-mutation sequence, one-file diff, paired evidence, fresh reset, and recoverable archive |
-| [Lab 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md) | Learner-ready draft; exact 0.112.0 gate path verified on macOS/zsh only | Use its guarded no-remote fixture, frozen focused test, ordered stage evidence, seeded aggregate failure, fresh reset, and recoverable archive |
+| [Lab 7 — Scope lifecycle](07-scope-lifecycle.md) | Learner-ready draft; 0.112.0 pinned lifecycle path verified on macOS 26.6.2/zsh and native Windows/PowerShell | Use its guarded no-remote fixture, Task-driven transitions, retained evidence, fresh reset, and recoverable archive |
+| [Lab 9 — Implementation golden path](09-implementation-golden-path.md) | Learner-ready draft; exact 0.112.0 implementation path verified on macOS 26.6.2/zsh and native Windows/PowerShell | Use its guarded no-remote fixture, readiness-before-mutation sequence, one-file diff, paired evidence, fresh reset, and recoverable archive |
+| [Lab 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md) | Learner-ready draft; exact 0.112.0 gate path verified on macOS/zsh and native Windows/PowerShell | Use its guarded no-remote fixture, frozen focused test, ordered stage evidence, seeded aggregate failure, fresh reset, and recoverable archive |
 | [Module 6 — Creating well-shaped work](../curriculum/modules/06-creating-well-shaped-work.md) | Available; command-free exercise | Complete its embedded vertical-slice worksheet; no lab fixture is required |
 | [Module 8 — Session start and authorized work selection](../curriculum/modules/08-session-and-work-selection.md) | Available; command-free fixed-state exercise | Complete its embedded request-card matrix; no lab fixture is required |
 | [Module 11 — PR, review, and actual completion](../curriculum/modules/11-review-and-completion.md) | Available; command-free fixed-state exercise | Use the embedded fictional review packet and completion cards; Module 11 has no lab fixture |

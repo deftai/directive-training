@@ -194,6 +194,10 @@ Windows. The Windows job must execute the substantive learner paths, not a
 platform spoof or skip. Keep Windows marked candidate until both that job and a
 separate learner walkthrough have evidence.
 
+Those conditions were met for Labs 7, 9, and 10 on 2026-09-15: the Windows 2022
+CI proof was green and an independent native PowerShell walkthrough completed
+each published route against the exact Directive 0.112.0 graph.
+
 Run the aggregate Directive consumer gate separately after the literal commands:
 
 ```text
@@ -220,15 +224,14 @@ it makes no runtime, remote, deployment, or implementation-authority claim.
 Module 9 adds an executable golden-path lab. Revalidate the exact 0.112.0 package graph,
 clean guarded checkpoint, session/story/active-preflight order, expected focused red,
 one-file `src/greeting.mjs` boundary, named/fallback behavior, patch check, retained JSON
-evidence, fresh reset, and recoverable archive together. Platform support is macOS/zsh only
-until the same commands and safety negatives run natively elsewhere.
+evidence, fresh reset, and recoverable archive together. Platform support is macOS/zsh and
+native Windows/PowerShell; Linux/bash remains unverified.
 
 Module 10 adds an executable testing-and-gates lab. Revalidate the exact 0.112.0 graph,
 meaningful red, frozen test digest, passing green and source-only refactor, literal `verify:ac`,
 forward coverage, the seeded `quality:record` aggregate failure, the one-record repair, final
 three-file diff, unchanged gate fingerprints, fresh reset, and recoverable archive together.
-Platform support is macOS/zsh only until the same commands and safety negatives run natively
-on Linux/bash and Windows/PowerShell.
+Platform support is macOS/zsh and native Windows/PowerShell; Linux/bash remains unverified.
 
 Module 11 is a command-free fixed-state exercise. Revalidate the complete H1
 packet, Read-Write-Lint-Diff zero-change exit, classify-before-editing order,

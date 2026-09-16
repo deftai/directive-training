@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Verified
+
+- Native Windows/PowerShell learner walkthroughs now verify the complete Lab 7,
+  Lab 9, and Lab 10 paths against the exact Directive 0.112.0 graph (#78).
+
 ### Added
 
 - Native Windows/PowerShell learner paths and a three-platform CI proof for
