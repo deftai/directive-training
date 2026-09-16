@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #78",
-    "updated": "2026-09-14T20:52:02Z"
+    "updated": "2026-09-16T02:15:00Z"
   },
   "plan": {
     "title": "Complete native Windows learner paths for Labs 7, 9, and 10",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Complete native Windows learner paths for Labs 7, 9, and 10",
       "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/78",
@@ -45,7 +45,31 @@
         "github_issue_id": 5451655012,
         "origin": "3ci-consulting/directive-training#78",
         "id": "github.issue.5451655012"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 81,
+        "prBase": null,
+        "mergeCommit": "af43caaf51f874a9c94bce6c87123765c73a9a39",
+        "deliveryBranch": "master",
+        "deliveryCommit": "af43caaf51f874a9c94bce6c87123765c73a9a39",
+        "verifiedAt": "2026-09-16T02:15:00Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "1f0a47b0-0c50-434b-82eb-9e6706c261ad"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-16T02:15:00Z"
+      },
+      "completedAt": "2026-09-16T02:15:00Z",
+      "completedSessionId": "1f0a47b0-0c50-434b-82eb-9e6706c261ad"
     },
     "acceptance": {
       "commands": [],
@@ -56,42 +80,42 @@
         {
           "id": 1,
           "text": "Each lab documents a literal PowerShell starting-state, execution, acceptance, recovery/reset, and archive path.",
-          "artifact_path": null,
+          "artifact_path": "labs/07-scope-lifecycle.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 2,
           "text": "Each helper installs and verifies the exact CLI/core/content/types 0.112.0 graph on Windows.",
-          "artifact_path": null,
+          "artifact_path": "scripts/verify-module-7.test.mjs",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 3,
           "text": "Lab 7 records the complete governed lifecycle sequence.",
-          "artifact_path": null,
+          "artifact_path": "labs/07-scope-lifecycle.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 4,
           "text": "Lab 9 records readiness before the one-file implementation and its behavioral evidence.",
-          "artifact_path": null,
+          "artifact_path": "labs/09-implementation-golden-path.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 5,
           "text": "Lab 10 records red/green/refactor, literal acceptance, aggregate diagnosis, and final repair.",
-          "artifact_path": null,
+          "artifact_path": "labs/10-testing-gates-and-evidence.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 6,
           "text": "Native Windows CI and an independent learner walkthrough both pass before the platform is marked learner-ready.",
-          "artifact_path": null,
+          "artifact_path": ".github/workflows/labs-7-9-10-platform-validation.yml",
           "ambiguous": false,
           "provenance": "statement"
         }
@@ -99,6 +123,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5451655012",
-    "updated": "2026-09-14T20:52:02Z"
+    "updated": "2026-09-16T02:15:00Z"
   }
 }

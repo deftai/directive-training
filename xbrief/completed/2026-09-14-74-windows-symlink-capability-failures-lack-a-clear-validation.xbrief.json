@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #74",
-    "updated": "2026-09-14T20:13:08Z"
+    "updated": "2026-09-16T02:13:22Z"
   },
   "plan": {
     "title": "Windows symlink capability failures lack a clear validation preflight",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Windows symlink capability failures lack a clear validation preflight",
       "Origin": "Ingested from https://github.com/3Ci-Consulting/directive-training/issues/74",
@@ -17,19 +17,43 @@
     "items": [
       {
         "title": "A non-symlink-capable Windows process receives one clear preflight failure with remediation guidance.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:modules-4-5; npm run test:portability; scripts/verify-symlink-capability.mjs; PR #81 merge af43caaf51f874a9c94bce6c87123765c73a9a39",
+          "recorded_at": "2026-09-16T02:12:00Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
         "title": "The result explicitly says that full Windows safety sign-off is incomplete.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:modules-4-5; npm run test:portability; scripts/verify-symlink-capability.mjs; PR #81 merge af43caaf51f874a9c94bce6c87123765c73a9a39",
+          "recorded_at": "2026-09-16T02:12:00Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
         "title": "No linked-path security assertion is marked passed or silently skipped.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:modules-4-5; npm run test:portability; scripts/linked-path-safety.test.mjs; PR #81 merge af43caaf51f874a9c94bce6c87123765c73a9a39",
+          "recorded_at": "2026-09-16T02:12:00Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
         "title": "A symlink-capable Windows process runs all linked-path cases and preserves their fail-closed expectations.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/3Ci-Consulting/directive-training/actions/runs/35046580104/job/104637594459; npm run test:linked-path-safety",
+          "recorded_at": "2026-09-16T02:12:00Z",
+          "recorded_by": "agent:codex"
+        }
       }
     ],
     "tags": [
@@ -67,7 +91,31 @@
         "github_issue_id": 5451652711,
         "origin": "3ci-consulting/directive-training#74",
         "id": "github.issue.5451652711"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 81,
+        "prBase": null,
+        "mergeCommit": "af43caaf51f874a9c94bce6c87123765c73a9a39",
+        "deliveryBranch": "master",
+        "deliveryCommit": "af43caaf51f874a9c94bce6c87123765c73a9a39",
+        "verifiedAt": "2026-09-16T02:13:22Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "1f0a47b0-0c50-434b-82eb-9e6706c261ad"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-16T02:13:22Z"
+      },
+      "completedAt": "2026-09-16T02:13:22Z",
+      "completedSessionId": "1f0a47b0-0c50-434b-82eb-9e6706c261ad"
     },
     "acceptance": {
       "commands": [
@@ -114,6 +162,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5451652711",
-    "updated": "2026-09-14T20:13:08Z"
+    "updated": "2026-09-16T02:13:22Z"
   }
 }
