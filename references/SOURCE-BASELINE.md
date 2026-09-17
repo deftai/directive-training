@@ -1,5 +1,24 @@
 # Directive source baseline
 
+## Bound release identity for issue #3
+
+The issue #3 implementation branch bound npm `latest` once, before any learner-baseline
+edit, on 2026-09-17. That frozen target is Directive 0.119.2. A later npm release is a
+follow-up unless it invalidates a command surface re-probed on this branch.
+
+| Evidence | Verified result |
+| --- | --- |
+| Branch start | `codex/issue-3-directive-baseline-0-119-2` opened from `origin/master` commit `e6c8e9f456a503549c8925845fe4c23398fbbcea`. |
+| npm target | `@deftai/directive@0.119.2`; npm `latest` and `version` both resolved to `0.119.2`. |
+| Exact package graph | `@deftai/directive@0.119.2`, `@deftai/directive-core@0.119.2`, `@deftai/directive-content@0.119.2`, and `@deftai/directive-types@0.119.2`. Fixture overrides will keep this four-package graph exact. |
+| Package integrities | directive `sha512-Ff7kcMu7n1FqslbB0TWW5lC4IebIVNUrJW8SyOeo8nA22xL/xwSh/BcisNbVaPiQRU14m6XVyCkWmEJI7XLvTg==`; core `sha512-Oiaua6X52tqYXQeU5WYp94sS6ipzDMTVttb+qdwaN29NR7o2aXqfhfQPvN0M9CQzIXMHnXgxKFZRW4PbZcsuTw==`; content `sha512-kGyOp0K9cWt+RaUG++gyI6wEpliIgteL8GkIIvcod3xKdodigIaGXOeN+QtI2LXLxVQRy6zpv0U2M+7JKEEnqg==`; types `sha512-Ag1qe+PnLln1gYEpDcvkvAfgoTE5NQh8VyEXhb+0E1JktcMqgUsh7bIW2puoVfkytjk2H0eCxko5TWNaVjCOlg==`. |
+| Release tag | Annotated tag `v0.119.2`; tag object `69b7e7c2ece41d5f330545c65ebf74a696706f41`. |
+| Release commit | `9038503ffac65e6d48e5ba34758c4e8e7077aba3`; the peeled tag and npm `gitHead` agree for all four packages. |
+| Binding probes | `npm view` resolved the dist-tag, versions, dependency ranges, integrities, and npm `gitHead`; `git ls-remote` resolved the annotated tag and peeled commit; the live CLI reported `@deftai/directive-core@0.119.2`. |
+| Open command probes | The unpinned disposable `init` probe and the remaining taught command surfaces have not yet been re-run on 0.119.2. No 0.119.1 observation is promoted to current 0.119.2 evidence. |
+| Starting disagreement | The live authoring CLI is 0.119.2, tracked authoring surfaces are 0.119.1, and learner surfaces remain 0.112.0. This checkpoint records the destination; it does not claim that the collapse is complete. |
+| Verification date | 2026-09-17. |
+
 This manifest fixes the curriculum's version-sensitive claims to Directive 0.112.0. It was
 revalidated through 2026-09-12 and must be refreshed when the project pin changes.
 
