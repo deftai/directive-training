@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-17-1-add-an-mit-license.xbrief.json",
+  "planId": "github.issue.5477576007",
+  "approvedAt": "2026-09-17T02:44:19Z",
+  "fileScope": [
+    "CHANGELOG.md",
+    "history/changes/mit-license/proposal.xbrief.json",
+    "history/changes/mit-license/tasks.xbrief.json",
+    "LICENSE",
+    "README.md",
+    "xbrief/active/2026-09-17-1-add-an-mit-license.xbrief.json"
+  ],
+  "fileScopeDigest": "bcf0798c3c42e2ba9b1757ed54f38fced59919255bdcf140aed2ab01698d783b",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "dbcall2",
+    "mintedAt": "2026-09-17T02:44:19Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "bc37795e2bd7b6b83d52ad2306cb7923c8997c7125049d46494349a3a72f15cd",
+  "digestAlgo": "intent-extract-v1"
+}

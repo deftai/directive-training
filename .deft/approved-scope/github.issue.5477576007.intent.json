@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "algo": "intent-extract-v1",
+  "plan": {
+    "title": "Add an MIT license",
+    "narratives": {
+      "Description": "Add an MIT license",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/1",
+      "Overview": "The public `deftai/directive-training` repository currently has no license.\n\nAdd an MIT `LICENSE` at the repo root so the training course has an explicit grant for use, copy, modification, and contribution.\n\nAcceptance:\n- Root `LICENSE` file with the MIT text\n- Copyright holder named (DeftAI / authors)\n- README (or equivalent) points at the license"
+    },
+    "items": [
+      {
+        "id": "github.issue.5477576007.changelog",
+        "title": "Record the license addition in the changelog"
+      },
+      {
+        "id": "github.issue.5477576007.license-file",
+        "title": "Add the canonical MIT license text"
+      },
+      {
+        "id": "github.issue.5477576007.readme-link",
+        "title": "Link the README to the root license"
+      },
+      {
+        "id": "github.issue.5477576007.verify",
+        "title": "Run acceptance and repository quality gates"
+      }
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/1",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #1: Add an MIT license"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "project_floor",
+      "derived_reason": "The issue states file and content outcomes but no shell commands; the repository gate is the executable floor and the clauses bind the required artifacts.",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Root LICENSE file contains the canonical MIT license text",
+          "artifact_path": "LICENSE",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "LICENSE names DeftAI and contributors as the copyright holder",
+          "artifact_path": "LICENSE",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "README points readers to the root license",
+          "artifact_path": "README.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [
+          "LICENSE",
+          "README.md",
+          "CHANGELOG.md",
+          "history/changes/mit-license/proposal.xbrief.json",
+          "history/changes/mit-license/tasks.xbrief.json",
+          "xbrief/active/2026-09-17-1-add-an-mit-license.xbrief.json"
+        ],
+        "module_boundary": "repository licensing and top-level documentation"
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5477576007,
+        "origin": "deftai/directive-training#1",
+        "id": "github.issue.5477576007"
+      },
+      "file_scope": [
+        "LICENSE",
+        "README.md",
+        "CHANGELOG.md",
+        "history/changes/mit-license/proposal.xbrief.json",
+        "history/changes/mit-license/tasks.xbrief.json",
+        "xbrief/active/2026-09-17-1-add-an-mit-license.xbrief.json"
+      ],
+      "file_scope_confidence": "high",
+      "swarm": {
+        "file_scope": [
+          "LICENSE",
+          "README.md",
+          "CHANGELOG.md",
+          "history/changes/mit-license/proposal.xbrief.json",
+          "history/changes/mit-license/tasks.xbrief.json",
+          "xbrief/active/2026-09-17-1-add-an-mit-license.xbrief.json"
+        ]
+      }
+    },
+    "id": "github.issue.5477576007"
+  },
+  "approvedRepos": [
+    "deftai/directive-training"
+  ],
+  "unknownPaths": [
+    "metadata.file_scope",
+    "metadata.file_scope_confidence",
+    "metadata.intended_placement",
+    "metadata.kind",
+    "metadata.x-directive/plan-id"
+  ]
+}
