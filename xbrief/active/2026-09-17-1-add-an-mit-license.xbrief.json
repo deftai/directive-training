@@ -1,0 +1,161 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #1",
+    "updated": "2026-09-17T02:30:22Z"
+  },
+  "plan": {
+    "title": "Add an MIT license",
+    "status": "running",
+    "narratives": {
+      "Description": "Add an MIT license",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/1",
+      "Overview": "The public `deftai/directive-training` repository currently has no license.\n\nAdd an MIT `LICENSE` at the repo root so the training course has an explicit grant for use, copy, modification, and contribution.\n\nAcceptance:\n- Root `LICENSE` file with the MIT text\n- Copyright holder named (DeftAI / authors)\n- README (or equivalent) points at the license"
+    },
+    "items": [
+      {
+        "id": "github.issue.5477576007.license-file",
+        "title": "Add the canonical MIT license text",
+        "status": "completed",
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "verification",
+          "pointer": "rg -n --fixed-strings 'MIT License' LICENSE && rg -n --fixed-strings 'Copyright (c) 2026 DeftAI and contributors' LICENSE",
+          "recorded_at": "2026-09-17T01:48:07Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "github.issue.5477576007.readme-link",
+        "title": "Link the README to the root license",
+        "status": "completed",
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "verification",
+          "pointer": "rg -n --fixed-strings '[MIT License](LICENSE)' README.md",
+          "recorded_at": "2026-09-17T01:48:07Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "github.issue.5477576007.changelog",
+        "title": "Record the license addition in the changelog",
+        "status": "completed",
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "verification",
+          "pointer": "CHANGELOG.md [Unreleased] Added entry references the MIT license and issue #1",
+          "recorded_at": "2026-09-17T02:30:22Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "github.issue.5477576007.verify",
+        "title": "Run acceptance and repository quality gates",
+        "status": "completed",
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "verification",
+          "pointer": "task deft:check, git diff --check, deft verify:encoding, deft verify:forward-coverage, and deft xbrief:validate exited 0; focused content checks confirmed the MIT text, copyright holder, and README link",
+          "recorded_at": "2026-09-17T02:17:27Z",
+          "recorded_by": "agent:codex"
+        }
+      }
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/1",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #1: Add an MIT license"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "project_floor",
+      "derived_reason": "The issue states file and content outcomes but no shell commands; the repository gate is the executable floor and the clauses bind the required artifacts.",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Root LICENSE file contains the canonical MIT license text",
+          "artifact_path": "LICENSE",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "LICENSE names DeftAI and contributors as the copyright holder",
+          "artifact_path": "LICENSE",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "README points readers to the root license",
+          "artifact_path": "README.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [
+          "LICENSE",
+          "README.md",
+          "CHANGELOG.md",
+          "history/changes/mit-license/proposal.xbrief.json",
+          "history/changes/mit-license/tasks.xbrief.json",
+          "xbrief/active/2026-09-17-1-add-an-mit-license.xbrief.json"
+        ],
+        "module_boundary": "repository licensing and top-level documentation"
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5477576007,
+        "origin": "deftai/directive-training#1",
+        "id": "github.issue.5477576007"
+      },
+      "file_scope": [
+        "LICENSE",
+        "README.md",
+        "CHANGELOG.md",
+        "history/changes/mit-license/proposal.xbrief.json",
+        "history/changes/mit-license/tasks.xbrief.json",
+        "xbrief/active/2026-09-17-1-add-an-mit-license.xbrief.json"
+      ],
+      "file_scope_confidence": "high",
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": false,
+        "file_scope": [
+          "LICENSE",
+          "README.md",
+          "CHANGELOG.md",
+          "history/changes/mit-license/proposal.xbrief.json",
+          "history/changes/mit-license/tasks.xbrief.json",
+          "xbrief/active/2026-09-17-1-add-an-mit-license.xbrief.json"
+        ],
+        "verify_commands": [
+          "directive verify:vbrief-conformance --project-root ."
+        ],
+        "expected_outputs": [
+          "LICENSE contains the canonical MIT text and named holder",
+          "README links to LICENSE",
+          "CHANGELOG records the license addition under Unreleased",
+          "The repository quality gate passes"
+        ],
+        "depends_on": [],
+        "conflict_group": "repository-metadata",
+        "size": "small",
+        "file_scope_confidence": "high"
+      }
+    },
+    "id": "github.issue.5477576007",
+    "updated": "2026-09-17T02:30:22Z"
+  }
+}

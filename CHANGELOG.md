@@ -9,6 +9,8 @@
 
 ### Added
 
+- An MIT license for the repository, with a README link to the license text
+  (#1).
 - Native Windows/PowerShell learner paths and a three-platform CI proof for
   Labs 7, 9, and 10, including the exact Directive 0.112.0 dependency graph
   and each lab's complete disposable workflow (#78).

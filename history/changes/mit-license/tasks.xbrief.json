@@ -1,0 +1,37 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Implementation tasks for GitHub issue #1"
+  },
+  "plan": {
+    "title": "Add an MIT license",
+    "status": "approved",
+    "items": [
+      {
+        "id": "mit-license.license-file",
+        "title": "Add the canonical MIT license text",
+        "status": "completed",
+        "effort": "S"
+      },
+      {
+        "id": "mit-license.readme-link",
+        "title": "Link the README to the root license",
+        "status": "completed",
+        "effort": "S"
+      },
+      {
+        "id": "mit-license.changelog",
+        "title": "Record the license addition in the changelog",
+        "status": "completed",
+        "effort": "S"
+      },
+      {
+        "id": "mit-license.verify",
+        "title": "Run acceptance and repository quality gates",
+        "status": "completed",
+        "effort": "S"
+      }
+    ],
+    "edges": []
+  }
+}

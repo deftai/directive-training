@@ -101,3 +101,7 @@ Project identity and work lifecycle are authoritative in `xbrief/`. Curriculum
 claims are version-bound and maintained under
 [the curriculum maintenance contract](maintainers/CURRICULUM-MAINTENANCE.md).
 Do not edit generated publishing copies as though they were authored sources.
+
+## License
+
+This project is available under the [MIT License](LICENSE).
