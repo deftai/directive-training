@@ -18,8 +18,8 @@ const occurrences = (value, needle) => value.split(needle).length - 1;
 assert.ok(readme.startsWith(openMarker), "the cold-start marker must begin at byte 0");
 assert.equal(
   packageJson.devDependencies?.["@deftai/directive"],
-  "0.112.0",
-  "package.json must pin @deftai/directive exactly to 0.112.0",
+  "0.119.1",
+  "package.json must pin @deftai/directive exactly to 0.119.1",
 );
 assert.equal(occurrences(readme, openMarker), 1, "the opening marker must appear exactly once");
 assert.equal(occurrences(readme, closeMarker), 1, "the closing marker must appear exactly once");

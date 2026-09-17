@@ -197,7 +197,7 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
 
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.private, true, "the training package must remain private");
-  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.112.0", "the training package must retain the exact Directive pin");
+  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.119.1", "the training package must retain the exact Directive pin");
   assert.equal(projectPackage.scripts?.["check:module-6"], "node scripts/verify-module-6.mjs", "package scripts must expose check:module-6");
   assert.equal(projectPackage.scripts?.["test:module-6"], "node --test scripts/verify-module-6.test.mjs", "package scripts must expose test:module-6");
   return { artifactCount: requiredFiles.length };

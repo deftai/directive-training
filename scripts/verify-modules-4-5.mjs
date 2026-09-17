@@ -221,7 +221,7 @@ export function verifyModules45(root = fileURLToPath(new URL("../", import.meta.
   verifyLinks(root, "curriculum/README.md", markdownParts(course).prose);
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.private, true, "the training package must remain private");
-  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.112.0", "the training package must retain the exact Directive pin");
+  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.119.1", "the training package must retain the exact Directive pin");
   return { artifactCount: requiredFiles.length };
 }
 

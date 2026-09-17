@@ -415,8 +415,8 @@ test("verifier rejects an unlinked or unavailable Module 11 course row", () => {
 
 test("verifier rejects an altered exact project pin", () => {
   const root = changedCopy("package.json", (body) => body.replace(
-    '"@deftai/directive": "0.112.0"',
-    '"@deftai/directive": "^0.112.0"',
+    '"@deftai/directive": "0.119.1"',
+    '"@deftai/directive": "^0.119.1"',
   ));
   assert.throws(() => verifyModule11(root), /exact Directive pin/);
 });

@@ -199,7 +199,7 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.scripts?.["check:module-10"], "node scripts/verify-module-10.mjs", "package scripts must expose check:module-10");
   assert.equal(projectPackage.scripts?.["test:module-10"], "node --test scripts/gates-lab.test.mjs scripts/verify-module-10.test.mjs", "package scripts must expose test:module-10");
-  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.112.0", "training package must retain exact Directive pin");
+  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.119.1", "training package must retain exact Directive pin");
   return { artifactCount: content.size };
 }
 

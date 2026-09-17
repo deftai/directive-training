@@ -101,6 +101,9 @@
 
 ### Fixed
 
+- Reconcile every live root-package verifier and its focused negative tests
+  with the exact `@deftai/directive` 0.119.1 authoring pin while preserving
+  the curriculum's intentional 0.112.0 learner fixtures and historical record.
 - Normalize repository-style fixture keys across platforms, make capstone
   negative mutations LF/CRLF-safe and exact-script-specific, and keep Labs 7,
   9, and 10 happy paths executable on their supported host lanes (#75, #76,
