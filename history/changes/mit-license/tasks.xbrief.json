@@ -10,19 +10,19 @@
       {
         "id": "mit-license.license-file",
         "title": "Add the canonical MIT license text",
-        "status": "pending",
+        "status": "completed",
         "effort": "S"
       },
       {
         "id": "mit-license.readme-link",
         "title": "Link the README to the root license",
-        "status": "pending",
+        "status": "completed",
         "effort": "S"
       },
       {
         "id": "mit-license.verify",
         "title": "Run acceptance and repository quality gates",
-        "status": "pending",
+        "status": "completed",
         "effort": "S"
       }
     ],
