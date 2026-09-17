@@ -28,7 +28,7 @@
       "commands": [],
       "none_stated": true,
       "source_rung": "derived",
-      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "derived_reason": "derived 3 independently testable clauses from the task statement before product edit (#3323)",
       "clauses": [
         {
           "id": 1,
@@ -58,14 +58,15 @@
       "intended_placement": {
         "schema": "deft.scope.intended_placement.v1",
         "files": [
-          "CHANGELOG.md",
           "AGENTS.md",
+          "CHANGELOG.md",
           "README.md",
           "maintainers/CURRICULUM-MAINTENANCE.md",
           "references/QUICK-REFERENCE.md",
           "xbrief/PROJECT-DEFINITION.xbrief.json",
           "xbrief/active/2026-09-17-2-correct-repo-identity-after-the-public-deftai-clone.xbrief.json",
-          "xbrief/completed/2026-09-17-1-add-an-mit-license.xbrief.json"
+          "xbrief/completed/2026-09-17-1-add-an-mit-license.xbrief.json",
+          "xbrief/completed/2026-09-17-directive-0-119-1-review-fix.xbrief.json"
         ],
         "module_boundary": "repository identity and policy documents"
       },
@@ -80,6 +81,33 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "b06dba882fcc0a40212de2c4b23ec8dcc12f157a3d417f6424db3c34017c5dff"
+      },
+      "file_scope": [
+        "AGENTS.md",
+        "CHANGELOG.md",
+        "README.md",
+        "maintainers/CURRICULUM-MAINTENANCE.md",
+        "references/QUICK-REFERENCE.md",
+        "xbrief/PROJECT-DEFINITION.xbrief.json",
+        "xbrief/active/2026-09-17-2-correct-repo-identity-after-the-public-deftai-clone.xbrief.json",
+        "xbrief/completed/2026-09-17-1-add-an-mit-license.xbrief.json",
+        "xbrief/completed/2026-09-17-directive-0-119-1-review-fix.xbrief.json"
+      ],
+      "file_scope_confidence": "declared",
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": false,
+        "file_scope": [
+          "AGENTS.md",
+          "CHANGELOG.md",
+          "README.md",
+          "maintainers/CURRICULUM-MAINTENANCE.md",
+          "references/QUICK-REFERENCE.md",
+          "xbrief/PROJECT-DEFINITION.xbrief.json",
+          "xbrief/active/2026-09-17-2-correct-repo-identity-after-the-public-deftai-clone.xbrief.json",
+          "xbrief/completed/2026-09-17-1-add-an-mit-license.xbrief.json",
+          "xbrief/completed/2026-09-17-directive-0-119-1-review-fix.xbrief.json"
+        ]
       }
     },
     "id": "github.issue.5477618270",

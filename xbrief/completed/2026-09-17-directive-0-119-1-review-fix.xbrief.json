@@ -1,0 +1,226 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Implementation-ready review fix for the Directive 0.119.1 framework deposit upgrade",
+    "created": "2026-09-17T01:07:50Z",
+    "updated": "2026-09-17T13:35:23Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "training.directive-0.119.1-review-fix",
+    "title": "Directive 0.119.1 Review and Build Reconciliation",
+    "status": "completed",
+    "narratives": {
+      "Description": "Finish PR #5 by reconciling live repository authoring-pin verifiers with the already-upgraded exact @deftai/directive 0.119.1 root dependency.",
+      "UserStory": "As a Directive training maintainer, I want the framework upgrade and its executable repository contracts to agree, so that the native build matrix passes without rewriting the curriculum's intentional 0.112.0 learner baseline or historical evidence.",
+      "ImplementationPlan": "Update every live root-package exact-version assertion from 0.112.0 to 0.119.1 and only the focused test fixtures or mutations that represent the root authoring package. Preserve learner fixture pins, curriculum baseline claims, completed xBRIEFs, and historical source evidence at 0.112.0. Run all repository content checks and focused tests plus the canonical Deft gate. Push one coherent review-fix batch, require green native CI and a fresh Greptile 5/5 review on the current head, reply to and resolve every review conversation, and stop before merge.",
+      "Acceptance": "All live root-package verifiers require @deftai/directive 0.119.1 exactly; learner and historical 0.112.0 contracts remain unchanged; all local content checks, focused tests, and the Deft aggregate gate pass; PR #5 native CI is green; Greptile reports 5/5 on the current head with no P0 or P1 findings; and all review conversations are addressed and resolved.",
+      "Safety": "Do not change learner fixture dependency graphs, authored 0.112.0 curriculum claims, completed delivery records, repository identity, visibility, remotes, merge state, publication surfaces, or upstream deftai/directive. All GitHub commands and pushes run as dbcall2.",
+      "Traces": "David's explicit requests to upgrade Directive, fix the failed build, reach Greptile 5/5, and address and resolve all conversations; PR #5 review thread PRRT_kwDOUdwfdc6jKw6e; PROJECT-DEFINITION SourceOfTruth, DirectiveBaseline, DevelopmentPosture, and ProjectRules, with the live operator instruction overriding the project Greptile default for this PR only.",
+      "QualityGate": "Run the complete check:* and test:* package-script surfaces, task deft:check, git diff --check, native GitHub Actions on the final head, and a fresh dual-source Greptile review read on that same head."
+    },
+    "references": [
+      {
+        "uri": "urn:3ci:directive-training:request:2026-09-17:directive-0.119.1-review-fix",
+        "type": "x-xbrief/user-request",
+        "title": "David's Directive 0.119.1 build and review completion request",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "https://github.com/deftai/directive-training/pull/5",
+        "type": "x-xbrief/github-pr",
+        "title": "PR #5: chore(deft): upgrade Directive to 0.119.1",
+        "TrustLevel": "internal"
+      }
+    ],
+    "items": [
+      {
+        "id": "training.directive-0.119.1-review-fix.verifiers",
+        "title": "Reconcile live root-pin verifier contracts",
+        "status": "completed",
+        "effort": "S",
+        "narrative": {
+          "Acceptance": "The 10 live root-package assertions and their four root-package test fixtures or mutations require 0.119.1 exactly, while learner fixtures and historical baseline assertions remain at 0.112.0."
+        },
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "PR #5 merged as cbdb7f337511b78d49530e6800e30bb3150165c9, an ancestor of origin/master. Commit 6a2c498 \"fix(ci): align verifier contracts with Directive 0.119.1\" reconciled the live root-pin verifier assertions; measured on master: root package.json pins @deftai/directive 0.119.1, labs/fixtures/*/package.json remain on 0.112.0.",
+          "recorded_at": "2026-09-17T12:46:02Z",
+          "recorded_by": "agent:claude-opus-5/lifecycle-closeout"
+        }
+      },
+      {
+        "id": "training.directive-0.119.1-review-fix.validation",
+        "title": "Prove the review fix on the final head",
+        "status": "completed",
+        "effort": "S",
+        "narrative": {
+          "Acceptance": "Local checks and tests pass, native CI is green, Greptile is 5/5 on the final head with no P0/P1 findings, and every review conversation is addressed and resolved without merging."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #5 final head: GitHub Actions run 35169899990 passed linux-node24, macos-node24, windows-node24 and windows-linked-path-safety; CodeQL, Socket Security and the Greptile Review check also passed. Merged as cbdb7f337511b78d49530e6800e30bb3150165c9.",
+          "recorded_at": "2026-09-17T12:46:02Z",
+          "recorded_by": "agent:claude-opus-5/lifecycle-closeout"
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "npm run check:cold-start-readme",
+        "npm run check:modules-2-3",
+        "npm run check:modules-4-5",
+        "npm run check:module-6",
+        "npm run check:module-7",
+        "npm run check:module-8",
+        "npm run check:module-9",
+        "npm run check:module-10",
+        "npm run check:capstone"
+      ],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "The operator specified the build and review outcomes but not literal shell commands. Local acceptance uses the deterministic content-contract checks affected by the authoring pin; the exact Labs 7, 9, and 10 native paths are additionally replayed locally in an isolated CI-equivalent tool path and required to pass the final GitHub Actions matrix.",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Every live verifier of the root package exact Directive pin accepts 0.119.1 and rejects a range or stale value.",
+          "artifact_path": "scripts/verify-cold-start-readme.mjs",
+          "ambiguous": false,
+          "provenance": "derived"
+        },
+        {
+          "id": 2,
+          "text": "Learner fixture pins, authored course baselines, source evidence, and completed delivery records remain on their intentional 0.112.0 values.",
+          "artifact_path": "labs/fixtures/07-scope-lifecycle/package.json",
+          "ambiguous": false,
+          "provenance": "derived"
+        },
+        {
+          "id": 3,
+          "text": "All package check and test surfaces pass locally and native GitHub Actions pass on the final PR head.",
+          "artifact_path": "package.json",
+          "ambiguous": false,
+          "provenance": "explicit"
+        },
+        {
+          "id": 4,
+          "text": "Greptile reports 5/5 on the final PR head with no P0 or P1 findings, and all review conversations are addressed and resolved.",
+          "artifact_path": "https://github.com/deftai/directive-training/pull/5",
+          "ambiguous": false,
+          "provenance": "explicit"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "maintenance",
+      "file_scope": [
+        ".claude/settings.json",
+        ".codex/hooks.json",
+        ".cursor/hooks.json",
+        ".deft/GENERATION.json",
+        ".grok/hooks/deft.json",
+        "AGENTS.md",
+        "CHANGELOG.md",
+        "meta/policy-changes.log",
+        "package.json",
+        "scripts/verify-capstone.mjs",
+        "scripts/verify-capstone.test.mjs",
+        "scripts/verify-cold-start-readme.mjs",
+        "scripts/verify-module-6.mjs",
+        "scripts/verify-module-6.test.mjs",
+        "scripts/verify-module-7.mjs",
+        "scripts/verify-module-8.mjs",
+        "scripts/verify-module-9.mjs",
+        "scripts/verify-module-10.mjs",
+        "scripts/verify-module-11.mjs",
+        "scripts/verify-module-11.test.mjs",
+        "scripts/verify-modules-2-3.mjs",
+        "scripts/verify-modules-4-5.mjs",
+        "scripts/verify-modules-4-5.test.mjs",
+        "xbrief/.deft-version",
+        "xbrief/PROJECT-DEFINITION.xbrief.json",
+        "xbrief/active/2026-09-17-directive-0-119-1-review-fix.xbrief.json"
+      ],
+      "file_scope_confidence": "high",
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": false,
+        "file_scope": [
+          ".claude/settings.json",
+          ".codex/hooks.json",
+          ".cursor/hooks.json",
+          ".deft/GENERATION.json",
+          ".grok/hooks/deft.json",
+          "AGENTS.md",
+          "CHANGELOG.md",
+          "meta/policy-changes.log",
+          "package.json",
+          "scripts/verify-capstone.mjs",
+          "scripts/verify-capstone.test.mjs",
+          "scripts/verify-cold-start-readme.mjs",
+          "scripts/verify-module-6.mjs",
+          "scripts/verify-module-6.test.mjs",
+          "scripts/verify-module-7.mjs",
+          "scripts/verify-module-8.mjs",
+          "scripts/verify-module-9.mjs",
+          "scripts/verify-module-10.mjs",
+          "scripts/verify-module-11.mjs",
+          "scripts/verify-module-11.test.mjs",
+          "scripts/verify-modules-2-3.mjs",
+          "scripts/verify-modules-4-5.mjs",
+          "scripts/verify-modules-4-5.test.mjs",
+          "xbrief/.deft-version",
+          "xbrief/PROJECT-DEFINITION.xbrief.json",
+          "xbrief/active/2026-09-17-directive-0-119-1-review-fix.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:cold-start-readme",
+          "npm run check:modules-2-3",
+          "npm run check:modules-4-5",
+          "npm run check:module-6",
+          "npm run check:module-7",
+          "npm run check:module-8",
+          "npm run check:module-9",
+          "npm run check:module-10",
+          "npm run check:capstone"
+        ],
+        "expected_outputs": [
+          "All root authoring-pin verifier contracts accept 0.119.1",
+          "All focused repository checks and tests pass",
+          "Native CI is green and Greptile is 5/5 on the current head",
+          "All review conversations are resolved"
+        ],
+        "depends_on": [],
+        "conflict_group": "directive-framework-maintenance",
+        "size": "small",
+        "file_scope_confidence": "high"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 5,
+        "prBase": null,
+        "mergeCommit": "cbdb7f337511b78d49530e6800e30bb3150165c9",
+        "deliveryBranch": "master",
+        "deliveryCommit": "847f8aaaaa0c7bcd5c54b5450e494a6bd719027c",
+        "verifiedAt": "2026-09-17T13:35:23Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:claude:v1:MTdiODlhMzctYmU4Zi00Y2MyLTlmNWUtMGMxNDlhYWVlODA4"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-17T13:35:23Z"
+      },
+      "completedAt": "2026-09-17T13:35:23Z",
+      "completedSessionId": "host:claude:v1:MTdiODlhMzctYmU4Zi00Y2MyLTlmNWUtMGMxNDlhYWVlODA4"
+    },
+    "updated": "2026-09-17T13:35:23Z"
+  }
+}
