@@ -1,0 +1,108 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #1",
+    "updated": "2026-09-17T01:44:49Z"
+  },
+  "plan": {
+    "title": "Add an MIT license",
+    "status": "running",
+    "narratives": {
+      "Description": "Add an MIT license",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/1",
+      "Overview": "The public `deftai/directive-training` repository currently has no license.\n\nAdd an MIT `LICENSE` at the repo root so the training course has an explicit grant for use, copy, modification, and contribution.\n\nAcceptance:\n- Root `LICENSE` file with the MIT text\n- Copyright holder named (DeftAI / authors)\n- README (or equivalent) points at the license"
+    },
+    "items": [
+      {
+        "id": "github.issue.5477576007.license-file",
+        "title": "Add the canonical MIT license text",
+        "status": "pending",
+        "effort": "S"
+      },
+      {
+        "id": "github.issue.5477576007.readme-link",
+        "title": "Link the README to the root license",
+        "status": "pending",
+        "effort": "S"
+      },
+      {
+        "id": "github.issue.5477576007.verify",
+        "title": "Run acceptance and repository quality gates",
+        "status": "pending",
+        "effort": "S"
+      }
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/1",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #1: Add an MIT license"
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "test -f LICENSE",
+        "grep -F 'MIT License' LICENSE",
+        "grep -F 'Copyright (c) 2026 DeftAI and contributors' LICENSE",
+        "grep -F '[MIT License](LICENSE)' README.md"
+      ],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 3 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Add the canonical MIT license text",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Link the README to the root license",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Run acceptance and repository quality gates",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [
+          "LICENSE",
+          "README.md",
+          "history/changes/mit-license/proposal.xbrief.json",
+          "history/changes/mit-license/tasks.xbrief.json",
+          "xbrief/active/2026-09-17-1-add-an-mit-license.xbrief.json"
+        ],
+        "module_boundary": "repository licensing and top-level documentation"
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5477576007,
+        "origin": "deftai/directive-training#1",
+        "id": "github.issue.5477576007"
+      },
+      "file_scope": [
+        "LICENSE",
+        "README.md",
+        "history/changes/mit-license/proposal.xbrief.json",
+        "history/changes/mit-license/tasks.xbrief.json",
+        "xbrief/active/2026-09-17-1-add-an-mit-license.xbrief.json"
+      ],
+      "file_scope_confidence": "high"
+    },
+    "id": "github.issue.5477576007",
+    "updated": "2026-09-17T01:44:49Z"
+  }
+}
