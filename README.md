@@ -26,8 +26,7 @@ this Markdown; they will not replace it as the source of truth.
 ## Start here
 
 1. Confirm the prerequisites in the [course map](curriculum/README.md).
-<!-- directive-training:teaching-baseline=0.119.2 -->
-2. Note the current teaching baseline: `@deftai/directive` 0.119.2 with xBRIEF
+2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.2<!-- /directive-training:teaching-baseline --> with xBRIEF
    schema 0.8.
 3. Complete [Module 1: What Directive Is](curriculum/modules/01-what-directive-is.md),
    [Module 2: Installation and Project Anatomy](curriculum/modules/02-installation-and-anatomy.md),

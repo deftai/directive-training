@@ -55,7 +55,7 @@ function fixture(t) {
   }));
   write(solution4, document(solutionHeadings, outcomes4, { "Solution record": record }));
   write(solution5, document(solutionHeadings, outcomes5, { "Solution record": record + "\n| Platform status | macOS/zsh verified; Linux and Windows are candidates |" }));
-  write("README.md", "# Course\n\n<!-- directive-training:teaching-baseline=0.119.2 -->\n2. Note the current teaching baseline: `@deftai/directive` 0.119.2 with xBRIEF schema 0.8.\n");
+  write("README.md", "# Course\n\n2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.2<!-- /directive-training:teaching-baseline --> with xBRIEF schema 0.8.\n");
   write("curriculum/README.md", "# Course\n\n| [Module 4](modules/04-xbrief-as-durable-state.md) | Learner-ready draft |\n| [Module 5](modules/05-sources-versus-projections.md) | Learner-ready draft — macOS/zsh |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| Module 7 | Learner-ready draft |\n");
   write("references/SOURCE-NOTES.md", "# Proof\n\n- `lab05-platform-proof:macos-zsh status=verified date=2026-09-07 evidence=local-disposable-lab5-full`\n- `lab05-platform-proof:linux-bash status=candidate date=2026-09-07 evidence=not-run`\n- `lab05-platform-proof:windows-pwsh7 status=verified date=2026-09-12 evidence=issue-65-reported-native-walkthrough`\n");
   write("references/SOURCE-BASELINE.md", "# Current proof\n\n- `teaching-platform-proof:macos-zsh status=verified date=2026-09-17 evidence=baseline-upgrade-65-of-65`\n- `teaching-platform-proof:linux-bash status=candidate date=2026-09-17 evidence=not-run`\n- `teaching-platform-proof:windows-pwsh7 status=candidate date=2026-09-17 evidence=not-run`\n");
