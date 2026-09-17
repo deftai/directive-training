@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
 
-const declaration = /Note the current teaching baseline:\s*`@deftai\/directive`\s*(\d+\.\d+\.\d+)\b/g;
+const declaration = /<!--\s*directive-training:teaching-baseline=(\d+\.\d+\.\d+)\s*-->/g;
 
-/** Read the single learner-facing Directive version declaration from README content. */
+/** Read the single stable Directive teaching-baseline marker from README content. */
 export function declaredTeachingBaseline(readme) {
   const matches = [...readme.matchAll(declaration)];
-  assert.equal(matches.length, 1, "README must declare exactly one current Directive teaching baseline");
+  assert.equal(matches.length, 1, "README must contain exactly one Directive teaching-baseline marker");
   return matches[0][1];
 }
 

@@ -542,6 +542,11 @@ assert.equal(
   1,
   "platform workflow must define one top-level permissions block",
 );
+assert.match(
+  workflow,
+  /^env:\n  GH_NO_UPDATE_NOTIFIER: ["']1["']$/m,
+  "platform workflow must disable the GitHub CLI update notifier for deterministic toolchain probes",
+);
 assert.doesNotMatch(
   workflow,
   /^\s+permissions\s*:/m,

@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #3",
-    "updated": "2026-09-17T20:31:56Z"
+    "updated": "2026-09-17T20:36:10Z"
   },
   "plan": {
     "title": "Upgrade the Directive teaching baseline from 0.112.0 to the latest release (0.119.2)",
@@ -915,6 +915,35 @@
           "created_at": "2026-09-17T20:25:51Z",
           "updated_at": "2026-09-17T20:25:51Z",
           "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "Implementation checkpoint discovered one additional masked before-state dependency.\n\nAfter repairing the named missing-`python` and missing-`symlinkSync` failures, `npm run test:baseline-upgrade` improved from 58/65 to 63/65. The remaining lifecycle and implementation failures are caused by fixture isolation leaking the host Node bin directory into `PATH`. That directory also contains the global Directive 0.119.2 launchers, so the 0.119.2 active-CLI gate correctly rejects the fixture-local 0.112.0 CLI as stale before the required pre-collapse checkpoint can turn green.\n\nThe fixtures already expose Node through `.lab-tools/node`; retaining `dirname(process.execPath)` in their isolated system-tool list is redundant and breaks the exact fixture-local graph boundary. I am carrying removal of that host bin directory from the lifecycle, implementation, and gates isolation paths as a hard-blocking scoped dependency of issue #3, with the same seven-file aggregate as regression proof. This preserves the gate and the required pre-collapse green checkpoint; it does not weaken or bypass active-CLI validation.\n",
+          "id": 5720880553,
+          "html_url": "https://github.com/deftai/directive-training/issues/3#issuecomment-5720880553",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-17T20:36:10Z",
+          "updated_at": "2026-09-17T20:36:10Z",
+          "author_association": "COLLABORATOR"
         }
       ],
       "x-directive/plan-id": {
@@ -989,6 +1018,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5477717667",
-    "updated": "2026-09-17T20:31:56Z"
+    "updated": "2026-09-17T20:36:10Z"
   }
 }

@@ -96,7 +96,7 @@ function fixture(t) {
   }));
   write(module5, "# Module 5\n\n## Navigation\n\nNext: [Module 6](06-creating-well-shaped-work.md).\n");
   write(module7, "# Module 7\n");
-  write("README.md", "# Training\n\n2. Note the current teaching baseline: `@deftai/directive` 0.119.2 with xBRIEF schema 0.8.\n\nContinue with [Module 6](curriculum/modules/06-creating-well-shaped-work.md).\n");
+  write("README.md", "# Training\n\n<!-- directive-training:teaching-baseline=0.119.2 -->\n2. Note the current teaching baseline: `@deftai/directive` 0.119.2 with xBRIEF schema 0.8.\n\nContinue with [Module 6](curriculum/modules/06-creating-well-shaped-work.md).\n");
   write("curriculum/README.md", "# Course\n\n| Module | Status |\n| --- | --- |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| [Module 7](modules/07-scope-lifecycle.md) | Learner-ready draft |\n");
   write("assessments/README.md", "# Assessments\n\nUse [Module 6](../curriculum/modules/06-creating-well-shaped-work.md#self-assessment).\n");
   write("solutions/README.md", "# Solutions\n\nUse the [Module 6 solution](module-06-creating-well-shaped-work.md).\n");
