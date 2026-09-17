@@ -313,7 +313,8 @@ unsupported link in the chain or use “done” to collapse these distinct state
 
 The following are project policy, not universal Directive defaults:
 
-- Keep this repository private and internal to 3Ci.
+- Treat the configured Git remote as repository identity; do not change its
+  visibility or remote settings.
 - Use fictional projects and mock data only.
 - Run exercises only in disposable local or designated training repositories.
 - Never use this working tree, a business repository, credentials, production

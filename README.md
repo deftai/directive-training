@@ -15,7 +15,8 @@
 
 # directive-training
 
-Private, self-directed Directive training for 3Ci engineers.
+Self-directed Directive training for 3Ci engineers, authored in the public
+`deftai/directive-training` repository.
 
 This repository is the authored source for the course. It is also a Directive
 consumer project, but it is not the Directive framework source repository.
@@ -92,7 +93,7 @@ notes, caches, session state, or lab state to this training repository.
 If you get stuck, work through the module's recovery section, then its hints in
 order, and finally its explained solution. If the written paths disagree or do
 not recover the exercise, record the page, command, sanitized output, operating
-system, shell, and Directive version in this private repository's issue tracker.
+system, shell, and Directive version in this repository's issue tracker.
 That is a curriculum defect; completion must not depend on undocumented help.
 
 ## Maintainers

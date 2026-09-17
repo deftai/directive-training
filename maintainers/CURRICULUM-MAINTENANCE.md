@@ -11,7 +11,7 @@ how Directive behaves, course outcomes, or the publication target changes.
 - **Pilot learners:** at least two representative 3Ci engineers, not yet named;
   required before MVP exit
 - **Course status:** pre-release internal alpha
-- **Visibility:** private/internal
+- **Visibility:** public (`deftai/directive-training`)
 
 The missing names do not block this foundation milestone. They do block the MVP
 exit criterion and must be resolved in the proposed pilot-and-revision scope.
@@ -50,7 +50,7 @@ not sufficient reason to rewrite released-version guidance.
 
 ## Release revalidation procedure
 
-1. Create an approved scope and a feature branch. Keep the course private.
+1. Create an approved scope and a feature branch.
 2. Confirm the configured remote before work. Do not use a similarly named
    framework or business repository.
 3. Run the current Directive session, story-ready, and active-xBRIEF preflight
