@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #3",
-    "updated": "2026-09-17T20:36:10Z"
+    "updated": "2026-09-17T22:02:46Z"
   },
   "plan": {
     "title": "Upgrade the Directive teaching baseline from 0.112.0 to the latest release (0.119.2)",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Upgrade the Directive teaching baseline from 0.112.0 to the latest release (0.119.2)",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/3",
@@ -15,32 +15,81 @@
     },
     "items": [
       {
+        "id": "clause:1",
         "title": "Bind npm latest once at branch start and freeze that identity in the first SOURCE-BASELINE commit, recording the exact directive/core/content/types graph, integrity, annotated tag, peeled commit, probe surfaces, disagreements, and verification date.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "references/SOURCE-BASELINE.md records @deftai/directive 0.119.2, the directive/core/content/types graph, integrity, annotated tag, peeled commit, probe surfaces, disagreements, and 2026-09-17 verification date; merged PR #11 at 394fe9b60ced2b45c42fc3aba5403ec7896302ff",
+          "recorded_at": "2026-09-17T21:56:47Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:2",
         "title": "Carry the two reproduced before-state defect classes inside issue 3 as a pre-upgrade tranche: make the lifecycle, implementation, and gates fixture launchers resolve a real Python executable portably without assuming a `python` alias, and import/use `symlinkSync` correctly in scripts/projection-lab.test.mjs; add focused regression proof for both classes.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:baseline-upgrade passed 65/65 with zero skips; focused lifecycle, implementation, gates, projection, linked-path-safety, and restore-validation-deposit regression suites are included in that aggregate",
+          "recorded_at": "2026-09-17T21:56:47Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:3",
         "title": "Add a package script named test:baseline-upgrade whose value is `node --test scripts/capstone-lab.test.mjs scripts/gates-lab.test.mjs scripts/implementation-lab.test.mjs scripts/lifecycle-lab.test.mjs scripts/projection-lab.test.mjs scripts/linked-path-safety.test.mjs scripts/restore-validation-deposit.test.mjs`; after the pre-upgrade tranche, record this exact aggregate green before any version-collapse edit and use `npm run test:baseline-upgrade` for the post-collapse proof and evidence location.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json test:baseline-upgrade uses the exact seven-file node --test command; npm run test:baseline-upgrade passed 65/65 with zero skips after the 0.119.2 collapse",
+          "recorded_at": "2026-09-17T21:56:47Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:4",
         "title": "Collapse every current authoring and learner surface listed in the issue body to the bound release while preserving labeled historical records; explicitly include all seven files named by the aggregate and the fixture launchers, manifests, docs, workflows, current references, maintainer helpers, verifier tests, ROADMAP projection, AGENTS.md, host hooks, package pin, generation stamp, and xbrief pin already enumerated by the body.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "Merged PR #11 at 394fe9b60ced2b45c42fc3aba5403ec7896302ff changed the enumerated curriculum, lab, fixture, workflow, reference, maintainer, verifier, ROADMAP, AGENTS, package, generation, and xBRIEF surfaces; Greptile reviewed HEAD 953fee6d6ded415740471d168fe476082f96b4ba at 5/5 with P0=0/P1=0",
+          "recorded_at": "2026-09-17T21:56:47Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:5",
         "title": "Re-probe the taught command surfaces in disposable no-remote repositories on the bound release, beginning with the unpinned init probe, and reconcile learner and maintainer claims, platform labels, SOURCE-NOTES current context, fixture behavior, and bound-release-relative negative mutation constants from those observations.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "observed_behavior",
+          "pointer": "references/SOURCE-BASELINE.md and references/SOURCE-NOTES.md retain the 0.119.2 disposable no-remote probe results, supported-surface observations, platform status, disagreements, and bound-release-relative fixtures landed in PR #11",
+          "recorded_at": "2026-09-17T21:56:47Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:6",
         "title": "Replace the ten independent root-pin literals with one shared value derived from the declared teaching baseline and prove that the coupling assertion fails against dc20d5e content but passes only after the collapse.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:teaching-baseline passed 6/6 with 100% line, branch, and function coverage; regression cases reject drifted, missing, duplicate, reversed, hidden, and malformed visible baseline declarations while allowing prose rewording",
+          "recorded_at": "2026-09-17T21:56:47Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:7",
         "title": "Dispose the inherited Module 11 and LICENSE-related failures as named dependencies rather than upgrade regressions, then record the baseline-upgrade aggregate, current check scripts, vBRIEF conformance, and deposit-present Deft aggregate evidence without publishing or running learner mutations in this training worktree.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "task deft:check passed; all ten check:* scripts passed; npm run test:baseline-upgrade passed 65/65; xBRIEF validation and vBRIEF conformance passed; no publication or learner mutation ran in the training worktree",
+          "recorded_at": "2026-09-17T21:56:47Z",
+          "recorded_by": "agent:codex"
+        }
       }
     ],
     "tags": [
@@ -957,6 +1006,30 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "2852869ff5eb247cc9129487e824d4a0cd7d0a0b1d036f9ec07ddafbaa41e80a"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 11,
+        "prBase": "master",
+        "mergeCommit": "394fe9b60ced2b45c42fc3aba5403ec7896302ff",
+        "deliveryBranch": "master",
+        "deliveryCommit": "394fe9b60ced2b45c42fc3aba5403ec7896302ff",
+        "verifiedAt": "2026-09-17T22:02:46Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMGIxMGQtZmEzNC03YzkyLTk0MDEtYmIyZWM4ZGExYzk1"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-17T22:02:46Z",
+      "completedSessionId": "host:codex:v1:MDFhMGIxMGQtZmEzNC03YzkyLTk0MDEtYmIyZWM4ZGExYzk1",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-17T22:02:46Z"
       }
     },
     "acceptance": {
@@ -1018,6 +1091,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5477717667",
-    "updated": "2026-09-17T20:36:10Z"
+    "updated": "2026-09-17T22:02:46Z"
   }
 }
