@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-17-2-correct-repo-identity-after-the-public-deftai-clone.xbrief.json",
+  "planId": "github.issue.5477618270",
+  "approvedAt": "2026-09-17T15:16:55Z",
+  "fileScope": [
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "maintainers/CURRICULUM-MAINTENANCE.md",
+    "README.md",
+    "references/QUICK-REFERENCE.md",
+    "xbrief/active/2026-09-17-2-correct-repo-identity-after-the-public-deftai-clone.xbrief.json",
+    "xbrief/completed/2026-09-17-1-add-an-mit-license.xbrief.json",
+    "xbrief/completed/2026-09-17-directive-0-119-1-review-fix.xbrief.json",
+    "xbrief/PROJECT-DEFINITION.xbrief.json"
+  ],
+  "fileScopeDigest": "1541a23f8b272a7c6df296ec140dea0b47bac6c335ab98d94ff3d134ad7d262f",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "dbcall2",
+    "mintedAt": "2026-09-17T15:16:55Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "3a4a369faa7771081d49f98e4b9a0b842d01fff9ddc8748357155bcb62c7cdd6",
+  "digestAlgo": "intent-extract-v1"
+}
