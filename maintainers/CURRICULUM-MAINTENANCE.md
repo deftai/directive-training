@@ -1,7 +1,7 @@
 # Curriculum maintenance contract
 
 This document governs the authored 3Ci Directive curriculum. It describes the
-0.112.0 internal-alpha baseline and must be reviewed whenever the project pin,
+0.119.2 internal-alpha baseline and must be reviewed whenever the project pin,
 how Directive behaves, course outcomes, or the publication target changes.
 
 ## Ownership and release status
@@ -194,9 +194,10 @@ Windows. The Windows job must execute the substantive learner paths, not a
 platform spoof or skip. Keep Windows marked candidate until both that job and a
 separate learner walkthrough have evidence.
 
-Those conditions were met for Labs 7, 9, and 10 on 2026-09-15: the Windows 2022
-CI proof was green and an independent native PowerShell walkthrough completed
-each published route against the exact Directive 0.112.0 graph.
+Those conditions were met for the prior 0.112.0 baseline on 2026-09-15: the Windows 2022
+CI proof was green and an independent native PowerShell walkthrough completed each route.
+That historical evidence does not promote Windows on 0.119.2; rerun both evidence paths
+against the current exact graph before changing the candidate label.
 
 Run the aggregate Directive consumer gate separately after the literal commands:
 
@@ -212,8 +213,8 @@ with the evidence; a prior green run is not current proof.
 Modules 4–5 add classification and projection-recovery evidence. The two new
 focused commands supplement the active scope's literal conformance command;
 they do not replace it. Lab 5's macOS/zsh execution evidence is distinct from
-Module 2's native matrix. Keep Linux and native Windows unverified for Lab 5
-until their own written paths have been executed.
+historical platform evidence. Keep Linux and Windows as candidates for Lab 5
+until their 0.119.2 written paths have been executed natively.
 
 Module 6 adds a command-free worksheet and explained solution. Its focused
 checks prove required sections, outcome coverage, source-bound terminology,
@@ -221,17 +222,18 @@ safe local links, navigation, and the absence of executable shell blocks. The
 learner evidence is a fictional scratch note with literal read-only inspection;
 it makes no runtime, remote, deployment, or implementation-authority claim.
 
-Module 9 adds an executable golden-path lab. Revalidate the exact 0.112.0 package graph,
+Module 9 adds an executable golden-path lab. Revalidate the exact 0.119.2 package graph,
 clean guarded checkpoint, session/story/active-preflight order, expected focused red,
 one-file `src/greeting.mjs` boundary, named/fallback behavior, patch check, retained JSON
-evidence, fresh reset, and recoverable archive together. Platform support is macOS/zsh and
-native Windows/PowerShell; Linux/bash remains unverified.
+evidence, fresh reset, and recoverable archive together. Current 0.119.2 support is
+macOS/zsh; Linux/bash and Windows/PowerShell remain candidates pending native replay.
 
-Module 10 adds an executable testing-and-gates lab. Revalidate the exact 0.112.0 graph,
+Module 10 adds an executable testing-and-gates lab. Revalidate the exact 0.119.2 graph,
 meaningful red, frozen test digest, passing green and source-only refactor, literal `verify:ac`,
 forward coverage, the seeded `quality:record` aggregate failure, the one-record repair, final
 three-file diff, unchanged gate fingerprints, fresh reset, and recoverable archive together.
-Platform support is macOS/zsh and native Windows/PowerShell; Linux/bash remains unverified.
+Current 0.119.2 support is macOS/zsh; Linux/bash and Windows/PowerShell remain candidates
+pending native replay.
 
 Module 11 is a command-free fixed-state exercise. Revalidate the complete H1
 packet, Read-Write-Lint-Diff zero-change exit, classify-before-editing order,
@@ -244,28 +246,22 @@ reset.
 
 The learner-ready
 [capstone](../curriculum/capstone-end-to-end.md) combines the course lifecycle
-in one guarded no-remote fixture. Revalidate the exact 0.112.0 graph on Node.js
+in one guarded no-remote fixture. Revalidate the exact 0.119.2 graph on Node.js
 24.20.0, the full stage and evidence order, meaningful red and intentional
 review-evidence aggregate failure, source-only green and P1 repair, simulated
 current-product review timing, implemented/local-pass closeout boundary, fresh
 reset, and separate recoverable archives. Run both capstone commands above.
-The native fixture matrix proves macOS, Ubuntu, and Windows runner behavior;
-record independent learner walkthrough pilots separately.
+The current local suite proves the capstone on macOS/zsh. The prior native matrix is
+historical evidence only; rerun Linux and Windows against 0.119.2 and record independent
+learner walkthrough pilots separately.
 
-Use the [native Windows revalidation handoff](WINDOWS-REVALIDATION.md) for the
-Modules 4–5 portability follow-up. Bind it to the published fix commit, preserve
-the old failed attempt, and distinguish native evidence from cross-platform
-unit-test inputs. The launcher guard recognizes the complete `cmd-shim@8.0.0`
-programs for the exact local Directive target, with CRLF normalization only.
-An unfamiliar npm launcher format must be reported and reviewed; do not replace
-real launchers with the golden test fixtures or bypass the guard.
-
-An existing clone can legitimately lack the ignored `.deft/core` payload. The
-handoff selects the exact published revision first, then restores only an absent
-payload from the verified 0.112.0 CLI's public headless manifest. Its helper
-refuses existing deposits, preserves partial failures, and leaves tracked files
-unchanged. Doctor must pass before framework-guided validation continues. The
-handoff also authorizes the full suite's normal cleanup of only its new contract
+The [native Windows revalidation handoff](WINDOWS-REVALIDATION.md) is a preserved
+historical 0.112.0 assignment, not a current 0.119.2 runbook. Do not reuse it without a new
+explicit request and a rewritten, pin-matched target. Any replacement must preserve the old
+failed attempt, distinguish native evidence from cross-platform unit-test inputs, validate
+the real npm launchers, and restore only an absent verified deposit. Doctor must pass before
+framework-guided validation continues. The historical handoff also authorized the old
+suite's normal cleanup of only its new contract
 fixtures; previous attempts and evidence remain protected.
 
 Lab 5 archive now takes an explicit absolute attempt root and runs from outside

@@ -7,15 +7,13 @@
 | Stable ID | `lab-10-testing-gates-and-evidence` |
 | Status | Learner-ready draft |
 | Suggested first attempt | 35 minutes |
-| Directive baseline | `@deftai/directive@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | `@deftai/directive@0.119.2`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source module | [Module 10 — Testing, Gates, and Evidence](../curriculum/modules/10-testing-gates-and-evidence.md) |
 | Fixture | [`fixtures/10-testing-gates-and-evidence`](fixtures/10-testing-gates-and-evidence/) |
-| Verified environment | macOS/zsh and native Windows/PowerShell learner paths; Linux/bash remains candidate |
+| Verified environment | macOS/zsh; Linux/bash and Windows/PowerShell remain candidates pending native 0.119.2 evidence |
 
-The native Windows helper path now performs the exact local 0.112.0 install and
-the same red, green, refactor, literal, aggregate-diagnosis, final-repair, reset,
-and archive sequence. An independent PowerShell walkthrough completed that route
-on 2026-09-15 with unchanged gate-definition hashes.
+The helper retains a Windows command path, but its prior walkthrough used the old
+baseline. It remains a candidate until the complete 0.119.2 gate route runs natively.
 
 ## Goal and done condition
 
@@ -54,7 +52,7 @@ Expected: guard succeeds, the branch is `training/module-10`, and the remote com
 
 ## Safety boundary
 
-The helper refuses mutation unless the target is the canonical `repo` inside one unique OS-temporary no-remote attempt, the branch is `training/module-10`, exactly one xBRIEF 0.8 story is active/running, and the exact Directive graph is 0.112.0 after install.
+The helper refuses mutation unless the target is the canonical `repo` inside one unique OS-temporary no-remote attempt, the branch is `training/module-10`, exactly one xBRIEF 0.8 story is active/running, and the exact Directive graph is 0.119.2 after install.
 
 Stage-specific work paths are:
 
@@ -73,7 +71,7 @@ node labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs install "$LAB10_R
 git -C "$LAB10_ROOT" status --short --branch
 ```
 
-Expected: the helper prints `OK: installed Directive 0.112.0`, the branch is `training/module-10`, and the worktree is clean. Installation uses a project-local npm cache and writes retained evidence outside the Git repository.
+Expected: the helper prints `OK: installed Directive 0.119.2`, the branch is `training/module-10`, and the worktree is clean. Installation uses a project-local npm cache and writes retained evidence outside the Git repository.
 
 ## Tasks
 
@@ -156,7 +154,7 @@ npm run test:focused
 npm run check:behavior
 ```
 
-The pinned `verify:ac` runner executes these safe commands verbatim. The lab's helper invokes it through the project-local 0.112.0 binary. The aggregate `task check` is deliberately separate and broader.
+The pinned `verify:ac` runner executes these safe commands verbatim. The lab's helper invokes it through the project-local 0.119.2 binary. The aggregate `task check` is deliberately separate and broader.
 
 ## Evidence bundle
 

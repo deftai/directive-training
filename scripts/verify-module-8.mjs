@@ -3,6 +3,7 @@ import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { courseModuleRow, markdownParts, moduleHeadings, section, solutionHeadings, verifyLinks } from "./verify-modules-4-5.mjs";
+import { assertTeachingBaselinePin } from "./teaching-baseline.mjs";
 
 const module8 = "curriculum/modules/08-session-and-work-selection.md";
 const solution8 = "solutions/module-08-session-and-work-selection.md";
@@ -26,10 +27,10 @@ const liveInstruction = /^(?:open|inspect|read|fetch|query) the live (?:GitHub )
 
 function exactBaseline(path, prose, heading) {
   const row = section(prose, heading).match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-  assert.ok(row?.includes("0.112.0"), `${path} must declare exact Directive 0.112.0`);
+  assert.ok(row?.includes("0.119.2"), `${path} must declare exact Directive 0.119.2`);
   assert.deepEqual(
     [...new Set(row.match(/\b\d+\.\d+\.\d+\b/g))],
-    ["0.112.0"],
+    ["0.119.2"],
     `${path} contains a stale or ranged Directive baseline`,
   );
 }
@@ -143,12 +144,13 @@ export function verifyModule8(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(content.get("references/SOURCE-BASELINE.md"), /^## Module 8 session and work-selection validation\s*$/m, "source baseline is missing Module 8 session validation");
   const notes = content.get("references/SOURCE-NOTES.md");
   assert.match(notes, /^## Module 8 source validation\s*$/m, "SOURCE-NOTES is missing the Module 8 source validation record");
+  const baseline = content.get("references/SOURCE-BASELINE.md");
   for (const token of [
-    "engine 0.114.0", "deposit 0.114.0", "explicit 0.112.0 runtime",
-    "session:start --help", "plan-sequence:current --help", "triage:queue --help",
-    ".deft/core/xbrief/schemas", ".deft/core/vbrief/schemas",
+    "exact 0.119.2 package graph", "content/tasks/session.yml", "content/tasks/plan-sequence.yml",
+    "content/tasks/triage-queue.yml", "deft plan-sequence:current", "deft triage:queue",
+    "xbrief/.triage-cache/candidates.jsonl", "completed-record boundary",
   ]) {
-    assert.ok(notes.includes(token), `SOURCE-NOTES Module 8 evidence is missing: ${token}`);
+    assert.ok(baseline.includes(token), `SOURCE-BASELINE Module 8 evidence is missing: ${token}`);
   }
 
   const project = JSON.parse(content.get("xbrief/PROJECT-DEFINITION.xbrief.json"));
@@ -165,7 +167,7 @@ export function verifyModule8(root = fileURLToPath(new URL("../", import.meta.ur
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.scripts?.["check:module-8"], "node scripts/verify-module-8.mjs", "package scripts must expose check:module-8");
   assert.equal(projectPackage.scripts?.["test:module-8"], "node --test scripts/verify-module-8.test.mjs", "package scripts must expose test:module-8");
-  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.119.1", "training package must retain exact Directive pin");
+  assertTeachingBaselinePin(projectPackage, content.get("README.md"));
   return { artifactCount: content.size };
 }
 

@@ -8,7 +8,7 @@ import { verifyModule8 } from "./verify-module-8.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const copyPaths = [
-  "README.md", "CHANGELOG.md", "package.json", "curriculum", "labs", "solutions",
+  "README.md", "CHANGELOG.md", "LICENSE", "package.json", "curriculum", "labs", "solutions",
   "assessments", "maintainers", "references", "templates", "history", "xbrief",
 ];
 const scopeFilename = "2026-09-08-module-8-session-start-and-authorized-work-selection.xbrief.json";
@@ -110,15 +110,15 @@ test("verifier rejects a broken local navigation link", () => {
 
 test("verifier rejects a stale or ranged teaching baseline", () => {
   const root = changedCopy("solutions/module-08-session-and-work-selection.md", (body) => body.replace(
-    "| Directive baseline | 0.112.0 |",
-    "| Directive baseline | 0.112.0–0.114.0 |",
+    "| Directive baseline | 0.119.2 |",
+    "| Directive baseline | 0.119.2–0.114.0 |",
   ));
   assert.throws(() => verifyModule8(root), /stale or ranged Directive baseline/);
 });
 
 test("verifier rejects Module 10 regressing to planned after release", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell | Red-green-refactor and diagnose a gate failure |",
+    "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Red-green-refactor and diagnose a gate failure |",
     "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Planned | Red-green-refactor and diagnose a gate failure |",
   ));
   assert.throws(() => verifyModule8(root), /Module 10 must remain learner-ready/);

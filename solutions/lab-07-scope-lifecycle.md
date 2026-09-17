@@ -9,8 +9,8 @@
 | Outcomes covered | O7.1, O7.2, O7.3, O7.4 |
 | Status | Learner-ready draft for the verified macOS/zsh path |
 | Last verified | 2026-09-09 |
-| Directive baseline | CLI/core/content/types `0.112.0`; [source baseline](../references/SOURCE-BASELINE.md) |
-| Platform limit | Linux/bash and native Windows/PowerShell are candidates and are not verified or learner-ready for this lab |
+| Directive baseline | CLI/core/content/types `0.119.2`; [source baseline](../references/SOURCE-BASELINE.md) |
+| Platform limit | Linux/bash and Windows/PowerShell are candidates and are not verified or learner-ready for this lab |
 
 The lab helper is course tooling around released commands; it is not itself a
 Directive guarantee.
@@ -82,7 +82,7 @@ The helper invokes both the exact local Directive binary and the consumer Task s
 engine exits `1`. On the verified go-task 3.50.0 host, the Task process returns `201` while
 reporting its child exit `1`.
 
-Retain both. Use `1` for the Directive 0.112.0 behavior claim. Use the
+Retain both. Use `1` for the Directive 0.119.2 behavior claim. Use the
 Task result as environment evidence and require only that it is nonzero on an unverified Task
 version or platform. Hiding one exit loses useful diagnostic context; treating `201` as an
 engine guarantee overclaims it.
@@ -107,11 +107,11 @@ Run the lab's environment block from the course root. A correct start has:
 ```text
 .../3ci-directive-lab07-<unique>/repo
 training/module-07
-@deftai/directive (engine: @deftai/directive-core@0.112.0)
+@deftai/directive (engine: @deftai/directive-core@0.119.2)
 ```
 
 The empty `git remote` output is evidence, not missing setup. The helper verifies the exact
-CLI/core/content/types graph and the deposited 0.112.0 version. Its isolated Task PATH keeps
+CLI/core/content/types graph and the deposited 0.119.2 version. Its isolated Task PATH keeps
 another installed Directive version from taking precedence.
 
 The generated workspace-local USER.md is fictional attempt state. It is ignored and never
@@ -198,7 +198,7 @@ and `evidence/`. Record the new path. This is recoverable cleanup, not deletion.
 | O7.3 | Explicit current intent; session start, ritual, active preflight exits `0` in order | Current authority and readiness were established without conflation. |
 | O7.4 | Different guarded reset root; old evidence readable; retained/archive locations | Recovery did not overwrite evidence or widen the target. |
 
-Also retain the exact 0.112.0 package graph and empty remote value. A screenshot of final
+Also retain the exact 0.119.2 package graph and empty remote value. A screenshot of final
 folders alone does not prove O7.1 or O7.3.
 
 ## Compare with your attempt
@@ -276,8 +276,8 @@ root or archive path. A rejected archive leaves the source intact.
 
 - [Module 7 source validation](../references/SOURCE-NOTES.md#module-7-source-validation)
 - [Directive source baseline](../references/SOURCE-BASELINE.md#module-7-lifecycle-validation)
-- [Pinned Commands source](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md)
-- [Pinned Main source](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/main.md)
+- [Pinned Commands source](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/commands.md)
+- [Pinned Main source](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/main.md)
 
 ## Continue
 

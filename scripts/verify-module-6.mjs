@@ -10,6 +10,7 @@ import {
   solutionHeadings,
   verifyLinks,
 } from "./verify-modules-4-5.mjs";
+import { assertTeachingBaselinePin } from "./teaching-baseline.mjs";
 
 const module6 = "curriculum/modules/06-creating-well-shaped-work.md";
 const solution6 = "solutions/module-06-creating-well-shaped-work.md";
@@ -50,10 +51,10 @@ const sourcePaths = [
 function exactBaseline(path, prose, recordHeading) {
   const record = section(prose, recordHeading);
   const baseline = record.match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-  assert.ok(baseline?.includes("0.112.0"), `${path} must declare the exact Directive 0.112.0 baseline`);
+  assert.ok(baseline?.includes("0.119.2"), `${path} must declare the exact Directive 0.119.2 baseline`);
   assert.deepEqual(
     [...new Set(baseline.match(/\b\d+\.\d+\.\d+\b/g))],
-    ["0.112.0"],
+    ["0.119.2"],
     `${path} contains a stale baseline version`,
   );
 }
@@ -180,10 +181,10 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
   }
 
   const baseline = content.get("references/SOURCE-BASELINE.md");
-  assert.match(baseline, /0\.112\.0/, "source baseline must retain Directive 0.112.0");
+  assert.match(baseline, /0\.119\.2/, "source baseline must retain Directive 0.119.2");
   const notes = content.get("references/SOURCE-NOTES.md");
   assert.match(notes, /^## Module 6 (?:source validation|verification)\s*$/m, "SOURCE-NOTES is missing the Module 6 source validation record");
-  assert.match(notes, /\b0\.112\.0\b/, "Module 6 source validation must name Directive 0.112.0");
+  assert.match(notes, /\b0\.119\.2\b/, "Module 6 source validation must name Directive 0.119.2");
   assert.match(notes, /disagreement/i, "Module 6 source validation must record source disagreements");
   for (const path of sourcePaths) {
     assert.ok(notes.includes(path), `Module 6 source validation is missing pinned source: ${path}`);
@@ -197,7 +198,7 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
 
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.private, true, "the training package must remain private");
-  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.119.1", "the training package must retain the exact Directive pin");
+  assertTeachingBaselinePin(projectPackage, content.get("README.md"));
   assert.equal(projectPackage.scripts?.["check:module-6"], "node scripts/verify-module-6.mjs", "package scripts must expose check:module-6");
   assert.equal(projectPackage.scripts?.["test:module-6"], "node --test scripts/verify-module-6.test.mjs", "package scripts must expose test:module-6");
   return { artifactCount: requiredFiles.length };

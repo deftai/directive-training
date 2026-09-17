@@ -8,7 +8,7 @@ import { verifyModule9 } from "./verify-module-9.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const copyPaths = [
-  "README.md", "CHANGELOG.md", "package.json", "curriculum", "labs", "solutions",
+  "README.md", "CHANGELOG.md", "LICENSE", "package.json", "curriculum", "labs", "solutions",
   "assessments", "maintainers", "references", "scripts", "templates", "history", "xbrief",
 ];
 const scopeFilename = "2026-09-10-module-9-implementation-golden-path.xbrief.json";
@@ -68,8 +68,8 @@ test("Module 9 content contract accepts the completed lifecycle state", () => {
 
 test("verifier rejects a stale or ranged learner baseline", () => {
   const root = changedCopy("curriculum/modules/09-implementation-golden-path.md", (body) => body.replace(
-    "| Directive baseline | `@deftai/directive@0.112.0`, engine `@deftai/directive-core@0.112.0`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
-    "| Directive baseline | `@deftai/directive@0.112.0–0.114.0`, engine `@deftai/directive-core@0.112.0`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
+    "| Directive baseline | `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
+    "| Directive baseline | `@deftai/directive@0.119.2–0.114.0`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
   ));
   assert.throws(() => verifyModule9(root), /stale or ranged Directive baseline/);
 });
@@ -122,25 +122,25 @@ test("verifier rejects a broken local navigation link", () => {
   assert.throws(() => verifyModule9(root), /broken local link/);
 });
 
-test("verifier rejects a verified Windows marker without independent evidence", () => {
-  const root = changedCopy("references/SOURCE-NOTES.md", (body) => body.replace(
-    "module09-platform-proof:windows-powershell status=verified date=2026-09-15 evidence=independent-native-pwsh-walkthrough",
-    "module09-platform-proof:windows-powershell status=verified date=2026-09-15 evidence=pending",
+test("verifier rejects promoting Windows without current native evidence", () => {
+  const root = changedCopy("references/SOURCE-BASELINE.md", (body) => body.replace(
+    "teaching-platform-proof:windows-pwsh7 status=candidate",
+    "teaching-platform-proof:windows-pwsh7 status=verified",
   ));
-  assert.throws(() => verifyModule9(root), /Module 9 evidence is missing/);
+  assert.throws(() => verifyModule9(root), /windows-pwsh7/);
 });
 
-test("verifier rejects a stale macOS-only course index", () => {
+test("verifier rejects a course index that drops candidate platforms", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 09 | [The implementation golden path](modules/09-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell | Implement one test-backed active scope |",
+    "| 09 | [The implementation golden path](modules/09-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Implement one test-backed active scope |",
     "| 09 | [The implementation golden path](modules/09-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh only | Implement one test-backed active scope |",
   ));
-  assert.throws(() => verifyModule9(root), /verified native Windows support/);
+  assert.throws(() => verifyModule9(root), /current platform boundary/);
 });
 
 test("verifier rejects Module 10 regressing to planned after release", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell | Red-green-refactor and diagnose a gate failure |",
+    "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Red-green-refactor and diagnose a gate failure |",
     "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Planned | Red-green-refactor and diagnose a gate failure |",
   ));
   assert.throws(() => verifyModule9(root), /Module 10 must remain learner-ready/);

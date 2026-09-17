@@ -9,7 +9,7 @@ tasks:
   literal:
     desc: Run the active capstone story's literal acceptance commands.
     cmds:
-      - node node_modules/@deftai/directive/dist/bin.js verify:ac xbrief/active/fictional-work-items.xbrief.json
+      - node node_modules/@deftai/directive/dist/bin.js verify:ac xbrief/active/2026-01-15-fictional-work-items.xbrief.json
 
   forward-coverage:
     desc: Check source-to-test correspondence and available changed-branch coverage.

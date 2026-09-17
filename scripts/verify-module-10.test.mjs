@@ -8,7 +8,7 @@ import { verifyModule10 } from "./verify-module-10.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const copyPaths = [
-  "README.md", "CHANGELOG.md", "package.json", "curriculum", "labs", "solutions",
+  "README.md", "CHANGELOG.md", "LICENSE", "package.json", "curriculum", "labs", "solutions",
   "assessments", "maintainers", "references", "scripts", "templates", "history", "xbrief",
 ];
 const scopeFilename = "2026-09-10-module-10-testing-gates-and-evidence.xbrief.json";
@@ -63,8 +63,8 @@ test("Module 10 content contract accepts active and completed lifecycle states",
 
 test("verifier rejects a stale or ranged learner baseline", () => {
   const root = changedCopy("curriculum/modules/10-testing-gates-and-evidence.md", (body) => body.replaceAll(
-    "@deftai/directive@0.112.0",
-    "@deftai/directive@0.112.0–0.114.0",
+    "@deftai/directive@0.119.2",
+    "@deftai/directive@0.119.2–0.114.0",
   ));
   assert.throws(() => verifyModule10(root), /stale or ranged Directive baseline/);
 });
@@ -117,20 +117,20 @@ test("verifier rejects losing Module 10's forward link to Module 11", () => {
   assert.throws(() => verifyModule10(root), /link forward to Module 11/);
 });
 
-test("verifier rejects a verified Windows marker without independent evidence", () => {
-  const root = changedCopy("references/SOURCE-NOTES.md", (body) => body.replace(
-    "module10-platform-proof:windows-powershell status=verified date=2026-09-15 evidence=independent-native-pwsh-walkthrough",
-    "module10-platform-proof:windows-powershell status=verified date=2026-09-15 evidence=pending",
+test("verifier rejects promoting Windows without current native evidence", () => {
+  const root = changedCopy("references/SOURCE-BASELINE.md", (body) => body.replace(
+    "teaching-platform-proof:windows-pwsh7 status=candidate",
+    "teaching-platform-proof:windows-pwsh7 status=verified",
   ));
-  assert.throws(() => verifyModule10(root), /Module 10 evidence is missing/);
+  assert.throws(() => verifyModule10(root), /windows-pwsh7/);
 });
 
-test("verifier rejects a stale macOS-only course index", () => {
+test("verifier rejects a course index that drops candidate platforms", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell | Red-green-refactor and diagnose a gate failure |",
+    "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Red-green-refactor and diagnose a gate failure |",
     "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh only | Red-green-refactor and diagnose a gate failure |",
   ));
-  assert.throws(() => verifyModule10(root), /verified native Windows support/);
+  assert.throws(() => verifyModule10(root), /current platform boundary/);
 });
 
 test("verifier rejects Module 11 regressing to planned after release", () => {
@@ -155,6 +155,6 @@ test("verifier rejects a missing Module 10 outcome mapping", () => {
 });
 
 test("verifier rejects an altered exact fixture pin", () => {
-  const root = changedCopy("labs/fixtures/10-testing-gates-and-evidence/package.json", (body) => body.replaceAll("0.112.0", "^0.112.0"));
+  const root = changedCopy("labs/fixtures/10-testing-gates-and-evidence/package.json", (body) => body.replaceAll("0.119.2", "^0.119.2"));
   assert.throws(() => verifyModule10(root), /exact Directive pin/);
 });

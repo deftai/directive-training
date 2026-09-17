@@ -7,7 +7,7 @@
 | Stable ID | `module-07-scope-lifecycle` |
 | Status | Learner-ready draft; executable lab verified on macOS/zsh |
 | Last verified | 2026-09-09 |
-| Directive baseline | `@deftai/directive@0.112.0`, engine `@deftai/directive-core@0.112.0`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Duration | 65 minutes, including the disposable lab |
 | Prerequisites | Modules 1–6; Node.js 20+, npm, Git, Task, `uv`, and a dedicated terminal |
 | Native platform evidence | macOS/zsh verified; Linux/bash and Windows/PowerShell are candidates, not learner-ready claims |
@@ -94,7 +94,7 @@ defect, not as a judgment call about which half “really” wins.
 
 ### 1. Proposed is reviewable, not runnable
 
-`proposed/` holds shaped work for consideration. At 0.112.0,
+`proposed/` holds shaped work for consideration. At 0.119.2,
 preflight against the fictional proposed story exits `1` in the pinned Directive engine and
 prints that only `active/` is eligible. On the verified host, go-task 3.50.0 wraps that child
 failure as process exit `201`. Both are retained: the engine exit is the release-bound claim;
@@ -113,7 +113,7 @@ task deft:scope:promote -- xbrief/proposed/<scope>.xbrief.json
 task deft:scope:activate -- xbrief/pending/<scope>.xbrief.json
 ```
 
-The 0.112.0 help and Task descriptions retain some `vBRIEF` wording. That is a recorded
+The 0.119.2 help and Task descriptions retain some `vBRIEF` wording. That is a recorded
 documentation disagreement, not permission to use the legacy model. New course writes use
 `xbrief/` and schema 0.8.
 
@@ -168,7 +168,7 @@ sequence and then compare it with the retained JSON:
 | Complete | `completed/completed` | `0` |
 
 The helper isolates the Task PATH so another installed Directive version cannot silently
-replace the fixture's exact 0.112.0 engine. It still exposes the required `node`, `task`,
+replace the fixture's exact 0.119.2 engine. It still exposes the required `node`, `task`,
 `npm`, `git`, and `uv` executables.
 
 ## Exercise
@@ -262,5 +262,5 @@ retain the failure first and retry in a fresh attempt.
 | Session routing and gated ritual | [Commands — Session routing and ritual][commands] | 2026-09-09 |
 | Release-specific runtime exits and Task wrapper result | [Module 7 source validation](../../references/SOURCE-NOTES.md#module-7-source-validation) | 2026-09-09 |
 
-[commands]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md
-[main]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/main.md
+[commands]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/commands.md
+[main]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/main.md

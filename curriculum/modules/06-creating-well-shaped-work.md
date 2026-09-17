@@ -11,7 +11,7 @@ proposed scope, and split an epic into ordered slices with observable evidence.
 | Status | `learner-ready draft; command-free` |
 | Last content update | 2026-09-09 |
 | Last verified | 2026-09-09 |
-| Directive baseline | `@deftai/directive@0.112.0`, engine `@deftai/directive-core@0.112.0`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 50–60 minutes |
 | Prerequisites | Complete [Module 5's](05-sources-versus-projections.md) conceptual outcomes; its practical outcome may remain environment-blocked as documented in the [course map](../README.md) |
 
@@ -51,7 +51,7 @@ candidate state and does not authorize implementation.
 
 **Recovery:** Revisit [Module 5's source-and-evidence model](05-sources-versus-projections.md#mental-model).
 Rewrite each activity as “a person can observe …” and retry. This module uses the pinned
-0.112.0 course sources, not an installed version on your computer.
+0.119.2 course sources, not an installed version on your computer.
 
 Keep the exercise fictional and in a scratch note. Do not inspect a real
 backlog, client requirement, repository, or shared `USER.md`. Do not run a command or make
@@ -446,19 +446,19 @@ and [glossary](../../references/GLOSSARY.md).
   starting facts.
 - The proposal remains schema 0.8 and proposed; no implementation authority is implied.
 - Every epic slice has its own outcome, evidence, dependency rationale, and boundary rationale.
-- Version-sensitive claims trace to the immutable 0.112.0 release and recorded disagreements.
+- Version-sensitive claims trace to the immutable 0.119.2 release and recorded disagreements.
 - Navigation and local source links pass the focused content verifier.
 - An independent learner pilot remains a separate course milestone.
 
-[lifecycle]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/docs/directive-lifecycle.md
-[strategies]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/strategies/README.md
-[interview]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/strategies/interview.md
-[setup]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-setup/SKILL.md
-[decompose]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-decompose/SKILL.md
-[taxonomy]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/vbrief/vbrief.md
-[verification]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/verification/verification.md
-[plan-checking]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/verification/plan-checking.md
-[upstream-glossary]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/glossary.md
-[gh-slice]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-gh-slice/SKILL.md
-[commands]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md
-[main]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/main.md
+[lifecycle]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/docs/directive-lifecycle.md
+[strategies]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/strategies/README.md
+[interview]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/strategies/interview.md
+[setup]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-setup/SKILL.md
+[decompose]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-decompose/SKILL.md
+[taxonomy]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/vbrief/vbrief.md
+[verification]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/verification/verification.md
+[plan-checking]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/verification/plan-checking.md
+[upstream-glossary]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/glossary.md
+[gh-slice]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-gh-slice/SKILL.md
+[commands]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/commands.md
+[main]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/main.md

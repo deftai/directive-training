@@ -7,9 +7,9 @@
 | Stable ID | `solution-assessment-capstone-end-to-end` |
 | Supports | `CAP.1`, `CAP.2`, `CAP.3`, and `CAP.4` |
 | Status | Learner-ready |
-| Last verified | 2026-09-12 |
-| Directive baseline | Exact `@deftai/directive@0.112.0` CLI/core/content/types graph; [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
-| Execution runtime | Node.js `22 or newer`; the verified matrix used `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
+| Last verified | 2026-09-17 |
+| Directive baseline | Exact `@deftai/directive@0.119.2` CLI/core/content/types graph; [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
+| Execution runtime | Node.js `22 or newer`; the verified local macOS run used `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
 | Lesson | [Capstone — End-to-End Solo Directive Lifecycle](../curriculum/capstone-end-to-end.md) |
 | Assessment | [Capstone assessment](../assessments/capstone-end-to-end.md) |
 | Lab | [End-to-end capstone lab](../labs/capstone-end-to-end.md) |
@@ -99,7 +99,7 @@ Expected outer outputs:
 | Verb | Output |
 | --- | --- |
 | `create` | Unique absolute repository root |
-| `install` | `OK: installed Directive 0.112.0` |
+| `install` | `OK: installed Directive 0.119.2` |
 | `orient` | `"PASS"` |
 | `activate` | `"PASS"` |
 | `ready` | `"READY"` |
@@ -125,12 +125,12 @@ in `red.json.focused.exitCode` and
 
 Run the lab's Node 22-or-newer capability assertion before `create`. The helper creates a
 unique OS-temporary repository on `training/capstone` with no remote.
-`install` contacts the public npm registry, verifies the exact 0.112.0 graph,
+`install` contacts the public npm registry, verifies the exact 0.119.2 graph,
 deposits Directive, and creates the clean fixture checkpoint.
 
 `orientation.json` then binds the project, branch, empty remote, exact
 baseline, proposed contract, and checkpoint. `scope.json` proves the one story
-moved to `xbrief/active/fictional-work-items.xbrief.json` with
+moved to `xbrief/active/2026-01-15-fictional-work-items.xbrief.json` with
 `src/work-items.mjs` as its only product path. `readiness.json` proves
 session start, the gated ritual, story-ready, and active-xBRIEF preflight.
 
@@ -388,7 +388,7 @@ gate.status = local_pass
 deployment.status = not_started
 uat.status = not_started
 proof_status = n/a-no-remote-claim
-activeContract = xbrief/active/fictional-work-items.xbrief.json
+activeContract = xbrief/active/2026-01-15-fictional-work-items.xbrief.json
 ~~~
 
 There is no `delivery.status` or `remote.status` field. Do not invent either.

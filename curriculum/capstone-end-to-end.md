@@ -7,17 +7,16 @@
 | Stable ID | `capstone-end-to-end` |
 | Status | Learner-ready |
 | Estimated time | 120 minutes |
-| Directive baseline | `@deftai/directive@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
-| Directive runtime | Node.js `22 or newer`; the verified platform matrix used `24.20.0` |
+| Directive baseline | `@deftai/directive@0.119.2`; see the [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
+| Directive runtime | Node.js `22 or newer`; the verified local macOS run used `24.20.0` |
 | Application compatibility | Node.js 20-compatible source is a source-level design constraint; no isolated Node.js 20 execution is claimed |
 | Prerequisite | [Module 11 — PR, Review, and Actual Completion](modules/11-review-and-completion.md) |
 | Practical work | [End-to-end capstone lab](../labs/capstone-end-to-end.md) |
 | Assessment | [Capstone evidence assessment](../assessments/capstone-end-to-end.md) |
 | Explained solution | [Capstone explained solution](../solutions/capstone-end-to-end.md) |
 
-The guarded fixture has automated native evidence on macOS, Ubuntu, and
-Windows. Independent learner walkthrough validation is a separate pilot claim;
-do not infer it from CI.
+The guarded fixture has local macOS/zsh evidence. Linux, Windows, and independent learner
+walkthrough validation remain separate candidate claims.
 
 ## Learning outcomes
 
@@ -50,9 +49,9 @@ Before starting, confirm all of the following:
 
 The application exercise itself remains Node.js 20-compatible as a source-level
 design constraint; no isolated Node.js 20 run is claimed. The full proof needs
-Node.js 22 or newer because pinned Directive 0.112.0 imports `globSync` from
-`node:fs`. Patch version `24.20.0` describes the verified matrix, not a learner
-requirement.
+Node.js 22 or newer because pinned Directive 0.119.2 imports `globSync` from
+`node:fs`. Patch version `24.20.0` describes the verified local macOS/zsh run,
+not a learner requirement.
 
 If any check differs, stop before `create`. Use the matching recovery in the
 [lab](../labs/capstone-end-to-end.md#expected-failures-and-recovery).
@@ -105,7 +104,7 @@ identity, remotes, and the one-file product boundary independently of this prose
 ### CAP.1 — establish authority before mutation
 
 `create` makes one no-remote repository on `training/capstone`. `install`
-deposits the exact 0.112.0 graph and creates a clean checkpoint. `orient` records
+deposits the exact 0.119.2 graph and creates a clean checkpoint. `orient` records
 project, branch, remote, pin, proposed contract, and checkpoint. `activate`
 promotes and activates the one story, then commits that lifecycle state.
 

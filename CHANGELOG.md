@@ -78,6 +78,9 @@
 
 ### Changed
 
+- Upgrade the current Directive teaching baseline from the inherited mixed
+  0.112.0/0.119.1 state to the verified 0.119.2 release across curriculum,
+  disposable labs, validation, workflows, and maintainer evidence (#3).
 - Repository identity now matches the public `deftai/directive-training`
   remote. The stale 3Ci-private current-state is recut in the project
   xBRIEF, `AGENTS.md`, `README.md`, the curriculum maintenance contract,

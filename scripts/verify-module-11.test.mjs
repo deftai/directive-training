@@ -8,7 +8,7 @@ import { verifyModule11 } from "./verify-module-11.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const copyPaths = [
-  "README.md", "CHANGELOG.md", "COST-ESTIMATE.md", "package.json", "curriculum", "labs", "solutions",
+  "README.md", "CHANGELOG.md", "COST-ESTIMATE.md", "LICENSE", "package.json", "curriculum", "labs", "solutions",
   "assessments", "maintainers", "references", "scripts", "templates", "history", "xbrief",
 ];
 const scopeFilename = "2026-09-11-module-11-review-and-completion.xbrief.json";
@@ -71,8 +71,8 @@ test("Module 11 content contract accepts active and completed lifecycle states",
 
 test("verifier rejects a stale or ranged learner baseline", () => {
   const root = changedCopy("curriculum/modules/11-review-and-completion.md", (body) => body.replace(
-    "| Directive baseline | 0.112.0 |",
-    "| Directive baseline | 0.112.0-0.116.0 |",
+    "| Directive baseline | 0.119.2 |",
+    "| Directive baseline | 0.119.2-0.116.0 |",
   ));
   assert.throws(() => verifyModule11(root), /stale or ranged Directive baseline/);
 });
@@ -306,51 +306,51 @@ test("verifier rejects a missing Module 11 source record", () => {
   assert.throws(() => verifyModule11(root), /Module 11 source validation/);
 });
 
-test("verifier rejects a missing version role in every current Module 11 context", () => {
-  const contexts = [
-    ["COST-ESTIMATE.md", "## Current scope — Module 11 and capstone (2026-09-10)", /project remains pinned to Directive 0\.112\.0 for learner-facing claims/i],
-    ["references/SOURCE-BASELINE.md", "## Release identity", /Consumer project pin[^\n]*@deftai\/directive: 0\.112\.0/i],
-    ["references/SOURCE-BASELINE.md", "## Module 11 review-and-completion validation", /learner pin remains exactly 0\.112\.0/i],
-    ["references/SOURCE-NOTES.md", "## Verification context", /Project direct pin:[^\n]*0\.112\.0/i],
+test("verifier separates current Module 11 roles from historical evidence", () => {
+  for (const [path, heading, pattern] of [
+    ["references/SOURCE-BASELINE.md", "## Release identity", /Consumer project pin[^\n]*@deftai\/directive: 0\.119\.2/i],
+    ["references/SOURCE-BASELINE.md", "## Module 11 review-and-completion validation", /learner pin, authoring runtime, and deposit all resolve to 0\.119\.2/i],
+    ["references/SOURCE-NOTES.md", "## Verification context", /Project direct pin:[^\n]*0\.119\.2/i],
+  ]) {
+    const root = changedCopy(path, (body) => replaceAfterHeading(body, heading, pattern, "current baseline role omitted"));
+    assert.throws(() => verifyModule11(root), /current Module 11 baseline role/);
+  }
+  const currentAuthoring = changedCopy("references/SOURCE-NOTES.md", (body) => replaceAfterHeading(
+    body,
+    "## Verification context",
+    /Current authoring context:[\s\S]{0,240}engine 0\.119\.2[\s\S]{0,240}content 0\.119\.2[\s\S]{0,240}v0\.119\.2/i,
+    "Current authoring context omitted",
+  ));
+  assert.throws(() => verifyModule11(currentAuthoring), /aligned current authoring context/);
+
+  for (const [path, heading, pattern] of [
+    ["COST-ESTIMATE.md", "## Prior scope — Module 11 and capstone (2026-09-10)", /project remains pinned to Directive 0\.112\.0 for learner-facing claims/i],
     ["references/SOURCE-NOTES.md", "## Module 11 source validation", /learner baseline remains 0\.112\.0/i],
-  ];
-  for (const [path, heading, learnerPinPattern] of contexts) {
-    const root = changedCopy(path, (body) => replaceAfterHeading(body, heading, learnerPinPattern, "learner pin omitted"));
-    assert.throws(
-      () => verifyModule11(root),
-      /version-role distinction/,
-      `${path} ${heading} must reject an omitted learner pin`,
-    );
+  ]) {
+    const root = changedCopy(path, (body) => replaceAfterHeading(body, heading, pattern, "historical learner pin omitted"));
+    assert.throws(() => verifyModule11(root), /preserve its historical learner baseline/);
   }
 
-  const authoringContexts = [
-    ["COST-ESTIMATE.md", "## Current scope — Module 11 and capstone (2026-09-10)"],
-    ["references/SOURCE-NOTES.md", "## Verification context"],
+  for (const [path, heading] of [
+    ["COST-ESTIMATE.md", "## Prior scope — Module 11 and capstone (2026-09-10)"],
     ["references/SOURCE-NOTES.md", "## Module 11 source validation"],
-  ];
-  const authoringRoles = [
-    [/default unqualified\s+shell CLI reported\s+engine 0\.114\.0/i, "default authoring CLI omitted"],
-    [/Final\s+authoring gates explicitly selected the NVM-managed\s+CLI,\s+which reported engine\s+0\.116\.0/i, "selected authoring CLI omitted"],
-    [/current 0\.116\.0 deposit/i, "current deposit omitted"],
-  ];
-  for (const [path, heading] of authoringContexts) {
-    for (const [pattern, replacement] of authoringRoles) {
-      const root = changedCopy(path, (body) => replaceAfterHeading(body, heading, pattern, replacement));
-      assert.throws(
-        () => verifyModule11(root),
-        /version-role distinction/,
-        `${path} ${heading} must reject: ${replacement}`,
-      );
-    }
+  ]) {
+    const root = changedCopy(path, (body) => replaceAfterHeading(
+      body,
+      heading,
+      /default unqualified\s+shell CLI reported\s+engine 0\.114\.0/i,
+      "historical authoring role omitted",
+    ));
+    assert.throws(() => verifyModule11(root), /historical Module 11 authoring role/);
   }
 });
 
 test("verifier rejects authoring runtime versions in the learner baseline", () => {
   const root = changedCopy("references/SOURCE-BASELINE.md", (body) => body.replace(
-    "Authoring-runtime drift is maintainer evidence",
-    "Authoring-runtime drift at 0.117.0 is maintainer evidence",
+    "maintainer-only source notes",
+    "maintainer-only 0.117.0 source notes",
   ));
-  assert.throws(() => verifyModule11(root), /authoring-runtime versions out of the learner baseline/);
+  assert.throws(() => verifyModule11(root), /historical authoring-runtime versions out of the current learner baseline/);
 });
 
 test("verifier rejects unbounded historical learner-baseline context", () => {
@@ -361,7 +361,7 @@ test("verifier rejects unbounded historical learner-baseline context", () => {
   assert.throws(() => verifyModule11(root), /historical learner-baseline context/);
 });
 
-test("verifier rejects current authoring values substituted into historical probes", () => {
+test("verifier rejects later authoring values substituted into historical probes", () => {
   for (const [before, after] of [
     ["@deftai/directive: 0.112.0", "@deftai/directive: 0.116.0"],
     ["@deftai/directive-core@0.112.0", "@deftai/directive-core@0.116.0"],
@@ -415,10 +415,10 @@ test("verifier rejects an unlinked or unavailable Module 11 course row", () => {
 
 test("verifier rejects an altered exact project pin", () => {
   const root = changedCopy("package.json", (body) => body.replace(
-    '"@deftai/directive": "0.119.1"',
-    '"@deftai/directive": "^0.119.1"',
+    '"@deftai/directive": "0.119.2"',
+    '"@deftai/directive": "^0.119.2"',
   ));
-  assert.throws(() => verifyModule11(root), /exact Directive pin/);
+  assert.throws(() => verifyModule11(root), /must pin @deftai\/directive exactly/);
 });
 
 test("verifier rejects an altered Module 11 package entry", () => {

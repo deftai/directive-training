@@ -5,11 +5,11 @@ They are maintainer evidence, not a learner command reference.
 
 ## Verification context
 
-- Current-baseline verification date: 2026-09-12. Runtime proofs below retain
+- Current-baseline verification date: 2026-09-17. Historical proofs below retain
   their original execution dates; each module section states its own source,
   content-contract, and runtime evidence boundary.
-- Host used: macOS with zsh and Node.js 24.18.0.
-- Project direct pin: `@deftai/directive` 0.112.0 in `devDependencies`.
+- Host used for the current release bind and local probes: macOS with zsh and Node.js 24.20.0.
+- Project direct pin: `@deftai/directive` 0.119.2 in `devDependencies`.
 - The training project had no project-local `node_modules` or lockfile; its exact direct pin
   is a reconstitution anchor, not proof of a local install.
 - Historical learner-baseline executable context: Modules 2–6 used a then-current global
@@ -19,21 +19,25 @@ They are maintainer evidence, not a learner command reference.
   resolved to 0.112.0 on each applicable learner-proof graph.
 - Historical learner-baseline deposit proof: reconstituted surfaces reported 0.112.0. This
   is preserved evidence, not a description of the current authoring deposit.
-- Current authoring context: during Module 11 validation, the default unqualified
-  shell CLI reported engine 0.114.0. Final authoring gates explicitly selected the NVM-managed CLI,
-  which reported engine 0.116.0, to match the current 0.116.0 deposit for that Module 11
-  pass. Capstone authoring now reports CLI/engine and deposit 0.117.0. These versions are
-  authoring-runtime context, not learner-behavior evidence.
-- Official tag: `v0.112.0`; peeled commit and npm `gitHead`:
-  `7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808`.
-- The complete macOS/zsh Module 2 rehearsal used two unique disposable, no-remote Git
-  repositories under one operating-system temporary parent. The fresh reset attempt installed
-  the exact fixture graph, ran every help and initialization check, committed the inspected
-  allowlist, passed literal acceptance, and archived both attempts.
+- Current authoring context: the unqualified shell CLI reports engine 0.119.2, the tracked
+  generation record reports content 0.119.2 from `directive-update`, and the ignored deposit
+  reports tag `v0.119.2`. These match the direct project pin after the issue #3 collapse.
+- Official tag: `v0.119.2`; annotated tag object
+  `69b7e7c2ece41d5f330545c65ebf74a696706f41`; peeled commit and npm `gitHead`
+  `9038503ffac65e6d48e5ba34758c4e8e7077aba3`.
+- A 2026-09-17 unpinned `directive init --yes --repo-root <temp> --json` probe ran in a
+  unique no-remote Git repository. It created a private `package.json` with exact
+  `@deftai/directive: 0.119.2`, stamped generation 1 as `directive-init`, and created no
+  remote. An isolated public-registry install resolved directive, core, content, and types
+  all to 0.119.2.
+- On that project-local graph, `toolchain:check --help`, `verify:ac --help`, and
+  `check --help` each still exited 2 with an unrecognized-argument diagnostic. Those defects
+  remain recorded rather than normalized into invented help syntax.
 - Native 0.112.0 pull-request matrix run
   [34080818120](https://github.com/3Ci-Consulting/directive-training/actions/runs/34080818120)
   used Node.js 24.20.0 on `macos-15`, `ubuntu-24.04`, and `windows-2022`; all three
-  jobs passed at exact candidate head `3f2f996bcfb53c4361cc5c5e949d9c9cd2c83a39`.
+  jobs passed at exact candidate head `3f2f996bcfb53c4361cc5c5e949d9c9cd2c83a39`. It is
+  historical evidence only and does not promote Linux or Windows on 0.119.2.
 
 ## Historical 0.112.0 learner-baseline version and provenance probes
 

@@ -10,6 +10,7 @@ import {
   solutionHeadings,
   verifyLinks,
 } from "./verify-modules-4-5.mjs";
+import { assertTeachingBaselinePin } from "./teaching-baseline.mjs";
 
 const module11 = "curriculum/modules/11-review-and-completion.md";
 const solution11 = "solutions/module-11-review-and-completion.md";
@@ -89,10 +90,10 @@ function requireOrdered(text, markers, label) {
 
 function exactBaseline(path, prose, heading) {
   const row = section(prose, heading).match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-  assert.ok(row?.includes("0.112.0"), `${path} must declare exact Directive 0.112.0`);
+  assert.ok(row?.includes("0.119.2"), `${path} must declare exact Directive 0.119.2`);
   assert.deepEqual(
     [...new Set(row.match(/\b\d+\.\d+\.\d+\b/g))],
-    ["0.112.0"],
+    ["0.119.2"],
     `${path} contains a stale or ranged Directive baseline`,
   );
 }
@@ -381,52 +382,41 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   const baseline = content.get("references/SOURCE-BASELINE.md");
   assert.match(baseline, /^## Module 11 review-and-completion validation\s*$/m, "source baseline is missing Module 11 validation");
   const notes = content.get("references/SOURCE-NOTES.md");
-  const authoringEnvironmentPatterns = [
+  const historicalAuthoringPatterns = [
     /default unqualified\s+shell CLI reported\s+engine 0\.114\.0/i,
     /Final\s+authoring gates explicitly selected the NVM-managed\s+CLI,\s+which reported engine\s+0\.116\.0,\s+to match/i,
     /to match the\s+current 0\.116\.0 deposit/i,
   ];
-  const costScope = section(content.get("COST-ESTIMATE.md"), "Current scope — Module 11 and capstone (2026-09-10)");
+  const costScope = section(content.get("COST-ESTIMATE.md"), "Prior scope — Module 11 and capstone (2026-09-10)");
   const releaseIdentity = section(baseline, "Release identity");
   const baselineModule11 = section(baseline, "Module 11 review-and-completion validation");
   const verificationContext = section(notes, "Verification context");
   const module11Notes = section(notes, "Module 11 source validation");
-  for (const [label, source, learnerPinPattern] of [
-    ["COST-ESTIMATE current Module 11 scope", costScope, /project remains pinned to Directive 0\.112\.0 for learner-facing claims/i],
-    ["SOURCE-BASELINE release identity", releaseIdentity, /Consumer project pin[^\n]*@deftai\/directive: 0\.112\.0/i],
-    ["SOURCE-BASELINE Module 11 validation", baselineModule11, /learner pin remains exactly 0\.112\.0/i],
-    ["SOURCE-NOTES verification context", verificationContext, /Project direct pin:[^\n]*0\.112\.0/i],
+  for (const [label, source, currentPattern] of [
+    ["SOURCE-BASELINE release identity", releaseIdentity, /Consumer project pin[^\n]*@deftai\/directive: 0\.119\.2/i],
+    ["SOURCE-BASELINE Module 11 validation", baselineModule11, /learner pin, authoring runtime, and deposit all resolve to 0\.119\.2/i],
+    ["SOURCE-NOTES verification context", verificationContext, /Project direct pin:[^\n]*0\.119\.2/i],
+  ]) {
+    assert.match(source, currentPattern, `${label} is missing the current Module 11 baseline role`);
+  }
+  assert.match(verificationContext, /Current authoring context:[\s\S]{0,240}engine 0\.119\.2[\s\S]{0,240}content 0\.119\.2[\s\S]{0,240}v0\.119\.2/i, "SOURCE-NOTES verification context must describe the aligned current authoring context");
+  for (const [label, source, historicalPattern] of [
+    ["COST-ESTIMATE prior Module 11 scope", costScope, /project remains pinned to Directive 0\.112\.0 for learner-facing claims/i],
     ["SOURCE-NOTES Module 11 validation", module11Notes, /learner baseline remains 0\.112\.0/i],
   ]) {
-    assert.match(source, learnerPinPattern, `${label} is missing the Module 11 version-role distinction: learner pin 0.112.0`);
-  }
-  for (const [label, source] of [
-    ["COST-ESTIMATE current Module 11 scope", costScope],
-    ["SOURCE-NOTES verification context", verificationContext],
-    ["SOURCE-NOTES Module 11 validation", module11Notes],
-  ]) {
-    for (const pattern of authoringEnvironmentPatterns) {
-      assert.match(source, pattern, `${label} is missing the Module 11 version-role distinction: ${pattern}`);
+    assert.match(source, historicalPattern, `${label} must preserve its historical learner baseline`);
+    for (const pattern of historicalAuthoringPatterns) {
+      assert.match(source, pattern, `${label} is missing a historical Module 11 authoring role: ${pattern}`);
     }
-    assert.doesNotMatch(
-      source,
-      /authoring engine and deposit (?:were )?0\.116\.0/i,
-      `${label} must not collapse the default CLI, selected CLI, and deposit versions`,
-    );
   }
-  for (const [label, source] of [
-    ["SOURCE-BASELINE release identity", releaseIdentity],
-    ["SOURCE-BASELINE Module 11 validation", baselineModule11],
-  ]) {
-    assert.match(source, /maintainer(?:-only)? (?:source notes|evidence)|maintainer source notes/i, `${label} must route authoring drift to maintainer notes`);
+  for (const [label, source] of [["SOURCE-BASELINE release identity", releaseIdentity], ["SOURCE-BASELINE Module 11 validation", baselineModule11]]) {
     assert.doesNotMatch(
       source,
       /(?:0\.113\.0|0\.114\.0|0\.116\.0|0\.117\.0)/,
-      `${label} must keep authoring-runtime versions out of the learner baseline`,
+      `${label} must keep historical authoring-runtime versions out of the current learner baseline`,
     );
   }
-  assert.match(releaseIdentity, /Historical learner proof at 0\.112\.0/, "SOURCE-BASELINE release identity must time-bound the learner package graph");
-  assert.match(releaseIdentity, /historical Module 7 local binary/, "SOURCE-BASELINE release identity must time-bound the learner runtime report");
+  assert.match(baselineModule11, /maintainer-only source notes/i, "SOURCE-BASELINE Module 11 validation must route adaptation details to maintainer notes");
 
   for (const label of [
     "Historical learner-baseline executable context",
@@ -489,7 +479,7 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.scripts?.["check:module-11"], "node scripts/verify-module-11.mjs", "package scripts must expose check:module-11");
   assert.equal(projectPackage.scripts?.["test:module-11"], "node --test scripts/verify-module-11.test.mjs", "package scripts must expose test:module-11");
-  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.119.1", "training package must retain exact Directive pin");
+  assertTeachingBaselinePin(projectPackage, content.get("README.md"));
   return { artifactCount: content.size };
 }
 

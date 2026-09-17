@@ -23,7 +23,7 @@ import { git } from "../labs/fixtures/10-testing-gates-and-evidence/safety.mjs";
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(path, "utf8");
 
-test("native Windows is learner-ready for the exact local install path", () => {
+test("Windows command path keeps the exact local install contract", () => {
   const root = createAttempt();
   assert.doesNotThrow(() => assertLearnerReadyPlatform("win32"));
   assert.equal(existsSync(join(root, "node_modules")), false);
@@ -103,7 +103,7 @@ test("guard rejects a remote, wrong branch, and gate-definition edits", () => {
 
 test("full lab retains ordered red-green-refactor and aggregate diagnosis evidence", { timeout: 300_000 }, () => {
   const root = installAttempt(createAttempt());
-  assert.equal(verifyPin(root), "0.112.0");
+  assert.equal(verifyPin(root), "0.119.2");
 
   addAverageTest(root);
   assert.equal(recordRed(root).finalStatus, "EXPECTED_FAILURE");
