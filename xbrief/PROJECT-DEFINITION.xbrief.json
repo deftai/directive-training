@@ -715,7 +715,17 @@
       ]
     },
     "x-directive/policy": {
-      "allowDirectCommitsToMaster": false
+      "allowDirectCommitsToMaster": false,
+      "valueFeedback": {
+        "enabled": true,
+        "emitEvents": true,
+        "sessionLine": true,
+        "upstreamPrompt": false
+      },
+      "productSignal": {
+        "enabled": true,
+        "sinkRepo": "deftai/product-signal"
+      }
     }
   }
 }
