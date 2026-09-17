@@ -128,16 +128,23 @@ function requireSuccess(name, result) {
   return result;
 }
 
-function findExecutable(name) {
+function findExecutable(nameOrNames) {
+  const names = Array.isArray(nameOrNames) ? nameOrNames : [nameOrNames];
   const suffixes = process.platform === "win32" ? (process.env.PATHEXT ?? ".EXE;.CMD;.BAT").split(";") : [""];
-  for (const directory of (process.env.PATH ?? "").split(delimiter).filter(Boolean)) {
-    for (const suffix of suffixes) {
-      for (const candidate of [join(directory, name + suffix.toLowerCase()), join(directory, name + suffix.toUpperCase())]) {
-        if (existsSync(candidate)) return realpathSync(candidate);
+  for (const name of names) {
+    for (const directory of (process.env.PATH ?? "").split(delimiter).filter(Boolean)) {
+      for (const suffix of suffixes) {
+        for (const candidate of [join(directory, name + suffix.toLowerCase()), join(directory, name + suffix.toUpperCase())]) {
+          if (existsSync(candidate)) return realpathSync(candidate);
+        }
       }
     }
   }
-  throw new Error(`Required executable not found: ${name}`);
+  throw new Error(`Required executable not found: ${names.join(" or ")}`);
+}
+
+function findPythonExecutable() {
+  return findExecutable(process.platform === "win32" ? ["python", "python3", "py"] : ["python3", "python"]);
 }
 
 /** Accept only platforms with a documented learner command path. */
@@ -153,7 +160,7 @@ function createIsolatedTools(root) {
     ["task", findExecutable("task")],
     ["npm", findExecutable("npm")],
     ["git", findExecutable("git")],
-    ["python", findExecutable("python")],
+    ["python", findPythonExecutable()],
     ["uv", findExecutable("uv")],
   ]);
   try {
@@ -208,8 +215,8 @@ function runDirective(root, args, environment) {
 
 function isolatedEnv(root, sessionId = "") {
   const systemTools = process.platform === "win32"
-    ? [dirname(process.execPath), dirname(findExecutable("git")), dirname(findExecutable("python")), dirname(process.env.ComSpec ?? join(process.env.SystemRoot ?? "C:\\Windows", "System32", "cmd.exe"))]
-    : [dirname(process.execPath), "/usr/bin", "/bin"];
+    ? [dirname(findExecutable("git")), dirname(findPythonExecutable()), dirname(process.env.ComSpec ?? join(process.env.SystemRoot ?? "C:\\Windows", "System32", "cmd.exe"))]
+    : ["/usr/bin", "/bin"];
   return {
     ...withoutHostNpmConfig(),
     PATH: [join(root, "node_modules/.bin"), join(root, ".lab-tools"), ...systemTools].join(delimiter),
@@ -327,11 +334,11 @@ export function installAttempt(root = process.cwd(), platform = process.platform
   const install = runNpm(root, ["install", "--userconfig", join(root, ".npmrc"), "--globalconfig", devNull, "--cache", join(root, ".npm-cache"), "--registry", "https://registry.npmjs.org/", "--ignore-scripts", "--no-audit", "--no-fund"]);
   requireSuccess("npm install", install);
   verifyInstalledGraph(root);
+  createIsolatedTools(root);
   const init = runDirective(root, ["init", "--yes", "--repo-root", root, "--json"], isolatedEnv(root, "lab-install-session"));
   requireSuccess("directive init", init);
   assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.112\.0'/, "installed content deposit must be 0.112.0");
   writeFileSync(join(root, ".deft/USER.md"), "# User Preferences\n\n## Personal\n\n**Name**: Address the user as: **Learner**\n\n## Defaults\n\n**Coverage**: >=90% test coverage\n");
-  createIsolatedTools(root);
   const tracked = [
     ".gitattributes", ".gitignore", ".npmrc", "Taskfile.yml", "package.json", "package-lock.json",
     "implementation-lab.mjs", "safety.mjs", "src/cli.mjs", "src/greeting.mjs", "test/greeting.test.mjs",

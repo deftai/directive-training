@@ -17,6 +17,7 @@ follow-up unless it invalidates a command surface re-probed on this branch.
 | Binding probes | `npm view` resolved the dist-tag, versions, dependency ranges, integrities, and npm `gitHead`; `git ls-remote` resolved the annotated tag and peeled commit; the live CLI reported `@deftai/directive-core@0.119.2`. |
 | Open command probes | The unpinned disposable `init` probe and the remaining taught command surfaces have not yet been re-run on 0.119.2. No 0.119.1 observation is promoted to current 0.119.2 evidence. |
 | Starting disagreement | The live authoring CLI is 0.119.2, tracked authoring surfaces are 0.119.1, and learner surfaces remain 0.112.0. This checkpoint records the destination; it does not claim that the collapse is complete. |
+| Pre-collapse executable checkpoint | After repairing the inherited Python-launcher and projection-symlink defects, `npm run test:baseline-upgrade` passed all 65 tests on macOS before any learner or authoring version literal was changed. The script is the exact seven-file aggregate named by issue #3 and is reused after the collapse. |
 | Verification date | 2026-09-17. |
 
 This manifest fixes the curriculum's version-sensitive claims to Directive 0.112.0. It was
