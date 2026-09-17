@@ -20,6 +20,12 @@
         "effort": "S"
       },
       {
+        "id": "mit-license.changelog",
+        "title": "Record the license addition in the changelog",
+        "status": "completed",
+        "effort": "S"
+      },
+      {
         "id": "mit-license.verify",
         "title": "Run acceptance and repository quality gates",
         "status": "completed",

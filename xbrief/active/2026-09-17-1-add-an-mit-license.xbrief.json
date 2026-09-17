@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #1",
-    "updated": "2026-09-17T01:44:49Z"
+    "updated": "2026-09-17T02:30:22Z"
   },
   "plan": {
     "title": "Add an MIT license",
@@ -34,6 +34,18 @@
           "kind": "verification",
           "pointer": "rg -n --fixed-strings '[MIT License](LICENSE)' README.md",
           "recorded_at": "2026-09-17T01:48:07Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "github.issue.5477576007.changelog",
+        "title": "Record the license addition in the changelog",
+        "status": "completed",
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "verification",
+          "pointer": "CHANGELOG.md [Unreleased] Added entry references the MIT license and issue #1",
+          "recorded_at": "2026-09-17T02:30:22Z",
           "recorded_by": "agent:codex"
         }
       },
@@ -94,6 +106,7 @@
         "files": [
           "LICENSE",
           "README.md",
+          "CHANGELOG.md",
           "history/changes/mit-license/proposal.xbrief.json",
           "history/changes/mit-license/tasks.xbrief.json",
           "xbrief/active/2026-09-17-1-add-an-mit-license.xbrief.json"
@@ -110,6 +123,7 @@
       "file_scope": [
         "LICENSE",
         "README.md",
+        "CHANGELOG.md",
         "history/changes/mit-license/proposal.xbrief.json",
         "history/changes/mit-license/tasks.xbrief.json",
         "xbrief/active/2026-09-17-1-add-an-mit-license.xbrief.json"
@@ -121,6 +135,7 @@
         "file_scope": [
           "LICENSE",
           "README.md",
+          "CHANGELOG.md",
           "history/changes/mit-license/proposal.xbrief.json",
           "history/changes/mit-license/tasks.xbrief.json",
           "xbrief/active/2026-09-17-1-add-an-mit-license.xbrief.json"
@@ -131,6 +146,7 @@
         "expected_outputs": [
           "LICENSE contains the canonical MIT text and named holder",
           "README links to LICENSE",
+          "CHANGELOG records the license addition under Unreleased",
           "The repository quality gate passes"
         ],
         "depends_on": [],
@@ -140,6 +156,6 @@
       }
     },
     "id": "github.issue.5477576007",
-    "updated": "2026-09-17T01:44:49Z"
+    "updated": "2026-09-17T02:30:22Z"
   }
 }

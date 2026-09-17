@@ -8,11 +8,11 @@
     "status": "approved",
     "narratives": {
       "Problem": "The public repository has no root license, so reuse, modification, and contribution rights are not explicit.",
-      "Change": "Add the standard MIT license at LICENSE with DeftAI and contributors as the copyright holder, then link to it from README.md.",
-      "Scope": "In scope: LICENSE, the README license reference, and lifecycle artifacts for issue #1. Out of scope: relicensing dependencies, changing learner content, publishing a release, or changing repository visibility.",
+      "Change": "Add the standard MIT license at LICENSE with DeftAI and contributors as the copyright holder, link to it from README.md, and record the user-visible addition in CHANGELOG.md.",
+      "Scope": "In scope: LICENSE, the README license reference, the Unreleased changelog entry, and lifecycle artifacts for issue #1. Out of scope: relicensing dependencies, changing learner content, publishing a release, or changing repository visibility.",
       "Impact": "Makes the repository's intended grant explicit without changing runtime or curriculum behavior.",
       "Risks": "Licensing is a public legal boundary; incorrect wording or attribution would create ambiguity. Use the canonical MIT text and preserve all existing content.",
-      "Approach": "Promote and activate the ingested issue scope, add the canonical MIT text, add a concise README License section, run literal acceptance and the repository gate, then deliver through the repository's PR policy.",
+      "Approach": "Promote and activate the ingested issue scope, add the canonical MIT text, add a concise README License section and Unreleased changelog entry, run literal acceptance and the repository gate, then deliver through the repository's PR policy.",
       "Alternatives": "Leave the repository unlicensed or choose a different license. Both conflict with issue #1 and the operator's explicit implementation request.",
       "Dependencies": "GitHub issue #1 remains open and the active scope passes Deft implementation preflight.",
       "Approval": "David confirmed this proposal with an explicit yes on 2026-09-17."
