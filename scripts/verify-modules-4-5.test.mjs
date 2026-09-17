@@ -57,7 +57,7 @@ function fixture(t) {
   write(solution5, document(solutionHeadings, outcomes5, { "Solution record": record }));
   write("curriculum/README.md", "# Course\n\n| [Module 4](modules/04-xbrief-as-durable-state.md) | Learner-ready draft |\n| [Module 5](modules/05-sources-versus-projections.md) | Learner-ready draft — macOS/zsh |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| Module 7 | Learner-ready draft |\n");
   write("references/SOURCE-NOTES.md", "# Proof\n\n- `lab05-platform-proof:macos-zsh status=verified date=2026-09-07 evidence=local-disposable-lab5-full`\n- `lab05-platform-proof:linux-bash status=candidate date=2026-09-07 evidence=not-run`\n- `lab05-platform-proof:windows-pwsh7 status=verified date=2026-09-12 evidence=issue-65-reported-native-walkthrough`\n");
-  write("package.json", JSON.stringify({ private: true, devDependencies: { "@deftai/directive": "0.112.0" } }));
+  write("package.json", JSON.stringify({ private: true, devDependencies: { "@deftai/directive": "0.119.1" } }));
   return {
     root, write,
     change(path, transform) { write(path, transform(readFileSync(join(root, path), "utf8"))); },
@@ -149,7 +149,7 @@ test("rejects stale baseline and legacy xBRIEF write versions", (t) => {
 
 test("rejects an unpinned package version", (t) => {
   const files = fixture(t);
-  files.change("package.json", (body) => body.replace("0.112.0", "^0.112.0"));
+  files.change("package.json", (body) => body.replace("0.119.1", "^0.119.1"));
   assert.throws(() => verifyModules45(files.root), /exact Directive pin/);
 });
 

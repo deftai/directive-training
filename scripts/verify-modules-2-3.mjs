@@ -428,7 +428,7 @@ const projectPackage = JSON.parse(read("package.json"));
 assert.equal(projectPackage.private, true, "the training package must remain private");
 assert.equal(
   projectPackage.devDependencies?.["@deftai/directive"],
-  "0.112.0",
+  "0.119.1",
   "the training package must retain the exact Directive pin",
 );
 assert.equal(

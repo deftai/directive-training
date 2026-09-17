@@ -177,7 +177,7 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.scripts?.["check:module-7"], "node scripts/verify-module-7.mjs", "package scripts must expose check:module-7");
   assert.equal(projectPackage.scripts?.["test:module-7"], "node --test scripts/lifecycle-lab.test.mjs scripts/verify-module-7.test.mjs", "package scripts must expose test:module-7");
-  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.112.0", "training package must retain exact Directive pin");
+  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.119.1", "training package must retain exact Directive pin");
   return { artifactCount: content.size };
 }
 

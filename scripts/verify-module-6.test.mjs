@@ -119,7 +119,7 @@ function fixture(t) {
       "check:module-6": "node scripts/verify-module-6.mjs",
       "test:module-6": "node --test scripts/verify-module-6.test.mjs",
     },
-    devDependencies: { "@deftai/directive": "0.112.0" },
+    devDependencies: { "@deftai/directive": "0.119.1" },
   }));
   return {
     root,
@@ -238,7 +238,7 @@ test("rejects stale and ranged Directive pins", (t) => {
   files.change(module6, (body) => body.replaceAll("0.112.0", "0.111.0"));
   assert.throws(() => verifyModule6(files.root), /exact Directive 0\.112\.0 baseline/);
   files.change(module6, (body) => body.replaceAll("0.111.0", "0.112.0"));
-  files.change("package.json", (body) => body.replace('"0.112.0"', '"^0.112.0"'));
+  files.change("package.json", (body) => body.replace('"0.119.1"', '"^0.119.1"'));
   assert.throws(() => verifyModule6(files.root), /exact Directive pin/);
 });
 

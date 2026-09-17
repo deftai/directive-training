@@ -550,7 +550,7 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.match(combinedCore, /private[\s\S]{0,80}capstone-assessment-note\.md/i, "capstone is missing the reset/archive disposition note");
 
   const packageJson = JSON.parse(content.get("package.json"));
-  assert.equal(packageJson.devDependencies?.["@deftai/directive"], "0.112.0", "training package must retain the exact Directive pin");
+  assert.equal(packageJson.devDependencies?.["@deftai/directive"], "0.119.1", "training package must retain the exact Directive pin");
   assert.equal(packageJson.scripts?.["check:capstone"], "node scripts/verify-capstone.mjs", "package scripts must expose check:capstone");
   assert.equal(
     packageJson.scripts?.["test:capstone"],
