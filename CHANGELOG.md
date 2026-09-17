@@ -78,6 +78,12 @@
 
 ### Changed
 
+- Repository identity now matches the public `deftai/directive-training`
+  remote. The stale 3Ci-private current-state is recut in the project
+  xBRIEF, `AGENTS.md`, `README.md`, the curriculum maintenance contract,
+  and the quick-reference safety overlay, while the remote-as-identity
+  lock and the learner-safety rules stay in force (#2).
+
 - Complete the learner-ready Module 1–11 core path and advance the course,
   Module 11, lab, assessment, solution, maintenance, and reference surfaces
   into the learner-ready capstone. Internal-alpha remains the pilot maturity

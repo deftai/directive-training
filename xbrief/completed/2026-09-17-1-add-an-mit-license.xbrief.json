@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #1",
-    "updated": "2026-09-17T02:30:22Z"
+    "updated": "2026-09-17T12:50:07Z"
   },
   "plan": {
     "title": "Add an MIT license",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Add an MIT license",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/1",
@@ -153,9 +153,33 @@
         "conflict_group": "repository-metadata",
         "size": "small",
         "file_scope_confidence": "high"
-      }
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 7,
+        "prBase": null,
+        "mergeCommit": "847f8aaaaa0c7bcd5c54b5450e494a6bd719027c",
+        "deliveryBranch": "master",
+        "deliveryCommit": "847f8aaaaa0c7bcd5c54b5450e494a6bd719027c",
+        "verifiedAt": "2026-09-17T12:50:07Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:claude:v1:MTdiODlhMzctYmU4Zi00Y2MyLTlmNWUtMGMxNDlhYWVlODA4"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-17T12:50:07Z"
+      },
+      "completedAt": "2026-09-17T12:50:07Z",
+      "completedSessionId": "host:claude:v1:MTdiODlhMzctYmU4Zi00Y2MyLTlmNWUtMGMxNDlhYWVlODA4"
     },
     "id": "github.issue.5477576007",
-    "updated": "2026-09-17T02:30:22Z"
+    "updated": "2026-09-17T12:50:07Z"
   }
 }
