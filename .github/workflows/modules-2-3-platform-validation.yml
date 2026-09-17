@@ -100,7 +100,7 @@ jobs:
           cp "$GITHUB_WORKSPACE/labs/fixtures/02-disposable-initialization/package.json" package.json
           printf 'node_modules/\n/.npm-cache/\n/USER.md\n/.deft/USER.md\n' > .gitignore
           printf 'registry=https://registry.npmjs.org/\naudit=false\nfund=false\nignore-scripts=true\n' > .npmrc
-          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.112.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.112.0")) process.exit(2)'
+          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.2" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.2")) process.exit(2)'
 
           env -i PATH="$PATH" HOME="$HOME" npm install --userconfig "$lab_root/.npmrc" --globalconfig /dev/null --cache "$lab_root/.npm-cache" --ignore-scripts --no-audit --no-fund
           assert_no_remote
@@ -112,10 +112,10 @@ jobs:
           directive_path="$local_bin/directive"
           test -x "$directive_path"
           test -x "$local_bin/deft"
-          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.112.0") process.exit(2) }'
+          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.2") process.exit(2) }'
           version_output="$("$directive_path" --version)"
           case "$version_output" in
-            *'@deftai/directive-core@0.112.0'*) ;;
+            *'@deftai/directive-core@0.119.2'*) ;;
             *) echo "wrong Directive version" >&2; exit 2 ;;
           esac
           "$directive_path" --help >/dev/null
@@ -137,7 +137,7 @@ jobs:
           do
             test -f "$required_tracked_path"
           done
-          node -e 'const g=require("./.deft/GENERATION.json"); if(g.contentVersion!=="0.112.0" || g.surfaces?.payload!=="0.112.0") process.exit(2)'
+          node -e 'const g=require("./.deft/GENERATION.json"); if(g.contentVersion!=="0.119.2" || g.surfaces?.payload!=="0.119.2") process.exit(2)'
           node -e 'const x=require("./xbrief/PROJECT-DEFINITION.xbrief.json"); if(x.xBRIEFInfo?.version!=="0.8") process.exit(2)'
           test "$(git config --get core.hooksPath)" = ".githooks"
           for ignored_path in .deft/core/VERSION .deft/.cli/example .deft-cache/example .deft/ritual-state.json xbrief/.triage-cache/candidates.jsonl USER.md .npm-cache/example node_modules/example
@@ -170,8 +170,8 @@ jobs:
 
           "$directive_path" doctor --full --project-root .
           "$directive_path" toolchain:check --consumer --project-root .
-          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.112.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.112.0")) process.exit(2)'
-          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.112.0") process.exit(2) }'
+          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.2" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.2")) process.exit(2)'
+          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.2") process.exit(2) }'
           git diff --quiet
           git diff --cached --quiet
           test -z "$(git status --porcelain --untracked-files=all)"
@@ -256,7 +256,7 @@ jobs:
           cp "$GITHUB_WORKSPACE/labs/fixtures/02-disposable-initialization/package.json" package.json
           printf 'node_modules/\n/.npm-cache/\n/USER.md\n/.deft/USER.md\n' > .gitignore
           printf 'registry=https://registry.npmjs.org/\naudit=false\nfund=false\nignore-scripts=true\n' > .npmrc
-          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.112.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.112.0")) process.exit(2)'
+          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.2" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.2")) process.exit(2)'
 
           env -i PATH="$PATH" HOME="$HOME" npm install --userconfig "$lab_root/.npmrc" --globalconfig /dev/null --cache "$lab_root/.npm-cache" --ignore-scripts --no-audit --no-fund
           assert_no_remote
@@ -268,10 +268,10 @@ jobs:
           directive_path="$local_bin/directive"
           test -x "$directive_path"
           test -x "$local_bin/deft"
-          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.112.0") process.exit(2) }'
+          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.2") process.exit(2) }'
           version_output="$("$directive_path" --version)"
           case "$version_output" in
-            *'@deftai/directive-core@0.112.0'*) ;;
+            *'@deftai/directive-core@0.119.2'*) ;;
             *) echo "wrong Directive version" >&2; exit 2 ;;
           esac
           "$directive_path" --help >/dev/null
@@ -293,7 +293,7 @@ jobs:
           do
             test -f "$required_tracked_path"
           done
-          node -e 'const g=require("./.deft/GENERATION.json"); if(g.contentVersion!=="0.112.0" || g.surfaces?.payload!=="0.112.0") process.exit(2)'
+          node -e 'const g=require("./.deft/GENERATION.json"); if(g.contentVersion!=="0.119.2" || g.surfaces?.payload!=="0.119.2") process.exit(2)'
           node -e 'const x=require("./xbrief/PROJECT-DEFINITION.xbrief.json"); if(x.xBRIEFInfo?.version!=="0.8") process.exit(2)'
           test "$(git config --get core.hooksPath)" = ".githooks"
           for ignored_path in .deft/core/VERSION .deft/.cli/example .deft-cache/example .deft/ritual-state.json xbrief/.triage-cache/candidates.jsonl USER.md .npm-cache/example node_modules/example
@@ -326,8 +326,8 @@ jobs:
 
           "$directive_path" doctor --full --project-root .
           "$directive_path" toolchain:check --consumer --project-root .
-          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.112.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.112.0")) process.exit(2)'
-          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.112.0") process.exit(2) }'
+          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.2" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.2")) process.exit(2)'
+          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.2") process.exit(2) }'
           git diff --quiet
           git diff --cached --quiet
           test -z "$(git status --porcelain --untracked-files=all)"
@@ -419,7 +419,7 @@ jobs:
           Copy-Item "$env:GITHUB_WORKSPACE/labs/fixtures/02-disposable-initialization/package.json" package.json
           [IO.File]::WriteAllText((Join-Path $labRoot ".gitignore"), "node_modules/`n/.npm-cache/`n/USER.md`n/.deft/USER.md`n", [Text.UTF8Encoding]::new($false))
           [IO.File]::WriteAllText((Join-Path $labRoot ".npmrc"), "registry=https://registry.npmjs.org/`naudit=false`nfund=false`nignore-scripts=true`n", [Text.UTF8Encoding]::new($false))
-          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.112.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.112.0")) process.exit(2)'
+          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.2" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.2")) process.exit(2)'
 
           node -e 'const { spawnSync } = require("node:child_process"); const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => !/^npm_config_/i.test(key))); const result = spawnSync("npm.cmd", ["install", "--userconfig", ".npmrc", "--globalconfig", "NUL", "--cache", ".npm-cache", "--ignore-scripts", "--no-audit", "--no-fund"], { env, stdio: "inherit", shell: true }); process.exit(result.status ?? 1)'
           if ($LASTEXITCODE -ne 0) { throw "isolated npm install failed" }
@@ -432,9 +432,9 @@ jobs:
           if (-not (Test-Path -LiteralPath $deftPath -PathType Leaf)) { throw "project-local Deft hook runtime is missing" }
           $resolvedDeft = [IO.Path]::GetFullPath((Get-Command deft -CommandType Application -All -ErrorAction Stop | Select-Object -First 1).Source)
           if ($resolvedDeft -ne $deftPath) { throw "deft does not resolve to the disposable repository: $resolvedDeft" }
-          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.112.0") process.exit(2) }'
+          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.2") process.exit(2) }'
           $versionOutput = (& $directivePath --version | Out-String)
-          if ($versionOutput -notmatch '@deftai/directive-core@0\.112\.0') { throw "wrong Directive version: $versionOutput" }
+          if ($versionOutput -notmatch '@deftai/directive-core@0\.119\.2') { throw "wrong Directive version: $versionOutput" }
           & $directivePath --help | Out-Null
           & $directivePath commands | Out-Null
           & $directivePath init --help | Out-Null
@@ -450,7 +450,7 @@ jobs:
           }
           if ($toolchainHelpExit -ne 2) { throw "expected toolchain help exit 2; got $toolchainHelpExit" }
           if (-not (Select-String -LiteralPath $toolchainHelpPath -SimpleMatch "unrecognized argument: --help")) {
-            throw "expected 0.112.0 toolchain help diagnostic is missing"
+            throw "expected 0.119.2 toolchain help diagnostic is missing"
           }
 
           Assert-NoRemote
@@ -469,7 +469,7 @@ jobs:
               throw "required initialized path is missing: $requiredTrackedPath"
             }
           }
-          node -e 'const g=require("./.deft/GENERATION.json"); if(g.contentVersion!=="0.112.0" || g.surfaces?.payload!=="0.112.0") process.exit(2)'
+          node -e 'const g=require("./.deft/GENERATION.json"); if(g.contentVersion!=="0.119.2" || g.surfaces?.payload!=="0.119.2") process.exit(2)'
           node -e 'const x=require("./xbrief/PROJECT-DEFINITION.xbrief.json"); if(x.xBRIEFInfo?.version!=="0.8") process.exit(2)'
           $hooksPath = (& git config --get core.hooksPath | Out-String).Trim()
           if ($hooksPath -ne ".githooks") { throw "unexpected Git hooks path: $hooksPath" }
@@ -509,8 +509,8 @@ jobs:
 
           & $directivePath doctor --full --project-root .
           & $directivePath toolchain:check --consumer --project-root .
-          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.112.0" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.112.0")) process.exit(2)'
-          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.112.0") process.exit(2) }'
+          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.2" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.2")) process.exit(2)'
+          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.2") process.exit(2) }'
           git diff --quiet
           git diff --cached --quiet
           $statusOutput = @(git status --porcelain --untracked-files=all)

@@ -6,12 +6,12 @@
 | --- | --- |
 | Stable ID | `lab-05-projection-drift-recovery` |
 | Supports | Module 5 outcomes O5.1 (ownership), O5.2 (recovery), O5.3 (evidence and reset) |
-| Status | Learner-ready draft for verified macOS/zsh and Windows/PowerShell paths |
-| Last verified | 2026-09-12 |
-| Directive baseline | `@deftai/directive@0.112.0` and core/content/types 0.112.0; [source baseline](../references/SOURCE-BASELINE.md) |
+| Status | Learner-ready draft; verified on macOS/zsh; Linux and Windows candidates |
+| Last verified | 2026-09-17 |
+| Directive baseline | `@deftai/directive@0.119.2` and core/content/types 0.119.2; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 30–35 minutes, including checks, retry, and archive |
-| Platforms verified | macOS 26.6.2/zsh 5.9; Windows/PowerShell 7.4+ path verified on Windows 11 with PowerShell 7.6.5, Node.js 26.8.1, npm 11.19.0, plus a learner report on PowerShell 7.6.6 |
-| Other platforms | Linux/bash is not verified for this lab; no Linux learner command path is claimed |
+| Platforms verified | macOS/zsh local baseline-upgrade suite |
+| Candidate platforms | Linux/bash and Windows/PowerShell 7.4+ pending pin-matched native evidence |
 
 Version-sensitive statements cite the pinned release. Local requirements name their source,
 and learning techniques explain their purpose.
@@ -130,9 +130,9 @@ if (-not (Test-Path -LiteralPath '.\node_modules\.bin\directive.cmd' -PathType L
 & .\node_modules\.bin\directive.cmd --version
 ```
 
-**Pass:** the helper prints `OK: CLI/core/content/types 0.112.0`; the explicit local CLI
-reports core 0.112.0. The fixture pins the CLI and overrides its core, content, and types
-packages to 0.112.0. Package-count and npm notices can vary; they are not acceptance evidence.
+**Pass:** the helper prints `OK: CLI/core/content/types 0.119.2`; the explicit local CLI
+reports core 0.119.2. The fixture pins the CLI and overrides its core, content, and types
+packages to 0.119.2. Package-count and npm notices can vary; they are not acceptance evidence.
 Do not follow an npm notice to upgrade the lab's tooling.
 
 **Recovery:** a path, pin, or installation mismatch means stop. Preserve the failed
@@ -206,7 +206,7 @@ Read `xbrief/PROJECT-DEFINITION.xbrief.json` in your editor. Find
 `plan.architecture.codeStructure.modules[0]` and its `purpose` and `pathGlobs`.
 The glob `src/*.js` matches the one supplied fictional file. It excludes the generated map.
 
-The following 0.112.0 help probes have side effects:
+The following 0.119.2 help probes have side effects:
 `codebase:map --help` **writes the MAP**, and `verify:codebase-map-fresh --help` **runs the
 check** instead of displaying help. Probe them only here, after the guard. Do not assume
 that an arbitrary command's `--help` is read-only.
@@ -370,7 +370,7 @@ This proves the description propagated, not that validation behavior was impleme
 
 | State | Evidence | Required result |
 | --- | --- | --- |
-| Start | Guard, pin proof, `lab-05-start`, status | Correct temp root, 0.112.0 graph, no remote, clean tracked state |
+| Start | Guard, pin proof, `lab-05-start`, status | Correct temp root, 0.119.2 graph, no remote, clean tracked state |
 | Supplied fault | Freshness plus unchanged source diff | Freshness 1; source diff 0 |
 | Fault recovery | Renderer and freshness | Both 0; simulated note removed |
 | Source change | Narrow source diff and freshness | Purpose-only diff; freshness 1 before rendering |
@@ -401,7 +401,7 @@ git diff --check
 | Command | Exit | Required signal | Outcome |
 | --- | ---: | --- | --- |
 | `guard` | 0 | Canonical recorded temporary root; no remote or changed source boundary | O5.3 |
-| `verify-pin` | 0 | CLI/core/content/types all 0.112.0 | O5.3 |
+| `verify-pin` | 0 | CLI/core/content/types all 0.119.2 | O5.3 |
 | Released freshness command | 0 | `OK: generated codebase MAP is fresh` | O5.2–O5.3 |
 | `verify-result` | 0 | `OK: source edit, existing MAP, and bounded diff` | O5.1–O5.3 |
 | `git diff --check` | 0 | No whitespace error | O5.3 |
@@ -458,7 +458,7 @@ description, change only the source purpose before repeating that sequence.
 | --- | --- | --- | --- |
 | Guard rejects a root, remote, or symlink | Read the exact guard error; do not follow the unexpected path | Preserve this attempt; create a fresh one using the original course fixture | New guard exits 0 |
 | npm needs authentication or a proxy | Keep only the error code and registry host | Stop this environment path; do not supply credentials or change global settings | Verified public-registry installation in a fresh permitted environment |
-| Version differs | Explicit local version and `verify-pin` | Fresh reset with the exact fixture pin; do not use global CLI fallback | Both match 0.112.0 |
+| Version differs | Explicit local version and `verify-pin` | Fresh reset with the exact fixture pin; do not use global CLI fallback | Both match 0.119.2 |
 | Freshness says fresh but MAP is absent | `test -f .planning/codebase/MAP.md` fails | Run the guarded renderer; do not declare done from freshness alone | Renderer, freshness, and final result check pass |
 | JSON cannot be parsed, source shape changed, or globs changed | Guard names the mismatch | Preserve evidence; undo only your editor change if its exact effect is known, or start fresh | Guard passes and purpose-only diff is visible |
 | Whitespace check fails after a source edit | Retain `git diff --check` output and inspect the named line | Remove only the accidental trailing spaces/tabs from your edit; keep `.gitattributes` and Git settings unchanged. An EOL-only failure needs maintainer investigation, not a bypass | Guard, rerender after any source-byte change, freshness and original whitespace check all pass |
@@ -590,7 +590,7 @@ No instructor unlock is needed.
 Replace the bracketed values with the actual operating system and shell used for the
 successful run.
 
-> I completed lab-05-projection-drift-recovery against Directive 0.112.0 on [actual OS and
+> I completed lab-05-projection-drift-recovery against Directive 0.119.2 on [actual OS and
 > version] using [actual shell and version]. Both expected stale states returned 1, and all five final acceptance
 > commands returned 0. My evidence covers O5.1–O5.3. Reset created a new guarded repository
 > and preserved prior evidence. Both attempt locations and their archive/retained states are
@@ -600,6 +600,6 @@ State any unsupported clause as a gap. The course repository remains unchanged b
 
 Sources: [Module 5](../curriculum/modules/05-sources-versus-projections.md),
 [source baseline](../references/SOURCE-BASELINE.md), and the pinned
-[command reference](https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md)
+[command reference](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/commands.md)
 under “Project And Architecture Commands.” The
 [lab environment contract](README.md) defines the 3Ci safety policy.

@@ -20,9 +20,9 @@ import { assertNoGitRedirection, assertPlainTree, git, safePath, sameFileSystemE
 
 const fixture = dirname(fileURLToPath(import.meta.url));
 const read = (path) => readFileSync(path, "utf8");
-const exactVersion = "0.112.0";
-const deliveryFile = "fictional-delivery.xbrief.json";
-const cancellationFile = "fictional-cancel.xbrief.json";
+const exactVersion = "0.119.2";
+const deliveryFile = "2026-01-15-fictional-delivery.xbrief.json";
+const cancellationFile = "2026-01-15-fictional-cancel.xbrief.json";
 const lifecycleFolders = ["proposed", "pending", "active", "completed", "cancelled"];
 const archiveUsage = "Archive requires one explicit absolute canonical lab root. Run the original course helper from outside the attempt parent.";
 const fixtureFiles = ["package.json", "lifecycle-lab.mjs", "safety.mjs"];
@@ -65,9 +65,9 @@ function readJson(path) {
 function verifyManifest(root) {
   const manifest = readJson(safePath(root, "package.json"));
   assert.equal(manifest.private, true, "fixture must remain private");
-  assert.equal(manifest.devDependencies?.["@deftai/directive"], exactVersion, "exact 0.112.0 pin required");
+  assert.equal(manifest.devDependencies?.["@deftai/directive"], exactVersion, "exact 0.119.2 pin required");
   for (const name of ["directive-core", "directive-content", "directive-types"]) {
-    assert.equal(manifest.overrides?.["@deftai/" + name], exactVersion, "exact 0.112.0 overrides required");
+    assert.equal(manifest.overrides?.["@deftai/" + name], exactVersion, "exact 0.119.2 overrides required");
   }
 }
 
@@ -263,12 +263,12 @@ function verifyAttemptIdentity(input = process.cwd()) {
 /** Verify canonical temp identity, exact pin, no remote, and lifecycle folder/status agreement. */
 export function guardAttempt(input = process.cwd()) {
   const { root, marker } = verifyAttemptIdentity(input);
-  for (const name of fixtureFiles) assert.equal(digest(read(safePath(root, name))), marker.fixtureDigests[name], `Stop: ${name} differs from the supplied exact 0.112.0 fixture.`);
+  for (const name of fixtureFiles) assert.equal(digest(read(safePath(root, name))), marker.fixtureDigests[name], `Stop: ${name} differs from the supplied exact 0.119.2 fixture.`);
   verifyManifest(root);
   locateStory(root, deliveryFile);
   locateStory(root, cancellationFile);
   if (existsSync(join(root, "node_modules"))) verifyInstalledGraph(root);
-  if (existsSync(join(root, ".deft/core/VERSION"))) assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.112\.0'/, "Stop: Directive deposit must be 0.112.0.");
+  if (existsSync(join(root, ".deft/core/VERSION"))) assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.2'/, "Stop: Directive deposit must be 0.119.2.");
   return root;
 }
 
@@ -276,7 +276,7 @@ function verifyInstalledGraph(root) {
   safePath(root, "node_modules");
   for (const name of ["directive", "directive-core", "directive-content", "directive-types"]) {
     const manifest = readJson(safePath(root, `node_modules/@deftai/${name}/package.json`));
-    assert.equal(manifest.version, exactVersion, `${name} must resolve to 0.112.0`);
+    assert.equal(manifest.version, exactVersion, `${name} must resolve to 0.119.2`);
   }
   const target = realpathSync(safePath(root, "node_modules/@deftai/directive/dist/bin.js"));
   if (process.platform !== "win32") assert.equal(realpathSync(join(root, "node_modules/.bin/directive")), target, "local Directive launcher must resolve inside this attempt");
@@ -300,7 +300,7 @@ export function installAttempt(root = process.cwd(), platform = process.platform
   createIsolatedTools(root);
   const init = runDirective(root, ["init", "--yes", "--repo-root", root, "--json"], isolatedEnv(root, "lab-install-session"));
   requireSuccess("directive init", init);
-  assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.112\.0'/, "installed content deposit must be 0.112.0");
+  assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.2'/, "installed content deposit must be 0.119.2");
   writeFileSync(join(root, ".deft/USER.md"), "# User Preferences\n\n## Personal\n\n**Name**: Address the user as: **Learner**\n\n## Defaults\n\n**Coverage**: >=90% test coverage\n");
   const tracked = [
     ".gitattributes", ".gitignore", ".npmrc", "Taskfile.yml", "package.json", "package-lock.json",

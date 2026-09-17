@@ -6,18 +6,17 @@
 | --- | --- |
 | Stable ID | `lab-07-scope-lifecycle` |
 | Supports | O7.1 proposed failure, O7.2 lifecycle transitions, O7.3 current readiness, O7.4 evidence and recovery |
-| Status | Learner-ready on macOS/zsh and native Windows/PowerShell; Linux/bash remains candidate |
-| Last verified | 2026-09-15 |
-| Directive baseline | CLI/core/content/types `0.112.0`; [source baseline](../references/SOURCE-BASELINE.md) |
+| Status | Learner-ready on macOS/zsh; Linux/bash and Windows/PowerShell remain candidates |
+| Last verified | 2026-09-17 |
+| Directive baseline | CLI/core/content/types `0.119.2`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 35–40 minutes, including install, prediction, evidence review, reset, and archive |
-| Platforms verified | macOS 26.6.2 with zsh 5.9; Windows 11 build 26200 with PowerShell 7.6.5; go-task 3.50.0 |
-| Candidate platforms | Linux/bash is not verified |
+| Platforms verified | macOS/zsh local baseline-upgrade suite; go-task 3.50.0 |
+| Candidate platforms | Linux/bash and Windows/PowerShell are not verified on 0.119.2 |
 
 The helper is course tooling; it does not add a new Directive feature.
 
-The verified native Windows helper path performs the same exact local 0.112.0 install,
-governed lifecycle, reset, and archive operations. An independent PowerShell
-walkthrough completed that route on 2026-09-15 with no skipped lifecycle step.
+The helper retains a Windows command path, but its prior walkthrough used the old
+baseline. It remains a candidate until the complete 0.119.2 lifecycle route runs natively.
 
 ## Goal and done condition
 
@@ -82,8 +81,8 @@ test -f "$lab_root/.deft/core/VERSION"
 test -z "$(git -C "$lab_root" remote)"
 ```
 
-**Pass:** install reports Directive 0.112.0 and the explicit local CLI reports engine
-0.112.0. The helper uses the public npm registry, a lab-local cache, ignored runtime paths,
+**Pass:** install reports Directive 0.119.2 and the explicit local CLI reports engine
+0.119.2. The helper uses the public npm registry, a lab-local cache, ignored runtime paths,
 and a fictional local Git identity. It never changes the course checkout or global npm
 configuration.
 
@@ -96,7 +95,7 @@ fixture excludes.
 - Every mutation must stay inside the exact guarded temporary root or its
   named parent evidence directory.
 - The fixture must remain private, on `training/module-07`, with no remote
-  and exact CLI/core/content/types 0.112.0 pins.
+  and exact CLI/core/content/types 0.119.2 pins.
 - Do not use a business repository, client data, credentials, production
   logs, a remote action, deployment, publication, or release.
 - Run `guard` before install, lifecycle execution, reset, or archive. A
@@ -177,8 +176,8 @@ steps.complete
 Each successful step has exit `0`. Compare the repository to `final`:
 
 ```sh
-test -f "$lab_root/xbrief/completed/fictional-delivery.xbrief.json"
-test -f "$lab_root/xbrief/cancelled/fictional-cancel.xbrief.json"
+test -f "$lab_root/xbrief/completed/2026-01-15-fictional-delivery.xbrief.json"
+test -f "$lab_root/xbrief/cancelled/2026-01-15-fictional-cancel.xbrief.json"
 node "$helper" guard "$lab_root"
 test -z "$(git -C "$lab_root" remote)"
 ```
@@ -234,8 +233,8 @@ Run these from the course root with `helper`, `first_root`, and `second_root` st
 node "$helper" guard "$first_root"
 test -f "$(dirname "$first_root")/evidence/proposed-preflight.json"
 test -f "$(dirname "$first_root")/evidence/lifecycle-run.json"
-test -f "$first_root/xbrief/completed/fictional-delivery.xbrief.json"
-test -f "$first_root/xbrief/cancelled/fictional-cancel.xbrief.json"
+test -f "$first_root/xbrief/completed/2026-01-15-fictional-delivery.xbrief.json"
+test -f "$first_root/xbrief/cancelled/2026-01-15-fictional-cancel.xbrief.json"
 test -z "$(git -C "$first_root" remote)"
 node "$helper" guard "$second_root"
 ```

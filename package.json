@@ -16,17 +16,18 @@
     "test:modules-4-5": "node --test scripts/projection-lab.test.mjs scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-modules-4-5.test.mjs",
     "test:module-6": "node --test scripts/verify-module-6.test.mjs",
     "test:module-7": "node --test scripts/lifecycle-lab.test.mjs scripts/verify-module-7.test.mjs",
-    "test:windows-install": "node --test --test-name-pattern=\"native Windows is learner-ready\" scripts/lifecycle-lab.test.mjs scripts/implementation-lab.test.mjs scripts/gates-lab.test.mjs",
+    "test:windows-install": "node --test --test-name-pattern=\"Windows command path keeps the exact local install contract\" scripts/lifecycle-lab.test.mjs scripts/implementation-lab.test.mjs scripts/gates-lab.test.mjs",
     "test:module-8": "node --test scripts/verify-module-8.test.mjs",
     "test:module-9": "node --test scripts/implementation-lab.test.mjs scripts/verify-module-9.test.mjs",
     "test:module-10": "node --test scripts/gates-lab.test.mjs scripts/verify-module-10.test.mjs",
     "test:module-11": "node --test scripts/verify-module-11.test.mjs",
     "test:capstone": "node --test scripts/capstone-lab.test.mjs scripts/verify-capstone.test.mjs && node --check labs/fixtures/capstone-end-to-end/capstone-lab.mjs && git diff --check",
+    "test:teaching-baseline": "node --test scripts/teaching-baseline.test.mjs",
     "test:baseline-upgrade": "node --test scripts/capstone-lab.test.mjs scripts/gates-lab.test.mjs scripts/implementation-lab.test.mjs scripts/lifecycle-lab.test.mjs scripts/projection-lab.test.mjs scripts/linked-path-safety.test.mjs scripts/restore-validation-deposit.test.mjs",
     "test:portability": "node --test scripts/verify-symlink-capability.test.mjs scripts/linked-path-suite-boundary.test.mjs scripts/projection-lab-eol.test.mjs scripts/windows-shim.test.mjs scripts/verify-text-portability.test.mjs scripts/restore-validation-deposit.test.mjs",
     "test:linked-path-safety": "node scripts/verify-symlink-capability.mjs && node --test scripts/linked-path-safety.test.mjs"
   },
   "devDependencies": {
-    "@deftai/directive": "0.119.1"
+    "@deftai/directive": "0.119.2"
   }
 }

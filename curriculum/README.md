@@ -4,15 +4,10 @@ This is the navigation source for a twelve-hour, self-directed path: ten hours
 of core modules followed by a two-hour disposable capstone. Modules 1–11 and
 the capstone are implemented and learner-ready. The course remains an internal
 alpha pending representative learner pilots; that maturity label is separate
-from authored-content completeness. Module 2's 0.112.0 pinned npm
-path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell
-7.4+ on Windows Server 2022 by local and native-matrix evidence. Modules 4 and 6
-are command-free; Modules 8 and 11 are also command-free and use fixed fictional state.
-Module 5's projection lab is verified on macOS/zsh and native Windows/PowerShell 7.4+;
-its Linux path is not verified. Module 7 and the executable labs in
-Modules 9 and 10 are verified on macOS/zsh and native Windows/PowerShell. The guarded capstone fixture is verified on
-macOS 15, Ubuntu 24.04, and Windows Server 2022; independent walkthrough pilot
-evidence remains separate.
+from authored-content completeness. The 0.119.2 executable path is verified locally on
+macOS/zsh. Modules 4, 6, 8, and 11 are command-free and use fixed fictional state where
+applicable. Linux/bash and Windows/PowerShell remain candidates pending pin-matched
+native evidence; independent walkthrough pilot evidence remains separate.
 
 ## Audience and prerequisites
 
@@ -63,15 +58,15 @@ No step requires a live demonstration or an instructor's private knowledge.
 | ID | Module | Time | Status | Primary practice |
 | --- | --- | ---: | --- | --- |
 | 01 | [What Directive is](modules/01-what-directive-is.md) | 45 min | Learner-ready | Classify tools and scenarios by responsibility |
-| 02 | [Installation and project anatomy](modules/02-installation-and-anatomy.md) | 60 min | Learner-ready; 0.112.0 pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence | Initialize and inspect a disposable consumer repository |
+| 02 | [Installation and project anatomy](modules/02-installation-and-anatomy.md) | 60 min | Learner-ready; 0.119.2 path verified on macOS/zsh; Linux and Windows candidates | Initialize and inspect a disposable consumer repository |
 | 03 | [Authority and context](modules/03-authority-and-context.md) | 45 min | Learner-ready | Resolve conflicting sample rules |
 | 04 | [xBRIEF as durable state](modules/04-xbrief-as-durable-state.md) | 45 min | Learner-ready; command-free | Classify project and work-state artifacts |
-| 05 | [Sources versus projections](modules/05-sources-versus-projections.md) | 50 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell 7.4+ | Repair projection drift through its source |
+| 05 | [Sources versus projections](modules/05-sources-versus-projections.md) | 50 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Repair projection drift through its source |
 | 06 | [Creating well-shaped work](modules/06-creating-well-shaped-work.md) | 55 min | Learner-ready; command-free | Turn a horizontal plan into a vertical slice |
-| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell | Fail, promote, activate, establish current readiness, complete, and cancel |
+| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Fail, promote, activate, establish current readiness, complete, and cancel |
 | 08 | [Session start and authorized work selection](modules/08-session-and-work-selection.md) | 45 min | Learner-ready; command-free fixed-state exercise | Trace posture and intake decisions |
-| 09 | [The implementation golden path](modules/09-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell | Implement one test-backed active scope |
-| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh and native Windows/PowerShell | Red-green-refactor and diagnose a gate failure |
+| 09 | [The implementation golden path](modules/09-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Implement one test-backed active scope |
+| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Red-green-refactor and diagnose a gate failure |
 | 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Learner-ready; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |
 
 The times total ten hours. Exercise time is included. Different hosts may add a

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync, readdirSync, realpathSync, statSync } from "node:fs";
 import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { assertTeachingBaselinePin } from "./teaching-baseline.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 
@@ -219,7 +220,7 @@ for (const [label, content] of [
 }
 
 for (const content of [module2, lab2, lab2Solution]) {
-  assert.match(content, /0\.112\.0/, "Module 2 path must use the exact Directive pin");
+  assert.match(content, /0\.119\.2/, "Module 2 path must use the exact Directive pin");
   assert.match(content, /no[- ]remote/i, "Module 2 path must preserve the no-remote guard");
   assert.doesNotMatch(content, /doctor[^\n]*--repo-root/, "doctor must use the verified --project-root flag");
 }
@@ -235,10 +236,10 @@ for (const requiredSafetyPattern of [
   /local_bin="\$lab_root\/node_modules\/\.bin"/,
   /test "\$resolved_deft" = "\$local_bin\/deft"/,
   /git ls-files --error-unmatch/,
-  /g\.contentVersion!=="0\.112\.0"/,
+  /g\.contentVersion!=="0\.119\.2"/,
   /x\.xBRIEFInfo\?\.version!=="0\.8"/,
   /core\.hooksPath/,
-  /p\.devDependencies\?\.\["@deftai\/directive"\].*0\.112\.0/,
+  /p\.devDependencies\?\.\["@deftai\/directive"\].*0\.119\.2/,
 ]) {
   assert.match(lab2, requiredSafetyPattern, "Lab 2 is missing a fail-closed safety or pin check");
 }
@@ -407,7 +408,7 @@ for (const [relativePath, content] of [
   assert.match(
     content,
     /known false negative[\s\S]{0,180}(?:Missing directory: )?`?xbrief\/`?[\s\S]{0,220}PROJECT-DEFINITION\.xbrief\.json[\s\S]{0,120}(?:exists|present)/i,
-    relativePath + " must label the 0.112.0 doctor xbrief warning as a known false negative",
+    relativePath + " must label the 0.119.2 doctor xbrief warning as a known false negative",
   );
 }
 
@@ -426,11 +427,7 @@ for (const requiredPhrase of [
 
 const projectPackage = JSON.parse(read("package.json"));
 assert.equal(projectPackage.private, true, "the training package must remain private");
-assert.equal(
-  projectPackage.devDependencies?.["@deftai/directive"],
-  "0.119.1",
-  "the training package must retain the exact Directive pin",
-);
+assertTeachingBaselinePin(projectPackage, read("README.md"));
 assert.equal(
   projectPackage.scripts?.["check:modules-2-3"],
   "node scripts/verify-modules-2-3.mjs",
@@ -459,7 +456,7 @@ const fixture = JSON.parse(read("labs/fixtures/02-disposable-initialization/pack
 assert.equal(fixture.private, true, "the fictional lab fixture must be private");
 assert.equal(
   fixture.devDependencies?.["@deftai/directive"],
-  "0.112.0",
+  "0.119.2",
   "the lab fixture must pin @deftai/directive exactly",
 );
 assert.deepEqual(
@@ -470,9 +467,9 @@ assert.deepEqual(
 assert.deepEqual(
   fixture.overrides,
   {
-    "@deftai/directive-content": "0.112.0",
-    "@deftai/directive-core": "0.112.0",
-    "@deftai/directive-types": "0.112.0",
+    "@deftai/directive-content": "0.119.2",
+    "@deftai/directive-core": "0.119.2",
+    "@deftai/directive-types": "0.119.2",
   },
   "the lab fixture must pin the complete Directive package graph",
 );
@@ -659,7 +656,7 @@ for (const token of [
 
 const sourceNotes = read("references/SOURCE-NOTES.md");
 const sourceBaseline = read("references/SOURCE-BASELINE.md");
-const releaseCommit = "7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808";
+const releaseCommit = "9038503ffac65e6d48e5ba34758c4e8e7077aba3";
 const normalizeReferenceId = (value) => value.trim().replace(/\s+/g, " ").toLowerCase();
 const normalizeReferenceDestination = (value) =>
   value.startsWith("<") && value.endsWith(">") ? value.slice(1, -1) : value;
@@ -707,14 +704,14 @@ assert.doesNotMatch(
 );
 const platformProof = new Map();
 for (const platformId of ["macos-zsh", "linux-bash", "windows-pwsh7"]) {
-  const matches = [...sourceNotes.matchAll(
+  const matches = [...sourceBaseline.matchAll(
     new RegExp(
-      "^[-] \`platform-proof:" + escapeRegExp(platformId) +
+      "^[-] \`teaching-platform-proof:" + escapeRegExp(platformId) +
         " status=(verified|candidate) date=(\\d{4}-\\d{2}-\\d{2}) evidence=(\\S+)\`$",
       "gm",
     ),
   )];
-  assert.equal(matches.length, 1, "SOURCE-NOTES must contain exactly one proof marker for " + platformId);
+  assert.equal(matches.length, 1, "SOURCE-BASELINE must contain exactly one current proof marker for " + platformId);
   platformProof.set(platformId, {
     status: matches[0][1],
     date: matches[0][2],
@@ -725,41 +722,41 @@ assert.deepEqual(
   platformProof.get("macos-zsh"),
   {
     status: "verified",
-    date: "2026-09-07",
-    evidence: "local-0.112.0-disposable-project-local-hook-full+gha-run-34080818120",
+    date: "2026-09-17",
+    evidence: "baseline-upgrade-65-of-65",
   },
-  "macOS/zsh must point to the complete local and native 0.112.0 learner-path proof",
+  "macOS/zsh must point to the current local 0.119.2 learner-path proof",
 );
 for (const platformId of ["linux-bash", "windows-pwsh7"]) {
   assert.deepEqual(
     platformProof.get(platformId),
     {
-      status: "verified",
-      date: "2026-09-07",
-      evidence: "gha-run-34080818120",
+      status: "candidate",
+      date: "2026-09-17",
+      evidence: "not-run",
     },
-    platformId + " must point to the successful native 0.112.0 matrix",
+    platformId + " must remain a candidate until a native 0.119.2 replay exists",
   );
 }
 assert.match(
-  sourceNotes,
-  /This current evidence is bounded to those runner labels, shells, the npm fixture path, and\s+the pinned 0\.112\.0 graph\. It does not verify pnpm, other operating-system images, or coding-host\s+integration\./,
-  "SOURCE-NOTES must bound the current native evidence",
+  sourceBaseline,
+  /Linux\/bash and Windows\/PowerShell remain candidates pending native replay/,
+  "SOURCE-BASELINE must bound the current platform evidence",
 );
 assert.match(
   lab2,
-  /(?:macOS 15\/zsh[^\n]*(?:verified|learner-ready)|(?:verified|learner-ready)[^\n]*macOS 15\/zsh)/i,
+  /(?:macOS\/zsh[^\n]*(?:verified|learner-ready)|(?:verified|learner-ready)[^\n]*macOS\/zsh)/i,
   "Lab 2 must match the verified macOS marker",
 );
 assert.match(
   lab2,
-  /Linux\/bash on Ubuntu 24\.04[^\n]*verified|verified[^\n]*Linux\/bash on Ubuntu 24\.04/i,
-  "Lab 2 must match the verified Linux marker",
+  /Linux\/bash[^\n]*candidate|candidate[^\n]*Linux\/bash/i,
+  "Lab 2 must match the candidate Linux marker",
 );
 assert.match(
   lab2,
-  /Windows\/PowerShell\s+7\.4\+ on Windows Server 2022[^\n]*verified|verified[^\n]*Windows\/PowerShell\s+7\.4\+ on Windows Server 2022/i,
-  "Lab 2 must match the verified Windows marker",
+  /Windows\/PowerShell[^\n]*candidate|candidate[^\n]*Windows\/PowerShell/i,
+  "Lab 2 must match the candidate Windows marker",
 );
 for (const relativePath of [
   "README.md",
@@ -773,43 +770,33 @@ for (const relativePath of [
   const content = read(relativePath);
   assert.match(
     content,
-    /(?:verified[\s\S]{0,180}macOS 15\/zsh|macOS 15\/zsh[\s\S]{0,180}verified)/i,
-    relativePath + " must label macOS 15/zsh as verified",
+    /(?:verified[\s\S]{0,180}macOS\/zsh|macOS\/zsh[\s\S]{0,180}verified)/i,
+    relativePath + " must label macOS/zsh as verified",
   );
   assert.match(
     content,
-    /(?:verified[\s\S]{0,180}Linux\/bash on Ubuntu 24\.04|Linux\/bash on Ubuntu 24\.04[\s\S]{0,180}verified)/i,
-    relativePath + " must label Linux/bash on Ubuntu 24.04 as verified",
+    /(?:candidate[\s\S]{0,180}Linux\/bash|Linux\/bash[\s\S]{0,180}candidate)/i,
+    relativePath + " must label Linux/bash as a candidate",
   );
   assert.match(
     content,
-    /(?:verified[\s\S]{0,180}Windows\/PowerShell\s+7\.4\+ on Windows Server 2022|Windows\/PowerShell\s+7\.4\+ on Windows Server 2022[\s\S]{0,180}verified)/i,
-    relativePath + " must label Windows/PowerShell 7.4+ on Windows Server 2022 as verified",
-  );
-  assert.doesNotMatch(
-    content,
-    /(?:candidate[\s\S]{0,180}Linux\/bash on Ubuntu 24\.04|Linux\/bash on Ubuntu 24\.04[\s\S]{0,180}candidate)/i,
-    relativePath + " must not retain a stale Linux/bash candidate claim",
-  );
-  assert.doesNotMatch(
-    content,
-    /(?:candidate[\s\S]{0,180}Windows\/PowerShell\s+7\.4\+ on Windows Server 2022|Windows\/PowerShell\s+7\.4\+ on Windows Server 2022[\s\S]{0,180}candidate)/i,
-    relativePath + " must not retain a stale Windows/PowerShell candidate claim",
+    /(?:candidate[\s\S]{0,180}Windows\/PowerShell|Windows\/PowerShell[\s\S]{0,180}candidate)/i,
+    relativePath + " must label Windows/PowerShell as a candidate",
   );
 }
 assert.match(
-  sourceNotes,
-  /0\.112\.0 accepts it[\s\S]{0,260}expected operator-TTY authorization refusal/,
-  "SOURCE-NOTES must record that the approved-scope separator defect is resolved",
+  sourceBaseline,
+  /scope:record-approved-scope --help[\s\S]{0,260}documented `-- <xbrief-path>` form and the direct positional form both reach the operator-TTY authorization gate/,
+  "SOURCE-BASELINE must record the current approved-scope separator behavior",
 );
 assert.match(
-  sourceNotes,
-  /0\.112\.0 probe exited 0 and emitted a complete 6,420,515-byte document parsed successfully by `JSON\.parse`/,
-  "SOURCE-NOTES must record the successful 0.112.0 headless JSON probe",
+  sourceBaseline,
+  /unpinned disposable no-remote `init --json` emitted parseable JSON and created the exact private package pin and 0\.119\.2 generation/,
+  "SOURCE-BASELINE must record the successful current JSON init probe",
 );
 assert.doesNotMatch(
   sourceBaseline,
-  /released command rejects that separator|Pass the xBRIEF path directly for 0\.112\.0/,
+  /released command rejects that separator|Pass the xBRIEF path directly for 0\.119\.2/,
   "SOURCE-BASELINE must not retain the resolved 0.111.0 separator workaround",
 );
 

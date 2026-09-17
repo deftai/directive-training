@@ -7,7 +7,7 @@
 | Stable ID | `module-10-testing-gates-and-evidence` |
 | Status | Learner-ready draft |
 | Estimated time | 65 minutes |
-| Directive baseline | `@deftai/directive@0.112.0`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | `@deftai/directive@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Prerequisite | [Module 9 — The Implementation Golden Path](09-implementation-golden-path.md) |
 | Practical work | [Lab 10 — Testing, Gates, and Evidence](../../labs/10-testing-gates-and-evidence.md) |
 
@@ -69,7 +69,7 @@ After the expected red result, freeze the focused test. Editing both the test an
 
 ### Literal acceptance answers a contract question
 
-On the pinned release, `task deft:verify:ac -- <active-xbrief>` reads the active contract and runs its accepted command list verbatim. Direct `node` commands and arbitrary npm scripts are safety-refused by the 0.112.0 literal-command allowlist; the lab therefore uses the allowed test/check script families. A safety refusal is not a product failure and must not be relabeled as one.
+On the pinned release, `task deft:verify:ac -- <active-xbrief>` reads the active contract and runs its accepted command list verbatim. Direct `node` commands and arbitrary npm scripts are safety-refused by the 0.119.2 literal-command allowlist; the lab therefore uses the allowed test/check script families. A safety refusal is not a product failure and must not be relabeled as one.
 
 ### Forward coverage answers a correspondence question
 

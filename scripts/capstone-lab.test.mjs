@@ -121,8 +121,8 @@ test("create produces one unique guarded no-remote capstone repository", () => {
 
   const manifest = JSON.parse(read(join(root, "package.json")));
   assert.equal(manifest.private, true);
-  assert.equal(manifest.devDependencies["@deftai/directive"], "0.112.0");
-  const proposed = JSON.parse(read(join(root, "xbrief/proposed/fictional-work-items.xbrief.json")));
+  assert.equal(manifest.devDependencies["@deftai/directive"], "0.119.2");
+  const proposed = JSON.parse(read(join(root, "xbrief/proposed/2026-01-15-fictional-work-items.xbrief.json")));
   assert.equal(proposed.plan.status, "proposed");
   assert.deepEqual(proposed.plan.metadata.file_scope, ["src/work-items.mjs"]);
 
@@ -134,7 +134,7 @@ test("create produces one unique guarded no-remote capstone repository", () => {
   assert.throws(() => guardAttempt(root), /project definition changed/);
   writeFileSync(projectPath, originalProject);
 
-  const storyPath = join(root, "xbrief/proposed/fictional-work-items.xbrief.json");
+  const storyPath = join(root, "xbrief/proposed/2026-01-15-fictional-work-items.xbrief.json");
   const originalStory = read(storyPath);
   const changedStory = JSON.parse(originalStory);
   changedStory.plan.acceptance.commands = [];
@@ -224,9 +224,9 @@ test("full rehearsal enforces ordered evidence through local closeout", { timeou
   const root = createAttempt({ callerRoot: makeLauncher() });
   const lifecycleKeepPath = "xbrief/active/.gitkeep";
   writeFileSync(join(root, lifecycleKeepPath), "");
-  assert.equal(main(["install", root]), "OK: installed Directive 0.112.0");
+  assert.equal(main(["install", root]), "OK: installed Directive 0.119.2");
   assert.equal(git(root, ["ls-files", "--error-unmatch", lifecycleKeepPath]).trim(), lifecycleKeepPath);
-  assert.equal(verifyPin(root), "0.112.0");
+  assert.equal(verifyPin(root), "0.119.2");
   assert.throws(() => main(["red", root]), /expected READY stage/);
 
   const toolProbe = join(root, ".lab-tools", "unexpected-tool");
@@ -244,8 +244,8 @@ test("full rehearsal enforces ordered evidence through local closeout", { timeou
   const activationProbe = join(root, "unexpected-before-activation.txt");
   writeFileSync(activationProbe, "unexpected mutation\n", { flag: "wx" });
   assert.throws(() => main(["activate", root]), /clean orientation checkpoint/);
-  assert.equal(existsSync(join(root, "xbrief/proposed/fictional-work-items.xbrief.json")), true);
-  assert.equal(existsSync(join(root, "xbrief/active/fictional-work-items.xbrief.json")), false);
+  assert.equal(existsSync(join(root, "xbrief/proposed/2026-01-15-fictional-work-items.xbrief.json")), true);
+  assert.equal(existsSync(join(root, "xbrief/active/2026-01-15-fictional-work-items.xbrief.json")), false);
   renameSync(activationProbe, join(dirname(root), "evidence", "quarantined-activation-file"));
 
   assert.equal(main(["activate", root]), '"PASS"');

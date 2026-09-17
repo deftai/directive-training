@@ -11,6 +11,7 @@ const evidenceRoot = mkdtempSync(join(tmpdir(), "text-portability-test-"));
 const workflowPath = ".github/workflows/modules-2-3-platform-validation.yml";
 const coldStartVerifier = "scripts/verify-cold-start-readme.mjs";
 const modulesVerifier = "scripts/verify-modules-2-3.mjs";
+const teachingBaseline = "scripts/teaching-baseline.mjs";
 const closeMarker = "<!-- /deft:cold-start-bootstrap v1 -->";
 
 // Keep the exact subprocess inputs and outputs available for cross-platform diagnosis.
@@ -21,9 +22,11 @@ const coldStartFiles = new Map([
   ["README.md", readSource("README.md")],
   ["package.json", readSource("package.json")],
   [coldStartVerifier, readSource(coldStartVerifier)],
+  [teachingBaseline, readSource(teachingBaseline)],
 ]);
 const modulesFiles = new Map([
   ...coldStartFiles,
+  ["LICENSE", readSource("LICENSE")],
   [modulesVerifier, readSource(modulesVerifier)],
   [workflowPath, readSource(workflowPath)],
   ["labs/fixtures/02-disposable-initialization/package.json", readSource("labs/fixtures/02-disposable-initialization/package.json")],

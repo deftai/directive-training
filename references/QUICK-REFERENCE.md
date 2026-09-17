@@ -1,7 +1,7 @@
 # Directive learner quick reference
 
 Use this as a memory aid, not as an exhaustive command reference. It describes
-`@deftai/directive` 0.112.0 and xBRIEF 0.8, verified through 2026-09-12. Check
+`@deftai/directive` 0.119.2 and xBRIEF 0.8, verified through 2026-09-17. Check
 [the source baseline](SOURCE-BASELINE.md) before using it with another version.
 
 ## Mental model
@@ -29,7 +29,7 @@ directive <verb> --help
 ```
 
 Replace `<verb>` with the exact command, for example `doctor`. Record a failed
-per-verb help check instead of assuming it is available. In 0.112.0,
+per-verb help check instead of assuming it is available. In 0.119.2,
 `session:start --help`, `check --help`, and `toolchain:check --help` reject
 `--help`, and the lifecycle help
 for `scope:promote` and `scope:activate` contains older vBRIEF-era wording. Use
@@ -38,14 +38,14 @@ disagreement. The `xbrief:preflight` help also retains `--vbrief-path` as a
 legacy option name; learner examples should use the documented positional
 active `xbrief/` path. See the baseline for tested exit results.
 
-Run per-verb probes only in an appropriate disposable environment. In 0.112.0,
+Run per-verb probes only in an appropriate disposable environment. In 0.119.2,
 `codebase:map --help` actually renders a MAP and
 `verify:codebase-map-fresh --help` performs a check. Neither provides ordinary
 usage help. Use the locally pinned forms in [Lab 5](../labs/05-projection-drift-recovery.md).
 
 ## Consumer command chooser
 
-These command names and their help surfaces were checked against 0.112.0. Read
+These command names and their help surfaces were checked against 0.119.2. Read
 the exact help before using options or operands.
 
 | Need | Begin with | Boundary |
@@ -53,7 +53,7 @@ the exact help before using options or operands.
 | Add Directive to a repository that is not initialized | `directive init` | Run only at the intended consumer repository root |
 | Reconcile an initialized consumer project with its pin | `directive update` | Do not re-scaffold the project by hand |
 | Diagnose setup or health | `directive doctor` | Follow its single recommended recovery path |
-| Prove consumer prerequisites | `directive toolchain:check --consumer --project-root .` | In 0.112.0, verify registration with `directive commands`; its `--help` path exits 2 |
+| Prove consumer prerequisites | `directive toolchain:check --consumer --project-root .` | In 0.119.2, verify registration with `directive commands`; its `--help` path exits 2 |
 | Prove an active xBRIEF is implementation-ready | `directive xbrief:preflight -- xbrief/active/<scope-file>.xbrief.json` | Pass the active xBRIEF path; requires active/running scope and live implementation intent |
 | Move approved work toward active state | `directive scope:promote`, then `directive scope:activate` | Use lifecycle commands, not manual file moves |
 
@@ -105,7 +105,7 @@ For [Module 5](../curriculum/modules/05-sources-versus-projections.md), the
 verified consumer pair is `directive codebase:map --project-root .` followed
 by `directive verify:codebase-map-fresh --project-root .`. Lab 5 invokes the
 explicit local binary and separately checks MAP existence and expected content:
-in 0.112.0, freshness alone can pass when the optional MAP is absent.
+in 0.119.2, freshness alone can pass when the optional MAP is absent.
 
 ## Shape work
 
@@ -167,7 +167,7 @@ task deft:scope:complete -- xbrief/active/<scope>.xbrief.json
 task deft:scope:cancel -- xbrief/proposed/<obsolete-scope>.xbrief.json
 ```
 
-The pinned 0.112.0 engine exits `1` for proposed preflight. A Task runner can
+The pinned 0.119.2 engine exits `1` for proposed preflight. A Task runner can
 wrap that child failure with another nonzero process exit; retain both values
 and do not relabel the wrapper result as the engine contract. See
 [Module 7](../curriculum/modules/07-scope-lifecycle.md) and its
@@ -274,7 +274,7 @@ See [Module 11](../curriculum/modules/11-review-and-completion.md) and its
 Use the learner-ready
 [capstone](../curriculum/capstone-end-to-end.md) only in its guarded disposable
 repository. The Directive proof requires Node.js 22 or newer and the exact
-`@deftai/directive@0.112.0` graph; the fictional application source remains
+`@deftai/directive@0.119.2` graph; the fictional application source remains
 Node.js 20-compatible.
 
 ```text

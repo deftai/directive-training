@@ -3,6 +3,7 @@ import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { courseModuleRow, markdownParts, moduleHeadings, section, solutionHeadings, verifyLinks } from "./verify-modules-4-5.mjs";
+import { assertTeachingBaselinePin } from "./teaching-baseline.mjs";
 
 const module10 = "curriculum/modules/10-testing-gates-and-evidence.md";
 const lab10 = "labs/10-testing-gates-and-evidence.md";
@@ -44,10 +45,10 @@ const unfinished = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
 
 function exactBaseline(path, prose, heading) {
   const row = section(prose, heading).match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-  assert.ok(row?.includes("0.112.0"), `${path} must declare exact Directive 0.112.0`);
+  assert.ok(row?.includes("0.119.2"), `${path} must declare exact Directive 0.119.2`);
   assert.deepEqual(
     [...new Set(row.match(/\b\d+\.\d+\.\d+\b/g))],
-    ["0.112.0"],
+    ["0.119.2"],
     `${path} contains a stale or ranged Directive baseline`,
   );
 }
@@ -111,7 +112,7 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
 
   const labProse = parsed.get(lab10).prose;
   assert.match(labProse, /unique OS-temporary repository with no remote/, `${lab10} is missing its temporary no-remote boundary`);
-  assert.match(labProse, /native Windows\/PowerShell learner paths/, `${lab10} must retain verified native Windows support`);
+  assert.match(labProse, /macOS\/zsh; Linux\/bash and Windows\/PowerShell remain candidates/, `${lab10} must retain the current platform boundary`);
   for (const verb of ["create", "install", "red", "green", "refactor", "literal", "aggregate", "final", "reset", "archive"]) {
     assert.match(labProse, new RegExp(`gates-lab\\.mjs ${verb}`), `${lab10} is missing helper verb: ${verb}`);
   }
@@ -129,7 +130,7 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
   const module10Row = courseModuleRow(course, 10);
   assert.match(module10Row, /10-testing-gates-and-evidence\.md/, "Module 10 course row must link the lesson");
   assert.doesNotMatch(module10Row, /\|\s*Planned\s*\|/i, "Module 10 must no longer be planned");
-  assert.match(module10Row, /verified on macOS\/zsh and native Windows\/PowerShell/i, "Module 10 course row must retain verified native Windows support");
+  assert.match(module10Row, /verified on macOS\/zsh; Linux and Windows candidates/i, "Module 10 course row must retain the current platform boundary");
   const module11Row = courseModuleRow(course, 11);
   assert.match(
     module11Row,
@@ -143,8 +144,8 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
   }
   assert.match(
     content.get("labs/README.md"),
-    /^\| \[Lab 10[^\n]*\]\(10-testing-gates-and-evidence\.md\) \| Learner-ready draft;[^\n]*macOS[^\n]*native Windows\/PowerShell[^\n]*\|/m,
-    "labs/README.md must list Lab 10 as learner-ready on its verified macOS and native Windows paths",
+    /^\| \[Lab 10[^\n]*\]\(10-testing-gates-and-evidence\.md\) \| Learner-ready draft;[^\n]*macOS\/zsh; Linux and Windows candidates[^\n]*\|/m,
+    "labs/README.md must list Lab 10 with the current platform boundary",
   );
 
   for (const term of ["literal acceptance", "forward coverage", "aggregate gate", "gate integrity", "red-green-refactor"]) {
@@ -156,18 +157,16 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
   assert.match(content.get("references/SOURCE-BASELINE.md"), /^## Module 10 testing-and-gates validation\s*$/m, "source baseline is missing Module 10 validation");
   const notes = content.get("references/SOURCE-NOTES.md");
   assert.match(notes, /^## Module 10 source validation\s*$/m, "SOURCE-NOTES is missing the Module 10 source validation record");
-  assert.doesNotMatch(notes, /module10-platform-proof:linux-bash status=verified/, "Linux must remain candidate for Module 10");
-  for (const token of [
-    "engine 0.114.0", "deposit 0.114.0", "exact 0.112.0 graph", "verify:ac",
-    "module10-platform-proof:macos-zsh status=verified",
-    "module10-platform-proof:linux-bash status=candidate",
-    "module10-platform-proof:windows-powershell status=verified date=2026-09-15 evidence=independent-native-pwsh-walkthrough",
-  ]) assert.ok(notes.includes(token), `SOURCE-NOTES Module 10 evidence is missing: ${token}`);
+  const baseline = content.get("references/SOURCE-BASELINE.md");
+  for (const [platform, expected] of [["macos-zsh", "verified"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
+    assert.match(baseline, new RegExp(`teaching-platform-proof:${platform} status=${expected}`), `SOURCE-BASELINE Module 10 platform status is missing: ${platform}`);
+  }
+  for (const token of ["exact CLI/core/content/types 0.119.2 graph", "verify:ac"]) assert.ok(baseline.includes(token), `SOURCE-BASELINE Module 10 evidence is missing: ${token}`);
 
   const fixturePackage = JSON.parse(content.get("labs/fixtures/10-testing-gates-and-evidence/package.json"));
-  assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.112.0", "Module 10 fixture must retain the exact Directive pin");
+  assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.119.2", "Module 10 fixture must retain the exact Directive pin");
   for (const name of ["directive-core", "directive-content", "directive-types"]) {
-    assert.equal(fixturePackage.overrides?.[`@deftai/${name}`], "0.112.0", `Module 10 fixture must pin ${name}`);
+    assert.equal(fixturePackage.overrides?.[`@deftai/${name}`], "0.119.2", `Module 10 fixture must pin ${name}`);
   }
   assert.equal(fixturePackage.scripts?.["test:focused"], "node --test test/summary.test.mjs", "Module 10 fixture must expose the focused test");
   assert.equal(fixturePackage.scripts?.["check:behavior"], "node src/summary.mjs 2 4 6", "Module 10 fixture must expose the literal behavior check");
@@ -199,7 +198,7 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.scripts?.["check:module-10"], "node scripts/verify-module-10.mjs", "package scripts must expose check:module-10");
   assert.equal(projectPackage.scripts?.["test:module-10"], "node --test scripts/gates-lab.test.mjs scripts/verify-module-10.test.mjs", "package scripts must expose test:module-10");
-  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.119.1", "training package must retain exact Directive pin");
+  assertTeachingBaselinePin(projectPackage, content.get("README.md"));
   return { artifactCount: content.size };
 }
 

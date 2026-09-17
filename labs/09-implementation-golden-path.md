@@ -6,19 +6,17 @@
 | --- | --- |
 | Stable ID | `lab-09-implementation-golden-path` |
 | Supports | O9.1 readiness, O9.2 red-green, O9.3 bounded scope, O9.4 paired evidence, O9.5 recovery |
-| Status | Learner-ready on macOS/zsh and native Windows/PowerShell; Linux/bash remains candidate |
-| Last verified | 2026-09-15 |
-| Directive baseline | CLI/core/content/types `0.112.0`; [source baseline](../references/SOURCE-BASELINE.md) |
+| Status | Learner-ready on macOS/zsh; Linux/bash and Windows/PowerShell remain candidates |
+| Last verified | 2026-09-17 |
+| Directive baseline | CLI/core/content/types `0.119.2`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 40–45 minutes, including install, implementation, evidence, and cleanup |
-| Platforms verified | macOS 26.6.2 with zsh 5.9; Windows 11 build 26200 with PowerShell 7.6.5; go-task 3.50.0 |
-| Candidate platforms | Linux/bash is not verified |
+| Platforms verified | macOS/zsh local baseline-upgrade suite; go-task 3.50.0 |
+| Candidate platforms | Linux/bash and Windows/PowerShell are not verified on 0.119.2 |
 
 The helper is course tooling, not a new Directive command.
 
-The native Windows helper path now performs the same exact local 0.112.0 install,
-readiness proof, one-file implementation verification, reset, and archive operations.
-An independent PowerShell walkthrough completed that route on 2026-09-15 and
-retained readiness before the one-file product edit.
+The helper retains a Windows command path, but its prior walkthrough used the old
+baseline. It remains a candidate until the complete 0.119.2 implementation route runs natively.
 
 ## Goal and done condition
 
@@ -72,8 +70,8 @@ node "$lab_root/node_modules/.bin/directive" --version
 git -C "$lab_root" status --short
 ```
 
-**Pass:** the helper reports Directive 0.112.0, the explicit local CLI reports engine
-0.112.0, and status is empty. The fixture pins CLI/core/content/types exactly.
+**Pass:** the helper reports Directive 0.119.2, the explicit local CLI reports engine
+0.119.2, and status is empty. The fixture pins CLI/core/content/types exactly.
 
 The deposited Task surface belongs to that exact local install.
 Do not substitute a newer global executable.
@@ -83,7 +81,7 @@ Do not substitute a newer global executable.
 - Work only in the exact guarded temporary attempt.
 - Only `src/greeting.mjs` is mutable after readiness. The helper, tests,
   manifest, active scope, CLI wrapper, Git metadata, and evidence contract stay unchanged.
-- Keep branch `training/module-09`, exact 0.112.0 pins, one active/running
+- Keep branch `training/module-09`, exact 0.119.2 pins, one active/running
   story, and an empty remote list.
 - Do not add a remote, use credentials, push, open a pull request, merge,
   deploy, publish, release, or copy business/client data.
@@ -204,8 +202,8 @@ node "$helper" verify "$lab_root"
 | path comparison | 0 | Exact one-file equality | O9.3 |
 | `verify` | 0 | `"PASS"` | O9.1–O9.5 |
 
-Linux/bash remains a candidate path. The verified native Windows/PowerShell acceptance
-route appears below.
+Linux/bash and Windows/PowerShell remain candidate paths. The Windows/PowerShell acceptance
+route appears below for native 0.119.2 revalidation.
 
 ## Evidence bundle
 

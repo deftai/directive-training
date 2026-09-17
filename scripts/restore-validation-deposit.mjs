@@ -5,7 +5,7 @@ import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 import { assertNoGitRedirection, safePath } from "../labs/fixtures/05-projection-drift-recovery/safety.mjs";
 
-const pin = "0.112.0";
+const pin = "0.119.2";
 const prefix = ".deft/core/";
 const skills = ["deft-directive-build", "deft-directive-pre-pr", "deft-directive-review-cycle", "deft-directive-swarm"];
 const required = ["main.md", "QUICK-START.md", "Taskfile.yml", "SKILL.md", "package.json", "VERSION", ".agents/skills/deft/SKILL.md", ...skills.flatMap((name) => [".agents/skills/" + name + "/SKILL.md", "skills/" + name + "/SKILL.md"])];
@@ -37,15 +37,15 @@ export function restoreValidationDeposit(projectRoot, manifestPath) {
   const core = join(deft, "core");
   assert.equal(lstatSync(core, { throwIfNoEntry: false }), undefined, "Stop: .deft/core already exists; preserve it and report, do not overwrite it.");
   const pkg = JSON.parse(readFileSync(safePath(root, "package.json"), "utf8"));
-  assert.ok(pkg?.private === true && pkg.devDependencies?.["@deftai/directive"] === pin, "expected private project with exact 0.112.0 pin");
+  assert.ok(pkg?.private === true && pkg.devDependencies?.["@deftai/directive"] === pin, "expected private project with exact 0.119.2 pin");
   const generation = JSON.parse(readFileSync(safePath(root, ".deft/GENERATION.json"), "utf8"));
-  assert.ok(generation?.schemaVersion === 1 && Number.isInteger(generation.generation) && generation.generation > 0 && generation.contentVersion === pin && ["payload", "templates", "skills", "docs"].every((key) => generation.surfaces?.[key] === pin) && generation.surfaces?.version === "v" + pin, "expected existing 0.112.0 GENERATION record; do not rewrite it");
+  assert.ok(generation?.schemaVersion === 1 && Number.isInteger(generation.generation) && generation.generation > 0 && generation.contentVersion === pin && ["payload", "templates", "skills", "docs"].every((key) => generation.surfaces?.[key] === pin) && generation.surfaces?.version === "v" + pin, "expected existing 0.119.2 GENERATION record; do not rewrite it");
   const source = resolve(manifestPath);
   assert.ok(lstatSync(source).isFile(), "expected ordinary external manifest file");
   const sourceRelative = relative(root, realpathSync(source));
   assert.ok(isAbsolute(sourceRelative) || sourceRelative === ".." || sourceRelative.startsWith(".." + sep), "manifest must be outside the project");
   const manifest = JSON.parse(readFileSync(source, "utf8"));
-  assert.ok(manifest?.version === pin && Array.isArray(manifest.files), "expected 0.112.0 headless manifest");
+  assert.ok(manifest?.version === pin && Array.isArray(manifest.files), "expected 0.119.2 headless manifest");
   const nodes = new Map();
   const payload = new Map();
   for (const file of manifest.files) {

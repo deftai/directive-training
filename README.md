@@ -26,7 +26,7 @@ this Markdown; they will not replace it as the source of truth.
 ## Start here
 
 1. Confirm the prerequisites in the [course map](curriculum/README.md).
-2. Note the current teaching baseline: `@deftai/directive` 0.112.0 with xBRIEF
+2. Note the current teaching baseline: `@deftai/directive` 0.119.2 with xBRIEF
    schema 0.8.
 3. Complete [Module 1: What Directive Is](curriculum/modules/01-what-directive-is.md),
    [Module 2: Installation and Project Anatomy](curriculum/modules/02-installation-and-anatomy.md),
@@ -61,16 +61,12 @@ drift notes that are intentionally outside the beginner sequence.
 
 Modules 1–11 and the capstone are implemented and learner-ready. The curriculum
 remains an internal alpha until representative learner pilots complete; that
-release-maturity label does not mean the authored modules are partial. Module 2's 0.112.0 pinned npm
-path is verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and
-Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence.
-Modules 4, 6, 8, and 11 are command-free. Module 5's projection lab is verified on macOS/zsh
-and native Windows/PowerShell 7.4+; Linux remains unverified.
-Modules 7, 9, and 10 are verified only on macOS/zsh; Linux and native Windows have not been
-verified for those labs.
+release-maturity label does not mean the authored modules are partial. The 0.119.2 executable
+path is verified locally on macOS/zsh. Modules 4, 6, 8, and 11 are command-free. Linux/bash
+and Windows/PowerShell remain candidates pending pin-matched native evidence.
 Module 11 uses a fixed fictional review packet and needs no lab fixture. The
-guarded capstone fixture is verified on macOS, Ubuntu, and Windows runners; an
-independent learner walkthrough on each environment remains a separate pilot claim.
+guarded capstone fixture is verified locally on macOS/zsh; native Linux, Windows, and
+independent learner walkthrough evidence remain separate claims.
 
 ## Safety boundary
 

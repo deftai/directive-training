@@ -9,10 +9,10 @@ Every solution separates pinned product facts, local requirements, and learning 
 | Source | Solution | Status |
 |---|---|---|
 | [Module 1 — What Directive Is](../curriculum/modules/01-what-directive-is.md) | [Explained Module 1 solution](module-01-what-directive-is.md) | Available in the foundation milestone |
-| [Module 2 — Installation and Project Anatomy](../curriculum/modules/02-installation-and-anatomy.md) | [Explained Lab 2 solution](lab-02-disposable-initialization.md) | Available; 0.112.0 pinned npm path verified on macOS 15/zsh, Linux/bash on Ubuntu 24.04, and Windows/PowerShell 7.4+ on Windows Server 2022 by local and native-matrix evidence |
+| [Module 2 — Installation and Project Anatomy](../curriculum/modules/02-installation-and-anatomy.md) | [Explained Lab 2 solution](lab-02-disposable-initialization.md) | Available; 0.119.2 pinned npm path verified on macOS/zsh; Linux/bash and Windows/PowerShell candidates |
 | [Module 3 — Authority and Context](../curriculum/modules/03-authority-and-context.md) | [Explained Module 3 solution](module-03-authority-and-context.md) | Available; command-free exercise |
 | [Module 4 — xBRIEF as Durable State](../curriculum/modules/04-xbrief-as-durable-state.md) | [Explained Module 4 solution](module-04-xbrief-as-durable-state.md) | Available; command-free exercise |
-| [Module 5 — Sources versus Projections](../curriculum/modules/05-sources-versus-projections.md) | [Explained Lab 5 solution](lab-05-projection-drift-recovery.md) | Available; projection lab verified on macOS/zsh and native Windows/PowerShell 7.4+ |
+| [Module 5 — Sources versus Projections](../curriculum/modules/05-sources-versus-projections.md) | [Explained Lab 5 solution](lab-05-projection-drift-recovery.md) | Available; 0.119.2 projection lab verified on macOS/zsh; Linux and Windows candidates |
 | [Module 6 — Creating Well-Shaped Work](../curriculum/modules/06-creating-well-shaped-work.md) | [Explained Module 6 solution](module-06-creating-well-shaped-work.md) | Available; command-free exercise |
 | [Module 7 — Scope Lifecycle and Implementation Authorization](../curriculum/modules/07-scope-lifecycle.md) | [Explained Lab 7 solution](lab-07-scope-lifecycle.md) | Available; lifecycle lab verified on macOS/zsh only |
 | [Module 8 — Session Start and Authorized Work Selection](../curriculum/modules/08-session-and-work-selection.md) | [Explained Module 8 solution](module-08-session-and-work-selection.md) | Available; command-free fixed-state exercise |

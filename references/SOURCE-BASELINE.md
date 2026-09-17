@@ -10,35 +10,46 @@ follow-up unless it invalidates a command surface re-probed on this branch.
 | --- | --- |
 | Branch start | `codex/issue-3-directive-baseline-0-119-2` opened from `origin/master` commit `e6c8e9f456a503549c8925845fe4c23398fbbcea`. |
 | npm target | `@deftai/directive@0.119.2`; npm `latest` and `version` both resolved to `0.119.2`. |
-| Exact package graph | `@deftai/directive@0.119.2`, `@deftai/directive-core@0.119.2`, `@deftai/directive-content@0.119.2`, and `@deftai/directive-types@0.119.2`. Fixture overrides will keep this four-package graph exact. |
+| Exact package graph | `@deftai/directive@0.119.2`, `@deftai/directive-core@0.119.2`, `@deftai/directive-content@0.119.2`, and `@deftai/directive-types@0.119.2`. Fixture overrides keep this four-package graph exact. |
 | Package integrities | directive `sha512-Ff7kcMu7n1FqslbB0TWW5lC4IebIVNUrJW8SyOeo8nA22xL/xwSh/BcisNbVaPiQRU14m6XVyCkWmEJI7XLvTg==`; core `sha512-Oiaua6X52tqYXQeU5WYp94sS6ipzDMTVttb+qdwaN29NR7o2aXqfhfQPvN0M9CQzIXMHnXgxKFZRW4PbZcsuTw==`; content `sha512-kGyOp0K9cWt+RaUG++gyI6wEpliIgteL8GkIIvcod3xKdodigIaGXOeN+QtI2LXLxVQRy6zpv0U2M+7JKEEnqg==`; types `sha512-Ag1qe+PnLln1gYEpDcvkvAfgoTE5NQh8VyEXhb+0E1JktcMqgUsh7bIW2puoVfkytjk2H0eCxko5TWNaVjCOlg==`. |
 | Release tag | Annotated tag `v0.119.2`; tag object `69b7e7c2ece41d5f330545c65ebf74a696706f41`. |
 | Release commit | `9038503ffac65e6d48e5ba34758c4e8e7077aba3`; the peeled tag and npm `gitHead` agree for all four packages. |
 | Binding probes | `npm view` resolved the dist-tag, versions, dependency ranges, integrities, and npm `gitHead`; `git ls-remote` resolved the annotated tag and peeled commit; the live CLI reported `@deftai/directive-core@0.119.2`. |
-| Open command probes | The unpinned disposable `init` probe and the remaining taught command surfaces have not yet been re-run on 0.119.2. No 0.119.1 observation is promoted to current 0.119.2 evidence. |
-| Starting disagreement | The live authoring CLI is 0.119.2, tracked authoring surfaces are 0.119.1, and learner surfaces remain 0.112.0. This checkpoint records the destination; it does not claim that the collapse is complete. |
+| Command probes | An unpinned disposable no-remote `init --json` emitted parseable JSON and created the exact private package pin and 0.119.2 generation. Its isolated install resolved the exact four-package graph. `toolchain:check --help`, `verify:ac --help`, and `check --help` still reject `--help` with exit 2. The fixture suites exercise the remaining taught lifecycle, session, preflight, story-ready, acceptance, and check surfaces. |
+| Collapse state | The live authoring CLI, package pin, tracked generation, managed guidance, xBRIEF pin, fixtures, and current learner surfaces all target 0.119.2. Historical 0.112.0 evidence remains labeled in `SOURCE-NOTES.md` and delivery records. |
 | Pre-collapse executable checkpoint | After repairing the inherited Python-launcher and projection-symlink defects, `npm run test:baseline-upgrade` passed all 65 tests on macOS before any learner or authoring version literal was changed. The script is the exact seven-file aggregate named by issue #3 and is reused after the collapse. |
+| Post-collapse executable checkpoint | After the 0.119.2 collapse and dated-fixture filename reconciliation, the same `npm run test:baseline-upgrade` command passed all 65 tests on macOS/zsh. Linux/bash and Windows/PowerShell remain candidates pending native replay. |
 | Verification date | 2026-09-17. |
 
-This manifest fixes the curriculum's version-sensitive claims to Directive 0.112.0. It was
-revalidated through 2026-09-12 and must be refreshed when the project pin changes.
+This manifest fixes the curriculum's version-sensitive claims to Directive 0.119.2. It was
+revalidated on 2026-09-17 and must be refreshed when the project pin changes.
 
 ## Release identity
 
 | Evidence | Verified result |
 | --- | --- |
-| Consumer project pin | `package.json` has exact dev dependency `@deftai/directive: 0.112.0`. |
-| Executables used for probes | Earlier Modules 2–6 probes used a pin-matched 0.112.0 CLI. Modules 7, 9, and 10 used disposable repositories' explicit pin-matched launchers. Module 11 inspected immutable 0.112.0 source. Authoring-runtime drift is maintainer evidence in [SOURCE-NOTES.md](./SOURCE-NOTES.md), not a learner install target or behavior baseline. |
-| Installed packages | Historical learner proof at 0.112.0 used a global CLI/core/content graph and disposable repositories' CLI/core/content/types graphs that all resolved to 0.112.0. The training repository itself records a pin but intentionally contains no project-local install or lockfile. |
-| Runtime version report | The historical Module 7 local binary reported `@deftai/directive (engine: @deftai/directive-core@0.112.0)`. Non-pinned authoring runtimes are excluded from this learner baseline and retained only in maintainer source notes. |
-| Consumer deposit | The pinned baseline proof recorded payload, templates, skills, and docs at 0.112.0. Current authoring-deposit drift is retained only in maintainer source notes. |
-| Release tag | Annotated tag `v0.112.0`; tag object `5f30e544eedb72c313ba61934818eb49506fe61b`. |
-| Release commit | `7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808`. The tag peel and npm `gitHead` agree. |
-| npm artifact | Version 0.112.0; integrity `sha512-c5fOMWk2p1C/M6q8B3DrAJDjceNPeU6AvCesTA/zQAw/V+vbiPltfeo8NIBndoxRAaDtbVSQzEKnQ93f6sDS1w==`. |
+| Consumer project pin | `package.json` has exact dev dependency `@deftai/directive: 0.119.2`. |
+| Executables used for probes | The release bind used the 0.119.2 authoring CLI. The unpinned-init proof and executable fixture suites use project-local, pin-matched launchers in disposable no-remote repositories. |
+| Installed packages | The disposable release probe and fixture installs resolve CLI, core, content, and types to 0.119.2. The training repository itself records a pin but intentionally contains no project-local install or lockfile. |
+| Runtime version report | The live authoring CLI and disposable project-local CLI report `@deftai/directive-core@0.119.2`. |
+| Consumer deposit | The tracked generation record and ignored deposit report payload, templates, skills, and docs at 0.119.2. |
+| Release tag | Annotated tag `v0.119.2`; tag object `69b7e7c2ece41d5f330545c65ebf74a696706f41`. |
+| Release commit | `9038503ffac65e6d48e5ba34758c4e8e7077aba3`. The tag peel and npm `gitHead` agree. |
+| npm artifact | Version 0.119.2; integrity `sha512-Ff7kcMu7n1FqslbB0TWW5lC4IebIVNUrJW8SyOeo8nA22xL/xwSh/BcisNbVaPiQRU14m6XVyCkWmEJI7XLvTg==`. |
 | Curriculum model | Current authoring uses `xBRIEFInfo.version: "0.8"` and the `xbrief/` lifecycle. |
 
 Use the immutable [release commit][release-commit] for citations. The human-friendly
-[v0.112.0 tag][release-tag] and [npm package record][npm-release] identify the same release.
+[v0.119.2 tag][release-tag] and [npm package record][npm-release] identify the same release.
+
+## Current platform evidence
+
+These markers describe the current 0.119.2 teaching baseline. Platform records in
+`SOURCE-NOTES.md` below its historical boundary remain release history and do not promote a
+current platform.
+
+- `teaching-platform-proof:macos-zsh status=verified date=2026-09-17 evidence=baseline-upgrade-65-of-65`
+- `teaching-platform-proof:linux-bash status=candidate date=2026-09-17 evidence=not-run`
+- `teaching-platform-proof:windows-pwsh7 status=candidate date=2026-09-17 evidence=not-run`
 
 ## Evidence precedence
 
@@ -46,7 +57,7 @@ When evidence disagrees, use this order:
 
 1. Observed behavior from the installed, pin-matched CLI or deterministic gate.
 1. Source at the immutable release commit.
-1. Preserved 0.112.0 package/deposit bytes and hashes recorded during the
+1. Verified 0.119.2 package/deposit bytes and hashes recorded during the
    module-specific proofs.
 1. This curriculum's explanation.
 
@@ -105,7 +116,7 @@ cutover. It does not change the current xBRIEF schema version from 0.8.
 
 ## Modules 2–3 command surfaces
 
-The following literal probes were run against 0.112.0. Detailed exits and anomalies are in
+The following literal probes were run against 0.119.2. Detailed exits and anomalies are in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md#cli-help-probes).
 
 | Surface tested | Result used by the curriculum |
@@ -115,8 +126,8 @@ The following literal probes were run against 0.112.0. Detailed exits and anomal
 | `directive init --help` | Exit 0; verified options include `--repo-root` and `--yes`. |
 | `directive update --help` | Exit 0; verified update and dry-run surface. |
 | `directive doctor --help` | Exit 0; verified diagnostic surface. |
-| `directive toolchain:check --help` | Exit 2 after printing usage because 0.112.0 rejects `--help`; this is recorded, not hidden. |
-| `directive toolchain:check --consumer --project-root .` | Exit 0 on the verified macOS/zsh, Linux/bash, and Windows/PowerShell consumer paths. |
+| `directive toolchain:check --help` | Exit 2 after printing usage because 0.119.2 rejects `--help`; this is recorded, not hidden. |
+| `directive toolchain:check --consumer --project-root .` | Exit 0 on the local macOS/zsh proof. The prior Linux and Windows matrix is historical 0.112.0 evidence, so those 0.119.2 paths remain candidates pending a native run. |
 | `directive scope:record-approved-scope --help` | Exit 0; its documented `-- <xbrief-path>` form and the direct positional form both reach the operator-TTY authorization gate. |
 
 ## Modules 2–3 released disagreements
@@ -124,19 +135,17 @@ The following literal probes were run against 0.112.0. Detailed exits and anomal
 These disagreements change what the learner path can safely promise. Probe details and less
 central release discrepancies remain in [SOURCE-NOTES.md](./SOURCE-NOTES.md#recorded-disagreements-and-curriculum-decisions).
 
-| Released prose or help | Observed 0.112.0 behavior | Curriculum treatment |
+| Released prose or help | Observed 0.119.2 behavior | Curriculum treatment |
 | --- | --- | --- |
-| The README says init creates a committed package pin. | The disposable init path created no package pin. | Put and verify the exact direct pin and CLI/core/content/types overrides before init. |
+| The README says init creates a committed package pin. | Unpinned disposable init created a private `package.json` with exact `@deftai/directive: 0.119.2`. | Teach init ownership. The lab pre-seeds its fixture only to lock the full four-package graph before install, not to compensate for missing init behavior. |
 | Prose describes a new empty directory as a scaffold. | Running Git first made the otherwise empty repository select `brownfield-install`. | Expect brownfield for this Git-first safety path; do not reinterpret it as the wrong command. |
 | The project requires per-verb help checks. | `toolchain:check --help` prints usage but exits 2 with an unrecognized-argument diagnostic. | Record the defect, prove registration with `directive commands`, and use only the tested consumer form. |
 | Doctor is commonly described as read-only and prose can imply a clean result. | Doctor can write ignored throttle state and can exit 0 with classified warnings. | Say it does not mutate tracked product state or remotes; preserve and classify warnings. |
-| Brownfield init appends canonical ignore rules. | It did not add `/USER.md` or `/.deft/USER.md` to the existing ignore file. | Add those safety rules before init and prove them afterward. |
+| Brownfield init appends canonical ignore rules. | It added `/USER.md` and `/.deft/USER.md` in the disposable proof. | The lab still adds and proves the rules before init so personal authority never becomes trackable during the exercise. |
 | A learner might expect generated integration to remain merely untracked. | Init staged most managed paths, and the default-branch hook rejected the first checkpoint on `main`. | Inspect the staged-plus-untracked union and create the disposable feature branch before init. |
 
-Two 0.111.0 discrepancies are resolved in 0.112.0: the documented
-`scope:record-approved-scope -- <xbrief-path>` separator is accepted, and `directive init
---headless` emits complete parseable JSON. They are recorded as release deltas in
-[SOURCE-NOTES.md](./SOURCE-NOTES.md), not retained as current learner warnings.
+Earlier release deltas, including the approved-scope separator and complete headless JSON,
+remain historical in [SOURCE-NOTES.md](./SOURCE-NOTES.md). They are not current learner warnings.
 
 ## Modules 4–5 source and command boundary
 
@@ -153,18 +162,18 @@ Module 5 uses one prepared, fictional MAP fixture. Authored architecture metadat
 MAP. The [renderer implementation][src-map] and [freshness implementation][src-map-fresh]
 support the concrete behavior; learners do not need to inspect framework internals.
 
-| Surface | Verified boundary at 0.112.0 |
+| Surface | Verified boundary at 0.119.2 |
 | --- | --- |
 | `directive codebase:map --project-root .` | Registered CLI renderer; exercised through the disposable fixture's explicit local binary. |
 | `directive verify:codebase-map-fresh --project-root .` | Registered freshness check; existing stale output fails, but absent MAP can exit 0. The lab independently proves MAP existence and contents. |
 | Per-verb `--help` for those two verbs | The flag is ignored: the renderer writes and the freshness verifier checks. These are not safe discovery commands outside a disposable probe. |
 | `directive spec:render` and `directive project:render` | Registered inventory and pinned source inspected; not executed as Lab 5 exercises. |
-| `task deft:roadmap:render` | Present in this consumer's Taskfile include. `roadmap:render` is not in the 0.112.0 CLI inventory; do not invent a direct CLI equivalent. |
+| `task deft:roadmap:render` | Present in this consumer's Taskfile include. `roadmap:render` is not in the 0.119.2 CLI inventory; do not invent a direct CLI equivalent. |
 
-Lab 5 has its own platform evidence in [source notes](./SOURCE-NOTES.md#modules-45-verification).
-Module 2's native matrix does not establish Lab 5 platform support. A bounded native replay
-and separate learner report establish the published Windows/PowerShell 7.4+ path; Linux/bash
-remains a candidate.
+Lab 5 has historical platform evidence in [source notes](./SOURCE-NOTES.md#modules-45-verification),
+but that evidence does not establish current 0.119.2 platform support. The local macOS/zsh
+baseline-upgrade run is current; Linux/bash and Windows/PowerShell remain candidates pending
+their own pin-matched native replays.
 
 ## Module 6 source boundary
 
@@ -188,13 +197,13 @@ implementation, review, and shipping procedures remain reserved for their own mo
 
 ## Module 7 lifecycle validation
 
-Module 7 executes the real 0.112.0 consumer Task lifecycle inside a unique fictional
+Module 7 executes the real 0.119.2 consumer Task lifecycle inside a unique fictional
 operating-system temporary repository. The fixture has an exact CLI pin plus exact
-core/content/types overrides, an ignored 0.112.0 content deposit, a feature branch, and no
+core/content/types overrides, an ignored 0.119.2 content deposit, a feature branch, and no
 remote. Its Task PATH exposes only the attempt's package launchers and individually resolved
 support tools, preventing the newer global Directive from shadowing the taught release.
 
-| Surface | Verified 0.112.0 result |
+| Surface | Verified 0.119.2 result |
 | --- | --- |
 | Local `directive xbrief:preflight --vbrief-path xbrief/proposed/<story>` | Exit `1`; proposed is not eligible for implementation. The option name retains legacy wording. |
 | `task deft:xbrief:preflight` on proposed | Nonzero; go-task 3.50.0 returned `201` while preserving the child exit `1`. The wrapper value is environment evidence, not an engine contract. |
@@ -217,9 +226,9 @@ are in [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-7-source-validation).
 ## Module 8 session and work-selection validation
 
 Module 8 is a command-free exercise over fixed fictional state. Its behavior claims were
-revalidated against the exact 0.112.0 package graph and these released content surfaces:
+revalidated against the exact 0.119.2 package graph and these released content surfaces:
 
-| Pinned 0.112.0 source | Teaching contract |
+| Pinned 0.119.2 source | Teaching contract |
 | --- | --- |
 | `content/main.md` | Read-only default, mutation routing, active contract, and completed-record boundary. |
 | `content/commands.md` | Cold start, re-arm and recovery, ordered-plan/queue precedence, exhaustion stop, cache, and audit surfaces. |
@@ -229,7 +238,7 @@ revalidated against the exact 0.112.0 package graph and these released content s
 
 The exact state map used in the lesson is:
 
-| Surface | 0.112.0 path or command | Authority boundary |
+| Surface | 0.119.2 path or command | Authority boundary |
 | --- | --- | --- |
 | Ordered plan | `.deft/plan-sequence.json` and `deft plan-sequence:current` | Selects the current sequence entry; no mutation authority. |
 | Ranked issue content | `.deft-cache/` and `deft triage:queue` | Ranks candidates after the plan gate permits queue use. |
@@ -244,18 +253,18 @@ operator names a target or explicitly asks for queue/backlog selection. A queue 
 a candidate; implementation requires active scope plus the operator's live implementation
 instruction and passing applicable readiness gates.
 
-Module 8's release evidence used an explicit cached 0.112.0 npm package graph.
+Module 8's release evidence used an explicit cached 0.119.2 npm package graph.
 Authoring-runtime and migration-path drift are maintainer evidence recorded in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-8-source-validation).
 
 ## Module 9 implementation-readiness validation
 
-Module 9 exercises an exact CLI/core/content/types 0.112.0 package graph in a unique
+Module 9 exercises an exact CLI/core/content/types 0.119.2 package graph in a unique
 operating-system temporary, no-remote repository. The fixture begins on
 `training/module-09` with one active/running schema-0.8 story whose complete product
 allowlist is `src/greeting.mjs`.
 
-| Surface | Verified 0.112.0 result |
+| Surface | Verified 0.119.2 result |
 | --- | --- |
 | `task deft:session:start` | Exit `0` under a fresh lab-local session ID. |
 | `task deft:verify:session-ritual -- --tier=gated` | Exit `0` before product mutation. |
@@ -275,12 +284,12 @@ details are in
 
 ## Module 10 testing-and-gates validation
 
-Module 10 exercises an exact CLI/core/content/types 0.112.0 graph in a unique
+Module 10 exercises an exact CLI/core/content/types 0.119.2 graph in a unique
 operating-system temporary, no-remote repository on `training/module-10`. One
 active/running schema-0.8 story permits only the focused test, numeric-summary source,
 and governed quality record; stage guards narrow those paths further.
 
-| Surface | Verified 0.112.0 result |
+| Surface | Verified 0.119.2 result |
 | --- | --- |
 | `directive commands` | Exit `0`; registered `verify:ac`, `verify:forward-coverage`, and `check`. |
 | `directive verify:ac --help` | Exit `2`; the verb rejects `--help`. |
@@ -302,7 +311,7 @@ Windows install stops before npm. Probe details are in
 ## Module 11 review-and-completion validation
 
 Module 11 is a command-free exercise over a fixed fictional packet. Its behavior claims
-were revalidated against immutable source at the 0.112.0 release commit:
+were revalidated against immutable source at the 0.119.2 release commit:
 
 | Pinned source | Teaching contract |
 | --- | --- |
@@ -311,9 +320,8 @@ were revalidated against immutable source at the 0.112.0 release commit:
 | [deft-directive-review-cycle][skill-review] | Classification before editing, acceptance-scope disposition, one fix batch, and current-head review. |
 | [Directive lifecycle][src-lifecycle] | Implemented, PR-open, merge-ready, integration-merged, delivered, deployed, and UAT evidence boundaries. |
 
-The learner pin remains exactly 0.112.0. Authoring-runtime and deposit drift do
-not define learner behavior; exact hashes and adaptation notes remain in the
-maintainer-only source notes. The exercise implements the project's
+The learner pin, authoring runtime, and deposit all resolve to 0.119.2. Exact hashes and
+adaptation notes remain in the maintainer-only source notes. The exercise implements the project's
 simulated-review policy: it requires no live GitHub repository, external review bot, CI run,
 merge, deployment, or UAT execution.
 Exact hashes and adaptation notes are in
@@ -323,11 +331,11 @@ Exact hashes and adaptation notes are in
 
 The [learner-ready capstone](../curriculum/capstone-end-to-end.md) combines the
 Module 7–11 contracts in one guarded, disposable repository. Its learner
-package graph remains exactly `@deftai/directive@0.112.0` with
+package graph remains exactly `@deftai/directive@0.119.2` with
 `@deftai/directive-core`, `@deftai/directive-content`, and
-`@deftai/directive-types` also resolved to `0.112.0`.
+`@deftai/directive-types` also resolved to `0.119.2`.
 
-Directive 0.112.0 imports `node:fs` `globSync`, which is unavailable before
+Directive 0.119.2 imports `node:fs` `globSync`, which is unavailable before
 Node.js 22. The complete Directive proof therefore requires Node.js 22 or newer.
 The fictional application source is Node.js 20-compatible as a
 source-level design constraint; no isolated Node.js 20 execution is claimed,
@@ -336,7 +344,7 @@ path.
 
 | Surface | Bounded validation contract |
 | --- | --- |
-| Runtime matrix | `macos-15`, `ubuntu-24.04`, and `windows-2022`, each with Node.js `24.20.0`, Task `3.50.0`, and uv `0.11.10`; the Windows job also uses Python `3.13.13`. |
+| Current runtime evidence | Local macOS/zsh with Node.js `24.20.0`; the exact 65-test baseline-upgrade aggregate includes the guarded capstone fixture. Linux and Windows remain candidates pending a native 0.119.2 replay. |
 | Guarded route | `CREATED → CHECKPOINT → ORIENTED → SCOPED → READY → RED → GREEN → FOCUSED → LITERAL → AGGREGATE_RED → PREPR → REVIEWED → COMPLETE`. |
 | Expected failure | The outer `red` and `aggregate` helpers exit `0` and print `"EXPECTED_FAILURE"` only after retaining a nonzero nested focused or aggregate result. |
 | Review timing | `pre-pr` records the seeded finding without mutation; `review` verifies repaired current-product bytes before the final commit; `close` proves those bytes are unchanged, commits them, and reruns the aggregate on that commit. |
@@ -344,10 +352,10 @@ path.
 | Reset and archive | Reset creates a distinct `CREATED` attempt while preserving the prior repository and evidence. Archive moves each exact attempt parent to a recoverable OS-temporary location; neither operation emits JSON. |
 | Dependency boundary | Initial package installation contacts the configured npm registry. The remaining exercise needs no instructor, Greptile, live reviewer, GitHub mutation, deployment, publication, or UAT service. |
 
-The successful native jobs prove the guarded fixture on only those images and
-tool versions. They do not prove every shell, package manager, coding-agent
-host, or an independent learner walkthrough. Probe-level commits, job links,
-and the local fixture result are recorded in
+The current local run proves the guarded fixture only on macOS/zsh with the recorded runtime.
+It does not prove Linux, Windows, every shell or package manager, coding-agent integration,
+or an independent learner walkthrough. Historical cross-platform jobs and the current local
+fixture result are recorded separately in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md#capstone-source-validation).
 
 ## Deferred skill-contract validation
@@ -393,35 +401,35 @@ Refresh this baseline when any of these occurs:
 Record probe-level results, disagreements, and unresolved coverage in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md).
 
-[release-commit]: https://github.com/deftai/directive/commit/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808
-[release-tag]: https://github.com/deftai/directive/tree/v0.112.0
-[npm-release]: https://www.npmjs.com/package/@deftai/directive/v/0.112.0
-[src-readme]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/README.md
-[src-category]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/docs/CATEGORY.md
-[src-concepts]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/docs/CONCEPTS.md
-[src-core-skill]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/SKILL.md
-[src-main]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/main.md
-[src-getting-started]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/docs/getting-started.md
-[src-references]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/conventions/references.md
-[src-lifecycle]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/docs/directive-lifecycle.md
-[src-commands]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md
-[src-strategies]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/strategies/README.md
-[src-interview]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/strategies/interview.md
-[src-verification]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/verification/verification.md
-[src-plan-checking]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/verification/plan-checking.md
-[src-review]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/coding/review.md
-[src-glossary-upstream]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/glossary.md
-[src-license]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/LICENSE
-[skill-setup]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-setup/SKILL.md
-[skill-decompose]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-decompose/SKILL.md
-[skill-gh-slice]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-gh-slice/SKILL.md
-[skill-build]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-build/SKILL.md
-[skill-pre-pr]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-pre-pr/SKILL.md
-[skill-review]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-review-cycle/SKILL.md
-[skill-refinement]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-refinement/SKILL.md
-[skill-swarm]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-swarm/SKILL.md
-[src-taxonomy]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/vbrief/vbrief.md
-[src-continue]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/resilience/continue-here.md
-[src-schema]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/vbrief/schemas/xbrief-core-0.8.schema.json
-[src-map]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/packages/core/src/codebase/map.ts
-[src-map-fresh]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/packages/core/src/codebase/map-fresh.ts
+[release-commit]: https://github.com/deftai/directive/commit/9038503ffac65e6d48e5ba34758c4e8e7077aba3
+[release-tag]: https://github.com/deftai/directive/tree/v0.119.2
+[npm-release]: https://www.npmjs.com/package/@deftai/directive/v/0.119.2
+[src-readme]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/README.md
+[src-category]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/docs/CATEGORY.md
+[src-concepts]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/docs/CONCEPTS.md
+[src-core-skill]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/SKILL.md
+[src-main]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/main.md
+[src-getting-started]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/docs/getting-started.md
+[src-references]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/conventions/references.md
+[src-lifecycle]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/docs/directive-lifecycle.md
+[src-commands]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/commands.md
+[src-strategies]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/strategies/README.md
+[src-interview]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/strategies/interview.md
+[src-verification]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/verification/verification.md
+[src-plan-checking]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/verification/plan-checking.md
+[src-review]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/coding/review.md
+[src-glossary-upstream]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/glossary.md
+[src-license]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/LICENSE.md
+[skill-setup]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-setup/SKILL.md
+[skill-decompose]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-decompose/SKILL.md
+[skill-gh-slice]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-gh-slice/SKILL.md
+[skill-build]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-build/SKILL.md
+[skill-pre-pr]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-pre-pr/SKILL.md
+[skill-review]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-review-cycle/SKILL.md
+[skill-refinement]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-refinement/SKILL.md
+[skill-swarm]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-swarm/SKILL.md
+[src-taxonomy]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/vbrief/vbrief.md
+[src-continue]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/resilience/continue-here.md
+[src-schema]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/vbrief/schemas/xbrief-core-0.8.schema.json
+[src-map]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/packages/core/src/codebase/map.ts
+[src-map-fresh]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/packages/core/src/codebase/map-fresh.ts

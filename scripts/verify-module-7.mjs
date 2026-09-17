@@ -3,6 +3,7 @@ import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { courseModuleRow, markdownParts, moduleHeadings, section, solutionHeadings, verifyLinks } from "./verify-modules-4-5.mjs";
+import { assertTeachingBaselinePin } from "./teaching-baseline.mjs";
 
 const module7 = "curriculum/modules/07-scope-lifecycle.md";
 const lab7 = "labs/07-scope-lifecycle.md";
@@ -36,8 +37,8 @@ const forbiddenFixture = /\bgit\s+push\b|\bgh\s+(?:pr|issue|api|repo)\b|\brmSync
 
 function exactBaseline(path, prose, heading) {
   const row = section(prose, heading).match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-  assert.ok(row?.includes("0.112.0"), `${path} must declare exact Directive 0.112.0`);
-  assert.deepEqual([...new Set(row.match(/\b\d+\.\d+\.\d+\b/g))], ["0.112.0"], `${path} contains a stale or ranged Directive baseline`);
+  assert.ok(row?.includes("0.119.2"), `${path} must declare exact Directive 0.119.2`);
+  assert.deepEqual([...new Set(row.match(/\b\d+\.\d+\.\d+\b/g))], ["0.119.2"], `${path} contains a stale or ranged Directive baseline`);
 }
 
 function requireOutcomes(path, prose, headings) {
@@ -109,7 +110,7 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   const helperBody = content.get(helper);
   const safetyBody = content.get(safety);
   assert.doesNotMatch(helperBody + "\n" + safetyBody, forbiddenFixture, "fixture contains a forbidden remote or destructive command");
-  for (const token of ["mkdtempSync", "3ci-directive-lab07-", "assertNoGitRedirection", 'git(root, ["remote"])', "exact 0.112.0 pin required"]) assert.ok((helperBody + safetyBody).includes(token), `fixture is missing safety token: ${token}`);
+  for (const token of ["mkdtempSync", "3ci-directive-lab07-", "assertNoGitRedirection", 'git(root, ["remote"])', "exact 0.119.2 pin required"]) assert.ok((helperBody + safetyBody).includes(token), `fixture is missing safety token: ${token}`);
   assert.match(safetyBody, /export function assertNoGitRedirection/, "fixture is missing the Git redirection guard");
   assert.match(safetyBody, /export function safePath/, "fixture is missing its path guard");
   for (const task of ["deft:scope:promote", "deft:scope:activate", "deft:scope:cancel", "deft:session:start", "deft:verify:session-ritual", "deft:xbrief:preflight", "deft:scope:complete"]) assert.ok(helperBody.includes(task), `fixture is missing Task transition: ${task}`);
@@ -125,40 +126,38 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
 
   const fixtureManifest = JSON.parse(content.get(fixturePackage));
   assert.equal(fixtureManifest.private, true, "fixture package must remain private");
-  assert.equal(fixtureManifest.devDependencies?.["@deftai/directive"], "0.112.0", "fixture must pin Directive exactly");
-  for (const name of ["directive-core", "directive-content", "directive-types"]) assert.equal(fixtureManifest.overrides?.[`@deftai/${name}`], "0.112.0", `fixture must pin ${name} exactly`);
+  assert.equal(fixtureManifest.devDependencies?.["@deftai/directive"], "0.119.2", "fixture must pin Directive exactly");
+  for (const name of ["directive-core", "directive-content", "directive-types"]) assert.equal(fixtureManifest.overrides?.[`@deftai/${name}`], "0.119.2", `fixture must pin ${name} exactly`);
   assert.equal(JSON.parse(content.get(fixtureProject)).xBRIEFInfo?.version, "0.8", "fixture project must use xBRIEF 0.8");
 
   const notes = content.get("references/SOURCE-NOTES.md");
   assert.match(notes, /^## Module 7 (?:source validation|verification)\s*$/m, "SOURCE-NOTES is missing the Module 7 source validation record");
-  for (const [platform, expected] of [["macos-zsh", "verified"], ["linux-bash", "candidate"], ["windows-pwsh7", "verified"]]) {
-    const matches = [...notes.matchAll(new RegExp(`lab07-platform-proof:${platform} status=(verified|candidate) date=(\\d{4}-\\d{2}-\\d{2}) evidence=([^\\s\x60]+)`, "g"))];
-    assert.equal(matches.length, 1, `SOURCE-NOTES must contain exactly one Lab 7 proof marker for ${platform}`);
-    assert.equal(matches[0][1], expected, `${platform}: unsupported Module 7 native claim`);
+  const baseline = content.get("references/SOURCE-BASELINE.md");
+  for (const [platform, expected] of [["macos-zsh", "verified"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
+    const matches = [...baseline.matchAll(new RegExp(`teaching-platform-proof:${platform} status=(verified|candidate) date=(\\d{4}-\\d{2}-\\d{2}) evidence=([^\\s\x60]+)`, "g"))];
+    assert.equal(matches.length, 1, `SOURCE-BASELINE must contain exactly one current proof marker for ${platform}`);
+    assert.equal(matches[0][1], expected, `${platform}: unsupported current Module 7 platform claim`);
     if (expected === "verified") assert.doesNotMatch(matches[0][3], /^(?:none|not-run|pending|unknown)$/, `${platform}: verified status requires evidence`);
   }
   for (const path of [module7, lab7, solution7]) {
-    for (const line of parsed.get(path).prose.split("\n").filter((line) => /Linux|Windows/i.test(line) && !/^#{1,6}\s/.test(line))) {
-      assert.ok(/candidate|not (?:yet )?(?:verified|learner-ready)|unverified|no learner-ready|implemented|automated|independent learner|verified|learner-ready/i.test(line), `${path} contains an unsupported native platform claim: ${line}`);
-    }
+    assert.match(parsed.get(path).prose, /Linux[\s\S]{0,180}candidate|candidate[\s\S]{0,180}Linux/i, `${path} must keep Linux as a candidate`);
+    assert.match(parsed.get(path).prose, /Windows[\s\S]{0,180}candidate|candidate[\s\S]{0,180}Windows/i, `${path} must keep Windows as a candidate`);
   }
 
   const course = content.get("curriculum/README.md");
-  assert.ok(
-    course.replace(/\s+/g, " ").includes("Module 7 and the executable labs in Modules 9 and 10 are verified on macOS/zsh and native Windows/PowerShell."),
-    "course overview must retain verified native Windows support for Labs 7, 9, and 10",
-  );
+  assert.match(course, /0\.119\.2 executable path is verified locally on[\s\S]{0,100}macOS\/zsh/i, "course overview must retain current macOS/zsh evidence");
+  assert.match(course, /Linux\/bash and Windows\/PowerShell remain candidates/i, "course overview must keep Linux and Windows as candidates");
   const module7Row = courseModuleRow(course, 7);
   assert.match(module7Row, /07-scope-lifecycle\.md/, "Module 7 course row must link the lesson");
   assert.doesNotMatch(module7Row, /\|\s*Planned\s*\|/i, "Module 7 must no longer be planned");
-  assert.match(module7Row, /verified on macOS\/zsh and native Windows\/PowerShell/i, "Module 7 course row must retain verified native Windows support");
+  assert.match(module7Row, /verified on macOS\/zsh; Linux and Windows candidates/i, "Module 7 course row must retain current platform boundaries");
   assert.match(courseModuleRow(course, 8), /08-session-and-work-selection\.md/, "Module 8 course row must retain its lesson link");
   for (const path of ["README.md", "curriculum/README.md", "labs/README.md", "solutions/README.md", "assessments/README.md"]) {
     requireModule7Link(content.get(path), path);
     verifyLinks(root, path, markdownParts(content.get(path)).prose);
   }
   const labsIndex = content.get("labs/README.md");
-  assert.match(labsIndex, /^\| \[Lab 7[^\n]*\]\(07-scope-lifecycle\.md\) \| Learner-ready draft;[^\n]*macOS[^\n]*native Windows\/PowerShell[^\n]*\|/m, "labs/README.md must list Lab 7 as learner-ready on its verified macOS and native Windows paths");
+  assert.match(labsIndex, /^\| \[Lab 7[^\n]*\]\(07-scope-lifecycle\.md\) \| Learner-ready draft;[^\n]*macOS\/zsh; Linux and Windows candidates[^\n]*\|/m, "labs/README.md must list Lab 7 with the current platform boundary");
   assert.doesNotMatch(labsIndex, /Labs for Modules? 6(?:[–-]| through )11/, "labs/README.md must not classify Lab 7 inside an unavailable Modules 6–11 range");
   for (const term of ["promotion", "activation", "live implementation intent", "lifecycle evidence"]) assert.match(content.get("references/GLOSSARY.md"), new RegExp(term, "i"), `glossary is missing Module 7 term: ${term}`);
   for (const phrase of ["task deft:scope:promote", "task deft:scope:activate", "task deft:xbrief:preflight", "live implementation intent"]) assert.match(content.get("references/QUICK-REFERENCE.md"), new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"), `quick reference is missing Module 7 guidance: ${phrase}`);
@@ -177,7 +176,7 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.scripts?.["check:module-7"], "node scripts/verify-module-7.mjs", "package scripts must expose check:module-7");
   assert.equal(projectPackage.scripts?.["test:module-7"], "node --test scripts/lifecycle-lab.test.mjs scripts/verify-module-7.test.mjs", "package scripts must expose test:module-7");
-  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.119.1", "training package must retain exact Directive pin");
+  assertTeachingBaselinePin(projectPackage, content.get("README.md"));
   return { artifactCount: content.size };
 }
 

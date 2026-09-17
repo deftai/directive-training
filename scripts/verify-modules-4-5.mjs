@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync, realpathSync, statSync } from "node:fs";
 import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { assertTeachingBaselinePin } from "./teaching-baseline.mjs";
 
 const module4 = "curriculum/modules/04-xbrief-as-durable-state.md";
 const module5 = "curriculum/modules/05-sources-versus-projections.md";
@@ -12,7 +13,7 @@ export const moduleHeadings = Object.freeze(["Module record", "Learning outcomes
 const labHeadings = ["Lab record", "Goal and done condition", "Fictional scenario", "Environment and starting-state check", "Safety boundary", "Starting checkpoint", "Tasks", "Checkpoints", "Literal acceptance commands", "Evidence bundle", "Progressive hints", "Expected failures and recovery", "Reset to start", "Cleanup", "Explained solution", "Done statement"];
 export const solutionHeadings = Object.freeze(["Solution record", "Before you use this solution", "Result summary", "Outcome map", "Reasoning", "Worked approach", "Acceptance evidence", "Compare with your attempt", "Valid alternatives", "Expected failures and recovery", "Misconceptions exposed by this exercise", "Retry plan", "Reset and cleanup", "Sources", "Continue"]);
 const headingContracts = new Map([[module4, moduleHeadings], [module5, moduleHeadings], [lab5, labHeadings], [solution4, solutionHeadings], [solution5, solutionHeadings]]);
-const requiredFiles = [...headingContracts.keys(), "curriculum/README.md", "references/SOURCE-NOTES.md", "package.json"];
+const requiredFiles = [...headingContracts.keys(), "README.md", "curriculum/README.md", "references/SOURCE-BASELINE.md", "references/SOURCE-NOTES.md", "package.json"];
 const escapeRegExp = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 // Parse fences linewise so headings and links shown as examples are not prose.
@@ -147,8 +148,8 @@ export function verifyModules45(root = fileURLToPath(new URL("../", import.meta.
       assert.ok(section(parts.prose, heading).trim(), `${path} has an empty section: ${heading}`);
     }
     const baseline = parts.prose.match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-    assert.ok(baseline?.includes("0.112.0"), `${path} must declare the exact Directive 0.112.0 baseline`);
-    assert.deepEqual([...new Set(baseline.match(/\b\d+\.\d+\.\d+\b/g))], ["0.112.0"], `${path} contains a stale baseline version`);
+    assert.ok(baseline?.includes("0.119.2"), `${path} must declare the exact Directive 0.119.2 baseline`);
+    assert.deepEqual([...new Set(baseline.match(/\b\d+\.\d+\.\d+\b/g))], ["0.119.2"], `${path} contains a stale baseline version`);
     assert.doesNotMatch(body, /"(?:xBRIEFInfo|vBRIEFInfo)"\s*:\s*\{[^}]*"version"\s*:\s*"0\.6"/, `${path} teaches a legacy xBRIEF write envelope`);
     assert.doesNotMatch(parts.prose, /\b(?:Directive behavior|3Ci policy|Course guidance)\b/i, `${path} contains a removed claim label`);
     for (const block of parts.blocks.filter(({ language }) => /^(?:sh|shell|bash|zsh|powershell|pwsh|console)$/.test(language))) {
@@ -184,16 +185,16 @@ export function verifyModules45(root = fileURLToPath(new URL("../", import.meta.
     assert.ok(labCommands.some((line) => new RegExp(`(?:^|\\s)${command}(?:\\s|$)`).test(line) && !/--help\b/.test(line) && !/^\s*#/.test(line)), `Lab 5 must run a literal ${label} command, not help alone`);
   }
   assert.ok(labCommands.some((line) => /projection-lab\.mjs\s+verify-result\b/.test(line)), "Lab 5 must verify MAP existence and content as well as freshness");
-  const proofNotes = content.get("references/SOURCE-NOTES.md");
-  for (const platform of ["macos-zsh", "linux-bash", "windows-pwsh7"]) {
-    const markers = [...proofNotes.matchAll(new RegExp(`lab05-platform-proof:${platform} status=(verified|candidate) date=(\\d{4}-\\d{2}-\\d{2}) evidence=([^\\s\x60]+)`, "g"))];
-    assert.equal(markers.length, 1, `SOURCE-NOTES must contain exactly one Lab 5 proof marker for ${platform}`);
-    assert.equal(markers[0][1], platform === "linux-bash" ? "candidate" : "verified", `${platform}: Lab 5 proof status does not match the supported paths`);
-    if (platform !== "linux-bash") assert.doesNotMatch(markers[0][3], /^(?:none|not-run|pending|unknown)$/, `Lab 5 ${platform} proof must cite actual evidence`);
+  const currentBaseline = content.get("references/SOURCE-BASELINE.md");
+  for (const [platform, expected] of [["macos-zsh", "verified"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
+    const markers = [...currentBaseline.matchAll(new RegExp(`teaching-platform-proof:${platform} status=(verified|candidate) date=(\\d{4}-\\d{2}-\\d{2}) evidence=([^\\s\x60]+)`, "g"))];
+    assert.equal(markers.length, 1, `SOURCE-BASELINE must contain exactly one current proof marker for ${platform}`);
+    assert.equal(markers[0][1], expected, `${platform}: current platform status does not match the supported paths`);
+    if (expected === "verified") assert.doesNotMatch(markers[0][3], /^(?:none|not-run|pending|unknown)$/, `Lab 5 ${platform} proof must cite actual evidence`);
   }
   const platformRecord = section(parsed.get(lab5).prose, "Lab record");
   assert.match(platformRecord, /macOS[^\n]*zsh/i, "Lab 5 must identify its verified macOS/zsh path");
-  assert.match(platformRecord, /Windows[^\n]*PowerShell 7\.4\+/i, "Lab 5 must identify its verified Windows/PowerShell 7.4+ path");
+  assert.match(platformRecord, /Linux[^\n]*Windows[^\n]*candidate/i, "Lab 5 must identify Linux and Windows as candidate paths");
   const powershellCommands = parsed.get(lab5).blocks.filter(({ language }) => /^(?:powershell|pwsh)$/.test(language)).map(({ content: block }) => block).join("\n");
   for (const verb of ["create", "guard", "verify-pin", "checkpoint", "inject-drift", "verify-result", "archive"]) {
     assert.match(powershellCommands, new RegExp(`projection-lab\\.mjs[^\\n]*\\b${verb}\\b`), `Lab 5 must provide a PowerShell command for helper verb ${verb}`);
@@ -206,10 +207,8 @@ export function verifyModules45(root = fileURLToPath(new URL("../", import.meta.
   assert.match(doneStatement, /actual (?:operating system|OS)[^\n]*shell/i, "Lab 5 done statement must require the learner's actual OS and shell");
   assert.doesNotMatch(doneStatement, /completed[^\n]*recorded\s+macOS\//i, "Lab 5 done statement must not require macOS/zsh");
   for (const path of [lab5, solution5, module5]) {
-    for (const line of parsed.get(path).prose.split("\n").filter((line) => /Linux/i.test(line))) {
-      const noNegation = line.replace(/\b(?:not|never)\s+(?:yet\s+)?(?:verified|tested|learner-ready)\b/gi, "untested");
-      assert.ok(!/\b(?:verified|learner-ready)\b/i.test(noNegation) || /\b(?:candidate|untested|unverified|not claimed)\b/i.test(noNegation), `${path} contains an unsupported native Lab 5 claim: ${line}`);
-    }
+    assert.match(parsed.get(path).prose, /Linux[\s\S]{0,180}candidate|candidate[\s\S]{0,180}Linux/i, `${path} must keep Linux as a candidate`);
+    assert.match(parsed.get(path).prose, /Windows[\s\S]{0,180}candidate|candidate[\s\S]{0,180}Windows/i, `${path} must keep Windows as a candidate`);
   }
   assert.match(section(parsed.get(module4).prose, "Navigation"), /\]\(05-sources-versus-projections\.md(?:#[^)]*)?\)/, "Module 4 must navigate to Module 5");
   assert.match(section(parsed.get(module5).prose, "Navigation"), /\]\(06-creating-well-shaped-work\.md(?:#[^)]*)?\)/, "Module 5 must navigate to Module 6");
@@ -221,7 +220,7 @@ export function verifyModules45(root = fileURLToPath(new URL("../", import.meta.
   verifyLinks(root, "curriculum/README.md", markdownParts(course).prose);
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.private, true, "the training package must remain private");
-  assert.equal(projectPackage.devDependencies?.["@deftai/directive"], "0.119.1", "the training package must retain the exact Directive pin");
+  assertTeachingBaselinePin(projectPackage, content.get("README.md"));
   return { artifactCount: requiredFiles.length };
 }
 

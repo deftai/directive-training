@@ -7,19 +7,18 @@
 | Stable ID | `assessment-capstone-end-to-end` |
 | Assesses | `CAP.1`, `CAP.2`, `CAP.3`, and `CAP.4` |
 | Status | Learner-ready |
-| Last verified | 2026-09-12 |
-| Directive baseline | `@deftai/directive@0.112.0`; engine, content, and types `0.112.0`; [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
-| Execution runtime | Node.js `22 or newer`; the verified fixture matrix used `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
+| Last verified | 2026-09-17 |
+| Directive baseline | `@deftai/directive@0.119.2`; engine, content, and types `0.119.2`; [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
+| Execution runtime | Node.js `22 or newer`; the verified local macOS run used `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
 | Suggested duration | 105–120 minutes, including evidence review, reset, and recoverable archive |
 | Suggested first attempt | 45 minutes before opening the explained solution |
 | Attempt conditions | Open-book; guarded disposable local repositories; fictional data only; no remote |
 | Source exercise | [Capstone lab](../labs/capstone-end-to-end.md) |
 | Explained solution | [Capstone explained solution](../solutions/capstone-end-to-end.md) |
 
-The guarded fixture suite ran on `macos-15`, `ubuntu-24.04`, and
-`windows-2022` with Node.js 24.20.0. That proves the fixture on those bounded
-runners, not every terminal, package manager, coding-agent host, or independent
-learner walkthrough.
+The guarded fixture suite ran locally on macOS/zsh with Node.js 24.20.0. Linux and Windows
+remain candidates pending native 0.119.2 evidence; no independent learner walkthrough is
+inferred from this run.
 
 This assessment requires no instructor, private answer, Greptile result, live
 reviewer, GitHub mutation, deployment, or UAT environment. Initial package
@@ -49,7 +48,7 @@ Reading or copying the explained solution is not completion evidence.
 
 ## Preserve and avoid
 
-- Preserve the exact Directive 0.112.0 package graph, supplied
+- Preserve the exact Directive 0.119.2 package graph, supplied
   test, Taskfile, helper, evidence verifier, project definition, active story
   contract, control deposits, `training/capstone` branch, and empty remote list.
 - Before readiness and meaningful red, make no product edit.
@@ -132,8 +131,8 @@ broader temporary directory, workspace, or home recursively.
 | Artifact or observation | Exact passing evidence |
 | --- | --- |
 | `capstone-assessment-note.md` — runtime observation | `node --version` records the runtime; the Node.js 22 or newer major-version assertion exited `0`; OS and shell are named; observed npm, Git, Task, and uv versions are recorded; Windows evidence also records Python |
-| `orientation.json` | Schema `3ci.training.capstone.orientation-evidence.v1`; `finalStatus: PASS`; project `Northstar Work Items Capstone`; branch `training/capstone`; empty remote; proposed contract `xbrief/proposed/fictional-work-items.xbrief.json`; baseline engine `0.112.0`; version command exit `0` |
-| `scope.json` | `finalStatus: PASS`; transition from the proposed path to `xbrief/active/fictional-work-items.xbrief.json`; allowed files exactly `["src/work-items.mjs"]`; promote and activate exit `0`; lifecycle checkpoint recorded |
+| `orientation.json` | Schema `3ci.training.capstone.orientation-evidence.v1`; `finalStatus: PASS`; project `Northstar Work Items Capstone`; branch `training/capstone`; empty remote; proposed contract `xbrief/proposed/2026-01-15-fictional-work-items.xbrief.json`; baseline engine `0.119.2`; version command exit `0` |
+| `scope.json` | `finalStatus: PASS`; transition from the proposed path to `xbrief/active/2026-01-15-fictional-work-items.xbrief.json`; allowed files exactly `["src/work-items.mjs"]`; promote and activate exit `0`; lifecycle checkpoint recorded |
 | `readiness.json` | `finalStatus: READY`; checkpoint matches `scope.json`; active contract and allowlist match; `sessionStart`, `sessionRitual`, `storyReady`, and `activePreflight` each exit `0` |
 | `red.json` | `finalStatus: EXPECTED_FAILURE`; `changedFiles` empty; nested focused exit `1`; output names the missing work-items behavior; test digest retained |
 | `green.json` | `finalStatus: PASS`; changed files exactly `["src/work-items.mjs"]`; test digest equals the red digest; focused, add, and complete probes exit `0`; add returns `WI-001 / Capture capstone evidence / open`; complete returns `done` |
@@ -400,7 +399,7 @@ repeats twice without material change. Preserve the evidence and use
 Complete every bracket from your own current evidence:
 
 > I completed `assessment-capstone-end-to-end` against
-> `@deftai/directive@0.112.0` and engine `0.112.0`. `CAP.1`–`CAP.4`
+> `@deftai/directive@0.119.2` and engine `0.119.2`. `CAP.1`–`CAP.4`
 > are Demonstrated by the orientation/scope/readiness,
 > red/green/focused/literal/aggregate, pre-PR/review-resolution, and closeout
 > evidence from one guarded implementation attempt, plus a distinct reset

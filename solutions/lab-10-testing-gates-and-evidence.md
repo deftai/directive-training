@@ -8,7 +8,7 @@
 | Stable ID | `solution-lab-10-testing-gates-and-evidence` |
 | Status | Available |
 | Verified | 2026-09-10 on macOS/zsh |
-| Directive baseline | `@deftai/directive@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | `@deftai/directive@0.119.2`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 
 ## Before you use this solution
 
@@ -49,7 +49,7 @@ The aggregate reached `quality:record` only after the earlier checks passed. Tha
 
 ### Step 1 — Create and install
 
-The helper created a canonical unique temporary root, branch `training/module-10`, and no remote, then installed the exact 0.112.0 package/core/content/types graph. The clean checkpoint contained the active/running story and unchanged gates.
+The helper created a canonical unique temporary root, branch `training/module-10`, and no remote, then installed the exact 0.119.2 package/core/content/types graph. The clean checkpoint contained the active/running story and unchanged gates.
 
 ### Step 2 — Add the red test
 

@@ -7,7 +7,7 @@
 | Stable ID | `module-11-review-and-completion` |
 | Status | Learner-ready draft; command-free fixed-state exercise |
 | Last verified | 2026-09-11 |
-| Directive baseline | 0.112.0 |
+| Directive baseline | 0.119.2 |
 | Estimated time | 55 minutes |
 | Prerequisite | [Module 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md) |
 | Evidence | A pre-PR decision worksheet, four-row finding classification, coherent-batch plan, and three-axis completion-card matrix |

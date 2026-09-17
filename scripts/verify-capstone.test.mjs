@@ -10,6 +10,7 @@ const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const copyPaths = [
   ".github",
   "CHANGELOG.md",
+  "LICENSE",
   "README.md",
   "assessments",
   "curriculum",
@@ -183,15 +184,15 @@ test("verifier rejects a live Greptile dependency", () => {
 });
 
 test("verifier rejects an unsupported verified platform", () => {
-  const root = changedCopy("references/SOURCE-NOTES.md", (body) =>
-    body + "\n- `capstone-platform-proof:android-node24 status=verified date=2026-09-12 evidence=none`\n");
+  const root = changedCopy("references/SOURCE-BASELINE.md", (body) =>
+    body + "\n- `teaching-platform-proof:android status=verified date=2026-09-17 evidence=none`\n");
   assert.throws(() => verifyCapstone(root), /platform proof marker/);
 });
 
 test("verifier rejects a ranged learner pin", () => {
   const root = changedCopy("package.json", (body) =>
-    body.replace('"@deftai/directive": "0.119.1"', '"@deftai/directive": "^0.119.1"'));
-  assert.throws(() => verifyCapstone(root), /exact Directive pin/);
+    body.replace('"@deftai/directive": "0.119.2"', '"@deftai/directive": "^0.119.2"'));
+  assert.throws(() => verifyCapstone(root), /must pin @deftai\/directive exactly/);
 });
 
 test("verifier rejects an unavailable capstone index row", () => {

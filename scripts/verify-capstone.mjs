@@ -8,6 +8,7 @@ import {
   section,
   verifyLinks,
 } from "./verify-modules-4-5.mjs";
+import { assertTeachingBaselinePin } from "./teaching-baseline.mjs";
 
 const curriculumPath = "curriculum/capstone-end-to-end.md";
 const labPath = "labs/capstone-end-to-end.md";
@@ -334,8 +335,8 @@ function lifecycleState(root) {
   return candidates[0];
 }
 
-function capstonePlatformMarkers(notes) {
-  return [...notes.matchAll(/capstone-platform-proof:([a-z0-9-]+) status=(verified|candidate) date=(\d{4}-\d{2}-\d{2}) evidence=([^\s\x60]+)/g)]
+function teachingPlatformMarkers(baseline) {
+  return [...baseline.matchAll(/teaching-platform-proof:([a-z0-9-]+) status=(verified|candidate) date=(\d{4}-\d{2}-\d{2}) evidence=([^\s\x60]+)/g)]
     .map((match) => ({ proof: match[1], status: match[2], date: match[3], evidence: match[4] }));
 }
 
@@ -457,7 +458,7 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
     "local_pass",
     "not_started",
     "n/a-no-remote-claim",
-    "xbrief/active/fictional-work-items.xbrief.json",
+    "xbrief/active/2026-01-15-fictional-work-items.xbrief.json",
   ]) assert.ok(combinedCore.includes(token), "capstone evidence contract is missing " + token);
   assert.match(combinedCore, /red[\s\S]{0,500}helper exits? \x600\x60[\s\S]{0,200}nested focused[\s\S]{0,80}exit \x601\x60/i, "red wrapper and nested exit semantics are missing");
   assert.match(combinedCore, /aggregate[\s\S]{0,500}helper exits? \x600\x60[\s\S]{0,300}nested aggregate[\s\S]{0,100}nonzero/i, "aggregate wrapper and nested exit semantics are missing");
@@ -550,7 +551,7 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.match(combinedCore, /private[\s\S]{0,80}capstone-assessment-note\.md/i, "capstone is missing the reset/archive disposition note");
 
   const packageJson = JSON.parse(content.get("package.json"));
-  assert.equal(packageJson.devDependencies?.["@deftai/directive"], "0.119.1", "training package must retain the exact Directive pin");
+  assertTeachingBaselinePin(packageJson, content.get("README.md"));
   assert.equal(packageJson.scripts?.["check:capstone"], "node scripts/verify-capstone.mjs", "package scripts must expose check:capstone");
   assert.equal(
     packageJson.scripts?.["test:capstone"],
@@ -562,9 +563,9 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.equal(packageJson.scripts?.["test:linked-path-safety"], "node scripts/verify-symlink-capability.mjs && node --test scripts/linked-path-safety.test.mjs", "test:linked-path-safety changed");
 
   const fixturePackage = JSON.parse(content.get(fixturePackagePath));
-  assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.112.0", "fixture package must retain the exact Directive pin");
+  assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.119.2", "fixture package must retain the exact Directive pin");
   for (const dependency of ["directive-core", "directive-content", "directive-types"]) {
-    assert.equal(fixturePackage.overrides?.["@deftai/" + dependency], "0.112.0", "fixture package must retain exact " + dependency + " override");
+    assert.equal(fixturePackage.overrides?.["@deftai/" + dependency], "0.119.2", "fixture package must retain exact " + dependency + " override");
   }
   for (const path of [curriculumPath, labPath, assessmentPath, solutionPath]) {
     const body = content.get(path);
@@ -619,32 +620,31 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   );
 
   const notes = content.get("references/SOURCE-NOTES.md");
-  const markers = capstonePlatformMarkers(notes);
-  assert.equal(countToken(notes, "capstone-platform-proof:"), 3, "SOURCE-NOTES contains a malformed or extra capstone platform proof marker");
+  const baseline = content.get("references/SOURCE-BASELINE.md");
+  const markers = teachingPlatformMarkers(baseline);
+  assert.equal(countToken(baseline, "teaching-platform-proof:"), 3, "SOURCE-BASELINE contains a malformed or extra current platform proof marker");
   assert.deepEqual(
     markers,
     [
-      { proof: "macos-node24", status: "verified", date: "2026-09-12", evidence: "gha-run-34676736925-job-103507813471" },
-      { proof: "linux-node24", status: "verified", date: "2026-09-12", evidence: "gha-run-34676736925-job-103507813395" },
-      { proof: "windows-node24", status: "verified", date: "2026-09-12", evidence: "gha-run-34676736925-job-103507813491" },
+      { proof: "macos-zsh", status: "verified", date: "2026-09-17", evidence: "baseline-upgrade-65-of-65" },
+      { proof: "linux-bash", status: "candidate", date: "2026-09-17", evidence: "not-run" },
+      { proof: "windows-pwsh7", status: "candidate", date: "2026-09-17", evidence: "not-run" },
     ],
-    "SOURCE-NOTES platform proof marker set is incorrect",
+    "SOURCE-BASELINE current platform proof marker set is incorrect",
   );
-  assert.ok(markers.every(({ evidence }) => !/^(?:none|not-run|pending|unknown)$/.test(evidence)), "verified capstone platform proof must cite evidence");
+  assert.ok(markers.filter(({ status }) => status === "verified").every(({ evidence }) => !/^(?:none|not-run|pending|unknown)$/.test(evidence)), "verified capstone platform proof must cite evidence");
   for (const token of [
     "8/8",
     "4f8ca7e36723e094ed1a19aa9593f01c0b798cdf",
     "1ad4c23f03498af745eec972e7c3f5a63b97d4b4",
   ]) assert.ok(notes.includes(token), "SOURCE-NOTES fixture provenance is missing " + token);
-  const baseline = content.get("references/SOURCE-BASELINE.md");
   assert.match(baseline, /^## Capstone end-to-end validation\s*$/m, "SOURCE-BASELINE is missing capstone validation");
   assert.match(notes, /^## Capstone source validation\s*$/m, "SOURCE-NOTES is missing capstone source validation");
   const baselineCapstone = section(markdownParts(baseline).prose, "Capstone end-to-end validation");
   const notesCapstone = section(markdownParts(notes).prose, "Capstone source validation");
-  for (const source of [baselineCapstone, notesCapstone]) {
-    assert.match(source, /0\.112\.0/, "capstone source record is missing learner pin");
-    assert.match(source, /Node\.js\s+20-compatible/, "capstone source record is missing application compatibility");
-  }
+  assert.match(baselineCapstone, /0\.119\.2/, "current capstone source record is missing learner pin");
+  assert.match(notesCapstone, /0\.112\.0/, "historical capstone source record is missing its learner pin");
+  for (const source of [baselineCapstone, notesCapstone]) assert.match(source, /Node\.js\s+20-compatible/, "capstone source record is missing application compatibility");
   assert.match(baselineCapstone, /Node\.js 22 or newer/i, "learner baseline must state the capability-based runtime");
   assert.match(notesCapstone, /24\.20\.0/, "maintainer source notes must retain the tested runtime");
   assert.doesNotMatch(

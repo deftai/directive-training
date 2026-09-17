@@ -12,7 +12,7 @@ proposed-state boundary, and decompose the broader disruption idea into three us
 | Outcomes covered | O6.1, O6.2, O6.3 |
 | Status | `learner-ready draft; command-free` |
 | Last verified | 2026-09-09 |
-| Directive baseline | `@deftai/directive@0.112.0`, engine `@deftai/directive-core@0.112.0`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Module 6 shaping exercise](../curriculum/modules/06-creating-well-shaped-work.md#exercise) |
 
 ## Before you use this solution
@@ -354,14 +354,14 @@ record how the course resolves those disagreements.
 - No instructor, repository mutation, command, or remote system is required.
 - Source claims and disagreements match the Module 6 source record.
 
-[lifecycle]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/docs/directive-lifecycle.md
-[strategies]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/strategies/README.md
-[interview]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/strategies/interview.md
-[setup]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-setup/SKILL.md
-[decompose]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-decompose/SKILL.md
-[taxonomy]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/vbrief/vbrief.md
-[verification]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/verification/verification.md
-[upstream-glossary]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/glossary.md
-[gh-slice]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/skills/deft-directive-gh-slice/SKILL.md
-[commands]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/content/commands.md
-[main]: https://github.com/deftai/directive/blob/7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808/main.md
+[lifecycle]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/docs/directive-lifecycle.md
+[strategies]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/strategies/README.md
+[interview]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/strategies/interview.md
+[setup]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-setup/SKILL.md
+[decompose]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-decompose/SKILL.md
+[taxonomy]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/vbrief/vbrief.md
+[verification]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/verification/verification.md
+[upstream-glossary]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/glossary.md
+[gh-slice]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-gh-slice/SKILL.md
+[commands]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/commands.md
+[main]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/main.md

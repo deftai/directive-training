@@ -7,11 +7,11 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "@deftai/directive": "0.112.0"
+    "@deftai/directive": "0.119.2"
   },
   "overrides": {
-    "@deftai/directive-content": "0.112.0",
-    "@deftai/directive-core": "0.112.0",
-    "@deftai/directive-types": "0.112.0"
+    "@deftai/directive-content": "0.119.2",
+    "@deftai/directive-core": "0.119.2",
+    "@deftai/directive-types": "0.119.2"
   }
 }
