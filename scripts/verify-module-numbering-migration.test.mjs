@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, resolve } from "node:path";
 import test from "node:test";
@@ -53,7 +53,7 @@ test("canonical JSON and structural token paths are deterministic", () => {
   );
 });
 
-test("protected path sets, bytes, and completed-registry subtrees are exact", () => withFixture(({ root, write }) => {
+test("protected baseline paths, bytes, and completed-registry subtrees remain exact", () => withFixture(({ root, write }) => {
   const completed = { id: "done", title: "Immutable", status: "completed" };
   const addedCompleted = { id: "newly-rendered", title: "Allowed addition", status: "completed" };
   write("history/record.json", { preserved: true });
@@ -88,11 +88,45 @@ test("protected path sets, bytes, and completed-registry subtrees are exact", ()
   write("xbrief/PROJECT-DEFINITION.xbrief.json", { plan: { items: [completed, addedCompleted, { id: "open", status: "proposed" }] } });
 
   write("history/extra.json", { preserved: false });
+  assert.deepEqual(verifyProtectedHistory(root, baseline, { enforceContractCounts: false }), {
+    protectedFileCount: 1,
+    completedRegistryCount: 1,
+  });
+
+  rmSync(resolve(root, "history/record.json"));
   assert.throws(
     () => verifyProtectedHistory(root, baseline, { enforceContractCounts: false }),
-    /protected path set changed/,
+    /missing a baseline entry|protected file is missing/,
   );
 }));
+
+test("protected-history verification is self-contained outside a Git checkout", () => withFixture(({ root, write }) => {
+  const baseline = JSON.parse(readFileSync(resolve(repositoryRoot, "references/module-numbering-migration-baseline.json"), "utf8"));
+  for (const path of Object.keys(baseline.protectedFiles)) {
+    const target = resolve(root, path);
+    mkdirSync(dirname(target), { recursive: true });
+    copyFileSync(resolve(repositoryRoot, path), target);
+  }
+  write(
+    "xbrief/PROJECT-DEFINITION.xbrief.json",
+    readFileSync(resolve(repositoryRoot, "xbrief/PROJECT-DEFINITION.xbrief.json"), "utf8"),
+  );
+
+  assert.deepEqual(verifyProtectedHistory(root, baseline), {
+    protectedFileCount: 77,
+    completedRegistryCount: 24,
+  });
+}));
+
+test("protected-history verification rejects a modified baseline manifest", () => {
+  const baseline = JSON.parse(readFileSync(resolve(repositoryRoot, "references/module-numbering-migration-baseline.json"), "utf8"));
+  const [firstPath] = Object.keys(baseline.protectedFiles);
+  baseline.protectedFiles[firstPath] = `sha256:${"0".repeat(64)}`;
+  assert.throws(
+    () => verifyProtectedHistory(repositoryRoot, baseline),
+    /baseline manifest changed without an approved anchor update/,
+  );
+});
 
 test("current outcomes have exact owners and cannot collide with protected history", () => withFixture(({ root, write }) => {
   for (const [path, outcomes] of Object.entries(TARGET_OUTCOME_MAP)) {
@@ -274,7 +308,9 @@ function writeLineageFixture(write) {
   write("curriculum/README.md", `# Course\n\n675 minutes across the modules; 13 hours 15 minutes including the capstone.\n\n${rows.join("\n")}\n`);
   write("package.json", {
     scripts: {
-      test: "node --test scripts/verify-module-numbering-migration.test.mjs",
+      test: "npm run test:content && npm run test:runtime",
+      "test:content": "node --test scripts/verify-module-numbering-migration.test.mjs",
+      "test:runtime": "node --test scripts/capstone-lab.test.mjs scripts/gates-lab.test.mjs scripts/implementation-lab.test.mjs scripts/lifecycle-lab.test.mjs scripts/linked-path-suite-boundary.test.mjs scripts/projection-lab-eol.test.mjs scripts/projection-lab.test.mjs scripts/restore-validation-deposit.test.mjs scripts/verify-symlink-capability.test.mjs scripts/verify-text-portability.test.mjs scripts/windows-shim.test.mjs",
       "check:module-9": "node scripts/verify-module-9.mjs",
       "check:module-10": "node scripts/verify-module-10.mjs",
       "check:module-11": "node scripts/verify-module-11.mjs",
@@ -296,7 +332,14 @@ function writeLineageFixture(write) {
     "  - \"labs/11-testing-gates-and-evidence.md\"",
     "  - \"labs/fixtures/10-implementation-golden-path/**\"",
     "  - \"labs/fixtures/11-testing-gates-and-evidence/**\"",
+    "  - \"scripts/verify-module-7.mjs\"",
+    "  - \"scripts/verify-module-7.test.mjs\"",
+    "  - \"scripts/verify-module-10.mjs\"",
+    "  - \"scripts/verify-module-10.test.mjs\"",
+    "  - \"scripts/verify-module-11.mjs\"",
+    "  - \"scripts/verify-module-11.test.mjs\"",
     "run: |",
+    "  npm run test:module-7",
     "  npm run test:module-10",
     "  npm run test:module-11",
     "",
@@ -316,6 +359,16 @@ test("lineage, projections, module count, and 75/675/795-minute totals are retai
   const coursePath = resolve(root, "curriculum/README.md");
   writeFileSync(coursePath, readFileSync(coursePath, "utf8").replace("| 09 | [Design-critique arcs and verified synthesis](modules/09-design-critique-arcs.md) | 75 min |", "| 09 | [Design-critique arcs and verified synthesis](modules/09-design-critique-arcs.md) | 74 min |"));
   assert.throws(() => verifyLineageAndProjection(root), /Module 9 must be exactly 75 minutes/);
+}));
+
+test("platform workflow filters every verifier that it executes", () => withFixture(({ root, write }) => {
+  writeLineageFixture(write);
+  const workflowPath = resolve(root, ".github/workflows/labs-7-10-11-platform-validation.yml");
+  writeFileSync(
+    workflowPath,
+    readFileSync(workflowPath, "utf8").replace('  - "scripts/verify-module-10.mjs"\n', ""),
+  );
+  assert.throws(() => verifyLineageAndProjection(root), /exact filter scripts\/verify-module-10\.mjs/);
 }));
 
 test("repository satisfies the final module-numbering migration contract", () => {

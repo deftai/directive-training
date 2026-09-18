@@ -38,7 +38,7 @@ function changedCopy(path, transform) {
 function replaceAfterHeading(body, heading, pattern, replacement) {
   const index = body.indexOf(heading);
   assert.ok(index >= 0, `negative mutation heading is missing: ${heading}`);
-  return body.slice(0, index) + body.slice(index).replace(pattern, replacement);
+  return body.slice(0, index) + body.slice(index).replace(pattern, () => replacement);
 }
 
 function completedLifecycleCopy() {
@@ -72,6 +72,33 @@ function completedLifecycleCopy() {
 test("Module 12 content contract accepts active and completed lifecycle states", () => {
   assert.ok(verifyModule12(repositoryRoot).artifactCount > 20);
   assert.ok(verifyModule12(completedLifecycleCopy()).artifactCount > 20);
+});
+
+test("replaceAfterHeading keeps replacement metacharacters literal", () => {
+  assert.equal(
+    replaceAfterHeading("before\n## Target\nneedle\n", "## Target", "needle", "$&"),
+    "before\n## Target\n$&\n",
+  );
+});
+
+test("verifier rejects a near-match outcome identifier", () => {
+  const root = changedCopy("curriculum/modules/12-review-and-completion.md", (body) => replaceAfterHeading(
+    body,
+    "## Learning outcomes",
+    "O12.4",
+    "O12.4-extra",
+  ));
+  assert.throws(() => verifyModule12(root), /Learning outcomes is missing O12\.4/);
+});
+
+test("verifier rejects an underscore-suffixed outcome identifier", () => {
+  const root = changedCopy("curriculum/modules/12-review-and-completion.md", (body) => replaceAfterHeading(
+    body,
+    "## Learning outcomes",
+    "O12.4",
+    "O12.4_extra",
+  ));
+  assert.throws(() => verifyModule12(root), /Learning outcomes is missing O12\.4/);
 });
 
 test("verifier rejects a stale or ranged learner baseline", () => {

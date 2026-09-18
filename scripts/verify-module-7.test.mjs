@@ -95,7 +95,7 @@ test("verifier rejects a weakened safety guard", () => {
 });
 
 test("verifier rejects missing transition outcome evidence", () => {
-  const root = changedCopy("solutions/lab-07-scope-lifecycle.md", (body) => body.replaceAll("O7.3", "O7.X"));
+  const root = changedCopy("solutions/lab-07-scope-lifecycle.md", (body) => body.replaceAll("O7.3", "O7.3-extra"));
   assert.throws(() => verifyModule7(root), /O7\.3/);
 });
 

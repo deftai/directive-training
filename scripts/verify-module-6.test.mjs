@@ -171,7 +171,7 @@ for (const [path, headings] of [
           const start = content.indexOf(marker);
           const next = content.indexOf("\n## ", start + marker.length);
           const end = next < 0 ? content.length : next;
-          return content.slice(0, start) + content.slice(start, end).replace(outcome, "O6.x") + content.slice(end);
+          return content.slice(0, start) + content.slice(start, end).replace(outcome, `${outcome}-extra`) + content.slice(end);
         });
         assert.throws(() => verifyModule6(files.root), new RegExp(`${heading}.*${outcome.replace(".", "\\.")}`));
       });

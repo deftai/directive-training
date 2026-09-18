@@ -92,10 +92,10 @@ test("rejects an omitted critic-envelope field", (t) => {
   assert.throws(() => verifyModule9(root), /missing field: Audit targets/);
 });
 
-test("rejects a finding map that cites only one compositional fragment", (t) => {
+test("rejects a near-match compositional-fragment identifier", (t) => {
   const root = changedCopy(t, "solutions/module-09-design-critique-arcs.md", (body) => body.replace(
     "`DC9-SOURCE-01`, `DC9-FRAG-A`, `DC9-FRAG-B`, `DC9-FIND-01`",
-    "`DC9-SOURCE-01`, `DC9-FRAG-A`, `DC9-FIND-01`",
+    "`DC9-SOURCE-01`, `DC9-FRAG-A`, `DC9-FRAG-B-extra`, `DC9-FIND-01`",
   ));
   assert.throws(() => verifyModule9(root), /F1 must cite DC9-FRAG-B/);
 });

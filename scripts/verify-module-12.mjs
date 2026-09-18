@@ -58,6 +58,7 @@ const requiredFiles = [
   tasks,
 ];
 const outcomes = ["O12.1", "O12.2", "O12.3", "O12.4"];
+const hasExactIdentifier = (text, identifier) => (text.match(/[A-Za-z0-9_.-]+/g) ?? []).includes(identifier);
 const unfinished = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
 const liveReviewDependencies = [
   /^\s*(?:[-*+]\s+|\d+\.\s+)?(?:(?:you\s+(?:must|need to|have to|are required to)|required to)\s+)?(?:open|inspect|query|fetch|connect to|wait for|use|request|require|run|check|poll)\s+(?:(?:the|a)\s+)?(?:live\s+)?(?:GitHub(?:\s+(?:PR|pull request|repository|CI))?|Greptile|review[- ]?bot|review service|CI(?:\s+run)?|repository|deployment(?:\s+(?:system|environment|run|record))?|UAT(?:\s+(?:system|environment|run|record))?|host automation)(?:\s|[.,;:]|$)/im,
@@ -113,7 +114,7 @@ function requireOutcomes(path, prose, headings) {
   for (const heading of headings) {
     const body = section(prose, heading);
     for (const outcome of outcomes) {
-      assert.match(body, new RegExp(`\\b${outcome.replace(".", "\\.")}\\b`), `${path} ${heading} is missing ${outcome}`);
+      assert.ok(hasExactIdentifier(body, outcome), `${path} ${heading} is missing ${outcome}`);
     }
   }
 }
@@ -211,10 +212,10 @@ export function verifyModule12(root = fileURLToPath(new URL("../", import.meta.u
     `${module12} is missing the classification-before-editing rule`,
   );
   for (const finding of ["F1", "F2", "F3", "F4"]) {
-    assert.match(moduleProse, new RegExp(`\\b${finding}\\b`), `${module12} is missing supplied finding ${finding}`);
+    assert.ok(hasExactIdentifier(moduleProse, finding), `${module12} is missing supplied finding ${finding}`);
   }
   for (const card of ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"]) {
-    assert.match(moduleProse, new RegExp(`\\b${card}\\b`), `${module12} is missing completion card ${card}`);
+    assert.ok(hasExactIdentifier(moduleProse, card), `${module12} is missing completion card ${card}`);
   }
   const exercise = section(moduleProse, "Exercise");
   const prePrWorksheet = subsection(exercise, "Worksheet A — pre-PR loop", "pre-PR worksheet");
@@ -384,8 +385,9 @@ export function verifyModule12(root = fileURLToPath(new URL("../", import.meta.u
   }
   assert.match(content.get("labs/README.md"), /Module 12[^\n]*command-free/i, "labs index must explain Module 12 has no lab fixture");
 
+  const glossary = content.get("references/GLOSSARY.md").toLowerCase();
   for (const term of ["pre-PR review", "current-head review", "merge-ready", "delivery branch", "UAT-verified"]) {
-    assert.match(content.get("references/GLOSSARY.md"), new RegExp(term, "i"), `glossary is missing Module 12 term: ${term}`);
+    assert.ok(glossary.includes(term.toLowerCase()), `glossary is missing Module 12 term: ${term}`);
   }
   for (const phrase of ["Read -> Write -> Lint -> Diff -> Loop", "classify all findings", "one coherent fix batch", "zero unresolved P0 or P1", "delivery-branch reachability"]) {
     assert.ok(content.get("references/QUICK-REFERENCE.md").includes(phrase), `quick reference is missing Module 12 guidance: ${phrase}`);

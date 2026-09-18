@@ -48,6 +48,7 @@ const sourcePaths = [
   ".deft/core/main.md",
 ];
 const outcomes = ["O6.1", "O6.2", "O6.3", "O6.4"];
+const hasExactIdentifier = (text, identifier) => (text.match(/[A-Za-z0-9_.-]+/g) ?? []).includes(identifier);
 
 function tableCells(line) {
   return line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
@@ -95,7 +96,7 @@ function requireSectionOutcomes(path, prose, headings) {
   for (const heading of headings) {
     const body = section(prose, heading);
     for (const outcome of outcomes) {
-      assert.match(body, new RegExp(`\\b${outcome.replace(".", "\\.")}\\b`), `${path} ${heading} is missing ${outcome}`);
+      assert.ok(hasExactIdentifier(body, outcome), `${path} ${heading} is missing ${outcome}`);
     }
   }
 }
@@ -172,7 +173,7 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
   ];
   tableRows(exercise, routingHeader, "Module 6 O6.4 routing matrix");
   for (const id of ["M6-ROUTE-01", "M6-NOROUTE-01", "M6-INSUFFICIENT-01"]) {
-    assert.match(exercise, new RegExp(`\\b${id}\\b`), `Module 6 O6.4 is missing fixed fact pattern ${id}`);
+    assert.ok(hasExactIdentifier(exercise, id), `Module 6 O6.4 is missing fixed fact pattern ${id}`);
   }
   for (const disposition of ["route", "no route", "insufficient evidence"]) {
     assert.match(exercise, new RegExp(`\\b${disposition}\\b`, "i"), `Module 6 O6.4 is missing disposition ${disposition}`);
@@ -204,7 +205,7 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(routeRow[3], /NS-INGEST-R2[^\n]*(?:source content|evidence)[^\n]*completed-arc record/i, "M6-ROUTE-01 proposed mechanism revision must name the concrete target and clearance rule");
   requireMeaningful(routeRow[4], "M6-ROUTE-01 safe next action", 11);
   for (const token of ["proposed", "design critique", "promotion", "activation", "implementation"]) {
-    assert.match(routeRow[4], new RegExp(token, "i"), `M6-ROUTE-01 safe next action must name ${token}`);
+    assert.ok(routeRow[4].toLowerCase().includes(token), `M6-ROUTE-01 safe next action must name ${token}`);
   }
 
   const noRouteRow = solutionRouting.get("M6-NOROUTE-01");

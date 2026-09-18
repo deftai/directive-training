@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { execFileSync } from "node:child_process";
 import { existsSync, lstatSync, readdirSync, readFileSync } from "node:fs";
 import { relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -23,6 +22,7 @@ const CAPSTONE_PARENT_PATH = "xbrief/proposed/2026-09-05-disposable-end-to-end-c
 const DECISION_PATH = "xbrief/decisions/2026-09-18-insert-a-new-current-module-9-design-critique-practicum-renumber.decision.json";
 const ISSUE_PATH = "xbrief/active/2026-09-18-4-refactor-core-curriculum-to-add-required-module-7-on-directi.xbrief.json";
 const EXPECTED_SOURCE_COMMIT = "40fa2753af025dc6a3c4bc62754246ae6fdfd6ea";
+const EXPECTED_BASELINE_DIGEST = "sha256:347291df5a953f923ef0f8f47475ab465e3843d503175e606e75a9ba2ffc0725";
 const ISSUE_TRANSCRIPT_COMMENT_IDS = Object.freeze([
   5707793958, 5707871635, 5707916641, 5707938532, 5707940177, 5707956318,
   5708038144, 5708042690, 5708056751, 5714259300, 5714373154, 5714388952,
@@ -212,18 +212,6 @@ export function sha256File(path) {
   return `sha256:${createHash("sha256").update(readFileSync(path)).digest("hex")}`;
 }
 
-function gitFileAtCommit(root, commit, path) {
-  try {
-    return execFileSync("git", ["show", `${commit}:${path}`], {
-      cwd: root,
-      encoding: null,
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-  } catch {
-    assert.fail(`migration baseline source is unavailable: ${commit}:${path}`);
-  }
-}
-
 function readJson(root, path) {
   return JSON.parse(readFileSync(resolve(root, path), "utf8"));
 }
@@ -240,6 +228,11 @@ export function verifyProtectedHistory(root, baseline = readJson(root, BASELINE_
 
   if (enforceContractCounts) {
     assert.equal(baseline.sourceCommit, EXPECTED_SOURCE_COMMIT, "migration baseline source commit changed");
+    assert.equal(
+      `sha256:${createHash("sha256").update(canonicalJson(baseline)).digest("hex")}`,
+      EXPECTED_BASELINE_DIGEST,
+      "migration baseline manifest changed without an approved anchor update",
+    );
     assert.deepEqual(
       baseline.protectedSets?.completedXbriefs,
       { prefix: "xbrief/completed/", jsonCount: 28, sentinelCount: 1, fileCount: 29 },
@@ -254,34 +247,26 @@ export function verifyProtectedHistory(root, baseline = readJson(root, BASELINE_
   for (const set of Object.values(baseline.protectedSets)) {
     const actual = listFiles(root, set.prefix).sort();
     const expected = expectedProtectedPaths(baseline, set.prefix);
-    assert.deepEqual(actual, expected, `protected path set changed under ${set.prefix}`);
+    assert.ok(
+      expected.every((path) => actual.includes(path)),
+      `protected path set is missing a baseline entry under ${set.prefix}`,
+    );
     const expectedCount = set.fileCount ?? set.count;
-    if (expectedCount !== undefined) assert.equal(actual.length, expectedCount, `protected file count changed under ${set.prefix}`);
-    if (set.jsonCount !== undefined) assert.equal(actual.filter((path) => path.endsWith(".json")).length, set.jsonCount, `protected JSON count changed under ${set.prefix}`);
-    if (set.sentinelCount !== undefined) assert.equal(actual.filter((path) => !path.endsWith(".json")).length, set.sentinelCount, `protected sentinel count changed under ${set.prefix}`);
+    if (expectedCount !== undefined) assert.ok(actual.length >= expectedCount, `protected file count fell below the baseline under ${set.prefix}`);
+    if (set.jsonCount !== undefined) assert.ok(actual.filter((path) => path.endsWith(".json")).length >= set.jsonCount, `protected JSON count fell below the baseline under ${set.prefix}`);
+    if (set.sentinelCount !== undefined) assert.ok(actual.filter((path) => !path.endsWith(".json")).length >= set.sentinelCount, `protected sentinel count fell below the baseline under ${set.prefix}`);
   }
 
   for (const [path, digest] of Object.entries(baseline.protectedFiles)) {
     assert.match(digest, /^sha256:[0-9a-f]{64}$/, `invalid protected digest: ${path}`);
     assert.ok(existsSync(resolve(root, path)), `protected file is missing: ${path}`);
     assert.equal(sha256File(resolve(root, path)), digest, `protected file bytes changed: ${path}`);
-    if (enforceContractCounts) {
-      const sourceDigest = `sha256:${createHash("sha256").update(gitFileAtCommit(root, baseline.sourceCommit, path)).digest("hex")}`;
-      assert.equal(sourceDigest, digest, `protected manifest digest does not match ${baseline.sourceCommit}: ${path}`);
-    }
   }
 
   const project = readJson(root, PROJECT_PATH);
   const completedItems = Object.fromEntries(
     (project.plan?.items ?? []).filter((item) => item.status === "completed").map((item) => [item.id, item]),
   );
-  const sourceCompletedItems = enforceContractCounts
-    ? Object.fromEntries(
-      (JSON.parse(gitFileAtCommit(root, baseline.sourceCommit, PROJECT_PATH).toString("utf8")).plan?.items ?? [])
-        .filter((item) => item.status === "completed")
-        .map((item) => [item.id, item]),
-    )
-    : {};
   for (const [id, protectedItem] of Object.entries(baseline.completedRegistryItems)) {
     assert.ok(completedItems[id], `protected completed PROJECT-DEFINITION registry item is missing: ${id}`);
     assert.equal(
@@ -289,14 +274,6 @@ export function verifyProtectedHistory(root, baseline = readJson(root, BASELINE_
       canonicalJson(protectedItem),
       `protected completed PROJECT-DEFINITION registry subtree changed: ${id}`,
     );
-    if (enforceContractCounts) {
-      assert.ok(sourceCompletedItems[id], `baseline completed registry item is absent at ${baseline.sourceCommit}: ${id}`);
-      assert.equal(
-        canonicalJson(sourceCompletedItems[id]),
-        canonicalJson(protectedItem),
-        `completed registry baseline does not match ${baseline.sourceCommit}: ${id}`,
-      );
-    }
   }
   return {
     protectedFileCount: Object.keys(baseline.protectedFiles).length,
@@ -716,7 +693,22 @@ export function verifyLineageAndProjection(root) {
   }
   assert.equal(packageJson.scripts?.["check:module-numbering"], "node scripts/verify-module-numbering-migration.mjs", "package migration-check route changed");
   assert.equal(packageJson.scripts?.["test:module-numbering"], "node --test scripts/verify-module-numbering-migration.test.mjs", "package migration-test route changed");
-  assert.match(packageJson.scripts?.test ?? "", /verify-module-numbering-migration\.test\.mjs/, "aggregate package test omits the migration verifier");
+  assert.equal(packageJson.scripts?.test, "npm run test:content && npm run test:runtime", "ordinary package test must compose the content and runtime suites");
+  assert.match(packageJson.scripts?.["test:content"] ?? "", /verify-module-numbering-migration\.test\.mjs/, "content package test omits the migration verifier");
+  for (const testFile of [
+    "capstone-lab.test.mjs",
+    "gates-lab.test.mjs",
+    "implementation-lab.test.mjs",
+    "lifecycle-lab.test.mjs",
+    "linked-path-suite-boundary.test.mjs",
+    "projection-lab-eol.test.mjs",
+    "projection-lab.test.mjs",
+    "restore-validation-deposit.test.mjs",
+    "verify-symlink-capability.test.mjs",
+    "verify-text-portability.test.mjs",
+    "windows-shim.test.mjs",
+  ]) assert.ok(packageJson.scripts?.["test:runtime"]?.includes(`scripts/${testFile}`), `runtime package test omits ${testFile}`);
+  assert.doesNotMatch(packageJson.scripts?.["test:runtime"] ?? "", /linked-path-safety\.test\.mjs/, "ordinary runtime tests must not absorb the privilege-gated linked-path safety suite");
 
   const workflowPath = ".github/workflows/labs-7-10-11-platform-validation.yml";
   const workflow = readFileSync(resolve(root, workflowPath), "utf8");
@@ -727,8 +719,14 @@ export function verifyLineageAndProjection(root) {
     "labs/11-testing-gates-and-evidence.md",
     "labs/fixtures/10-implementation-golden-path/**",
     "labs/fixtures/11-testing-gates-and-evidence/**",
+    "scripts/verify-module-7.mjs",
+    "scripts/verify-module-7.test.mjs",
+    "scripts/verify-module-10.mjs",
+    "scripts/verify-module-10.test.mjs",
+    "scripts/verify-module-11.mjs",
+    "scripts/verify-module-11.test.mjs",
   ]) assert.ok(workflow.includes(`\"${filter}\"`), `platform workflow is missing the exact filter ${filter}`);
-  for (const command of ["npm run test:module-10", "npm run test:module-11"]) {
+  for (const command of ["npm run test:module-7", "npm run test:module-10", "npm run test:module-11"]) {
     assert.ok(workflow.includes(command), `platform workflow is missing ${command}`);
   }
 

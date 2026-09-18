@@ -9,6 +9,9 @@
 
 ### Added
 
+- A required design-critique learning path with a scored Module 6 routing gate,
+  a command-free Module 9 practicum, capstone checkpoint, explained solution,
+  and focused positive and negative verification (#4).
 - An MIT license for the repository, with a README link to the license text
   (#1).
 - Native Windows/PowerShell learner paths and a three-platform CI proof for
@@ -78,6 +81,9 @@
 
 ### Changed
 
+- The learner-ready core now runs through twelve modules, with implementation,
+  testing, and review taught as Modules 10–12 and protected historical and
+  lifecycle identities left unchanged (#4).
 - Upgrade the current Directive teaching baseline from the inherited mixed
   0.112.0/0.119.1 state to the verified 0.119.2 release across curriculum,
   disposable labs, validation, workflows, and maintainer evidence (#3).

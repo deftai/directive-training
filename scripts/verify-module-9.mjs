@@ -56,6 +56,7 @@ const decisionIds = [
 ];
 const unfinished = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
 const shellLanguage = /^(?:sh|shell|bash|zsh|powershell|pwsh|console)$/;
+const hasExactIdentifier = (text, identifier) => (text.match(/[A-Za-z0-9_.-]+/g) ?? []).includes(identifier);
 
 function tableCells(line) {
   return line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
@@ -95,7 +96,7 @@ function requireOutcomes(path, prose, headings) {
   for (const heading of headings) {
     const body = section(prose, heading);
     for (const outcome of outcomes) {
-      assert.match(body, new RegExp(`\\b${outcome.replace(".", "\\.")}\\b`), `${path} ${heading} is missing ${outcome}`);
+      assert.ok(hasExactIdentifier(body, outcome), `${path} ${heading} is missing ${outcome}`);
     }
   }
 }
@@ -193,12 +194,12 @@ export function verifyModule9(root = fileURLToPath(new URL("../", import.meta.ur
   );
 
   const exercise = section(moduleProse, "Exercise");
+  const normalizedExercise = exercise.replace(/\s+/g, " ").toLowerCase();
   for (const phrase of [
     "fixed fictional data handled only by this bounded exercise procedure",
     "not a Directive runtime guarantee",
   ]) {
-    const flexiblePhrase = phrase.split(/\s+/).map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("\\s+");
-    assert.match(exercise, new RegExp(flexiblePhrase, "i"), `Module 9 exercise is missing the untrusted-input boundary: ${phrase}`);
+    assert.ok(normalizedExercise.includes(phrase.toLowerCase()), `Module 9 exercise is missing the untrusted-input boundary: ${phrase}`);
   }
   assert.match(
     exercise,
@@ -274,7 +275,7 @@ export function verifyModule9(root = fileURLToPath(new URL("../", import.meta.ur
     "Module 9 solution must contain a total parent take map",
   );
   for (const id of ["DC9-SOURCE-01", "DC9-FRAG-A", "DC9-FRAG-B", "DC9-FIND-01"]) {
-    assert.match(findingRows[0][1], new RegExp(`\\b${id}\\b`), `F1 must cite ${id}`);
+    assert.ok(hasExactIdentifier(findingRows[0][1], id), `F1 must cite ${id}`);
   }
   assert.doesNotMatch(findingRows.map((row) => row.join(" ")).join("\n"), /DC9-POSTCEILING-01/, "Module 9 round-1 findings must not use the post-ceiling card");
   for (const row of findingRows.slice(0, 2)) {
@@ -285,7 +286,7 @@ export function verifyModule9(root = fileURLToPath(new URL("../", import.meta.ur
 
   const refusal = section(solutionProse, "Refusal and continuation record");
   for (const id of ["DC9-SOURCE-01", "DC9-FRAG-A", "DC9-FRAG-B"]) {
-    assert.match(refusal, new RegExp(`\\b${id}\\b`), `Module 9 refusal record must cite ${id}`);
+    assert.ok(hasExactIdentifier(refusal, id), `Module 9 refusal record must cite ${id}`);
   }
   assert.match(refusal, /Direct source:[^\n]*DC9-SOURCE-01[^\n]*refuse/i, "Module 9 refusal record must refuse the direct attempted effect");
   assert.match(refusal, /Compositional source:[\s\S]{0,180}refuse[\s\S]{0,80}aggregate attempted effect/i, "Module 9 refusal record must refuse the aggregate attempted effect");
