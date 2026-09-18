@@ -5,10 +5,6 @@
 
 # Roadmap
 
-## Active
-
-- **#4** -- Refactor core curriculum to add required Module 7 on Directive design-critique arcs -- `[running]`
-
 ## Proposed
 
 _Scopes not yet promoted to pending. Orientation only — not a substitute for `task triage:queue`._
@@ -24,8 +20,9 @@ _Scopes not yet promoted to pending. Orientation only — not a substitute for `
 
 ## Completed
 
-_Showing 25 of 28 completed scopes (newest first). Full history: lifecycle `completed/` (or `task report` when available)._
+_Showing 25 of 29 completed scopes (newest first). Full history: lifecycle `completed/` (or `task report` when available)._
 
+- **#4** -- Refactor core curriculum to add required Module 7 on Directive design-critique arcs -- `[completed]`
 - **#3** -- Upgrade the Directive teaching baseline from 0.112.0 to the latest release (0.119.2) -- `[completed]`
 - **#2** -- Correct repo identity after the public deftai clone -- `[completed]`
 - Directive 0.119.1 Review and Build Reconciliation -- `[completed]`
@@ -50,5 +47,4 @@ _Showing 25 of 28 completed scopes (newest first). Full history: lifecycle `comp
 - Module 7: Scope Lifecycle and Implementation Authorization -- `[completed]`
 - Module 6: Creating Well-Shaped Work -- `[completed]`
 - Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries -- `[completed]`
-- Directive 0.112.0 Curriculum Baseline -- `[completed]`
 

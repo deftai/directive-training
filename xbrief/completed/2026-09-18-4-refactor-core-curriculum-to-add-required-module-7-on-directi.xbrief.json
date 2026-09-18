@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #4",
-    "updated": "2026-09-18T02:38:38Z"
+    "updated": "2026-09-18T14:51:00Z"
   },
   "plan": {
     "title": "Refactor core curriculum to add required Module 7 on Directive design-critique arcs",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Refactor core curriculum to add required Module 7 on Directive design-critique arcs",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/4",
@@ -16,56 +16,147 @@
     },
     "items": [
       {
+        "id": "clause:1",
         "title": "Extend Module 6 within its existing pacing with O6.4, a required command-free route / no route / insufficient-evidence matrix over three fixed fictional fact patterns. Every row must pass a self-checkable rubric by identifying the controlling fact, choosing the correct disposition, and naming the safe next action; the route row also names the proposed mechanism revision. Thread this artifact through the Module 6 prompt, acceptance criteria, completion record, self-assessment, mandatory explained solution, assessment map, and positive and negative verifier fixtures that reject presence-only and keyword-only answers.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-6 and npm run test:module-6 passed for PR #13; the merged tree at f763612e7f50d6cdb02f563e0c2afb9b18a284a0 verifies the O6.4 rubric, evidence chain, assessment map, and positive/negative fixtures",
+          "recorded_at": "2026-09-18T14:48:03Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:2",
         "title": "Require the passing O6.4 artifact in Module 7's starting-state check before the executable lifecycle lab. Keep the hold curricular and human-semantic: Directive 0.119.2 does not compute mechanism-shaped status, and scope:promote is not fail-closed on that judgment.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-7 and npm run test:module-7 passed for PR #13; the merged Module 7 starting-state check requires the passing O6.4 artifact and preserves the human-semantic hold",
+          "recorded_at": "2026-09-18T14:48:03Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:3",
         "title": "Add a command-free fixed-state practicum after current Module 8 with stable ID `module-09-design-critique-arcs` and four observable outcomes: route the scenario and distinguish arc, round, target revision, and ordinary review; select charter and spend and complete a default N=1 envelope while distinguishing isolation from trust; classify findings and build a total take map with independent-audit recognition; and decide retry, halt, verified synthesis, or later ingest while separating catalog chips, completed-arc clearance, and implementation authority.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-9 and npm run test:module-9 passed for PR #13; curriculum/modules/09-design-critique-arcs.md and its explained solution implement the fixed-state practicum and outcomes O9.6-O9.9",
+          "recorded_at": "2026-09-18T14:48:03Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:4",
         "title": "Give every fictional card or comment a stable source ID. Preserve and cite instruction-shaped content, refuse it, record its attempted effect as a finding, and continue the bounded critique. Include two individually incomplete fragments that become instruction-shaped only when combined; the passing response attributes both IDs, refuses the aggregate, records the finding, and continues. Treat inertness as a fixture and exercise-procedure property, never a Directive runtime guarantee.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-9 and npm run test:module-9 passed for PR #13, including stable-source attribution, direct and compositional instruction-fragment handling, continued bounded critique, and inert-fixture assertions",
+          "recorded_at": "2026-09-18T14:48:03Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:5",
         "title": "Use this globally unique current outcome map: new Module 9 design critique uses `O9.6`–`O9.9`; former Module 9 implementation, now Module 10, maps `O9.1`–`O9.5` to `O10.5`–`O10.9`; former Module 10 testing, now Module 11, maps `O10.1`–`O10.4` to `O11.5`–`O11.8`; former Module 11 review, now Module 12, maps `O11.1`–`O11.4` to `O12.1`–`O12.4`. Apply the same map to current assessments, solutions, verifiers, evidence labels, and navigation, and add a negative fixture that rejects any current outcome ID already present in the protected historical corpus.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-numbering and npm run test:module-numbering passed for PR #13, proving the current outcome map, cross-surface consistency, global uniqueness, and protected-history collision rejection",
+          "recorded_at": "2026-09-18T14:48:03Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:6",
         "title": "Keep `xbrief/proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json` at its existing path and retain `training.modules9-11`, `training.modules9-11.implementation`, `training.modules9-11.gates`, and `training.modules9-11.review` as opaque lifecycle lineage keys. Change its human-facing description, plan title, and three item titles to Modules 10–12; keep its completed-child reference triples unchanged; keep the capstone's `training.modules9-11` dependency; and give issue #4 and the new practicum fresh identities that reuse none of those keys.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-numbering and npm run test:module-numbering passed for PR #13, including parent-lineage resolution, retained opaque keys and capstone dependency, unchanged completed-child triples, and fresh practicum identity",
+          "recorded_at": "2026-09-18T14:48:03Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:7",
         "title": "Regenerate PROJECT-DEFINITION so the proposed registry entry retains its filename-derived ID and source path but displays the Modules 10–12 title. Regenerate ROADMAP so Proposed displays Modules 10–12 while completed rows remain historical. Preserve every completed xBRIEF, `history/**`, `.deft/approved-scope/**`, prior-evidence artifact, and existing completed registry-item subtree byte-for-byte.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-numbering and npm run test:module-numbering passed for PR #13; project/roadmap freshness and protected-history digest checks proved the intended display changes and byte-stable historical corpus",
+          "recorded_at": "2026-09-18T14:48:03Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:8",
         "title": "Atomically migrate every non-allowlisted current assertion across learner lessons, labs, fixtures, solutions, stable IDs, paths, navigation, assessments, capstone prerequisites, PROJECT-DEFINITION narratives, root and curriculum README/course maps, current source-baseline and source-notes headings, glossary and quick-reference links, maintainer commands, verifier scripts and tests, package tasks, workflow names and path filters, and course count, order, and duration.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "task deft:check plus npm run check:module-numbering and npm run test:module-numbering passed for PR #13 across curriculum, labs, solutions, navigation, references, tasks, workflows, and generated project surfaces",
+          "recorded_at": "2026-09-18T14:48:03Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:9",
         "title": "Close the old-number allowlist to exact occurrences and semantic fields, never an entire file, directory, object, symbol, or container. The permitted occurrences are only: the unchanged proposed-parent filename and four opaque plan/item ID values; that parent's completed-child reference triples; the proposed registry entry's filename-derived ID and source-path values; the capstone's single opaque parent dependency value; individually enumerated immutable historical locator, selector, path, and ID values needed by the renumbered Module 10/11/12 verifiers; explicit negative-fixture input literals; the executable migration allowlist's own enumerated entries; protected historical files and completed registry subtrees; explicitly historical ROADMAP rows, CHANGELOG, COST-ESTIMATE, and source-note fields; the issue transcript; and the structured decision's before/after fields. Everything else must use current numbering.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-module-numbering-migration.mjs and its test suite passed for PR #13, enforcing exact occurrence plus semantic-field/value exceptions and rejecting non-allowlisted stale numbering",
+          "recorded_at": "2026-09-18T14:48:03Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:10",
         "title": "In renumbered verifiers, group permitted stable values in a named `historicalLineage` object for readability, but grant no exemption from that object or symbol name. Each member must match an individually allowed semantic field and exact value. Current prose, verifier messages, headings, task names, automation assertions, and executable branch labels remain forbidden regardless of their containing file, object, or variable.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:module-numbering passed for PR #13, proving historicalLineage members are individually allowlisted and that the container name grants no blanket exemption",
+          "recorded_at": "2026-09-18T14:48:03Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:11",
         "title": "Add a mutation case that inserts an old-number current assertion into an otherwise permitted verifier or `historicalLineage` container and require the migration scan to fail. Keep negative fixtures scoped to explicit test inputs so they cannot exempt adjacent production assertions.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run test:module-numbering passed for PR #13, including the container-laundering mutation and fixture-boundary negative cases that must fail the migration scan",
+          "recorded_at": "2026-09-18T14:48:03Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:12",
         "title": "Record a structured one-time pre-MVP decision containing the display-number mapping, globally unique outcome map, retained lineage keys, occurrence-and-field-scoped historical allowlist, and no-reuse rule. The exception does not weaken the general no-renumber-after-publication rule.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "xbrief/decisions/2026-09-18-insert-a-new-current-module-9-design-critique-practicum-renumber.decision.json records the one-time pre-MVP mapping, retained keys, scoped allowlist, no-reuse rule, and unchanged general stable-ID rule; merged in PR #13",
+          "recorded_at": "2026-09-18T14:48:03Z",
+          "recorded_by": "agent:codex"
+        }
       },
       {
+        "id": "clause:13",
         "title": "Before edits, record a digest manifest for protected historical files and canonical snapshots of completed PROJECT-DEFINITION items. After both renders, prove lineage resolution, Modules 10–12 display, global current-outcome uniqueness, absence of non-allowlisted stale numbering, byte-identical protected files, and structurally identical completed registry subtrees; then run focused curriculum verifiers, the container-laundering mutation case, negative fixtures, literal acceptance commands, roadmap/project freshness checks, and the aggregate deft check.",
-        "status": "proposed"
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #13's focused module, numbering, capstone, roadmap/project freshness, protected-history, and negative-fixture checks plus task deft:check passed before merge; the lifecycle-aware numbering fixture also passed npm run test:module-numbering and npm run check:module-numbering after merge",
+          "recorded_at": "2026-09-18T14:48:03Z",
+          "recorded_by": "agent:codex"
+        }
       }
     ],
     "tags": [
@@ -1417,9 +1508,33 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "db28a78a7eab0f426781bca4a033473737bb7e353415c4fd1ba6f76eba173da5"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 13,
+        "prBase": "master",
+        "mergeCommit": "f763612e7f50d6cdb02f563e0c2afb9b18a284a0",
+        "deliveryBranch": "master",
+        "deliveryCommit": "f763612e7f50d6cdb02f563e0c2afb9b18a284a0",
+        "verifiedAt": "2026-09-18T14:51:00Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMGIxYWItZGQwOS03YTMyLWIwMjItZGI5ZGI3NWVkMjBk"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-18T14:51:00Z",
+      "completedSessionId": "host:codex:v1:MDFhMGIxYWItZGQwOS03YTMyLWIwMjItZGI5ZGI3NWVkMjBk",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-18T14:51:00Z"
       }
     },
     "id": "github.issue.5480418475",
-    "updated": "2026-09-18T02:38:38Z"
+    "updated": "2026-09-18T14:51:00Z"
   }
 }
