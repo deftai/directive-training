@@ -31,7 +31,7 @@ const requiredFiles = [
   "references/SOURCE-NOTES.md", "package.json", "xbrief/PROJECT-DEFINITION.xbrief.json", parentScope,
 ];
 const outcomes = ["O7.1", "O7.2", "O7.3", "O7.4"];
-const hasExactIdentifier = (text, identifier) => (text.match(/[A-Za-z0-9_.-]+/g) ?? []).includes(identifier);
+const hasExactIdentifier = (text, identifier) => (text.match(/[A-Za-z0-9]+(?:[_.-][A-Za-z0-9]+)*/g) ?? []).includes(identifier);
 const unfinished = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
 const forbiddenShell = /\b(?:git\s+(?:push\b|remote\s+(?:add|remove|rename|set-url|prune|update)\b|reset\s+--hard\b|clean\b|branch\s+-D\b)|gh\s+(?:pr|issue|api|repo)\b|npm\s+publish\b|(?:directive|deft)\s+(?:deploy|publish|release)\b|rm\s+-[\w-]*r|Remove-Item\b|(?:del|rmdir)\s+\/s\b|curl\b|wget\b|Invoke-WebRequest\b|Invoke-RestMethod\b)/i;
 const forbiddenFixture = /\bgit\s+push\b|\bgh\s+(?:pr|issue|api|repo)\b|\brmSync\s*\(|\bunlinkSync\s*\(/i;

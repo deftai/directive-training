@@ -129,7 +129,7 @@ test("verifier rejects a pre-PR worksheet misplaced outside the exercise", () =>
   ].join("\n");
   const root = changedCopy("curriculum/modules/12-review-and-completion.md", (body) => body
     .replace("### Worksheet A — pre-PR loop", "### Pre-PR answer omitted")
-    .replace("## Exercise", `${misplaced}\n## Exercise`));
+    .replace("## Exercise", () => `${misplaced}\n## Exercise`));
   assert.throws(() => verifyModule12(root), /pre-PR worksheet/);
 });
 

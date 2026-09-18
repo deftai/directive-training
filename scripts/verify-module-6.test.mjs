@@ -171,13 +171,19 @@ for (const [path, headings] of [
           const start = content.indexOf(marker);
           const next = content.indexOf("\n## ", start + marker.length);
           const end = next < 0 ? content.length : next;
-          return content.slice(0, start) + content.slice(start, end).replace(outcome, `${outcome}-extra`) + content.slice(end);
+          return content.slice(0, start) + content.slice(start, end).replace(outcome, () => `${outcome}-extra`) + content.slice(end);
         });
         assert.throws(() => verifyModule6(files.root), new RegExp(`${heading}.*${outcome.replace(".", "\\.")}`));
       });
     }
   }
 }
+
+test("rejects a near-match routing disposition", (t) => {
+  const files = fixture(t);
+  files.change(module6, (content) => content.replaceAll("insufficient evidence", () => "insufficient evidence-extra"));
+  assert.throws(() => verifyModule6(files.root), /missing disposition insufficient evidence/);
+});
 
 for (const field of ["Artifact", "User-visible outcome", "Exclusions", "Literal inspection", "Dependency rationale", "Boundary rationale"]) {
   test(`rejects a missing exercise field: ${field}`, (t) => {

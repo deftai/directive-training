@@ -56,7 +56,7 @@ const decisionIds = [
 ];
 const unfinished = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
 const shellLanguage = /^(?:sh|shell|bash|zsh|powershell|pwsh|console)$/;
-const hasExactIdentifier = (text, identifier) => (text.match(/[A-Za-z0-9_.-]+/g) ?? []).includes(identifier);
+const hasExactIdentifier = (text, identifier) => (text.match(/[A-Za-z0-9]+(?:[_.-][A-Za-z0-9]+)*/g) ?? []).includes(identifier);
 
 function tableCells(line) {
   return line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
@@ -330,8 +330,9 @@ export function verifyModule9(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(section(markdownParts(content.get("curriculum/modules/10-implementation-golden-path.md")).prose, "Navigation"), /\]\(09-design-critique-arcs\.md\)/, "Module 10 must link back to Module 9");
   assert.match(content.get("references/SOURCE-BASELINE.md"), /^## Module 9 design-critique validation\s*$/m, "source baseline is missing Module 9 design-critique validation");
   assert.match(content.get("references/SOURCE-NOTES.md"), /^## Module 9 design-critique source validation\s*$/m, "source notes are missing Module 9 design-critique validation");
+  const glossary = content.get("references/GLOSSARY.md").toLowerCase();
   for (const term of ["design-critique arc", "input ceiling", "successor lean", "completed-arc record"]) {
-    assert.match(content.get("references/GLOSSARY.md"), new RegExp(term, "i"), `glossary is missing Module 9 term: ${term}`);
+    assert.ok(glossary.includes(term), `glossary is missing Module 9 term: ${term}`);
   }
   assert.match(content.get("references/QUICK-REFERENCE.md"), /NS-INGEST-R2[\s\S]{0,500}9104001/, "quick reference is missing the fixed Module 9 routing and ceiling example");
   assert.match(content.get("maintainers/CURRICULUM-MAINTENANCE.md"), /npm run check:module-9/, "maintenance contract is missing the Module 9 content check");

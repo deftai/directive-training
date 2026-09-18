@@ -58,7 +58,7 @@ const requiredFiles = [
   tasks,
 ];
 const outcomes = ["O12.1", "O12.2", "O12.3", "O12.4"];
-const hasExactIdentifier = (text, identifier) => (text.match(/[A-Za-z0-9_.-]+/g) ?? []).includes(identifier);
+const hasExactIdentifier = (text, identifier) => (text.match(/[A-Za-z0-9]+(?:[_.-][A-Za-z0-9]+)*/g) ?? []).includes(identifier);
 const unfinished = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
 const liveReviewDependencies = [
   /^\s*(?:[-*+]\s+|\d+\.\s+)?(?:(?:you\s+(?:must|need to|have to|are required to)|required to)\s+)?(?:open|inspect|query|fetch|connect to|wait for|use|request|require|run|check|poll)\s+(?:(?:the|a)\s+)?(?:live\s+)?(?:GitHub(?:\s+(?:PR|pull request|repository|CI))?|Greptile|review[- ]?bot|review service|CI(?:\s+run)?|repository|deployment(?:\s+(?:system|environment|run|record))?|UAT(?:\s+(?:system|environment|run|record))?|host automation)(?:\s|[.,;:]|$)/im,

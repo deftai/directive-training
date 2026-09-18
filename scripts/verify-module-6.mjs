@@ -48,7 +48,13 @@ const sourcePaths = [
   ".deft/core/main.md",
 ];
 const outcomes = ["O6.1", "O6.2", "O6.3", "O6.4"];
-const hasExactIdentifier = (text, identifier) => (text.match(/[A-Za-z0-9_.-]+/g) ?? []).includes(identifier);
+const identifierTokens = (text) => text.match(/[A-Za-z0-9]+(?:[_.-][A-Za-z0-9]+)*/g) ?? [];
+const hasExactIdentifier = (text, identifier) => identifierTokens(text).includes(identifier);
+const hasExactPhrase = (text, phrase) => {
+  const tokens = identifierTokens(text).map((token) => token.toLowerCase());
+  const expected = identifierTokens(phrase).map((token) => token.toLowerCase());
+  return tokens.some((_, index) => expected.every((token, offset) => tokens[index + offset] === token));
+};
 
 function tableCells(line) {
   return line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
@@ -176,7 +182,7 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
     assert.ok(hasExactIdentifier(exercise, id), `Module 6 O6.4 is missing fixed fact pattern ${id}`);
   }
   for (const disposition of ["route", "no route", "insufficient evidence"]) {
-    assert.match(exercise, new RegExp(`\\b${disposition}\\b`, "i"), `Module 6 O6.4 is missing disposition ${disposition}`);
+    assert.ok(hasExactPhrase(exercise, disposition), `Module 6 O6.4 is missing disposition ${disposition}`);
   }
   for (const requirement of [
     /all three rows[^\n]{0,80}(?:required|non-compensating)/i,
@@ -267,11 +273,13 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(content.get("assessments/README.md"), /\bO6\.4\b/, "assessment map must identify O6.4");
   assert.match(content.get("assessments/README.md"), /route[\s\S]{0,80}no route[\s\S]{0,80}insufficient evidence/i, "assessment map must describe the O6.4 routing artifact");
 
+  const glossary = content.get("references/GLOSSARY.md").toLowerCase();
   for (const term of ["vertical slice", "horizontal plan", "proposed scope"]) {
-    assert.match(content.get("references/GLOSSARY.md"), new RegExp(term, "i"), `glossary is missing Module 6 term: ${term}`);
+    assert.ok(glossary.includes(term), `glossary is missing Module 6 term: ${term}`);
   }
+  const quickReference = content.get("references/QUICK-REFERENCE.md").toLowerCase();
   for (const phrase of ["bounded strategy choice", "User-visible outcome", "Dependency rationale", "Boundary rationale"]) {
-    assert.match(content.get("references/QUICK-REFERENCE.md"), new RegExp(phrase, "i"), `quick reference is missing Module 6 guidance: ${phrase}`);
+    assert.ok(quickReference.includes(phrase.toLowerCase()), `quick reference is missing Module 6 guidance: ${phrase}`);
   }
 
   const baseline = content.get("references/SOURCE-BASELINE.md");
