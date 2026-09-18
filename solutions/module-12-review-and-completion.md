@@ -1,11 +1,11 @@
-# Explained solution — Module 11 review and completion
+# Explained solution — Module 12 review and completion
 
 ## Solution record
 
 | Field | Value |
 | --- | --- |
 | Directive baseline | 0.119.2 |
-| Exercise | [Module 11 — PR, review, and actual completion](../curriculum/modules/11-review-and-completion.md#exercise) |
+| Exercise | [Module 12 — PR, review, and actual completion](../curriculum/modules/12-review-and-completion.md#exercise) |
 | Evidence type | Explained fixed-state review worksheets |
 | Safety boundary | No live repository, PR, review bot, CI, merge, deployment, UAT, credential, or client data |
 
@@ -18,7 +18,7 @@ and evidence, not only the final labels.
 
 Complete all four worksheets: the pre-PR decision, all four finding rows, the
 coherent-batch plan, and all nine three-axis completion cards. If you opened this page early, return to
-the [exercise](../curriculum/modules/11-review-and-completion.md#exercise) and
+the [exercise](../curriculum/modules/12-review-and-completion.md#exercise) and
 make a best attempt. Reading the answer is not outcome evidence.
 
 ## Result summary
@@ -36,10 +36,10 @@ and lifecycle closeout; deployment and UAT remain separate.
 
 | Outcome | Evidence in the worked answer |
 | --- | --- |
-| O11.1 | The Pass A and Pass B table applies every pre-PR phase and the zero-change exit |
-| O11.2 | The F1–F4 table records severity, scope, blocking status, disposition, and evidence before the batch |
-| O11.3 | The H1-to-H2 plan resolves F1/F2 coherently, records F3/F4, checks consistency, and refreshes H2 evidence |
-| O11.4 | The C1–C9 table separates Git/review/delivery state from deployment and UAT evidence |
+| O12.1 | The Pass A and Pass B table applies every pre-PR phase and the zero-change exit |
+| O12.2 | The F1–F4 table records severity, scope, blocking status, disposition, and evidence before the batch |
+| O12.3 | The H1-to-H2 plan resolves F1/F2 coherently, records F3/F4, checks consistency, and refreshes H2 evidence |
+| O12.4 | The C1–C9 table separates Git/review/delivery state from deployment and UAT evidence |
 
 ## Reasoning
 
@@ -150,15 +150,15 @@ C8 does not invent UAT, and C9 does not invent deployment.
 
 ## Acceptance evidence
 
-- **O11.1:** Pass A restarts after its cleanup change; Pass B is a full
+- **O12.1:** Pass A restarts after its cleanup change; Pass B is a full
   Read-Write-Lint-Diff pass with zero edits and current gate evidence.
-- **O11.2:** F1–F4 are all classified before the batch. Each row separates
+- **O12.2:** F1–F4 are all classified before the batch. Each row separates
   severity from acceptance scope and records blocking status, disposition, and
   evidence.
-- **O11.3:** H2 contains only F1/F2 repair work plus its necessary tests and
+- **O12.3:** H2 contains only F1/F2 repair work plus its necessary tests and
   consistency checks. F3/F4 remain recorded. Checks and review are rebound to
   H2.
-- **O11.4:** Every C1–C9 row names Git/review/delivery, deployment, UAT, and
+- **O12.4:** Every C1–C9 row names Git/review/delivery, deployment, UAT, and
   missing evidence separately. C8 and C9 demonstrate independent deployment
   and UAT evidence on top of C7 delivery.
 
@@ -240,9 +240,9 @@ cleanup command is required.
 
 ## Sources
 
-- [Module 11 lesson](../curriculum/modules/11-review-and-completion.md)
-- [Directive source baseline](../references/SOURCE-BASELINE.md#module-11-review-and-completion-validation)
-- [Module 11 source notes](../references/SOURCE-NOTES.md#module-11-source-validation)
+- [Module 12 lesson](../curriculum/modules/12-review-and-completion.md)
+- [Directive source baseline](../references/SOURCE-BASELINE.md#module-12-review-and-completion-validation)
+- [Module 12 source notes](../references/SOURCE-NOTES.md#module-12-source-validation)
 - [Directive learner quick reference](../references/QUICK-REFERENCE.md)
 
 ## Continue

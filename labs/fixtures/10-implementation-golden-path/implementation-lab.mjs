@@ -56,7 +56,7 @@ function readJson(path) {
 
 function story() {
   return {
-    xBRIEFInfo: { version: "0.8", description: "Fictional Module 9 active greeting story" },
+    xBRIEFInfo: { version: "0.8", description: "Fictional Module 10 active greeting story" },
     plan: {
       id: "northstar.implementation.greeting",
       title: "Personalize the fictional greeting",
@@ -245,7 +245,7 @@ export function createAttempt() {
   }
   const temporaryRoot = realpathSync(tmpdir());
   assert.equal(git(temporaryRoot, ["rev-parse", "--show-toplevel"], [0, 128]).trim(), "", "Stop: temporary parent is inside another Git repository.");
-  const parent = mkdtempSync(join(temporaryRoot, "3ci-directive-lab09-"));
+  const parent = mkdtempSync(join(temporaryRoot, "3ci-directive-lab10-"));
   const root = join(parent, "repo");
   for (const path of [
     "repo", "empty-template", "evidence", "repo/src", "repo/test", "repo/xbrief",
@@ -260,16 +260,16 @@ export function createAttempt() {
   writeJson(safePath(root, storyPath), story(), { flag: "wx" });
   const immutableDigests = Object.fromEntries(immutableFiles.map((path) => [path, digest(read(join(fixture, path)))]));
   writeJson(join(parent, "lab-state.json"), {
-    lab: "module-09",
+    lab: "module-10",
     root,
     allowedProductFiles,
     immutableDigests,
     startingGreetingDigest: digest(read(join(fixture, "src/greeting.mjs"))),
     checkpoint: null,
   }, { flag: "wx" });
-  writeFileSync(join(parent, "evidence", "README.md"), "# Module 9 retained evidence\n\nReadiness, expected failure, behavioral proof, and diff proof are written here.\n", { flag: "wx" });
+  writeFileSync(join(parent, "evidence", "README.md"), "# Implementation-lab retained evidence\n\nReadiness, expected failure, behavioral proof, and diff proof are written here.\n", { flag: "wx" });
   git(root, ["init", "--template=" + join(parent, "empty-template")]);
-  git(root, ["switch", "-c", "training/module-09"]);
+  git(root, ["switch", "-c", "training/module-10"]);
   guardAttempt(root);
   return root;
 }
@@ -280,18 +280,18 @@ function verifyAttemptIdentity(input = process.cwd()) {
   const root = resolve(input);
   const parent = dirname(root);
   const temporaryRoot = realpathSync(tmpdir());
-  assert.ok(basename(root) === "repo" && /^3ci-directive-lab09-[A-Za-z0-9]{6}$/.test(basename(parent)) && dirname(parent) === temporaryRoot, "Stop: expected the unique OS temporary lab repo for Module 9.");
+  assert.ok(basename(root) === "repo" && /^3ci-directive-lab10-[A-Za-z0-9]{6}$/.test(basename(parent)) && dirname(parent) === temporaryRoot, "Stop: expected the unique OS temporary lab repo for Module 10.");
   assert.ok(!lstatSync(parent).isSymbolicLink() && !lstatSync(root).isSymbolicLink(), "Stop: lab root is a symlink.");
   assert.equal(realpathSync(root), root, "Stop: lab root is not canonical.");
   assert.equal(git(parent, ["rev-parse", "--show-toplevel"], [0, 128]).trim(), "", "Stop: temporary parent is inside another Git repository.");
   const marker = readJson(safePath(parent, "lab-state.json"));
-  assert.ok(marker.lab === "module-09" && marker.root === root, "Stop: lab marker mismatch.");
+  assert.ok(marker.lab === "module-10" && marker.root === root, "Stop: lab marker mismatch.");
   for (const path of [".git", ".git/config", ".git/index", ".git/hooks", ".git/objects", ".git/refs", ".git/HEAD", ".gitattributes", ".gitignore", ".npmrc", "package.json", "src", "test", "xbrief", "xbrief/PROJECT-DEFINITION.xbrief.json", storyPath]) safePath(root, path);
   assert.ok(lstatSync(join(root, ".git")).isDirectory(), "Stop: expected a local .git directory.");
   assertPlainTree(root, ".git");
   const gitRoot = git(root, ["rev-parse", "--show-toplevel"]).trim();
   assert.ok(sameFileSystemEntry(root, gitRoot), "Stop: Git root differs from the lab.");
-  assert.equal(git(root, ["branch", "--show-current"]).trim(), "training/module-09", "Stop: expected training/module-09.");
+  assert.equal(git(root, ["branch", "--show-current"]).trim(), "training/module-10", "Stop: expected training/module-10.");
   assert.equal(git(root, ["remote"]).trim(), "", "Stop: lab must have no remote.");
   return { root, marker };
 }
@@ -373,12 +373,12 @@ export function runReadiness(root = process.cwd()) {
   assert.match(steps.focusedTest.stdout + steps.focusedTest.stderr, /Hello, Ada!|name must be a string/, "Stop: focused failure does not describe the intended greeting behavior.");
   assert.equal(git(root, ["status", "--porcelain", "--untracked-files=all"]).trim(), "", "Stop: readiness checks changed tracked product state.");
   const evidence = {
-    schema: "3ci.training.module09.readiness-evidence.v1",
+    schema: "3ci.training.module10.readiness-evidence.v1",
     generatedAt: new Date().toISOString(),
     finalStatus: "READY",
     baseline: { package: "@deftai/directive", engine: exactVersion },
     checkpoint: marker.checkpoint,
-    branch: "training/module-09",
+    branch: "training/module-10",
     activeContract: storyPath,
     allowedProductFiles,
     remote: "",
@@ -410,7 +410,7 @@ export function verifyImplementation(root = process.cwd()) {
   assert.equal(steps.fallbackCli.stdout.trim(), "Hello, teammate!", "fallback greeting evidence is incorrect");
   steps.diffCheck = requireSuccess("git diff --check", commandResult(findExecutable("git"), ["--no-optional-locks", "-C", root, "diff", "--check"], { cwd: root, env: isolatedEnv(root, sessionId) }));
   const evidence = {
-    schema: "3ci.training.module09.implementation-evidence.v1",
+    schema: "3ci.training.module10.implementation-evidence.v1",
     generatedAt: new Date().toISOString(),
     finalStatus: "PASS",
     baseline: { package: "@deftai/directive", engine: exactVersion },
@@ -464,7 +464,7 @@ if (process.argv[1] && realpathSync(resolve(process.argv[1])) === realpathSync(f
   try {
     console.log(main());
   } catch (error) {
-    console.error("Lab 9 stopped: " + error.message);
+    console.error("Lab 10 stopped: " + error.message);
     process.exitCode = 1;
   }
 }

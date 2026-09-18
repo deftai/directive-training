@@ -323,8 +323,7 @@ If any cell differs, use the retry plan there and repeat only the affected case.
 
 - Previous: [Module 7 — Scope lifecycle and implementation authorization](07-scope-lifecycle.md)
 - Course map: [Directive training course map](../README.md)
-- Next: Module 9 — The implementation golden path is still planned and is not
-  learner-ready.
+- Next: [Module 9 — Design-critique arcs and verified synthesis](09-design-critique-arcs.md)
 
 ## Official sources
 

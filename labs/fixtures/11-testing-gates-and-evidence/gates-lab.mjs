@@ -68,7 +68,7 @@ function readJson(path) {
 
 function story() {
   return {
-    xBRIEFInfo: { version: "0.8", description: "Fictional Module 10 active numeric-summary story" },
+    xBRIEFInfo: { version: "0.8", description: "Fictional Module 11 active numeric-summary story" },
     plan: {
       id: "northstar.testing.summary-average",
       title: "Add average to the fictional numeric summary",
@@ -229,7 +229,7 @@ function isolatedEnv(root) {
   return {
     ...withoutHostNpmConfig(),
     PATH: [join(root, "node_modules/.bin"), join(root, ".lab-tools"), ...systemTools].join(delimiter),
-    DEFT_SESSION_ID: "module-10-lab-session",
+    DEFT_SESSION_ID: "module-11-lab-session",
     DEFT_SESSION_SLASH_VERB: "implement",
     NPM_CONFIG_USERCONFIG: join(root, ".npmrc"),
     NPM_CONFIG_GLOBALCONFIG: devNull,
@@ -308,7 +308,7 @@ export function createAttempt() {
   }
   const temporaryRoot = realpathSync(tmpdir());
   assert.equal(git(temporaryRoot, ["rev-parse", "--show-toplevel"], [0, 128]).trim(), "", "Stop: temporary parent is inside another Git repository.");
-  const parent = mkdtempSync(join(temporaryRoot, "3ci-directive-lab10-"));
+  const parent = mkdtempSync(join(temporaryRoot, "3ci-directive-lab11-"));
   const root = join(parent, "repo");
   for (const path of [
     "repo", "empty-template", "evidence", "repo/scripts", "repo/src", "repo/test", "repo/xbrief",
@@ -322,7 +322,7 @@ export function createAttempt() {
   const activeStory = story();
   writeJson(safePath(root, storyPath), activeStory, { flag: "wx" });
   writeJson(join(parent, "lab-state.json"), {
-    lab: "module-10",
+    lab: "module-11",
     root,
     allowedWorkFiles,
     immutableDigests: Object.fromEntries(immutableGateFiles.map((path) => [path, digest(read(safePath(root, path)))])),
@@ -336,9 +336,9 @@ export function createAttempt() {
     checkpoint: null,
     stage: "CREATED",
   }, { flag: "wx" });
-  writeFileSync(join(parent, "evidence", "README.md"), "# Module 10 retained evidence\n\nRed, green, refactor, literal, aggregate-failure, and final evidence are written here.\n", { flag: "wx" });
+  writeFileSync(join(parent, "evidence", "README.md"), "# Module 11 retained evidence\n\nRed, green, refactor, literal, aggregate-failure, and final evidence are written here.\n", { flag: "wx" });
   git(root, ["init", "--template=" + join(parent, "empty-template")]);
-  git(root, ["switch", "-c", "training/module-10"]);
+  git(root, ["switch", "-c", "training/module-11"]);
   guardAttempt(root);
   return root;
 }
@@ -349,18 +349,18 @@ function verifyAttemptIdentity(input = process.cwd()) {
   const root = resolve(input);
   const parent = dirname(root);
   const temporaryRoot = realpathSync(tmpdir());
-  assert.ok(basename(root) === "repo" && /^3ci-directive-lab10-[A-Za-z0-9]{6}$/.test(basename(parent)) && dirname(parent) === temporaryRoot, "Stop: expected the unique OS temporary lab repo for Module 10.");
+  assert.ok(basename(root) === "repo" && /^3ci-directive-lab11-[A-Za-z0-9]{6}$/.test(basename(parent)) && dirname(parent) === temporaryRoot, "Stop: expected the unique OS temporary lab repo for Module 11.");
   assert.ok(!lstatSync(parent).isSymbolicLink() && !lstatSync(root).isSymbolicLink(), "Stop: lab root is a symlink.");
   assert.equal(realpathSync(root), root, "Stop: lab root is not canonical.");
   assert.equal(git(parent, ["rev-parse", "--show-toplevel"], [0, 128]).trim(), "", "Stop: temporary parent is inside another Git repository.");
   const marker = readJson(safePath(parent, "lab-state.json"));
-  assert.ok(marker.lab === "module-10" && marker.root === root, "Stop: lab marker mismatch.");
+  assert.ok(marker.lab === "module-11" && marker.root === root, "Stop: lab marker mismatch.");
   for (const path of [".git", ".git/config", ".git/index", ".git/hooks", ".git/objects", ".git/refs", ".git/HEAD", ".gitattributes", ".gitignore", ".npmrc", "Taskfile.yml", "package.json", "src", "test", "scripts", "xbrief", "xbrief/PROJECT-DEFINITION.xbrief.json", storyPath]) safePath(root, path);
   assert.ok(lstatSync(join(root, ".git")).isDirectory(), "Stop: expected a local .git directory.");
   assertPlainTree(root, ".git");
   const gitRoot = git(root, ["rev-parse", "--show-toplevel"]).trim();
   assert.ok(sameFileSystemEntry(root, gitRoot), "Stop: Git root differs from the lab.");
-  assert.equal(git(root, ["branch", "--show-current"]).trim(), "training/module-10", "Stop: expected training/module-10.");
+  assert.equal(git(root, ["branch", "--show-current"]).trim(), "training/module-11", "Stop: expected training/module-11.");
   assert.equal(git(root, ["remote"]).trim(), "", "Stop: lab must have no remote.");
   return { root, marker };
 }
@@ -434,7 +434,7 @@ export function recordRed(root = process.cwd()) {
   assert.equal(focused.exitCode, 1, "Stop: the focused test must fail at the red checkpoint.");
   assert.match(focused.stdout + focused.stderr, /average/, "Stop: the red failure must describe the intended average behavior.");
   const evidence = {
-    schema: "3ci.training.module10.red-evidence.v1",
+    schema: "3ci.training.module11.red-evidence.v1",
     generatedAt: new Date().toISOString(),
     finalStatus: "EXPECTED_FAILURE",
     checkpoint: marker.checkpoint,
@@ -460,7 +460,7 @@ export function recordGreen(root = process.cwd()) {
   const cli = requireSuccess("numeric summary CLI", commandResult(process.execPath, [sourcePath, "2", "4", "6"], { cwd: root, env: isolatedEnv(root) }));
   assert.deepEqual(JSON.parse(cli.stdout), { count: 3, total: 12, average: 4 }, "green CLI behavior is incorrect");
   const evidence = {
-    schema: "3ci.training.module10.green-evidence.v1",
+    schema: "3ci.training.module11.green-evidence.v1",
     generatedAt: new Date().toISOString(),
     finalStatus: "PASS",
     changedFiles: mutableFiles(root),
@@ -487,7 +487,7 @@ export function recordRefactor(root = process.cwd()) {
   const cli = requireSuccess("numeric summary CLI after refactor", commandResult(process.execPath, [sourcePath, "2", "4", "6"], { cwd: root, env: isolatedEnv(root) }));
   assert.deepEqual(JSON.parse(cli.stdout), { count: 3, total: 12, average: 4 }, "refactor changed CLI behavior");
   const evidence = {
-    schema: "3ci.training.module10.refactor-evidence.v1",
+    schema: "3ci.training.module11.refactor-evidence.v1",
     generatedAt: new Date().toISOString(),
     finalStatus: "PASS",
     changedFiles: mutableFiles(root),
@@ -512,7 +512,7 @@ export function runLiteralAcceptance(root = process.cwd()) {
   const literalAcceptance = requireSuccess("literal acceptance", runDirective(root, ["verify:ac", storyPath]));
   const forwardCoverage = requireSuccess("forward coverage", runDirective(root, ["verify:forward-coverage", "--project-root", ".", "--head"]));
   const evidence = {
-    schema: "3ci.training.module10.literal-evidence.v1",
+    schema: "3ci.training.module11.literal-evidence.v1",
     generatedAt: new Date().toISOString(),
     finalStatus: "PASS",
     literalAcceptance,
@@ -536,7 +536,7 @@ export function runAggregate(root = process.cwd()) {
   assert.notEqual(aggregate.exitCode, 0, "Stop: the seeded aggregate gate must fail before repair.");
   assert.match(output, /quality record is incomplete/, "Stop: aggregate did not reach the seeded quality-record failure.");
   const evidence = {
-    schema: "3ci.training.module10.aggregate-failure-evidence.v1",
+    schema: "3ci.training.module11.aggregate-failure-evidence.v1",
     generatedAt: new Date().toISOString(),
     finalStatus: "EXPECTED_FAILURE",
     firstFailingSubcheck: "quality:record",
@@ -560,7 +560,7 @@ export function verifyFinal(root = process.cwd()) {
   assert.notEqual(digest(read(safePath(root, qualityPath))), marker.startingDigests[qualityPath], "Stop: final verification requires the bounded quality-record repair.");
   const aggregate = requireSuccess("aggregate task check", runTask(root, "check"));
   const evidence = {
-    schema: "3ci.training.module10.final-evidence.v1",
+    schema: "3ci.training.module11.final-evidence.v1",
     generatedAt: new Date().toISOString(),
     finalStatus: "PASS",
     changedFiles: mutableFiles(root),
@@ -617,7 +617,7 @@ if (process.argv[1] && realpathSync(resolve(process.argv[1])) === realpathSync(f
   try {
     console.log(main());
   } catch (error) {
-    console.error("Lab 10 stopped: " + error.message);
+    console.error("Lab 11 stopped: " + error.message);
     process.exitCode = 1;
   }
 }

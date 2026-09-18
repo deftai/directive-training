@@ -23,7 +23,7 @@ const solutionHeadings = [
   "Misconceptions exposed by this exercise", "Retry plan", "Reset and cleanup", "Sources",
   "Continue",
 ];
-const outcomes = "O6.1 O6.2 O6.3";
+const outcomes = "O6.1 O6.2 O6.3 O6.4";
 
 function document(headings, overrides = {}) {
   return `# Example\n\n${headings.map((heading) => {
@@ -59,11 +59,19 @@ function fixture(t) {
       "Create ordered independently verifiable slices.",
       "Order | Slice | Dependency rationale | Boundary rationale",
       "",
+      "Complete the required mechanism-shaped routing matrix.",
+      "Fact pattern ID | Controlling supplied fact | Disposition | Proposed mechanism revision | Safe next action",
+      "--- | --- | --- | --- | ---",
+      "M6-ROUTE-01, M6-NOROUTE-01, and M6-INSUFFICIENT-01 must resolve to route, no route, and insufficient evidence.",
+      "All three rows are required and non-compensating.",
+      "Every row identifies a scenario-specific controlling fact, disposition, and safe next action; the route row names the proposed mechanism revision.",
+      "A row that merely repeats a disposition or gives a keyword-only answer does not pass.",
+      "",
       "`xBRIEFInfo.version: 0.8`; `plan.status: proposed`.",
       "A proposal is reviewable candidate state, not implementation authority.",
       "### Exercise acceptance",
       outcomes,
-    ].join("\n\n"),
+    ].join("\n"),
     "Completion evidence": outcomes,
     "Self-assessment": outcomes,
     "Explained solution": "Use the [explained solution](../../solutions/module-06-creating-well-shaped-work.md).",
@@ -89,6 +97,12 @@ function fixture(t) {
       "  }",
       "}",
       "```",
+      "",
+      "| Fact pattern ID | Controlling supplied fact | Disposition | Proposed mechanism revision | Safe next action |",
+      "| --- | --- | --- | --- | --- |",
+      "| M6-ROUTE-01 | NS-INGEST-R2 changes how untrusted issue text enters the agent envelope and how clearance is recognized. | route | Revise NS-INGEST-R2 so quoted source content stays evidence and only an admitted completed-arc record supplies clearance. | Preserve proposed state and route NS-INGEST-R2 to design critique before promotion, activation, or implementation. |",
+      "| M6-NOROUTE-01 | The edit changes one error-message phrase while behavior, authority, parser inputs, and gates stay unchanged. | no route | Not applicable. | Continue through ordinary proposal review without inventing an arc. |",
+      "| M6-INSUFFICIENT-01 | Make agent intake safer supplies no mechanism, target revision, or authority-boundary change. | insufficient evidence | Not applicable. | Request the missing mechanism and target evidence, then rerun the routing decision. |",
     ].join("\n"),
     "Acceptance evidence": outcomes,
     "Continue": "Continue to [Module 7](../curriculum/modules/07-scope-lifecycle.md) or review the [course map](../curriculum/README.md).",
@@ -98,7 +112,7 @@ function fixture(t) {
   write(module7, "# Module 7\n");
   write("README.md", "# Training\n\n2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.2<!-- /directive-training:teaching-baseline --> with xBRIEF schema 0.8.\n\nContinue with [Module 6](curriculum/modules/06-creating-well-shaped-work.md).\n");
   write("curriculum/README.md", "# Course\n\n| Module | Status |\n| --- | --- |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| [Module 7](modules/07-scope-lifecycle.md) | Learner-ready draft |\n");
-  write("assessments/README.md", "# Assessments\n\nUse [Module 6](../curriculum/modules/06-creating-well-shaped-work.md#self-assessment).\n");
+  write("assessments/README.md", "# Assessments\n\nUse [Module 6](../curriculum/modules/06-creating-well-shaped-work.md#self-assessment) to inspect the required route / no route / insufficient evidence matrix for O6.4.\n");
   write("solutions/README.md", "# Solutions\n\nUse the [Module 6 solution](module-06-creating-well-shaped-work.md).\n");
   write("references/GLOSSARY.md", "# Glossary\n\n## Vertical slice\n\nAn independently demoable, human-observable capability.\n\n## Horizontal plan\n\nWork grouped by component rather than outcome.\n\n## Proposed scope\n\nA reviewable candidate that grants no implementation authority.\n");
   write("references/QUICK-REFERENCE.md", "# Quick reference\n\n## Shape work\n\nRecord a bounded strategy choice, User-visible outcome, Dependency rationale, and Boundary rationale. Use the [Module 6 worksheet](../curriculum/modules/06-creating-well-shaped-work.md#exercise).\n");
@@ -149,7 +163,7 @@ for (const [path, headings] of [
   [solution6, ["Outcome map", "Acceptance evidence"]],
 ]) {
   for (const heading of headings) {
-    for (const outcome of ["O6.1", "O6.2", "O6.3"]) {
+    for (const outcome of ["O6.1", "O6.2", "O6.3", "O6.4"]) {
       test(`rejects ${outcome} missing from ${path} ${heading}`, (t) => {
         const files = fixture(t);
         files.change(path, (content) => {
@@ -191,6 +205,42 @@ test("rejects loss of the two-to-five acceptance-criteria contract", (t) => {
   const files = fixture(t);
   files.change(module6, (body) => body.replace("two to five criteria", "one criterion"));
   assert.throws(() => verifyModule6(files.root), /two to five acceptance criteria/i);
+});
+
+test("rejects a missing O6.4 routing matrix", (t) => {
+  const files = fixture(t);
+  files.change(module6, (body) => body.replace(
+    "Fact pattern ID | Controlling supplied fact | Disposition | Proposed mechanism revision | Safe next action",
+    "Scenario summary",
+  ));
+  assert.throws(() => verifyModule6(files.root), /O6\.4 routing matrix/i);
+});
+
+test("rejects a presence-only O6.4 solution matrix", (t) => {
+  const files = fixture(t);
+  files.change(solution6, (body) => body.replace(
+    "NS-INGEST-R2 changes how untrusted issue text enters the agent envelope and how clearance is recognized.",
+    "untrusted issue text clearance",
+  ));
+  assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 controlling fact/i);
+});
+
+test("rejects keyword-only O6.4 actions", (t) => {
+  const files = fixture(t);
+  files.change(solution6, (body) => body.replace(
+    "Preserve proposed state and route NS-INGEST-R2 to design critique before promotion, activation, or implementation.",
+    "proposed route design critique promotion activation implementation",
+  ));
+  assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 safe next action/i);
+});
+
+test("rejects a route row without a proposed mechanism revision", (t) => {
+  const files = fixture(t);
+  files.change(solution6, (body) => body.replace(
+    "Revise NS-INGEST-R2 so quoted source content stays evidence and only an admitted completed-arc record supplies clearance.",
+    "Not applicable.",
+  ));
+  assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 proposed mechanism revision/i);
 });
 
 test("rejects a worked proposal with fewer than two traced acceptance items", (t) => {

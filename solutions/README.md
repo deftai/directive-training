@@ -16,9 +16,10 @@ Every solution separates pinned product facts, local requirements, and learning 
 | [Module 6 — Creating Well-Shaped Work](../curriculum/modules/06-creating-well-shaped-work.md) | [Explained Module 6 solution](module-06-creating-well-shaped-work.md) | Available; command-free exercise |
 | [Module 7 — Scope Lifecycle and Implementation Authorization](../curriculum/modules/07-scope-lifecycle.md) | [Explained Lab 7 solution](lab-07-scope-lifecycle.md) | Available; lifecycle lab verified on macOS/zsh only |
 | [Module 8 — Session Start and Authorized Work Selection](../curriculum/modules/08-session-and-work-selection.md) | [Explained Module 8 solution](module-08-session-and-work-selection.md) | Available; command-free fixed-state exercise |
-| [Module 9 — The Implementation Golden Path](../curriculum/modules/09-implementation-golden-path.md) | [Explained Lab 9 solution](lab-09-implementation-golden-path.md) | Available; executable lab verified on macOS/zsh only |
-| [Module 10 — Testing, Gates, and Evidence](../curriculum/modules/10-testing-gates-and-evidence.md) | [Explained Lab 10 solution](lab-10-testing-gates-and-evidence.md) | Available; executable lab verified on macOS/zsh only |
-| [Module 11 — PR, Review, and Actual Completion](../curriculum/modules/11-review-and-completion.md) | [Explained Module 11 solution](module-11-review-and-completion.md) | Available; command-free fixed-state exercise |
+| [Module 9 — Design-Critique Arcs and Verified Synthesis](../curriculum/modules/09-design-critique-arcs.md) | [Explained Module 9 solution](module-09-design-critique-arcs.md) | Available; command-free fixed-state practicum against the pinned 0.119.2 contract |
+| [Module 10 — The Implementation Golden Path](../curriculum/modules/10-implementation-golden-path.md) | [Explained Lab 10 solution](lab-10-implementation-golden-path.md) | Available; executable lab verified on macOS/zsh only |
+| [Module 11 — Testing, Gates, and Evidence](../curriculum/modules/11-testing-gates-and-evidence.md) | [Explained Lab 11 solution](lab-11-testing-gates-and-evidence.md) | Available; executable lab verified on macOS/zsh only |
+| [Module 12 — PR, Review, and Actual Completion](../curriculum/modules/12-review-and-completion.md) | [Explained Module 12 solution](module-12-review-and-completion.md) | Available; command-free fixed-state exercise |
 | [Capstone — End-to-End Solo Directive Lifecycle](../curriculum/capstone-end-to-end.md) | [Capstone explained solution](capstone-end-to-end.md) | Learner-ready; use after a genuine first attempt, then retry with fresh evidence |
 
 ## When to open a solution

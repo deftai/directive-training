@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "deft.decision.v1",
+  "id": "insert-a-new-current-module-9-design-critique-practicum-renumber",
+  "decision": "Insert a new current Module 9 design-critique practicum; renumber the former Modules 9, 10, and 11 to display Modules 10, 11, and 12; use the globally unique current outcome map O9.6-O9.9 for the practicum, O10.5-O10.9 for implementation, O11.5-O11.8 for testing, and O12.1-O12.4 for review; retain the proposed parent filename and the opaque lineage keys training.modules9-11, training.modules9-11.implementation, training.modules9-11.gates, and training.modules9-11.review, including the capstone dependency on training.modules9-11; allow old-number text only at an exact occurrence and semantic field/value allowlist, never by file, directory, object, symbol, or container name; treat this as a one-time pre-MVP exception that neither reuses those lineage keys nor weakens the general stable-ID rule.",
+  "governingRule": {
+    "description": "The accepted issue #4 remedy requires a collision-free pre-MVP module insertion while preserving historical lineage and completed evidence byte-for-byte.",
+    "path": "xbrief/active/2026-09-18-4-refactor-core-curriculum-to-add-required-module-7-on-directi.xbrief.json",
+    "rfc2119": "MUST"
+  },
+  "alternativesConsidered": [
+    {
+      "option": "Keep the three former module display numbers and place the practicum elsewhere"
+    },
+    {
+      "option": "Renumber opaque lineage IDs and historical records together with learner-facing modules"
+    },
+    {
+      "option": "Permit stale numbering by broad file or historicalLineage-container exemptions"
+    }
+  ],
+  "whyWinner": "The chosen mapping gives the required practicum a stable current identity, preserves immutable history and dependency identity, and makes stale current assertions mechanically detectable without container laundering.",
+  "confidence": "high",
+  "activeScopeRefs": [
+    "xbrief/active/2026-09-18-4-refactor-core-curriculum-to-add-required-module-7-on-directi.xbrief.json"
+  ],
+  "timestamp": "2026-09-18T02:46:39Z",
+  "revisitTrigger": "Revisit only before MVP if a collision-free outcome map cannot be verified or if a required historical reference cannot be expressed with an exact semantic occurrence allowlist.",
+  "tags": [
+    "curriculum",
+    "numbering",
+    "lineage"
+  ],
+  "relatedIssues": [
+    4
+  ]
+}

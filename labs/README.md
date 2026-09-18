@@ -21,12 +21,12 @@ verified on macOS/zsh. It uses an exact 0.119.2 package graph, isolated Task
 PATH, guarded no-remote fixture, preserved failure evidence, fresh reset, and
 recoverable archive. Linux/bash and Windows/PowerShell remain candidates.
 
-[Lab 9 — Implementation golden path](09-implementation-golden-path.md) is a
+[Lab 10 — Implementation golden path](10-implementation-golden-path.md) is a
 learner-ready draft verified on macOS/zsh. It retains readiness-before-mutation,
 focused red-green behavior, a one-file product diff, paired evidence, fresh reset, and
 recoverable archive. Linux/bash and Windows/PowerShell remain candidates.
 
-[Lab 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md) is a
+[Lab 11 — Testing, gates, and evidence](11-testing-gates-and-evidence.md) is a
 learner-ready draft verified on macOS/zsh. It retains ordered red-green-refactor,
 literal, forward-coverage, seeded aggregate-failure, final, and unchanged-gate evidence.
 Linux/bash and Windows/PowerShell remain candidates.
@@ -305,11 +305,12 @@ No instructor or review bot is required. If the documented recovery still cannot
 | [Module 4 — xBRIEF as Durable State](../curriculum/modules/04-xbrief-as-durable-state.md) | Available | Complete its embedded artifact-classification exercise without mutating a repository |
 | [Lab 5 — Projection drift recovery](05-projection-drift-recovery.md) | Learner-ready draft; 0.119.2 path verified on macOS/zsh; Linux and Windows candidates | Use its exact fixture, ordered tasks, evidence, fresh reset, and archive path |
 | [Lab 7 — Scope lifecycle](07-scope-lifecycle.md) | Learner-ready draft; 0.119.2 pinned lifecycle path verified on macOS/zsh; Linux and Windows candidates | Use its guarded no-remote fixture, Task-driven transitions, retained evidence, fresh reset, and recoverable archive |
-| [Lab 9 — Implementation golden path](09-implementation-golden-path.md) | Learner-ready draft; exact 0.119.2 implementation path verified on macOS/zsh; Linux and Windows candidates | Use its guarded no-remote fixture, readiness-before-mutation sequence, one-file diff, paired evidence, fresh reset, and recoverable archive |
-| [Lab 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md) | Learner-ready draft; exact 0.119.2 gate path verified on macOS/zsh; Linux and Windows candidates | Use its guarded no-remote fixture, frozen focused test, ordered stage evidence, seeded aggregate failure, fresh reset, and recoverable archive |
+| [Lab 10 — Implementation golden path](10-implementation-golden-path.md) | Learner-ready draft; exact 0.119.2 implementation path verified on macOS/zsh; Linux and Windows candidates | Use its guarded no-remote fixture, readiness-before-mutation sequence, one-file diff, paired evidence, fresh reset, and recoverable archive |
+| [Lab 11 — Testing, gates, and evidence](11-testing-gates-and-evidence.md) | Learner-ready draft; exact 0.119.2 gate path verified on macOS/zsh; Linux and Windows candidates | Use its guarded no-remote fixture, frozen focused test, ordered stage evidence, seeded aggregate failure, fresh reset, and recoverable archive |
 | [Module 6 — Creating well-shaped work](../curriculum/modules/06-creating-well-shaped-work.md) | Available; command-free exercise | Complete its embedded vertical-slice worksheet; no lab fixture is required |
 | [Module 8 — Session start and authorized work selection](../curriculum/modules/08-session-and-work-selection.md) | Available; command-free fixed-state exercise | Complete its embedded request-card matrix; no lab fixture is required |
-| [Module 11 — PR, review, and actual completion](../curriculum/modules/11-review-and-completion.md) | Available; command-free fixed-state exercise | Use the embedded fictional review packet and completion cards; Module 11 has no lab fixture |
+| [Module 9 — Design-critique arcs and verified synthesis](../curriculum/modules/09-design-critique-arcs.md) | Available; command-free fixed-state practicum | Complete its embedded fictional critique packet; Module 9 has no lab fixture |
+| [Module 12 — PR, review, and actual completion](../curriculum/modules/12-review-and-completion.md) | Available; command-free fixed-state exercise | Use the embedded fictional review packet and completion cards; Module 12 has no lab fixture |
 | [Lab authoring template](../templates/lab-template.md) | Available to maintainers | Build a lab with tasks, checkpoints, literal gates, reset, cleanup, and a solution |
 | [Capstone — End-to-End Solo Directive Lifecycle](capstone-end-to-end.md) | Learner-ready; guarded 0.119.2 fixture verified on macOS/zsh; Linux and Windows candidates | Use its exact two-hour orientation-to-local-closeout route, retained evidence, fresh reset drill, and recoverable archive of both attempts |
 

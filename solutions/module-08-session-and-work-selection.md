@@ -175,5 +175,5 @@ only sanitized private learning evidence if permitted.
 
 ## Continue
 
-Return to the [course map](../curriculum/README.md). Module 9 — The
-implementation golden path remains planned and is not learner-ready.
+Continue to [Module 9 — Design-critique arcs and verified synthesis](../curriculum/modules/09-design-critique-arcs.md),
+or return to the [course map](../curriculum/README.md).

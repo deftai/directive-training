@@ -17,8 +17,8 @@ import {
   runLiteralAcceptance,
   verifyFinal,
   verifyPin,
-} from "../labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs";
-import { git } from "../labs/fixtures/10-testing-gates-and-evidence/safety.mjs";
+} from "../labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs";
+import { git } from "../labs/fixtures/11-testing-gates-and-evidence/safety.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(path, "utf8");
@@ -64,7 +64,7 @@ function refactorAverage(root) {
 function completeQualityRecord(root) {
   const path = join(root, "quality-record.json");
   writeFileSync(path, `${JSON.stringify({
-    schema: "3ci.training.module10.quality-record.v1",
+    schema: "3ci.training.module11.quality-record.v1",
     status: "COMPLETE",
     evidence: {
       red: "EXPECTED_FAILURE",
@@ -79,11 +79,11 @@ function completeQualityRecord(root) {
   }, null, 2)}\n`);
 }
 
-test("create produces a unique guarded no-remote Module 10 fixture", () => {
+test("create produces a unique guarded no-remote Module 11 fixture", () => {
   const root = createAttempt();
   assert.equal(guardAttempt(root), root);
   assert.equal(git(root, ["remote"]).trim(), "");
-  assert.equal(git(root, ["branch", "--show-current"]).trim(), "training/module-10");
+  assert.equal(git(root, ["branch", "--show-current"]).trim(), "training/module-11");
   assert.throws(() => guardAttempt(repositoryRoot), /unique OS temporary lab repo/);
 });
 
@@ -94,7 +94,7 @@ test("guard rejects a remote, wrong branch, and gate-definition edits", () => {
 
   const branchRoot = createAttempt();
   git(branchRoot, ["switch", "-c", "wrong-branch"]);
-  assert.throws(() => guardAttempt(branchRoot), /training\/module-10/);
+  assert.throws(() => guardAttempt(branchRoot), /training\/module-11/);
 
   const gateRoot = createAttempt();
   writeFileSync(join(gateRoot, "Taskfile.yml"), `${read(join(gateRoot, "Taskfile.yml"))}\n# weakened\n`);

@@ -1,17 +1,17 @@
-# Explained solution — Lab 9 Implementation Golden Path
+# Explained solution — Lab 10 Implementation Golden Path
 
 ## Solution record
 
 | Field | Value |
 | --- | --- |
-| Stable ID | `solution-lab-09-implementation-golden-path` |
-| Solves | `lab-09-implementation-golden-path` |
-| Outcomes covered | O9.1, O9.2, O9.3, O9.4, O9.5 |
+| Stable ID | `solution-lab-10-implementation-golden-path` |
+| Solves | `lab-10-implementation-golden-path` |
+| Outcomes covered | O10.5, O10.6, O10.7, O10.8, O10.9 |
 | Result | `Hello, Ada!`; only `src/greeting.mjs` changed |
 | Status | Learner-ready draft for the verified macOS/zsh path |
 | Last verified | 2026-09-10 |
 | Directive baseline | CLI/core/content/types `0.119.2`; [source baseline](../references/SOURCE-BASELINE.md) |
-| Source exercise | [Lab 9](../labs/09-implementation-golden-path.md) |
+| Source exercise | [Lab 10](../labs/10-implementation-golden-path.md) |
 
 ## Before you use this solution
 
@@ -37,11 +37,11 @@ implementation is valid if it preserves the same behavior, boundary, and evidenc
 
 | Outcome | Demonstration | Evidence |
 | --- | --- | --- |
-| O9.1 | Current session, story, and active-preflight gates ran before mutation | `readiness.json` says `READY` and records four zero exits |
-| O9.2 | Supplied focused test moved from expected exit `1` to exit `0` after one coherent edit | readiness and implementation records |
-| O9.3 | The active scope and working diff contain only `src/greeting.mjs` | `diff.files` equals the one-file allowlist |
-| O9.4 | Tests/CLI prove behavior while Git proves patch shape | `Hello, Ada!`, `Hello, teammate!`, focused pass, path list, diff check |
-| O9.5 | A stopped attempt is preserved and reset creates a different unique root | old evidence remains; new root passes guard |
+| O10.5 | Current session, story, and active-preflight gates ran before mutation | `readiness.json` says `READY` and records four zero exits |
+| O10.6 | Supplied focused test moved from expected exit `1` to exit `0` after one coherent edit | readiness and implementation records |
+| O10.7 | The active scope and working diff contain only `src/greeting.mjs` | `diff.files` equals the one-file allowlist |
+| O10.8 | Tests/CLI prove behavior while Git proves patch shape | `Hello, Ada!`, `Hello, teammate!`, focused pass, path list, diff check |
+| O10.9 | A stopped attempt is preserved and reset creates a different unique root | old evidence remains; new root passes guard |
 
 ## Reasoning
 
@@ -90,7 +90,7 @@ node "$helper" readiness "$lab_root"
 Observe `"READY"`. The retained `readiness.json` records the exact 0.119.2 baseline, clean
 checkpoint, branch, active contract, empty remote, green start gates, and focused exit `1`.
 
-**Why:** this is the complete pre-mutation evidence for O9.1 and the red half of O9.2.
+**Why:** this is the complete pre-mutation evidence for O10.5 and the red half of O10.6.
 
 ### Step 2 — Edit only the allowed implementation
 
@@ -139,12 +139,12 @@ no output; and the helper prints `"PASS"`.
 
 | Validation | Required result | Relevant observed evidence | Outcome |
 | --- | --- | --- | --- |
-| `implementation-lab.mjs readiness` | Exit `0`, `"READY"` | four green start gates, focused exit `1` | O9.1, O9.2 |
-| `npm run test:focused` | Exit `0` | four cases pass, zero fail | O9.2, O9.4 |
-| named and fallback CLI | Exit `0` | `Hello, Ada!`; `Hello, teammate!` | O9.4 |
-| `git diff --name-only` | One exact path | `src/greeting.mjs` | O9.3 |
-| `git diff --check` | Exit `0` | no output | O9.3, O9.4 |
-| `implementation-lab.mjs verify` | Exit `0`, `"PASS"` | `implementation.json` ties proof to readiness | O9.1, O9.2, O9.3, O9.4, O9.5 |
+| `implementation-lab.mjs readiness` | Exit `0`, `"READY"` | four green start gates, focused exit `1` | O10.5, O10.6 |
+| `npm run test:focused` | Exit `0` | four cases pass, zero fail | O10.6, O10.8 |
+| named and fallback CLI | Exit `0` | `Hello, Ada!`; `Hello, teammate!` | O10.8 |
+| `git diff --name-only` | One exact path | `src/greeting.mjs` | O10.7 |
+| `git diff --check` | Exit `0` | no output | O10.7, O10.8 |
+| `implementation-lab.mjs verify` | Exit `0`, `"PASS"` | `implementation.json` ties proof to readiness | O10.5, O10.6, O10.7, O10.8, O10.9 |
 
 ## Compare with your attempt
 
@@ -204,10 +204,10 @@ or edit the helper. Preserve and reset.
 
 | Misconception | Evidence-based correction | Source |
 | --- | --- | --- |
-| “Red authorizes the edit.” | Red is useful only after current readiness establishes the safe start. | [Module 9](../curriculum/modules/09-implementation-golden-path.md#readiness-before-mutation) |
-| “Green means done.” | Focused green lacks path and patch proof; final verification requires both. | [Lab acceptance](../labs/09-implementation-golden-path.md#literal-acceptance-commands) |
-| “A tiny extra cleanup is harmless.” | The active contract names an exact one-file scope. | [Lab safety boundary](../labs/09-implementation-golden-path.md#safety-boundary) |
-| “Reset should erase failure.” | The helper creates a new attempt and retains the original evidence. | [Lab reset](../labs/09-implementation-golden-path.md#reset-to-start) |
+| “Red authorizes the edit.” | Red is useful only after current readiness establishes the safe start. | [Module 10](../curriculum/modules/10-implementation-golden-path.md#readiness-before-mutation) |
+| “Green means done.” | Focused green lacks path and patch proof; final verification requires both. | [Lab acceptance](../labs/10-implementation-golden-path.md#literal-acceptance-commands) |
+| “A tiny extra cleanup is harmless.” | The active contract names an exact one-file scope. | [Lab safety boundary](../labs/10-implementation-golden-path.md#safety-boundary) |
+| “Reset should erase failure.” | The helper creates a new attempt and retains the original evidence. | [Lab reset](../labs/10-implementation-golden-path.md#reset-to-start) |
 
 ## Retry plan
 
@@ -237,12 +237,12 @@ Both operations are bounded and recoverable. Neither performs broad deletion.
 
 ## Sources
 
-- [Lab 9](../labs/09-implementation-golden-path.md)
-- [Module 9](../curriculum/modules/09-implementation-golden-path.md)
-- [Source baseline](../references/SOURCE-BASELINE.md#module-9-implementation-readiness-validation)
-- [Source notes](../references/SOURCE-NOTES.md#module-9-source-validation)
+- [Lab 10](../labs/10-implementation-golden-path.md)
+- [Module 10](../curriculum/modules/10-implementation-golden-path.md)
+- [Source baseline](../references/SOURCE-BASELINE.md#module-10-implementation-readiness-validation)
+- [Source notes](../references/SOURCE-NOTES.md#module-10-source-validation)
 
 ## Continue
 
-Return to [Module 9 self-assessment](../curriculum/modules/09-implementation-golden-path.md#self-assessment).
-Module 10 remains planned; do not infer learner readiness from its placeholder map entry.
+Return to [Module 10 self-assessment](../curriculum/modules/10-implementation-golden-path.md#self-assessment).
+Continue to [Module 11 — Testing, Gates, and Evidence](../curriculum/modules/11-testing-gates-and-evidence.md).

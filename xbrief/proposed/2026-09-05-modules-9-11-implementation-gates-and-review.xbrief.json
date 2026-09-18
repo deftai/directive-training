@@ -1,14 +1,14 @@
 {
   "xBRIEFInfo": {
     "version": "0.8",
-    "description": "Proposed curriculum scope for core Modules 9 through 11",
+    "description": "Proposed curriculum scope for core Modules 10 through 12",
     "created": "2026-09-05T19:43:46Z",
     "updated": "2026-09-10T13:35:49Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
     "id": "training.modules9-11",
-    "title": "Modules 9-11: Implementation, Gates, Review, and Closeout",
+    "title": "Modules 10-12: Implementation, Gates, Review, and Closeout",
     "status": "proposed",
     "narratives": {
       "Description": "Teach the solo implementation golden path, proof-driven testing and gates, and evidence-based PR, review, and closeout states. The work uses a fictional Node.js 20 application, node:test, and simulated review findings.",
@@ -19,7 +19,7 @@
     "items": [
       {
         "id": "training.modules9-11.implementation",
-        "title": "Author Module 9 and the small test-backed implementation lab",
+        "title": "Author Module 10 and the small test-backed implementation lab",
         "status": "proposed",
         "effort": "L",
         "narrative": {
@@ -28,7 +28,7 @@
       },
       {
         "id": "training.modules9-11.gates",
-        "title": "Author Module 10 and red-green-refactor gate lab",
+        "title": "Author Module 11 and red-green-refactor gate lab",
         "status": "proposed",
         "effort": "L",
         "narrative": {
@@ -37,7 +37,7 @@
       },
       {
         "id": "training.modules9-11.review",
-        "title": "Author Module 11 and simulated review exercise",
+        "title": "Author Module 12 and simulated review exercise",
         "status": "proposed",
         "effort": "L",
         "narrative": {

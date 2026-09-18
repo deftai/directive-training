@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Project definition for the 3Ci Directive training curriculum",
     "created": "2026-09-05T14:54:49Z",
-    "updated": "2026-09-17T12:46:02Z",
+    "updated": "2026-09-18T03:35:54Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -13,8 +13,8 @@
       "Overview": "3Ci Directive Training is a pre-release internal-alpha curriculum authored by 3Ci engineering enablement and published in the public deftai/directive-training repository. It teaches working 3Ci software engineers to use Directive safely and independently as consumers of the framework.",
       "Product": "A practical, self-directed, asynchronous curriculum delivered through authored Markdown, reproducible walkthroughs, disposable labs, self-checks, explained solutions, and concise reference material. A learner must be able to complete the core path without a live instructor or undocumented assistance.",
       "Audience": "Learners are 3Ci software engineers who understand Git, GitHub, branches, pull requests, terminals, tests, and ordinary software delivery; have used at least one coding-agent host; and are new to Directive, xBRIEF, Directive strategies and skills, session posture, and deterministic gates. They are Directive consumers, not framework maintainers.",
-      "LearningGoals": "Teach Directive as a repository practice layer built on shared standards, durable state, and deterministic gates; installation and project orientation; authority and lazy loading; xBRIEF 0.8 project and work state; source-versus-projection boundaries; work shaping and observable acceptance; lifecycle and implementation authorization; session start and ordered work selection; proof-driven implementation and aggregate checks; pre-PR and review workflows; and precise distinctions among implemented, PR-open, merge-ready, delivered, deployed, and UAT-verified.",
-      "CourseShape": "The target is approximately 12 hours: about 10 hours for the eleven core modules and about 2 hours for a disposable end-to-end capstone. Every completed module and lab must satisfy the repository's self-directed content contracts, including starting-state checks, observable evidence, progressive hints, recovery, self-assessment, and an explained solution.",
+      "LearningGoals": "Teach Directive as a repository practice layer built on shared standards, durable state, and deterministic gates; installation and project orientation; authority and lazy loading; xBRIEF 0.8 project and work state; source-versus-projection boundaries; work shaping and observable acceptance; lifecycle and implementation authorization; session start and ordered work selection; mechanism-shaped work routing and bounded design-critique arcs; proof-driven implementation and aggregate checks; pre-PR and review workflows; and precise distinctions among implemented, PR-open, merge-ready, delivered, deployed, and UAT-verified.",
+      "CourseShape": "The target is 13 hours 15 minutes: 11 hours 15 minutes for the twelve core modules and about 2 hours for a disposable end-to-end capstone. Every completed module and lab must satisfy the repository's self-directed content contracts, including starting-state checks, observable evidence, progressive hints, recovery, self-assessment, and an explained solution.",
       "PrimaryFormat": "Markdown-first and content-focused. Stable source paths should remain portable enough to project later into an internal wiki, Confluence, or SharePoint without a wholesale rewrite. No publishing or platform-specific implementation is authorized in the current milestone.",
       "techstack": "Authored Markdown and JSON xBRIEF 0.8 artifacts in Git; the npm-installed @deftai/directive consumer CLI and repository Taskfile gates; and, for later executable labs, Node.js 20 JavaScript with the built-in node:test runner. npm is the primary package manager with verified pnpm notes where useful. No static-site generator or curriculum application is part of the initial milestone.",
       "Architecture": "Repository Markdown is the authored curriculum source, organized as learner navigation, stable numbered modules, disposable lab specifications and fixtures, assessments, explained solutions, maintainer guidance, templates, and version-pinned references. xBRIEF artifacts govern identity and work lifecycle. Runtime state and framework deposits are reconstitutable and untracked. Any later wiki, Confluence, or SharePoint representation is a governed projection from repository sources.",
@@ -86,7 +86,7 @@
       },
       {
         "id": "2026-09-05-modules-9-11-implementation-gates-and-review",
-        "title": "Modules 9-11: Implementation, Gates, Review, and Closeout",
+        "title": "Modules 10-12: Implementation, Gates, Review, and Closeout",
         "status": "proposed",
         "metadata": {
           "source_path": "proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
@@ -112,81 +112,17 @@
         }
       },
       {
-        "id": "2026-09-14-74-windows-symlink-capability-failures-lack-a-clear-validation",
-        "title": "Windows symlink capability failures lack a clear validation preflight",
-        "status": "completed",
+        "id": "2026-09-18-4-refactor-core-curriculum-to-add-required-module-7-on-directi",
+        "title": "Refactor core curriculum to add required Module 7 on Directive design-critique arcs",
+        "status": "running",
         "metadata": {
-          "source_path": "completed/2026-09-14-74-windows-symlink-capability-failures-lack-a-clear-validation.xbrief.json",
-          "lifecycle_folder": "completed",
+          "source_path": "active/2026-09-18-4-refactor-core-curriculum-to-add-required-module-7-on-directi.xbrief.json",
+          "lifecycle_folder": "active",
           "references": [
             {
-              "uri": "https://github.com/3Ci-Consulting/directive-training/issues/74",
+              "uri": "https://github.com/deftai/directive-training/issues/4",
               "type": "x-xbrief/github-issue",
-              "title": "Issue #74: Windows symlink capability failures lack a clear validation preflight"
-            }
-          ]
-        }
-      },
-      {
-        "id": "2026-09-14-75-verify-text-portability-uses-windows-path-separators-and-mis",
-        "title": "verify-text-portability uses Windows path separators and misses four mutation fixtures",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-14-75-verify-text-portability-uses-windows-path-separators-and-mis.xbrief.json",
-          "lifecycle_folder": "completed",
-          "references": [
-            {
-              "uri": "https://github.com/3Ci-Consulting/directive-training/issues/75",
-              "type": "x-xbrief/github-issue",
-              "title": "Issue #75: verify-text-portability uses Windows path separators and misses four mutation fixtures"
-            }
-          ]
-        }
-      },
-      {
-        "id": "2026-09-14-76-capstone-negative-verifier-tests-fail-on-crlf-checkouts-and",
-        "title": "Capstone negative verifier tests fail on CRLF checkouts and mutate the wrong package script",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-14-76-capstone-negative-verifier-tests-fail-on-crlf-checkouts-and.xbrief.json",
-          "lifecycle_folder": "completed",
-          "references": [
-            {
-              "uri": "https://github.com/3Ci-Consulting/directive-training/issues/76",
-              "type": "x-xbrief/github-issue",
-              "title": "Issue #76: Capstone negative verifier tests fail on CRLF checkouts and mutate the wrong package script"
-            }
-          ]
-        }
-      },
-      {
-        "id": "2026-09-14-77-labs-7910-happy-path-tests-run-unconditionally-on-unsupporte",
-        "title": "Labs 7/9/10 happy-path tests run unconditionally on unsupported Windows",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-14-77-labs-7910-happy-path-tests-run-unconditionally-on-unsupporte.xbrief.json",
-          "lifecycle_folder": "completed",
-          "references": [
-            {
-              "uri": "https://github.com/3Ci-Consulting/directive-training/issues/77",
-              "type": "x-xbrief/github-issue",
-              "title": "Issue #77: Labs 7/9/10 happy-path tests run unconditionally on unsupported Windows"
-            }
-          ]
-        }
-      },
-      {
-        "id": "2026-09-14-78-complete-native-windows-learner-paths-for-labs-7-9-and-10",
-        "title": "Complete native Windows learner paths for Labs 7, 9, and 10",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-14-78-complete-native-windows-learner-paths-for-labs-7-9-and-10.xbrief.json",
-          "lifecycle_folder": "completed",
-          "references": [
-            {
-              "uri": "https://github.com/3Ci-Consulting/directive-training/issues/78",
-              "type": "x-xbrief/github-issue",
-              "title": "Issue #78: Complete native Windows learner paths for Labs 7, 9, and 10"
+              "title": "Issue #4: Refactor core curriculum to add required Module 7 on Directive design-critique arcs"
             }
           ]
         }
@@ -640,6 +576,86 @@
         }
       },
       {
+        "id": "2026-09-14-74-windows-symlink-capability-failures-lack-a-clear-validation",
+        "title": "Windows symlink capability failures lack a clear validation preflight",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-14-74-windows-symlink-capability-failures-lack-a-clear-validation.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/3Ci-Consulting/directive-training/issues/74",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #74: Windows symlink capability failures lack a clear validation preflight"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-14-75-verify-text-portability-uses-windows-path-separators-and-mis",
+        "title": "verify-text-portability uses Windows path separators and misses four mutation fixtures",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-14-75-verify-text-portability-uses-windows-path-separators-and-mis.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/3Ci-Consulting/directive-training/issues/75",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #75: verify-text-portability uses Windows path separators and misses four mutation fixtures"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-14-76-capstone-negative-verifier-tests-fail-on-crlf-checkouts-and",
+        "title": "Capstone negative verifier tests fail on CRLF checkouts and mutate the wrong package script",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-14-76-capstone-negative-verifier-tests-fail-on-crlf-checkouts-and.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/3Ci-Consulting/directive-training/issues/76",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #76: Capstone negative verifier tests fail on CRLF checkouts and mutate the wrong package script"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-14-77-labs-7910-happy-path-tests-run-unconditionally-on-unsupporte",
+        "title": "Labs 7/9/10 happy-path tests run unconditionally on unsupported Windows",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-14-77-labs-7910-happy-path-tests-run-unconditionally-on-unsupporte.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/3Ci-Consulting/directive-training/issues/77",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #77: Labs 7/9/10 happy-path tests run unconditionally on unsupported Windows"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-14-78-complete-native-windows-learner-paths-for-labs-7-9-and-10",
+        "title": "Complete native Windows learner paths for Labs 7, 9, and 10",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-14-78-complete-native-windows-learner-paths-for-labs-7-9-and-10.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/3Ci-Consulting/directive-training/issues/78",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #78: Complete native Windows learner paths for Labs 7, 9, and 10"
+            }
+          ]
+        }
+      },
+      {
         "id": "2026-09-14-remove-claim-labels-and-3ci-module-language",
         "title": "Remove claim labels and 3Ci-specific module language",
         "status": "completed",
@@ -651,6 +667,77 @@
               "uri": "urn:3ci:directive-training:request:2026-09-14:remove-claim-labels",
               "type": "x-xbrief/user-request",
               "title": "David's request to remove all claim labels and organization-specific language from every course module",
+              "TrustLevel": "internal"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-17-1-add-an-mit-license",
+        "title": "Add an MIT license",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-17-1-add-an-mit-license.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/1",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #1: Add an MIT license"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-17-2-correct-repo-identity-after-the-public-deftai-clone",
+        "title": "Correct repo identity after the public deftai clone",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-17-2-correct-repo-identity-after-the-public-deftai-clone.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/2",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #2: Correct repo identity after the public deftai clone"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-17-3-upgrade-the-directive-teaching-baseline-from-01120-to-the-la",
+        "title": "Upgrade the Directive teaching baseline from 0.112.0 to the latest release (0.119.2)",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-17-3-upgrade-the-directive-teaching-baseline-from-01120-to-the-la.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/3",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #3: Upgrade the Directive teaching baseline from 0.112.0 to the latest release (0.119.2)"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-17-directive-0-119-1-review-fix",
+        "title": "Directive 0.119.1 Review and Build Reconciliation",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-17-directive-0-119-1-review-fix.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "urn:3ci:directive-training:request:2026-09-17:directive-0.119.1-review-fix",
+              "type": "x-xbrief/user-request",
+              "title": "David's Directive 0.119.1 build and review completion request",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "https://github.com/deftai/directive-training/pull/5",
+              "type": "x-xbrief/github-pr",
+              "title": "PR #5: chore(deft): upgrade Directive to 0.119.1",
               "TrustLevel": "internal"
             }
           ]
@@ -706,13 +793,7 @@
       }
     ],
     "metadata": {
-      "staleness_flags": [
-        "Narrative 'DirectiveBaseline' may be stale: completed scope 'Capstone Windows start still uses C:\\absolute\\path\\to\\directive-training placeholder' shares topics (directive)",
-        "Narrative 'DirectiveBaseline' may be stale: completed scope 'Directive 0.112.0 Curriculum Baseline' shares topics (baseline, directive)",
-        "Narrative 'ProjectRules' may be stale: completed scope 'Modules 2-3: Installation, Project Anatomy, Authority, and Context' shares topics (project)",
-        "Narrative 'ReviewModel' may be stale: completed scope 'Module 11: PR, Review, and Actual Completion' shares topics (review)",
-        "Narrative 'SourceOfTruth' may be stale: completed scope 'Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries' shares topics (source)"
-      ]
+      "staleness_flags": []
     },
     "x-directive/policy": {
       "allowDirectCommitsToMaster": false,

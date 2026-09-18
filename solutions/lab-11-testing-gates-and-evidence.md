@@ -1,11 +1,11 @@
-# Explained solution — Lab 10: Testing, Gates, and Evidence
+# Explained solution — Lab 11: Testing, Gates, and Evidence
 
 ## Solution record
 
 | Field | Value |
 | --- | --- |
-| Source | [Lab 10 — Testing, Gates, and Evidence](../labs/10-testing-gates-and-evidence.md) |
-| Stable ID | `solution-lab-10-testing-gates-and-evidence` |
+| Source | [Lab 11 — Testing, Gates, and Evidence](../labs/11-testing-gates-and-evidence.md) |
+| Stable ID | `solution-lab-11-testing-gates-and-evidence` |
 | Status | Available |
 | Verified | 2026-09-10 on macOS/zsh |
 | Directive baseline | `@deftai/directive@0.119.2`; see the [source baseline](../references/SOURCE-BASELINE.md) |
@@ -26,10 +26,10 @@ The final behavior for `[2, 4, 6]` was `{ count: 3, total: 12, average: 4 }`; an
 
 | Outcome | Demonstrating evidence |
 | --- | --- |
-| **O10.1** | `red.json`, `green.json`, and `refactor.json` show exits 1, 0, 0 in order with the same post-red test digest |
-| **O10.2** | `literal.json` contains separate passing `verify:ac` and forward-coverage results before `task check` |
-| **O10.3** | `aggregate-failure.json` names `quality:record`; the final diff repairs `quality-record.json only`; `final.json` reports unchanged gates |
-| **O10.4** | `final.json` lists exactly the test, source, and record paths; source notes limit verified execution to macOS/zsh |
+| **O11.5** | `red.json`, `green.json`, and `refactor.json` show exits 1, 0, 0 in order with the same post-red test digest |
+| **O11.6** | `literal.json` contains separate passing `verify:ac` and forward-coverage results before `task check` |
+| **O11.7** | `aggregate-failure.json` names `quality:record`; the final diff repairs `quality-record.json only`; `final.json` reports unchanged gates |
+| **O11.8** | `final.json` lists exactly the test, source, and record paths; source notes limit verified execution to macOS/zsh |
 
 ## Reasoning
 
@@ -49,7 +49,7 @@ The aggregate reached `quality:record` only after the earlier checks passed. Tha
 
 ### Step 1 — Create and install
 
-The helper created a canonical unique temporary root, branch `training/module-10`, and no remote, then installed the exact 0.119.2 package/core/content/types graph. The clean checkpoint contained the active/running story and unchanged gates.
+The helper created a canonical unique temporary root, branch `training/module-11`, and no remote, then installed the exact 0.119.2 package/core/content/types graph. The clean checkpoint contained the active/running story and unchanged gates.
 
 ### Step 2 — Add the red test
 
@@ -100,7 +100,7 @@ The aggregate ran focused, literal, and forward checks before failing at `qualit
 
 ```json
 {
-  "schema": "3ci.training.module10.quality-record.v1",
+  "schema": "3ci.training.module11.quality-record.v1",
   "status": "COMPLETE",
   "evidence": {
     "red": "EXPECTED_FAILURE",
@@ -119,10 +119,10 @@ The final helper reran the same aggregate and returned `PASS`.
 
 ## Acceptance evidence
 
-- **O10.1:** `red.json` recorded exit 1 and `EXPECTED_FAILURE`; `green.json` and `refactor.json` recorded exit 0 with the same test digest.
-- **O10.2:** `literal.json` recorded literal acceptance `PASS` and forward coverage `PASS` as distinct steps.
-- **O10.3:** `aggregate-failure.json` recorded `firstFailingSubcheck: quality:record`; `final.json` recorded `gateDefinitionsUnchanged: true` and aggregate `PASS`.
-- **O10.4:** the final changed file list was `quality-record.json`, `src/summary.mjs`, and `test/summary.test.mjs`; no remote or unsupported platform claim was added.
+- **O11.5:** `red.json` recorded exit 1 and `EXPECTED_FAILURE`; `green.json` and `refactor.json` recorded exit 0 with the same test digest.
+- **O11.6:** `literal.json` recorded literal acceptance `PASS` and forward coverage `PASS` as distinct steps.
+- **O11.7:** `aggregate-failure.json` recorded `firstFailingSubcheck: quality:record`; `final.json` recorded `gateDefinitionsUnchanged: true` and aggregate `PASS`.
+- **O11.8:** the final changed file list was `quality-record.json`, `src/summary.mjs`, and `test/summary.test.mjs`; no remote or unsupported platform claim was added.
 
 ## Compare with your attempt
 
@@ -182,12 +182,12 @@ Use the lab's reset helper to create a fresh attempt while preserving the origin
 
 ## Sources
 
-- [Module 10 lesson](../curriculum/modules/10-testing-gates-and-evidence.md)
-- [Lab 10](../labs/10-testing-gates-and-evidence.md)
+- [Module 11 lesson](../curriculum/modules/11-testing-gates-and-evidence.md)
+- [Lab 11](../labs/11-testing-gates-and-evidence.md)
 - [Directive source baseline](../references/SOURCE-BASELINE.md)
-- [Module 10 validation notes](../references/SOURCE-NOTES.md#module-10-source-validation)
+- [Module 11 validation notes](../references/SOURCE-NOTES.md#module-11-source-validation)
 - [Directive learner quick reference](../references/QUICK-REFERENCE.md)
 
 ## Continue
 
-Return to the [Module 10 self-assessment](../curriculum/modules/10-testing-gates-and-evidence.md#self-assessment), then continue to [Module 11 — PR, review, and actual completion](../curriculum/modules/11-review-and-completion.md).
+Return to the [Module 11 self-assessment](../curriculum/modules/11-testing-gates-and-evidence.md#self-assessment), then continue to [Module 12 — PR, review, and actual completion](../curriculum/modules/12-review-and-completion.md).

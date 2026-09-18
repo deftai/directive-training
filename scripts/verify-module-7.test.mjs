@@ -99,6 +99,30 @@ test("verifier rejects missing transition outcome evidence", () => {
   assert.throws(() => verifyModule7(root), /O7\.3/);
 });
 
+test("verifier rejects a missing O6.4 prerequisite", () => {
+  const root = changedCopy("curriculum/modules/07-scope-lifecycle.md", (body) => body.replace(
+    "Bring the passing O6.4 routing matrix",
+    "Optionally review the O6.4 routing matrix",
+  ));
+  assert.throws(() => verifyModule7(root), /passing O6\.4 routing matrix/);
+});
+
+test("verifier rejects presence-only O6.4 admission", () => {
+  const root = changedCopy("curriculum/modules/07-scope-lifecycle.md", (body) => body.replace(
+    "presence-only, keyword-only, or incomplete",
+    "missing entirely",
+  ));
+  assert.throws(() => verifyModule7(root), /superficial O6\.4 evidence/);
+});
+
+test("verifier rejects attributing mechanism-shaped judgment to Directive", () => {
+  const root = changedCopy("curriculum/modules/07-scope-lifecycle.md", (body) => body.replace(
+    "Directive 0.119.2 does not compute whether work\nis mechanism-shaped, and `scope:promote` is not fail-closed on that judgment.",
+    "Directive 0.119.2 computes whether work\nis mechanism-shaped, and `scope:promote` is fail-closed on that judgment.",
+  ));
+  assert.throws(() => verifyModule7(root), /mechanism-shaped judgment to Directive/);
+});
+
 test("verifier rejects a broken local navigation link", () => {
   const root = changedCopy("curriculum/modules/07-scope-lifecycle.md", (body) => body.replace("../README.md", "../missing-course-map.md"));
   assert.throws(() => verifyModule7(root), /broken local link/);

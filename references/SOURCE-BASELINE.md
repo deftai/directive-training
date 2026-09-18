@@ -177,11 +177,12 @@ their own pin-matched native replays.
 
 ## Module 6 source boundary
 
-Module 6 is a command-free work-shaping exercise. Its fictional worksheet teaches three
+Module 6 is a command-free work-shaping exercise. Its fictional worksheet teaches four
 observable outcomes: reshape horizontal component work into one vertical slice; trace an idea
-through a bounded strategy choice, observable acceptance, and schema-0.8 proposed scope; and
+through a bounded strategy choice, observable acceptance, and schema-0.8 proposed scope;
 decompose an epic into ordered independently verifiable slices with dependency and boundary
-rationale.
+rationale; and classify fixed mechanism-shaping facts as route, no route, or insufficient
+evidence before lifecycle work begins.
 
 The learner writes scratch notes only. The proposed artifact remains candidate state with
 `plan.status: proposed`; it does not authorize implementation, promotion, or activation. The
@@ -190,6 +191,12 @@ required current setup artifact. Its `Exclusions` and `Literal inspection` colum
 worksheet fields, not invented canonical xBRIEF keys. “Independently verifiable” is the
 universal slice evidence boundary taught here; the course does not claim every slice is
 independently deployable or that static inspection proves running behavior.
+
+The O6.4 routing matrix is a curricular, human-semantic checkpoint. Directive 0.119.2 does
+not compute whether a proposal is mechanism-shaped, and `scope:promote` does not fail closed
+on that judgment. A passing matrix must cite the controlling supplied fact, select the
+disposition, and name the safe next action; the route case also names the proposed mechanism
+revision.
 
 The pinned-source inspection and disagreements for this module are recorded in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-6-verification). Later lifecycle execution,
@@ -202,6 +209,8 @@ operating-system temporary repository. The fixture has an exact CLI pin plus exa
 core/content/types overrides, an ignored 0.119.2 content deposit, a feature branch, and no
 remote. Its Task PATH exposes only the attempt's package launchers and individually resolved
 support tools, preventing the newer global Directive from shadowing the taught release.
+The lesson requires a passing O6.4 routing artifact before this executable lab; that hold is
+curricular evidence, not a new lifecycle-engine gate.
 
 | Surface | Verified 0.119.2 result |
 | --- | --- |
@@ -257,11 +266,35 @@ Module 8's release evidence used an explicit cached 0.119.2 npm package graph.
 Authoring-runtime and migration-path drift are maintainer evidence recorded in
 [SOURCE-NOTES.md](./SOURCE-NOTES.md#module-8-source-validation).
 
-## Module 9 implementation-readiness validation
+## Module 9 design-critique validation
 
-Module 9 exercises an exact CLI/core/content/types 0.119.2 package graph in a unique
+Module 9 is a command-free fixed-state practicum derived from four immutable sources at the
+Directive 0.119.2 release commit `9038503ffac65e6d48e5ba34758c4e8e7077aba3`:
+
+| Pinned 0.119.2 source | Teaching contract |
+| --- | --- |
+| [Design-critique contract][src-design-critique] | One target-revision arc, independent charter and spend selection, fixed input ceilings, closed finding classes, total successor-lean takes, retry/halt boundaries, verified synthesis, and completed-arc clearance. |
+| [Design-critique brief][template-design-critique] | The default critic envelope fields, including role, round, ceiling, dispatch SHA, run posture, target, audit targets, and launcher. |
+| [ADR-005][adr-005] | Mechanism-shaped routing is a human semantic judgment; deterministic checks can validate recording and authority without computing the judgment. |
+| [ADR-006][adr-006] | A load-bearing premise introduced by the parent after criticism needs independent substantiation rather than parent self-clearance. |
+
+The lesson uses a fixed fictional packet for target revision `NS-INGEST-R2`. It separates an
+arc from one critic round and ordinary implementation review, uses default spend `N=1` with
+ceiling `9104001`, requires a total take map, and distinguishes retry, halt, verified synthesis,
+later ingest, and implementation authority. Direct and compositional instruction-shaped
+source text remains attributed evidence: the learner refuses its attempted effect, records a
+finding, and continues the bounded critique.
+
+No Directive command, GitHub mutation, live critic, ingest, or implementation occurs. Packet
+inertness is a property of the fictional fixture and exercise procedure, not a Directive
+runtime guarantee. Detailed adaptation and validation notes are in
+[SOURCE-NOTES.md](./SOURCE-NOTES.md#module-9-design-critique-source-validation).
+
+## Module 10 implementation-readiness validation
+
+Module 10 exercises an exact CLI/core/content/types 0.119.2 package graph in a unique
 operating-system temporary, no-remote repository. The fixture begins on
-`training/module-09` with one active/running schema-0.8 story whose complete product
+`training/module-10` with one active/running schema-0.8 story whose complete product
 allowlist is `src/greeting.mjs`.
 
 | Surface | Verified 0.119.2 result |
@@ -280,12 +313,12 @@ preserving the failed attempt. Cleanup moves one exact guarded parent into a rec
 temporary archive. Native execution is verified only on macOS/zsh; Linux/bash and native
 Windows/PowerShell remain candidates, with the Windows stop enforced before npm. Probe
 details are in
-[SOURCE-NOTES.md](./SOURCE-NOTES.md#module-9-source-validation).
+[SOURCE-NOTES.md](./SOURCE-NOTES.md#module-10-source-validation).
 
-## Module 10 testing-and-gates validation
+## Module 11 testing-and-gates validation
 
-Module 10 exercises an exact CLI/core/content/types 0.119.2 graph in a unique
-operating-system temporary, no-remote repository on `training/module-10`. One
+Module 11 exercises an exact CLI/core/content/types 0.119.2 graph in a unique
+operating-system temporary, no-remote repository on `training/module-11`. One
 active/running schema-0.8 story permits only the focused test, numeric-summary source,
 and governed quality record; stage guards narrow those paths further.
 
@@ -306,11 +339,11 @@ The final work diff is exactly `quality-record.json`, `src/summary.mjs`, and
 attempt; cleanup moves one exact guarded parent to a recoverable archive. Native execution
 is verified only on macOS/zsh. Linux/bash and Windows/PowerShell remain candidates; native
 Windows install stops before npm. Probe details are in
-[SOURCE-NOTES.md](./SOURCE-NOTES.md#module-10-source-validation).
+[SOURCE-NOTES.md](./SOURCE-NOTES.md#module-11-source-validation).
 
-## Module 11 review-and-completion validation
+## Module 12 review-and-completion validation
 
-Module 11 is a command-free exercise over a fixed fictional packet. Its behavior claims
+Module 12 is a command-free exercise over a fixed fictional packet. Its behavior claims
 were revalidated against immutable source at the 0.119.2 release commit:
 
 | Pinned source | Teaching contract |
@@ -325,12 +358,12 @@ adaptation notes remain in the maintainer-only source notes. The exercise implem
 simulated-review policy: it requires no live GitHub repository, external review bot, CI run,
 merge, deployment, or UAT execution.
 Exact hashes and adaptation notes are in
-[SOURCE-NOTES.md](./SOURCE-NOTES.md#module-11-source-validation).
+[SOURCE-NOTES.md](./SOURCE-NOTES.md#module-12-source-validation).
 
 ## Capstone end-to-end validation
 
 The [learner-ready capstone](../curriculum/capstone-end-to-end.md) combines the
-Module 7–11 contracts in one guarded, disposable repository. Its learner
+Module 7–12 contracts in one guarded, disposable repository. Its learner
 package graph remains exactly `@deftai/directive@0.119.2` with
 `@deftai/directive-core`, `@deftai/directive-content`, and
 `@deftai/directive-types` also resolved to `0.119.2`.
@@ -433,3 +466,7 @@ Record probe-level results, disagreements, and unresolved coverage in
 [src-schema]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/vbrief/schemas/xbrief-core-0.8.schema.json
 [src-map]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/packages/core/src/codebase/map.ts
 [src-map-fresh]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/packages/core/src/codebase/map-fresh.ts
+[src-design-critique]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/contracts/design-critique.md
+[template-design-critique]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/templates/design-critique-brief.md
+[adr-005]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/docs/decisions/ADR-005-design-critique-judgment-gate.md
+[adr-006]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/docs/decisions/ADR-006-parent-side-substantiation.md

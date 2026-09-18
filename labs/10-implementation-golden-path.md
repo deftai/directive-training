@@ -1,11 +1,11 @@
-# Lab 9 — Implement One Bounded Greeting
+# Lab 10 — Implement One Bounded Greeting
 
 ## Lab record
 
 | Field | Value |
 | --- | --- |
-| Stable ID | `lab-09-implementation-golden-path` |
-| Supports | O9.1 readiness, O9.2 red-green, O9.3 bounded scope, O9.4 paired evidence, O9.5 recovery |
+| Stable ID | `lab-10-implementation-golden-path` |
+| Supports | O10.5 readiness, O10.6 red-green, O10.7 bounded scope, O10.8 paired evidence, O10.9 recovery |
 | Status | Learner-ready on macOS/zsh; Linux/bash and Windows/PowerShell remain candidates |
 | Last verified | 2026-09-17 |
 | Directive baseline | CLI/core/content/types `0.119.2`; [source baseline](../references/SOURCE-BASELINE.md) |
@@ -44,7 +44,7 @@ repository.
 ```sh
 set -eu
 course_root="$(pwd -P)"
-helper="$course_root/labs/fixtures/09-implementation-golden-path/implementation-lab.mjs"
+helper="$course_root/labs/fixtures/10-implementation-golden-path/implementation-lab.mjs"
 test -f "$helper"
 node --version
 npm --version
@@ -53,12 +53,12 @@ task --version
 uv --version
 lab_root="$(node "$helper" create)"
 node "$helper" guard "$lab_root"
-test "$(git -C "$lab_root" branch --show-current)" = "training/module-09"
+test "$(git -C "$lab_root" branch --show-current)" = "training/module-10"
 test -z "$(git -C "$lab_root" remote)"
 ```
 
 The path must be canonical and look like
-`<OS temp>/3ci-directive-lab09-<unique>/repo`. It must not be this curriculum checkout or
+`<OS temp>/3ci-directive-lab10-<unique>/repo`. It must not be this curriculum checkout or
 a business repository.
 
 Install the exact pinned package graph and create the named local checkpoint:
@@ -81,7 +81,7 @@ Do not substitute a newer global executable.
 - Work only in the exact guarded temporary attempt.
 - Only `src/greeting.mjs` is mutable after readiness. The helper, tests,
   manifest, active scope, CLI wrapper, Git metadata, and evidence contract stay unchanged.
-- Keep branch `training/module-09`, exact 0.119.2 pins, one active/running
+- Keep branch `training/module-10`, exact 0.119.2 pins, one active/running
   story, and an empty remote list.
 - Do not add a remote, use credentials, push, open a pull request, merge,
   deploy, publish, release, or copy business/client data.
@@ -172,7 +172,7 @@ only the allowlisted file.
 
 | Checkpoint | Observable state | How to verify | If it fails |
 | --- | --- | --- | --- |
-| Created | Unique guarded no-remote root on `training/module-09` | `implementation-lab.mjs create` then `guard` | Archive if safe, then create again |
+| Created | Unique guarded no-remote root on `training/module-10` | `implementation-lab.mjs create` then `guard` | Archive if safe, then create again |
 | Installed | Exact graph and clean named checkpoint | `implementation-lab.mjs install "$lab_root"` | Preserve output and reset |
 | Ready | Start gates pass and focused test exits `1` | `implementation-lab.mjs readiness "$lab_root"` | Preserve the stopped attempt; do not mutate |
 | Implemented | Only `src/greeting.mjs` differs | `git diff --name-only` | Reset if any other path changed |
@@ -194,13 +194,13 @@ node "$helper" verify "$lab_root"
 
 | Command | Exit | Required signal | Outcome |
 | --- | ---: | --- | --- |
-| `guard` | 0 | No error | O9.1, O9.3 |
-| `npm run test:focused` | 0 | Four test cases pass | O9.2, O9.4 |
-| named `greet` | 0 | `Hello, Ada!` | O9.4 |
-| fallback `greet` | 0 | `Hello, teammate!` | O9.4 |
-| `git diff --check` | 0 | No output | O9.3, O9.4 |
-| path comparison | 0 | Exact one-file equality | O9.3 |
-| `verify` | 0 | `"PASS"` | O9.1–O9.5 |
+| `guard` | 0 | No error | O10.5, O10.7 |
+| `npm run test:focused` | 0 | Four test cases pass | O10.6, O10.8 |
+| named `greet` | 0 | `Hello, Ada!` | O10.8 |
+| fallback `greet` | 0 | `Hello, teammate!` | O10.8 |
+| `git diff --check` | 0 | No output | O10.7, O10.8 |
+| path comparison | 0 | Exact one-file equality | O10.7 |
+| `verify` | 0 | `"PASS"` | O10.5–O10.9 |
 
 Linux/bash and Windows/PowerShell remain candidate paths. The Windows/PowerShell acceptance
 route appears below for native 0.119.2 revalidation.
@@ -282,18 +282,18 @@ only the `src/greeting.mjs` edit described above, then continue with `verify`:
 ```powershell
 $ErrorActionPreference = "Stop"
 $CourseRoot = (Resolve-Path -LiteralPath .).Path
-$Helper = Join-Path $CourseRoot "labs/fixtures/09-implementation-golden-path/implementation-lab.mjs"
-$Launcher = Join-Path ([IO.Path]::GetTempPath()) ("3ci-lab09-launch-" + [guid]::NewGuid().ToString("N"))
+$Helper = Join-Path $CourseRoot "labs/fixtures/10-implementation-golden-path/implementation-lab.mjs"
+$Launcher = Join-Path ([IO.Path]::GetTempPath()) ("3ci-lab10-launch-" + [guid]::NewGuid().ToString("N"))
 [void](New-Item -ItemType Directory -Path $Launcher)
 Set-Location -LiteralPath $Launcher
 $LabRoot = ((& node $Helper create) | Out-String).Trim()
 & node $Helper guard $LabRoot
 & node $Helper install $LabRoot
 & node $Helper readiness $LabRoot
-if ($LASTEXITCODE -ne 0) { throw "Lab 9 readiness failed; do not edit product code." }
+if ($LASTEXITCODE -ne 0) { throw "Lab 10 readiness failed; do not edit product code." }
 # Edit only (Join-Path $LabRoot "src/greeting.mjs") as specified in the implementation step.
 & node $Helper verify $LabRoot
-if ($LASTEXITCODE -ne 0) { throw "Lab 9 behavioral verification failed." }
+if ($LASTEXITCODE -ne 0) { throw "Lab 10 behavioral verification failed." }
 $EvidenceRoot = Join-Path (Split-Path -Parent $LabRoot) "evidence"
 foreach ($Name in "readiness.json", "implementation.json") {
   if (-not (Test-Path -LiteralPath (Join-Path $EvidenceRoot $Name) -PathType Leaf)) { throw "Missing $Name" }
@@ -311,7 +311,7 @@ record both named/fallback behavior plus the exact one-file status and diff.
 ## Explained solution
 
 After a genuine first attempt, compare your work with the
-[explained Lab 9 solution](../solutions/lab-09-implementation-golden-path.md). Preserve the
+[explained Lab 10 solution](../solutions/lab-10-implementation-golden-path.md). Preserve the
 red evidence before reading it, then retry any unmet outcome in a new root.
 
 ## Done statement
@@ -320,6 +320,6 @@ red evidence before reading it, then retry any unmet outcome in a new root.
 changed only `src/greeting.mjs`, produced behavioral and diff evidence, and recorded a safe
 reset or archive state.”
 
-- Lesson: [Module 9 — The Implementation Golden Path](../curriculum/modules/09-implementation-golden-path.md)
+- Lesson: [Module 10 — The Implementation Golden Path](../curriculum/modules/10-implementation-golden-path.md)
 - Lab model: [Disposable lab environment](README.md)
-- Sources: [Module 9 source validation](../references/SOURCE-NOTES.md#module-9-source-validation)
+- Sources: [Module 10 source validation](../references/SOURCE-NOTES.md#module-10-source-validation)

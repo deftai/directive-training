@@ -1,15 +1,15 @@
-# Module 11 — PR, review, and actual completion
+# Module 12 — PR, review, and actual completion
 
 ## Module record
 
 | Field | Value |
 | --- | --- |
-| Stable ID | `module-11-review-and-completion` |
+| Stable ID | `module-12-review-and-completion` |
 | Status | Learner-ready draft; command-free fixed-state exercise |
 | Last verified | 2026-09-11 |
 | Directive baseline | 0.119.2 |
 | Estimated time | 55 minutes |
-| Prerequisite | [Module 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md) |
+| Prerequisite | [Module 11 — Testing, gates, and evidence](11-testing-gates-and-evidence.md) |
 | Evidence | A pre-PR decision worksheet, four-row finding classification, coherent-batch plan, and three-axis completion-card matrix |
 
 This module paraphrases the pre-PR, review, and
@@ -22,15 +22,15 @@ worksheet before comparing it with the explained solution.
 
 By the end of this module, you can:
 
-- **O11.1** apply `Read -> Write -> Lint -> Diff -> Loop` until a complete
+- **O12.1** apply `Read -> Write -> Lint -> Diff -> Loop` until a complete
   pre-PR pass produces zero changes;
-- **O11.2** classify every supplied finding by P0, P1, or P2 severity,
+- **O12.2** classify every supplied finding by P0, P1, or P2 severity,
   acceptance scope, merge-blocking status, disposition, and evidence before
   proposing edits;
-- **O11.3** resolve blocking in-scope findings in one coherent batch, check
+- **O12.3** resolve blocking in-scope findings in one coherent batch, check
   cross-file and structured-data consistency, and refresh checks and review on
   the resulting head; and
-- **O11.4** distinguish implemented, PR-open, merge-ready,
+- **O12.4** distinguish implemented, PR-open, merge-ready,
   integration-merged, and delivered work while evaluating deployment and UAT
   as independent evidence axes.
 
@@ -38,7 +38,7 @@ By the end of this module, you can:
 
 Before continuing, confirm all five statements:
 
-- You completed [Module 10](10-testing-gates-and-evidence.md) or can explain
+- You completed [Module 11](11-testing-gates-and-evidence.md) or can explain
   why a passing focused check and a passing aggregate gate prove different
   things.
 - You have a blank copy of the four worksheets in **Exercise**.
@@ -50,8 +50,8 @@ Before continuing, confirm all five statements:
 - You understand that this lesson authorizes no push, PR, merge, deployment,
   or lifecycle transition.
 
-If the first statement is unclear, revisit Module 10's
-[mental model](10-testing-gates-and-evidence.md#mental-model). If any safety
+If the first statement is unclear, revisit Module 11's
+[mental model](11-testing-gates-and-evidence.md#mental-model). If any safety
 statement is unacceptable, stop. This exercise has no live alternative.
 
 ## Why this matters
@@ -307,14 +307,14 @@ record deployment and UAT separately.
 
 Your attempt is complete when it contains:
 
-- **O11.1:** the Pass A restart and Pass B zero-change exit, with the reason for
+- **O12.1:** the Pass A restart and Pass B zero-change exit, with the reason for
   each;
-- **O11.2:** four populated finding rows with severity, acceptance scope,
+- **O12.2:** four populated finding rows with severity, acceptance scope,
   merge-blocking status, disposition, and cited evidence;
-- **O11.3:** one H1-to-H2 batch containing only blocking in-scope work, explicit
+- **O12.3:** one H1-to-H2 batch containing only blocking in-scope work, explicit
   P2 dispositions, cross-file and structured-data checks, and fresh H2 check
   and review requirements; and
-- **O11.4:** all nine completion cards classified on the Git/review/delivery,
+- **O12.4:** all nine completion cards classified on the Git/review/delivery,
   deployment, and UAT axes without overclaiming.
 
 Retain only the worksheets in an approved private learning note. The supplied
@@ -323,16 +323,16 @@ this exercise.
 
 ## Progressive hints
 
-1. For **O11.1**, ask whether any action in the pass changed the branch. If it
+1. For **O12.1**, ask whether any action in the pass changed the branch. If it
    did, the next step is Read, not exit.
-2. For **O11.2**, decide scope separately from severity. Then ask whether the
+2. For **O12.2**, decide scope separately from severity. Then ask whether the
    supplied policy blocks the head.
-3. For **O11.3**, include only rows that are both in scope and blocking. Every
+3. For **O12.3**, include only rows that are both in scope and blocking. Every
    other row still needs a disposition.
-4. For **O11.4**, split each card into three columns before choosing labels.
+4. For **O12.4**, split each card into three columns before choosing labels.
    Reachability, lifecycle closeout, deployment, and UAT are distinct facts.
 5. After a genuine first attempt, compare with the
-   [explained solution](../../solutions/module-11-review-and-completion.md).
+   [explained solution](../../solutions/module-12-review-and-completion.md).
 
 ## Expected failures and recovery
 
@@ -368,13 +368,13 @@ repository or remote state and needs no cleanup.
 
 Answer without opening the solution:
 
-1. **O11.1:** Why must Pass A restart, and what exactly makes Pass B a valid
+1. **O12.1:** Why must Pass A restart, and what exactly makes Pass B a valid
    pre-PR exit?
-2. **O11.2:** Classify F1–F4 across all five worksheet dimensions and cite one
+2. **O12.2:** Classify F1–F4 across all five worksheet dimensions and cite one
    supplied fact for each.
-3. **O11.3:** Which findings belong in H2, what consistency checks belong in
+3. **O12.3:** Which findings belong in H2, what consistency checks belong in
    the batch, and why is H1 review stale afterward?
-4. **O11.4:** Which card first proves merge-ready? Which first proves delivery?
+4. **O12.4:** Which card first proves merge-ready? Which first proves delivery?
    Which cards prove only deployment or UAT on an independent axis?
 
 You are ready to continue when every answer points to supplied evidence and
@@ -383,18 +383,18 @@ none requires a live system or hidden instructor judgment.
 ## Explained solution
 
 After a genuine first attempt, use the
-[Module 11 explained solution](../../solutions/module-11-review-and-completion.md).
+[Module 12 explained solution](../../solutions/module-12-review-and-completion.md).
 Compare the reasoning and evidence boundaries, then retry only the rows that
 differ.
 
 ## Navigation
 
-- Previous: [Module 10 — Testing, gates, and evidence](10-testing-gates-and-evidence.md)
+- Previous: [Module 11 — Testing, gates, and evidence](11-testing-gates-and-evidence.md)
 - Course map: [curriculum README](../README.md)
 - Next: [Capstone — End-to-End Solo Directive Lifecycle](../capstone-end-to-end.md)
 
 ## Official sources
 
-- [Directive source baseline](../../references/SOURCE-BASELINE.md#module-11-review-and-completion-validation)
-- [Module 11 source validation notes](../../references/SOURCE-NOTES.md#module-11-source-validation)
+- [Directive source baseline](../../references/SOURCE-BASELINE.md#module-12-review-and-completion-validation)
+- [Module 12 source validation notes](../../references/SOURCE-NOTES.md#module-12-source-validation)
 - [Directive learner quick reference](../../references/QUICK-REFERENCE.md)

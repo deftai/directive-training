@@ -1,7 +1,8 @@
 # Explained solution — Module 6: Creating Well-Shaped Work
 
 Reshape Northstar Transit's component list into one observable preview, preserve its
-proposed-state boundary, and decompose the broader disruption idea into three usable slices.
+proposed-state boundary, decompose the broader disruption idea into three usable slices,
+and complete the evidence-backed mechanism-routing decision.
 
 ## Solution record
 
@@ -9,9 +10,9 @@ proposed-state boundary, and decompose the broader disruption idea into three us
 | --- | --- |
 | Stable ID | `solution-module-06-creating-well-shaped-work` |
 | Solves | `module-06-creating-well-shaped-work` |
-| Outcomes covered | O6.1, O6.2, O6.3 |
+| Outcomes covered | O6.1, O6.2, O6.3, O6.4 |
 | Status | `learner-ready draft; command-free` |
-| Last verified | 2026-09-09 |
+| Last verified | 2026-09-17 |
 | Directive baseline | `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Module 6 shaping exercise](../curriculum/modules/06-creating-well-shaped-work.md#exercise) |
 
@@ -41,6 +42,11 @@ The larger “manage service disruptions” idea is an epic. It becomes preview,
 and export slices with an acyclic order. Each slice has its own observation and evidence,
 plus a reason for its dependency and boundary.
 
+The routing matrix sends `NS-INGEST-R2` to design critique because it changes an
+untrusted-input and clearance mechanism, keeps a copy-only error-message edit in ordinary
+proposal review, and stops the underspecified safety request until a mechanism and target
+revision exist.
+
 ## Outcome map
 
 | Outcome | How this solution demonstrates it | Evidence |
@@ -48,6 +54,7 @@ plus a reason for its dependency and boundary.
 | O6.1 | Replaces horizontal components with one relevant-layer preview path | Completed vertical-slice record |
 | O6.2 | Connects uncertainty, strategy, observable acceptance, and proposed scope without inventing authority | Strategy record, acceptance statement, and schema-0.8 JSON |
 | O6.3 | Diagnoses the epic and orders three independently verifiable capabilities | Three-row decomposition with both rationales |
+| O6.4 | Applies the published semantic rubric to all three fixed fact patterns | Completed route / no route / insufficient-evidence matrix with controlling facts and safe next actions |
 
 ## Reasoning
 
@@ -87,6 +94,18 @@ journeys. It also names two interfaces. One acceptance set would either be vague
 too many outcomes. Preview supplies an event identity; acknowledgement consumes it; export
 consumes acknowledged state. This produces an acyclic path with one observable result at
 each step.
+
+### 5. Route from controlling facts, not keywords
+
+The three dispositions answer different questions. `route` means the supplied facts expose
+a concrete mechanism revision that needs critique. `no route` means the supplied facts
+positively bound the work to an ordinary change. `insufficient evidence` means there is not
+yet a mechanism or target revision to judge.
+
+Directive 0.119.2 records the mechanism-shaped call and clearance line but does not compute
+the semantic judgment. The routing matrix is therefore human-reviewed curriculum evidence.
+Its safe action can hold lifecycle movement, but the artifact is not itself a Directive gate
+or implementation authority.
 
 ## Worked approach
 
@@ -200,6 +219,28 @@ Each row is independently verifiable once its declared predecessor exists. No ro
 a later row, so the graph is acyclic. Notifications and browser behavior remain visible as
 future candidate work instead of leaking into these slices.
 
+### Step 4 — Complete the routing matrix
+
+The fixed packet supplies three different evidence states:
+
+- `M6-ROUTE-01` names `NS-INGEST-R2`, which changes how untrusted issue text enters an
+  agent envelope and how clearance is recognized.
+- `M6-NOROUTE-01` changes only one existing error-message phrase; behavior, authority,
+  parser inputs, and gates remain unchanged.
+- `M6-INSUFFICIENT-01` asks to make intake safer without supplying a mechanism, target
+  revision, or authority-boundary change.
+
+| Fact pattern ID | Controlling supplied fact | Disposition | Proposed mechanism revision | Safe next action |
+| --- | --- | --- | --- | --- |
+| M6-ROUTE-01 | NS-INGEST-R2 changes how untrusted issue text enters the agent envelope and how clearance is recognized. | route | Revise NS-INGEST-R2 so quoted source content stays evidence and only an admitted completed-arc record supplies clearance. | Preserve proposed state and route NS-INGEST-R2 to design critique before promotion, activation, or implementation. |
+| M6-NOROUTE-01 | The edit changes one error-message phrase while behavior, authority, parser inputs, and gates stay unchanged. | no route | Not applicable. | Continue through ordinary proposal review without inventing an arc. |
+| M6-INSUFFICIENT-01 | Make agent intake safer supplies no mechanism, target revision, or authority-boundary change. | insufficient evidence | Not applicable. | Request the missing mechanism and target evidence, then rerun the routing decision. |
+
+Every row identifies the supplied fact that controls the answer rather than repeating the
+disposition. The route row names a concrete revision and holds lifecycle movement. The
+no-route row does not manufacture an arc. The insufficient-evidence row does not manufacture
+a mechanism.
+
 ## Acceptance evidence
 
 | Inspection from the exercise | Required result | Worked evidence | Outcome |
@@ -210,6 +251,8 @@ future candidate work instead of leaking into these slices.
 | Proposed-scope boundary | Schema is 0.8, `plan.status` is proposed, two traced acceptance items and expected evidence exist, and no implementation authority is claimed | Step 2 JSON and authority sentence | O6.2 |
 | Epic diagnosis and ordered slices | Three distinct demonstrations replace the broad plan | Step 3 diagnosis and rows | O6.3 |
 | Dependency and boundary rationale | Every row has both explanations and the order has no cycle | Step 3 last two columns | O6.3 |
+| Three-way routing decision | Each fixed fact pattern has a scenario-specific controlling fact, exact disposition, and safe next action | Step 4 matrix | O6.4 |
+| Route target and lifecycle hold | The route row names `NS-INGEST-R2` and holds promotion, activation, and implementation pending critique | Step 4 route row | O6.4 |
 
 There is no terminal output. Completion evidence is the learner's own scratch artifacts
 passing these inspections.
@@ -223,6 +266,7 @@ passing these inspections.
 | Strategy | Choice removes a named uncertainty | A default label replaces reasoning | Add the blocking question and decision limit |
 | Proposed artifact | Candidate is schema 0.8 and proposed | Scope is missing, legacy, or prematurely active | Restore the current shape and authority boundary |
 | Decomposition | Each row has one result, proof, and acyclic dependency | Rows are phases, circular, or broad | Split by user action and consumed predecessor state |
+| Routing matrix | Every row connects a supplied fact to a disposition and safe action | A keyword, guessed mechanism, or lifecycle shortcut replaces reasoning | Retry only the failing row against the published rubric |
 
 Keep one correction sentence per difference: “I treated [activity] as [outcome]; the observer
 can only verify [result], so I will [bounded correction].”
@@ -235,6 +279,7 @@ can only verify [result], so I will [bounded correction].”
 | Preview the disruption reason before delay minutes | Either can be the first usable observation | One user-visible outcome, explicit fields, and exclusions | It silently includes acknowledgement or bulk behavior |
 | Put export before acknowledgement | A general delay report need not consume acknowledgement | State that independence and change its input/evidence | The artifact still claims “acknowledged” without slice 2 |
 | Use prose instead of JSON for the worksheet | Worksheet format is a course convention | Separately retain a valid schema-0.8 proposed-scope artifact | The proposed artifact or status/authority boundary disappears |
+| Use different wording in the routing explanations | The rubric tests the fact-to-disposition-to-action relationship, not sentence matching | All three IDs, exact disposition tokens, controlling facts, and safe actions | A route target disappears or `no route` is used when evidence is absent |
 
 An alternate does not pass if it requires a standalone specification file, invents an
 `Exclusions` schema key, makes the proposal active, or treats a component as value.
@@ -276,6 +321,16 @@ An alternate does not pass if it requires a standalone specification file, inven
   behavioral check.
 - **Retry:** Worksheet completion and product behavior remain separate claims.
 
+### Routing is presence-only or keyword-only
+
+- **Symptom:** A row says only `route`, `no route`, or `insufficient evidence`.
+- **Cause:** The disposition was recorded without the controlling fact or next action.
+- **Confirm:** Apply the four-part rubric and identify the first missing relationship.
+- **Recover:** Keep the first attempt; rewrite only that row with its fixed source ID,
+  scenario-specific fact, exact disposition, safe next action, and route revision when needed.
+- **Retry:** All three rows pass independently, and the route row still holds promotion,
+  activation, and implementation.
+
 ## Misconceptions exposed by this exercise
 
 | Misconception | What the evidence shows | Source |
@@ -285,6 +340,8 @@ An alternate does not pass if it requires a standalone specification file, inven
 | Proposed acceptance is implementation authority | The artifact remains candidate state | Commands and current-contract rule |
 | Dependencies prevent independent verification | Rows 2 and 3 have distinct proof after their predecessors | Decomposition DAG guidance |
 | Worksheet labels are schema requirements | `Exclusions` and `Literal inspection` sit outside the JSON | Verification guidance and exercise boundary |
+| Directive computes mechanism-shaped status | The O6.4 decision depends on supplied semantic facts; Directive 0.119.2 records but does not decide it | Design-critique Stop 1 and ADR-005 |
+| No route means the same thing as insufficient evidence | The copy-only card supports a negative decision; the safety request lacks a judgeable target | O6.4 fixed packet |
 
 ## Self-assessment answers
 
@@ -297,7 +354,11 @@ An alternate does not pass if it requires a standalone specification file, inven
 3. **O6.3:** Multiple user actions, states, interfaces, and evidence sets make the idea an
    epic. Preview has no predecessor; acknowledgement consumes preview identity; export
    consumes acknowledged state. Each boundary excludes the next capability and remote work.
-4. Static inspection proves what the scratch artifacts say. It cannot prove code responds to
+4. **O6.4:** `M6-ROUTE-01` routes because `NS-INGEST-R2` changes untrusted-input and
+   clearance behavior; promotion, activation, and implementation remain held.
+   `M6-NOROUTE-01` remains in ordinary proposal review because only copy changes.
+   `M6-INSUFFICIENT-01` stops until the missing mechanism and target evidence are supplied.
+5. Static inspection proves what the scratch artifacts say. It cannot prove code responds to
    an input; a real implementation needs focused behavioral checks.
 
 ## Retry plan
@@ -306,7 +367,7 @@ An alternate does not pass if it requires a standalone specification file, inven
 2. Start a fresh scratch-note section for the first unmet outcome.
 3. Retry only its table, decision, artifact, or rationale without copying this final wording.
 4. Apply the original exercise inspection.
-5. Recheck O6.1, O6.2, and O6.3 before recording completion.
+5. Recheck O6.1, O6.2, O6.3, and O6.4 before recording completion.
 
 Improved prose alone is not evidence if the work remains horizontal, proposed state changes,
 or a dependency rationale is missing.
@@ -331,6 +392,7 @@ needed nor authorized.
 | Observable story acceptance, evidence, and DAG decomposition | [Decompose skill][decompose], [xBRIEF taxonomy][taxonomy], and [verification][verification] | 2026-09-09 |
 | Vertical feature and tracer-bullet shape | [Upstream glossary][upstream-glossary] and [slicing skill][gh-slice] | 2026-09-09 |
 | Proposed lifecycle and current contract | [Commands][commands] and [main][main] | 2026-09-09 |
+| Mechanism-shaped judgment is semantic and recorded rather than computed | [Design-critique contract — Stop 1][design-critique-contract] and [ADR-005][adr-005] | 2026-09-17 |
 | Fictional command-free boundary and accessible solution | [Project definition](../xbrief/PROJECT-DEFINITION.xbrief.json) ProjectRules and LabModel | 2026-09-09 |
 
 This is an original paraphrase and fictional adaptation. The pinned sources retain legacy
@@ -341,13 +403,15 @@ record how the course resolves those disagreements.
 ## Continue
 
 - Return to [Module 6](../curriculum/modules/06-creating-well-shaped-work.md).
-- Record O6.1–O6.3 only after every exercise acceptance inspection passes.
+- Record O6.1–O6.4 only after every exercise acceptance inspection passes.
 - Continue to [Module 7 — Scope Lifecycle and Implementation Authorization](../curriculum/modules/07-scope-lifecycle.md),
   or return to the [course map](../curriculum/README.md).
 
 ## Author release check
 
-- Every worked artifact maps to O6.1, O6.2, or O6.3 and to the original inspections.
+- Every worked artifact maps to O6.1, O6.2, O6.3, or O6.4 and to the original inspections.
+- The O6.4 worked matrix answers each fixed fact pattern exactly once and rejects
+  presence-only or keyword-only completion.
 - The solution exposes reasoning, valid alternatives, recovery, and a fresh-note retry.
 - The proposed record remains schema 0.8 and grants no implementation authority.
 - Static worksheet evidence is not presented as executable product proof.
@@ -365,3 +429,5 @@ record how the course resolves those disagreements.
 [gh-slice]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-gh-slice/SKILL.md
 [commands]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/commands.md
 [main]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/main.md
+[design-critique-contract]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/contracts/design-critique.md#stop-1--gate
+[adr-005]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/docs/decisions/ADR-005-design-critique-judgment-gate.md

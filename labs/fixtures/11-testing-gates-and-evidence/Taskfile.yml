@@ -17,12 +17,12 @@ tasks:
       - node node_modules/@deftai/directive/dist/bin.js verify:forward-coverage --project-root . --head
 
   quality:record:
-    desc: Verify the governed Module 10 quality record.
+    desc: Verify the governed Module 11 quality record.
     cmds:
       - node scripts/verify-quality-record.mjs
 
   check:
-    desc: Module 10 aggregate gate; repair work, never these commands.
+    desc: Module 11 aggregate gate; repair work, never these commands.
     cmds:
       - npm run test:focused
       - task: literal

@@ -10,6 +10,7 @@
 | Last verified | 2026-09-17 |
 | Directive baseline | Exact `@deftai/directive@0.119.2` CLI/core/content/types graph; [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
 | Execution runtime | Node.js `22 or newer`; the verified local macOS run used `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
+| Prerequisite | Modules 1–12, ending with [Module 12 — PR, Review, and Actual Completion](../curriculum/modules/12-review-and-completion.md) |
 | Lesson | [Capstone — End-to-End Solo Directive Lifecycle](../curriculum/capstone-end-to-end.md) |
 | Assessment | [Capstone assessment](../assessments/capstone-end-to-end.md) |
 | Lab | [End-to-end capstone lab](../labs/capstone-end-to-end.md) |
@@ -27,11 +28,14 @@ into this curriculum repository or a business repository.
 
 ## Result summary
 
-The valid route preserves the fixture's stage order and independent
-comparisons. A first implementation satisfies the supplied public tests, then
-the zero-mutation simulated review exposes one normalized-duplicate P1. A
-second source-only edit resolves it. The aggregate then passes before and after
-the local commit.
+The valid route first records a command-free design-critique checkpoint:
+`CAP-DC-R1` is routed but `not bind-ready` because its parent premise lacks an
+independent audit and no admitted completed-arc record exists. The ingest-ready
+catalog chip authorizes nothing. The route then preserves the separate fixture's stage
+order and independent comparisons. A first implementation satisfies the
+supplied public tests, the zero-mutation simulated review exposes one
+normalized-duplicate P1, and a second source-only edit resolves it. The
+aggregate passes before and after the local commit.
 
 The strongest final claim is `implemented` with `local_pass`. The attempt
 has no PR, remote delivery, deployment, or UAT evidence, and its lifecycle
@@ -42,7 +46,7 @@ not Directive lifecycle completion or delivery.
 
 | Outcome | Demonstration | Evidence |
 | --- | --- | --- |
-| `CAP.1` | Exact runtime observation, orientation, lifecycle activation, session ritual, story-ready, and preflight establish mutation readiness | Runtime note, `orientation.json`, `scope.json`, `readiness.json` |
+| `CAP.1` | A command-free checkpoint routes `CAP-DC-R1` as not bind-ready without converting an ingest-ready catalog chip into authority; exact runtime observation, orientation, lifecycle activation, session ritual, story-ready, and preflight then establish mutation readiness for the separate fixture | `CAP-DC-01` row and runtime note, `orientation.json`, `scope.json`, `readiness.json` |
 | `CAP.2` | Meaningful red precedes the one-file green implementation; focused and literal checks pass; unchanged aggregate reaches the seeded review-evidence failure | `red.json`, `green.json`, `focused.json`, `literal.json`, `aggregate-failure.json` |
 | `CAP.3` | Review records `CAP-P1-001` without editing, the learner labels classification timing as self-attested, then normalized duplicate rejection passes a fresh simulated current-product review | `pre-pr.json`, classification note, `review-resolution.json` |
 | `CAP.4` | Reviewed bytes are committed unchanged, the aggregate passes on that commit, final state stays bounded, and reset plus archive are safe | `closeout.json`, state cards, repository checks, reset-and-archive note |
@@ -50,17 +54,20 @@ not Directive lifecycle completion or delivery.
 ## Reasoning
 
 1. Guard identity before trusting any later artifact.
-2. Establish current active scope and session/preflight readiness.
-3. Preserve meaningful red against the untouched supplied test.
-4. Make the smallest complete one-file implementation.
-5. Prove focused behavior and diff integrity separately.
-6. Run stored literal acceptance before the broader aggregate.
-7. Preserve the aggregate's expected review-evidence failure.
-8. Record and classify the complete simulated finding before editing.
-9. Repair only the scoped source and re-check the current product.
-10. Run the repaired aggregate, prove the reviewed digest is unchanged, commit
+2. Before activation, route `CAP-DC-01`, preserve its unresolved audit, require
+   its missing completed-arc record, and deny the chip any authority.
+3. Establish current active scope and session/preflight readiness for the
+   separate fixture.
+4. Preserve meaningful red against the untouched supplied test.
+5. Make the smallest complete one-file implementation.
+6. Prove focused behavior and diff integrity separately.
+7. Run stored literal acceptance before the broader aggregate.
+8. Preserve the aggregate's expected review-evidence failure.
+9. Record and classify the complete simulated finding before editing.
+10. Repair only the scoped source and re-check the current product.
+11. Run the repaired aggregate, prove the reviewed digest is unchanged, commit
     locally, rerun the aggregate on that commit, and claim only proved states.
-11. Create a distinct reset attempt and archive both exact attempt roots.
+12. Create a distinct reset attempt and archive both exact attempt roots.
 
 This sequence rejects four tempting shortcuts: pasting the final solution before
 the green/pre-PR checkpoints; changing tests or gates; treating aggregate red
@@ -75,6 +82,7 @@ The helper sequence is:
 create
 install <root>
 orient <root>
+[record command-free CAP-DC-01 row for CAP-DC-R1]
 activate <root>
 ready <root>
 red <root>
@@ -129,10 +137,23 @@ unique OS-temporary repository on `training/capstone` with no remote.
 deposits Directive, and creates the clean fixture checkpoint.
 
 `orientation.json` then binds the project, branch, empty remote, exact
-baseline, proposed contract, and checkpoint. `scope.json` proves the one story
-moved to `xbrief/active/2026-01-15-fictional-work-items.xbrief.json` with
-`src/work-items.mjs` as its only product path. `readiness.json` proves
-session start, the gated ritual, story-ready, and active-xBRIEF preflight.
+baseline, proposed contract, and checkpoint. Before activation, the private
+assessment note records this recognition-only answer:
+
+| Card ID | Controlling fact | Route decision | Target revision | Bind readiness | Safe next action | Authority boundary |
+| --- | --- | --- | --- | --- | --- | --- |
+| `CAP-DC-01` | The mechanism-shaped envelope change has unresolved `audit:cap-trust-boundary reading=asserted`, an ingest-ready catalog chip, and no admitted completed-arc record | `route` | `CAP-DC-R1` | `not bind-ready` | Obtain an independent audit of `audit:cap-trust-boundary` and require the missing admitted completed-arc record before later bind or ingest | The ingest-ready catalog chip and proposed synthesis authorize neither activation nor implementation |
+
+The audit clears the load-bearing parent premise; the completed-arc record is
+the separate bind artifact. A chip names list state, and a proposed synthesis
+is still only a proposal. Neither substitutes for those conditions or grants
+lifecycle authority. Because `CAP-DC-01` is a fixed recognition card rather
+than the helper's story, its hold does not alter the guarded fixture.
+
+After this row is recorded, `scope.json` proves the fixture's one story moved
+to `xbrief/active/2026-01-15-fictional-work-items.xbrief.json` with
+`src/work-items.mjs` as its only product path. `readiness.json` proves session
+start, the gated ritual, story-ready, and active-xBRIEF preflight.
 
 ### 2. Preserve meaningful red
 
@@ -352,6 +373,7 @@ aggregate on the resulting commit. It leaves the active xBRIEF running.
 | Evidence | Correct result |
 | --- | --- |
 | Runtime note | `node --version` records the runtime; the Node.js 22 or newer assertion exits `0`; OS/shell and observed npm, Git, Task, uv, and Windows Python versions recorded |
+| `CAP-DC-01` row | Before activation, routes `CAP-DC-R1` as `not bind-ready`; requires independent clearance of `audit:cap-trust-boundary` and the missing admitted completed-arc record; says the ingest-ready catalog chip and proposed synthesis authorize neither activation nor implementation |
 | `orientation.json` | `PASS`; exact project, branch, empty remote, pin, proposed story, checkpoint |
 | `scope.json` | `PASS`; exactly one active story and one product path |
 | `readiness.json` | `READY`; session, ritual, story-ready, and preflight exit `0` |
@@ -397,19 +419,22 @@ There is no `delivery.status` or `remote.status` field. Do not invent either.
 
 Compare these facts, not formatting:
 
-1. Did every stage occur in order against one traceable attempt chain?
-2. Did red precede every product edit?
-3. Did only `src/work-items.mjs` change?
-4. Did the first green version still expose the seeded duplicate defect?
-5. Did pre-PR record the finding without changing the diff?
-6. Did the reviewed version reject trimmed, case-folded duplicates with the
+1. Before activation, did `CAP-DC-01` route `CAP-DC-R1` as `not bind-ready`,
+   require both the independent audit and missing completed-arc record, and
+   deny the ingest-ready catalog chip activation or implementation authority?
+2. Did every helper stage occur in order against one traceable attempt chain?
+3. Did red precede every product edit?
+4. Did only `src/work-items.mjs` change?
+5. Did the first green version still expose the seeded duplicate defect?
+6. Did pre-PR record the finding without changing the diff?
+7. Did the reviewed version reject trimmed, case-folded duplicates with the
    required observable message?
-7. Did closeout commit exactly the reviewed bytes and pass the unchanged
+8. Did closeout commit exactly the reviewed bytes and pass the unchanged
    aggregate on that commit?
-8. Did your statement remain implemented/local-pass only?
-9. Did reset create a different root, and did archive preserve both attempts?
+9. Did your statement remain implemented/local-pass only?
+10. Did reset create a different root, and did archive preserve both attempts?
 
-A different implementation can be correct when all nine comparisons and every
+A different implementation can be correct when all ten comparisons and every
 guarded stage pass.
 
 ## Valid alternatives
@@ -449,6 +474,8 @@ Rejected alternatives include:
 ## Misconceptions exposed
 
 - Expected-failure evidence can be captured successfully.
+- An ingest-ready catalog chip and proposed synthesis are not a completed-arc record and
+  authorize neither activation nor implementation.
 - A passing focused suite is not literal or aggregate proof.
 - The seeded aggregate red is not a gate defect.
 - A simulated local `CLEAN` value is not a PR approval.

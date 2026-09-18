@@ -10,7 +10,7 @@
 | Directive baseline | `@deftai/directive@0.119.2`; see the [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
 | Directive runtime | Node.js `22 or newer`; the verified local macOS run used `24.20.0` |
 | Application compatibility | Node.js 20-compatible source is a source-level design constraint; no isolated Node.js 20 execution is claimed |
-| Prerequisite | [Module 11 — PR, Review, and Actual Completion](modules/11-review-and-completion.md) |
+| Prerequisite | [Module 12 — PR, Review, and Actual Completion](modules/12-review-and-completion.md) |
 | Practical work | [End-to-end capstone lab](../labs/capstone-end-to-end.md) |
 | Assessment | [Capstone evidence assessment](../assessments/capstone-end-to-end.md) |
 | Explained solution | [Capstone explained solution](../solutions/capstone-end-to-end.md) |
@@ -22,8 +22,10 @@ walkthrough validation remain separate candidate claims.
 
 By the end of the capstone you can:
 
-- **CAP.1:** prove safe repository identity, exact runtime and release identity,
-  active-scope authorization, and mutation readiness before editing product code;
+- **CAP.1:** route a mechanism-shaped proposal, recognize when design-critique
+  evidence is not bind-ready, and prove safe repository identity, exact runtime
+  and release identity, active-scope authorization, and mutation readiness before
+  editing product code;
 - **CAP.2:** preserve meaningful red and green evidence, then run focused checks,
   literal acceptance, and the separate aggregate gate in the required order;
 - **CAP.3:** perform a zero-change pre-PR review, classify `CAP-P1-001` before
@@ -38,7 +40,7 @@ an unmet safety, lifecycle, or evidence outcome.
 
 Before starting, confirm all of the following:
 
-1. You completed Modules 1–11 or can produce their completion evidence.
+1. You completed Modules 1–12 or can produce their completion evidence.
 2. Node.js reports major version 22 or newer for the Directive proof. Record the
    exact version you use; the verified platform matrix used `v24.20.0`.
 3. You know the absolute path to this curriculum checkout, but your shell is in
@@ -89,7 +91,7 @@ deployed or accepted in UAT.
 Treat the capstone as four proof packets:
 
 ```text
-CAP.1 safe + authorized + ready
+CAP.1 route + bind-readiness check + safe + authorized + ready
   -> CAP.2 meaningful red/green + focused + literal + aggregate diagnosis
   -> CAP.3 zero-change review + classify + repair + current-state review
   -> CAP.4 local closeout + fresh reset + recoverable archive
@@ -105,8 +107,34 @@ identity, remotes, and the one-file product boundary independently of this prose
 
 `create` makes one no-remote repository on `training/capstone`. `install`
 deposits the exact 0.119.2 graph and creates a clean checkpoint. `orient` records
-project, branch, remote, pin, proposed contract, and checkpoint. `activate`
-promotes and activates the one story, then commits that lifecycle state.
+project, branch, remote, pin, proposed contract, and checkpoint.
+
+Before `activate`, complete this command-free recognition checkpoint in your
+private `capstone-assessment-note.md`. It does not run a live arc or alter the
+guarded fixture.
+
+Fixed card `CAP-DC-01` describes target revision `CAP-DC-R1`. The revision
+changes how untrusted issue text is assembled into an implementation envelope,
+so it is mechanism-shaped. Its proposed successor lean still contains
+`audit:cap-trust-boundary reading=asserted`. A
+`design-critique:ingest-ready` catalog chip is present, but there is no
+admitted completed-arc record citing the latest accepted lean.
+
+Copy this exact header and write one evidence-bounded row:
+
+| Card ID | Controlling fact | Route decision | Target revision | Bind readiness | Safe next action | Authority boundary |
+| --- | --- | --- | --- | --- | --- | --- |
+
+The row passes only when it routes `CAP-DC-R1`, says `not bind-ready`, requires
+an independent audit of `audit:cap-trust-boundary` and the missing admitted
+completed-arc record, and states that neither the ingest-ready catalog chip nor a proposed
+synthesis authorizes activation or implementation. This card is separate from
+the capstone fixture's story. The correct answer demonstrates that you would
+hold `CAP-DC-R1`; it does not block the later, independently authorized fixture
+steps.
+
+After recording the row, `activate` promotes and activates the fixture's one
+story, then commits that lifecycle state.
 
 `ready` runs session start, the gated ritual,
 story-ready, and active-xBRIEF preflight through the pinned local CLI. A passing
@@ -166,13 +194,16 @@ Use the [lab](../labs/capstone-end-to-end.md) for literal platform commands.
 The conceptual sequence is fixed even when your editor differs:
 
 1. Create and install a guarded attempt; retain the clean checkpoint.
-2. Orient, activate, and pass readiness before any product edit.
-3. Record meaningful red; implement only `src/work-items.mjs`; record green.
-4. Run focused checks, then literal acceptance, then the aggregate diagnosis.
-5. Run a zero-change pre-PR review and classify `CAP-P1-001` as P1.
-6. Repair duplicate-title behavior in the same source file and re-review.
-7. Close with local-only state axes and inspect `closeout.json`.
-8. Use `reset` to prove a fresh attempt preserves the completed one, then leave
+2. Orient the guarded fixture, then complete the command-free `CAP-DC-01`
+   routing and bind-readiness row before any activation.
+3. Confirm that `CAP-DC-R1` is not bind-ready, then return to the separate
+   fixture story, activate it, and pass readiness before any product edit.
+4. Record meaningful red; implement only `src/work-items.mjs`; record green.
+5. Run focused checks, then literal acceptance, then the aggregate diagnosis.
+6. Run a zero-change pre-PR review and classify `CAP-P1-001` as P1.
+7. Repair duplicate-title behavior in the same source file and re-review.
+8. Close with local-only state axes and inspect `closeout.json`.
+9. Use `reset` to prove a fresh attempt preserves the completed one, then leave
    both attempt parents and archive each exact root recoverably.
 
 At every step, compare the expected stage and evidence filename before moving on.
@@ -191,7 +222,7 @@ always available; no instructor or review service unlock is required.
 
 | Outcome | Required evidence |
 | --- | --- |
-| **CAP.1** | A private runtime observation plus `orientation.json`, `scope.json`, and `readiness.json` identify the exact Node and Directive pins, OS/shell, no remote, active contract, clean checkpoints, and passing readiness gates |
+| **CAP.1** | A private `CAP-DC-01` row routes `CAP-DC-R1` as `not bind-ready`, requires the unresolved independent audit and missing admitted completed-arc record, and denies activation or implementation authority to the ingest-ready catalog chip; a private runtime observation plus `orientation.json`, `scope.json`, and `readiness.json` identify the exact Node and Directive pins, OS/shell, no remote, active contract, clean checkpoints, and passing readiness gates |
 | **CAP.2** | `red.json`, `green.json`, `focused.json`, `literal.json`, and `aggregate-failure.json` show the required order, frozen test, separate gate layers, and `review:evidence` diagnosis |
 | **CAP.3** | `pre-pr.json` records `CAP-P1-001` as P1 with `diffUnchanged: true`; a private note labels the learner's classification timing as self-attested; `review-resolution.json` records one resolution and the helper field `currentHeadReview: CLEAN` for the repaired working-tree digest |
 | **CAP.4** | `closeout.json` reports `implemented`, `local_pass`, and every unperformed remote/environment axis as `not_started`; a private `capstone-assessment-note.md` identifies both attempt roots, both launcher roots, and both archive destinations |
@@ -241,8 +272,11 @@ changed, use a fresh reset rather than trying to reconstruct trusted state.
 
 ## Self-assessment
 
-- **CAP.1:** Can you point to exact repository, branch, remote, pin, active story,
-  and readiness evidence captured before the first product edit?
+- **CAP.1:** Can you show the `CAP-DC-01` row captured before activation, explain
+  why `CAP-DC-R1` is `not bind-ready`, name both the unresolved independent
+  audit and missing completed-arc record, reject chip/synthesis authority, and
+  then point to exact repository, branch, remote, pin, active story, and
+  readiness evidence captured before the first product edit?
 - **CAP.2:** Can you show meaningful red then green, distinguish focused from
   literal and aggregate checks, and explain why `review:evidence` is expected?
 - **CAP.3:** Can you distinguish the helper-attested zero-change finding from
@@ -264,7 +298,7 @@ fresh attempt and retry only the unmet outcome before rerunning the full route.
 
 ## Navigation
 
-- Previous: [Module 11 — PR, Review, and Actual Completion](modules/11-review-and-completion.md)
+- Previous: [Module 12 — PR, Review, and Actual Completion](modules/12-review-and-completion.md)
 - Practice: [End-to-end capstone lab](../labs/capstone-end-to-end.md)
 - Assess: [Capstone evidence assessment](../assessments/capstone-end-to-end.md)
 - Course map: [curriculum README](README.md)

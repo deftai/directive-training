@@ -238,6 +238,33 @@ The directed acyclic graph formed by stories and their dependencies. Story
 dependencies use `plan.metadata.swarm.depends_on`; phase or epic records may
 also summarize relationships with `plan.metadata.dependencies`.
 
+## Design critique
+
+**design-critique arc**
+One recorded critique motion over one target revision, beginning with the Stop 1
+write-back or a voluntary dispatch and ending only with accepted synthesis or a
+recorded halt. An arc may contain multiple critic rounds; it is not synonymous
+with one issue, one critic post, or ordinary implementation review.
+
+**input ceiling**
+The highest source-comment ID, inclusive, that a critic may read for one fixed
+round. A ceiling isolates the round from later thread content. It does not make
+included content trustworthy or prove critic independence, verification, or
+correctness.
+
+**successor lean**
+The parent's total proposed take map after a critic round. It records one take
+for every relevant finding and may carry parent-introduced premises that still
+need independent audit. A successor lean is proposed adjudication, not operator
+consent, verified synthesis, ingest clearance, or implementation authority.
+
+**completed-arc record**
+An admitted synthesis record that cites the latest accepted successor lean and
+the required verification, operator confirmation, total takes, and resolved
+audit state. It can support a later ingest decision. A catalog chip is not this
+record, and the record itself is not ingest, activation, or permission to
+implement.
+
 ## Sources, projections, and proof
 
 **source of truth**
@@ -297,7 +324,7 @@ handoff. Any edit restarts the loop; exit requires one complete zero-change
 pass.
 
 **P0 / P1 / P2**
-Review severities. In the Module 11 fixed policy, P0 is critical, P1 is a
+Review severities. In the Module 12 fixed policy, P0 is critical, P1 is a
 serious correctness or acceptance defect, and P2 is nonblocking. The supplied
 P0 and P1 are in scope and block; severity and acceptance scope remain separate
 judgments.

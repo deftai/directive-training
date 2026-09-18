@@ -5,26 +5,28 @@ import { fileURLToPath } from "node:url";
 import { courseModuleRow, markdownParts, moduleHeadings, section, solutionHeadings, verifyLinks } from "./verify-modules-4-5.mjs";
 import { assertTeachingBaselinePin } from "./teaching-baseline.mjs";
 
-const module10 = "curriculum/modules/10-testing-gates-and-evidence.md";
-const lab10 = "labs/10-testing-gates-and-evidence.md";
-const solution10 = "solutions/lab-10-testing-gates-and-evidence.md";
-const scopeFilename = "2026-09-10-module-10-testing-gates-and-evidence.xbrief.json";
+const module10 = "curriculum/modules/10-implementation-golden-path.md";
+const lab10 = "labs/10-implementation-golden-path.md";
+const solution10 = "solutions/lab-10-implementation-golden-path.md";
+const historicalLineage = Object.freeze({
+  scopeFilename: "2026-09-10-module-9-implementation-golden-path.xbrief.json",
+  parentScope: "xbrief/proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
+  proposal: "history/changes/module-9-curriculum/proposal.xbrief.json",
+  projectItemId: "2026-09-10-module-9-implementation-golden-path",
+});
+const { scopeFilename, parentScope, proposal } = historicalLineage;
 const lifecycleStates = [
   { path: `xbrief/active/${scopeFilename}`, status: "running", folder: "active" },
   { path: `xbrief/completed/${scopeFilename}`, status: "completed", folder: "completed" },
 ];
-const parentScope = "xbrief/proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json";
-const proposal = "history/changes/module-10-curriculum/proposal.xbrief.json";
 const fixtureFiles = [
-  "labs/fixtures/10-testing-gates-and-evidence/PROJECT-DEFINITION.xbrief.json",
-  "labs/fixtures/10-testing-gates-and-evidence/Taskfile.yml",
-  "labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs",
-  "labs/fixtures/10-testing-gates-and-evidence/package.json",
-  "labs/fixtures/10-testing-gates-and-evidence/quality-record.json",
-  "labs/fixtures/10-testing-gates-and-evidence/safety.mjs",
-  "labs/fixtures/10-testing-gates-and-evidence/scripts/verify-quality-record.mjs",
-  "labs/fixtures/10-testing-gates-and-evidence/src/summary.mjs",
-  "labs/fixtures/10-testing-gates-and-evidence/test/summary.test.mjs",
+  "labs/fixtures/10-implementation-golden-path/PROJECT-DEFINITION.xbrief.json",
+  "labs/fixtures/10-implementation-golden-path/implementation-lab.mjs",
+  "labs/fixtures/10-implementation-golden-path/package.json",
+  "labs/fixtures/10-implementation-golden-path/safety.mjs",
+  "labs/fixtures/10-implementation-golden-path/src/cli.mjs",
+  "labs/fixtures/10-implementation-golden-path/src/greeting.mjs",
+  "labs/fixtures/10-implementation-golden-path/test/greeting.test.mjs",
 ];
 const requiredFiles = [
   module10, lab10, solution10, ...fixtureFiles,
@@ -32,7 +34,7 @@ const requiredFiles = [
   "solutions/README.md", "assessments/README.md", "maintainers/CURRICULUM-MAINTENANCE.md",
   "references/GLOSSARY.md", "references/QUICK-REFERENCE.md", "references/SOURCE-BASELINE.md",
   "references/SOURCE-NOTES.md", "package.json", "xbrief/PROJECT-DEFINITION.xbrief.json",
-  parentScope, proposal, "scripts/gates-lab.test.mjs",
+  parentScope, proposal, "scripts/implementation-lab.test.mjs",
 ];
 const labHeadings = [
   "Lab record", "Goal and done condition", "Fictional scenario", "Environment and starting-state check",
@@ -40,7 +42,7 @@ const labHeadings = [
   "Evidence bundle", "Progressive hints", "Expected failures and recovery", "Reset to start", "Cleanup",
   "Explained solution", "Done statement",
 ];
-const outcomes = ["O10.1", "O10.2", "O10.3", "O10.4"];
+const outcomes = ["O10.5", "O10.6", "O10.7", "O10.8", "O10.9"];
 const unfinished = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
 
 function exactBaseline(path, prose, heading) {
@@ -63,10 +65,10 @@ function requireOutcomes(path, prose, headings) {
 }
 
 function requireModule10Link(content, label) {
-  assert.match(content, /\]\([^)]*10-testing-gates-and-evidence\.md(?:#[^)]*)?\)/, `${label} is missing Module 10 navigation`);
+  assert.match(content, /\]\([^)]*10-implementation-golden-path\.md(?:#[^)]*)?\)/, `${label} is missing Module 10 navigation`);
 }
 
-/** Read-only Module 10 lesson, fixture, gate-integrity, evidence, and future-module verifier. */
+/** Read-only implementation lesson, fixture, evidence, and future-module boundary verifier. */
 export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.url))) {
   assert.equal(typeof root, "string", "repository root must be a path string");
   const presentLifecycleStates = lifecycleStates.filter(({ path }) => {
@@ -102,102 +104,95 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
 
   const moduleProse = parsed.get(module10).prose;
   requireOutcomes(module10, moduleProse, ["Learning outcomes", "Completion evidence", "Self-assessment"]);
-  assert.ok(moduleProse.includes("`red -> green -> refactor`"), `${module10} has an incorrect red-green-refactor order`);
+  assert.match(moduleProse, /^### Readiness before mutation\s*$/m, `${module10} has an incorrect readiness order`);
   for (const phrase of [
-    "npm run test:focused", "task deft:verify:ac", "directive verify:forward-coverage --project-root .",
-    "task check", "first failing subcheck", "repair the work, not the gate", "gate-definition hashes",
-  ]) assert.ok(moduleProse.includes(phrase), `${module10} is missing gate-integrity guidance: ${phrase}`);
-  assert.match(section(moduleProse, "Navigation"), /\]\(09-implementation-golden-path\.md\)/, "Module 10 must link back to Module 9");
-  assert.match(section(moduleProse, "Navigation"), /\]\(11-review-and-completion\.md\)/, "Module 10 must link forward to Module 11");
+    "task deft:session:start", "task deft:verify:session-ritual", "directive verify:story-ready",
+    "task deft:xbrief:preflight", "npm run test:focused", "git diff --check",
+    "smallest coherent change", "behavioral evidence", "diff evidence",
+  ]) assert.ok(moduleProse.includes(phrase), `${module10} is missing implementation guidance: ${phrase}`);
+  assert.match(section(moduleProse, "Navigation"), /\]\(09-design-critique-arcs\.md\)/, "Module 10 must link back to Module 9");
+  assert.match(section(moduleProse, "Navigation"), /\]\(11-testing-gates-and-evidence\.md\)/, "Module 10 must link forward to Module 11");
 
   const labProse = parsed.get(lab10).prose;
   assert.match(labProse, /unique OS-temporary repository with no remote/, `${lab10} is missing its temporary no-remote boundary`);
-  assert.match(labProse, /macOS\/zsh; Linux\/bash and Windows\/PowerShell remain candidates/, `${lab10} must retain the current platform boundary`);
-  for (const verb of ["create", "install", "red", "green", "refactor", "literal", "aggregate", "final", "reset", "archive"]) {
-    assert.match(labProse, new RegExp(`gates-lab\\.mjs ${verb}`), `${lab10} is missing helper verb: ${verb}`);
+  assert.match(labProse, /Learner-ready on macOS\/zsh; Linux\/bash and Windows\/PowerShell remain candidates/, `${lab10} must retain the current platform boundary`);
+  assert.match(labProse, /Only `src\/greeting\.mjs` is mutable/, `${lab10} is missing its one-file product allowlist`);
+  for (const verb of ["create", "install", "readiness", "verify", "reset", "archive"]) {
+    assert.match(labProse, new RegExp(`implementation-lab\\.mjs ${verb}`), `${lab10} is missing helper verb: ${verb}`);
   }
-  for (const path of ["red.json", "green.json", "refactor.json", "literal.json", "aggregate-failure.json", "final.json"]) {
-    assert.ok(labProse.includes(path), `${lab10} is missing evidence artifact: ${path}`);
-  }
+  for (const path of ["readiness.json", "implementation.json"]) assert.ok(labProse.includes(path), `${lab10} is missing evidence artifact: ${path}`);
 
   const solutionProse = parsed.get(solution10).prose;
   requireOutcomes(solution10, solutionProse, ["Outcome map", "Acceptance evidence"]);
-  for (const phrase of ["EXPECTED_FAILURE", "quality:record", "quality-record.json only", "gateDefinitionsUnchanged", "average: 4"]) {
-    assert.ok(solutionProse.includes(phrase), `${solution10} is missing explained evidence: ${phrase}`);
-  }
+  assert.match(section(solutionProse, "Solution record"), /Hello, Ada!/, `${solution10} is missing named greeting evidence`);
+  assert.match(section(solutionProse, "Solution record"), /src\/greeting\.mjs/, `${solution10} is missing diff evidence`);
+  assert.match(solutionProse, /Hello, teammate!/, `${solution10} is missing fallback greeting evidence`);
+  assert.match(solutionProse, /name must be a string/, `${solution10} is missing input-error behavior`);
 
   const course = content.get("curriculum/README.md");
   const module10Row = courseModuleRow(course, 10);
-  assert.match(module10Row, /10-testing-gates-and-evidence\.md/, "Module 10 course row must link the lesson");
+  assert.match(module10Row, /10-implementation-golden-path\.md/, "Module 10 course row must link the lesson");
   assert.doesNotMatch(module10Row, /\|\s*Planned\s*\|/i, "Module 10 must no longer be planned");
   assert.match(module10Row, /verified on macOS\/zsh; Linux and Windows candidates/i, "Module 10 course row must retain the current platform boundary");
   const module11Row = courseModuleRow(course, 11);
+  assert.match(module11Row, /11-testing-gates-and-evidence\.md/, "Module 11 course row must link the lesson");
+  assert.doesNotMatch(module11Row, /\|\s*Planned\s*\|/i, "Module 11 must remain learner-ready");
+  const module12Row = courseModuleRow(course, 12);
   assert.match(
-    module11Row,
-    /\[PR, review, and actual completion\]\(modules\/11-review-and-completion\.md\)/,
-    "Module 11 course row must link the lesson",
+    module12Row,
+    /\[PR, review, and actual completion\]\(modules\/12-review-and-completion\.md\)/,
+    "Module 12 course row must link the lesson",
   );
-  assert.match(module11Row, /\|\s*Learner-ready\b/i, "Module 11 must remain learner-ready");
+  assert.match(module12Row, /\|\s*Learner-ready\b/i, "Module 12 must remain learner-ready");
   for (const path of ["README.md", "curriculum/README.md", "labs/README.md", "solutions/README.md", "assessments/README.md"]) {
     requireModule10Link(content.get(path), path);
     verifyLinks(root, path, markdownParts(content.get(path)).prose);
   }
   assert.match(
     content.get("labs/README.md"),
-    /^\| \[Lab 10[^\n]*\]\(10-testing-gates-and-evidence\.md\) \| Learner-ready draft;[^\n]*macOS\/zsh; Linux and Windows candidates[^\n]*\|/m,
+    /^\| \[Lab 10[^\n]*\]\(10-implementation-golden-path\.md\) \| Learner-ready draft;[^\n]*macOS\/zsh; Linux and Windows candidates[^\n]*\|/m,
     "labs/README.md must list Lab 10 with the current platform boundary",
   );
 
-  for (const term of ["literal acceptance", "forward coverage", "aggregate gate", "gate integrity", "red-green-refactor"]) {
+  for (const term of ["focused check", "behavioral evidence", "diff evidence", "implementation readiness"]) {
     assert.match(content.get("references/GLOSSARY.md"), new RegExp(term, "i"), `glossary is missing Module 10 term: ${term}`);
   }
-  for (const phrase of ["task deft:verify:ac", "directive verify:forward-coverage --project-root .", "task check", "quality-record.json"]) {
+  for (const phrase of ["directive verify:story-ready", "npm run test:focused", "git diff --check", "src/greeting.mjs"]) {
     assert.ok(content.get("references/QUICK-REFERENCE.md").includes(phrase), `quick reference is missing Module 10 guidance: ${phrase}`);
   }
-  assert.match(content.get("references/SOURCE-BASELINE.md"), /^## Module 10 testing-and-gates validation\s*$/m, "source baseline is missing Module 10 validation");
+  assert.match(content.get("references/SOURCE-BASELINE.md"), /^## Module 10 implementation-readiness validation\s*$/m, "source baseline is missing Module 10 validation");
   const notes = content.get("references/SOURCE-NOTES.md");
   assert.match(notes, /^## Module 10 source validation\s*$/m, "SOURCE-NOTES is missing the Module 10 source validation record");
   const baseline = content.get("references/SOURCE-BASELINE.md");
   for (const [platform, expected] of [["macos-zsh", "verified"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
     assert.match(baseline, new RegExp(`teaching-platform-proof:${platform} status=${expected}`), `SOURCE-BASELINE Module 10 platform status is missing: ${platform}`);
   }
-  for (const token of ["exact CLI/core/content/types 0.119.2 graph", "verify:ac"]) assert.ok(baseline.includes(token), `SOURCE-BASELINE Module 10 evidence is missing: ${token}`);
+  for (const token of ["exact CLI/core/content/types 0.119.2 package graph", "verify:story-ready"]) assert.ok(baseline.includes(token), `SOURCE-BASELINE implementation evidence is missing: ${token}`);
 
-  const fixturePackage = JSON.parse(content.get("labs/fixtures/10-testing-gates-and-evidence/package.json"));
+  const fixturePackage = JSON.parse(content.get("labs/fixtures/10-implementation-golden-path/package.json"));
   assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.119.2", "Module 10 fixture must retain the exact Directive pin");
   for (const name of ["directive-core", "directive-content", "directive-types"]) {
     assert.equal(fixturePackage.overrides?.[`@deftai/${name}`], "0.119.2", `Module 10 fixture must pin ${name}`);
   }
-  assert.equal(fixturePackage.scripts?.["test:focused"], "node --test test/summary.test.mjs", "Module 10 fixture must expose the focused test");
-  assert.equal(fixturePackage.scripts?.["check:behavior"], "node src/summary.mjs 2 4 6", "Module 10 fixture must expose the literal behavior check");
-
-  const helper = content.get("labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs");
-  for (const invariant of [
-    "realpathSync(tmpdir())", 'git(root, ["remote"])', "const allowedWorkFiles = [qualityPath, sourcePath, testPath]",
-    "redTestDigest", "greenSourceDigest", "refactorSourceDigest", 'firstFailingSubcheck: "quality:record"', "gateDefinitionsUnchanged",
-  ]) assert.ok(helper.includes(invariant), `Module 10 helper is missing guard invariant: ${invariant}`);
-
-  const taskfile = content.get("labs/fixtures/10-testing-gates-and-evidence/Taskfile.yml");
-  const ordered = ["- npm run test:focused", "- task: literal", "- task: forward-coverage", "- task: quality:record"].map((line) => taskfile.indexOf(line));
-  assert.ok(ordered.every((index) => index >= 0) && ordered.every((index, position) => position === 0 || index > ordered[position - 1]), "Module 10 aggregate gate order is incorrect");
-  assert.equal((taskfile.match(/^\s+- task: quality:record$/gm) ?? []).length, 1, "Module 10 aggregate gate order must contain one quality-record subcheck");
+  const helper = content.get("labs/fixtures/10-implementation-golden-path/implementation-lab.mjs");
+  for (const invariant of ["realpathSync(tmpdir())", 'git(root, ["remote"])', 'const allowedProductFiles = ["src/greeting.mjs"]', 'finalStatus: "READY"', 'finalStatus: "PASS"']) {
+    assert.ok(helper.includes(invariant), `Module 10 helper is missing guard invariant: ${invariant}`);
+  }
 
   const project = JSON.parse(content.get("xbrief/PROJECT-DEFINITION.xbrief.json"));
-  const projectItems = project.plan.items.filter((item) => item.id === "2026-09-10-module-10-testing-gates-and-evidence");
+  const projectItems = project.plan.items.filter((item) => item.id === historicalLineage.projectItemId);
   assert.equal(projectItems.length, 1, "PROJECT-DEFINITION must register Module 10 exactly once");
   const projectItem = projectItems[0];
   assert.equal(projectItem.status, lifecycleState.status, "PROJECT-DEFINITION Module 10 status must match its lifecycle scope");
   assert.equal(projectItem.metadata?.lifecycle_folder, lifecycleState.folder, "PROJECT-DEFINITION Module 10 folder must match its lifecycle scope");
   assert.equal(projectItem.metadata?.source_path, `${lifecycleState.folder}/${scopeFilename}`, "PROJECT-DEFINITION Module 10 source path must match its lifecycle scope");
-  const scope = JSON.parse(content.get(lifecycleState.path));
-  assert.equal(scope.plan?.status, lifecycleState.status, "Module 10 scope folder and status must agree");
-  assert.deepEqual(scope.plan?.acceptance?.commands, ["npm run check:module-10", "npm run test:module-10", "directive verify:vbrief-conformance --project-root ."], "Module 10 literal acceptance commands changed");
-  assert.equal(JSON.parse(content.get(parentScope)).plan?.status, "proposed", "Modules 9-11 parent phase remains proposed record state");
+  assert.equal(JSON.parse(content.get(lifecycleState.path)).plan?.status, lifecycleState.status, "Module 10 scope folder and status must agree");
+  assert.equal(JSON.parse(content.get(parentScope)).plan?.status, "proposed", "Modules 10-12 parent phase remains proposed record state");
   assert.equal(JSON.parse(content.get(proposal)).plan?.status, "approved", "Module 10 change proposal must remain approved");
 
   const projectPackage = JSON.parse(content.get("package.json"));
   assert.equal(projectPackage.scripts?.["check:module-10"], "node scripts/verify-module-10.mjs", "package scripts must expose check:module-10");
-  assert.equal(projectPackage.scripts?.["test:module-10"], "node --test scripts/gates-lab.test.mjs scripts/verify-module-10.test.mjs", "package scripts must expose test:module-10");
+  assert.equal(projectPackage.scripts?.["test:module-10"], "node --test scripts/implementation-lab.test.mjs scripts/verify-module-10.test.mjs", "package scripts must expose test:module-10");
   assertTeachingBaselinePin(projectPackage, content.get("README.md"));
   return { artifactCount: content.size };
 }

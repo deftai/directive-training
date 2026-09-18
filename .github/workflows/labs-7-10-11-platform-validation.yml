@@ -1,15 +1,15 @@
-name: labs-7-9-10-platform-validation
+name: labs-7-10-11-platform-validation
 
 on:
   pull_request:
     paths:
-      - ".github/workflows/labs-7-9-10-platform-validation.yml"
+      - ".github/workflows/labs-7-10-11-platform-validation.yml"
       - "labs/07-scope-lifecycle.md"
-      - "labs/09-implementation-golden-path.md"
-      - "labs/10-testing-gates-and-evidence.md"
+      - "labs/10-implementation-golden-path.md"
+      - "labs/11-testing-gates-and-evidence.md"
       - "labs/fixtures/07-scope-lifecycle/**"
-      - "labs/fixtures/09-implementation-golden-path/**"
-      - "labs/fixtures/10-testing-gates-and-evidence/**"
+      - "labs/fixtures/10-implementation-golden-path/**"
+      - "labs/fixtures/11-testing-gates-and-evidence/**"
       - "scripts/lifecycle-lab.test.mjs"
       - "scripts/implementation-lab.test.mjs"
       - "scripts/gates-lab.test.mjs"
@@ -67,11 +67,11 @@ jobs:
         with:
           version: "3.50.0"
 
-      - name: Exercise Labs 7, 9, and 10 through their native learner paths
+      - name: Exercise Labs 7, 10, and 11 through their native learner paths
         run: |
           npm run test:module-7
-          npm run test:module-9
           npm run test:module-10
+          npm run test:module-11
 
   linked-path-safety-windows:
     name: windows-linked-path-safety

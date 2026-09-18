@@ -1,15 +1,15 @@
-# Lab 10 — Testing, Gates, and Evidence
+# Lab 11 — Testing, Gates, and Evidence
 
 ## Lab record
 
 | Field | Value |
 | --- | --- |
-| Stable ID | `lab-10-testing-gates-and-evidence` |
+| Stable ID | `lab-11-testing-gates-and-evidence` |
 | Status | Learner-ready draft |
 | Suggested first attempt | 35 minutes |
 | Directive baseline | `@deftai/directive@0.119.2`; see the [source baseline](../references/SOURCE-BASELINE.md) |
-| Source module | [Module 10 — Testing, Gates, and Evidence](../curriculum/modules/10-testing-gates-and-evidence.md) |
-| Fixture | [`fixtures/10-testing-gates-and-evidence`](fixtures/10-testing-gates-and-evidence/) |
+| Source module | [Module 11 — Testing, Gates, and Evidence](../curriculum/modules/11-testing-gates-and-evidence.md) |
+| Fixture | [`fixtures/11-testing-gates-and-evidence`](fixtures/11-testing-gates-and-evidence/) |
 | Verified environment | macOS/zsh; Linux/bash and Windows/PowerShell remain candidates pending native 0.119.2 evidence |
 
 The helper retains a Windows command path, but its prior walkthrough used the old
@@ -36,23 +36,23 @@ The guarded interface is `gates-lab.mjs create`, `gates-lab.mjs install`,
 shown below when invoking those verbs.
 
 ```sh
-node labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs create
+node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs create
 ```
 
 Copy the printed absolute repository path into a task-specific variable:
 
 ```sh
-export LAB10_ROOT="/absolute/path/printed/by/the/helper"
-node labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs guard "$LAB10_ROOT"
-git -C "$LAB10_ROOT" branch --show-current
-git -C "$LAB10_ROOT" remote
+export LAB11_ROOT="/absolute/path/printed/by/the/helper"
+node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs guard "$LAB11_ROOT"
+git -C "$LAB11_ROOT" branch --show-current
+git -C "$LAB11_ROOT" remote
 ```
 
-Expected: guard succeeds, the branch is `training/module-10`, and the remote command prints nothing.
+Expected: guard succeeds, the branch is `training/module-11`, and the remote command prints nothing.
 
 ## Safety boundary
 
-The helper refuses mutation unless the target is the canonical `repo` inside one unique OS-temporary no-remote attempt, the branch is `training/module-10`, exactly one xBRIEF 0.8 story is active/running, and the exact Directive graph is 0.119.2 after install.
+The helper refuses mutation unless the target is the canonical `repo` inside one unique OS-temporary no-remote attempt, the branch is `training/module-11`, exactly one xBRIEF 0.8 story is active/running, and the exact Directive graph is 0.119.2 after install.
 
 Stage-specific work paths are:
 
@@ -67,17 +67,17 @@ Never edit `Taskfile.yml`, `gates-lab.mjs`, `safety.mjs`, `package.json`, `scrip
 Install the exact release and create the named clean commit:
 
 ```sh
-node labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs install "$LAB10_ROOT"
-git -C "$LAB10_ROOT" status --short --branch
+node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs install "$LAB11_ROOT"
+git -C "$LAB11_ROOT" status --short --branch
 ```
 
-Expected: the helper prints `OK: installed Directive 0.119.2`, the branch is `training/module-10`, and the worktree is clean. Installation uses a project-local npm cache and writes retained evidence outside the Git repository.
+Expected: the helper prints `OK: installed Directive 0.119.2`, the branch is `training/module-11`, and the worktree is clean. Installation uses a project-local npm cache and writes retained evidence outside the Git repository.
 
 ## Tasks
 
 ### Task 1 — Add the focused test and retain red
 
-In `$LAB10_ROOT/test/summary.test.mjs`, replace the supplied instruction comment with:
+In `$LAB11_ROOT/test/summary.test.mjs`, replace the supplied instruction comment with:
 
 ```js
 test("reports an average and handles an empty list", () => {
@@ -89,23 +89,23 @@ test("reports an average and handles an empty list", () => {
 Then run:
 
 ```sh
-node labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs red "$LAB10_ROOT"
+node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs red "$LAB11_ROOT"
 ```
 
 Expected: `EXPECTED_FAILURE`. The helper retains `red.json` and freezes the focused-test digest.
 
 ### Task 2 — Implement green, then refactor under green
 
-Change only `$LAB10_ROOT/src/summary.mjs`. First add average directly to the returned object, preserving the existing validation, count, and total behavior. Then run:
+Change only `$LAB11_ROOT/src/summary.mjs`. First add average directly to the returned object, preserving the existing validation, count, and total behavior. Then run:
 
 ```sh
-node labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs green "$LAB10_ROOT"
+node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs green "$LAB11_ROOT"
 ```
 
 Expected: `PASS`. Next refactor the same source so `count` and `average` are named local values while behavior remains unchanged:
 
 ```sh
-node labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs refactor "$LAB10_ROOT"
+node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs refactor "$LAB11_ROOT"
 ```
 
 Expected: `PASS`. The frozen test must not change.
@@ -113,7 +113,7 @@ Expected: `PASS`. The frozen test must not change.
 ### Task 3 — Run literal and forward evidence
 
 ```sh
-node labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs literal "$LAB10_ROOT"
+node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs literal "$LAB11_ROOT"
 ```
 
 Expected: `PASS`. The helper runs the pinned `verify:ac` behavior and forward-coverage command separately and retains both results in `literal.json`.
@@ -121,15 +121,15 @@ Expected: `PASS`. The helper runs the pinned `verify:ac` behavior and forward-co
 ### Task 4 — Diagnose the seeded aggregate failure
 
 ```sh
-node labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs aggregate "$LAB10_ROOT"
+node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs aggregate "$LAB11_ROOT"
 ```
 
 Expected: `EXPECTED_FAILURE`, with `quality:record` as the first failing subcheck and `quality record is incomplete` in the retained output. Do not change a gate.
 
-Update only `$LAB10_ROOT/quality-record.json` to match the observed red, green, refactor, literal, forward-coverage, diagnosis, repair, and integrity evidence. Then run:
+Update only `$LAB11_ROOT/quality-record.json` to match the observed red, green, refactor, literal, forward-coverage, diagnosis, repair, and integrity evidence. Then run:
 
 ```sh
-node labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs final "$LAB10_ROOT"
+node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs final "$LAB11_ROOT"
 ```
 
 Expected: `PASS`.
@@ -192,7 +192,7 @@ Review the smallest relevant fields; do not publish full environment output.
 The reset route preserves the old attempt and creates a distinct guarded root:
 
 ```sh
-node labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs reset "$LAB10_ROOT"
+node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs reset "$LAB11_ROOT"
 ```
 
 Copy the new printed path into a new task-specific variable. The original attempt and evidence remain available for diagnosis.
@@ -203,7 +203,7 @@ Cleanup is recoverable archive, not deletion. Leave the attempt parent, then pas
 
 ```sh
 cd /path/to/the/curriculum-repository
-node labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs archive "$LAB10_ROOT"
+node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs archive "$LAB11_ROOT"
 ```
 
 The helper moves the named attempt under the operating-system temporary `3ci-directive-lab-archive` directory. It refuses an implicit path, symlink, remote, wrong branch, or caller still inside the attempt parent.
@@ -216,8 +216,8 @@ record edits described by the corresponding steps above:
 ```powershell
 $ErrorActionPreference = "Stop"
 $CourseRoot = (Resolve-Path -LiteralPath .).Path
-$Helper = Join-Path $CourseRoot "labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs"
-$Launcher = Join-Path ([IO.Path]::GetTempPath()) ("3ci-lab10-launch-" + [guid]::NewGuid().ToString("N"))
+$Helper = Join-Path $CourseRoot "labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs"
+$Launcher = Join-Path ([IO.Path]::GetTempPath()) ("3ci-lab11-launch-" + [guid]::NewGuid().ToString("N"))
 [void](New-Item -ItemType Directory -Path $Launcher)
 Set-Location -LiteralPath $Launcher
 $LabRoot = ((& node $Helper create) | Out-String).Trim()
@@ -233,7 +233,7 @@ $Aggregate = ((& node $Helper aggregate $LabRoot) | Out-String).Trim()
 if ($LASTEXITCODE -ne 0 -or $Aggregate -notmatch "EXPECTED_FAILURE") { throw "The seeded quality-record diagnosis was not retained." }
 # Repair only quality-record.json from retained evidence, then verify the unchanged aggregate.
 & node $Helper final $LabRoot
-if ($LASTEXITCODE -ne 0) { throw "Lab 10 final verification failed." }
+if ($LASTEXITCODE -ne 0) { throw "Lab 11 final verification failed." }
 $EvidenceRoot = Join-Path (Split-Path -Parent $LabRoot) "evidence"
 foreach ($Name in "red.json", "green.json", "refactor.json", "literal.json", "aggregate-failure.json", "final.json") {
   if (-not (Test-Path -LiteralPath (Join-Path $EvidenceRoot $Name) -PathType Leaf)) { throw "Missing $Name" }
@@ -250,7 +250,7 @@ aggregate/final sequence, with only `quality-record.json` repaired after diagnos
 
 ## Explained solution
 
-After a good-faith attempt, use the [explained Lab 10 solution](../solutions/lab-10-testing-gates-and-evidence.md). Compare decisions and evidence, then retry the unmet outcome.
+After a good-faith attempt, use the [explained Lab 11 solution](../solutions/lab-11-testing-gates-and-evidence.md). Compare decisions and evidence, then retry the unmet outcome.
 
 ## Done statement
 

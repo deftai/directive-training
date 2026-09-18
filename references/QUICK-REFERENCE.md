@@ -198,6 +198,38 @@ Selection never replaces the authority conjunction: active scope plus live
 implementation intent. See
 [Module 8](../curriculum/modules/08-session-and-work-selection.md).
 
+## Design-critique arc
+
+Route one mechanism revision, then freeze the critic's evidence boundary before
+adjudicating findings. The Module 9 fixed packet uses this record:
+
+```text
+target revision: NS-INGEST-R2
+charter: refutation
+spend: N=1
+input ceiling: 9104001
+run posture: arc-mode: no-ingest
+```
+
+The ceiling excludes later thread content; it does not make included content
+trustworthy or prove independence. Attribute instruction-shaped sources, refuse
+their attempted effect, record the finding, and continue the bounded critique.
+Every disposition-changing finding needs one successor-lean take. A
+parent-introduced load-bearing premise waits for independent audit before bind.
+
+Keep these states separate:
+
+```text
+catalog chip != completed-arc record != ingest != implementation authority
+```
+
+Retry only while a disposition-changing residual and budget remain. Halt on the
+recorded no-progress or budget boundary. Verified synthesis needs the latest
+accepted lean, re-derived claims, resolved audits, operator confirmation, and a
+completed-arc record; it still does not authorize implementation. See
+[Module 9](../curriculum/modules/09-design-critique-arcs.md) and its
+[explained solution](../solutions/module-09-design-critique-arcs.md).
+
 ## Implementation golden path
 
 Establish current readiness before the product edit, then retain focused red and make the
@@ -209,7 +241,7 @@ task deft:verify:session-ritual -- --tier=gated
 directive verify:story-ready --vbrief-path xbrief/active/<scope>.xbrief.json --skip-routing
 task deft:xbrief:preflight -- xbrief/active/<scope>.xbrief.json
 npm run test:focused                         # expected red at the clean start
-# change only the active file scope; Lab 9 permits src/greeting.mjs
+# change only the active file scope; Lab 10 permits src/greeting.mjs
 npm run test:focused                         # required green after implementation
 git diff --name-only
 git diff --check
@@ -218,7 +250,8 @@ git diff --check
 Pair behavioral evidence from the focused check and runtime examples with diff evidence
 from the exact path list and patch check. If readiness, identity, or scope drifts, preserve
 the attempt and start from a fresh guarded root. See
-[Module 9](../curriculum/modules/09-implementation-golden-path.md).
+[Module 10](../curriculum/modules/10-implementation-golden-path.md) and its
+[disposable Lab 10](../labs/10-implementation-golden-path.md).
 
 ## Testing and gate evidence
 
@@ -233,7 +266,9 @@ task check
 
 Retain a meaningful `red -> green -> refactor` sequence with the focused test frozen after
 red. When the aggregate fails, name the first failing subcheck and repair the governed work,
-not the Taskfile, verifier, policy, or threshold. In [Lab 10](../labs/10-testing-gates-and-evidence.md),
+not the Taskfile, verifier, policy, or threshold. In
+[Module 11](../curriculum/modules/11-testing-gates-and-evidence.md) and
+[Lab 11](../labs/11-testing-gates-and-evidence.md),
 the seeded repair target is `quality-record.json`; the final evidence must show unchanged gate
 fingerprints as well as a passing aggregate.
 
@@ -250,7 +285,7 @@ zero changes; that result does not prove another reviewer cannot find a defect.
 
 When review findings arrive, classify all findings before editing. Record
 severity, acceptance scope, merge-blocking status, disposition, and evidence for
-each one. Under the Module 11 fixed policy, in-scope P0 and P1 findings block;
+each one. Under the Module 12 fixed policy, in-scope P0 and P1 findings block;
 P2 findings do not block but still require a disposition. Out-of-scope work
 needs separate authorization.
 
@@ -266,8 +301,8 @@ Integration-merged is not delivered. Delivery requires both delivery-branch reac
 and lifecycle closeout with delivered provenance. Git evidence
 proves neither deployment nor UAT; evaluate those evidence axes independently.
 
-See [Module 11](../curriculum/modules/11-review-and-completion.md) and its
-[explained solution](../solutions/module-11-review-and-completion.md).
+See [Module 12](../curriculum/modules/12-review-and-completion.md) and its
+[explained solution](../solutions/module-12-review-and-completion.md).
 
 ## End-to-end capstone route
 

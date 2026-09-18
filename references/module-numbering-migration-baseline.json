@@ -1,0 +1,647 @@
+{
+  "schema": "directive-training.module-numbering-migration-baseline.v1",
+  "recordedAt": "2026-09-18",
+  "sourceCommit": "40fa2753af025dc6a3c4bc62754246ae6fdfd6ea",
+  "protectedSets": {
+    "completedXbriefs": {
+      "prefix": "xbrief/completed/",
+      "jsonCount": 28,
+      "sentinelCount": 1,
+      "fileCount": 29
+    },
+    "historicalRecords": {
+      "prefix": "history/",
+      "count": 22
+    },
+    "approvedScopeRecords": {
+      "prefix": ".deft/approved-scope/",
+      "count": 26
+    }
+  },
+  "protectedFiles": {
+    ".deft/approved-scope/github.issue.5477576007.intent.json": "sha256:855b665b41cdaff20476061404a518c712b9ddf39d948ab06b647eb257b83448",
+    ".deft/approved-scope/github.issue.5477576007.json": "sha256:fd7782d632176acec2d44808ac94c005d2c85b12638a6c50ba3bc84c4f17b50b",
+    ".deft/approved-scope/github.issue.5477618270.intent.json": "sha256:3b975c0b7105e57f12a7585a4a84f1e3dce385ab3e43966f25fabb7527398971",
+    ".deft/approved-scope/github.issue.5477618270.json": "sha256:4cb58bb6bd4cffc497fdb49761dd8a6120eb4c34317d546519caf648d304ad78",
+    ".deft/approved-scope/training.capstone.fixture-runtime.intent.json": "sha256:ca761ee1a78664c5436ed3b0dcebc206eb89ccb57c9ecb3b5ce697cf569732fe",
+    ".deft/approved-scope/training.capstone.fixture-runtime.json": "sha256:b43f260907580e38074254c57b79988b9d9a58d78767bbb8306c669e62bca4ca",
+    ".deft/approved-scope/training.capstone.learning-experience.intent.json": "sha256:33246a922cebfbd69386c21622f719f68b1247edc45cff595fd3402d397cc29e",
+    ".deft/approved-scope/training.capstone.learning-experience.json": "sha256:cb58fc9175eda129b206bb98103da1992750685b6c50947c3ba0d3d0666830dc",
+    ".deft/approved-scope/training.directive-baseline-0.112.0.intent.json": "sha256:7b05886e43dbe2adcefcf568f619aa10cda262d1b9ba72239075f12defc0627e",
+    ".deft/approved-scope/training.directive-baseline-0.112.0.json": "sha256:62bc4513a7ae364dec752f36793688f2face5a46d9607643f0480f2b1bd281fc",
+    ".deft/approved-scope/training.foundation-module1.intent.json": "sha256:a53e2b41e96300b92740f24819d0240ade7b440206f594e67828809aaee69343",
+    ".deft/approved-scope/training.foundation-module1.json": "sha256:defa167f793d6604326137c77d576dd0553d777ced4435058ad9c1ef1415d69b",
+    ".deft/approved-scope/training.modules2-3.intent.json": "sha256:56732fe24c6fdf2546493973b65b19c645f6e85b95f74af965ab50492f67b9a7",
+    ".deft/approved-scope/training.modules2-3.json": "sha256:1108ee6f80e3bcaa83ee915ba4365f282060d87624bc0831670575cda902529f",
+    ".deft/approved-scope/training.modules6-8.lifecycle.intent.json": "sha256:9283ca1d463f4bf67d2563bccaeb1761025e1bc388492cd89724855e901957c7",
+    ".deft/approved-scope/training.modules6-8.lifecycle.json": "sha256:2cc844608985d5065ff65b21e0d58c5563d3892b909d66d6d07bcb6a6aaccbae",
+    ".deft/approved-scope/training.modules6-8.sessions.intent.json": "sha256:d3d1dc5fc06651d05005f0c3877897a308c3ca61770ec3b35585469f82eb8dcf",
+    ".deft/approved-scope/training.modules6-8.sessions.json": "sha256:97ee6ce2319013e6410aa4b1ca9f42ac8623245ff05ee15ae4446c20dd8c4c6c",
+    ".deft/approved-scope/training.modules6-8.shaping.intent.json": "sha256:1892b7a4d137965843a1590db45883eaa7374fea9e1377b2abe0384d59db4543",
+    ".deft/approved-scope/training.modules6-8.shaping.json": "sha256:4f1edc2497e5b9e413bbe6f6f10c0bec076b8d30a6395a229a1abd5fd863d158",
+    ".deft/approved-scope/training.modules9-11.gates.intent.json": "sha256:14d9f5715b41c83b85695985c8ba213e477d131dd452ac9ec2f5b9dcaadf389b",
+    ".deft/approved-scope/training.modules9-11.gates.json": "sha256:a81577ece24832fc9dbf184f858d504ec12515f9f0e2fe1239c381c39a9b08dd",
+    ".deft/approved-scope/training.modules9-11.implementation.intent.json": "sha256:4992f37d23fd05317902b794f08a7656657338990331107803258592103aaa60",
+    ".deft/approved-scope/training.modules9-11.implementation.json": "sha256:2448d95be8d388528003bcf9cf2a9e3a8b21bf6612689fef877767d3578967f9",
+    ".deft/approved-scope/training.modules9-11.review.intent.json": "sha256:77ff06036315275aa350ee92582f69268eddc62e05c3c5c82bc1a0a498fce792",
+    ".deft/approved-scope/training.modules9-11.review.json": "sha256:7732c92d3f14020bb48ea0ba717b38d849487c9ff0490cf6aac0e3a4e8af6876",
+    "history/changes/capstone-end-to-end/proposal.xbrief.json": "sha256:ad931726caa9f8b6a88a5acea1acfe88f48da1a75efd424de8a30996d0605f98",
+    "history/changes/capstone-end-to-end/tasks.xbrief.json": "sha256:bc1408b0340f1e29ba928d179f7b2e027dd60314ec33d57214da2c9a4be5c2b3",
+    "history/changes/directive-baseline-0.112.0/proposal.xbrief.json": "sha256:26dc741e4a3e234f39af65bba21c9d132bba922362bac96e888b70a11a4ba551",
+    "history/changes/mit-license/proposal.xbrief.json": "sha256:3d559d0bf3bbdb593aa577a745580536702959e1daddb22db726d97349764388",
+    "history/changes/mit-license/tasks.xbrief.json": "sha256:be11dc2cda623ba43fc2391c8a0c401844360ca58ffb114673a62741f9b91481",
+    "history/changes/module-10-curriculum/proposal.xbrief.json": "sha256:6610222b17b9a2f8a0a97fed4fd9bb8c1cf10e3f86db0ada45f8829d1daf2419",
+    "history/changes/module-11-curriculum/proposal.xbrief.json": "sha256:69906077022d786459fbe9291f5004a2a542d29963433ecbbef5580c0665ce36",
+    "history/changes/module-11-curriculum/tasks.xbrief.json": "sha256:5cd8fba0de28bc6a4e7cf401892bd1e16ce248f6287aef99bcc618738b2f745b",
+    "history/changes/module-6-curriculum/proposal.xbrief.json": "sha256:24f9b74cc581cd8d7ecbe83eed50ea9d617130922fc7989bc7da8d2e7838b04f",
+    "history/changes/module-7-curriculum/proposal.xbrief.json": "sha256:2d84be493e1952df048fe563704ad0bb0ab205d81729cedc094aa74aef01e7bf",
+    "history/changes/module-8-curriculum/proposal.xbrief.json": "sha256:d87689c313a4724ca9e1a32e19067de9ab73ead70b568da98e64944074fb2649",
+    "history/changes/module-9-curriculum/proposal.xbrief.json": "sha256:7b292721e53bd09d3b988cc3154f4c7da48a704abf3779805e1bff67887f1747",
+    "history/changes/modules-2-3-curriculum/proposal.xbrief.json": "sha256:65283700996373a1e25934afe0da84b251111fdeb943a31209e208b3c7c69706",
+    "history/changes/modules-2-3-curriculum/tasks.xbrief.json": "sha256:6491b66526cf90d431c83bacee277c47fac6ee35fb0ce5f2dcf83b78cfe4a1ff",
+    "history/changes/modules-4-5-curriculum/proposal.xbrief.json": "sha256:a988720ae737908212340d955bac91fee99172b71aa6308a6593af335b9aa83c",
+    "history/changes/official-lab-replay-fixes-55-58/proposal.xbrief.json": "sha256:559698348af2c34545daa5968047b1849046b6164a27aa5ea135c8a9591b0260",
+    "history/changes/official-lab-replay-fixes-55-58/tasks.xbrief.json": "sha256:facc229488b49c0fbc8513e19de1e9670785d5a9b88c25113b210a4dc9abf8a2",
+    "history/changes/remove-claim-labels-and-3ci-module-language/proposal.xbrief.json": "sha256:7b14e29f78dcf2c23107eeed6113606f53503bb232c3ebca8a34002e1476c8c7",
+    "history/changes/remove-claim-labels-and-3ci-module-language/tasks.xbrief.json": "sha256:f9e3d9e55bc30282cb2f99a3ef44220247173b056e2747de81311678d6cf89b4",
+    "history/changes/windows-lab-fixes-65-68/proposal.xbrief.json": "sha256:ce92c5bea90e2c7ae9bd0a3fa1d6ba3c4bbc7f68b932dc18c2d180e75734d4d8",
+    "history/changes/windows-lab-fixes-65-68/tasks.xbrief.json": "sha256:5ed19b8669e9648831df93a90bb82d089a2acb7ff16c74db4713e6078e5571b8",
+    "history/changes/windows-portability-issues-74-78/proposal.xbrief.json": "sha256:f1c29849d70db0294f27ca44276ed8ca713d072575b432da64e531cda0e295e7",
+    "xbrief/completed/.gitkeep": "sha256:9535b08f5a6aee1a130a41eda6fe257e4d33c7e52c474d06881e383142a54340",
+    "xbrief/completed/2026-09-05-2-add-fresh-clone-deft-recovery-to-readme.xbrief.json": "sha256:8b7a5ace116a5638efc8055b94ae4a9fff201a9fdb060fb42cb8f543638d587d",
+    "xbrief/completed/2026-09-05-modules-2-3-installation-and-authority.xbrief.json": "sha256:0d5556fbfb7cbf4da8cac0e651ef52688541e16f53741fa0ece07ce427f8a1b7",
+    "xbrief/completed/2026-09-05-modules-4-5-xbrief-and-projections.xbrief.json": "sha256:ad541af0a3247366945fd7625505ad4f330d126d494c763245ee2c3afc695669",
+    "xbrief/completed/2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot.xbrief.json": "sha256:c62ff9bc7c2d4c51bde4ad19a59ef4b0e1191c2213160413e0c870aeeaaf9fb5",
+    "xbrief/completed/2026-09-07-directive-baseline-0-112-0.xbrief.json": "sha256:3def5147ec328fd027dfc636711ce693dd918cf5504fd5661b12301b8d14721e",
+    "xbrief/completed/2026-09-08-module-6-creating-well-shaped-work.xbrief.json": "sha256:8783fbfe8e79947334f94b95f7db0012e76bd030676f6601442244dade382928",
+    "xbrief/completed/2026-09-08-module-7-scope-lifecycle-and-implementation-authorization.xbrief.json": "sha256:7227f0e1c2f27a660967028898f688fc7c8d61e3710fb47e3c44e961b56a97e0",
+    "xbrief/completed/2026-09-08-module-8-session-start-and-authorized-work-selection.xbrief.json": "sha256:b6f25c5e954beb7adfa37417acd0c5b9bad4d562c715de3163244a96273f1510",
+    "xbrief/completed/2026-09-10-module-10-testing-gates-and-evidence.xbrief.json": "sha256:5aedba610741079daaf251ee08f9f3060f0eb1767da2df9bf1c4f51db8110491",
+    "xbrief/completed/2026-09-10-module-9-implementation-golden-path.xbrief.json": "sha256:48e98ac831ab799f8e430f6739695856f7eae43c879b0e3410a89720d665a5bc",
+    "xbrief/completed/2026-09-11-capstone-guarded-disposable-fixture.xbrief.json": "sha256:ebc4d697c52ac56dd58672e473e1a7cf746cefa57f8bff0b51af97b8c3ee01b3",
+    "xbrief/completed/2026-09-11-capstone-solo-lifecycle-learning-experience.xbrief.json": "sha256:2171c4795de47460c6e896e0ac312badf4545d7d4c22e8f7b4a3d06f3b0f22dd",
+    "xbrief/completed/2026-09-11-module-11-review-and-completion.xbrief.json": "sha256:d48f3373a076fbf927a33fceca9a1330eadeacb20b8cb315044f9fb02cb7f4dd",
+    "xbrief/completed/2026-09-12-55-lab-helpers-silently-no-op-on-macos-when-invoked-via-var-ins.xbrief.json": "sha256:0cb3ce1a6b6ed1ec7f97ba4d7b9b7ace83e0c4666d4026430ee0cb2ac0c2fbb9",
+    "xbrief/completed/2026-09-13-65-lab-5-helper-completes-on-windows-but-the-lab-claims-no-wind.xbrief.json": "sha256:e07cbb94ab02d10f94f03ca81f40f50dccb52377099b60f299e8eacbf88493de",
+    "xbrief/completed/2026-09-13-66-labs-7910-windows-install-fails-with-npmcmd-einval-instead-o.xbrief.json": "sha256:c1834cfc6f25f38d138dd483c7cbe02f3e8f5531d70bb407bf5c2e00a3400139",
+    "xbrief/completed/2026-09-13-67-capstone-windows-start-still-uses-cabsolutepathtodirective-t.xbrief.json": "sha256:f54d645fea36a0c2cba825b1159a587ab1ff82508ce015c66bf5183b64e509e4",
+    "xbrief/completed/2026-09-13-68-lab-2-windows-start-has-no-ready-signal-and-crlf-commit-warn.xbrief.json": "sha256:6cf5d83cf9a1c6c17ffd52354dc099a746e5e0f964786b074ba429245d6fe7fc",
+    "xbrief/completed/2026-09-14-74-windows-symlink-capability-failures-lack-a-clear-validation.xbrief.json": "sha256:ec02f442e6a7bb53a95ee5cef2446755c5d682a26010809e442ad13abadbbcb0",
+    "xbrief/completed/2026-09-14-75-verify-text-portability-uses-windows-path-separators-and-mis.xbrief.json": "sha256:2d131f3325a26518991d762f16a3403fdff6485b4c9feb4e55490dfb1ef56657",
+    "xbrief/completed/2026-09-14-76-capstone-negative-verifier-tests-fail-on-crlf-checkouts-and.xbrief.json": "sha256:e94ae12adeeb048d4588f0c0c60c09528b467f4243b7b8f90854abe2a516678d",
+    "xbrief/completed/2026-09-14-77-labs-7910-happy-path-tests-run-unconditionally-on-unsupporte.xbrief.json": "sha256:c474bbe1bd6351771a8926c4acb3ea8f9a225723dbdf3bcfd558fb431fc2c569",
+    "xbrief/completed/2026-09-14-78-complete-native-windows-learner-paths-for-labs-7-9-and-10.xbrief.json": "sha256:2f942743045d08a500520241ad329867768599e78e0628de40f12bbcdb6f688c",
+    "xbrief/completed/2026-09-14-remove-claim-labels-and-3ci-module-language.xbrief.json": "sha256:0a45a45bea2a2ba74d58a1413af40b517bc7c1e844084fdcb8157d15cf020ce5",
+    "xbrief/completed/2026-09-17-1-add-an-mit-license.xbrief.json": "sha256:8c0959c15fe93a863f8429b385b86c9d6a638fff5880d93bc3bc674831055819",
+    "xbrief/completed/2026-09-17-2-correct-repo-identity-after-the-public-deftai-clone.xbrief.json": "sha256:310be720a6f9fa3846f581958b82b1b9c377b545b9e01a37f5ce0c34ef56177a",
+    "xbrief/completed/2026-09-17-3-upgrade-the-directive-teaching-baseline-from-01120-to-the-la.xbrief.json": "sha256:7804bd48bf34fe23b573e001a5a3b74da3a80f4031ae65e907af9a72422a6d5e",
+    "xbrief/completed/2026-09-17-directive-0-119-1-review-fix.xbrief.json": "sha256:3e265684c1c6dc2bdcac38d22a4cc6cab65db51341c3a85fa5069889a540e53b"
+  },
+  "completedRegistryItems": {
+    "2026-09-05-2-add-fresh-clone-deft-recovery-to-readme": {
+      "id": "2026-09-05-2-add-fresh-clone-deft-recovery-to-readme",
+      "title": "Add fresh-clone Deft recovery to README",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-05-2-add-fresh-clone-deft-recovery-to-readme.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/2",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #2: Add fresh-clone Deft recovery to README"
+          }
+        ]
+      }
+    },
+    "2026-09-05-modules-2-3-installation-and-authority": {
+      "id": "2026-09-05-modules-2-3-installation-and-authority",
+      "title": "Modules 2-3: Installation, Project Anatomy, Authority, and Context",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-05-modules-2-3-installation-and-authority.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "urn:3ci:directive-training:request:2026-09-05",
+            "type": "x-xbrief/user-request",
+            "title": "David's approved Directive training curriculum request",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../references/SOURCE-BASELINE.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Pinned Directive source baseline",
+            "TrustLevel": "internal"
+          }
+        ]
+      }
+    },
+    "2026-09-05-modules-4-5-xbrief-and-projections": {
+      "id": "2026-09-05-modules-4-5-xbrief-and-projections",
+      "title": "Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-05-modules-4-5-xbrief-and-projections.xbrief.json",
+        "lifecycle_folder": "completed"
+      }
+    },
+    "2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot": {
+      "id": "2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot",
+      "title": "Self-Directed Curriculum Foundation and Module 1 Pilot",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-05-self-directed-curriculum-foundation-and-module-1-pilot.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "urn:3ci:directive-training:request:2026-09-05",
+            "type": "x-xbrief/user-request",
+            "title": "David's approved Directive training foundation request",
+            "TrustLevel": "internal"
+          }
+        ]
+      }
+    },
+    "2026-09-07-directive-baseline-0-112-0": {
+      "id": "2026-09-07-directive-baseline-0-112-0",
+      "title": "Directive 0.112.0 Curriculum Baseline",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-07-directive-baseline-0-112-0.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "urn:3ci:directive-training:request:2026-09-07",
+            "type": "x-xbrief/user-request",
+            "title": "David's confirmed full Directive 0.112.0 upgrade request",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../references/SOURCE-BASELINE.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Maintained Directive source baseline",
+            "TrustLevel": "internal"
+          }
+        ]
+      }
+    },
+    "2026-09-08-module-6-creating-well-shaped-work": {
+      "id": "2026-09-08-module-6-creating-well-shaped-work",
+      "title": "Module 6: Creating Well-Shaped Work",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-08-module-6-creating-well-shaped-work.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "../PROJECT-DEFINITION.xbrief.json",
+            "type": "x-xbrief/spec-section",
+            "title": "Directive training project learning goals and safety boundaries",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../curriculum/README.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Course sequence and Module 6 outcomes",
+            "TrustLevel": "internal"
+          }
+        ]
+      }
+    },
+    "2026-09-08-module-7-scope-lifecycle-and-implementation-authorization": {
+      "id": "2026-09-08-module-7-scope-lifecycle-and-implementation-authorization",
+      "title": "Module 7: Scope Lifecycle and Implementation Authorization",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-08-module-7-scope-lifecycle-and-implementation-authorization.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "../PROJECT-DEFINITION.xbrief.json",
+            "type": "x-xbrief/spec-section",
+            "title": "Directive training lifecycle, baseline, and lab safety contracts",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../curriculum/README.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Course sequence and Module 7 outcomes",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../references/SOURCE-BASELINE.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Pinned Directive 0.112.0 source and runtime baseline",
+            "TrustLevel": "internal"
+          }
+        ]
+      }
+    },
+    "2026-09-08-module-8-session-start-and-authorized-work-selection": {
+      "id": "2026-09-08-module-8-session-start-and-authorized-work-selection",
+      "title": "Module 8: Session Start and Authorized Work Selection",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-08-module-8-session-start-and-authorized-work-selection.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "../PROJECT-DEFINITION.xbrief.json",
+            "type": "x-xbrief/spec-section",
+            "title": "Directive training session, state, and safety contracts",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../curriculum/README.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Course sequence and Module 8 outcomes",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../references/SOURCE-BASELINE.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Pinned Directive 0.112.0 source and runtime baseline",
+            "TrustLevel": "internal"
+          }
+        ]
+      }
+    },
+    "2026-09-10-module-10-testing-gates-and-evidence": {
+      "id": "2026-09-10-module-10-testing-gates-and-evidence",
+      "title": "Module 10: Testing, Gates, and Evidence",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-10-module-10-testing-gates-and-evidence.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "../PROJECT-DEFINITION.xbrief.json",
+            "type": "x-xbrief/spec-section",
+            "title": "Directive training testing, baseline, and lab safety contracts",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../curriculum/README.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Course sequence and Module 10 outcomes",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../references/SOURCE-BASELINE.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Pinned Directive 0.112.0 source and runtime baseline",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "urn:3ci:directive-training:request:2026-09-10:module-10-implementation",
+            "type": "x-xbrief/user-request",
+            "title": "David's request to implement Module 10",
+            "TrustLevel": "internal"
+          }
+        ]
+      }
+    },
+    "2026-09-10-module-9-implementation-golden-path": {
+      "id": "2026-09-10-module-9-implementation-golden-path",
+      "title": "Module 9: The Implementation Golden Path",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-10-module-9-implementation-golden-path.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "../PROJECT-DEFINITION.xbrief.json",
+            "type": "x-xbrief/spec-section",
+            "title": "Directive training implementation, baseline, and lab safety contracts",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../curriculum/README.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Course sequence and Module 9 outcomes",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../references/SOURCE-BASELINE.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Pinned Directive 0.112.0 source and runtime baseline",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "urn:3ci:directive-training:request:2026-09-10:module-9-refinement",
+            "type": "x-xbrief/user-request",
+            "title": "David's request to refine Module 9",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/34",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #34: Fix Module 9 parent-lineage preflight metadata",
+            "TrustLevel": "internal"
+          }
+        ]
+      }
+    },
+    "2026-09-11-capstone-guarded-disposable-fixture": {
+      "id": "2026-09-11-capstone-guarded-disposable-fixture",
+      "title": "Capstone: Guarded Disposable End-to-End Fixture",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-11-capstone-guarded-disposable-fixture.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "../PROJECT-DEFINITION.xbrief.json",
+            "type": "x-xbrief/spec-section",
+            "title": "Directive training capstone, safety, and platform contracts",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../references/SOURCE-BASELINE.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Pinned Directive learner baseline",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "urn:3ci:directive-training:request:2026-09-11:capstone-implementation",
+            "type": "x-xbrief/user-request",
+            "title": "David's request to implement the capstone",
+            "TrustLevel": "internal"
+          }
+        ]
+      }
+    },
+    "2026-09-11-capstone-solo-lifecycle-learning-experience": {
+      "id": "2026-09-11-capstone-solo-lifecycle-learning-experience",
+      "title": "Capstone: Solo Lifecycle Walkthrough, Rubric, and Solution",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-11-capstone-solo-lifecycle-learning-experience.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "../PROJECT-DEFINITION.xbrief.json",
+            "type": "x-xbrief/spec-section",
+            "title": "Directive training curriculum and capstone contracts",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../curriculum/README.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Course sequence and capstone outcomes",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../../references/SOURCE-BASELINE.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Pinned Directive learner baseline",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "urn:3ci:directive-training:request:2026-09-11:capstone-implementation",
+            "type": "x-xbrief/user-request",
+            "title": "David's request to implement the capstone",
+            "TrustLevel": "internal"
+          }
+        ]
+      }
+    },
+    "2026-09-11-module-11-review-and-completion": {
+      "id": "2026-09-11-module-11-review-and-completion",
+      "title": "Module 11: PR, Review, and Actual Completion",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-11-module-11-review-and-completion.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "PROJECT-DEFINITION.xbrief.json",
+            "type": "x-xbrief/spec-section",
+            "title": "Directive training review, baseline, and safety contracts",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../curriculum/README.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Course sequence and Module 11 outcomes",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "../references/SOURCE-BASELINE.md",
+            "type": "x-xbrief/spec-section",
+            "title": "Pinned Directive 0.112.0 source and runtime baseline",
+            "TrustLevel": "internal"
+          },
+          {
+            "uri": "urn:3ci:directive-training:request:2026-09-11:module-11-implementation",
+            "type": "x-xbrief/user-request",
+            "title": "David's request to implement Module 11",
+            "TrustLevel": "internal"
+          }
+        ]
+      }
+    },
+    "2026-09-12-55-lab-helpers-silently-no-op-on-macos-when-invoked-via-var-ins": {
+      "id": "2026-09-12-55-lab-helpers-silently-no-op-on-macos-when-invoked-via-var-ins",
+      "title": "Official lab replay fixes for issues 55-58",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-12-55-lab-helpers-silently-no-op-on-macos-when-invoked-via-var-ins.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/55",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #55: Lab helpers silently no-op on macOS when invoked via /var instead of /private/var",
+            "TrustLevel": "external"
+          },
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/56",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #56: Lab 2 npm auth and path-placeholder traps are inconsistent with later isolated labs",
+            "TrustLevel": "external"
+          },
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/57",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #57: Frozen Lab 9 and capstone tests reject implementations that match fixture style",
+            "TrustLevel": "external"
+          },
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/58",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #58: Exact Node 24.20.0, --help side effects, and mixed version notes confuse the golden path",
+            "TrustLevel": "external"
+          }
+        ]
+      }
+    },
+    "2026-09-13-65-lab-5-helper-completes-on-windows-but-the-lab-claims-no-wind": {
+      "id": "2026-09-13-65-lab-5-helper-completes-on-windows-but-the-lab-claims-no-wind",
+      "title": "Lab 5 helper completes on Windows but the lab claims no Windows path",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-13-65-lab-5-helper-completes-on-windows-but-the-lab-claims-no-wind.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/65",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #65: Lab 5 helper completes on Windows but the lab claims no Windows path"
+          }
+        ]
+      }
+    },
+    "2026-09-13-66-labs-7910-windows-install-fails-with-npmcmd-einval-instead-o": {
+      "id": "2026-09-13-66-labs-7910-windows-install-fails-with-npmcmd-einval-instead-o",
+      "title": "Labs 7/9/10 Windows install fails with npm.cmd EINVAL instead of the documented not-learner-ready stop",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-13-66-labs-7910-windows-install-fails-with-npmcmd-einval-instead-o.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/66",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #66: Labs 7/9/10 Windows install fails with npm.cmd EINVAL instead of the documented not-learner-ready stop"
+          }
+        ]
+      }
+    },
+    "2026-09-13-67-capstone-windows-start-still-uses-cabsolutepathtodirective-t": {
+      "id": "2026-09-13-67-capstone-windows-start-still-uses-cabsolutepathtodirective-t",
+      "title": "Capstone Windows start still uses C:\\absolute\\path\\to\\directive-training placeholder",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-13-67-capstone-windows-start-still-uses-cabsolutepathtodirective-t.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/67",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #67: Capstone Windows start still uses C:\\absolute\\path\\to\\directive-training placeholder"
+          },
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/56",
+            "type": "x-xbrief/closes",
+            "title": "Issue #56"
+          }
+        ]
+      }
+    },
+    "2026-09-13-68-lab-2-windows-start-has-no-ready-signal-and-crlf-commit-warn": {
+      "id": "2026-09-13-68-lab-2-windows-start-has-no-ready-signal-and-crlf-commit-warn",
+      "title": "Lab 2 Windows start has no ready signal and CRLF commit warnings look like failure",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-13-68-lab-2-windows-start-has-no-ready-signal-and-crlf-commit-warn.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/68",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #68: Lab 2 Windows start has no ready signal and CRLF commit warnings look like failure"
+          }
+        ]
+      }
+    },
+    "2026-09-14-74-windows-symlink-capability-failures-lack-a-clear-validation": {
+      "id": "2026-09-14-74-windows-symlink-capability-failures-lack-a-clear-validation",
+      "title": "Windows symlink capability failures lack a clear validation preflight",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-14-74-windows-symlink-capability-failures-lack-a-clear-validation.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/74",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #74: Windows symlink capability failures lack a clear validation preflight"
+          }
+        ]
+      }
+    },
+    "2026-09-14-75-verify-text-portability-uses-windows-path-separators-and-mis": {
+      "id": "2026-09-14-75-verify-text-portability-uses-windows-path-separators-and-mis",
+      "title": "verify-text-portability uses Windows path separators and misses four mutation fixtures",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-14-75-verify-text-portability-uses-windows-path-separators-and-mis.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/75",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #75: verify-text-portability uses Windows path separators and misses four mutation fixtures"
+          }
+        ]
+      }
+    },
+    "2026-09-14-76-capstone-negative-verifier-tests-fail-on-crlf-checkouts-and": {
+      "id": "2026-09-14-76-capstone-negative-verifier-tests-fail-on-crlf-checkouts-and",
+      "title": "Capstone negative verifier tests fail on CRLF checkouts and mutate the wrong package script",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-14-76-capstone-negative-verifier-tests-fail-on-crlf-checkouts-and.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/76",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #76: Capstone negative verifier tests fail on CRLF checkouts and mutate the wrong package script"
+          }
+        ]
+      }
+    },
+    "2026-09-14-77-labs-7910-happy-path-tests-run-unconditionally-on-unsupporte": {
+      "id": "2026-09-14-77-labs-7910-happy-path-tests-run-unconditionally-on-unsupporte",
+      "title": "Labs 7/9/10 happy-path tests run unconditionally on unsupported Windows",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-14-77-labs-7910-happy-path-tests-run-unconditionally-on-unsupporte.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/77",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #77: Labs 7/9/10 happy-path tests run unconditionally on unsupported Windows"
+          }
+        ]
+      }
+    },
+    "2026-09-14-78-complete-native-windows-learner-paths-for-labs-7-9-and-10": {
+      "id": "2026-09-14-78-complete-native-windows-learner-paths-for-labs-7-9-and-10",
+      "title": "Complete native Windows learner paths for Labs 7, 9, and 10",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-14-78-complete-native-windows-learner-paths-for-labs-7-9-and-10.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "https://github.com/3Ci-Consulting/directive-training/issues/78",
+            "type": "x-xbrief/github-issue",
+            "title": "Issue #78: Complete native Windows learner paths for Labs 7, 9, and 10"
+          }
+        ]
+      }
+    },
+    "2026-09-14-remove-claim-labels-and-3ci-module-language": {
+      "id": "2026-09-14-remove-claim-labels-and-3ci-module-language",
+      "title": "Remove claim labels and 3Ci-specific module language",
+      "status": "completed",
+      "metadata": {
+        "source_path": "completed/2026-09-14-remove-claim-labels-and-3ci-module-language.xbrief.json",
+        "lifecycle_folder": "completed",
+        "references": [
+          {
+            "uri": "urn:3ci:directive-training:request:2026-09-14:remove-claim-labels",
+            "type": "x-xbrief/user-request",
+            "title": "David's request to remove all claim labels and organization-specific language from every course module",
+            "TrustLevel": "internal"
+          }
+        ]
+      }
+    }
+  }
+}
