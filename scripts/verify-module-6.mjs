@@ -47,6 +47,45 @@ const sourcePaths = [
   ".deft/core/commands.md",
   ".deft/core/main.md",
 ];
+const outcomes = ["O6.1", "O6.2", "O6.3", "O6.4"];
+const identifierTokens = (text) => text.match(/[A-Za-z0-9]+(?:[_.-][A-Za-z0-9]+)*/g) ?? [];
+const hasExactIdentifier = (text, identifier) => identifierTokens(text).includes(identifier);
+const hasExactPhrase = (text, phrase) => {
+  const tokens = identifierTokens(text).map((token) => token.toLowerCase());
+  const expected = identifierTokens(phrase).map((token) => token.toLowerCase());
+  return tokens.some((_, index) => expected.every((token, offset) => tokens[index + offset] === token));
+};
+
+function tableCells(line) {
+  return line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
+}
+
+function tableRows(body, expectedHeader, label) {
+  const lines = body.split("\n");
+  const headerIndex = lines.findIndex((line) => {
+    if (!line.includes("|")) return false;
+    return JSON.stringify(tableCells(line)) === JSON.stringify(expectedHeader);
+  });
+  assert.ok(headerIndex >= 0, `${label} is missing its required header`);
+  const separator = tableCells(lines[headerIndex + 1] ?? "");
+  assert.ok(
+    separator.length === expectedHeader.length && separator.every((cell) => /^:?-{3,}:?$/.test(cell)),
+    `${label} is missing its separator row`,
+  );
+  const rows = [];
+  for (const line of lines.slice(headerIndex + 2)) {
+    if (!line.trim() || !line.includes("|")) break;
+    rows.push(tableCells(line));
+  }
+  return rows;
+}
+
+function requireMeaningful(cell, label, minimumWords = 8) {
+  assert.ok(
+    cell.trim().split(/\s+/).filter(Boolean).length >= minimumWords,
+    `${label} must be a scenario-specific explanation, not presence-only or keyword-only text`,
+  );
+}
 
 function exactBaseline(path, prose, recordHeading) {
   const record = section(prose, recordHeading);
@@ -62,8 +101,8 @@ function exactBaseline(path, prose, recordHeading) {
 function requireSectionOutcomes(path, prose, headings) {
   for (const heading of headings) {
     const body = section(prose, heading);
-    for (const outcome of ["O6.1", "O6.2", "O6.3"]) {
-      assert.match(body, new RegExp(`\\b${outcome.replace(".", "\\.")}\\b`), `${path} ${heading} is missing ${outcome}`);
+    for (const outcome of outcomes) {
+      assert.ok(hasExactIdentifier(body, outcome), `${path} ${heading} is missing ${outcome}`);
     }
   }
 }
@@ -131,6 +170,65 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(exercise, /two to five (?:concrete )?(?:acceptance )?criteria[^\n]*plan\.items\[\]\.narrative\.Acceptance/i, "Module 6 exercise must require two to five acceptance criteria in plan.items[].narrative.Acceptance");
   assert.match(exercise, /proposed-scope artifact/i, "Module 6 exercise must require a proposed-scope artifact");
   assert.match(exercise, /ordered[^\n]{0,80}independently verifiable slices/i, "Module 6 exercise must require ordered independently verifiable slices");
+  const routingHeader = [
+    "Fact pattern ID",
+    "Controlling supplied fact",
+    "Disposition",
+    "Proposed mechanism revision",
+    "Safe next action",
+  ];
+  tableRows(exercise, routingHeader, "Module 6 O6.4 routing matrix");
+  for (const id of ["M6-ROUTE-01", "M6-NOROUTE-01", "M6-INSUFFICIENT-01"]) {
+    assert.ok(hasExactIdentifier(exercise, id), `Module 6 O6.4 is missing fixed fact pattern ${id}`);
+  }
+  for (const disposition of ["route", "no route", "insufficient evidence"]) {
+    assert.ok(hasExactPhrase(exercise, disposition), `Module 6 O6.4 is missing disposition ${disposition}`);
+  }
+  for (const requirement of [
+    /all three rows[^\n]{0,80}(?:required|non-compensating)/i,
+    /scenario-specific controlling fact/i,
+    /safe next action/i,
+    /route[^\n]{0,100}proposed mechanism revision/i,
+    /(?:merely repeats|keyword-only)/i,
+  ]) {
+    assert.match(exercise, requirement, "Module 6 O6.4 must publish the non-compensating semantic rubric");
+  }
+
+  const solutionRoutingRows = tableRows(
+    section(solutionProse, "Worked approach"),
+    routingHeader,
+    "Module 6 solution O6.4 routing matrix",
+  );
+  assert.equal(solutionRoutingRows.length, 3, "Module 6 solution O6.4 routing matrix must contain exactly three rows");
+  const solutionRouting = new Map(solutionRoutingRows.map((row) => [row[0], row]));
+  assert.deepEqual([...solutionRouting.keys()].sort(), ["M6-INSUFFICIENT-01", "M6-NOROUTE-01", "M6-ROUTE-01"], "Module 6 solution O6.4 must answer each fixed fact pattern exactly once");
+
+  const routeRow = solutionRouting.get("M6-ROUTE-01");
+  assert.equal(routeRow?.[2], "route", "M6-ROUTE-01 disposition must be route");
+  requireMeaningful(routeRow?.[1] ?? "", "M6-ROUTE-01 controlling fact", 11);
+  assert.match(routeRow[1], /NS-INGEST-R2[^\n]*(?:untrusted|agent envelope)[^\n]*clearance|clearance[^\n]*(?:untrusted|agent envelope)[^\n]*NS-INGEST-R2/i, "M6-ROUTE-01 controlling fact must identify the authority and untrusted-input mechanism");
+  requireMeaningful(routeRow[3], "M6-ROUTE-01 proposed mechanism revision", 11);
+  assert.match(routeRow[3], /NS-INGEST-R2[^\n]*(?:source content|evidence)[^\n]*completed-arc record/i, "M6-ROUTE-01 proposed mechanism revision must name the concrete target and clearance rule");
+  requireMeaningful(routeRow[4], "M6-ROUTE-01 safe next action", 11);
+  for (const token of ["proposed", "design critique", "promotion", "activation", "implementation"]) {
+    assert.ok(routeRow[4].toLowerCase().includes(token), `M6-ROUTE-01 safe next action must name ${token}`);
+  }
+
+  const noRouteRow = solutionRouting.get("M6-NOROUTE-01");
+  assert.equal(noRouteRow?.[2], "no route", "M6-NOROUTE-01 disposition must be no route");
+  requireMeaningful(noRouteRow?.[1] ?? "", "M6-NOROUTE-01 controlling fact", 10);
+  assert.match(noRouteRow[1], /error-message phrase[^\n]*(?:behavior|authority)[^\n]*(?:unchanged|stay unchanged)/i, "M6-NOROUTE-01 controlling fact must identify the copy-only boundary");
+  assert.match(noRouteRow[3], /^Not applicable\.?$/i, "M6-NOROUTE-01 must not invent a mechanism revision");
+  requireMeaningful(noRouteRow[4], "M6-NOROUTE-01 safe next action", 8);
+  assert.match(noRouteRow[4], /ordinary proposal review[^\n]*(?:without|no)[^\n]*arc/i, "M6-NOROUTE-01 safe next action must continue ordinary review without inventing an arc");
+
+  const insufficientRow = solutionRouting.get("M6-INSUFFICIENT-01");
+  assert.equal(insufficientRow?.[2], "insufficient evidence", "M6-INSUFFICIENT-01 disposition must be insufficient evidence");
+  requireMeaningful(insufficientRow?.[1] ?? "", "M6-INSUFFICIENT-01 controlling fact", 9);
+  assert.match(insufficientRow[1], /no mechanism[^\n]*target revision[^\n]*authority-boundary/i, "M6-INSUFFICIENT-01 controlling fact must name the missing evidence");
+  assert.match(insufficientRow[3], /^Not applicable\.?$/i, "M6-INSUFFICIENT-01 must not invent a mechanism revision");
+  requireMeaningful(insufficientRow[4], "M6-INSUFFICIENT-01 safe next action", 9);
+  assert.match(insufficientRow[4], /(?:request|shape)[^\n]*missing mechanism[^\n]*(?:rerun|re-evaluat)/i, "M6-INSUFFICIENT-01 safe next action must gather evidence and rerun routing");
 
   const proposedExamples = parsed.get(solution6).blocks
     .filter(({ language }) => language === "json")
@@ -172,12 +270,16 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
     requireModule6Link(content.get(path), `${path} navigation`);
     verifyLinks(root, path, markdownParts(content.get(path)).prose);
   }
+  assert.match(content.get("assessments/README.md"), /\bO6\.4\b/, "assessment map must identify O6.4");
+  assert.match(content.get("assessments/README.md"), /route[\s\S]{0,80}no route[\s\S]{0,80}insufficient evidence/i, "assessment map must describe the O6.4 routing artifact");
 
+  const glossary = content.get("references/GLOSSARY.md").toLowerCase();
   for (const term of ["vertical slice", "horizontal plan", "proposed scope"]) {
-    assert.match(content.get("references/GLOSSARY.md"), new RegExp(term, "i"), `glossary is missing Module 6 term: ${term}`);
+    assert.ok(glossary.includes(term), `glossary is missing Module 6 term: ${term}`);
   }
+  const quickReference = content.get("references/QUICK-REFERENCE.md").toLowerCase();
   for (const phrase of ["bounded strategy choice", "User-visible outcome", "Dependency rationale", "Boundary rationale"]) {
-    assert.match(content.get("references/QUICK-REFERENCE.md"), new RegExp(phrase, "i"), `quick reference is missing Module 6 guidance: ${phrase}`);
+    assert.ok(quickReference.includes(phrase.toLowerCase()), `quick reference is missing Module 6 guidance: ${phrase}`);
   }
 
   const baseline = content.get("references/SOURCE-BASELINE.md");

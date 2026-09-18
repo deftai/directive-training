@@ -29,8 +29,8 @@ const windowsShims = JSON.parse(read(new URL("./fixtures/windows-directive-shims
 const helpers = [
   "labs/fixtures/05-projection-drift-recovery/projection-lab.mjs",
   "labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs",
-  "labs/fixtures/09-implementation-golden-path/implementation-lab.mjs",
-  "labs/fixtures/10-testing-gates-and-evidence/gates-lab.mjs",
+  "labs/fixtures/10-implementation-golden-path/implementation-lab.mjs",
+  "labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs",
   "labs/fixtures/capstone-end-to-end/capstone-lab.mjs",
 ];
 

@@ -115,7 +115,7 @@ export function verifyModule8(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(moduleProse, /no\s+(?:live|real)\s+(?:GitHub\s+)?(?:backlog|cache|repository)/i, `${module8} must prohibit live project-state access`);
   assert.match(section(moduleProse, "Navigation"), /\]\(07-scope-lifecycle\.md\)/, "Module 8 must link back to Module 7");
   assert.match(section(moduleProse, "Navigation"), /\]\(\.\.\/README\.md\)/, "Module 8 must link to the course map");
-  assert.match(section(moduleProse, "Navigation"), /Module 9[^\n]*planned/i, "Module 8 must identify Module 9 as planned");
+  assert.match(section(moduleProse, "Navigation"), /\]\(09-design-critique-arcs\.md\)/, "Module 8 must link to Module 9 design critique");
 
   const solutionProse = parsed.get(solution8).prose;
   assert.match(solutionProse, /Historical record; no standing implementation authority/, `${solution8} has an incorrect completed-scope authority mapping`);
@@ -126,9 +126,11 @@ export function verifyModule8(root = fileURLToPath(new URL("../", import.meta.ur
   const module8Row = courseModuleRow(course, 8);
   assert.match(module8Row, /08-session-and-work-selection\.md/, "Module 8 course row must link the lesson");
   assert.doesNotMatch(module8Row, /\|\s*Planned\s*\|/i, "Module 8 must no longer be planned");
-  assert.match(courseModuleRow(course, 9), /09-implementation-golden-path\.md/, "Module 9 course row must remain navigable");
+  const module9Row = courseModuleRow(course, 9);
+  assert.match(module9Row, /09-design-critique-arcs\.md/, "Module 9 course row must link the design-critique lesson");
+  assert.doesNotMatch(module9Row, /\|\s*Planned\s*\|/i, "Module 9 must remain learner-ready");
   const module10Row = courseModuleRow(course, 10);
-  assert.match(module10Row, /10-testing-gates-and-evidence\.md/, "Module 10 course row must link the lesson");
+  assert.match(module10Row, /10-implementation-golden-path\.md/, "Module 10 course row must link the implementation lesson");
   assert.doesNotMatch(module10Row, /\|\s*Planned\s*\|/i, "Module 10 must remain learner-ready");
   for (const path of ["README.md", "curriculum/README.md", "solutions/README.md", "assessments/README.md"]) {
     requireModule8Link(content.get(path), path);

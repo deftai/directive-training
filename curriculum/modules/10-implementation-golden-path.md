@@ -1,30 +1,30 @@
-# Module 9 — The Implementation Golden Path
+# Module 10 — The Implementation Golden Path
 
 ## Module record
 
 | Field | Value |
 | --- | --- |
-| Stable ID | `module-09-implementation-golden-path` |
+| Stable ID | `module-10-implementation-golden-path` |
 | Status | Learner-ready draft; executable lab verified on macOS/zsh |
 | Last verified | 2026-09-10 |
 | Directive baseline | `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Duration | 70 minutes, including the disposable lab |
-| Prerequisites | Modules 1–8; Node.js 20+, npm, Git, Task, `uv`, and a dedicated zsh terminal |
+| Prerequisites | Modules 1–9; Node.js 20+, npm, Git, Task, `uv`, and a dedicated zsh terminal |
 | Native platform evidence | macOS/zsh verified; Linux/bash and Windows/PowerShell are candidates |
 
 ## Learning outcomes
 
 By the end of this module, you can:
 
-- **O9.1 — Establish readiness:** prove clean branch, active scope, current session ritual,
+- **O10.5 — Establish readiness:** prove clean branch, active scope, current session ritual,
   story readiness, and xBRIEF preflight before a product mutation.
-- **O9.2 — Follow a red-green path:** retain the focused failure, make the smallest
+- **O10.6 — Follow a red-green path:** retain the focused failure, make the smallest
   coherent change, and rerun the focused check.
-- **O9.3 — Respect bounded scope:** change only the product file allowed by the active
+- **O10.7 — Respect bounded scope:** change only the product file allowed by the active
   contract and stop when repository identity, branch, remote, or scope differs.
-- **O9.4 — Produce two kinds of proof:** distinguish behavioral evidence from diff evidence
+- **O10.8 — Produce two kinds of proof:** distinguish behavioral evidence from diff evidence
   and retain both.
-- **O9.5 — Recover without weakening:** diagnose a failed readiness or implementation gate,
+- **O10.9 — Recover without weakening:** diagnose a failed readiness or implementation gate,
   preserve the attempt, and use a fresh reset instead of bypassing the gate.
 
 ## Starting-state check
@@ -160,12 +160,12 @@ parent to a recoverable temporary archive.
 
 ## Walkthrough
 
-Read [Lab 9](../../labs/09-implementation-golden-path.md) before using a terminal. Predict
+Read [Lab 10](../../labs/10-implementation-golden-path.md) before using a terminal. Predict
 the following checkpoints:
 
 | Checkpoint | Expected state |
 | --- | --- |
-| Create | Unique OS-temporary no-remote Git repository on `training/module-09` |
+| Create | Unique OS-temporary no-remote Git repository on `training/module-10` |
 | Install | Exact CLI/core/content/types 0.119.2 graph and clean local checkpoint |
 | Readiness | Four start gates green; focused test red; `readiness.json` says `READY` |
 | Implement | Only `src/greeting.mjs` differs |
@@ -177,28 +177,28 @@ would change the lesson from a golden path into a demonstration of premature mut
 
 ## Exercise
 
-Complete the [disposable Module 9 lab](../../labs/09-implementation-golden-path.md). Keep a
+Complete the [disposable Module 10 lab](../../labs/10-implementation-golden-path.md). Keep a
 short evidence note that answers:
 
-1. Which readiness results support **O9.1**?
-2. What exact focused failure and later pass support **O9.2**?
-3. How did the active file scope and final path list support **O9.3**?
-4. Which observations are behavioral evidence and which are diff evidence for **O9.4**?
-5. What must you do if a guard or gate stops the attempt, demonstrating **O9.5**?
+1. Which readiness results support **O10.5**?
+2. What exact focused failure and later pass support **O10.6**?
+3. How did the active file scope and final path list support **O10.7**?
+4. Which observations are behavioral evidence and which are diff evidence for **O10.8**?
+5. What must you do if a guard or gate stops the attempt, demonstrating **O10.9**?
 
 The product change is intentionally tiny. The learning work is keeping the order, boundary,
 and proof precise.
 
 ## Completion evidence
 
-- **O9.1:** `readiness.json` names the clean checkpoint, active scope, empty remote, branch,
+- **O10.5:** `readiness.json` names the clean checkpoint, active scope, empty remote, branch,
   exact 0.119.2 baseline, and four successful start gates.
-- **O9.2:** the readiness record retains focused exit `1`; the final record retains focused
+- **O10.6:** the readiness record retains focused exit `1`; the final record retains focused
   exit `0` after the smallest coherent change.
-- **O9.3:** the active scope and final diff each list only `src/greeting.mjs`.
-- **O9.4:** `implementation.json` records the named and fallback CLI strings plus the
+- **O10.7:** the active scope and final diff each list only `src/greeting.mjs`.
+- **O10.8:** `implementation.json` records the named and fallback CLI strings plus the
   one-file diff and successful `git diff --check`.
-- **O9.5:** the original stopped attempt remains intact while reset returns a different
+- **O10.9:** the original stopped attempt remains intact while reset returns a different
   unique root, or archive records the recoverable destination.
 
 ## Progressive hints
@@ -231,28 +231,28 @@ and proof precise.
 
 ## Self-assessment
 
-1. **O9.1:** Put the five readiness observations in order and explain why the focused red
+1. **O10.5:** Put the five readiness observations in order and explain why the focused red
    belongs after the four green start gates.
-2. **O9.2:** Explain how the retained red and later green demonstrate a test-backed change.
-3. **O9.3:** Name the only mutable product path and two different places that prove it.
-4. **O9.4:** Give one behavioral observation and one diff observation; state why neither can
+2. **O10.6:** Explain how the retained red and later green demonstrate a test-backed change.
+3. **O10.7:** Name the only mutable product path and two different places that prove it.
+4. **O10.8:** Give one behavioral observation and one diff observation; state why neither can
    replace the other.
-5. **O9.5:** Describe the safe response to an unexpected remote or out-of-scope diff without
+5. **O10.9:** Describe the safe response to an unexpected remote or out-of-scope diff without
    weakening any gate.
 
 You are ready to continue when each answer cites the retained lab evidence.
 
 ## Explained solution
 
-After a genuine first attempt, compare with the [explained Lab 9 solution](../../solutions/lab-09-implementation-golden-path.md).
+After a genuine first attempt, compare with the [explained Lab 10 solution](../../solutions/lab-10-implementation-golden-path.md).
 Use it to diagnose the smallest gap, then retry from a known state.
 
 ## Navigation
 
-- Previous: [Module 8 — Session Start and Authorized Work Selection](08-session-and-work-selection.md)
+- Previous: [Module 9 — Design-Critique Arcs and Verified Synthesis](09-design-critique-arcs.md)
 - Course map: [Directive training](../README.md)
-- Practice: [Lab 9 — Implementation Golden Path](../../labs/09-implementation-golden-path.md)
-- Next: [Module 10 — Testing, Gates, and Evidence](10-testing-gates-and-evidence.md)
+- Practice: [Lab 10 — Implementation Golden Path](../../labs/10-implementation-golden-path.md)
+- Next: [Module 11 — Testing, Gates, and Evidence](11-testing-gates-and-evidence.md)
 
 ## Official sources
 
@@ -261,7 +261,7 @@ Use it to diagnose the smallest gap, then retry from a known state.
 | Session routing and gated ritual | [Directive commands][commands] | 2026-09-10 |
 | Story readiness and active preflight | [Directive commands][commands] | 2026-09-10 |
 | Gate integrity | [Directive main][main] | 2026-09-10 |
-| Exact runtime observations | [Module 9 source validation](../../references/SOURCE-NOTES.md#module-9-source-validation) | 2026-09-10 |
+| Exact runtime observations | [Module 10 source validation](../../references/SOURCE-NOTES.md#module-10-source-validation) | 2026-09-10 |
 
 [commands]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/commands.md
 [main]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/main.md

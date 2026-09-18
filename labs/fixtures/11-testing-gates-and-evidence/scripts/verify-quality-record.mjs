@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 export const expectedQualityRecord = {
-  schema: "3ci.training.module10.quality-record.v1",
+  schema: "3ci.training.module11.quality-record.v1",
   status: "COMPLETE",
   evidence: {
     red: "EXPECTED_FAILURE",
@@ -21,7 +21,7 @@ export const expectedQualityRecord = {
 export function verifyQualityRecord(root = process.cwd()) {
   const record = JSON.parse(readFileSync(resolve(root, "quality-record.json"), "utf8"));
   assert.equal(record.status, "COMPLETE", "quality record is incomplete: expected status COMPLETE");
-  assert.deepEqual(record, expectedQualityRecord, "quality record does not match the observed Module 10 evidence");
+  assert.deepEqual(record, expectedQualityRecord, "quality record does not match the observed Module 11 evidence");
   return record;
 }
 

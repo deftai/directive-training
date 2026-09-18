@@ -647,7 +647,42 @@ outcome evidence, posture, precedence, state paths and roles, source records, li
 registry agreement, local links, and durable forward navigation. Its negative tests mutate only
 temporary copies and reject instructions to inspect live project state.
 
-## Module 9 source validation
+## Module 9 design-critique source validation
+
+Validation date: 2026-09-18. The learner contract is pinned to Directive 0.119.2 release
+commit `9038503ffac65e6d48e5ba34758c4e8e7077aba3`. The practicum is command-free: validation
+compared its fixed packet, outcome map, explained solution, and verifier assertions with the
+immutable source contracts rather than running a live arc or mutating a GitHub thread.
+
+### Pinned sources inspected
+
+| Pinned 0.119.2 source | Contract used by Module 9 |
+| --- | --- |
+| [`content/contracts/design-critique.md`](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/contracts/design-critique.md) | Arc and round boundaries, independent charter/spend selection, ceiling semantics, finding classes, total successor-lean takes, independent parent audit, retry/halt, verified synthesis, and completed-arc clearance. |
+| [`content/templates/design-critique-brief.md`](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/templates/design-critique-brief.md) | Complete critic-envelope field set and forbidden-input boundary. |
+| [`docs/decisions/ADR-005-design-critique-judgment-gate.md`](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/docs/decisions/ADR-005-design-critique-judgment-gate.md) | Recording and authority checks do not compute the semantic mechanism-shaped judgment. |
+| [`docs/decisions/ADR-006-parent-side-substantiation.md`](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/docs/decisions/ADR-006-parent-side-substantiation.md) | A load-bearing premise introduced by the parent after criticism requires independent substantiation. |
+
+### Adaptation and evidence boundary
+
+The fixed packet uses stable source IDs, target revision `NS-INGEST-R2`, default spend `N=1`,
+and comment ceiling `9104001`. It includes one direct instruction-shaped source and two
+individually incomplete fragments whose aggregate attempted effect is instruction-shaped. The
+passing response attributes every source, refuses both attempted effects, records the failure
+as a finding, and continues the original bounded critique. It does not reproduce or execute the
+source text.
+
+The exercise separates four states that the source contract keeps distinct: a list-visible
+catalog chip, an admitted completed-arc record, later ingest, and later implementation
+authority. Its parent-authored trust-boundary premise remains asserted until the supplied
+independent audit clears and narrows it. Agreement alone is not represented as verification.
+
+The packet is inert because it is fictional fixed data handled by a bounded exercise procedure.
+No Directive runtime neutralization, sandbox, live critic, label change, issue ingest, scope
+transition, or product mutation is claimed. The Module 9 verifier is read-only and its negative
+tests mutate only OS-temporary copies.
+
+## Module 10 source validation
 
 Validation date: 2026-09-10. The authoring worktree reported engine 0.114.0 and deposit
 0.114.0. Those values describe authoring drift only. Learner behavior was exercised with an
@@ -673,6 +708,9 @@ the released story-ready/preflight path. The current 0.114.0 migration preflight
 
 Platform evidence:
 
+The following proof-token names are immutable historical fields from the pre-renumbering run;
+they do not state the current module number:
+
 - `module09-platform-proof:macos-zsh status=verified`
 - `module09-platform-proof:linux-bash status=candidate`
 - `module09-platform-proof:windows-powershell status=verified date=2026-09-15 evidence=independent-native-pwsh-walkthrough`
@@ -681,13 +719,13 @@ On 2026-09-15 an independent native PowerShell walkthrough completed readiness
 before mutation, the bounded one-file implementation, named and fallback behavior,
 diff evidence, fresh reset, and recoverable archive with the exact 0.112.0 graph.
 
-The Module 9 verifier checks lesson/lab/solution structure, exact baseline, readiness order,
+The Module 10 verifier checks lesson/lab/solution structure, exact baseline, readiness order,
 guard and one-file scope language, outcomes, evidence names, source records, package scripts,
-links, and durable forward navigation through learner-ready Modules 10–11. Negative tests mutate only OS-temporary copies. The
+links, and durable forward navigation through learner-ready Modules 11–12. Negative tests mutate only OS-temporary copies. The
 fixture suite additionally executes guard rejection, exact pinning, expected red, final
 behavior, narrow diff, fresh reset, and recoverable archive on the verified host.
 
-## Module 10 source validation
+## Module 11 source validation
 
 Validation date: 2026-09-10. The authoring worktree reported engine 0.114.0 and deposit
 0.114.0. Those values describe authoring drift only. Learner behavior was exercised with an
@@ -702,7 +740,7 @@ exact 0.112.0 graph for CLI/core/content/types in the guarded disposable fixture
 | `directive verify:ac --help` | Exit `2`; `verify_ac: unrecognized argument: --help`. |
 | `directive verify:forward-coverage --help` | Exit `0`; listed project-root, staged/head, allow-list, coverage-report, enforce, and quiet options. |
 | `directive check --help` | Exit `2`; `check: unrecognized argument: --help`. |
-| Guarded fixture install | Installed the exact 0.112.0 package/core/content/types graph, restored its immutable local Taskfile, and created a clean checkpoint on `training/module-10` with no remote. |
+| Guarded fixture install | Installed the exact 0.112.0 package/core/content/types graph, restored its immutable local Taskfile, and created a clean checkpoint on historical branch selector `training/module-10` with no remote. |
 | Focused red | Exit `1`; the assertion diff named missing `average` behavior, then the helper froze the test digest. |
 | Focused green and refactor | Exit `0` twice; `{ count: 3, total: 12, average: 4 }` remained stable while the source digest changed for refactor. |
 | Literal acceptance | Direct `node src/summary.mjs 2 4 6` and arbitrary `npm run summary` were safety-refused; the test/check family commands in the supplied active contract passed. |
@@ -718,6 +756,9 @@ deposit was changed to clear a failure.
 
 Platform evidence:
 
+The following proof-token names are immutable historical fields from the pre-renumbering run;
+they do not state the current module number:
+
 - `module10-platform-proof:macos-zsh status=verified`
 - `module10-platform-proof:linux-bash status=candidate`
 - `module10-platform-proof:windows-powershell status=verified date=2026-09-15 evidence=independent-native-pwsh-walkthrough`
@@ -727,9 +768,9 @@ refactor, literal acceptance, aggregate diagnosis, quality-record repair, final
 verification, fresh reset, and recoverable archive with the exact 0.112.0 graph.
 The final record reported `PASS` with unchanged gate-definition hashes.
 
-The Module 10 verifier checks lesson/lab/solution structure, exact baseline, evidence order,
+The Module 11 verifier checks lesson/lab/solution structure, exact baseline, evidence order,
 gate-integrity language, outcome coverage, source records, package scripts, links, lifecycle
-registry agreement, and learner-ready Module 11 navigation. Negative tests mutate only OS-temporary
+registry agreement, and learner-ready Module 12 navigation. Negative tests mutate only OS-temporary
 copies. The fixture suite additionally executes identity and remote guards, exact pinning,
 red-green-refactor sequencing, test freeze, literal and forward gates, the expected aggregate
 failure, the one-record repair, final aggregate, fresh reset, and recoverable archive.
@@ -737,19 +778,19 @@ failure, the one-record repair, final aggregate, fresh reset, and recoverable ar
 ### Historical native Windows candidate-platform stop (2026-09-12)
 
 On 2026-09-12, direct CLI checks on Windows 11 build 26200 with PowerShell 7.6.5 and
-Node.js 26.8.1 created guarded attempts for Labs 7, 9, and 10, then invoked each helper's
+Node.js 26.8.1 created guarded attempts for the then-numbered Labs 7, 9, and 10, then invoked each helper's
 `install` verb. All three exited `1` with the intended native Windows candidate-platform
 message before creating `node_modules` or `.npm-cache`; none emitted `npm.cmd EINVAL`.
 Each untouched attempt then archived successfully. This proves the early learner-facing
 stop, not Windows learner readiness for those labs. The independent 2026-09-15
 walkthroughs recorded above supersede that earlier support disposition.
 
-## Module 11 source validation
+## Module 12 source validation
 
-Validation date: 2026-09-11. The learner baseline remains 0.112.0. During Module
-11 validation, the default unqualified shell CLI reported engine 0.114.0. Final
+Validation date: 2026-09-11. The learner baseline remains 0.112.0. During the then-numbered
+Module 11 validation, the default unqualified shell CLI reported engine 0.114.0. Final
 authoring gates explicitly selected the NVM-managed CLI, which reported engine
-0.116.0, to match the current 0.116.0 deposit for that Module 11 pass. Current
+0.116.0, to match the current 0.116.0 deposit for that historical Module 11 pass. Current
 capstone authoring reports CLI/engine and deposit 0.117.0. These authoring values describe drift
 only; they are not substituted for the pinned learner contract.
 
@@ -758,7 +799,7 @@ only; they are not substituted for the pinned learner contract.
 All hashes below are SHA-256 over bytes at release commit
 `7fe1a285cda8c19ad468d4aa4ca9a8b2cd420808`.
 
-| Pinned source | SHA-256 | Contract used by Module 11 |
+| Pinned source | SHA-256 | Contract used by Module 12 |
 | --- | --- | --- |
 | `content/skills/deft-directive-pre-pr/SKILL.md` | `f60a8eaee395cc65d550b95fab6da8348817de023c3f63accebfbdfc88eeea42` | `Loop Phases`, Read through Loop, restart after edits, and the zero-change exit condition. |
 | `content/skills/deft-directive-review-cycle/SKILL.md` | `ff0337151f6f545999367df87a307c3892707df79ffdadeb06c6ef2c10f15082` | Principle authority, read/classify before editing, acceptance-scope disposition, one fix batch, and current-head re-review. |
@@ -768,7 +809,7 @@ All hashes below are SHA-256 over bytes at release commit
 The first three current 0.117.0 deposit files differ from the pinned hashes. In
 particular, the newer pre-PR skill moves aggregate-gate placement and the
 review material contains newer policy and adapter mechanics. The lifecycle
-source remains byte-identical for the cited delivery boundary. Module 11
+source remains byte-identical for the cited delivery boundary. Module 12
 teaches the pinned 0.112.0 contract only.
 
 ### Exercise adaptation and safety
@@ -786,7 +827,7 @@ credential value, client data, or host automation. Greptile is disabled for
 this project, so no Greptile adapter, confidence, polling, or status behavior is
 part of the learner path.
 
-The Module 11 verifier checks the fixed packet, blank pre-PR worksheet and
+The Module 12 verifier checks the fixed packet, blank pre-PR worksheet and
 phase order, unique semantic classification rows, contradiction rejection,
 coherent batching, current-product evidence, three independent completion
 axes, source records, navigation, lifecycle registry, exact package scripts,
@@ -873,8 +914,8 @@ Hashes are SHA-256 over file bytes at the peeled release commit.
 | `docs/CONCEPTS.md` | `20fe9d9a0ab72c9922b7c4fb22ed6944f41d73c7730b25347c41af9c27c79161` | Source-repository-only; not in `.deft/core/`. |
 | `content/conventions/references.md` | `a07578a13eeb1bfb20f10d08aff4e71549a63e3f7585bb5be9d32827d2ebaf98` | Reconstituted at `.deft/core/conventions/references.md` with the deposit marker and one relative-link rewrite; deposited hash `1a31bb6c4406189acbf1bb95c1832f55389bfe300e190a5946f60025366435d4`. |
 | `content/docs/directive-lifecycle.md` | `14ea6bfd92cc8d49bdce173206f4d73670e24c87abdb0bf620b6bbe218799c52` | Byte-identical at `.deft/core/docs/directive-lifecycle.md`. |
-| `content/coding/review.md` | `f00e769f61d6be1494294d334c30983b07716bcc41584524424069f7e0d3b8bf` | Current 0.117.0 deposit differs; Module 11 uses the immutable release bytes. |
-| `content/skills/deft-directive-pre-pr/SKILL.md` | `f60a8eaee395cc65d550b95fab6da8348817de023c3f63accebfbdfc88eeea42` | Current 0.117.0 deposit differs; Module 11 uses the immutable release bytes. |
+| `content/coding/review.md` | `f00e769f61d6be1494294d334c30983b07716bcc41584524424069f7e0d3b8bf` | Current 0.117.0 deposit differs; Module 12 uses the immutable release bytes. |
+| `content/skills/deft-directive-pre-pr/SKILL.md` | `f60a8eaee395cc65d550b95fab6da8348817de023c3f63accebfbdfc88eeea42` | Current 0.117.0 deposit differs; Module 12 uses the immutable release bytes. |
 | `content/skills/deft-directive-review-cycle/SKILL.md` | `ff0337151f6f545999367df87a307c3892707df79ffdadeb06c6ef2c10f15082` | Current 0.117.0 deposit differs; only its universal review boundary is adapted. |
 | `content/commands.md` | `eb012055fe7c3d410016e5e8ee386dc232de997dd9d57ba245125b25d6f45c50` | Current 0.117.0 deposit differs; deposited hash `a181ef68c78de1808450cb5e4a3b432a24e0505d8423f200859e0c2a19308e7b`. Learner claims use the pinned source. |
 | `content/strategies/README.md` | `e21090a90ca0ed3c4b324afebef53392292a4e43e86e2b9ea74a1058659de8aa` | Current 0.117.0 deposit differs; deposited hash `59c3d08371ffaafad8881736a61cdb561abb88b0eea403b68193fa185a8db03f`. Learner claims use the pinned source. |
@@ -984,6 +1025,6 @@ Unresolved or deliberately deferred evidence:
 - The release tag was resolved but no cryptographic tag signature was present or verified.
 - Build, refinement, and swarm procedure details beyond the bounded curriculum excerpts
   remain deferred until their modules are authored and revalidated. Pre-PR and review-cycle
-  behavior used by Module 11 is now revalidated at the immutable 0.112.0 commit. Setup and
+  behavior used by Module 12 is now revalidated at the immutable 0.112.0 commit. Setup and
   authority material needed for Modules 2–3 and the setup/decomposition claims used by
   Module 6 were revalidated in their respective passes.

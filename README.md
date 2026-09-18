@@ -36,17 +36,18 @@ this Markdown; they will not replace it as the source of truth.
    [Module 6: Creating Well-Shaped Work](curriculum/modules/06-creating-well-shaped-work.md),
    [Module 7: Scope Lifecycle and Implementation Authorization](curriculum/modules/07-scope-lifecycle.md),
    [Module 8: Session Start and Authorized Work Selection](curriculum/modules/08-session-and-work-selection.md),
-   [Module 9: The Implementation Golden Path](curriculum/modules/09-implementation-golden-path.md),
-   [Module 10: Testing, Gates, and Evidence](curriculum/modules/10-testing-gates-and-evidence.md),
-   and [Module 11: PR, Review, and Actual Completion](curriculum/modules/11-review-and-completion.md)
+   [Module 9: Design-Critique Arcs and Verified Synthesis](curriculum/modules/09-design-critique-arcs.md),
+   [Module 10: The Implementation Golden Path](curriculum/modules/10-implementation-golden-path.md),
+   [Module 11: Testing, Gates, and Evidence](curriculum/modules/11-testing-gates-and-evidence.md),
+   and [Module 12: PR, Review, and Actual Completion](curriculum/modules/12-review-and-completion.md)
    in order.
 4. Complete the [two-hour end-to-end capstone](curriculum/capstone-end-to-end.md).
 5. Run command work only in the specified disposable no-remote lab:
    [Lab 2](labs/02-disposable-initialization.md) or
    [Lab 5](labs/05-projection-drift-recovery.md), or
    [Lab 7](labs/07-scope-lifecycle.md), or
-   [Lab 9](labs/09-implementation-golden-path.md),
-   [Lab 10](labs/10-testing-gates-and-evidence.md), or the
+   [Lab 10](labs/10-implementation-golden-path.md),
+   [Lab 11](labs/11-testing-gates-and-evidence.md), or the
    [capstone lab](labs/capstone-end-to-end.md).
 6. Use the [glossary](references/GLOSSARY.md) and
    [quick reference](references/QUICK-REFERENCE.md) when a term or boundary is
@@ -59,12 +60,12 @@ The detailed [source baseline](references/SOURCE-BASELINE.md) is optional audit
 evidence for maintainers and curious learners. It includes legacy and advanced
 drift notes that are intentionally outside the beginner sequence.
 
-Modules 1–11 and the capstone are implemented and learner-ready. The curriculum
+Modules 1–12 and the capstone are implemented and learner-ready. The curriculum
 remains an internal alpha until representative learner pilots complete; that
 release-maturity label does not mean the authored modules are partial. The 0.119.2 executable
-path is verified locally on macOS/zsh. Modules 4, 6, 8, and 11 are command-free. Linux/bash
+path is verified locally on macOS/zsh. Modules 4, 6, 8, 9, and 12 are command-free. Linux/bash
 and Windows/PowerShell remain candidates pending pin-matched native evidence.
-Module 11 uses a fixed fictional review packet and needs no lab fixture. The
+Modules 9 and 12 use fixed fictional packets and need no lab fixture. The
 guarded capstone fixture is verified locally on macOS/zsh; native Linux, Windows, and
 independent learner walkthrough evidence remain separate claims.
 

@@ -1,28 +1,28 @@
-# Module 10 — Testing, Gates, and Evidence
+# Module 11 — Testing, Gates, and Evidence
 
 ## Module record
 
 | Field | Value |
 | --- | --- |
-| Stable ID | `module-10-testing-gates-and-evidence` |
+| Stable ID | `module-11-testing-gates-and-evidence` |
 | Status | Learner-ready draft |
 | Estimated time | 65 minutes |
 | Directive baseline | `@deftai/directive@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
-| Prerequisite | [Module 9 — The Implementation Golden Path](09-implementation-golden-path.md) |
-| Practical work | [Lab 10 — Testing, Gates, and Evidence](../../labs/10-testing-gates-and-evidence.md) |
+| Prerequisite | [Module 10 — The Implementation Golden Path](10-implementation-golden-path.md) |
+| Practical work | [Lab 11 — Testing, Gates, and Evidence](../../labs/11-testing-gates-and-evidence.md) |
 
 ## Learning outcomes
 
 By the end of this module you can:
 
-- **O10.1:** preserve an ordered `red -> green -> refactor` evidence trail and explain why the focused test freezes after red;
-- **O10.2:** distinguish a focused check, literal acceptance, forward coverage, and the aggregate gate by the question each answers;
-- **O10.3:** diagnose the first failing subcheck and repair the work, not the gate, while retaining gate-definition hashes; and
-- **O10.4:** pair behavioral, sequence, diff, and gate-integrity evidence without overstating unexecuted platforms or future modules.
+- **O11.5:** preserve an ordered `red -> green -> refactor` evidence trail and explain why the focused test freezes after red;
+- **O11.6:** distinguish a focused check, literal acceptance, forward coverage, and the aggregate gate by the question each answers;
+- **O11.7:** diagnose the first failing subcheck and repair the work, not the gate, while retaining gate-definition hashes; and
+- **O11.8:** pair behavioral, sequence, diff, and gate-integrity evidence without overstating unexecuted platforms or future modules.
 
 ## Starting-state check
 
-Before continuing, confirm that you completed Module 9 or can explain its readiness sequence. This module assumes you already know why an active scope, live implementation intent, and passing start gates precede product mutation.
+Before continuing, confirm that you completed Module 10 or can explain its readiness sequence. This module assumes you already know why an active scope, live implementation intent, and passing start gates precede product mutation.
 
 Run file-changing exercises only through the supplied helper. It creates a unique OS-temporary no-remote repository; do not initialize or edit the curriculum repository for the exercise.
 
@@ -101,16 +101,16 @@ That sequence proves more than a final screenshot because it includes the meanin
 
 ## Exercise
 
-Complete [Lab 10](../../labs/10-testing-gates-and-evidence.md). Suggested first attempt: 35 minutes before opening the [explained solution](../../solutions/lab-10-testing-gates-and-evidence.md).
+Complete [Lab 11](../../labs/11-testing-gates-and-evidence.md). Suggested first attempt: 35 minutes before opening the [explained solution](../../solutions/lab-11-testing-gates-and-evidence.md).
 
 Do not skip directly to the seeded aggregate failure. The helper accepts stages only in order and preserves evidence outside the disposable repository.
 
 ## Completion evidence
 
-- **O10.1:** `red.json`, `green.json`, and `refactor.json` show the expected exit sequence and one unchanged focused-test digest after red.
-- **O10.2:** `literal.json` identifies separate passing literal-acceptance and forward-coverage results before the aggregate run.
-- **O10.3:** `aggregate-failure.json` names `quality:record` as the first failing subcheck; `final.json` reports unchanged gate-definition hashes and a passing aggregate.
-- **O10.4:** the final diff contains only `test/summary.test.mjs`, `src/summary.mjs`, and `quality-record.json`; the platform record labels only macOS/zsh verified.
+- **O11.5:** `red.json`, `green.json`, and `refactor.json` show the expected exit sequence and one unchanged focused-test digest after red.
+- **O11.6:** `literal.json` identifies separate passing literal-acceptance and forward-coverage results before the aggregate run.
+- **O11.7:** `aggregate-failure.json` names `quality:record` as the first failing subcheck; `final.json` reports unchanged gate-definition hashes and a passing aggregate.
+- **O11.8:** the final diff contains only `test/summary.test.mjs`, `src/summary.mjs`, and `quality-record.json`; the platform record labels only macOS/zsh verified.
 
 ## Progressive hints
 
@@ -140,27 +140,27 @@ Do not skip directly to the seeded aggregate failure. The helper accepts stages 
 
 ## Self-assessment
 
-- **O10.1:** Can you show red, green, and refactor exits in order and prove the test digest stayed fixed after red?
-- **O10.2:** Can you state the distinct question answered by the focused check, literal acceptance, forward coverage, and aggregate gate?
-- **O10.3:** Can you name the first failing subcheck, justify the one-file repair, and show unchanged gate-definition hashes?
-- **O10.4:** Can you present the final three-file diff and label macOS/zsh verified while leaving Linux/bash and Windows/PowerShell as candidates?
+- **O11.5:** Can you show red, green, and refactor exits in order and prove the test digest stayed fixed after red?
+- **O11.6:** Can you state the distinct question answered by the focused check, literal acceptance, forward coverage, and aggregate gate?
+- **O11.7:** Can you name the first failing subcheck, justify the one-file repair, and show unchanged gate-definition hashes?
+- **O11.8:** Can you present the final three-file diff and label macOS/zsh verified while leaving Linux/bash and Windows/PowerShell as candidates?
 
 You are ready to continue only when all four answers are supported by retained evidence.
 
 ## Explained solution
 
-After a good-faith attempt, compare your evidence with the [explained Lab 10 solution](../../solutions/lab-10-testing-gates-and-evidence.md). Then retry any unmet outcome from a fresh guarded attempt.
+After a good-faith attempt, compare your evidence with the [explained Lab 11 solution](../../solutions/lab-11-testing-gates-and-evidence.md). Then retry any unmet outcome from a fresh guarded attempt.
 
 ## Navigation
 
-- Previous: [Module 9 — The Implementation Golden Path](09-implementation-golden-path.md)
-- Practice: [Lab 10 — Testing, Gates, and Evidence](../../labs/10-testing-gates-and-evidence.md)
-- Next: [Module 11 — PR, review, and actual completion](11-review-and-completion.md)
+- Previous: [Module 10 — The Implementation Golden Path](10-implementation-golden-path.md)
+- Practice: [Lab 11 — Testing, Gates, and Evidence](../../labs/11-testing-gates-and-evidence.md)
+- Next: [Module 12 — PR, review, and actual completion](12-review-and-completion.md)
 - Course map: [curriculum README](../README.md)
 
 ## Official sources
 
 - [Directive source baseline](../../references/SOURCE-BASELINE.md)
-- [Module 10 validation notes](../../references/SOURCE-NOTES.md#module-10-source-validation)
+- [Module 11 validation notes](../../references/SOURCE-NOTES.md#module-11-source-validation)
 - [Directive learner quick reference](../../references/QUICK-REFERENCE.md)
 - [Directive training glossary](../../references/GLOSSARY.md)

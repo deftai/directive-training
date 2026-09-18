@@ -13,8 +13,8 @@ import {
   runReadiness,
   verifyImplementation,
   verifyPin,
-} from "../labs/fixtures/09-implementation-golden-path/implementation-lab.mjs";
-import { git, safePath } from "../labs/fixtures/09-implementation-golden-path/safety.mjs";
+} from "../labs/fixtures/10-implementation-golden-path/implementation-lab.mjs";
+import { git, safePath } from "../labs/fixtures/10-implementation-golden-path/safety.mjs";
 
 const read = (path) => readFileSync(path, "utf8");
 
@@ -26,11 +26,11 @@ test("Windows command path keeps the exact local install contract", () => {
   archiveAttempt(root);
 });
 
-test("create produces a unique guarded no-remote Module 9 fixture", () => {
+test("create produces a unique guarded no-remote Module 10 fixture", () => {
   const root = createAttempt();
   assert.equal(guardAttempt(root), root);
   assert.equal(git(root, ["remote"]).trim(), "");
-  assert.equal(git(root, ["branch", "--show-current"]).trim(), "training/module-09");
+  assert.equal(git(root, ["branch", "--show-current"]).trim(), "training/module-10");
   const story = JSON.parse(read(join(root, "xbrief/active/fictional-greeting.xbrief.json")));
   assert.equal(story.plan.status, "running");
   assert.deepEqual(story.plan.metadata.file_scope, ["src/greeting.mjs"]);
@@ -97,8 +97,8 @@ test("readiness must precede the one-file implementation and final evidence", { 
   writeFileSync(storyPath, originalStory);
 
   git(root, ["switch", "-c", "wrong-branch"]);
-  assert.throws(() => runReadiness(root), /training\/module-09/);
-  git(root, ["switch", "training/module-09"]);
+  assert.throws(() => runReadiness(root), /training\/module-10/);
+  git(root, ["switch", "training/module-10"]);
 
   const readiness = runReadiness(root);
   assert.equal(readiness.finalStatus, "READY");

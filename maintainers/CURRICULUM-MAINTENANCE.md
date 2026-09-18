@@ -170,6 +170,10 @@ npm run test:module-10
 npm run test:windows-install
 npm run check:module-11
 npm run test:module-11
+npm run check:module-12
+npm run test:module-12
+npm run check:module-numbering
+npm run test:module-numbering
 npm run check:capstone
 npm run test:capstone
 npm run test:portability
@@ -188,8 +192,8 @@ That command fails closed at its capability preflight. A capability failure
 leaves full linked-path safety sign-off incomplete, but it does not prevent the
 ordinary training matrix from exercising its privilege-free cases.
 
-Pull requests that touch Labs 7, 9, or 10 also run
-`.github/workflows/labs-7-9-10-platform-validation.yml` on macOS, Ubuntu, and
+Pull requests that touch Labs 7, 10, or 11 also run
+`.github/workflows/labs-7-10-11-platform-validation.yml` on macOS, Ubuntu, and
 Windows. The Windows job must execute the substantive learner paths, not a
 platform spoof or skip. Keep Windows marked candidate until both that job and a
 separate learner walkthrough have evidence.
@@ -222,20 +226,27 @@ safe local links, navigation, and the absence of executable shell blocks. The
 learner evidence is a fictional scratch note with literal read-only inspection;
 it makes no runtime, remote, deployment, or implementation-authority claim.
 
-Module 9 adds an executable golden-path lab. Revalidate the exact 0.119.2 package graph,
+Module 9 adds a command-free fixed-state design-critique practicum. Revalidate the
+complete fictional packet, source-ID attribution, input ceiling, N=1 critic envelope,
+total finding take map, independent parent audit, retry/halt decision, verified synthesis,
+and authority boundary together. It needs no platform execution or live critic. Keep its
+fictional sources inert through the authored fixture and exercise procedure; do not claim
+that Directive guarantees runtime inertness.
+
+Module 10 adds an executable golden-path lab. Revalidate the exact 0.119.2 package graph,
 clean guarded checkpoint, session/story/active-preflight order, expected focused red,
 one-file `src/greeting.mjs` boundary, named/fallback behavior, patch check, retained JSON
 evidence, fresh reset, and recoverable archive together. Current 0.119.2 support is
 macOS/zsh; Linux/bash and Windows/PowerShell remain candidates pending native replay.
 
-Module 10 adds an executable testing-and-gates lab. Revalidate the exact 0.119.2 graph,
+Module 11 adds an executable testing-and-gates lab. Revalidate the exact 0.119.2 graph,
 meaningful red, frozen test digest, passing green and source-only refactor, literal `verify:ac`,
 forward coverage, the seeded `quality:record` aggregate failure, the one-record repair, final
 three-file diff, unchanged gate fingerprints, fresh reset, and recoverable archive together.
 Current 0.119.2 support is macOS/zsh; Linux/bash and Windows/PowerShell remain candidates
 pending native replay.
 
-Module 11 is a command-free fixed-state exercise. Revalidate the complete H1
+Module 12 is a command-free fixed-state exercise. Revalidate the complete H1
 packet, Read-Write-Lint-Diff zero-change exit, classify-before-editing order,
 P0/P1/P2 severity and scope decisions, one coherent F1/F2 batch with one commit
 and push, H2-bound checks and review with no push during review,

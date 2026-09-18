@@ -1,7 +1,7 @@
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
-/** Summarize one fictional numeric sample. Module 10 adds average behavior test-first. */
+/** Summarize one fictional numeric sample. Module 11 adds average behavior test-first. */
 export function summarize(values) {
   if (!Array.isArray(values) || values.some((value) => !Number.isFinite(value))) {
     throw new TypeError("values must be an array of finite numbers");

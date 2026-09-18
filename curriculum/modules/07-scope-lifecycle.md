@@ -32,6 +32,18 @@ By the end of this module, you can:
 
 ## Starting-state check
 
+Bring the passing O6.4 routing matrix from
+[Module 6](06-creating-well-shaped-work.md). Before entering the executable lifecycle lab,
+confirm that all three fixed rows identify their controlling supplied fact, exact
+disposition, and safe next action, and that the route row names `NS-INGEST-R2` as its
+proposed mechanism revision. This evidence is required and non-compensating. If any row is
+presence-only, keyword-only, or incomplete, stop and retry O6.4 before continuing.
+
+This hold is curricular and human-semantic. Directive 0.119.2 does not compute whether work
+is mechanism-shaped, and `scope:promote` is not fail-closed on that judgment. The passing
+artifact demonstrates the learner's decision; it does not claim that Directive enforced the
+decision or that the routed proposal is cleared, active, or authorized for implementation.
+
 Without running a command, classify each statement as true or false:
 
 1. A well-shaped proposed xBRIEF is approved to implement.
@@ -39,7 +51,8 @@ Without running a command, classify each statement as true or false:
 3. An active/running scope remains standing authority in a later conversation.
 4. A successful xBRIEF preflight proves that the work was delivered.
 
-All four are false. If any felt true, reread [Module 4](04-xbrief-as-durable-state.md) and
+All four are false. If any felt true, or if the required O6.4 artifact does not pass, reread
+[Module 4](04-xbrief-as-durable-state.md) and
 [Module 6](06-creating-well-shaped-work.md) before entering the lab.
 
 Write one sentence for each false statement. This exposes the exact

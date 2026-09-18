@@ -14,8 +14,8 @@ const curriculumPath = "curriculum/capstone-end-to-end.md";
 const labPath = "labs/capstone-end-to-end.md";
 const assessmentPath = "assessments/capstone-end-to-end.md";
 const solutionPath = "solutions/capstone-end-to-end.md";
-const module11Path = "curriculum/modules/11-review-and-completion.md";
-const module11SolutionPath = "solutions/module-11-review-and-completion.md";
+const module12Path = "curriculum/modules/12-review-and-completion.md";
+const module12SolutionPath = "solutions/module-12-review-and-completion.md";
 const parentScopePath = "xbrief/proposed/2026-09-05-disposable-end-to-end-capstone.xbrief.json";
 const fixtureScopePath = "xbrief/completed/2026-09-11-capstone-guarded-disposable-fixture.xbrief.json";
 const learningScopeFilename = "2026-09-11-capstone-solo-lifecycle-learning-experience.xbrief.json";
@@ -72,54 +72,64 @@ const evidenceFiles = [
   "review-resolution.json",
   "closeout.json",
 ];
-const approvedFileScope = [
-  "CHANGELOG.md",
-  "README.md",
-  "assessments/README.md",
-  "assessments/capstone-end-to-end.md",
-  "curriculum/README.md",
-  "curriculum/capstone-end-to-end.md",
-  "curriculum/modules/11-review-and-completion.md",
-  "labs/README.md",
-  "labs/capstone-end-to-end.md",
-  "maintainers/CURRICULUM-MAINTENANCE.md",
-  "package.json",
-  "references/GLOSSARY.md",
-  "references/QUICK-REFERENCE.md",
-  "references/SOURCE-BASELINE.md",
-  "references/SOURCE-NOTES.md",
-  "scripts/verify-capstone.mjs",
-  "scripts/verify-capstone.test.mjs",
-  "scripts/verify-module-7.test.mjs",
-  "scripts/verify-module-8.test.mjs",
-  "scripts/verify-module-9.test.mjs",
-  "scripts/verify-module-10.test.mjs",
-  "scripts/verify-module-11.mjs",
-  "scripts/verify-module-11.test.mjs",
-  "solutions/README.md",
-  "solutions/capstone-end-to-end.md",
-  "solutions/module-11-review-and-completion.md",
-];
+// Immutable provenance from the protected capstone learning scope. Numbered
+// paths in this list describe that historical approval, not the current course.
+const historicalLineage = Object.freeze({
+  approvedFileScope: [
+    "CHANGELOG.md",
+    "README.md",
+    "assessments/README.md",
+    "assessments/capstone-end-to-end.md",
+    "curriculum/README.md",
+    "curriculum/capstone-end-to-end.md",
+    "curriculum/modules/11-review-and-completion.md",
+    "labs/README.md",
+    "labs/capstone-end-to-end.md",
+    "maintainers/CURRICULUM-MAINTENANCE.md",
+    "package.json",
+    "references/GLOSSARY.md",
+    "references/QUICK-REFERENCE.md",
+    "references/SOURCE-BASELINE.md",
+    "references/SOURCE-NOTES.md",
+    "scripts/verify-capstone.mjs",
+    "scripts/verify-capstone.test.mjs",
+    "scripts/verify-module-7.test.mjs",
+    "scripts/verify-module-8.test.mjs",
+    "scripts/verify-module-9.test.mjs",
+    "scripts/verify-module-10.test.mjs",
+    "scripts/verify-module-11.mjs",
+    "scripts/verify-module-11.test.mjs",
+    "solutions/README.md",
+    "solutions/capstone-end-to-end.md",
+    "solutions/module-11-review-and-completion.md",
+  ],
+});
 const verifyCommands = [
   "npm run check:capstone",
   "npm run test:capstone",
   "npm run test:portability",
   "directive verify:vbrief-conformance --project-root .",
 ];
+const capstoneCheckpointHeader = "| Card ID | Controlling fact | Route decision | Target revision | Bind readiness | Safe next action | Authority boundary |";
+const designCritiqueChipCatalog = new Set([
+  "design-critique:mechanism-shaped",
+  "design-critique:in-progress",
+  "design-critique:ingest-ready",
+]);
 const staticRequiredFiles = [
   "README.md",
   "CHANGELOG.md",
   "package.json",
   "curriculum/README.md",
   curriculumPath,
-  module11Path,
+  module12Path,
   "labs/README.md",
   labPath,
   "assessments/README.md",
   assessmentPath,
   "solutions/README.md",
   solutionPath,
-  module11SolutionPath,
+  module12SolutionPath,
   "maintainers/CURRICULUM-MAINTENANCE.md",
   "references/GLOSSARY.md",
   "references/QUICK-REFERENCE.md",
@@ -279,6 +289,33 @@ function requireDirectLink(body, href, label) {
   assert.ok(body.includes("](" + href + ")"), label + " must link directly to " + href);
 }
 
+function capstoneCheckpointRow(body, path) {
+  const lines = body.replace(/\r\n/g, "\n").split("\n");
+  const headers = lines
+    .map((line, index) => ({ line, index }))
+    .filter(({ line }) => line === capstoneCheckpointHeader);
+  assert.equal(headers.length, 1, path + " must contain the exact CAP.1 checkpoint header once");
+  const headerIndex = headers[0].index;
+  assert.match(lines[headerIndex + 1] ?? "", /^\|(?:\s*---\s*\|){7}$/, path + " checkpoint table is missing its seven-column divider");
+  const row = lines.slice(headerIndex + 2, headerIndex + 5)
+    .find((line) => /^\|\s*`?CAP-DC-01`?\s*\|/.test(line));
+  assert.ok(row, path + " checkpoint table is missing the CAP-DC-01 row");
+  const cells = row.slice(1, -1).split("|").map((cell) => cell.trim());
+  assert.equal(cells.length, 7, path + " CAP-DC-01 row must have seven cells");
+  assert.equal(cells[0].replaceAll("`", ""), "CAP-DC-01", path + " checkpoint card ID changed");
+  assert.match(cells[1], /mechanism-shaped/i, path + " checkpoint must cite the mechanism-shaped controlling fact");
+  assert.match(cells[1], /audit:cap-trust-boundary/, path + " checkpoint must cite the unresolved parent audit");
+  assert.match(cells[1], /ingest-ready catalog chip/i, path + " checkpoint must preserve the ingest-ready catalog chip as supplied state");
+  assert.match(cells[1], /no admitted completed-arc record/i, path + " checkpoint must cite the missing completed-arc record");
+  assert.equal(cells[2].replaceAll("`", "").toLowerCase(), "route", path + " checkpoint route decision must be route");
+  assert.equal(cells[3].replaceAll("`", ""), "CAP-DC-R1", path + " checkpoint target revision changed");
+  assert.equal(cells[4].replaceAll("`", "").toLowerCase(), "not bind-ready", path + " checkpoint must remain not bind-ready");
+  assert.match(cells[5], /independent audit[^|]*audit:cap-trust-boundary/i, path + " checkpoint safe action must require the named independent audit");
+  assert.match(cells[5], /missing admitted completed-arc record/i, path + " checkpoint safe action must require the missing completed-arc record");
+  assert.match(cells[6], /(?:chip|synthesis)[^|]*(?:neither|does not|do not|not)[^|]*activation[^|]*implementation/i, path + " checkpoint must deny activation and implementation authority to chip/synthesis state");
+  return cells;
+}
+
 function assertSafeExecutableBlocks(parts, path) {
   for (const block of parts.blocks.filter(({ language }) => executableLanguage.test(language))) {
     const commands = block.content.split(/\r?\n/).filter((line) => !/^\s*#/.test(line)).join("\n");
@@ -369,6 +406,45 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   requireOutcomes(curriculumPath, parsed.get(curriculumPath).prose, "Self-assessment");
   requireOutcomes(assessmentPath, parsed.get(assessmentPath).prose, "Outcomes and evidence map", true);
   requireOutcomes(solutionPath, parsed.get(solutionPath).prose, "Outcome map", true);
+  const curriculum = content.get(curriculumPath);
+  const assessment = content.get(assessmentPath);
+  const solution = content.get(solutionPath);
+  for (const path of [curriculumPath, assessmentPath, solutionPath]) {
+    assert.doesNotMatch(content.get(path), /\bsynthesis\s+chip\b/i, path + " must use ingest-ready catalog chip vocabulary");
+  }
+  assert.match(
+    section(parsed.get(solutionPath).prose, "Result summary"),
+    /ingest-ready\s+catalog\s+chip\s+authorizes\s+nothing/i,
+    "solution result summary must preserve the ingest-ready catalog chip authority boundary",
+  );
+  assert.equal(countToken(curriculum, capstoneCheckpointHeader), 1, curriculumPath + " must contain the exact CAP.1 checkpoint header once");
+  capstoneCheckpointRow(assessment, assessmentPath);
+  capstoneCheckpointRow(solution, solutionPath);
+  const curriculumCap1 = section(parsed.get(curriculumPath).prose, "Guided explanation")
+    .match(/### CAP\.1[^\n]*[\s\S]*?(?=### CAP\.2)/)?.[0] ?? "";
+  for (const match of curriculumCap1.matchAll(/\bdesign-critique:[a-z0-9-]+\b/g)) {
+    assert.ok(
+      designCritiqueChipCatalog.has(match[0]),
+      curriculumPath + " CAP.1 checkpoint contains unknown design-critique chip " + match[0],
+    );
+  }
+  for (const token of [
+    "CAP-DC-01",
+    "CAP-DC-R1",
+    "audit:cap-trust-boundary reading=asserted",
+    "design-critique:ingest-ready",
+    "not bind-ready",
+    "completed-arc record",
+  ]) assert.ok(curriculumCap1.includes(token), curriculumPath + " CAP.1 checkpoint is missing " + token);
+  assert.match(curriculumCap1, /before `activate`[\s\S]*command-free/i, "CAP.1 checkpoint must be command-free and precede activation");
+  assert.match(curriculumCap1, /neither\s+the\s+ingest-ready\s+catalog\s+chip\s+nor\s+a\s+proposed\s+synthesis\s+authorizes\s+activation\s+or\s+implementation/i, "CAP.1 checkpoint must separate catalog state from lifecycle authority");
+  for (const path of [assessmentPath, solutionPath]) {
+    assert.match(content.get(path), /command-free[\s\S]{0,240}CAP-DC-01|CAP-DC-01[\s\S]{0,240}command-free/i, path + " must keep the CAP.1 checkpoint command-free");
+  }
+  assert.match(curriculum, /Modules 1–12/, "capstone prerequisite must cover Modules 1–12");
+  requireDirectLink(curriculum, "modules/12-review-and-completion.md", "capstone prerequisite");
+  requireDirectLink(assessment, "../curriculum/modules/12-review-and-completion.md", "capstone assessment prerequisite");
+  requireDirectLink(solution, "../curriculum/modules/12-review-and-completion.md", "capstone solution prerequisite");
   for (const [path, heading] of [
     [assessmentPath, "Outcomes and evidence map"],
     [solutionPath, "Outcome map"],
@@ -390,14 +466,14 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   const assessmentTasks = section(parsed.get(assessmentPath).prose, "Assessment tasks");
   const cap1Task = assessmentTasks.match(/### Task 1[^\n]*[\s\S]*?(?=### Task 2)/)?.[0] ?? "";
   const cap2Task = assessmentTasks.match(/### Task 2[^\n]*[\s\S]*?(?=### Task 3)/)?.[0] ?? "";
-  assert.match(cap1Task, /install[\s\S]*orient[\s\S]*activate[\s\S]*ready/i, "CAP.1 assessment task must end at readiness");
+  assert.match(cap1Task, /install[\s\S]*orient[\s\S]*CAP-DC-01[\s\S]*activate[\s\S]*ready/i, "CAP.1 assessment task must place the checkpoint before activation and end at readiness");
   assert.doesNotMatch(cap1Task, /red\.json|\brun\s+`red`/i, "CAP.1 assessment task must not absorb CAP.2 red evidence");
   assert.match(cap2Task, /run `red`[\s\S]*red\.json/, "CAP.2 assessment task must begin with retained red evidence");
 
   const progressiveHints = section(parsed.get(assessmentPath).prose, "Progressive hints");
   const cap1Hints = progressiveHints.match(/<summary>CAP\.1[^\n]*[\s\S]*?(?=<summary>CAP\.2)/)?.[0] ?? "";
   const cap2Hints = progressiveHints.match(/<summary>CAP\.2[^\n]*[\s\S]*?(?=<summary>CAP\.3)/)?.[0] ?? "";
-  assert.match(cap1Hints, /orient -> activate -> ready/, "CAP.1 hints must end at readiness");
+  assert.match(cap1Hints, /orient -> CAP-DC-01 -> activate -> ready/, "CAP.1 hints must place the checkpoint before activation and end at readiness");
   assert.doesNotMatch(cap1Hints, /red\.json|-> red|meaningful red/i, "CAP.1 hints must not absorb CAP.2 red evidence");
   assert.match(cap2Hints, /red\.json/, "CAP.2 hints must include red.json");
   const labSafety = section(parsed.get(labPath).prose, "Safety boundary");
@@ -465,7 +541,6 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.match(combinedCore, /currentHeadReview[\s\S]{0,300}(?:working-tree|current-product)[\s\S]{0,300}before\s+the\s+final\s+commit/i, "current-product review timing is missing");
   assert.match(combinedCore, /COMPLETE[\s\S]{0,300}(?:not Directive lifecycle completion|xBRIEF remains active\/running)/i, "helper completion must remain distinct from lifecycle completion");
 
-  const assessment = content.get(assessmentPath);
   for (const result of ["Demonstrated", "Nearly demonstrated", "Not yet demonstrated", "Blocked by environment"]) {
     assert.ok(assessment.includes(result), "assessment rubric is missing " + result);
   }
@@ -478,13 +553,15 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   for (const evidence of evidenceFiles) {
     assert.ok(assessment.includes(evidence), "assessment evidence manifest is missing " + evidence);
   }
+  const assessmentManifest = section(parsed.get(assessmentPath).prose, "Required evidence manifest");
+  assert.match(assessmentManifest, /CAP-DC-01[\s\S]*CAP-DC-R1[\s\S]*not bind-ready[\s\S]*independent[\s\S]*audit:cap-trust-boundary[\s\S]*missing admitted completed-arc record[\s\S]*activation[\s\S]*implementation/i, "assessment manifest is missing the complete CAP.1 checkpoint evidence");
+  assert.match(section(parsed.get(assessmentPath).prose, "Written reasoning prompts"), /CAP-DC-01[\s\S]*ingest-ready catalog chip[\s\S]*not make `CAP-DC-R1` bind-ready[\s\S]*unresolved audit[\s\S]*missing[\s\S]*completed-arc record[\s\S]*activation[\s\S]*implementation/i, "assessment reasoning must test checkpoint authority boundaries");
   const stateCards = section(parsed.get(assessmentPath).prose, "State cards");
   for (let index = 1; index <= 8; index += 1) {
     const cardRows = [...stateCards.matchAll(new RegExp("^\\|\\s*S" + index + "\\s*\\|", "gm"))];
     assert.equal(cardRows.length, 1, "assessment must contain exactly one state card S" + index);
   }
 
-  const solution = content.get(solutionPath);
   for (const symbol of ["validateItems", "addWorkItem", "completeWorkItem", "summarizeWorkItems", "WI-", "reduce(", "...items", "toLocaleLowerCase", "CAP-P1-001"]) {
     assert.ok(solution.includes(symbol), "solution is missing worked implementation detail: " + symbol);
   }
@@ -656,8 +733,8 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   const currentAvailabilityPaths = [
     "README.md",
     "curriculum/README.md",
-    module11Path,
-    module11SolutionPath,
+    module12Path,
+    module12SolutionPath,
     "labs/README.md",
     "assessments/README.md",
     "solutions/README.md",
@@ -671,7 +748,7 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.doesNotMatch(unreleased, staleAvailability, "CHANGELOG Unreleased contains stale capstone availability");
 
   const course = content.get("curriculum/README.md");
-  for (let moduleNumber = 1; moduleNumber <= 11; moduleNumber += 1) {
+  for (let moduleNumber = 1; moduleNumber <= 12; moduleNumber += 1) {
     const row = courseModuleRow(course, moduleNumber);
     assert.match(row, /\|\s*Learner-ready\b/i, "Module " + moduleNumber + " course row must remain learner-ready");
     assert.doesNotMatch(row, /\b(?:planned|not yet available)\b/i, "Module " + moduleNumber + " course row is not implemented");
@@ -680,8 +757,8 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   const navigationLinks = [
     ["README.md", "curriculum/capstone-end-to-end.md", "repository start"],
     ["curriculum/README.md", "capstone-end-to-end.md", "course map"],
-    [module11Path, "../capstone-end-to-end.md", "Module 11"],
-    [module11SolutionPath, "../curriculum/capstone-end-to-end.md", "Module 11 solution"],
+    [module12Path, "../capstone-end-to-end.md", "Module 12"],
+    [module12SolutionPath, "../curriculum/capstone-end-to-end.md", "Module 12 solution"],
     ["labs/README.md", "capstone-end-to-end.md", "lab index"],
     ["assessments/README.md", "capstone-end-to-end.md", "assessment index"],
     ["solutions/README.md", "capstone-end-to-end.md", "solution index"],
@@ -694,7 +771,7 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   ];
   for (const [path, href, label] of navigationLinks) requireDirectLink(content.get(path), href, label);
   for (const [path, links] of [
-    [curriculumPath, ["../labs/capstone-end-to-end.md", "../assessments/capstone-end-to-end.md", "../solutions/capstone-end-to-end.md", "modules/11-review-and-completion.md"]],
+    [curriculumPath, ["../labs/capstone-end-to-end.md", "../assessments/capstone-end-to-end.md", "../solutions/capstone-end-to-end.md", "modules/12-review-and-completion.md"]],
     [labPath, ["../curriculum/capstone-end-to-end.md", "../assessments/capstone-end-to-end.md", "../solutions/capstone-end-to-end.md"]],
     [assessmentPath, ["../curriculum/capstone-end-to-end.md", "../labs/capstone-end-to-end.md", "../solutions/capstone-end-to-end.md"]],
     [solutionPath, ["../curriculum/capstone-end-to-end.md", "../labs/capstone-end-to-end.md", "../assessments/capstone-end-to-end.md"]],
@@ -704,8 +781,8 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   for (const path of [
     "README.md",
     "curriculum/README.md",
-    module11Path,
-    module11SolutionPath,
+    module12Path,
+    module12SolutionPath,
     "labs/README.md",
     "assessments/README.md",
     "solutions/README.md",
@@ -715,7 +792,7 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   const scope = JSON.parse(content.get(lifecycle.path));
   assert.equal(scope.plan?.id, "training.capstone.learning-experience", "capstone learning scope id changed");
   assert.equal(scope.plan?.status, lifecycle.status, "capstone learning scope folder and status disagree");
-  assert.deepEqual(scope.plan?.metadata?.swarm?.file_scope, approvedFileScope, "capstone approved file scope changed");
+  assert.deepEqual(scope.plan?.metadata?.swarm?.file_scope, historicalLineage.approvedFileScope, "historical capstone approved file scope changed");
   assert.deepEqual(scope.plan?.metadata?.swarm?.verify_commands, verifyCommands, "capstone focused verification commands changed");
   if (lifecycle.folder === "completed") {
     assert.ok(scope.plan.items.every(({ status }) => status === "completed"), "completed capstone scope items must be completed");

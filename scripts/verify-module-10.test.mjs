@@ -11,8 +11,12 @@ const copyPaths = [
   "README.md", "CHANGELOG.md", "LICENSE", "package.json", "curriculum", "labs", "solutions",
   "assessments", "maintainers", "references", "scripts", "templates", "history", "xbrief",
 ];
-const scopeFilename = "2026-09-10-module-10-testing-gates-and-evidence.xbrief.json";
-const projectScopeId = "2026-09-10-module-10-testing-gates-and-evidence";
+const historicalLineage = Object.freeze({
+  scopeFilename: "2026-09-10-module-9-implementation-golden-path.xbrief.json",
+  projectScopeId: "2026-09-10-module-9-implementation-golden-path",
+  parentScope: "xbrief/proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
+});
+const { scopeFilename, projectScopeId } = historicalLineage;
 
 function copiedRepository() {
   const root = mkdtempSync(join(tmpdir(), "module10-contract-test-"));
@@ -48,7 +52,7 @@ function completedLifecycleCopy() {
   projectItem.metadata.source_path = `completed/${scopeFilename}`;
   writeFileSync(projectPath, `${JSON.stringify(project, null, 2)}\n`);
 
-  const parentPath = join(root, "xbrief", "proposed", "2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json");
+  const parentPath = join(root, historicalLineage.parentScope);
   const parent = JSON.parse(readFileSync(parentPath, "utf8"));
   const reference = parent.plan.references.find(({ uri }) => uri.endsWith(scopeFilename));
   if (reference) reference.uri = `completed/${scopeFilename}`;
@@ -56,65 +60,70 @@ function completedLifecycleCopy() {
   return root;
 }
 
-test("Module 10 content contract accepts active and completed lifecycle states", () => {
-  assert.ok(verifyModule10(repositoryRoot).artifactCount > 25);
-  assert.ok(verifyModule10(completedLifecycleCopy()).artifactCount > 25);
+test("Module 10 content contract accepts the active repository", () => {
+  const result = verifyModule10(repositoryRoot);
+  assert.equal(result.artifactCount, 27);
+});
+
+test("Module 10 content contract accepts the completed lifecycle state", () => {
+  const result = verifyModule10(completedLifecycleCopy());
+  assert.equal(result.artifactCount, 27);
 });
 
 test("verifier rejects a stale or ranged learner baseline", () => {
-  const root = changedCopy("curriculum/modules/10-testing-gates-and-evidence.md", (body) => body.replaceAll(
-    "@deftai/directive@0.119.2",
-    "@deftai/directive@0.119.2–0.114.0",
+  const root = changedCopy("curriculum/modules/10-implementation-golden-path.md", (body) => body.replace(
+    "| Directive baseline | `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
+    "| Directive baseline | `@deftai/directive@0.119.2–0.114.0`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
   ));
   assert.throws(() => verifyModule10(root), /stale or ranged Directive baseline/);
 });
 
-test("verifier rejects loss of the disposable no-remote boundary", () => {
-  const root = changedCopy("labs/10-testing-gates-and-evidence.md", (body) => body.replace(
+test("verifier rejects loss of the unique OS-temporary no-remote boundary", () => {
+  const root = changedCopy("labs/10-implementation-golden-path.md", (body) => body.replace(
     "unique OS-temporary repository with no remote",
     "ordinary repository",
   ));
   assert.throws(() => verifyModule10(root), /temporary no-remote boundary/);
 });
 
-test("verifier rejects a broken red-green-refactor sequence", () => {
-  const root = changedCopy("curriculum/modules/10-testing-gates-and-evidence.md", (body) => body.replaceAll(
-    "`red -> green -> refactor`",
-    "`green -> red -> refactor`",
+test("verifier rejects an expanded product allowlist", () => {
+  const root = changedCopy("labs/10-implementation-golden-path.md", (body) => body.replaceAll(
+    "Only `src/greeting.mjs` is mutable",
+    "Application files are mutable",
   ));
-  assert.throws(() => verifyModule10(root), /red-green-refactor order/);
+  assert.throws(() => verifyModule10(root), /one-file product allowlist/);
 });
 
-test("verifier rejects gate weakening guidance", () => {
-  const root = changedCopy("curriculum/modules/10-testing-gates-and-evidence.md", (body) => body.replace(
-    "repair the work, not the gate",
-    "adjust the gate until it passes",
+test("verifier rejects missing readiness-before-mutation guidance", () => {
+  const root = changedCopy("curriculum/modules/10-implementation-golden-path.md", (body) => body.replace(
+    "Readiness before mutation",
+    "Readiness Before Mutation",
   ));
-  assert.throws(() => verifyModule10(root), /gate-integrity guidance/);
+  assert.throws(() => verifyModule10(root), /readiness order/);
 });
 
-test("verifier rejects a reordered aggregate gate", () => {
-  const root = changedCopy("labs/fixtures/10-testing-gates-and-evidence/Taskfile.yml", (body) => body.replace(
-    "      - task: quality:record",
-    "      - task: quality:record\n      - task: quality:record",
+test("verifier rejects missing behavioral evidence", () => {
+  const root = changedCopy("solutions/lab-10-implementation-golden-path.md", (body) => body.replace(
+    "Hello, Ada!",
+    "Hello there!",
   ));
-  assert.throws(() => verifyModule10(root), /aggregate gate order/);
+  assert.throws(() => verifyModule10(root), /named greeting evidence/);
+});
+
+test("verifier rejects missing diff evidence", () => {
+  const root = changedCopy("solutions/lab-10-implementation-golden-path.md", (body) => body.replace(
+    "src/greeting.mjs",
+    "src/cli.mjs",
+  ));
+  assert.throws(() => verifyModule10(root), /diff evidence/);
 });
 
 test("verifier rejects a broken local navigation link", () => {
-  const root = changedCopy("curriculum/modules/10-testing-gates-and-evidence.md", (body) => body.replace(
-    "09-implementation-golden-path.md",
+  const root = changedCopy("curriculum/modules/10-implementation-golden-path.md", (body) => body.replace(
+    "09-design-critique-arcs.md",
     "09-missing.md",
   ));
   assert.throws(() => verifyModule10(root), /broken local link/);
-});
-
-test("verifier rejects losing Module 10's forward link to Module 11", () => {
-  const root = changedCopy("curriculum/modules/10-testing-gates-and-evidence.md", (body) => body.replace(
-    "- Next: [Module 11 — PR, review, and actual completion](11-review-and-completion.md)",
-    "- Next: Module 11 remains planned",
-  ));
-  assert.throws(() => verifyModule10(root), /link forward to Module 11/);
 });
 
 test("verifier rejects promoting Windows without current native evidence", () => {
@@ -127,34 +136,37 @@ test("verifier rejects promoting Windows without current native evidence", () =>
 
 test("verifier rejects a course index that drops candidate platforms", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Red-green-refactor and diagnose a gate failure |",
-    "| 10 | [Testing, gates, and evidence](modules/10-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh only | Red-green-refactor and diagnose a gate failure |",
+    "| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Implement one test-backed active scope |",
+    "| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh only | Implement one test-backed active scope |",
   ));
   assert.throws(() => verifyModule10(root), /current platform boundary/);
 });
 
 test("verifier rejects Module 11 regressing to planned after release", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Learner-ready; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |",
-    "| 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Planned | Resolve simulated findings and classify completion evidence |",
+    "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Red-green-refactor and diagnose a gate failure |",
+    "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Planned | Red-green-refactor and diagnose a gate failure |",
   ));
   assert.throws(() => verifyModule10(root), /Module 11 must remain learner-ready/);
 });
 
-test("verifier rejects Module 11 becoming unavailable under another label", () => {
+test("verifier rejects Module 12 regressing to planned after release", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Learner-ready; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |",
-    "| 11 | [PR, review, and actual completion](modules/11-review-and-completion.md) | 55 min | Not yet available | Resolve simulated findings and classify completion evidence |",
+    "| 12 | [PR, review, and actual completion](modules/12-review-and-completion.md) | 55 min | Learner-ready; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |",
+    "| 12 | [PR, review, and actual completion](modules/12-review-and-completion.md) | 55 min | Planned | Resolve simulated findings and classify completion evidence |",
   ));
-  assert.throws(() => verifyModule10(root), /Module 11 must remain learner-ready/);
+  assert.throws(() => verifyModule10(root), /Module 12 must remain learner-ready/);
+});
+
+test("verifier rejects Module 12 becoming unavailable under another label", () => {
+  const root = changedCopy("curriculum/README.md", (body) => body.replace(
+    "| 12 | [PR, review, and actual completion](modules/12-review-and-completion.md) | 55 min | Learner-ready; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |",
+    "| 12 | [PR, review, and actual completion](modules/12-review-and-completion.md) | 55 min | Not yet available | Resolve simulated findings and classify completion evidence |",
+  ));
+  assert.throws(() => verifyModule10(root), /Module 12 must remain learner-ready/);
 });
 
 test("verifier rejects a missing Module 10 outcome mapping", () => {
-  const root = changedCopy("curriculum/modules/10-testing-gates-and-evidence.md", (body) => body.replaceAll("O10.4", "O10.X"));
-  assert.throws(() => verifyModule10(root), /missing O10\.4/);
-});
-
-test("verifier rejects an altered exact fixture pin", () => {
-  const root = changedCopy("labs/fixtures/10-testing-gates-and-evidence/package.json", (body) => body.replaceAll("0.119.2", "^0.119.2"));
-  assert.throws(() => verifyModule10(root), /exact Directive pin/);
+  const root = changedCopy("curriculum/modules/10-implementation-golden-path.md", (body) => body.replaceAll("O10.9", "O10.X"));
+  assert.throws(() => verifyModule10(root), /missing O10\.9/);
 });

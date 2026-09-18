@@ -1,7 +1,8 @@
 # Module 6 — Creating Well-Shaped Work
 
 Turn a horizontal activity list into a small end-to-end outcome, trace it into reviewable
-proposed scope, and split an epic into ordered slices with observable evidence.
+proposed scope, split an epic into ordered slices with observable evidence, and make the
+required route / no route / insufficient-evidence decision before lifecycle authorization.
 
 ## Module record
 
@@ -9,8 +10,8 @@ proposed scope, and split an epic into ordered slices with observable evidence.
 | --- | --- |
 | Stable ID | `module-06-creating-well-shaped-work` |
 | Status | `learner-ready draft; command-free` |
-| Last content update | 2026-09-09 |
-| Last verified | 2026-09-09 |
+| Last content update | 2026-09-17 |
+| Last verified | 2026-09-17 |
 | Directive baseline | `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 50–60 minutes |
 | Prerequisites | Complete [Module 5's](05-sources-versus-projections.md) conceptual outcomes; its practical outcome may remain environment-blocked as documented in the [course map](../README.md) |
@@ -33,6 +34,10 @@ By the end of this module, you can:
 - **O6.3 — Decompose an epic.** Recognize work that is too broad for one story, create an
   ordered set of independently verifiable slices, and give dependency and boundary
   rationale for every slice.
+- **O6.4 — Route a proposed mechanism safely.** For three fixed fictional fact patterns,
+  identify the controlling fact, choose `route`, `no route`, or `insufficient evidence`,
+  and name the safe next action; when routing, identify the proposed mechanism revision
+  that becomes the critique target.
 
 ## Starting-state check
 
@@ -89,23 +94,30 @@ xBRIEF keys.
 | Epic | Work too broad to be one independently buildable and verifiable story | A long task list inside one story |
 | Dependency rationale | Why a slice must follow another slice, or why it has no predecessor | An excuse to make all slices one batch |
 | Boundary rationale | Why the slice includes and excludes specific behavior | A canonical xBRIEF field name |
+| Mechanism-shaped routing | A human-semantic decision about whether a concrete proposed mechanism needs design critique before lifecycle authorization | A keyword check or a result computed by `scope:promote` |
+| Controlling supplied fact | The specific fact in a fixed scenario that justifies its disposition | Repeating `route`, `no route`, or `insufficient evidence` without reasoning |
 
 ## Mental model
 
-Move from uncertainty to evidence:
+Move from uncertainty to evidence, then make the routing decision before lifecycle movement:
 
 ```text
-idea → bounded strategy → observable statement → proposed scope → vertical slices
+idea → bounded strategy → observable statement → vertical slices → proposed scope
+                                                                      ↓
+                                                route / no route / insufficient evidence
 ```
 
 The arrows shape a candidate. They do not activate it. A proposed scope remains on the
-review side of the lifecycle until a separate governed decision promotes and activates it.
+review side of the lifecycle until the routing decision is supported and a separate governed
+decision promotes and activates it.
 
 | Situation | What the model predicts | Evidence to inspect |
 | --- | --- | --- |
 | A plan names five components but no person-visible result | It is horizontal and hides integration risk | Outcome sentence and relevant-layer path |
 | A proposed record has clear acceptance | It is reviewable, but not implementation authority | Schema version, `plan.status`, active scope, and live instruction |
 | One scope contains several user journeys and shared prerequisites | It is probably epic-sized | Independent demonstrations, acceptance sets, and dependency graph |
+| A proposal names a new authority or untrusted-input mechanism | Route its concrete revision before lifecycle authorization | Controlling fact, disposition, target revision, and safe next action |
+| A request names a pain but no proposed mechanism | The routing judgment lacks evidence | Missing mechanism, target revision, or authority-boundary fact |
 
 The limit: a static planning artifact can prove clarity and internal consistency. It cannot
 prove executable behavior. When implementation exists, behavioral checks must provide that
@@ -204,6 +216,27 @@ that it shares no foundation and not that it must be deployed alone.
 Evidence: [epic and story taxonomy][taxonomy], [decomposition workflow][decompose], and
 [setup dependency placement][setup].
 
+### 6. Make the semantic routing decision before lifecycle movement
+
+Not every proposed scope needs a design-critique arc. Route when the supplied facts identify
+a concrete proposed mechanism whose authority, untrusted-input, identity, concurrency, or
+shared-state behavior needs adversarial design judgment. Use `no route` when the facts bound
+the work to an ordinary change without such a mechanism. Use `insufficient evidence` when a
+pain is named but no mechanism or target revision is available to judge.
+
+Directive 0.119.2 records the judgment and its clearance shape; it does not compute whether
+work is mechanism-shaped or score the reason. `scope:promote` is not fail-closed on that
+semantic judgment. This course therefore requires a self-checkable routing artifact before
+the Module 7 lifecycle lab. The artifact is curricular evidence, not a new Directive gate.
+
+A safe routing answer always cites the controlling supplied fact and names the next action.
+The route row also names the proposed mechanism revision. A keyword by itself proves none of
+those relationships.
+
+Evidence: the pinned [design-critique gate][design-critique-contract],
+[ADR-005 judgment boundary][adr-005], and the project definition's self-directed evidence
+contract.
+
 ## Walkthrough
 
 ### Goal
@@ -237,6 +270,11 @@ are fictional examples; do not create them in this repository or a business repo
 4. **Checkpoint:** The scratch note contains one artifact, one user-visible outcome, four
    exclusions, and the literal inspection of the three displayed values. It states that the
    proposal is not implementation authority.
+5. **Action:** Inspect fact pattern `M6-ROUTE-01`. Record that `NS-INGEST-R2` changes
+   untrusted-input handling and clearance recognition, choose `route`, name the revision,
+   and hold promotion, activation, and implementation pending design critique.
+   **Observe:** The answer connects one supplied fact to one disposition and safe action.
+   **Meaning:** Routing is evidence-backed human judgment, not a keyword or lifecycle status.
 
 ## Exercise
 
@@ -297,6 +335,38 @@ slices. Use this exact header:
 Every row needs its own observable outcome and inspection. Dependencies must form an acyclic
 order. Do not use “everything depends on everything” or hide multiple outcomes inside one row.
 
+#### Part D — route the proposed work
+
+Use only these three fixed fictional fact patterns:
+
+- **`M6-ROUTE-01`:** proposal `NS-INGEST-R2` changes how untrusted issue text enters an
+  agent envelope and changes how clearance is recognized. A concrete proposed mechanism
+  revision exists.
+- **`M6-NOROUTE-01`:** one existing error-message phrase changes. Behavior, authority,
+  parser inputs, and gates stay unchanged.
+- **`M6-INSUFFICIENT-01`:** “make agent intake safer” names a pain but supplies no mechanism,
+  target revision, or authority-boundary change.
+
+Complete this exact matrix:
+
+| Fact pattern ID | Controlling supplied fact | Disposition | Proposed mechanism revision | Safe next action |
+| --- | --- | --- | --- | --- |
+| `M6-ROUTE-01` |  |  |  |  |
+| `M6-NOROUTE-01` |  |  |  |  |
+| `M6-INSUFFICIENT-01` |  |  |  |  |
+
+All three rows are required and non-compensating. A row passes only when it:
+
+1. cites the fact-pattern ID and names a scenario-specific controlling fact;
+2. uses exactly one disposition: `route`, `no route`, or `insufficient evidence`;
+3. names a safe next action that follows from that fact; and
+4. for `route`, names the proposed mechanism revision.
+
+A row does not pass when it merely repeats a disposition keyword, leaves the controlling
+fact implicit, or says only “review later.” The route row must hold promotion, activation,
+and implementation pending the design-critique decision. The insufficient-evidence row must
+name the missing mechanism or target evidence and require re-evaluation after it is supplied.
+
 ### Constraints
 
 - Work only with this fictional scenario and a personal scratch note.
@@ -304,6 +374,7 @@ order. Do not use “everything depends on everything” or hide multiple outcom
 - Do not run a CLI, open a terminal exercise, create a lifecycle file, contact a remote,
   promote or activate scope, or implement any behavior.
 - Preserve `plan.status: proposed` and the proposal authority sentence.
+- Do not run a design critique or treat the routing artifact as implementation authority.
 - Treat static inspection as evidence for this worksheet only, not as proof of executable
   application behavior.
 
@@ -313,6 +384,7 @@ order. Do not use “everything depends on everything” or hide multiple outcom
   inspection.
 - The strategy decision, testable specification statement, and proposed-scope artifact.
 - The three-row ordered decomposition with dependency and boundary rationale for every slice.
+- The completed O6.4 routing matrix, including the route row's proposed mechanism revision.
 - Your original horizontal plan and first attempt, so comparison evidence survives retry.
 
 ### Exercise acceptance
@@ -322,6 +394,7 @@ order. Do not use “everything depends on everything” or hide multiple outcom
 | O6.1 | One end-to-end preview slice replaces the component list. | The retained row names an artifact, one user-visible outcome, at least three exclusions, and a literal inspection. |
 | O6.2 | The idea traces through one justified strategy and observable acceptance into schema-0.8 proposed scope. | The artifact has `xBRIEFInfo.version: 0.8`, `plan.status: proposed`, two to five item-level acceptance criteria with evidence and traces, and the explicit no-implementation-authority boundary. |
 | O6.3 | The epic becomes three ordered independently verifiable slices. | Every row has a distinct outcome and inspection plus dependency and boundary rationale; the order is acyclic. |
+| O6.4 | The three fixed fact patterns receive evidence-backed route, no-route, or insufficient-evidence dispositions. | Every row cites its controlling fact and safe next action; the route row names `NS-INGEST-R2`; no row relies on presence or keywords alone. |
 
 ## Completion evidence
 
@@ -330,6 +403,7 @@ order. Do not use “everything depends on everything” or hide multiple outcom
 | O6.1 | Vertical-slice worksheet and original horizontal plan | The slice produces one human-observable preview and excludes adjacent capabilities. |
 | O6.2 | Strategy decision, specification statement, and proposed-scope artifact | Strategy is bounded; acceptance is observable; schema is 0.8; status remains proposed; authority is not invented. |
 | O6.3 | Three-row decomposition and epic diagnosis | Each slice is independently verifiable after its declared predecessors and has both rationales. |
+| O6.4 | Three-row route / no route / insufficient-evidence matrix | All rows satisfy the published semantic rubric; the route row identifies `NS-INGEST-R2` and holds lifecycle movement pending critique. |
 
 Reading the solution is not completion. Your retained artifacts must satisfy every inspection.
 
@@ -362,6 +436,15 @@ Name exactly what the predecessor provides and exactly which next behavior stays
 
 </details>
 
+<details>
+<summary>Hint 4 — separate no route from not enough evidence</summary>
+
+Choose `no route` only when the supplied facts positively bound the change away from a new
+mechanism. If the proposed mechanism or target revision is absent, choose `insufficient
+evidence`, name what is missing, and require the routing decision to be repeated.
+
+</details>
+
 ## Expected failures and recovery
 
 | Symptom | Likely cause | Confirm with | Recovery | Retry evidence |
@@ -371,9 +454,12 @@ Name exactly what the predecessor provides and exactly which next behavior stays
 | The proposed artifact says `running`. | Clear acceptance was mistaken for activation. | Compare status with the authority sentence. | Restore `proposed`; record later lifecycle decisions as absent. | O6.2 inspection passes without implementation permission. |
 | The strategy choice says only “Interview is default.” | The choice is not tied to uncertainty. | Name the question the strategy must answer. | State the uncertainty, reason, and what the choice does not decide. | A bounded four-part strategy record. |
 | Every decomposition row depends on every other row. | Ordering was described without a DAG. | Follow the arrows and look for a cycle. | Give row 1 no predecessor and each later row only the prerequisite it consumes. | One acyclic order with a rationale per edge. |
+| The routing row says only `route`. | The disposition keyword replaced semantic evidence. | Ask which supplied fact changes a mechanism and what happens next. | Add the scenario-specific fact, target revision, and bounded safe action. | The full `M6-ROUTE-01` row passes every rubric clause. |
+| “Make intake safer” is marked `no route`. | Missing evidence was mistaken for evidence of absence. | Look for a proposed mechanism and target revision. | Choose `insufficient evidence`, name both missing facts, and require re-evaluation. | The row stops without inventing a mechanism or advancing lifecycle. |
+| The route row proceeds to promotion. | Routing was confused with clearance or implementation authority. | Compare the safe action with the proposal boundary. | Keep the scope proposed and hold promotion, activation, and implementation pending critique. | The safe action names every held transition. |
 
 Preserve the failed attempt. Retry only the unmet outcome in a fresh section of your note,
-then recheck all three acceptance rows. No repository reset or cleanup is required.
+then recheck all four acceptance rows. No repository reset or cleanup is required.
 
 ## Common misconceptions
 
@@ -385,6 +471,8 @@ then recheck all three acceptance rows. No repository reset or cleanup is requir
 | Independently verifiable means no dependencies. | A slice may depend on a predecessor while keeping its own outcome and proof. | Verify acknowledgement after a preview supplies the event identity. |
 | Exclusions and literal inspection are required xBRIEF keys. | They are explicit course worksheet evidence in this exercise. | Compare the worksheet with the schema and story acceptance fields. |
 | Static inspection proves a future program works. | It proves only this planning artifact's contents. | Name the behavioral test still required after implementation. |
+| Directive decides whether a proposal is mechanism-shaped. | The semantic call is human judgment; 0.119.2 records its shape but does not compute it. | Compare the supplied facts with the design-critique Stop 1 boundary. |
+| `no route` and `insufficient evidence` are interchangeable. | `no route` is a supported negative decision; insufficient evidence means the decision cannot yet be made. | Ask whether a concrete mechanism and target revision were supplied. |
 
 ## Self-assessment
 
@@ -397,10 +485,13 @@ explained solution.
    acceptance live, which schema/status does the proposal use, and what authority is absent?
 3. **O6.3:** What made the original scenario epic-sized? Read your three rows in order and
    explain every dependency and boundary rationale.
-4. Why can static inspection complete this command-free worksheet but not prove executable
+4. **O6.4:** For each fixed fact-pattern ID, name the controlling fact, disposition, and
+   safe next action. Which revision does the route row target, and which lifecycle actions
+   remain on hold?
+5. Why can static inspection complete this command-free worksheet but not prove executable
    product behavior?
 
-- **Ready to continue:** O6.1, O6.2, and O6.3 each have passing retained evidence.
+- **Ready to continue:** O6.1, O6.2, O6.3, and O6.4 each have passing retained evidence.
 - **Revisit one section:** the outcome is right but a field, rationale, or authority limit is
   missing.
 - **Retry the exercise:** any row remains horizontal, proposed state becomes active, a cycle
@@ -411,9 +502,9 @@ Confidence alone is not completion evidence.
 ## Explained solution
 
 After a suggested first attempt, use the [explained solution](../../solutions/module-06-creating-well-shaped-work.md).
-It provides complete fictional artifacts, reasoning, valid alternatives, recovery, and a
-bounded retry. No instructor, review bot, account, or automation unlock is
-required.
+It provides complete fictional artifacts, the worked O6.4 semantic matrix, reasoning, valid
+alternatives, recovery, and a bounded retry. No instructor, review bot, account, or automation
+unlock is required.
 
 ## Navigation
 
@@ -433,6 +524,7 @@ required.
 | Story acceptance, evidence, traces, and decomposition DAG | [Decompose skill][decompose], [xBRIEF taxonomy][taxonomy], and [verification guidance][verification] | 2026-09-09 | Story dependencies use `swarm.depends_on`; phase/epic metadata may supplement it |
 | Vertical capability and tracer-bullet shape | [Glossary — feature and vertical slice][upstream-glossary] and [GitHub slicing guidance][gh-slice] | 2026-09-09 | Independently demoable/verifiable, not universally independently deployable |
 | Proposed lifecycle and current implementation contract | [Commands — scope lifecycle][commands] and [main — xBRIEF Persistence][main] | 2026-09-09 | Proposal remains candidate state |
+| Mechanism-shaped judgment is semantic and recorded rather than computed | [Design-critique contract — Stop 1][design-critique-contract] and [ADR-005][adr-005] | 2026-09-17 | `scope:promote` does not fail closed on this judgment; O6.4 is a curriculum hold |
 | Fictional, command-free exercise and explicit worksheet evidence | [Project definition](../../xbrief/PROJECT-DEFINITION.xbrief.json) LabModel and ProjectRules | 2026-09-09 | Worksheet fields are not canonical schema keys |
 
 This lesson is an original paraphrase and fictional teaching adaptation. See the
@@ -441,7 +533,9 @@ and [glossary](../../references/GLOSSARY.md).
 
 ## Author release check
 
-- O6.1–O6.3 each have exercise, completion, self-assessment, and solution evidence.
+- O6.1–O6.4 each have exercise, completion, self-assessment, and solution evidence.
+- O6.4 has the fixed three-row packet, non-compensating semantic rubric, fully worked
+  solution, and a required Module 7 starting-state handoff.
 - The walkthrough and exercise are fictional, command-free, and inspectable from the stated
   starting facts.
 - The proposal remains schema 0.8 and proposed; no implementation authority is implied.
@@ -462,3 +556,5 @@ and [glossary](../../references/GLOSSARY.md).
 [gh-slice]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/skills/deft-directive-gh-slice/SKILL.md
 [commands]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/commands.md
 [main]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/main.md
+[design-critique-contract]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/contracts/design-critique.md#stop-1--gate
+[adr-005]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/docs/decisions/ADR-005-design-critique-judgment-gate.md

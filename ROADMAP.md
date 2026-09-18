@@ -7,7 +7,7 @@
 
 ## Active
 
-- **#3** -- Upgrade the Directive teaching baseline from 0.112.0 to the latest release (0.119.2) -- `[running]`
+- **#4** -- Refactor core curriculum to add required Module 7 on Directive design-critique arcs -- `[running]`
 
 ## Proposed
 
@@ -18,14 +18,15 @@ _Scopes not yet promoted to pending. Orientation only — not a substitute for `
 - Disposable End-to-End Solo Directive Capstone -- `[proposed]`
 - Internal Publishing Readiness and Platform Implementation -- `[proposed]`
 - Modules 6-8: Work Shaping, Lifecycle Authorization, and Session Workflow -- `[proposed]`
-- Modules 9-11: Implementation, Gates, Review, and Closeout -- `[proposed]`
+- Modules 10-12: Implementation, Gates, Review, and Closeout -- `[proposed]`
 - Independent Learner Pilot and Curriculum Revision -- `[proposed]`
 - Directive Version-Drift Checks and Maintenance Process -- `[proposed]`
 
 ## Completed
 
-_Showing 25 of 27 completed scopes (newest first). Full history: lifecycle `completed/` (or `task report` when available)._
+_Showing 25 of 28 completed scopes (newest first). Full history: lifecycle `completed/` (or `task report` when available)._
 
+- **#3** -- Upgrade the Directive teaching baseline from 0.112.0 to the latest release (0.119.2) -- `[completed]`
 - **#2** -- Correct repo identity after the public deftai clone -- `[completed]`
 - Directive 0.119.1 Review and Build Reconciliation -- `[completed]`
 - **#1** -- Add an MIT license -- `[completed]`
@@ -50,5 +51,4 @@ _Showing 25 of 27 completed scopes (newest first). Full history: lifecycle `comp
 - Module 6: Creating Well-Shaped Work -- `[completed]`
 - Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries -- `[completed]`
 - Directive 0.112.0 Curriculum Baseline -- `[completed]`
-- Modules 2-3: Installation, Project Anatomy, Authority, and Context -- `[completed]`
 

@@ -104,8 +104,8 @@ test("verifier rejects a missing outcome mapping", () => {
 test("verifier rejects red evidence assigned to CAP.1", () => {
   const root = changedCopy("solutions/capstone-end-to-end.md", (body) =>
     body.replace(
-      "| `CAP.1` | Exact runtime observation, orientation, lifecycle activation, session ritual, story-ready, and preflight establish mutation readiness | Runtime note, `orientation.json`, `scope.json`, `readiness.json` |",
-      "| `CAP.1` | Exact runtime observation, orientation, lifecycle activation, session ritual, story-ready, preflight, and red establish mutation readiness | Runtime note, `orientation.json`, `scope.json`, `readiness.json`, `red.json` |",
+      "| `CAP.1` | A command-free checkpoint routes `CAP-DC-R1` as not bind-ready without converting an ingest-ready catalog chip into authority; exact runtime observation, orientation, lifecycle activation, session ritual, story-ready, and preflight then establish mutation readiness for the separate fixture | `CAP-DC-01` row and runtime note, `orientation.json`, `scope.json`, `readiness.json` |",
+      "| `CAP.1` | A command-free checkpoint routes `CAP-DC-R1` as not bind-ready without converting an ingest-ready catalog chip into authority; exact runtime observation, orientation, lifecycle activation, session ritual, story-ready, preflight, and red then establish mutation readiness for the separate fixture | `CAP-DC-01` row and runtime note, `orientation.json`, `scope.json`, `readiness.json`, `red.json` |",
     ));
   assert.throws(() => verifyCapstone(root), /assign red\.json to CAP\.2, not CAP\.1/);
 });
@@ -113,10 +113,50 @@ test("verifier rejects red evidence assigned to CAP.1", () => {
 test("verifier rejects CAP.1 hints that absorb red evidence", () => {
   const root = changedCopy("assessments/capstone-end-to-end.md", (body) =>
     body.replace(
-      "Inspect `orientation.json`, `scope.json`, and `readiness.json`.",
-      "Inspect `orientation.json`, `scope.json`, `readiness.json`, and `red.json`.",
+      "Inspect the private `CAP-DC-01` row plus `orientation.json`, `scope.json`, and\n`readiness.json`. Do not edit helper evidence.",
+      "Inspect the private `CAP-DC-01` row plus `orientation.json`, `scope.json`, `readiness.json`, and `red.json`. Do not edit helper evidence.",
     ));
   assert.throws(() => verifyCapstone(root), /CAP\.1 hints must not absorb CAP\.2 red evidence/);
+});
+
+test("verifier rejects an ingest-ready catalog chip treated as bind readiness", () => {
+  const root = changedCopy("solutions/capstone-end-to-end.md", (body) => body.replace(
+    "| `CAP-DC-01` | The mechanism-shaped envelope change has unresolved `audit:cap-trust-boundary reading=asserted`, an ingest-ready catalog chip, and no admitted completed-arc record | `route` | `CAP-DC-R1` | `not bind-ready` |",
+    "| `CAP-DC-01` | The mechanism-shaped envelope change has unresolved `audit:cap-trust-boundary reading=asserted`, an ingest-ready catalog chip, and no admitted completed-arc record | `route` | `CAP-DC-R1` | `bind-ready` |",
+  ));
+  assert.throws(() => verifyCapstone(root), /checkpoint must remain not bind-ready/);
+});
+
+test("verifier rejects an invented design-critique chip", () => {
+  const root = changedCopy("curriculum/capstone-end-to-end.md", (body) => body.replace(
+    "design-critique:ingest-ready",
+    "design-critique:synthesis-ready",
+  ));
+  assert.throws(() => verifyCapstone(root), /unknown design-critique chip design-critique:synthesis-ready/);
+});
+
+test("verifier rejects synthesis-chip terminology in the solution summary", () => {
+  const root = changedCopy("solutions/capstone-end-to-end.md", (body) => body.replace(
+    "The ingest-ready\ncatalog chip authorizes nothing.",
+    "The synthesis\nchip authorizes nothing.",
+  ));
+  assert.throws(() => verifyCapstone(root), /must use ingest-ready catalog chip vocabulary/);
+});
+
+test("verifier rejects a checkpoint that omits the independent audit", () => {
+  const root = changedCopy("solutions/capstone-end-to-end.md", (body) => body.replace(
+    "Obtain an independent audit of `audit:cap-trust-boundary` and require the missing admitted completed-arc record before later bind or ingest",
+    "Accept the ingest-ready catalog chip and require the missing admitted completed-arc record before later bind or ingest",
+  ));
+  assert.throws(() => verifyCapstone(root), /safe action must require the named independent audit/);
+});
+
+test("verifier rejects a checkpoint that turns synthesis into implementation authority", () => {
+  const root = changedCopy("assessments/capstone-end-to-end.md", (body) => body.replace(
+    "The ingest-ready catalog chip and proposed synthesis authorize neither activation nor implementation",
+    "The ingest-ready catalog chip and proposed synthesis authorize activation and implementation",
+  ));
+  assert.throws(() => verifyCapstone(root), /deny activation and implementation authority/);
 });
 
 test("verifier rejects unconditional reset recovery for invalid identity", () => {
@@ -133,10 +173,10 @@ test("verifier rejects unfinished solution markers", () => {
   assert.throws(() => verifyCapstone(root), /unfinished author marker/);
 });
 
-test("verifier rejects a broken Module 11 forward link", () => {
-  const root = changedCopy("curriculum/modules/11-review-and-completion.md", (body) =>
+test("verifier rejects a broken Module 12 forward link", () => {
+  const root = changedCopy("curriculum/modules/12-review-and-completion.md", (body) =>
     body.replace("../capstone-end-to-end.md", "../missing-capstone.md"));
-  assert.throws(() => verifyCapstone(root), /broken local link|Module 11 must link directly/);
+  assert.throws(() => verifyCapstone(root), /broken local link|Module 12 must link directly/);
 });
 
 test("verifier rejects an executable remote mutation", () => {

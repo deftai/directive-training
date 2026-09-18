@@ -13,6 +13,7 @@
 | Suggested duration | 105–120 minutes, including evidence review, reset, and recoverable archive |
 | Suggested first attempt | 45 minutes before opening the explained solution |
 | Attempt conditions | Open-book; guarded disposable local repositories; fictional data only; no remote |
+| Prerequisite | Modules 1–12, ending with [Module 12 — PR, Review, and Actual Completion](../curriculum/modules/12-review-and-completion.md) |
 | Source exercise | [Capstone lab](../labs/capstone-end-to-end.md) |
 | Explained solution | [Capstone explained solution](../solutions/capstone-end-to-end.md) |
 
@@ -41,10 +42,10 @@ Reading or copying the explained solution is not completion evidence.
 
 | Outcome | Observable outcome | Required practical work | Primary evidence | A miss points to |
 | --- | --- | --- | --- | --- |
-| `CAP.1` — Establish safe orientation and implementation authorization | Exact guarded identity and runtime, one active/running scope, a current session ritual, and successful story-ready and xBRIEF preflight before product mutation | Advance the untouched attempt through orientation, activation, and readiness in order | Runtime observation in `capstone-assessment-note.md`, `orientation.json`, `scope.json`, `readiness.json`, active xBRIEF, branch/remote/status observations | Modules 7–9 and the orientation hints below |
-| `CAP.2` — Implement test-first and prove layered gates | Meaningful red precedes the only `src/work-items.mjs` change; frozen tests, focused behavior, literal acceptance, and diff evidence pass; the first aggregate reaches the seeded review-evidence failure without gate edits | Produce red, green, focused, literal, and expected aggregate-diagnosis evidence | `red.json`, `green.json`, `focused.json`, `literal.json`, `aggregate-failure.json`, source diff | Modules 9–10 and the implementation hints below |
-| `CAP.3` — Review, classify, repair, and re-check the current product | Zero-mutation review records `CAP-P1-001` before editing; one source-only repair rejects normalized duplicates; the supplied test stays frozen; simulated current-product review passes | Run pre-PR, classify the finding, make one coherent repair, and run review resolution | `pre-pr.json`, learner classification note, `review-resolution.json`, green and reviewed source versions | Module 11 and the review hints below |
-| `CAP.4` — State completion truthfully and recover safely | Closeout commits the reviewed bytes and passes the aggregate on that commit; delivery axes are classified separately; reset creates a distinct root; both attempts are archived recoverably | Close the attempt, complete state cards, perform the reset drill, and archive both exact roots | `closeout.json`, state-card answers, final Git observations, reset-and-archive note | Module 11 and the closeout hints below |
+| `CAP.1` — Route before activation, then establish safe orientation and implementation authorization | A command-free fixed card is routed as not bind-ready without treating an ingest-ready catalog chip as authority; exact guarded identity and runtime, one active/running scope, a current session ritual, and successful story-ready and xBRIEF preflight precede product mutation | Orient the untouched attempt, record the `CAP-DC-01` checkpoint before activation, then advance the separate fixture through activation and readiness in order | `CAP-DC-01` row and runtime observation in `capstone-assessment-note.md`, `orientation.json`, `scope.json`, `readiness.json`, active xBRIEF, branch/remote/status observations | Modules 7–9 and the orientation hints below |
+| `CAP.2` — Implement test-first and prove layered gates | Meaningful red precedes the only `src/work-items.mjs` change; frozen tests, focused behavior, literal acceptance, and diff evidence pass; the first aggregate reaches the seeded review-evidence failure without gate edits | Produce red, green, focused, literal, and expected aggregate-diagnosis evidence | `red.json`, `green.json`, `focused.json`, `literal.json`, `aggregate-failure.json`, source diff | Modules 10–11 and the implementation hints below |
+| `CAP.3` — Review, classify, repair, and re-check the current product | Zero-mutation review records `CAP-P1-001` before editing; one source-only repair rejects normalized duplicates; the supplied test stays frozen; simulated current-product review passes | Run pre-PR, classify the finding, make one coherent repair, and run review resolution | `pre-pr.json`, learner classification note, `review-resolution.json`, green and reviewed source versions | Module 12 and the review hints below |
+| `CAP.4` — State completion truthfully and recover safely | Closeout commits the reviewed bytes and passes the aggregate on that commit; delivery axes are classified separately; reset creates a distinct root; both attempts are archived recoverably | Close the attempt, complete state cards, perform the reset drill, and archive both exact roots | `closeout.json`, state-card answers, final Git observations, reset-and-archive note | Module 12 and the closeout hints below |
 
 ## Preserve and avoid
 
@@ -66,12 +67,23 @@ Reading or copying the explained solution is not completion evidence.
 
 ### Task 1 — Establish readiness before mutation (`CAP.1`)
 
-Run `install`, `orient`, `activate`, and `ready` in the lab's exact
-order. Retain the three outcome evidence files and confirm that the source
-still has its starting digest when readiness is recorded.
+Run `install` and `orient`. Before `activate`, copy this exact table into the
+private assessment note and record the passing fixed-state checkpoint:
 
-Stop if the root, branch, remote, package graph, active contract, allowlist,
-session ritual, story-ready check, preflight, or readiness evidence differs.
+| Card ID | Controlling fact | Route decision | Target revision | Bind readiness | Safe next action | Authority boundary |
+| --- | --- | --- | --- | --- | --- | --- |
+| `CAP-DC-01` | The mechanism-shaped envelope change has unresolved `audit:cap-trust-boundary reading=asserted`, an ingest-ready catalog chip, and no admitted completed-arc record | `route` | `CAP-DC-R1` | `not bind-ready` | Obtain an independent audit of `audit:cap-trust-boundary` and require the missing admitted completed-arc record before later bind or ingest | The ingest-ready catalog chip and proposed synthesis authorize neither activation nor implementation |
+
+This is a command-free recognition card, not the helper's proposed story. Its
+correct result holds `CAP-DC-R1`; it does not change the fixture. Then run
+`activate` and `ready` for the separate fixture in the lab's exact order. Retain
+the three helper outcome files and confirm that the source still has its
+starting digest when readiness is recorded.
+
+Stop if the checkpoint treats the ingest-ready catalog chip or proposed synthesis as
+clearance, omits the independent audit or missing completed-arc record, or if
+the root, branch, remote, package graph, active contract, allowlist, session
+ritual, story-ready check, preflight, or readiness evidence differs.
 
 ### Task 2 — Produce green and diagnose the broader gate (`CAP.2`)
 
@@ -131,6 +143,7 @@ broader temporary directory, workspace, or home recursively.
 | Artifact or observation | Exact passing evidence |
 | --- | --- |
 | `capstone-assessment-note.md` — runtime observation | `node --version` records the runtime; the Node.js 22 or newer major-version assertion exited `0`; OS and shell are named; observed npm, Git, Task, and uv versions are recorded; Windows evidence also records Python |
+| `capstone-assessment-note.md` — `CAP-DC-01` checkpoint | Before activation, the row cites `CAP-DC-R1`, routes the mechanism-shaped change, marks it `not bind-ready`, requires independent clearance of `audit:cap-trust-boundary` plus the missing admitted completed-arc record, and says the ingest-ready catalog chip and proposed synthesis authorize neither activation nor implementation |
 | `orientation.json` | Schema `3ci.training.capstone.orientation-evidence.v1`; `finalStatus: PASS`; project `Northstar Work Items Capstone`; branch `training/capstone`; empty remote; proposed contract `xbrief/proposed/2026-01-15-fictional-work-items.xbrief.json`; baseline engine `0.119.2`; version command exit `0` |
 | `scope.json` | `finalStatus: PASS`; transition from the proposed path to `xbrief/active/2026-01-15-fictional-work-items.xbrief.json`; allowed files exactly `["src/work-items.mjs"]`; promote and activate exit `0`; lifecycle checkpoint recorded |
 | `readiness.json` | `finalStatus: READY`; checkpoint matches `scope.json`; active contract and allowlist match; `sessionStart`, `sessionRitual`, `storyReady`, and `activePreflight` each exit `0` |
@@ -207,14 +220,18 @@ Fill every blank before comparing with the solution.
 
 ## Written reasoning prompts
 
-1. Cite `literal.json` and `aggregate-failure.json` to explain why passing
+1. Use `CAP-DC-01` to explain why an ingest-ready catalog chip and proposed synthesis do
+   not make `CAP-DC-R1` bind-ready, why the unresolved audit and missing
+   completed-arc record are separate blockers, and why neither artifact grants
+   activation or implementation authority.
+2. Cite `literal.json` and `aggregate-failure.json` to explain why passing
    literal acceptance and an expected aggregate failure are consistent.
-2. Explain why `currentHeadReview: "CLEAN"` is only the fixture's simulated
+3. Explain why `currentHeadReview: "CLEAN"` is only the fixture's simulated
    current-product result and why the final capstone is implemented but not
    PR-open, merge-ready, or delivered.
-3. Explain when `reset` is valid, when a new `create` is required instead,
+4. Explain when `reset` is valid, when a new `create` is required instead,
    and why archive is recoverable retention rather than deletion.
-4. Separate helper-attested facts from the learner-attested classification
+5. Separate helper-attested facts from the learner-attested classification
    timing, and explain why neither may be silently presented as the other.
 
 ## Self-evaluation rubric
@@ -229,7 +246,8 @@ Fill every blank before comparing with the solution.
 The assessment is complete only when `CAP.1`, `CAP.2`, `CAP.3`, and
 `CAP.4` are each **Demonstrated**. The criteria are non-compensating: no
 stronger result, extra artifact, final green gate, or copied solution can offset
-a missing readiness step, meaningful red, unchanged gate, pre-edit review
+a missing or authority-inflating `CAP-DC-01` checkpoint, readiness step,
+meaningful red, unchanged gate, pre-edit review
 record, fresh repair evidence, truthful state classification, or bounded
 reset-and-archive disposition. `Blocked by environment` is not a pass, and no
 numeric average is used.
@@ -242,6 +260,7 @@ lowering a score.
 
 | Observed evidence | Feedback and next action |
 | --- | --- |
+| `CAP-DC-01` is called bind-ready because the ingest-ready catalog chip exists | CAP.1 collapses list state into authority. Mark the card `not bind-ready`, require the independent audit and missing completed-arc record, and keep activation/implementation unauthorized. |
 | Source changed before `red.json` | CAP.2 lacks ordered evidence. CAP.1 is also unmet only when its readiness evidence is missing or stale. Preserve the attempt and use reset if identity remains valid; otherwise create a fresh root. |
 | `red` printed `"EXPECTED_FAILURE"` but was marked failed | Inspect the nested focused exit. The wrapper succeeded by retaining the intended failure. |
 | Aggregate was “fixed” by changing Taskfile or verifier | Gate integrity was broken. Preserve the attempt and start fresh; do not copy the changed gate. |
@@ -258,21 +277,23 @@ Reveal only one level for the unmet outcome at a time.
 <details>
 <summary>CAP.1 — Hint 1</summary>
 
-CAP.1 ends at `READY`. Confirm its retained evidence while the product source
-still has the starting digest.
+CAP.1 ends at `READY`, but its command-free card comes before activation. Ask
+what the chip proves and which two bind conditions are still absent.
 </details>
 
 <details>
 <summary>CAP.1 — Hint 2</summary>
 
-Inspect `orientation.json`, `scope.json`, and `readiness.json`. Do not edit any
-of them.
+Inspect the private `CAP-DC-01` row plus `orientation.json`, `scope.json`, and
+`readiness.json`. Do not edit helper evidence.
 </details>
 
 <details>
 <summary>CAP.1 — Hint 3</summary>
 
-The CAP.1 helper order is `orient -> activate -> ready`.
+The CAP.1 sequence is `orient -> CAP-DC-01 -> activate -> ready`. The card is
+recognition-only; `not bind-ready` applies to `CAP-DC-R1`, not to the separate
+fixture story.
 </details>
 
 <details>

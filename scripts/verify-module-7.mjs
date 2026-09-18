@@ -31,6 +31,7 @@ const requiredFiles = [
   "references/SOURCE-NOTES.md", "package.json", "xbrief/PROJECT-DEFINITION.xbrief.json", parentScope,
 ];
 const outcomes = ["O7.1", "O7.2", "O7.3", "O7.4"];
+const hasExactIdentifier = (text, identifier) => (text.match(/[A-Za-z0-9]+(?:[_.-][A-Za-z0-9]+)*/g) ?? []).includes(identifier);
 const unfinished = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
 const forbiddenShell = /\b(?:git\s+(?:push\b|remote\s+(?:add|remove|rename|set-url|prune|update)\b|reset\s+--hard\b|clean\b|branch\s+-D\b)|gh\s+(?:pr|issue|api|repo)\b|npm\s+publish\b|(?:directive|deft)\s+(?:deploy|publish|release)\b|rm\s+-[\w-]*r|Remove-Item\b|(?:del|rmdir)\s+\/s\b|curl\b|wget\b|Invoke-WebRequest\b|Invoke-RestMethod\b)/i;
 const forbiddenFixture = /\bgit\s+push\b|\bgh\s+(?:pr|issue|api|repo)\b|\brmSync\s*\(|\bunlinkSync\s*\(/i;
@@ -44,7 +45,7 @@ function exactBaseline(path, prose, heading) {
 function requireOutcomes(path, prose, headings) {
   for (const heading of headings) {
     const body = section(prose, heading);
-    for (const outcome of outcomes) assert.match(body, new RegExp(`\\b${outcome.replace(".", "\\.")}\\b`), `${path} ${heading} is missing ${outcome}`);
+    for (const outcome of outcomes) assert.ok(hasExactIdentifier(body, outcome), `${path} ${heading} is missing ${outcome}`);
   }
 }
 
@@ -96,8 +97,21 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
 
   const moduleProse = parsed.get(module7).prose;
   for (const term of ["proposed", "pending", "active", "running", "completed", "cancelled", "live implementation intent", "session ritual", "preflight"]) {
-    assert.match(moduleProse, new RegExp(term, "i"), `${module7} is missing lifecycle or authority concept: ${term}`);
+    assert.ok(moduleProse.toLowerCase().includes(term), `${module7} is missing lifecycle or authority concept: ${term}`);
   }
+  const startingState = section(moduleProse, "Starting-state check");
+  assert.match(startingState, /passing O6\.4 routing matrix/i, "Module 7 must require the passing O6.4 routing matrix before the lab");
+  assert.match(startingState, /all three fixed rows/i, "Module 7 must require all three fixed O6.4 rows");
+  for (const field of ["controlling supplied fact", "disposition", "safe next action"]) {
+    assert.ok(startingState.toLowerCase().includes(field), `Module 7 O6.4 prerequisite is missing ${field}`);
+  }
+  assert.match(startingState, /route row names `NS-INGEST-R2`/i, "Module 7 must require the O6.4 target revision");
+  assert.match(startingState, /required and non-compensating/i, "Module 7 must make the O6.4 prerequisite non-compensating");
+  assert.match(startingState, /presence-only, keyword-only, or incomplete/i, "Module 7 must reject superficial O6.4 evidence");
+  assert.match(startingState, /curricular and human-semantic/i, "Module 7 must identify the O6.4 hold as human-semantic");
+  assert.match(startingState, /Directive 0\.119\.2 does not compute whether work\s+is mechanism-shaped/i, "Module 7 must not attribute mechanism-shaped judgment to Directive");
+  assert.match(startingState, /`scope:promote` is not fail-closed on that judgment/i, "Module 7 must not present scope:promote as the routing boundary");
+  assert.match(startingState, /does not claim that Directive enforced the\s+decision/i, "Module 7 must preserve the curricular enforcement boundary");
   assert.match(section(moduleProse, "Navigation"), /\]\(06-creating-well-shaped-work\.md\)/, "Module 7 must link back to Module 6");
   assert.match(section(moduleProse, "Navigation"), /\]\(\.\.\/README\.md\)/, "Module 7 must link to the course map");
   assert.match(section(moduleProse, "Navigation"), /\]\(08-session-and-work-selection\.md\)/, "Module 7 must link to Module 8");
