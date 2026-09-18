@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, resolve } from "node:path";
 import test from "node:test";
@@ -207,8 +207,13 @@ test("former executable branch, session, and lab labels cannot return", () => wi
 
 test("only exact issue-transcript paths receive transcript exemptions", () => withFixture(({ root, write }) => {
   const path = "xbrief/active/2026-09-18-4-refactor-core-curriculum-to-add-required-module-7-on-directi.xbrief.json";
+  const sourcePath = [
+    path,
+    path.replace("xbrief/active/", "xbrief/completed/"),
+  ].find((candidate) => existsSync(resolve(repositoryRoot, candidate)));
+  assert.ok(sourcePath, "issue #4 xBRIEF must exist in active or completed lifecycle state");
   const baseline = baselineFixture();
-  const issue = JSON.parse(readFileSync(resolve(repositoryRoot, path), "utf8"));
+  const issue = JSON.parse(readFileSync(resolve(repositoryRoot, sourcePath), "utf8"));
   write(path, issue);
   verifyStaleNumbering(root, { paths: [path], historicalLineage: {}, textExceptions: [], baseline });
 
