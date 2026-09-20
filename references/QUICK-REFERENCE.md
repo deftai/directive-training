@@ -1,7 +1,7 @@
 # Directive learner quick reference
 
 Use this as a memory aid, not as an exhaustive command reference. It describes
-`@deftai/directive` 0.119.5 and xBRIEF 0.8, verified through 2026-09-17. Check
+`@deftai/directive` 0.119.5 and xBRIEF 0.8, verified through 2026-09-20. Check
 [the source baseline](SOURCE-BASELINE.md) before using it with another version.
 
 ## Mental model

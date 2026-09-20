@@ -1,7 +1,7 @@
 # Directive training glossary
 
 These definitions describe the course baseline: `@deftai/directive` 0.119.5
-and xBRIEF schema 0.8, verified through 2026-09-12. See
+and xBRIEF schema 0.8, verified through 2026-09-20. See
 [SOURCE-BASELINE.md](SOURCE-BASELINE.md) before applying them to another
 release.
 
