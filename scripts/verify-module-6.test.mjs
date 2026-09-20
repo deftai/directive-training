@@ -9,8 +9,9 @@ const module6 = "curriculum/modules/06-creating-well-shaped-work.md";
 const solution6 = "solutions/module-06-creating-well-shaped-work.md";
 const module5 = "curriculum/modules/05-sources-versus-projections.md";
 const module7 = "curriculum/modules/07-scope-lifecycle.md";
+const lab7 = "labs/07-scope-lifecycle.md";
 const moduleHeadings = [
-  "Module record", "Learning outcomes", "Starting-state check", "Why this matters",
+  "Module record", "Learning outcomes", "Structural evidence for O6.2", "Starting-state check", "Why this matters",
   "Terminology", "Mental model", "Guided explanation", "Walkthrough", "Exercise",
   "Completion evidence", "Progressive hints", "Expected failures and recovery",
   "Common misconceptions", "Self-assessment", "Explained solution", "Navigation",
@@ -45,7 +46,30 @@ function fixture(t) {
   ].join("\n");
   write(module6, document(moduleHeadings, {
     "Module record": record,
-    "Learning outcomes": outcomes,
+    "Learning outcomes": [
+      "O6.1 and O6.3 and O6.4 are recorded here.",
+      "",
+      "- **O6.2 — Trace idea to proposed scope.** Record a bounded strategy choice, a testable specification statement, and a schema-0.8 proposed-scope artifact while preserving the boundary that a proposal is not implementation authority.",
+    ].join("\n"),
+    "Structural evidence for O6.2": [
+      "The worksheet stays command-free. The structural check is an **adjacent practical lab",
+      "step**: [Lab 7](../../labs/07-scope-lifecycle.md) Task 5 consumes the exact artifact.",
+      "",
+      "`directive xbrief:verify -- --format json --out <your artifact path> --style scope --project-root <lab root>`",
+      "",
+      "Retain the artifact **path**, the exact **command**, its **exit code**, and its **result**.",
+      "",
+      "`xbrief:preflight` and `doctor` are not the authoring-validity pass.",
+      "",
+      "| Surface | Proves | Does not prove |",
+      "| --- | --- | --- |",
+      "| `xbrief:verify` | Parse and lifecycle-record structure | The version, the status, or observability |",
+      "| Module 6 comparison rubric | Bounded strategy, observable acceptance, traces, and the absence of implementation authority | That the file parses |",
+      "",
+      "A green structural result grants no promotion, no activation, and no implementation authority.",
+      "",
+      "Command choice, invocation, output interpretation, and recovery are not assessed here, so no outcome is added or recut.",
+    ].join("\n"),
     "Starting-state check": "Pass: identify a horizontal plan. Recovery: review Module 5. " + outcomes,
     "Exercise": [
       "### Fictional scenario",
@@ -72,7 +96,13 @@ function fixture(t) {
       "### Exercise acceptance",
       outcomes,
     ].join("\n"),
-    "Completion evidence": outcomes,
+    "Completion evidence": [
+      "O6.1 and O6.3 and O6.4 keep their rows.",
+      "",
+      "| Outcome | Evidence to show | Passing condition |",
+      "| --- | --- | --- |",
+      "| O6.2 | Strategy decision and the Lab 7 Task 5 structural record naming the artifact path, the exact command, the exit code, and the result | `xbrief:verify` exits `0` against that exact artifact path. A green structural result grants no promotion, activation, or implementation authority. |",
+    ].join("\n"),
     "Self-assessment": outcomes,
     "Explained solution": "Use the [explained solution](../../solutions/module-06-creating-well-shaped-work.md).",
     "Navigation": "Previous: [Module 5](05-sources-versus-projections.md). Next: [Module 7](07-scope-lifecycle.md); see the [course map](../README.md).",
@@ -104,11 +134,41 @@ function fixture(t) {
       "| M6-NOROUTE-01 | The edit changes one error-message phrase while behavior, authority, parser inputs, and gates stay unchanged. | no route | Not applicable. | Continue through ordinary proposal review without inventing an arc. |",
       "| M6-INSUFFICIENT-01 | Make agent intake safer supplies no mechanism, target revision, or authority-boundary change. | insufficient evidence | Not applicable. | Request the missing mechanism and target evidence, then rerun the routing decision. |",
     ].join("\n"),
-    "Acceptance evidence": outcomes,
+    "Acceptance evidence": [
+      "O6.1 and O6.3 and O6.4 keep their rows.",
+      "",
+      "| Inspection | Required result | Worked evidence | Outcome |",
+      "| --- | --- | --- | --- |",
+      "| Structural conformance of the exact artifact | `xbrief:verify` exits `0` against the learner's artifact path, with path, command, exit code, and result retained | Step 2 structural record | O6.2 |",
+    ].join("\n"),
     "Continue": "Continue to [Module 7](../curriculum/modules/07-scope-lifecycle.md) or review the [course map](../curriculum/README.md).",
     "Sources": "See the [source baseline](../references/SOURCE-BASELINE.md) and [Module 6 source validation](../references/SOURCE-NOTES.md#module-6-source-validation).",
   }));
   write(module5, "# Module 5\n\n## Navigation\n\nNext: [Module 6](06-creating-well-shaped-work.md).\n");
+  write(lab7, [
+    "# Lab 7",
+    "",
+    "## Tasks",
+    "",
+    "### Task 5 — Author and structurally verify your own proposed scope",
+    "",
+    "Consume the artifact from [Module 6](../curriculum/modules/06-creating-well-shaped-work.md) Part B.",
+    "Both supplied scopes stay untouched; yours is a third record beside them.",
+    "",
+    "```sh",
+    'authored="$first_root/xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json"',
+    'node "$first_root/node_modules/.bin/directive" xbrief:verify -- --format json --out "$authored" --style scope --project-root "$first_root"',
+    "authored_exit=$?",
+    'test -f "$first_root/xbrief/completed/2026-01-15-fictional-delivery.xbrief.json"',
+    'test -f "$first_root/xbrief/cancelled/2026-01-15-fictional-cancel.xbrief.json"',
+    "```",
+    "",
+    "- `xbrief:verify` is not a lifecycle move. Do not promote or activate your scope.",
+    "- `xbrief:preflight` and `doctor` are not the authoring-validity pass.",
+    "- A green structural result grants no promotion, no activation, and no implementation authority.",
+    "",
+    "This step is supplied verbatim and adds no Lab 7 outcome.",
+  ].join("\n"));
   write(module7, "# Module 7\n");
   write("README.md", "# Training\n\n2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.5<!-- /directive-training:teaching-baseline --> with xBRIEF schema 0.8.\n\nContinue with [Module 6](curriculum/modules/06-creating-well-shaped-work.md).\n");
   write("curriculum/README.md", "# Course\n\n| Module | Status |\n| --- | --- |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| [Module 7](modules/07-scope-lifecycle.md) | Learner-ready draft |\n");
@@ -145,7 +205,7 @@ function fixture(t) {
 }
 
 test("accepts a complete command-free Module 6 contract", (t) => {
-  assert.equal(verifyModule6(fixture(t).root).artifactCount, 14);
+  assert.equal(verifyModule6(fixture(t).root).artifactCount, 15);
 });
 
 for (const [path, headings] of [[module6, moduleHeadings], [solution6, solutionHeadings]]) {
@@ -263,7 +323,7 @@ test("rejects a route row whose revision cell names a different identifier", (t)
 
 test("keeps `Not applicable.` as the non-route revision fill", (t) => {
   const files = fixture(t);
-  assert.equal(verifyModule6(files.root).artifactCount, 14);
+  assert.equal(verifyModule6(files.root).artifactCount, 15);
   files.change(solution6, (body) => body.replace("| no route | Not applicable. |", "| no route | `NS-INGEST-R2` |"));
   assert.throws(() => verifyModule6(files.root), /M6-NOROUTE-01 must not invent a mechanism revision/i);
 });
@@ -355,6 +415,147 @@ test("requires Module 6 navigation and maintenance surfaces", (t) => {
   files.change("maintainers/CURRICULUM-MAINTENANCE.md", (body) => body.replace("npm run check:module-6", "npm test"));
   assert.throws(() => verifyModule6(files.root), /maintenance.*check/i);
 });
+
+for (const [label, path, mutate, pattern] of [
+  [
+    "an O6.2 outcome stripped of its schema-0.8 artifact requirement",
+    module6,
+    (body) => body.replace("a schema-0.8 proposed-scope artifact", "a short note"),
+    /schema-0\.8 proposed-scope artifact outcome/,
+  ],
+  [
+    "an O6.2 outcome stripped of its authority boundary",
+    module6,
+    (body) => body.replace("proposal is not implementation authority", "proposal is reviewable"),
+    /authority boundary in its outcome text/,
+  ],
+  [
+    "an unnamed vehicle recut",
+    module6,
+    (body) => body.replace("[Lab 7](../../labs/07-scope-lifecycle.md) Task 5", "a later lab"),
+    /adjacent lab vehicle by link/,
+  ],
+  [
+    "a structural check with no artifact path or project root",
+    module6,
+    (body) => body.replace("`directive xbrief:verify -- --format json --out <your artifact path> --style scope --project-root <lab root>`", "`directive xbrief:verify`"),
+    /exact command with its artifact path and project root/,
+  ],
+  [
+    "a dropped exit code in the retained evidence",
+    module6,
+    (body) => body.replace("its **exit code**, and", "and"),
+    /must retain the exit code/,
+  ],
+  [
+    "a dropped preflight and doctor refusal",
+    module6,
+    (body) => body.replace("`xbrief:preflight` and `doctor` are not the authoring-validity pass.", "Preflight is the authoring-validity pass.").replace("- `xbrief:preflight` and `doctor` are not the authoring-validity pass.", "- Preflight is fine."),
+    /refuse xbrief:preflight and doctor/,
+  ],
+  [
+    "merged evidence surfaces",
+    module6,
+    (body) => body.replace("| Surface | Proves | Does not prove |", "| One combined surface |"),
+    /evidence surfaces must be split/,
+  ],
+  [
+    "a rubric that no longer proves the authority boundary",
+    module6,
+    (body) => body.replace("| Module 6 comparison rubric | Bounded strategy, observable acceptance, traces, and the absence of implementation authority | That the file parses |", "| Module 6 comparison rubric | Prose similarity | That the file parses |"),
+    /comparison rubric must keep strategy/,
+  ],
+  [
+    "a structural result that grants lifecycle authority",
+    module6,
+    (body) => body.replace("A green structural result grants no promotion, no activation, and no implementation authority.", "A green structural result clears the scope for promotion."),
+    /must grant no promotion, activation, or implementation authority/,
+  ],
+  [
+    "a silently added outcome",
+    module6,
+    (body) => body.replace("so no outcome is added or recut", "so outcome O6.5 is added"),
+    /whether a separate outcome was added or recut/,
+  ],
+  [
+    "an O6.2 completion row without its exit code",
+    module6,
+    (body) => body.replace("the exact command, the exit code, and the result", "the exact command and the result"),
+    /completion evidence is missing the exit code/,
+  ],
+  [
+    "an O6.2 completion row without a positive structural result",
+    module6,
+    (body) => body.replace("`xbrief:verify` exits `0` against that exact artifact path.", "The artifact looks similar to the solution."),
+    /missing a positive xbrief:verify exit/,
+  ],
+  [
+    "a solution that keeps the retired static-only pass claim",
+    solution6,
+    (body) => `${body}\n\nRetry: O6.2 passes without any file mutation or executable claim.\n`,
+    /retired static-only O6\.2 pass claim/,
+  ],
+  [
+    "a solution without the structural conformance row",
+    solution6,
+    (body) => body.replace("Structural conformance of the exact artifact", "Prose comparison"),
+    /structural conformance of the exact artifact as O6\.2 evidence/,
+  ],
+  [
+    "a lab without the adjacent authoring task",
+    lab7,
+    (body) => body.replace("### Task 5 — Author and structurally verify your own proposed scope", "### Task 5 — Optional reading"),
+    /adjacent authoring task that consumes the O6\.2 artifact/,
+  ],
+  [
+    "a lab task that does not name the Module 6 artifact",
+    lab7,
+    (body) => body.replace("[Module 6](../curriculum/modules/06-creating-well-shaped-work.md)", "an earlier module"),
+    /must name the Module 6 artifact it consumes/,
+  ],
+  [
+    "a lab that replaces a supplied scope instead of adding a third record",
+    lab7,
+    (body) => body.replace("yours is a third record beside them", "replace one of them with yours"),
+    /add the learner record beside them/,
+  ],
+  [
+    "a lab that allows promotion of the authored scope",
+    lab7,
+    (body) => body.replace("- `xbrief:verify` is not a lifecycle move. Do not promote or activate your scope.", "- Promote your scope next."),
+    /refuse promotion and activation of the authored scope/,
+  ],
+  [
+    "a lab that silently adds an outcome",
+    lab7,
+    (body) => body.replace("adds no Lab 7 outcome", "adds outcome O7.5"),
+    /must not silently create an outcome/,
+  ],
+  [
+    "a structural check not bound to the learner-authored path",
+    lab7,
+    (body) => body.replace('--out "$authored"', '--out "$first_root/xbrief/proposed/2026-01-15-fictional-delivery.xbrief.json"'),
+    /against the exact learner-authored path/,
+  ],
+  [
+    "a lab that drops the retained structural exit code",
+    lab7,
+    (body) => body.replace("authored_exit=$?", "true"),
+    /must retain the structural exit code/,
+  ],
+  [
+    "a lab that removes one supplied scope",
+    lab7,
+    (body) => body.replace('test -f "$first_root/xbrief/cancelled/2026-01-15-fictional-cancel.xbrief.json"', "true"),
+    /must keep its supplied scope record/,
+  ],
+]) {
+  test(`rejects ${label}`, (t) => {
+    const files = fixture(t);
+    files.change(path, mutate);
+    assert.throws(() => verifyModule6(files.root), pattern);
+  });
+}
 
 test("requires the pinned Module 6 source-validation record", (t) => {
   const files = fixture(t);

@@ -52,7 +52,7 @@ revision exist.
 | Outcome | How this solution demonstrates it | Evidence |
 | --- | --- | --- |
 | O6.1 | Replaces horizontal components with one relevant-layer preview path | Completed vertical-slice record |
-| O6.2 | Connects uncertainty, strategy, observable acceptance, and proposed scope without inventing authority | Strategy record, acceptance statement, and schema-0.8 JSON |
+| O6.2 | Connects uncertainty, strategy, observable acceptance, and proposed scope without inventing authority, then proves the artifact's structure separately | Strategy record, acceptance statement, schema-0.8 JSON, and the Lab 7 Task 5 structural record |
 | O6.3 | Diagnoses the epic and orders three independently verifiable capabilities | Three-row decomposition with both rationales |
 | O6.4 | Applies the published semantic rubric to all three fixed fact patterns | Completed route / no route / insufficient-evidence matrix with controlling facts and safe next actions |
 
@@ -204,6 +204,22 @@ implementation authority.** Its two traced acceptance items satisfy the ordinary
 range. `needs_refinement` and the empty `verify_commands` make the command-free candidate's
 implementation unreadiness explicit; a real executable scope would name focused verification.
 
+#### Structural record
+
+Lab 7 Task 5 checks this exact artifact. Retain all four fields:
+
+| Field | Worked value |
+| --- | --- |
+| Artifact path | `<lab root>/xbrief/proposed/2026-01-15-northstar-delayed-route-preview.xbrief.json` |
+| Command | `directive xbrief:verify -- --format json --out <artifact path> --style scope --project-root <lab root>` |
+| Exit code | `0` |
+| Result | `OK xbrief:verify format=json`, naming the checked path and noting that verify is not a lifecycle move |
+
+That result proves the record parses and carries `xBRIEFInfo`, `plan.title`, `plan.status`,
+and correctly typed item narratives. It does not prove the version is `0.8`, the status is
+`proposed`, or the acceptance is observable — the rubric above proves those. It grants no
+promotion, activation, or implementation authority.
+
 ### Step 3 — Diagnose and decompose the epic
 
 The original idea is epic-sized because it combines multiple user actions, states,
@@ -249,13 +265,15 @@ arc. The insufficient-evidence row does not manufacture a mechanism.
 | Artifact, outcome, exclusions, literal inspection | All four worksheet fields are explicit | Step 1 table | O6.1 |
 | Strategy and observable specification | Choice names uncertainty and statement can be disproved | Step 2 strategy record and statement | O6.2 |
 | Proposed-scope boundary | Schema is 0.8, `plan.status` is proposed, two traced acceptance items and expected evidence exist, and no implementation authority is claimed | Step 2 JSON and authority sentence | O6.2 |
+| Structural conformance of the exact artifact | `xbrief:verify` exits `0` against the learner's artifact path, with path, command, exit code, and result retained | Step 2 structural record | O6.2 |
 | Epic diagnosis and ordered slices | Three distinct demonstrations replace the broad plan | Step 3 diagnosis and rows | O6.3 |
 | Dependency and boundary rationale | Every row has both explanations and the order has no cycle | Step 3 last two columns | O6.3 |
 | Three-way routing decision | Each fixed fact pattern has a scenario-specific controlling fact, exact disposition, and safe next action | Step 4 matrix | O6.4 |
 | Route target and lifecycle hold | The route row names `NS-INGEST-R2` and holds promotion, activation, and implementation pending critique | Step 4 route row | O6.4 |
 
-There is no terminal output. Completion evidence is the learner's own scratch artifacts
-passing these inspections.
+This solution produces no terminal output. Every inspection above is static except the
+structural record, whose one result comes from Lab 7 Task 5. Completion evidence is the
+learner's own artifacts passing both surfaces.
 
 ## Compare with your attempt
 
@@ -301,7 +319,8 @@ An alternate does not pass if it requires a standalone specification file, inven
 - **Confirm:** Compare the status and authority sentence with the lifecycle model.
 - **Recover:** Restore `proposed`; list promotion, activation, live intent, and preflight as
   absent future commitments.
-- **Retry:** O6.2 passes without any file mutation or executable claim.
+- **Retry:** O6.2 passes without a lifecycle move. `xbrief:verify` may exit `0` on the
+  artifact while promotion, activation, and implementation stay absent.
 
 ### Decomposition is a renamed task sequence
 
@@ -374,10 +393,12 @@ or a dependency rationale is missing.
 
 ## Reset and cleanup
 
-- Additional state: personal scratch notes with fictional content only.
+- Additional state: personal scratch notes with fictional content only, plus the copy of the
+  artifact inside Lab 7's disposable guarded repository.
 - Reset: begin a fresh note section; retain the original for comparison.
 - Cleanup: keep or discard notes through your normal note-handling practice.
 - Cleanup evidence: no repository, remote, credential, running process, or service changed.
+  Lab 7's own archive step disposes of the guarded copy.
 
 The solution creates no fixture and prescribes no deletion. A repository reset is neither
 needed nor authorized.
@@ -410,6 +431,8 @@ record how the course resolves those disagreements.
 ## Author release check
 
 - Every worked artifact maps to O6.1, O6.2, O6.3, or O6.4 and to the original inspections.
+- The O6.2 structural record names a path, command, exit code, and result, and states that a
+  green result grants no lifecycle authority.
 - The O6.4 worked matrix answers each fixed fact pattern exactly once and rejects
   presence-only or keyword-only completion.
 - The solution exposes reasoning, valid alternatives, recovery, and a fresh-note retry.

@@ -5,11 +5,11 @@
 | Field | Value |
 | --- | --- |
 | Stable ID | `lab-07-scope-lifecycle` |
-| Supports | O7.1 proposed failure, O7.2 lifecycle transitions, O7.3 current readiness, O7.4 evidence and recovery |
+| Supports | O7.1 proposed failure, O7.2 lifecycle transitions, O7.3 current readiness, O7.4 evidence and recovery, plus Module 6 O6.2 structural completion evidence in Task 5 |
 | Status | Learner-ready on macOS/zsh; Linux/bash and Windows/PowerShell remain candidates |
 | Last verified | 2026-09-17 |
 | Directive baseline | CLI/core/content/types `0.119.5`; [source baseline](../references/SOURCE-BASELINE.md) |
-| Duration | 35–40 minutes, including install, prediction, evidence review, reset, and archive |
+| Duration | 45–50 minutes, including install, prediction, evidence review, your own scope check, reset, and archive |
 | Platforms verified | macOS/zsh local baseline-upgrade suite; go-task 3.50.0 |
 | Candidate platforms | Linux/bash and Windows/PowerShell are not verified on 0.119.5 |
 
@@ -29,6 +29,10 @@ every transition; **O7.3** has explicit live intent followed by successful sessi
 preflight gates; and **O7.4** has a different fresh reset root plus a retained or archived
 original attempt.
 
+Task 5 adds no Lab 7 outcome. It is the adjacent practical step that supplies Module 6's O6.2
+structural completion evidence: a positive `xbrief:verify` result against the exact
+proposed-scope artifact you authored in Module 6.
+
 ## Fictional scenario
 
 Northstar Lifecycle Lab is fictional. One scope represents completing a greeting exercise;
@@ -37,7 +41,8 @@ no application edit. The observable product of this exercise is lifecycle eviden
 shipping claim.
 
 Two minimal schema-0.8 scope records begin in `xbrief/proposed/` with
-`plan.status: proposed`. Their lack of product acceptance items is intentional: the lab
+`plan.status: proposed`. Both stay exactly where the lab put them. In Task 5 you add a third
+record of your own; it is checked, never promoted. Their lack of product acceptance items is intentional: the lab
 isolates lifecycle behavior and avoids pretending that a lifecycle completion proves a
 software feature was delivered.
 
@@ -102,6 +107,10 @@ fixture excludes.
   rejected guard is a stop, not a request to weaken the helper.
 - Keep the supplied helper, safety module, package manifest, project
   definition, and story records unchanged. The exercise is observation, not fixture repair.
+- Your Task 5 artifact is the only file you author. Write it inside the guarded root, keep
+  `--out` inside that root, and do not promote or activate it.
+- Treat your own artifact as untrusted input to the CLI: fictional content only, no client
+  data, credentials, or paths outside the guarded attempt.
 
 The guard rejects inherited Git redirection variables, noncanonical paths, symlinked
 sensitive paths, a foreign marker, multiple story copies, folder/status disagreement, a
@@ -127,6 +136,7 @@ Before the lifecycle run, predict the sequence in private notes:
 | Session start and gated ritual | delivery remains `active/running` | `0`, `0` | Establishes current session readiness. |
 | Active preflight | `active/running` | `0` | The named durable scope passes after live intent and session gates. |
 | Complete | `active/running` | `0` | Creates `completed/completed`. |
+| Authored-scope structural verify (Task 5) | your record stays `proposed/proposed` | `0` | Verify reads structure and is not a lifecycle move. |
 
 The pinned engine's proposed preflight exit is `1`. On the verified
 host, go-task 3.50.0 exposes the failing Task invocation as `201`; treat that as Task runner
@@ -212,6 +222,44 @@ test -f "$(dirname "$first_root")/evidence/lifecycle-run.json"
 The second attempt is fresh and uninstalled. The first is intact, including its successful
 and failing evidence. This is the reset half of **O7.4**.
 
+### Task 5 — Author and structurally verify your own proposed scope
+
+The four tasks above observe supplied records. This one consumes the schema-0.8 proposed-scope
+artifact you wrote in [Module 6](../curriculum/modules/06-creating-well-shaped-work.md) Part B.
+It is the structural half of Module 6's O6.2 completion evidence and the only step in this lab
+where you author a file. Both supplied scopes stay untouched; yours is a third record.
+
+Write your Module 6 artifact into the installed first attempt with your editor, then check it:
+
+```sh
+evidence="$(dirname "$first_root")/evidence"
+authored="$first_root/xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json"
+node "$helper" guard "$first_root"
+test -f "$authored"
+node "$first_root/node_modules/.bin/directive" xbrief:verify -- --format json --out "$authored" --style scope --project-root "$first_root" > "$evidence/authored-verify.txt" 2>&1
+authored_exit=$?
+printf 'path=%s\nexit=%s\n' "$authored" "$authored_exit" >> "$evidence/authored-verify.txt"
+test "$authored_exit" -eq 0
+node "$helper" guard "$first_root"
+```
+
+Retain four things from `evidence/authored-verify.txt`: the artifact **path**, the exact
+**command**, the **exit code**, and the **result** line. Exit `0` against that exact path is the
+positive structural result; exit `1` names the first structural defect in your file.
+
+Read the boundary before you continue, and do not cross it:
+
+- `xbrief:verify` is not a lifecycle move. Do not promote or activate your scope.
+- A green structural result grants no promotion, no activation, and no implementation authority.
+- `xbrief:preflight` and `doctor` are not the authoring-validity pass. Preflight asks whether a
+  lifecycle record is ready to be worked; doctor probes the install and environment.
+- The structural result does not prove the version is `0.8`, the status is `proposed`, the
+  acceptance is observable, or the traces exist. Module 6's comparison rubric proves those, and
+  the two surfaces stay separate.
+
+This step is not graded on command choice, invocation, output reading, or recovery; the command
+is supplied verbatim. It supplies Module 6 **O6.2** evidence and adds no Lab 7 outcome.
+
 ## Checkpoints
 
 Stop and compare at these points:
@@ -222,12 +270,15 @@ Stop and compare at these points:
 3. **Transition checkpoint:** folder/status pairs match the completed and cancelled results.
 4. **Readiness checkpoint:** live intent precedes session gates and active preflight success.
 5. **Recovery checkpoint:** two different roots exist and the first evidence remains readable.
+6. **Authoring checkpoint:** your own record verified structurally, stayed in `proposed/`, and
+   both supplied scopes are still the ones the lab created.
 
 If a checkpoint fails, do not continue to make later green output conceal it.
 
 ## Literal acceptance commands
 
-Run these from the course root with `helper`, `first_root`, and `second_root` still set:
+Run these from the course root with `helper`, `first_root`, `second_root`, and `authored`
+still set:
 
 ```sh
 node "$helper" guard "$first_root"
@@ -237,12 +288,17 @@ test -f "$first_root/xbrief/completed/2026-01-15-fictional-delivery.xbrief.json"
 test -f "$first_root/xbrief/cancelled/2026-01-15-fictional-cancel.xbrief.json"
 test -z "$(git -C "$first_root" remote)"
 node "$helper" guard "$second_root"
+test -f "$(dirname "$first_root")/evidence/authored-verify.txt"
+test -f "$authored"
+node "$first_root/node_modules/.bin/directive" xbrief:verify -- --format json --out "$authored" --style scope --project-root "$first_root"
 ```
 
 - **O7.1:** the first two evidence files contain the expected proposed failure.
 - **O7.2:** the completed and cancelled files pass the guard's folder/status check.
 - **O7.3:** the lifecycle JSON records live intent, session gates, then active preflight.
 - **O7.4:** both distinct roots pass their guards and the first evidence remains intact.
+- **O6.2 structural evidence:** the last two commands exit `0`, your artifact is still under
+  `xbrief/proposed/`, and the retained record names its path, command, exit code, and result.
 
 These commands do not install the second attempt or contact a remote.
 
@@ -254,6 +310,7 @@ Retain:
 - `evidence/proposed-preflight.json` with both failure exit surfaces;
 - `evidence/lifecycle-run.json` with baseline, environment, ordered commands, outputs, exits,
   final pairs, live-intent boundary, and empty remote value;
+- `evidence/authored-verify.txt` with the artifact path, exact command, exit code, and result;
 - your prediction table and four outcome explanations; and
 - the retained or archive location for each attempt.
 
@@ -267,6 +324,8 @@ versions, lifecycle filenames, statuses, and diagnostics intact.
 3. Search the JSON for `liveIntent`, then compare the positions of the three session/preflight
    steps.
 4. Reset returns a new path. If the path did not change, do not accept it as recovery.
+5. If Task 5 exits `1`, read the first reported defect literally. It names a field and a type,
+   not a judgment about your shaping.
 
 ## Expected failures and recovery
 
@@ -280,6 +339,10 @@ versions, lifecycle filenames, statuses, and diagnostics intact.
 | Session start names a newer CLI | PATH isolation is missing or edited | Preserve evidence and reset; do not widen the accepted versions. |
 | Gated ritual fails | Mutation readiness was not established | Preserve the named prerequisite and reset; do not skip the ritual. |
 | Archive refuses current directory | Your shell is inside the attempt parent | Return to the course root and retry the exact absolute root. |
+| Task 5 reports `invalid JSON` | The authored artifact does not parse | Repair it in place, rerun the same command against the same path, and retain both exit codes. |
+| Task 5 reports `narrative.Acceptance must be a string, got list` | Acceptance was written as a list | Give each item one Acceptance string; add items rather than list entries. |
+| Task 5 reports `missing required top-level key` | The record lacks `xBRIEFInfo` | Add the envelope from the Module 6 worksheet; do not invent other keys. |
+| Task 5 exits `0` but the record says `running` | Structure passed; the rubric did not | Restore `proposed`. The structural surface never inspects status, and a green result grants no authority. |
 
 ## Reset to start
 
@@ -341,6 +404,11 @@ $EvidenceRoot = Join-Path (Split-Path -Parent $LabRoot) "evidence"
 foreach ($Name in "proposed-preflight.json", "lifecycle-run.json") {
   if (-not (Test-Path -LiteralPath (Join-Path $EvidenceRoot $Name) -PathType Leaf)) { throw "Missing $Name" }
 }
+$Authored = Join-Path $LabRoot "xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json"
+if (-not (Test-Path -LiteralPath $Authored -PathType Leaf)) { throw "Write your Module 6 proposed scope to $Authored first." }
+$Cli = Join-Path $LabRoot "node_modules/@deftai/directive/dist/bin.js"
+& node $Cli xbrief:verify -- --format json --out $Authored --style scope --project-root $LabRoot
+if ($LASTEXITCODE -ne 0) { throw "Authored scope failed structural verification." }
 $FreshRoot = ((& node $Helper reset $LabRoot) | Out-String).Trim()
 if ([StringComparer]::OrdinalIgnoreCase.Equals($FreshRoot, $LabRoot)) { throw "Reset reused the original root." }
 & node $Helper guard $FreshRoot
@@ -353,7 +421,8 @@ foreach ($Archive in $FirstArchive, $SecondArchive) {
 ```
 
 The lifecycle record must show proposed preflight refusal, promotion, activation,
-session readiness, active preflight, completion, and cancellation in order.
+session readiness, active preflight, completion, and cancellation in order. The Windows route
+invokes the pinned CLI entry point directly because the `.bin` launcher differs by platform.
 
 ## Explained solution
 
@@ -369,4 +438,6 @@ Use this form without widening the claim:
 > **O7.2** Task lifecycle transitions produced matching completed and cancelled pairs;
 > **O7.3** current intent, session gates, and active preflight passed in order; **O7.4** a
 > fresh root preserved the original evidence and both attempts are retained or recoverably
-> archived. No remote or product implementation occurred.
+> archived. My own Module 6 proposed scope passed `xbrief:verify` at a retained path with a
+> retained command, exit code, and result, and stayed in `proposed/`. No remote or product
+> implementation occurred, and no structural result granted lifecycle authority.
