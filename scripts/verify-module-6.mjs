@@ -264,6 +264,21 @@ function requireStructuralEvidenceContract(moduleProse, solutionProse, labProse,
     "Lab 7 must run the structural check against the exact learner-authored path inside the guarded root",
   );
   assert.match(labCommands, /authored_exit=\$\?/, "Lab 7 must retain the structural exit code");
+  assert.match(
+    labCommands,
+    /set \+e\n(?:[^\n]*\n)*?authored_exit=\$\?\nset -e/,
+    "Lab 7 must suspend errexit around the structural check so a failing exit code survives to be recorded",
+  );
+  assert.match(
+    labCommands,
+    /authored_command="[^"]*xbrief:verify[^"]*--out [^"]*--project-root [^"]*"/,
+    "Lab 7 must capture the exact structural command, including its artifact path and project root",
+  );
+  assert.match(
+    labCommands,
+    /printf '[^']*command=%s[^']*'[^\n]*"\$authored_command"[^\n]*>>/,
+    "Lab 7 must persist the exact structural command into the retained evidence record",
+  );
   for (const supplied of suppliedScopes) {
     assert.ok(labCommands.includes(supplied), `Lab 7 must keep its supplied scope record: ${supplied}`);
   }

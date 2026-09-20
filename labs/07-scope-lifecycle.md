@@ -234,18 +234,26 @@ Write your Module 6 artifact into the installed first attempt with your editor, 
 ```sh
 evidence="$(dirname "$first_root")/evidence"
 authored="$first_root/xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json"
+authored_command="node $first_root/node_modules/.bin/directive xbrief:verify -- --format json --out $authored --style scope --project-root $first_root"
 node "$helper" guard "$first_root"
 test -f "$authored"
+set +e
 node "$first_root/node_modules/.bin/directive" xbrief:verify -- --format json --out "$authored" --style scope --project-root "$first_root" > "$evidence/authored-verify.txt" 2>&1
 authored_exit=$?
-printf 'path=%s\nexit=%s\n' "$authored" "$authored_exit" >> "$evidence/authored-verify.txt"
+set -e
+printf 'path=%s\ncommand=%s\nexit=%s\n' "$authored" "$authored_command" "$authored_exit" >> "$evidence/authored-verify.txt"
 test "$authored_exit" -eq 0
 node "$helper" guard "$first_root"
 ```
 
 Retain four things from `evidence/authored-verify.txt`: the artifact **path**, the exact
-**command**, the **exit code**, and the **result** line. Exit `0` against that exact path is the
-positive structural result; exit `1` names the first structural defect in your file.
+**command**, the **exit code**, and the **result** line. The record persists all four, so a green
+run is still complete O6.2 evidence. Exit `0` against that exact path is the positive structural
+result; exit `1` names the first structural defect in your file.
+
+The `set +e` / `set -e` pair is the same expected-failure idiom Lab 5 uses. This shell runs under
+`set -eu`; without that window a structural defect would end the shell before `authored_exit` is
+read, and the failure evidence you are required to keep would be lost.
 
 Read the boundary before you continue, and do not cross it:
 
@@ -407,8 +415,18 @@ foreach ($Name in "proposed-preflight.json", "lifecycle-run.json") {
 $Authored = Join-Path $LabRoot "xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json"
 if (-not (Test-Path -LiteralPath $Authored -PathType Leaf)) { throw "Write your Module 6 proposed scope to $Authored first." }
 $Cli = Join-Path $LabRoot "node_modules/@deftai/directive/dist/bin.js"
-& node $Cli xbrief:verify -- --format json --out $Authored --style scope --project-root $LabRoot
-if ($LASTEXITCODE -ne 0) { throw "Authored scope failed structural verification." }
+$AuthoredRecord = Join-Path $EvidenceRoot "authored-verify.txt"
+$AuthoredCommand = "node $Cli xbrief:verify -- --format json --out $Authored --style scope --project-root $LabRoot"
+$Lab07ExpectedFailurePreference = $PSNativeCommandUseErrorActionPreference
+try {
+  $PSNativeCommandUseErrorActionPreference = $false
+  & node $Cli xbrief:verify -- --format json --out $Authored --style scope --project-root $LabRoot *> $AuthoredRecord
+  $AuthoredExit = $LASTEXITCODE
+} finally {
+  $PSNativeCommandUseErrorActionPreference = $Lab07ExpectedFailurePreference
+}
+Add-Content -LiteralPath $AuthoredRecord -Value "path=$Authored", "command=$AuthoredCommand", "exit=$AuthoredExit"
+if ($AuthoredExit -ne 0) { throw "Authored scope failed structural verification. See $AuthoredRecord." }
 $FreshRoot = ((& node $Helper reset $LabRoot) | Out-String).Trim()
 if ([StringComparer]::OrdinalIgnoreCase.Equals($FreshRoot, $LabRoot)) { throw "Reset reused the original root." }
 & node $Helper guard $FreshRoot

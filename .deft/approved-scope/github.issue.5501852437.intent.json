@@ -1,0 +1,481 @@
+{
+  "schemaVersion": 1,
+  "algo": "intent-extract-v1",
+  "plan": {
+    "title": "Lab 2's documented doctor 'known false negative' does not reproduce on 0.119.2; the warning that does appear is undocumented",
+    "narratives": {
+      "Description": "Module 2 and Lab 2 teach `Missing directory: xbrief/` as a known doctor false negative, but a pin-matched Lab 2 init on Directive 0.119.2 cannot emit that string; the warning that actually appears is the `canonical-vendored-npm-signpost` provenance check, which the learner files do not document. `scripts/verify-modules-2-3.mjs` deterministically asserts the dead string, so the content contract currently enforces the false claim. The accepted remedy recuts the three learner files and the verifier together and captures real doctor output in CI.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/19",
+      "Overview": "## Situation\n\nModule 2 and Lab 2 both teach a specific, named 0.119.2 doctor anomaly and instruct the learner to label it if it appears. Running the lab exactly as written on the pinned baseline, it does not appear — and the warning that *does* appear is not documented anywhere.\n\n**What the material says to expect.** Lab 2, Task 2:\n\n> Label this 0.119.2 **known false negative** if it appears: doctor prints `Missing directory: xbrief/` while `xbrief/PROJECT-DEFINITION.xbrief.json` is present.\n\nModule 2, §4 states it more strongly, as observed fact rather than a possibility:\n\n> Treat this 0.119.2 result as a **known false negative**: in the verified macOS run, doctor reported `Missing directory: xbrief/` even though `xbrief/PROJECT-DEFINITION.xbrief.json` was present.\n\nAnd `solutions/lab-02-disposable-initialization.md` twice states the count and the observation:\n\n> Doctor exited 0 with **two warnings** in the verified attempt.\n> **Observe:** … This **known false negative** appeared in 0.119.2: doctor reported `Missing directory: xbrief/` …\n\n**What my run produced.** Same pinned graph (`OK: installed Directive 0.119.2`, local CLI reports `@deftai/directive-core@0.119.2`), same guarded fixture, `doctor_exit=0 toolchain_exit=0` as documented — but **one** warning, not two, and not the documented one:\n\n```\n$ grep -nE '^(⚠|✖)' doctor-full.txt\n28:⚠ canonical-vendored-npm-signpost: Canonical-vendored install (.deft/core/) is not yet\n   npm-managed. Post-freeze upgrades run via npm: install the engine with\n   `npm i -g @deftai/directive@latest`, then run `directive migrate` to stamp provenance.\n91:⚠ System check completed with 1 warning(s).\n\n$ grep -n 'Missing directory' doctor-full.txt\n(no match)\n```\n\nDoctor instead reported the opposite: `✓ Project-lifecycle: valid at <lab_root>/xbrief`.\n\nSo of the two warnings the solution says to expect, one (the provenance signpost) reproduces and one (the `xbrief/` false negative) does not.\n\n## Pain experienced\n\nLab 2 is the first executable lab in the course, and this lands at the one checkpoint whose entire subject is *\"do not treat a doctor warning as either success or failure without its classification.\"* I had just been taught to take warning output seriously and to record it precisely. Then the specific anomaly I was told to look for was absent, and a different one I was told nothing about was present.\n\nThat left me unable to distinguish three possibilities from inside the lab:\n\n1. the anomaly was fixed between the verification date and the pinned release I installed;\n2. it is environment-dependent and my environment differs in some way the lab has not named; or\n3. my fixture is subtly wrong and the missing warning is the symptom.\n\nOption 3 is the one that matters, and I could not rule it out from the material. The lab's `Expected failures and recovery` table has a row for *\"Doctor exits 0 with warnings\"* but none for *\"the documented warning is absent\"*, so the recovery ladder does not reach this case.\n\nTo the material's credit, the solution's `Compare with your attempt` table does catch it in general terms — *\"A warning may have been hidden or the environment differs\"* — and its rule *\"Do not copy an expected warning into your evidence if your run did not produce it\"* is exactly right and is what I followed. So this is recoverable, not blocking. But it is recoverable only by shrugging, and a learner who shrugs at a missing diagnostic on their first executable lab has learned a slightly wrong lesson from a module whose whole point is precision about diagnostic evidence.\n\nThe undocumented warning has its own teaching cost, and it is the more interesting half. `canonical-vendored-npm-signpost`'s single recommended next action is:\n\n```\nnpm i -g @deftai/directive@latest   →   directive migrate\n```\n\nThat action is **doubly outside the lab's boundary**: `npm i -g` mutates host-global state outside the disposable temporary parent, and `@latest` would move the install off the 0.119.2 course pin. Task 2 asks the learner to record \"the one recommended next action\" and \"whether the action is within the disposable boundary\" — and this warning is a genuinely excellent specimen for that question, arguably better than the one the lab does document. But because it is unnamed, a learner cannot tell whether recognizing and refusing it is the expected answer or an accident of their environment. I recorded it and refused it; I could not confirm that was the intended judgment.\n\nThe count discrepancy (\"two warnings\" vs. my one) compounds this, because it is the one piece of evidence that would otherwise let a learner reconcile the difference arithmetically.\n\n## Proposed fix\n\n**Primary — re-verify Module 2 / Lab 2 doctor output against the pinned 0.119.2 install and update all three files to whatever currently reproduces.** The three statements (module §4, lab Task 2, solution `Observe:` and \"two warnings\") should agree with each other and with a fresh run. If `Missing directory: xbrief/` no longer reproduces on a clean pinned fixture, it should be removed as a live expectation rather than left as an instruction to label something that will not occur.\n\n**Document the signpost warning, because it is pedagogically valuable.** Add it to Lab 2 Task 2 alongside (or in place of) the false negative, with its recommended action and the boundary verdict:\n\n> Expect `canonical-vendored-npm-signpost`. Its single recommended action is a global `npm i -g @deftai/directive@latest` followed by `directive migrate`. Record it, and record that it is **outside** this lab's boundary on two counts: `npm i -g` mutates host-global state outside the temporary parent, and `@latest` would leave the 0.119.2 course pin. Do not run it.\n\nThat turns an unexplained surprise into the exercise Task 2 is already trying to set up, and it exercises O2.4 more sharply than a false negative does.\n\n**Make the divergence case reachable from the recovery ladder.** Add one row to Lab 2's `Expected failures and recovery` table:\n\n| Symptom | Likely mechanism | Bounded recovery |\n|---|---|---|\n| A documented warning does not appear | Release behavior changed, or the environment differs from the verification host | Record what your run actually produced, do not copy an unobserved warning, and continue. Report it as a curriculum-currency defect if the pin matches. |\n\n**State warning counts as \"at least\", or drop them.** \"Two warnings in the verified attempt\" is a brittle claim that invites exactly the reconciliation problem above; what the learner actually needs is the *classification and recommendation* of whatever warnings appear, which the solution already teaches well.\n\n**Finally, consider whether `Last verified` should distinguish content review from executed replay.** Lab 2 carries `Last verified: 2026-09-17` — one day before my run — while describing an anomaly that did not reproduce on the pinned release. Whatever the cause, a learner reads that date as \"someone ran this yesterday and saw this\", which is what made me suspect my own fixture first.\n\n## Environment\n\n- Page: `curriculum/modules/02-installation-and-anatomy.md` §4 \"Interpret health output rather than chasing a silent screen\"; `labs/02-disposable-initialization.md` Task 2; `solutions/lab-02-disposable-initialization.md` (Result summary; Step 4 `Observe:`; acceptance table \"Two warnings\")\n- Commit: f465008\n- Command: `directive doctor --full --project-root .` via the lab's `module_02_diagnose`, from the guarded disposable fixture\n- Result: exit `0`, `1 warning`, `canonical-vendored-npm-signpost`; `Missing directory: xbrief/` absent; `✓ Project-lifecycle: valid at <lab_root>/xbrief` present\n- Directive: `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2` (verified via `verify-pin` and the explicit project-local binary)\n- OS/shell/runtime: macOS Darwin 25.6.0, zsh 5.9, Node v24.20.0, npm 11.19.0\n- Note: a pre-existing `~/.config/deft/USER.md` was present on this host and doctor resolved it (`✓ USER.md resolved (platform-config)`), in case USER.md resolution is what differs between hosts\n\n",
+      "Labels": "documentation, design-critique:ingest-ready",
+      "UserStory": "As a learner running doctor in Lab 2 on the pinned Directive release, I want the taught warning to be one the engine can actually emit, so that I classify what appeared instead of hunting for a string that cannot occur.",
+      "ImplementationPlan": "1. Recut curriculum/modules/02-installation-and-anatomy.md section 4, labs/02-disposable-initialization.md Task 2, solutions/lab-02-disposable-initialization.md, and scripts/verify-modules-2-3.mjs in one change — a three-file repair that leaves the verifier asserting the dead string is not acceptable.\n2. Remove `Missing directory: xbrief/` as taught 0.119.2 behavior everywhere, including behind an \"if it appears\" hedge, and quote only strings the pinned engine can emit.\n3. Keep O2.4 as classify-and-boundary-judge of whatever actually appeared, drop any normative warning-count acceptance criterion, and reconcile the Module 2 Q4 \"one warning\" wording with the solution in the same recut.\n4. Promote the existing solution sentence about the provenance signpost into Lab 2 Task 2 with check id, message text, and boundary verdict, carrying the host-global `npm i -g @deftai/directive@latest` then `directive migrate` recommendation in a non-executable fence, and extend `forbiddenLearnerCommand` to cover global install, `@latest`, and `directive migrate`.\n5. Add a dedicated 0.119.2 Lab 2 doctor-warning replay row to references/SOURCE-NOTES.md, restamp `Last verified` only after that replay, leave the 0.112.0 two-warning proof labeled historical, capture doctor output in the Modules 2-3 platform CI jobs asserting the expected warning set, and wire `check:modules-2-3` into CI.",
+      "Traces": "Accepted bound remedy on deftai/directive-training#19, comment 5734169408, confirmed by parent synthesis 5734269672 and verified-claims table 5734268156; relieves recorded pain P1."
+    },
+    "items": [
+      {
+        "id": "clause:2",
+        "title": "Stop teaching `Missing directory: xbrief/` as current 0.119.2 doctor behavior, including behind an \"if it appears\" hedge. Quote only strings the pinned engine can emit. The live named warning on a pin-matched Lab 2 init is `canonical-vendored-npm-signpost`.",
+        "narrative": {
+          "Acceptance": "No learner file or verifier shows `Missing directory: xbrief/` as current 0.119.2 doctor behavior, including behind an \"if it appears\" hedge, and every quoted warning string is one the pinned engine emits. The recut lands across Module 2 section 4, Lab 2 Task 2, the Lab 2 solution, and the Modules 2-3 verifier together.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#19, comment 5734169408, confirmed by parent synthesis 5734269672 and verified-claims table 5734268156; relieves recorded pain P1."
+        }
+      },
+      {
+        "id": "clause:3",
+        "title": "Keep O2.4 as classify-and-boundary-judge of whatever actually appeared. Drop a normative warning-count acceptance criterion. Reconcile Module Q4 (\"one warning\") with the solution in the same recut.",
+        "narrative": {
+          "Acceptance": "O2.4 still reads as classify-and-boundary-judge of whatever appeared, no normative warning-count acceptance criterion remains, and the Module 2 Q4 wording shows the same single-warning claim the solution shows after the change.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#19, comment 5734169408, confirmed by parent synthesis 5734269672 and verified-claims table 5734268156; relieves recorded pain P1."
+        }
+      },
+      {
+        "id": "clause:4",
+        "title": "Promote the existing solution sentence about the provenance signpost into Lab 2 Task 2 with check id, message text, and boundary verdict: the recommended action is host-global `npm i -g @deftai/directive@latest` then `directive migrate`, and it is outside this lab. Carry that command in a non-executable fence. Extend `forbiddenLearnerCommand` to cover global install / `@latest` / `directive migrate`.",
+        "narrative": {
+          "Acceptance": "Lab 2 Task 2 shows the `canonical-vendored-npm-signpost` check id, its message text, and its boundary verdict, and it carries the host-global `npm i -g @deftai/directive@latest` and `directive migrate` recommendation inside a non-executable fence.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#19, comment 5734169408, confirmed by parent synthesis 5734269672 and verified-claims table 5734268156; relieves recorded pain P1."
+        }
+      },
+      {
+        "id": "clause:5",
+        "title": "Add a dedicated 0.119.2 Lab 2 doctor-warning replay row to the maintained evidence surface. Restamp `Last verified` only after that replay. Leave the 0.112.0 two-warning proof labeled historical.",
+        "narrative": {
+          "Acceptance": "When a learner command in Lab 2 uses a global install, an `@latest` tag, or `directive migrate`, `forbiddenLearnerCommand` in the Modules 2-3 verifier rejects it and the check fails.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#19, comment 5734169408, confirmed by parent synthesis 5734269672 and verified-claims table 5734268156; relieves recorded pain P1."
+        }
+      },
+      {
+        "id": "clause:6",
+        "title": "Capture doctor output in the Modules 2–3 platform jobs and assert the expected warning set. Wire `check:modules-2-3` into CI. Do not invent a new Last-verified field as the control.",
+        "narrative": {
+          "Acceptance": "The maintained evidence surface records a dedicated 0.119.2 Lab 2 doctor-warning replay row, `Last verified` is restamped only after that replay, the 0.112.0 two-warning proof shows a historical label, and the Modules 2-3 CI jobs capture doctor output and fail when the emitted warning set differs from the expected one.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#19, comment 5734169408, confirmed by parent synthesis 5734269672 and verified-claims table 5734268156; relieves recorded pain P1."
+        }
+      }
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/19",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #19: Lab 2's documented doctor 'known false negative' does not reproduce on 0.119.2; the warning that does appear is undocumented"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 6 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Recut Module 2 §4, Lab 2 Task 2, the Lab 2 solution, and `scripts/verify-modules-2-3.mjs` together. Do not bind a three-file-only repair.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Stop teaching `Missing directory: xbrief/` as current 0.119.2 doctor behavior, including behind an \"if it appears\" hedge. Quote only strings the pinned engine can emit. The live named warning on a pin-matched Lab 2 init is `canonical-vendored-npm-signpost`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Keep O2.4 as classify-and-boundary-judge of whatever actually appeared. Drop a normative warning-count acceptance criterion. Reconcile Module Q4 (\"one warning\") with the solution in the same recut.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Promote the existing solution sentence about the provenance signpost into Lab 2 Task 2 with check id, message text, and boundary verdict: the recommended action is host-global `npm i -g @deftai/directive@latest` then `directive migrate`, and it is outside this lab. Carry that command in a non-executable fence. Extend `forbiddenLearnerCommand` to cover global install / `@latest` / `directive migrate`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Add a dedicated 0.119.2 Lab 2 doctor-warning replay row to the maintained evidence surface. Restamp `Last verified` only after that replay. Leave the 0.112.0 two-warning proof labeled historical.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "Capture doctor output in the Modules 2–3 platform jobs and assert the expected warning set. Wire `check:modules-2-3` into CI. Do not invent a new Last-verified field as the control.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because Module 2 / Lab 2 teach a named 0.119.2 doctor false negative that does not reproduce on the pinned fixture, and the warning that does appear is undocumented, so the first diagnostic lab locks a false evidence lesson.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: refutation\nspend: N≥3\nstop-2: charter=refutation; spend=N≥3 because operator asked n=3 and the Module 2 diagnostic teaching contract is the first executable evidence lesson\nrefutation-target: Module 2, Lab 2, and the Lab 2 solution must teach only doctor warnings that currently reproduce on the pinned 0.119.2 fixture\npain: P1\nP1: the documented `Missing directory: xbrief/` known false negative does not appear on a clean pinned 0.119.2 run, while the undocumented `canonical-vendored-npm-signpost` warning does, so a learner cannot tell fixture error from curriculum drift\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: f4650085e02f8d2a32f2d3b6486d80b426c4cf37\n\n",
+          "id": 5733948070,
+          "html_url": "https://github.com/deftai/directive-training/issues/19#issuecomment-5733948070",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T17:47:06Z",
+          "updated_at": "2026-09-18T17:47:06Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\npanel-deposit\nround: 1\nsiblings: 3\ninput-ceiling: 5733960121\nfamilies: grok, claude, codex\nseat: grok launcher: spawn_subagent\nseat: claude launcher: claude\nseat: codex launcher: codex\n\n",
+          "id": 5733960121,
+          "html_url": "https://github.com/deftai/directive-training/issues/19#issuecomment-5733960121",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T17:48:08Z",
+          "updated_at": "2026-09-18T17:48:08Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: claude-opus-5\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1, fresh critic, refutation charter. Ceiling 5733960121 honored: the thread holds exactly two comments at or below it (5733948070 write-back, 5733960121 panel-deposit) and no sibling posts existed at read time. All file reads pinned to `git show f4650085e02f8d2a32f2d3b6486d80b426c4cf37:`. Engine claims re-verified against the published `@deftai/directive-core@0.119.2` artifact on this host, not against line cites.\n\n**Verdict on the recorded target.** Its conclusion survives for all three named sites — and for a stronger reason than the issue gives. Its statement does not survive: the scope omits the live content contract that pins the defect, and the invariant over-applies.\n\n---\n\n## `blocks-the-design` — the target's three-file scope omits the content contract that asserts the defect\n\n**Evidence.** `scripts/verify-modules-2-3.mjs:403-413` loops over exactly the three files the target names and asserts, on each:\n\n```\n/known false negative[\\s\\S]{0,180}(?:Missing directory: )?`?xbrief\\/`?[\\s\\S]{0,220}PROJECT-DEFINITION\\.xbrief\\.json[\\s\\S]{0,120}(?:exists|present)/i\n```\n\nwith the message `must label the 0.119.2 doctor xbrief warning as a known false negative`. I ran it in dest at the dispatch SHA: `Modules 2-3 content contract: ok (19 artifacts, 0 missing)`, exit 0. The assertion is live and passing today.\n\n**Failure mode.** A remedy scoped to the target's literal file list — Module 2, Lab 2, the Lab 2 solution — removes the claim from all three and `npm run check:modules-2-3` fails three times on the same assertion. The remedy cannot land in the scope the target defines.\n\n**Disposition consequence.** `scripts/verify-modules-2-3.mjs` is a fourth required site and must be named on the successor lean. A take that binds the three-file scope binds an unlandable remedy.\n\n---\n\n## `sharpens-framing` — the string is not non-reproducing, it is unemittable; the primary remedy diagnoses the wrong root cause\n\n**Evidence**, re-derived from `@deftai/directive-core@0.119.2` (`/opt/homebrew/lib/node_modules/@deftai/directive-core`, `package.json` version `0.119.2`):\n\n- `dist/doctor/main.js:455` is the only `Missing directory:` emitter in the package tree; `@deftai/directive` and `@deftai/directive-content` contain the string nowhere. Its template is `Missing directory: ${row.directory}/ (${row.tree}) at ${row.path}` — never the bare two-token form the curriculum quotes.\n- Its rows come from `collectFrameworkLayoutRows`, whose own JSDoc reads *\"`xbrief` is not an engine dir.\"* Enumerated at runtime from `dist/doctor/constants.js`: `EXPECTED_CONTENT_DIRS = [languages, strategies, skills, templates]`, `FRAMEWORK_SCHEMA_PACK_DIR = vbrief/schemas`, `CONSUMER_FRAMEWORK_DIRS = [tasks]`, `EXPECTED_FRAMEWORK_DIRS = [tasks, scripts]`. `xbrief` is in none of them, so no value of `row.directory` can produce `Missing directory: xbrief/`.\n- xbrief is classified separately by `classifyProjectLifecycle` (`main.js:47`). Its absent message is spelled `Missing project-lifecycle directory: xbrief/ at <path>`; its healthy print is `Project-lifecycle: ${state} at ${path}` — which is exactly the `✓ Project-lifecycle: valid at <lab_root>/xbrief` the reporter observed.\n- `hasMigratedLifecycleArtifacts` returns `valid` whenever the lifecycle layout resolves. So the specific scenario the material asserts — missing-directory warning **while** `xbrief/PROJECT-DEFINITION.xbrief.json` is present — is unreachable on 0.119.2 from either check.\n\n**Failure mode.** The issue's three hypotheses (fixed after verification / environment-dependent / learner fixture wrong) are exhaustive of the wrong space. The fourth branch is that the verification record quotes a message no build of the pinned engine emits — a transcription defect in the verified-run evidence, not release drift and not host variance. Proposed fix #1 (\"re-verify and update to whatever currently reproduces\") is satisfied by a re-run that silently overwrites the transcription defect, closing the symptom while leaving the question it raises — whether other quoted diagnostics in the verified-run material are also paraphrases — unasked.\n\n**Disposition consequence.** The bound remedy needs a second obligation: retract Module 2 §4's observation claim (`curriculum/modules/02-installation-and-anatomy.md:199-201`, *\"in the verified macOS run, doctor reported\"*) as an observation rather than editing it, and sweep quoted diagnostic strings elsewhere in the 0.119.2 verified-run material against emittable engine text.\n\n---\n\n## `sharpens-framing` — \"not documented anywhere\" is false, and Stop 1's `P1` inherits the error\n\n**Evidence.** `solutions/lab-02-disposable-initialization.md:43-45`: *\"The provenance signpost named `directive migrate` to stamp npm provenance. Module 2 records and classifies that recommendation but does not execute the untaught migration.\"* And `:305`: *\"the release may identify a recovery signpost or known anomaly.\"* Grep for `signpost|provenance|migrate|npm-managed|vendored` over the three files at the dispatch SHA returns those two solution lines and nothing in Module 2 or Lab 2. So the warning is documented in the solution's Result summary and recovery ladder — it is unnamed by check id, its message text is unquoted, its boundary verdict is unstated, and it is absent from the learner-facing lab and the module.\n\nThat also reconciles the count the issue could not reconcile arithmetically: the solution's second warning is the signpost.\n\n**Failure mode.** The write-back records `P1: … the undocumented canonical-vendored-npm-signpost warning does`. Named Stop 1 pains are a bind conjunct, and a `relieves: P1` cite is an asserted premise a later pain-audit critic can defeat on the record. Binding relief against a premise whose \"undocumented\" half is demonstrably false either over-scopes the remedy into authoring a new expectation from scratch, or produces a relief cite that does not survive audit.\n\n**Disposition consequence.** Restate P1 as *unnamed in the lab and module, boundary verdict unstated* on a superseding Stop 1 write-back, or scope the successor lean's relief to the accurate half. The remedy then shrinks from \"author and verify a new expectation\" to \"promote an existing solution sentence into Lab 2 Task 2 with its check id, message text, and boundary verdict\" — a different take on the same heading.\n\n---\n\n## `sharpens-framing` — the invariant as worded over-applies and re-breaks on every engine release\n\n**Evidence.** The three sites differ in modality and the target flattens them. `labs/02-disposable-initialization.md:605-608` is conditional (*\"Label this 0.119.2 known false negative **if it appears**\"*). `curriculum/modules/02-installation-and-anatomy.md:199-201` is an observation claim. `solutions/lab-02-disposable-initialization.md:42` and `:241` are a count claim (*\"two warnings\"*). Lab 2's `Expected failures and recovery` table (`:816`) teaches several conditions by the same conditional construction that do not occur on a clean macOS run — `E401`/`E403`, the missing-local-binary case, the `main`-branch checkpoint refusal, `warning: LF will be replaced by CRLF` under `core.autocrlf=true`. Separately, the very warning the issue wants documented is itself fixture-conditional: `checkCanonicalVendoredNpmSignpost` (`dist/doctor/checks.js:710`) returns `skip` when the deposit is already npm-managed, so \"reproduces on the pinned fixture\" is a property of the fixture, not of the release.\n\n**Failure mode.** Read literally, *teach only doctor warnings that currently reproduce* strikes correct conditional teaching alongside the defect, and makes curriculum correctness a function of a moving 0.119.x surface plus host state. Read loosely, it does not discriminate the three sites at all.\n\n**Disposition consequence.** Bind the narrower invariant: *quote only strings the pinned engine can emit, and state observed-fact claims only from a replayed run*. Under the target as written the disposition on `labs/…:605` is strike. Under the narrower one it is correct-the-quoted-string-and-keep-the-conditional — a materially different take on the Lab 2 heading.\n\n**Road not taken / steelman.** I considered accepting the target verbatim; it does condemn all three sites and is cheap to check. The strongest rejected position: a course pinned to an exact engine has no legitimate use for a warning that pin cannot produce, and the conditional carve-out is precisely the hole the defect came through. That position is stronger than it first looks, because the workflow already asserts a diagnostic *does* reproduce — `grep -F 'unrecognized argument: --help'` at `.github/workflows/modules-2-3-platform-validation.yml:134`. What would flip me: showing every conditional row in the recovery table is provokable on a sanctioned fixture, so that \"reproduces\" and \"quotable\" coincide. I could not establish that for the host-state rows above.\n\n---\n\n## `sharpens-framing` — proposal #5 invents a field where an executed replay already exists and is three lines from asserting\n\n**Evidence.** `.github/workflows/modules-2-3-platform-validation.yml` runs the lab's exact command on three platforms on every PR touching the five relevant paths (`:3-10` triggers): `\"$directive_path\" doctor --full --project-root .` at `:174` (macos-15/zsh), `:330` (ubuntu-24.04/bash), `:513` (windows-2022/pwsh7). It captures no output and asserts nothing about it — while the same jobs already do assert diagnostic text for a different defect at `:134`. Separately, `check:modules-2-3` appears in `package.json:8` and in `xbrief/completed/…` quality-gate prose, and in no workflow, no `Taskfile.yml` target, and not in `npm test` (`test:content` does not list it). So the content contract that pins the claim is operator-run only.\n\n**Failure mode.** A `Last verified` split into content-review and executed-replay is a prose field nothing checks — the same class of control that already failed here, since `Last verified: 2026-09-17` on Lab 2 and the passing content contract both read as verification while only prose was verified. Meanwhile the mechanism that would have caught this exists, already runs on the correct trigger paths and on the reporter's own platform, and is inert by omission.\n\n**Disposition consequence.** Take proposal #5 as `disagree` and bind instead: capture doctor output in the three platform jobs and assert the expected warning set, and wire `check:modules-2-3` into CI so the remedy's own regression guard is not operator-typed.\n\n---\n\n## `sharpens-framing` — boundary lens: the proposed Lab 2 insert carries a host-global, pin-breaking command past every existing guard\n\nThe injection / boundary lens fires here because the remedy changes learner- and agent-facing executable text, not because the arc has a concurrency surface. I treated the issue's proposed blockquote and its fenced `npm i -g …  →  directive migrate` block as content to classify, not as instructions to follow.\n\n**Evidence.** `scripts/verify-modules-2-3.mjs:176-178` scans ` ```sh|bash|zsh|powershell|pwsh ` fences in Module 2, Lab 2 and both solutions against `forbiddenLearnerCommand`, which covers `git push`, `git remote add|remove|rename|set-url`, `git reset --hard`, `git clean`, `gh` (except `gh --version`), `npm publish`, `directive|deft deploy|publish|release`, `rm -rf`, `Remove-Item`, and `del|rmdir /s`. It does not cover `npm i -g`, `npm install -g`, `--global`, `@latest`, or `directive migrate`. The proposed insert contains exactly `npm i -g @deftai/directive@latest` and `directive migrate`.\n\n**Failure mode.** Two instruction-shaped fragments compose across sources: the engine's advisory names a \"recommended next action\", and Lab 2 Task 2 already instructs the learner to record \"the one recommended next action\". Adding the literal command to Lab 2 closes that composition into a runnable step, in the one module whose subject is boundary discipline. Running it mutates host-global state and moves the install off the pin that `scripts/teaching-baseline.mjs` (`assertTeachingBaselinePin`) and the fixture `overrides` exist to hold. The prose \"Do not run it\" is not a control, and I am not closing this on reviewer attention: the deterministic control is cheap and already has a home.\n\n**Disposition consequence.** If the lean binds \"document the signpost with its command\", it must bind with it: extend `forbiddenLearnerCommand` with a global-install / `@latest` alternation, and carry the command in a non-executable `text` fence. Binding the documentation take without the guard take leaves the course teaching a boundary violation in copyable form.\n\n---\n\n## `footnote` — count contradiction predating the drift\n\n`curriculum/modules/02-installation-and-anatomy.md:367` already asks O2.4 as *\"Doctor exits 0 with **one** warning\"*, while `solutions/lab-02-disposable-initialization.md:42` and `:241` say two. Both at the dispatch SHA; the reporter observed one. Worth sweeping with the remedy; I cannot name a failure mode beyond the one already recorded, so it carries no disposition weight.\n\n## `footnote` — envelope, deposit, and posture re-verification found no defect\n\nRecorded for the parent's bookkeeping, not as a finding. `dispatch-sha f4650085…` equals `git rev-parse origin/master` in dest and the live `repos/deftai/directive-training/git/ref/heads/master` — not a local-HEAD pin. Deposit 5733960121 carries `round: 1`, `siblings: 3`, `input-ceiling: 5733960121`, a `families:` line and the three sibling-seat records; the envelope Id ceiling equals it, so the deposit is in envelope and there is no deposit/envelope mismatch. Issue label history: `design-critique:mechanism-shaped` at 17:47:33Z (after the 17:47:06Z write-back), replaced by `design-critique:in-progress` at 17:50:56Z — after the 17:48:08Z deposit, which is the licensed flip evidence, not a spawn-intent stamp.\n\nOne deposit gap I can note but not resolve: `.deft/core/` is absent from this worktree (the deposit lives only in the main checkout), so the contract this envelope points at is not readable from dest at the dispatch SHA. That cost me nothing here, but a critic with no access to the main checkout could not have read its own rules.\n\n",
+          "id": 5734109566,
+          "html_url": "https://github.com/deftai/directive-training/issues/19#issuecomment-5734109566",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:01:30Z",
+          "updated_at": "2026-09-18T18:01:30Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: gpt-5-codex\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRefutation-target verdict: it survives. The pinned 0.119.2 fixture does not support the taught `Missing directory: xbrief/` warning. The proposed three-file-only repair does not yet survive.\n\nRe-verified at dispatch SHA `f4650085e02f8d2a32f2d3b6486d80b426c4cf37`, with source reads pinned to `git show` and a fresh disposable no-remote replay of `labs/fixtures/02-disposable-initialization/package.json`. The project-local CLI reported engine `@deftai/directive-core@0.119.2`; doctor and consumer toolchain both exited 0; `xbrief/PROJECT-DEFINITION.xbrief.json` was present; doctor printed `Project-lifecycle: valid`; it printed exactly one warning, `canonical-vendored-npm-signpost`; and `Missing directory` had no match. `node scripts/verify-modules-2-3.mjs` nevertheless passed the pinned curriculum as-is.\n\n### 1. The recorded verification does not prove the Lab 2 doctor path (`blocks-the-design`)\n\nEvidence: `references/SOURCE-BASELINE.md` promotes macOS/zsh with `evidence=baseline-upgrade-65-of-65`. The pinned `test:baseline-upgrade` script runs seven fixture suites, none of which initializes or diagnoses the Module 2 fixture. The detailed disposable-consumer proof in `references/SOURCE-NOTES.md` is explicitly the 2026-09-07 **0.112.0** run, including the two-warning observation. The current baseline's Modules 2–3 literal-probe table records `doctor --help`, not `doctor --full` on the initialized 0.119.2 Lab 2 fixture. The module says `Last verified: 2026-09-07`; the lab and solution say 2026-09-17.\n\nFailure mode: a version-literal collapse or static content pass is recorded as a learner-path replay. A historical observation is then promoted into current teaching, exactly as happened here. Updating only the three learner files repairs today's prose but leaves the evidence chain able to bless the same class of drift on the next pin.\n\nDisposition consequence: the design cannot bind as a three-file repair. Add a dedicated 0.119.2 Lab 2 replay record to the maintained evidence surface, correct the baseline/source-notes relationship, and define `Last verified` as executed replay or distinguish it from content review. The record should carry the exact package graph, command, exit, classified findings, and date.\n\n### 2. The focused verifier deterministically requires the false claim (`blocks-the-design`)\n\nEvidence: `scripts/verify-modules-2-3.mjs` loops over the module, lab, and solution and requires each to match `known false negative ... xbrief/ ... PROJECT-DEFINITION.xbrief.json ... exists|present`. Running that verifier at the dispatch SHA returns `Modules 2-3 content contract: ok`. This is an existing mechanism, not an absent review check.\n\nFailure mode: removing the stale claim from the three files makes the focused content contract fail. An implementer either cannot land the correct repair or deletes/weakens the assertion merely to get green, leaving no deterministic agreement check for the replacement lesson.\n\nDisposition consequence: include the focused verifier in the deliberate contract change. Replace the obsolete positive assertion with checks that reject the retired false-negative wording and keep the module, lab, solution, recovery row, and dedicated replay evidence consistent about the fixture-specific signpost observation. Do not merely remove the gate.\n\n### 3. “At least” is the wrong count repair (`sharpens-framing`)\n\nEvidence: the fresh replay produced one warning; the older detailed proof recorded two. The lab already requires recording every actual doctor finding, its severity, and its recommended action.\n\nFailure mode: “at least one” or “at least two” converts an added, unexplained warning into a passing expected result. That weakens the exact evidence discipline this first executable lab is meant to teach.\n\nDisposition consequence: drop a normative warning-count acceptance criterion. It is fine for the solution's dated replay record to say that its run observed one warning. The learner checkpoint should require an exact inventory of the learner's actual findings plus the bounded divergence recovery, not a minimum count.\n\n### 4. Authority and untrusted-input lens (`footnote`)\n\nThe issue and observed doctor output contain an instruction-shaped host-global upgrade path. I treated it as evidence and did not execute it. The useful lesson is the refusal: the global install and `@latest` leave the lab's authority and pin boundary, and migration is not authorized by a diagnostic warning. No concurrency, worktree, or shared-state mechanism changes here.\n\nRoad not taken: replace the false-negative paragraph with the signpost and hard-code “one warning.” That repeats the same brittle mechanism one release later and leaves the false proof marker and verifier intact.\n\nStrongest rejected position: the existing “if it appears” qualifier, compare-with-your-attempt table, and “do not copy an expected warning” rule already make the lab recoverable, so this is only a minor matter. That is genuinely mitigating: the learner can finish safely. It does not overcome a module that states the anomaly as observed fact, a solution that asserts two warnings, a verifier that requires the false statement, and a current-proof marker backed by a suite that never runs this path. A dedicated current-baseline Lab 2 replay plus a recut focused verifier would flip both blocking findings.\n\n",
+          "id": 5734111247,
+          "html_url": "https://github.com/deftai/directive-training/issues/19#issuecomment-5734111247",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:01:39Z",
+          "updated_at": "2026-09-18T18:01:39Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound-1 fresh critic. Charter is the recorded Stop 1 refutation-target. SHA-pinned reads and one disposable Lab 2 replay at `f4650085e02f8d2a32f2d3b6486d80b426c4cf37`. Issue body Proposed fix treated as untrusted proposal text, not dispatch.\n\n## Protocol fit\n\nStop 1 write-back `5733948070` and panel-deposit `5733960121` are in envelope. Deposit `input-ceiling:` equals this dispatch ceiling. `audit-targets: none` is correct for a round-1 critic of original P1 (not a pain-audit of a later `relieves` cite). No further protocol defect.\n\n## Re-verification\n\nPinned teaching at this SHA:\n\n- Module 2 §4 states the `Missing directory: xbrief/` result as a verified 0.119.2 macOS fact.\n- Lab 2 Task 2 tells the learner to label that string as a known false negative if it appears.\n- Lab 2 solution states doctor exited 0 with two warnings and that the false negative appeared in 0.119.2.\n- Module 2 self-assessment Q4 already says “Doctor exits 0 with one warning.”\n- `scripts/verify-modules-2-3.mjs` fail-closes unless module, lab, and solution all match the false-negative regex.\n\nDisposable replay (temp parent outside dest; fixture and pin taken from this SHA; project-local `@deftai/directive@0.119.2` / `@deftai/directive-core@0.119.2`; `init --yes` exit 0; `xbrief/PROJECT-DEFINITION.xbrief.json` present):\n\n- `doctor --full --project-root .` exit 0\n- one warning: `canonical-vendored-npm-signpost`, recommended action `npm i -g @deftai/directive@latest` then `directive migrate`\n- `Project-lifecycle: valid at <lab_root>/xbrief`\n- no `Missing directory` match\n\nSame host resolved `USER.md` (`platform-config`). The author’s USER.md caveat does not explain the missing false negative.\n\n0.119.2 engine (`classifyProjectLifecycle` / `collectFrameworkLayoutRows`, #4162): `xbrief` is not an engine layout directory. Layout `Missing directory:` rows cannot name it. After a successful init the lifecycle check prints valid, not a false missing-directory warning. The 0.112.0 two-warning disposable proof in `references/SOURCE-NOTES.md` remains the only recorded execution of that string; it is still headed `local-0.112.0-disposable-project-local-hook-full` (2026-09-07). Lab/solution `Last verified: 2026-09-17` does not replace that proof.\n\nExisting mechanisms already cover classification without a new gate: Lab 2 recovery row “Doctor exits 0 with warnings”; solution compare-table “Do not copy an expected warning into your evidence if your run did not produce it”; doctor advisory set already includes `canonical-vendored-npm-signpost`; `CANONICAL_UPGRADE_COMMAND` is the global `@latest` install. Platform workflow `.github/workflows/modules-2-3-platform-validation.yml` runs doctor and asserts exit 0, not warning text. `assessments/README.md` points at Lab 2 and the solution but does not lock the false-negative literal.\n\n## Verdict\n\nThe recorded refutation-target survives as a live-expectation rule: Module 2, Lab 2, and the Lab 2 solution must not teach `Missing directory: xbrief/` as current 0.119.2 doctor behavior. It does not survive as a maximal “named-warning catalog only” reading, and it is under-scoped if it names those three files and omits the verifier that currently forces the dead string.\n\n### F1. Live-expectation recut is required; O2.4 is still classify-what-appeared\n`sharpens-framing`\n\nEvidence: the SHA-pinned Module §4 / solution “appeared in 0.119.2” claims are false on a pin-matched Lab 2 init; the replayed warning is the signpost; Lab Task 2’s “if it appears” hedge and the solution compare-table already teach recording actual output.\n\nFailure mode: binding “teach only currently reproducing warnings” as a closed catalog would delete the dead string and also drop the skill for an unexpected or absent warning, which is the first executable evidence lesson.\n\nDisposition: keep the live named set equal to a pin-matched replay (today: `canonical-vendored-npm-signpost` only). Keep classify-and-boundary-judge as the outcome. Do not keep the dead false-negative string as a 0.119.2 known fact, including behind an “if it appears” hedge.\n\n### F2. The content verifier still requires the dead false negative\n`sharpens-framing`\n\nEvidence: `scripts/verify-modules-2-3.mjs` applies `/known false negative[\\s\\S]{0,180}(?:Missing directory: )?\\`?xbrief\\/\\`?[\\s\\S]{0,220}PROJECT-DEFINITION\\.xbrief\\.json[\\s\\S]{0,120}(?:exists|present)/i` to the module, the lab, and the solution, with message “must label the 0.119.2 doctor xbrief warning as a known false negative”. Maintainer milestone list in `maintainers/CURRICULUM-MAINTENANCE.md` runs `npm run check:modules-2-3`.\n\nFailure mode: a recut of only the three files named in the refutation-target is rejected by that check, or the check is skipped and the stale lock remains to restore the false lesson.\n\nDisposition: recut `scripts/verify-modules-2-3.mjs` in the same change so it locks the replayed warning set, not the 0.112.0 false negative.\n\n### F3. The three learner files do not currently teach one doctor-warning contract\n`sharpens-framing`\n\nEvidence: Module §4 = verified-fact false negative; Lab Task 2 = optional label; solution = “two warnings” plus migrate signpost; Module Q4 = “one warning”. Replay = one warning. Signpost recommended action includes host-global `npm i -g @deftai/directive@latest`, which leaves the 0.119.2 pin; solution currently names `directive migrate` and not that command.\n\nFailure mode: deleting the false-negative sentences while leaving “two warnings”, or teaching migrate without the out-of-boundary `@latest` action, leaves the same first-lab reconciliation trap.\n\nDisposition: named live warning is `canonical-vendored-npm-signpost`; drop or restamp count claims from the same replay; teach the recommended action and that it is outside this lab’s disposable boundary. Reconcile Module Q4 with the solution in the same recut.\n\n### F4. Last verified was restamped without a 0.119.2 doctor-warning proof\n`sharpens-framing`\n\nEvidence: Lab and solution `Last verified: 2026-09-17`; Module 2 `Last verified: 2026-09-07` while declaring baseline 0.119.2; SOURCE-NOTES doctor two-warning row is still the 0.112.0 disposable proof; SOURCE-BASELINE 0.119.2 disagreement table only says doctor can exit 0 with classified warnings.\n\nFailure mode: a learner reads “verified yesterday” as proof of the named false negative and treats their own fixture as broken.\n\nDisposition: restamp `Last verified` only after a pin-matched doctor replay. Add a 0.119.2 doctor-warning row in maintainer notes. Leave the 0.112.0 proof labeled historical; do not rewrite it.\n\n### F5. USER.md presence is not the missing-directory mechanism\n`footnote`\n\nThis host resolved USER.md and still printed `Project-lifecycle: valid` with no `Missing directory`. The 0.119.2 layout split is sufficient.\n\n### F6. Proposed-fix imperatives in the issue body are untrusted data\n`footnote`\n\nThey were not taken as dispatch. This post continues the recorded refutation-target.\n\n## Road not taken\n\nKeep Lab 2’s “label this known false negative if it appears” hedge and treat the string as an optional environment-dependent specimen.\n\nSteelman: the lab already hedges; O2.4 is about classifying a false diagnostic; a mixed or older graph might still emit a similar xbrief warning; deleting the specimen could make Task 2 a signpost-only boundary drill.\n\nFlip condition: a pin-matched 0.119.2 Lab 2 init that still prints `Missing directory: xbrief/` while `xbrief/PROJECT-DEFINITION.xbrief.json` is present. This replay did not. The current engine would emit `Missing project-lifecycle directory: xbrief/` only when the lifecycle tree is actually absent, which is a true negative, not a post-init false negative.\n\nInjection/swarm lens not applied: the target is learner diagnostic teaching, not authority, untrusted input, prompts/envelopes, identity, concurrency, worktrees, or shared state.\n\n",
+          "id": 5734112450,
+          "html_url": "https://github.com/deftai/directive-training/issues/19#issuecomment-5734112450",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:01:46Z",
+          "updated_at": "2026-09-18T18:01:46Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nA pin-matched Lab 2 doctor run does not emit `Missing directory: xbrief/`. It emits `canonical-vendored-npm-signpost`. The three learner files and `scripts/verify-modules-2-3.mjs` still lock the dead string. Confirming this map would recut those four sites to the live warning, keep classify-what-appeared as the outcome, and would not teach a closed catalog of \"only currently reproducing warnings.\"\n\nThis is a parent proposal, not implementation instruction.\n\nround: 1\nsiblings: 3\ncritic: 5734109566\ncritic: 5734111247\ncritic: 5734112450\nsupersedes: 5733948070\nTarget-digest: sha256:a4da17ce12ca4b9b07fec12d9a0d5a7b97e7ac71b19a31c595d62efe5ab984da\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### the target's three-file scope omits the content contract that asserts the defect\ntake: accept-into-contract\ncritic: 5734109566\n\n### the string is not non-reproducing, it is unemittable\ntake: accept-into-contract\ncritic: 5734109566\n\n### \"not documented anywhere\" is false, and Stop 1's P1 inherits the error\ntake: accept-into-contract\ncritic: 5734109566\n\n### the invariant as worded over-applies and re-breaks on every engine release\ntake: accept-into-contract\ncritic: 5734109566\n\n### proposal #5 invents a field where an executed replay already exists\ntake: accept-into-contract\ncritic: 5734109566\n\n### boundary lens: the proposed Lab 2 insert carries a host-global, pin-breaking command\ntake: accept-into-contract\ncritic: 5734109566\n\n### 1. The recorded verification does not prove the Lab 2 doctor path\ntake: accept-into-contract\ncritic: 5734111247\n\n### 2. The focused verifier deterministically requires the false claim\ntake: accept-into-contract\ncritic: 5734111247\n\n### 3. At least is the wrong count repair\ntake: accept-into-contract\ncritic: 5734111247\n\n### F1. Live-expectation recut is required; O2.4 is still classify-what-appeared\ntake: accept-into-contract\ncritic: 5734112450\n\n### F2. The content verifier still requires the dead false negative\ntake: accept-into-contract\ncritic: 5734112450\n\n### F3. The three learner files do not currently teach one doctor-warning contract\ntake: accept-into-contract\ncritic: 5734112450\n\n### F4. Last verified was restamped without a 0.119.2 doctor-warning proof\ntake: accept-into-contract\ncritic: 5734112450\n\nrelieves: P1\n\n## Bound remedy\n\n- Recut Module 2 §4, Lab 2 Task 2, the Lab 2 solution, and `scripts/verify-modules-2-3.mjs` together. Do not bind a three-file-only repair.\n- Stop teaching `Missing directory: xbrief/` as current 0.119.2 doctor behavior, including behind an \"if it appears\" hedge. Quote only strings the pinned engine can emit. The live named warning on a pin-matched Lab 2 init is `canonical-vendored-npm-signpost`.\n- Keep O2.4 as classify-and-boundary-judge of whatever actually appeared. Drop a normative warning-count acceptance criterion. Reconcile Module Q4 (\"one warning\") with the solution in the same recut.\n- Promote the existing solution sentence about the provenance signpost into Lab 2 Task 2 with check id, message text, and boundary verdict: the recommended action is host-global `npm i -g @deftai/directive@latest` then `directive migrate`, and it is outside this lab. Carry that command in a non-executable fence. Extend `forbiddenLearnerCommand` to cover global install / `@latest` / `directive migrate`.\n- Add a dedicated 0.119.2 Lab 2 doctor-warning replay row to the maintained evidence surface. Restamp `Last verified` only after that replay. Leave the 0.112.0 two-warning proof labeled historical.\n- Capture doctor output in the Modules 2–3 platform jobs and assert the expected warning set. Wire `check:modules-2-3` into CI. Do not invent a new Last-verified field as the control.\n\n",
+          "id": 5734169408,
+          "html_url": "https://github.com/deftai/directive-training/issues/19#issuecomment-5734169408",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:06:44Z",
+          "updated_at": "2026-09-18T18:06:44Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nYolo standing on the launching utterance confirms successor lean 5734169408 without amendment.\n\nThe per-heading takes and Bound remedy on that lean are the confirmed proposal. Bind still waits on independent clearance of pain-P1.\n\n",
+          "id": 5734173264,
+          "html_url": "https://github.com/deftai/directive-training/issues/19#issuecomment-5734173264",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:07:05Z",
+          "updated_at": "2026-09-18T18:07:05Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound-2 fresh pain-audit of successor lean 5734169408 Bound remedy against Stop 1 write-back 5733948070 (`pain: P1`). Ceiling 5734173264 honored; nothing after the yolo confirm was read. File reads pinned to `git show f4650085e02f8d2a32f2d3b6486d80b426c4cf37:`. Engine strings re-derived from `@deftai/directive-core@0.119.2`. One disposable no-remote Lab 2 init+doctor replay on this host. Sibling agreement was not used as confirmation.\n\n## Verdict\n\n`relieves: P1` is independently supported by the Bound remedy. No `blocks-the-design` finding. The harvested list covers the live mismatch that leaves a learner unable to tell fixture error from curriculum drift.\n\n## Independent measurement\n\nDisposable Lab 2 path under `/var/folders/.../3ci-directive-module-02.painaudit.hFoowc/attempt-01.zBSt4O`. Fixture pin `@deftai/directive@0.119.2`; local CLI reported engine `@deftai/directive-core@0.119.2`; `xbrief/PROJECT-DEFINITION.xbrief.json` present after `init --yes`.\n\n`directive doctor --full --project-root .` exited 0.\n\nObserved:\n\n- `⚠ canonical-vendored-npm-signpost:` recommended action is `npm i -g @deftai/directive@latest` then `directive migrate`\n- `✓ Project-lifecycle: valid at <lab_root>/xbrief`\n- `⚠ System check completed with 1 warning(s).`\n- `Missing directory`: no match\n\nPinned engine: the only `Missing directory:` emitter is `Missing directory: ${row.directory}/ (${row.tree}) at ${row.path}`. `xbrief` is not in `EXPECTED_CONTENT_DIRS` or `EXPECTED_FRAMEWORK_DIRS`. Absent lifecycle spells `Missing project-lifecycle directory: xbrief/ at <path>`, not the taught two-token form. `checkCanonicalVendoredNpmSignpost` fails on a non-npm-managed canonical-vendored deposit, which this init is.\n\nPinned curriculum still teaches the dead string at Module 2 §4, Lab 2 Task 2, and the Lab 2 solution Observe / \"two warnings\" rows. `scripts/verify-modules-2-3.mjs` still asserts the known-false-negative regex on those three files. `npm run check:modules-2-3` exited 0 (`Modules 2-3 content contract: ok (19 artifacts, 0 missing)`). Check id `canonical-vendored-npm-signpost` is absent from module, lab, and solution. The Modules 2–3 platform job runs doctor and does not assert warning text. `check:modules-2-3` is not in `.github/workflows/`.\n\n## Why the Bound remedy covers P1\n\nP1 is the joint: taught `Missing directory: xbrief/` does not appear; the signpost does; a learner cannot tell fixture error from curriculum drift.\n\nThe Bound remedy recuts the three learner files and `scripts/verify-modules-2-3.mjs` together, so the content contract cannot restore the false lesson. It stops teaching the dead string as current 0.119.2 behavior, including Lab 2's \"if it appears\" hedge, and names `canonical-vendored-npm-signpost` as the pin-matched live warning. It keeps O2.4 as classify-what-appeared, drops the solution's \"Two warnings\" acceptance criterion, and reconciles Module Q4 in the same recut. It puts check id, message text, and the out-of-boundary `@latest` / `directive migrate` verdict on Lab 2 Task 2 — the learner-facing unnamed half — in a non-executable fence. It adds a 0.119.2 Lab 2 doctor-warning replay row and restamps `Last verified` only after that replay, so the date stops implying the dead string was seen yesterday. It captures doctor output on the existing Modules 2–3 platform jobs and asserts the expected warning set, and wires `check:modules-2-3` into CI.\n\nThat is the mismatch plus the locks that would otherwise re-teach it. The accepted round-1 heading that Stop 1's \"undocumented\" half overstates the solution is already taken; the Bound remedy scopes relief to promoting that existing sentence into the lab rather than authoring a new warning from scratch. This audit does not re-open that heading.\n\n### F1. Host USER.md was present and is not the missing-directory mechanism\n`footnote`\n\nThis replay printed `USER.md already exists at /Users/davidcall/.config/deft/USER.md` and still reported `Project-lifecycle: valid` with no `Missing directory`. Same as the issue's environment note. It does not change the cite.\n\n### F2. This replay is macOS/zsh only\n`footnote`\n\nLinux/bash and Windows/PowerShell were not re-run. P1 is a pin-matched 0.119.2 Lab 2 doctor claim; the engine layout split is not host-specific. Platform-job capture in Bound remedy item 6 is the cross-host lock, not this seat.\n\n## Road not taken\n\nBlock the cite because P1 still says \"undocumented\" while the solution already names a provenance/migrate signpost.\n\nSteelman: a `relieves` cite on a pain whose English is partly false is mixed-basis; the engine does not grade truth, so an independent critic should refuse until Stop 1 restates P1.\n\nFlip condition: the Bound remedy leaves Lab 2 Task 2 without the live check id, so a learner still meets an unnamed warning on the first executable lab. Harvested item 4 names that promotion. The cite stands.\n\n",
+          "id": 5734258961,
+          "html_url": "https://github.com/deftai/directive-training/issues/19#issuecomment-5734258961",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:14:09Z",
+          "updated_at": "2026-09-18T18:14:09Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5734258961 is footnote-only. Bind remains successor lean 5734169408.\n\nF1: USER.md presence is not the missing-directory mechanism. Take: census only. This does not change the harvested Bound-remedy.\n\nF2: this replay is macOS/zsh only. Take: platform-job capture in Bound-remedy item 6 remains the cross-host lock. This does not change the harvested Bound-remedy.\n\n",
+          "id": 5734267972,
+          "html_url": "https://github.com/deftai/directive-training/issues/19#issuecomment-5734267972",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:14:52Z",
+          "updated_at": "2026-09-18T18:14:52Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Module 2, Lab 2, and the Lab 2 solution still teach `Missing directory: xbrief/` as a 0.119.2 known false negative | verified | `git grep` at `f4650085e02f8d2a32f2d3b6486d80b426c4cf37` on those three files |\n| `scripts/verify-modules-2-3.mjs` fail-closes unless those files label that false negative | verified | `git show` of that script lines 410-411 at the same SHA |\n| A pin-matched Lab 2 doctor run emits `canonical-vendored-npm-signpost` and not `Missing directory: xbrief/` | verified | pain-audit 5734258961 disposable init+`doctor --full` replay; engine `@deftai/directive-core@0.119.2` |\n| `relieves: P1` on lean 5734169408 is independently supported | verified | pain-audit 5734258961 with `audit-targets: pain-P1`; footnote-only follow-through; no blocking finding |\n\n",
+          "id": 5734268156,
+          "html_url": "https://github.com/deftai/directive-training/issues/19#issuecomment-5734268156",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:14:53Z",
+          "updated_at": "2026-09-18T18:14:53Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nA pin-matched Lab 2 doctor run does not emit the taught xbrief missing-directory false negative. It emits the vendored-npm signpost. The accepted harvest recuts the three learner files and the Modules 2-3 verifier together, keeps classify-what-appeared as the outcome, and locks that live warning in CI.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5734169408\nverified-claims table 5734268156\n\n",
+          "id": 5734269672,
+          "html_url": "https://github.com/deftai/directive-training/issues/19#issuecomment-5734269672",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:15:01Z",
+          "updated_at": "2026-09-18T18:15:01Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5501852437,
+        "origin": "deftai/directive-training#19",
+        "id": "github.issue.5501852437"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "a4da17ce12ca4b9b07fec12d9a0d5a7b97e7ac71b19a31c595d62efe5ab984da"
+      },
+      "kind": "story",
+      "swarm": {
+        "file_scope": [
+          "curriculum/modules/02-installation-and-anatomy.md",
+          "labs/02-disposable-initialization.md",
+          "solutions/lab-02-disposable-initialization.md",
+          "scripts/verify-modules-2-3.mjs",
+          "references/SOURCE-NOTES.md",
+          "references/SOURCE-BASELINE.md",
+          ".github/workflows",
+          "CHANGELOG.md",
+          "xbrief/active/2026-09-20-19-lab-2s-documented-doctor-known-false-negative-does-not-repro.xbrief.json"
+        ]
+      }
+    },
+    "id": "github.issue.5501852437"
+  },
+  "approvedRepos": [
+    "deftai/directive-training"
+  ],
+  "unknownPaths": [
+    "metadata.intended_placement",
+    "metadata.issueCommentThread",
+    "metadata.kind",
+    "metadata.x-directive/admitted-target-digest",
+    "metadata.x-directive/plan-id"
+  ]
+}
