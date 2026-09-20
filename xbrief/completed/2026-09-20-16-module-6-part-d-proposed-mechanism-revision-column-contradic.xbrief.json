@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #16",
-    "updated": "2026-09-20T16:46:01Z"
+    "updated": "2026-09-20T20:31:59Z"
   },
   "plan": {
     "title": "Module 6 Part D: 'Proposed mechanism revision' column contradicts its own rubric and needs Module 9 knowledge",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Module 6 Part D heads its fourth routing-matrix column `Proposed mechanism revision`, and nine statements across the module treat that cell as an identifier the learner names — `NS-INGEST-R2`. The solution cell and `scripts/verify-module-6.mjs` instead require a Module 9 style redesign sentence the course has not taught by Module 6. The accepted remedy keeps the published identifier reading and recuts the solution cell and the verifier together so the hidden strengthening is removed rather than relocated.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/16",
@@ -19,53 +19,94 @@
     "items": [
       {
         "title": "Keep the column as an identifier. The route-row value is `NS-INGEST-R2`. Do not rename the header.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
         "narrative": {
           "Acceptance": "The `Proposed mechanism revision` column header stays unchanged and the route row shows the identifier `NS-INGEST-R2`. The change record frames the defect as a hidden strengthening, because the published rubric names the revision while the solution and verifier demanded an untaught Module 9 clearance sentence.",
           "Traces": "Accepted bound remedy on deftai/directive-training#16, comment 5734130226, confirmed by parent synthesis 5734252947 and verified-claims table 5734251210; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-6; npm run test:module-6; PR #25; merge f0213e282ad5",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       },
       {
         "title": "Recut `solutions/module-06-creating-well-shaped-work.md` cell 4 to that identifier. Do not move the redesign sentence into Safe next action. Keep column 5 as the already-written hold-and-route action.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
         "narrative": {
           "Acceptance": "Cell 4 of the routing matrix in the Module 6 solution shows that identifier, the redesign sentence is deleted rather than relocated, and column 5 keeps the hold-and-route action it already shows.",
           "Traces": "Accepted bound remedy on deftai/directive-training#16, comment 5734130226, confirmed by parent synthesis 5734252947 and verified-claims table 5734251210; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-6; npm run test:module-6; PR #25; merge f0213e282ad5",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       },
       {
         "title": "Recut `scripts/verify-module-6.mjs` and `scripts/verify-module-6.test.mjs` with the cell: require the exact identifier, reject a redesign sentence, keep `Not applicable.` as the non-route fill. Reuse the Module 9 Target-revision exact-value shape rather than a new routing grammar.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
         "narrative": {
           "Acceptance": "When the revision cell holds a redesign sentence, `npm run check:module-6` fails; when it holds the exact identifier, the check returns success; and `Not applicable.` remains accepted as the non-route fill. The assertion reuses the Module 9 Target-revision exact-value shape rather than a new routing grammar.",
           "Traces": "Accepted bound remedy on deftai/directive-training#16, comment 5734130226, confirmed by parent synthesis 5734252947 and verified-claims table 5734251210; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-6; npm run test:module-6; PR #25; merge f0213e282ad5",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       },
       {
         "title": "Extend self-assessment key item 4 so it names the revision-column field/value pair.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:4",
         "narrative": {
           "Acceptance": "Self-assessment key item 4 shows the revision-column field and its value as a pair, so the learner can tell which cell the answer scores.",
           "Traces": "Accepted bound remedy on deftai/directive-training#16, comment 5734130226, confirmed by parent synthesis 5734252947 and verified-claims table 5734251210; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-6; npm run test:module-6; PR #25; merge f0213e282ad5",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       },
       {
         "title": "Add a Module 6 Terminology row and a glossary entry: Proposed mechanism revision is the identifier of the routed target, not a redesign sentence.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:5",
         "narrative": {
           "Acceptance": "Module 6 Terminology shows a row and the glossary shows an entry, each defining Proposed mechanism revision as the identifier of the routed target, and neither displays it as a redesign sentence.",
           "Traces": "Accepted bound remedy on deftai/directive-training#16, comment 5734130226, confirmed by parent synthesis 5734252947 and verified-claims table 5734251210; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-6; npm run test:module-6; PR #25; merge f0213e282ad5",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
+      },
+      {
+        "id": "clause:6",
+        "title": "clause:6",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "npm run check:module-6; npm run test:module-6; PR #25; merge f0213e282ad5 — CHANGELOG frames the defect as a hidden strengthening",
+          "recorded_at": "2026-09-20T20:31:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       }
     ],
     "tags": [
@@ -496,9 +537,33 @@
         "size": "small",
         "file_scope_confidence": "high",
         "model_tier": "medium"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 25,
+        "prBase": null,
+        "mergeCommit": "f0213e282ad5",
+        "deliveryBranch": "master",
+        "deliveryCommit": "99a6d1d376c5139284a00c2245c3df2c8b5b6121",
+        "verifiedAt": "2026-09-20T20:31:59Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:claude:v1:NGRhNWExNDQtM2E1My00YjY5LTkzNTItNDU5OTc4MjgxMmFl"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-20T20:31:59Z",
+      "completedSessionId": "host:claude:v1:NGRhNWExNDQtM2E1My00YjY5LTkzNTItNDU5OTc4MjgxMmFl",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-20T20:31:59Z"
       }
     },
     "id": "github.issue.5501656939",
-    "updated": "2026-09-20T16:46:01Z"
+    "updated": "2026-09-20T20:31:59Z"
   }
 }

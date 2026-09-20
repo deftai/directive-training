@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "deft.decision.v1",
+  "id": "dispatch-issues-15-16-17-19-20-as-a-three-wave-swarm-cohort-with",
+  "decision": "Dispatch issues 15/16/17/19/20 as a three-wave swarm cohort with a stop-at: pr-open worker envelope and a parent-retained merge path",
+  "governingRule": {
+    "description": "Envelope selection SLA (#3153): drive-to: merge-ready is the default story envelope; a deliberate stop-at: pr-open requires a named partner merge-path owner",
+    "path": ".deft/core/skills/deft-directive-swarm/references/core-phase-0.md",
+    "rfc2119": "MUST"
+  },
+  "alternativesConsidered": [
+    {
+      "option": "drive-to: merge-ready leaves owning the full path through merge -- impossible here, the only authorized account (dbcall2) is EMU-blocked on gh pr merge and gh pr comment, so a worker would exit thin DONE by construction"
+    },
+    {
+      "option": "All five dispatched in parallel -- swarm:readiness puts 15, 16 and 20 in one conflict group on curriculum/modules/06, solutions/module-06 and scripts/verify-module-6.*"
+    },
+    {
+      "option": "Serialize all five as sequential solo workers -- 17 and 19 share no files with the module-06 group, so serializing them costs three round trips for nothing"
+    }
+  ],
+  "whyWinner": "swarm:readiness derives waves 1={16,17,19}, 2={20}, 3={15} from declared file_scope, matching the operator-approved plan; stop-at: pr-open is the only envelope a worker can complete, with the parent conversation as named merge-path owner and the human performing merges",
+  "confidence": "high",
+  "activeScopeRefs": [],
+  "timestamp": "2026-09-20T16:54:53Z",
+  "revisitTrigger": "dbcall2 regains PR merge and comment rights, or a non-EMU account is authorized for this repo -- then the default drive-to: merge-ready envelope applies again",
+  "tags": [
+    "process"
+  ],
+  "relatedIssues": [
+    15,
+    16,
+    17,
+    19,
+    20
+  ]
+}
