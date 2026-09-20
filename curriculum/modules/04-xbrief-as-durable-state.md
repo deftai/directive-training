@@ -403,6 +403,9 @@ Answer without reopening the lesson, then compare with the explained solution.
 
 After a suggested first attempt, use the [explained solution](../../solutions/module-04-xbrief-as-durable-state.md).
 It includes every card, lifecycle verdict, self-assessment answer, and a retry route.
+The [self-assessment key](../../solutions/module-04-xbrief-as-durable-state.md#self-assessment-key)
+answers the five items above. It explains answers; the Completion evidence table remains
+the instrument that scores this module.
 No instructor approval or automation unlock is required.
 
 ## Navigation

@@ -574,7 +574,10 @@ Confidence alone is not completion evidence.
 
 After a suggested first attempt, use the [explained solution](../../solutions/module-06-creating-well-shaped-work.md).
 It provides complete fictional artifacts, the worked O6.4 semantic matrix, reasoning, valid
-alternatives, recovery, and a bounded retry. No instructor, review bot, account, or automation
+alternatives, recovery, and a bounded retry. The
+[self-assessment key](../../solutions/module-06-creating-well-shaped-work.md#self-assessment-key)
+answers the five items above. It explains answers; the Completion evidence table remains
+the instrument that scores this module. No instructor, review bot, account, or automation
 unlock is required.
 
 ## Navigation

@@ -209,7 +209,7 @@ git diff --check
 Also retain both earlier stale exits 1 and the source/projection reasoning. A screenshot of
 the final green output alone loses the recovery evidence.
 
-### Module 5 self-assessment answers
+## Self-assessment key
 
 1. **O5.1:** `xbrief/PROJECT-DEFINITION.xbrief.json` owns the
    `plan.architecture.codeStructure.modules[0].purpose` field. The verified local

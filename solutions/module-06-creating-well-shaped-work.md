@@ -362,7 +362,7 @@ An alternate does not pass if it requires a standalone specification file, inven
 | Directive computes mechanism-shaped status | The O6.4 decision depends on supplied semantic facts; Directive 0.119.5 records but does not decide it | Design-critique Stop 1 and ADR-005 |
 | No route means the same thing as insufficient evidence | The copy-only card supports a negative decision; the safety request lacks a judgeable target | O6.4 fixed packet |
 
-## Self-assessment answers
+## Self-assessment key
 
 1. **O6.1:** “Build query and interface” is horizontal because neither is a dispatcher
    result. The preview artifact, visible route details, named exclusions, and exact field

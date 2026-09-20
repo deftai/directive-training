@@ -264,7 +264,7 @@ this exercise makes no claim about failure-transition mechanics.
 | Historical chat has the same role as live intent | N cannot authorize work; Instruction 1 constrains present action | main — xBRIEF Persistence |
 | A generated registry cannot live inside a source artifact | A and L share a file but have different ownership | Project-definition regeneration contract |
 
-## Self-assessment answers
+## Self-assessment key
 
 1. **Specification, scope, and plan:** Specification describes project design; scope
    defines a bounded unit with acceptance and lifecycle; tactical plan describes present
