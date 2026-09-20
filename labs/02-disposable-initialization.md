@@ -10,7 +10,7 @@ it, inspect its anatomy, and preserve evidence without touching a business repos
 | Stable ID | `lab-02-disposable-initialization` |
 | Supports | Module 2 outcomes O2.1, O2.2, O2.3, and O2.4 |
 | Status | `learner-ready draft`; 0.119.5 path verified on macOS/zsh; Linux/bash and Windows/PowerShell are candidates pending native evidence |
-| Last verified | 2026-09-17 |
+| Last verified | 2026-09-20 |
 | Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Estimated duration | 25–35 minutes |
 | Fixture | [Fictional Northstar package](fixtures/02-disposable-initialization/package.json) |
@@ -602,10 +602,31 @@ if ($DoctorExit -ne 0 -or $ToolchainExit -ne 0) { throw 'diagnosis did not pass;
 **Checkpoint:** both exits are 0. Warnings may remain; record them exactly enough to identify
 the classification and recommendation, without copying unrelated environment data.
 
-Label this 0.119.5 **known false negative** if it appears: doctor prints
-`Missing directory: xbrief/` while `xbrief/PROJECT-DEFINITION.xbrief.json` is
-present. Preserve both observations; do not create another xBRIEF directory
-or weaken the diagnostic check.
+The pin-matched 0.119.5 replay prints one named warning, the provenance check
+`canonical-vendored-npm-signpost`:
+
+```text
+⚠ canonical-vendored-npm-signpost: Canonical-vendored install (.deft/core/) is not yet
+npm-managed. Post-freeze upgrades run via npm: install the engine with
+`npm i -g @deftai/directive@latest`, then run `directive migrate` to stamp provenance.
+```
+
+Its single recommended next action is a host-global engine install followed by a provenance
+migration. The block below is quoted evidence, not a step — do not run it:
+
+```text
+npm i -g @deftai/directive@latest
+directive migrate
+```
+
+**Boundary verdict:** outside this lab, on two counts. `npm i -g` mutates host-global state
+outside the disposable temporary parent, and `@latest` would move the install off the 0.119.5
+course pin. Record the check id, the message, the recommended action, and this verdict; then
+refuse the action and continue.
+
+Record what your own run printed, not what this page predicts. Diagnostic severity does not
+follow from a warning count, so do not use one as your pass condition, and do not copy a
+warning your run did not produce.
 
 **Keep as evidence:** version, both exits, toolchain pass, doctor classifications, and empty remote (O2.2, O2.4).
 

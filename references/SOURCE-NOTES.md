@@ -5,7 +5,10 @@ They are maintainer evidence, not a learner command reference.
 
 ## Verification context
 
-- Current-baseline verification date: 2026-09-20. Historical proofs below retain
+- Current-baseline verification date: 2026-09-20. The Lab 2 doctor path was replayed
+  on the pinned 0.119.5 engine on 2026-09-20; see
+  [Lab 2 doctor-warning replay (0.119.5)](#lab-2-doctor-warning-replay-01195).
+  Historical proofs below retain
   their original execution dates; each module section states its own source,
   content-contract, and runtime evidence boundary.
 - Host used for the current release bind and local probes: macOS with zsh and Node.js 24.20.0.
@@ -101,7 +104,12 @@ Do not teach that every `directive <verb> --help` succeeds. Start with `directiv
 `directive commands` to confirm registration, then test help for each verb before publishing
 its syntax.
 
-## Disposable consumer runtime proof
+## Historical disposable consumer runtime proof (0.112.0)
+
+This whole section is historical 0.112.0 evidence. Its doctor row records **two** warnings,
+including a missing `xbrief/` directory. That two-warning result does not describe the
+pinned 0.119.5 engine and must not be taught as current behavior; the current proof is
+[Lab 2 doctor-warning replay (0.119.5)](#lab-2-doctor-warning-replay-01195).
 
 The 2026-09-07 macOS/zsh proof `local-0.112.0-disposable-project-local-hook-full` used a fresh
 operating-system temporary parent, two Git repositories with no remotes, the fictional Module
@@ -120,7 +128,7 @@ fresh-directory reset. Neither attempt initialized or mutated the training worki
 | `./node_modules/.bin/directive init --yes --repo-root .` | 0 | Classified the Git-initialized directory as brownfield and created the consumer integration. |
 | Seven `git check-ignore` assertions | 0 each | Core, CLI adapter, cache, ritual, triage-cache, shared-USER, and dependency examples were ignored. |
 | Staged-plus-untracked allowlist and checkpoint | 0 | Inspected 138 unique paths, positively required the initialized anchors after staging, rejected no unexpected path, and committed through the local hook on `training/module-02` as disposable local commit `9e27626075148d7f56b8b0fa772306120c53709b`. |
-| `./node_modules/.bin/directive doctor --full --project-root .` | 0 | Reported two warnings: the canonical npm provenance/migrate signpost and a missing `xbrief/` directory despite an xBRIEF envelope. Warnings were recorded rather than treated as failure. |
+| `./node_modules/.bin/directive doctor --full --project-root .` | 0 | Historical 0.112.0 result: reported two warnings, the canonical npm provenance/migrate signpost and a missing `xbrief/` directory despite an xBRIEF envelope. Warnings were recorded rather than treated as failure. Superseded for teaching by the 0.119.5 replay below. |
 | `./node_modules/.bin/directive toolchain:check --consumer --project-root .` | 0 | Reported Git 2.50.1, GitHub CLI 2.88.1, Node.js 24.18.0, npm 11.16.0, and “All required tools available.” |
 | Literal clean/root/branch/remote acceptance | 0 | Both tracked diffs and complete porcelain status were empty; the canonical Git root matched the recorded attempt; branch remained `training/module-02`; remotes remained empty. |
 | Fresh-directory reset and archive loop | 0 | Preserved both disposable attempts, moved their exact parent to a new temporary archive, and resolved each archived Git root before confirming both remote lists were empty. |
@@ -175,6 +183,37 @@ Platform proof markers consumed by the focused verifier:
 PowerShell 7.6.5 on the macOS host supplied syntax inspection only. The bounded
 `windows-2022` job above proves the 0.112.0 baseline natively; the macOS-host inspection is
 separate and is not counted as native Windows evidence.
+
+## Lab 2 doctor-warning replay (0.119.5)
+
+Executed replay of the Lab 2 doctor path on the pinned engine, run 2026-09-20 on macOS
+(Darwin 25.6.0), zsh 5.9, Node.js 24.20.0, npm 11.19.0. It used a unique
+`$TMPDIR/3ci-directive-module-02.*` parent, a no-remote Git repository on
+`training/module-02`, the tracked Lab 2 fixture, an isolated public-registry `.npmrc` and
+lab-local npm cache, and the explicit project-local binary. It never ran inside the
+curriculum clone or any business repository. This row is the control for the Lab 2 and Lab 2
+solution `Last verified` dates; those dates are restamped only when this replay is re-run.
+
+| Probe | Exit | Relevant result |
+| --- | ---: | --- |
+| `./node_modules/.bin/directive --version` | 0 | `@deftai/directive (engine: @deftai/directive-core@0.119.5)`; installed CLI, core, content, and types all exactly 0.119.5. |
+| `./node_modules/.bin/directive init --yes --repo-root .` | 0 | Classified the Git-initialized directory as brownfield and created the consumer integration. |
+| `./node_modules/.bin/directive doctor --full --project-root .` | 0 | **Exactly one** warning: `canonical-vendored-npm-signpost`. |
+| `grep -n 'Missing directory' doctor-full.txt` | 1 | No match. The string is not merely absent — the 0.119.5 engine reserves `Missing directory: <dir>/` for framework-content and engine-deposit rows, and classifies lifecycle separately (`Missing project-lifecycle directory: xbrief/ at <path>`), so `Missing directory: xbrief/` is unemittable. |
+| Project-lifecycle row | 0 | `✓ Project-lifecycle: valid at <lab_root>/xbrief`. |
+| `./node_modules/.bin/directive toolchain:check --consumer --project-root .` | 0 | Git 2.50.1, gh 2.88.1, Node.js 24.20.0, npm 11.19.0, “All required tools available”. |
+
+Literal warning lines from that run:
+
+```text
+⚠ canonical-vendored-npm-signpost: Canonical-vendored install (.deft/core/) is not yet npm-managed. Post-freeze upgrades run via npm: install the engine with `npm i -g @deftai/directive@latest`, then run `directive migrate` to stamp provenance. See https://github.com/deftai/directive/blob/master/content/UPGRADING.md.
+⚠ System check completed with 1 warning(s).
+```
+
+The recommended action is host-global and pin-breaking, so the learner material carries it
+only as quoted evidence in a non-executable fence and records the out-of-boundary verdict.
+The Modules 2–3 platform jobs capture the same doctor output and fail when the emitted
+warning set differs from this one.
 
 ## Modules 4–5 verification
 

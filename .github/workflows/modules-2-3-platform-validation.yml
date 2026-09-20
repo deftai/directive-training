@@ -171,7 +171,11 @@ jobs:
           test "$(command -v deft)" = "$local_bin/deft"
           git commit -m 'checkpoint: initialize fictional Directive consumer'
 
-          "$directive_path" doctor --full --project-root .
+          # Capture doctor output and assert the expected 0.119.5 warning identity set (#19).
+          doctor_output="$lab_parent/doctor-full.txt"
+          "$directive_path" doctor --full --project-root . >"$doctor_output" 2>&1
+          cat "$doctor_output"
+          node "$GITHUB_WORKSPACE/scripts/assert-doctor-warning-set.mjs" "$doctor_output"
           "$directive_path" toolchain:check --consumer --project-root .
           node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.5" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.5")) process.exit(2)'
           node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.5") process.exit(2) }'
@@ -327,7 +331,11 @@ jobs:
           test "$(command -v deft)" = "$local_bin/deft"
           git commit -m 'checkpoint: initialize fictional Directive consumer'
 
-          "$directive_path" doctor --full --project-root .
+          # Capture doctor output and assert the expected 0.119.5 warning identity set (#19).
+          doctor_output="$lab_parent/doctor-full.txt"
+          "$directive_path" doctor --full --project-root . >"$doctor_output" 2>&1
+          cat "$doctor_output"
+          node "$GITHUB_WORKSPACE/scripts/assert-doctor-warning-set.mjs" "$doctor_output"
           "$directive_path" toolchain:check --consumer --project-root .
           node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.5" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.5")) process.exit(2)'
           node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.5") process.exit(2) }'
@@ -510,7 +518,11 @@ jobs:
           if ($resolvedDeft -ne $deftPath) { throw "project-local Deft hook runtime is no longer first on PATH" }
           git commit -m "checkpoint: initialize fictional Directive consumer"
 
-          & $directivePath doctor --full --project-root .
+          # Capture doctor output and assert the expected 0.119.5 warning identity set (#19).
+          $doctorOutput = Join-Path $labParent "doctor-full.txt"
+          & $directivePath doctor --full --project-root . *>&1 | Tee-Object -FilePath $doctorOutput -Encoding utf8
+          node (Join-Path $env:GITHUB_WORKSPACE "scripts/assert-doctor-warning-set.mjs") $doctorOutput
+          if ($LASTEXITCODE -ne 0) { throw "doctor warning set did not match the expected 0.119.5 set" }
           & $directivePath toolchain:check --consumer --project-root .
           node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.5" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.5")) process.exit(2)'
           node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.5") process.exit(2) }'
