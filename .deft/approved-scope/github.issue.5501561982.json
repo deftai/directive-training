@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "xbriefRelPath": "xbrief/active/2026-09-20-15-nine-of-twelve-modules-have-a-self-assessment-gate-with-no-a.xbrief.json",
   "planId": "github.issue.5501561982",
-  "approvedAt": "2026-09-20T19:35:30Z",
+  "approvedAt": "2026-09-20T20:12:27Z",
   "fileScope": [
     "CHANGELOG.md",
     "curriculum/modules/03-authority-and-context.md",
@@ -24,9 +24,9 @@
   "humanApproval": {
     "kind": "operator",
     "actor": "david",
-    "mintedAt": "2026-09-20T19:35:30Z",
+    "mintedAt": "2026-09-20T20:12:27Z",
     "mintedVia": "scope:record-approved-scope"
   },
-  "intentDigest": "671d6f017e59179f34639d1bff2c8a0171893dd4c97f7d961a4f0263fd939258",
+  "intentDigest": "79a04d7a5745d03f3e9aba8508e687411d826a071db4b690c2161b9626c713d3",
   "digestAlgo": "intent-extract-v1"
 }
