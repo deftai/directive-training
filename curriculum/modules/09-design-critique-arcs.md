@@ -89,6 +89,10 @@ and applicable gates.
 | Independent audit | Separate clearance of a load-bearing parent-introduced premise | Parent citation or self-approval |
 | Catalog chip | List-visible state such as `design-critique:ingest-ready` | Completed-arc clearance or authority to implement |
 | Completed-arc record | Synthesis record that cites the latest accepted lean and satisfies bind conditions | Ingest itself, activation, or implementation permission |
+| `blocks-the-design` | Finding class: the lean cannot bind as written | A sharpening or non-blocking finding, a severity label, or a tone complaint |
+| `sharpens-framing` | Finding class: the lean can bind, but the finding changes how it is stated or scoped | A blocking finding, or an optional wording preference |
+| `footnote` | Finding class: the finding carries no disposition weight | A finding that is wrong, unrecorded, or deleted |
+| Residual disagreement | Two critics may still disagree about a class; that is residual, not a defect | A contract defect, a tie-break vote, or a decision table of evidence |
 
 ## Mental model
 
@@ -372,6 +376,7 @@ the state.
 | `DC9-LEAN-01` binds itself | Parent citation was mistaken for independent clearance | Locate `reading=asserted` | Hold bind until `DC9-AUDIT-01`, then use corrected lean `DC9-LEAN-02` | Audit ID and cleared premise are explicit |
 | The chip is called synthesis or ingest clearance | List state replaced the completed-arc record | Compare `DC9-DECIDE-05` with `DC9-SYNTH-01` | Require an admitted record citing the latest lean | Chip, clearance, ingest, and authority occupy separate columns |
 | The same fingerprint is retried | Activity replaced disposition-changing progress | Inspect `DC9-DECIDE-02` | Record halt and preserve the residual | No silent retry or false synthesis claim |
+| F2 is classified `blocks-the-design` | A wrong authority statement was read as a missing mechanism | Compare the Catalog chip and Completed-arc record rows in Terminology with `DC9-FIND-02` | Apply the bindability test and write one sentence saying whether the lean can bind as written once the chip wording is corrected | F2 carries `sharpens-framing` with that one sentence recorded |
 
 ## Common misconceptions
 

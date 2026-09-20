@@ -193,6 +193,34 @@ export function verifyModule9(root = fileURLToPath(new URL("../", import.meta.ur
     "Module 9 decision packet must contain each decision card exactly once",
   );
 
+  const terminology = section(moduleProse, "Terminology");
+  for (const token of ["blocks-the-design", "sharpens-framing", "footnote"]) {
+    assert.ok(hasExactIdentifier(terminology, token), `Module 9 Terminology must define the finding class ${token} before the exercise`);
+  }
+  const normalizedTerminology = terminology.replaceAll("`", "").replace(/\s+/g, " ").toLowerCase();
+  for (const [phrase, message] of [
+    ["the lean cannot bind as written", "blocks-the-design must restate the pinned bind-as-written sentence"],
+    ["changes how it is stated or scoped", "sharpens-framing must restate the pinned restates-or-scopes sentence"],
+    ["carries no disposition weight", "footnote must restate the pinned no-disposition-weight sentence"],
+    ["residual, not a defect", "the finding classes must carry the residual-disagreement clause"],
+  ]) {
+    assert.ok(normalizedTerminology.includes(phrase), `Module 9 Terminology: ${message}`);
+  }
+
+  const f2RecoveryRow = section(moduleProse, "Expected failures and recovery")
+    .split("\n")
+    .find((line) => line.includes("F2") && line.includes("blocks-the-design"));
+  assert.ok(f2RecoveryRow, "Module 9 expected failures must recover the F2 blocks-the-design misclassification");
+  assert.match(f2RecoveryRow, /Catalog chip[^|]*Completed-arc record[^|]*Terminology|Terminology[^|]*Catalog chip[^|]*Completed-arc record/i, "Module 9 F2 recovery row must point at chip-versus-record in Terminology");
+  assert.match(f2RecoveryRow, /one sentence[^|]*bind as written/i, "Module 9 F2 recovery row must require one sentence applying the bindability test");
+
+  const f2CompareRow = section(solutionProse, "Compare with your attempt")
+    .split("\n")
+    .find((line) => line.includes("F2") && line.includes("blocks-the-design"));
+  assert.ok(f2CompareRow, "Module 9 solution Compare must contrast the F2 blocks-the-design misclassification");
+  assert.match(f2CompareRow, /Terminology/, "Module 9 F2 compare row must send the learner back to Terminology");
+  assert.match(f2CompareRow, /one sentence[^|]*bindability test/i, "Module 9 F2 compare row must require one sentence applying the bindability test");
+
   const exercise = section(moduleProse, "Exercise");
   const normalizedExercise = exercise.replace(/\s+/g, " ").toLowerCase();
   for (const phrase of [

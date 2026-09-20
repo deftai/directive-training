@@ -147,3 +147,75 @@ test("rejects a runtime-guaranteed inertness claim", (t) => {
   ));
   assert.throws(() => verifyModule9(root), /fixture inertness boundary/);
 });
+
+test("rejects a Terminology table that drops the blocks-the-design class", (t) => {
+  const root = changedCopy(t, "curriculum/modules/09-design-critique-arcs.md", (body) => body.replace(
+    "| `blocks-the-design` | Finding class:",
+    "| `blocking` | Finding class:",
+  ));
+  assert.throws(() => verifyModule9(root), /must define the finding class blocks-the-design/);
+});
+
+test("rejects a Terminology table that drops the sharpens-framing class", (t) => {
+  const root = changedCopy(t, "curriculum/modules/09-design-critique-arcs.md", (body) => body.replace(
+    "| `sharpens-framing` | Finding class:",
+    "| `sharpening` | Finding class:",
+  ));
+  assert.throws(() => verifyModule9(root), /must define the finding class sharpens-framing/);
+});
+
+test("rejects a Terminology table that drops the footnote class", (t) => {
+  const root = changedCopy(t, "curriculum/modules/09-design-critique-arcs.md", (body) => body.replace(
+    "| `footnote` | Finding class:",
+    "| `minor` | Finding class:",
+  ));
+  assert.throws(() => verifyModule9(root), /must define the finding class footnote/);
+});
+
+test("rejects a blocks-the-design row without the bind-as-written meaning", (t) => {
+  const root = changedCopy(t, "curriculum/modules/09-design-critique-arcs.md", (body) => body.replace(
+    "the lean cannot bind as written",
+    "the finding is severe",
+  ));
+  assert.throws(() => verifyModule9(root), /must restate the pinned bind-as-written sentence/);
+});
+
+test("rejects a sharpens-framing row without the restates-or-scopes meaning", (t) => {
+  const root = changedCopy(t, "curriculum/modules/09-design-critique-arcs.md", (body) => body.replace(
+    "changes how it is stated or scoped",
+    "is worth mentioning",
+  ));
+  assert.throws(() => verifyModule9(root), /must restate the pinned restates-or-scopes sentence/);
+});
+
+test("rejects a footnote row without the no-disposition-weight meaning", (t) => {
+  const root = changedCopy(t, "curriculum/modules/09-design-critique-arcs.md", (body) => body.replace(
+    "carries no disposition weight",
+    "is a small remark",
+  ));
+  assert.throws(() => verifyModule9(root), /must restate the pinned no-disposition-weight sentence/);
+});
+
+test("rejects finding classes taught without the residual-disagreement clause", (t) => {
+  const root = changedCopy(t, "curriculum/modules/09-design-critique-arcs.md", (body) => body.replace(
+    "that is residual, not a defect",
+    "the arc must escalate",
+  ));
+  assert.throws(() => verifyModule9(root), /must carry the residual-disagreement clause/);
+});
+
+test("rejects a missing F2 blocks-the-design recovery row", (t) => {
+  const root = changedCopy(t, "curriculum/modules/09-design-critique-arcs.md", (body) => body.replace(
+    /^\| F2 is classified `blocks-the-design`.*\n/m,
+    "",
+  ));
+  assert.throws(() => verifyModule9(root), /must recover the F2 blocks-the-design misclassification/);
+});
+
+test("rejects a missing F2 solution compare row", (t) => {
+  const root = changedCopy(t, "solutions/module-09-design-critique-arcs.md", (body) => body.replace(
+    /^\| F2 class \|.*\n/m,
+    "",
+  ));
+  assert.throws(() => verifyModule9(root), /must contrast the F2 blocks-the-design misclassification/);
+});

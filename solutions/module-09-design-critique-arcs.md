@@ -217,6 +217,7 @@ applicable gates.
 | Take map | F1/F2/F3 each have one class and take | Agreement or silence replaced adjudication | Add missing consequence and take |
 | Audit | Parent premise remains asserted until independent clearance | Citation was treated as self-clearance | Hold bind and cite `DC9-AUDIT-01` |
 | Decisions | Each card uses only its controlling evidence | A chip or activity label became authority | Rebuild the evidence/authority columns |
+| F2 class | F2 is `sharpens-framing`: the lean can bind once the chip wording is corrected | F2 was called `blocks-the-design` because a wrong authority statement looked like a missing mechanism | Reread the Catalog chip and Completed-arc record rows in the Module 9 Terminology table, then write one sentence applying the bindability test |
 
 ## Valid alternatives
 
