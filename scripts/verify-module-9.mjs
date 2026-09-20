@@ -193,33 +193,84 @@ export function verifyModule9(root = fileURLToPath(new URL("../", import.meta.ur
     "Module 9 decision packet must contain each decision card exactly once",
   );
 
-  const terminology = section(moduleProse, "Terminology");
-  for (const token of ["blocks-the-design", "sharpens-framing", "footnote"]) {
-    assert.ok(hasExactIdentifier(terminology, token), `Module 9 Terminology must define the finding class ${token} before the exercise`);
-  }
-  const normalizedTerminology = terminology.replaceAll("`", "").replace(/\s+/g, " ").toLowerCase();
-  for (const [phrase, message] of [
-    ["the lean cannot bind as written", "blocks-the-design must restate the pinned bind-as-written sentence"],
-    ["changes how it is stated or scoped", "sharpens-framing must restate the pinned restates-or-scopes sentence"],
-    ["carries no disposition weight", "footnote must restate the pinned no-disposition-weight sentence"],
-    ["residual, not a defect", "the finding classes must carry the residual-disagreement clause"],
+  const terminologyRows = tableRows(
+    section(moduleProse, "Terminology"),
+    ["Term", "Meaning in this module", "Do not confuse it with"],
+    "Module 9 terminology table",
+  );
+  const terminologyMeaning = (term) => {
+    const row = terminologyRows.find((cells) => cells[0].replaceAll("`", "").trim() === term);
+    assert.ok(row, `Module 9 Terminology must define the finding class ${term} before the exercise`);
+    return row[1].replaceAll("`", "").replace(/\s+/g, " ").trim().toLowerCase();
+  };
+  for (const [term, checks] of [
+    ["blocks-the-design", [
+      [false, /\bthe lean can bind\b/, "the blocks-the-design meaning cell must not carry the sharpens-framing meaning"],
+      [true, /\bthe lean cannot bind as written\b/, "blocks-the-design must restate the pinned bind-as-written sentence"],
+    ]],
+    ["sharpens-framing", [
+      [false, /\bcannot bind\b/, "the sharpens-framing meaning cell must not carry the blocks-the-design meaning"],
+      [true, /\bthe lean can bind\b/, "sharpens-framing must keep the can-bind condition in its own meaning cell"],
+      [true, /\bchanges how it is stated or scoped\b/, "sharpens-framing must restate the pinned restates-or-scopes sentence"],
+    ]],
+    ["footnote", [
+      [false, /\bbind\b/, "the footnote meaning cell must not carry a bindability claim"],
+      [true, /\bcarries no disposition weight\b/, "footnote must restate the pinned no-disposition-weight sentence"],
+    ]],
+    ["Residual disagreement", [
+      [true, /\bresidual, not a defect\b/, "the finding classes must carry the residual-disagreement clause"],
+    ]],
   ]) {
-    assert.ok(normalizedTerminology.includes(phrase), `Module 9 Terminology: ${message}`);
+    const meaning = terminologyMeaning(term);
+    for (const [required, pattern, message] of checks) {
+      if (required) assert.match(meaning, pattern, `Module 9 Terminology: ${message}`);
+      else assert.doesNotMatch(meaning, pattern, `Module 9 Terminology: ${message}`);
+    }
   }
 
-  const f2RecoveryRow = section(moduleProse, "Expected failures and recovery")
-    .split("\n")
-    .find((line) => line.includes("F2") && line.includes("blocks-the-design"));
-  assert.ok(f2RecoveryRow, "Module 9 expected failures must recover the F2 blocks-the-design misclassification");
-  assert.match(f2RecoveryRow, /Catalog chip[^|]*Completed-arc record[^|]*Terminology|Terminology[^|]*Catalog chip[^|]*Completed-arc record/i, "Module 9 F2 recovery row must point at chip-versus-record in Terminology");
-  assert.match(f2RecoveryRow, /one sentence[^|]*bind as written/i, "Module 9 F2 recovery row must require one sentence applying the bindability test");
+  const recoveryRows = tableRows(
+    section(moduleProse, "Expected failures and recovery"),
+    ["Symptom", "Likely cause", "Confirm with", "Recovery", "Retry evidence"],
+    "Module 9 expected failures table",
+  );
+  const f2Recovery = recoveryRows.find((cells) => cells[0].includes("F2") && cells[0].includes("blocks-the-design"));
+  assert.ok(f2Recovery, "Module 9 expected failures must recover the F2 blocks-the-design misclassification");
+  assert.match(
+    f2Recovery[2],
+    /Catalog chip[^\n]*Completed-arc record[^\n]*Terminology|Terminology[^\n]*Catalog chip[^\n]*Completed-arc record/i,
+    "Module 9 F2 recovery row must point at chip-versus-record in Terminology",
+  );
+  for (const [pattern, message] of [
+    [/\bas[- ]written\b/i, "must name the as-written draft as the classified state"],
+    [/\bcompleted-arc record\b/i, "must ground the class in the packet's completed-arc record requirement"],
+    [/\bauthority statement\b/i, "must say F2 corrects the authority statement"],
+    [/\bno bind condition\b/i, "must say F2 changes no bind condition"],
+    [/\bone sentence\b/i, "must require one recorded sentence"],
+  ]) {
+    assert.match(f2Recovery[3], pattern, `Module 9 F2 recovery row ${message}`);
+  }
+  assert.match(f2Recovery[4], /sharpens-framing/, "Module 9 F2 recovery row must land on sharpens-framing");
 
-  const f2CompareRow = section(solutionProse, "Compare with your attempt")
-    .split("\n")
-    .find((line) => line.includes("F2") && line.includes("blocks-the-design"));
-  assert.ok(f2CompareRow, "Module 9 solution Compare must contrast the F2 blocks-the-design misclassification");
-  assert.match(f2CompareRow, /Terminology/, "Module 9 F2 compare row must send the learner back to Terminology");
-  assert.match(f2CompareRow, /one sentence[^|]*bindability test/i, "Module 9 F2 compare row must require one sentence applying the bindability test");
+  const compareRows = tableRows(
+    section(solutionProse, "Compare with your attempt"),
+    ["Compare", "Match means", "Difference means", "Next action"],
+    "Module 9 solution compare table",
+  );
+  const f2Compare = compareRows.find((cells) => cells[0].includes("F2"));
+  assert.ok(
+    f2Compare && f2Compare[2].includes("blocks-the-design"),
+    "Module 9 solution Compare must contrast the F2 blocks-the-design misclassification",
+  );
+  for (const [pattern, message] of [
+    [/sharpens-framing/, "must state the correct F2 class"],
+    [/\bas[- ]written\b/i, "must name the as-written draft as the classified state"],
+    [/\bcompleted-arc record\b/i, "must cite the packet's completed-arc record requirement"],
+    [/\bno bind condition\b/i, "must say no bind condition changes"],
+  ]) {
+    assert.match(f2Compare[1], pattern, `Module 9 F2 compare row ${message}`);
+  }
+  assert.match(f2Compare[3], /Terminology/, "Module 9 F2 compare row must send the learner back to Terminology");
+  assert.match(f2Compare[3], /one sentence[^\n]*as[- ]written/i, "Module 9 F2 compare row must require one sentence about the as-written draft");
 
   const exercise = section(moduleProse, "Exercise");
   const normalizedExercise = exercise.replace(/\s+/g, " ").toLowerCase();

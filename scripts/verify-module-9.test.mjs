@@ -219,3 +219,34 @@ test("rejects a missing F2 solution compare row", (t) => {
   ));
   assert.throws(() => verifyModule9(root), /must contrast the F2 blocks-the-design misclassification/);
 });
+
+test("rejects swapped blocking and sharpening meanings", (t) => {
+  const root = changedCopy(t, "curriculum/modules/09-design-critique-arcs.md", (body) => body
+    .replace("| `blocks-the-design` | Finding class: the lean cannot bind as written |", "| `blocks-the-design` | Finding class: the lean can bind, but the finding changes how it is stated or scoped |")
+    .replace("| `sharpens-framing` | Finding class: the lean can bind, but the finding changes how it is stated or scoped |", "| `sharpens-framing` | Finding class: the lean cannot bind as written |"));
+  assert.throws(() => verifyModule9(root), /blocks-the-design meaning cell must not carry the sharpens-framing meaning/);
+});
+
+test("rejects a sharpens-framing meaning that drops the can-bind condition", (t) => {
+  const root = changedCopy(t, "curriculum/modules/09-design-critique-arcs.md", (body) => body.replace(
+    "Finding class: the lean can bind, but the finding changes how it is stated or scoped",
+    "Finding class: the finding changes how it is stated or scoped",
+  ));
+  assert.throws(() => verifyModule9(root), /sharpens-framing must keep the can-bind condition in its own meaning cell/);
+});
+
+test("rejects an F2 recovery row that classifies the repaired draft", (t) => {
+  const root = changedCopy(t, "curriculum/modules/09-design-critique-arcs.md", (body) => body.replace(
+    "Classify `NS-INGEST-R2` as written, not the repaired draft, and write one sentence recording that the as-written draft already carries the completed-arc record requirement, so F2 corrects its authority statement and changes no bind condition",
+    "Apply the bindability test and write one sentence saying whether the lean can bind once the chip wording is corrected",
+  ));
+  assert.throws(() => verifyModule9(root), /F2 recovery row must name the as-written draft as the classified state/);
+});
+
+test("rejects an F2 compare row that drops the completed-arc record reasoning", (t) => {
+  const root = changedCopy(t, "solutions/module-09-design-critique-arcs.md", (body) => body.replace(
+    "`NS-INGEST-R2` as written already carries the completed-arc record requirement, so no bind condition changes and F2 only corrects",
+    "`NS-INGEST-R2` as written is fine once you correct",
+  ));
+  assert.throws(() => verifyModule9(root), /F2 compare row must cite the packet's completed-arc record requirement/);
+});
