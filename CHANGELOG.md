@@ -14,9 +14,12 @@
   named vehicle recut is an adjacent practical step, Lab 7 Task 5, which runs
   `xbrief:verify` against the exact learner-authored file inside the existing
   disposable guarded repository. O6.2 completion evidence now retains the artifact
-  path, the exact command, the exit code, and the result. Structural proof and the
-  Module 6 comparison rubric stay separate surfaces, `xbrief:preflight` and `doctor`
-  are refused as the authoring-validity pass, both Lab 7 supplied scopes are kept,
+  path, the exact command, the exit code, and the result; Task 5 brackets the check
+  with `set +e` / `set -e` so a failing structural run keeps its evidence under the
+  lab's `set -eu` shell, and the PowerShell route writes the same durable record.
+  Structural proof and the Module 6 comparison rubric stay separate surfaces,
+  `xbrief:preflight` and `doctor` are refused as the authoring-validity pass,
+  both Lab 7 supplied scopes are kept,
   and a green structural result grants no promotion, activation, or implementation
   authority (#20).
 - A required design-critique learning path with a scored Module 6 routing gate,

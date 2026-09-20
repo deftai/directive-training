@@ -157,8 +157,12 @@ function fixture(t) {
     "",
     "```sh",
     'authored="$first_root/xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json"',
-    'node "$first_root/node_modules/.bin/directive" xbrief:verify -- --format json --out "$authored" --style scope --project-root "$first_root"',
+    'authored_command="node $first_root/node_modules/.bin/directive xbrief:verify -- --format json --out $authored --style scope --project-root $first_root"',
+    "set +e",
+    'node "$first_root/node_modules/.bin/directive" xbrief:verify -- --format json --out "$authored" --style scope --project-root "$first_root" > "$evidence/authored-verify.txt" 2>&1',
     "authored_exit=$?",
+    "set -e",
+    `printf 'path=%s\\ncommand=%s\\nexit=%s\\n' "$authored" "$authored_command" "$authored_exit" >> "$evidence/authored-verify.txt"`,
     'test -f "$first_root/xbrief/completed/2026-01-15-fictional-delivery.xbrief.json"',
     'test -f "$first_root/xbrief/cancelled/2026-01-15-fictional-cancel.xbrief.json"',
     "```",
@@ -212,7 +216,7 @@ for (const [path, headings] of [[module6, moduleHeadings], [solution6, solutionH
   for (const heading of headings) {
     test(`rejects missing ${heading} in ${path}`, (t) => {
       const files = fixture(t);
-      files.change(path, (body) => body.replace(`## ${heading}`, "## Unrelated section"));
+      files.change(path, (body) => body.replace(`## ${heading}`, () => "## Unrelated section"));
       assert.throws(() => verifyModule6(files.root), /missing heading/);
     });
   }
@@ -233,7 +237,7 @@ for (const [path, headings] of [
           const end = next < 0 ? content.length : next;
           return content.slice(0, start) + content.slice(start, end).replace(outcome, () => `${outcome}-extra`) + content.slice(end);
         });
-        assert.throws(() => verifyModule6(files.root), new RegExp(`${heading}.*${outcome.replace(".", "\\.")}`));
+        assert.throws(() => verifyModule6(files.root), new RegExp(`${heading}.*${outcome.replace(".", () => "\\.")}`));
       });
     }
   }
@@ -248,28 +252,28 @@ test("rejects a near-match routing disposition", (t) => {
 for (const field of ["Artifact", "User-visible outcome", "Exclusions", "Literal inspection", "Dependency rationale", "Boundary rationale"]) {
   test(`rejects a missing exercise field: ${field}`, (t) => {
     const files = fixture(t);
-    files.change(module6, (body) => body.replace(field, "Missing field"));
+    files.change(module6, (body) => body.replace(field, () => "Missing field"));
     assert.throws(() => verifyModule6(files.root), /exercise.*(?:field|rationale)/i);
   });
 }
 
 test("rejects a proposal that is not schema 0.8 proposed candidate state", (t) => {
   const files = fixture(t);
-  files.change(module6, (body) => body.replace("xBRIEFInfo.version: 0.8", "xBRIEFInfo.version: 0.6"));
+  files.change(module6, (body) => body.replace("xBRIEFInfo.version: 0.8", () => "xBRIEFInfo.version: 0.6"));
   assert.throws(() => verifyModule6(files.root), /schema 0\.8|legacy xBRIEF/i);
-  files.change(module6, (body) => body.replace("xBRIEFInfo.version: 0.6", "xBRIEFInfo.version: 0.8").replace("plan.status: proposed", "plan.status: running"));
+  files.change(module6, (body) => body.replace("xBRIEFInfo.version: 0.6", () => "xBRIEFInfo.version: 0.8").replace("plan.status: proposed", () => "plan.status: running"));
   assert.throws(() => verifyModule6(files.root), /proposed/);
 });
 
 test("rejects loss of the proposal authority boundary", (t) => {
   const files = fixture(t);
-  files.change(module6, (body) => body.replace("not implementation authority", "implementation authority"));
+  files.change(module6, (body) => body.replace("not implementation authority", () => "implementation authority"));
   assert.throws(() => verifyModule6(files.root), /authority boundary/);
 });
 
 test("rejects loss of the two-to-five acceptance-criteria contract", (t) => {
   const files = fixture(t);
-  files.change(module6, (body) => body.replace("two to five criteria", "one criterion"));
+  files.change(module6, (body) => body.replace("two to five criteria", () => "one criterion"));
   assert.throws(() => verifyModule6(files.root), /two to five acceptance criteria/i);
 });
 
@@ -277,7 +281,7 @@ test("rejects a missing O6.4 routing matrix", (t) => {
   const files = fixture(t);
   files.change(module6, (body) => body.replace(
     "Fact pattern ID | Controlling supplied fact | Disposition | Proposed mechanism revision | Safe next action",
-    "Scenario summary",
+    () => "Scenario summary",
   ));
   assert.throws(() => verifyModule6(files.root), /O6\.4 routing matrix/i);
 });
@@ -286,7 +290,7 @@ test("rejects a presence-only O6.4 solution matrix", (t) => {
   const files = fixture(t);
   files.change(solution6, (body) => body.replace(
     "NS-INGEST-R2 changes how untrusted issue text enters the agent envelope and how clearance is recognized.",
-    "untrusted issue text clearance",
+    () => "untrusted issue text clearance",
   ));
   assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 controlling fact/i);
 });
@@ -295,14 +299,14 @@ test("rejects keyword-only O6.4 actions", (t) => {
   const files = fixture(t);
   files.change(solution6, (body) => body.replace(
     "Preserve proposed state and route NS-INGEST-R2 to design critique before promotion, activation, or implementation.",
-    "proposed route design critique promotion activation implementation",
+    () => "proposed route design critique promotion activation implementation",
   ));
   assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 safe next action/i);
 });
 
 test("rejects a route row without a proposed mechanism revision", (t) => {
   const files = fixture(t);
-  files.change(solution6, (body) => body.replace("| route | `NS-INGEST-R2` |", "| route | Not applicable. |"));
+  files.change(solution6, (body) => body.replace("| route | `NS-INGEST-R2` |", () => "| route | Not applicable. |"));
   assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 proposed mechanism revision/i);
 });
 
@@ -310,21 +314,21 @@ test("rejects a redesign sentence in the proposed mechanism revision column", (t
   const files = fixture(t);
   files.change(solution6, (body) => body.replace(
     "| route | `NS-INGEST-R2` |",
-    "| route | Revise NS-INGEST-R2 so quoted source content stays evidence and only an admitted completed-arc record supplies clearance. |",
+    () => "| route | Revise NS-INGEST-R2 so quoted source content stays evidence and only an admitted completed-arc record supplies clearance. |",
   ));
   assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 proposed mechanism revision/i);
 });
 
 test("rejects a route row whose revision cell names a different identifier", (t) => {
   const files = fixture(t);
-  files.change(solution6, (body) => body.replace("| route | `NS-INGEST-R2` |", "| route | `NS-INGEST-R3` |"));
+  files.change(solution6, (body) => body.replace("| route | `NS-INGEST-R2` |", () => "| route | `NS-INGEST-R3` |"));
   assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 proposed mechanism revision/i);
 });
 
 test("keeps `Not applicable.` as the non-route revision fill", (t) => {
   const files = fixture(t);
   assert.equal(verifyModule6(files.root).artifactCount, 15);
-  files.change(solution6, (body) => body.replace("| no route | Not applicable. |", "| no route | `NS-INGEST-R2` |"));
+  files.change(solution6, (body) => body.replace("| no route | Not applicable. |", () => "| no route | `NS-INGEST-R2` |"));
   assert.throws(() => verifyModule6(files.root), /M6-NOROUTE-01 must not invent a mechanism revision/i);
 });
 
@@ -332,14 +336,14 @@ test("rejects a worked proposal with fewer than two traced acceptance items", (t
   const files = fixture(t);
   files.change(solution6, (body) => body.replace(
     ',\n      { "id": "criterion-2", "title": "Preserve the boundary", "status": "proposed", "narrative": { "Acceptance": "Bounded exclusions", "Traces": "fictional-idea" } }',
-    "",
+    () => "",
   ));
   assert.throws(() => verifyModule6(files.root), /two to five traced acceptance items/i);
 });
 
 test("rejects a worked proposal without the required plan title", (t) => {
   const files = fixture(t);
-  files.change(solution6, (body) => body.replace('    "title": "Preview one delayed route",\n', ""));
+  files.change(solution6, (body) => body.replace('    "title": "Preview one delayed route",\n', () => ""));
   assert.throws(() => verifyModule6(files.root), /plan\.title/i);
 });
 
@@ -349,7 +353,7 @@ for (const [field, fragment] of [
 ]) {
   test(`rejects a worked proposal item without required ${field}`, (t) => {
     const files = fixture(t);
-    files.change(solution6, (body) => body.replace(fragment, ""));
+    files.change(solution6, (body) => body.replace(fragment, () => ""));
     assert.throws(() => verifyModule6(files.root), new RegExp(`item ${field}`, "i"));
   });
 }
@@ -370,24 +374,24 @@ for (const [label, addition, pattern] of [
 
 test("rejects stale and ranged Directive pins", (t) => {
   const files = fixture(t);
-  files.change(module6, (body) => body.replaceAll("0.119.5", "0.111.0"));
+  files.change(module6, (body) => body.replaceAll("0.119.5", () => "0.111.0"));
   assert.throws(() => verifyModule6(files.root), /exact Directive 0\.119\.5 baseline/);
-  files.change(module6, (body) => body.replaceAll("0.111.0", "0.119.5"));
-  files.change("package.json", (body) => body.replace('"0.119.5"', '"^0.119.5"'));
+  files.change(module6, (body) => body.replaceAll("0.111.0", () => "0.119.5"));
+  files.change("package.json", (body) => body.replace('"0.119.5"', () => '"^0.119.5"'));
   assert.throws(() => verifyModule6(files.root), /must pin @deftai\/directive exactly/);
 });
 
 test("requires durable Module 7 navigation without owning its lifecycle state", (t) => {
   const files = fixture(t);
-  files.change(module6, (body) => body.replace("[Module 7](07-scope-lifecycle.md)", "Module 7"));
+  files.change(module6, (body) => body.replace("[Module 7](07-scope-lifecycle.md)", () => "Module 7"));
   assert.throws(() => verifyModule6(files.root), /Module 7 navigation/);
 
   const solutionFiles = fixture(t);
-  solutionFiles.change(solution6, (body) => body.replace("[Module 7](../curriculum/modules/07-scope-lifecycle.md)", "Module 7"));
+  solutionFiles.change(solution6, (body) => body.replace("[Module 7](../curriculum/modules/07-scope-lifecycle.md)", () => "Module 7"));
   assert.throws(() => verifyModule6(solutionFiles.root), /Module 7 navigation/);
 
   const mapFiles = fixture(t);
-  mapFiles.change("curriculum/README.md", (body) => body.replace("[Module 7](modules/07-scope-lifecycle.md)", "Module 7"));
+  mapFiles.change("curriculum/README.md", (body) => body.replace("[Module 7](modules/07-scope-lifecycle.md)", () => "Module 7"));
   assert.throws(() => verifyModule6(mapFiles.root), /Module 7 course-map navigation/);
 });
 
@@ -409,10 +413,10 @@ for (const command of ["pwd", "git push origin main", "rm -rf /tmp/work", "gh pr
 
 test("requires Module 6 navigation and maintenance surfaces", (t) => {
   const files = fixture(t);
-  files.change("README.md", (body) => body.replace("06-creating-well-shaped-work.md", "05-sources-versus-projections.md"));
+  files.change("README.md", (body) => body.replace("06-creating-well-shaped-work.md", () => "05-sources-versus-projections.md"));
   assert.throws(() => verifyModule6(files.root), /Module 6 navigation/);
-  files.change("README.md", (body) => body.replace("05-sources-versus-projections.md", "06-creating-well-shaped-work.md"));
-  files.change("maintainers/CURRICULUM-MAINTENANCE.md", (body) => body.replace("npm run check:module-6", "npm test"));
+  files.change("README.md", (body) => body.replace("05-sources-versus-projections.md", () => "06-creating-well-shaped-work.md"));
+  files.change("maintainers/CURRICULUM-MAINTENANCE.md", (body) => body.replace("npm run check:module-6", () => "npm test"));
   assert.throws(() => verifyModule6(files.root), /maintenance.*check/i);
 });
 
@@ -420,73 +424,73 @@ for (const [label, path, mutate, pattern] of [
   [
     "an O6.2 outcome stripped of its schema-0.8 artifact requirement",
     module6,
-    (body) => body.replace("a schema-0.8 proposed-scope artifact", "a short note"),
+    (body) => body.replace("a schema-0.8 proposed-scope artifact", () => "a short note"),
     /schema-0\.8 proposed-scope artifact outcome/,
   ],
   [
     "an O6.2 outcome stripped of its authority boundary",
     module6,
-    (body) => body.replace("proposal is not implementation authority", "proposal is reviewable"),
+    (body) => body.replace("proposal is not implementation authority", () => "proposal is reviewable"),
     /authority boundary in its outcome text/,
   ],
   [
     "an unnamed vehicle recut",
     module6,
-    (body) => body.replace("[Lab 7](../../labs/07-scope-lifecycle.md) Task 5", "a later lab"),
+    (body) => body.replace("[Lab 7](../../labs/07-scope-lifecycle.md) Task 5", () => "a later lab"),
     /adjacent lab vehicle by link/,
   ],
   [
     "a structural check with no artifact path or project root",
     module6,
-    (body) => body.replace("`directive xbrief:verify -- --format json --out <your artifact path> --style scope --project-root <lab root>`", "`directive xbrief:verify`"),
+    (body) => body.replace("`directive xbrief:verify -- --format json --out <your artifact path> --style scope --project-root <lab root>`", () => "`directive xbrief:verify`"),
     /exact command with its artifact path and project root/,
   ],
   [
     "a dropped exit code in the retained evidence",
     module6,
-    (body) => body.replace("its **exit code**, and", "and"),
+    (body) => body.replace("its **exit code**, and", () => "and"),
     /must retain the exit code/,
   ],
   [
     "a dropped preflight and doctor refusal",
     module6,
-    (body) => body.replace("`xbrief:preflight` and `doctor` are not the authoring-validity pass.", "Preflight is the authoring-validity pass.").replace("- `xbrief:preflight` and `doctor` are not the authoring-validity pass.", "- Preflight is fine."),
+    (body) => body.replace("`xbrief:preflight` and `doctor` are not the authoring-validity pass.", () => "Preflight is the authoring-validity pass.").replace("- `xbrief:preflight` and `doctor` are not the authoring-validity pass.", () => "- Preflight is fine."),
     /refuse xbrief:preflight and doctor/,
   ],
   [
     "merged evidence surfaces",
     module6,
-    (body) => body.replace("| Surface | Proves | Does not prove |", "| One combined surface |"),
+    (body) => body.replace("| Surface | Proves | Does not prove |", () => "| One combined surface |"),
     /evidence surfaces must be split/,
   ],
   [
     "a rubric that no longer proves the authority boundary",
     module6,
-    (body) => body.replace("| Module 6 comparison rubric | Bounded strategy, observable acceptance, traces, and the absence of implementation authority | That the file parses |", "| Module 6 comparison rubric | Prose similarity | That the file parses |"),
+    (body) => body.replace("| Module 6 comparison rubric | Bounded strategy, observable acceptance, traces, and the absence of implementation authority | That the file parses |", () => "| Module 6 comparison rubric | Prose similarity | That the file parses |"),
     /comparison rubric must keep strategy/,
   ],
   [
     "a structural result that grants lifecycle authority",
     module6,
-    (body) => body.replace("A green structural result grants no promotion, no activation, and no implementation authority.", "A green structural result clears the scope for promotion."),
+    (body) => body.replace("A green structural result grants no promotion, no activation, and no implementation authority.", () => "A green structural result clears the scope for promotion."),
     /must grant no promotion, activation, or implementation authority/,
   ],
   [
     "a silently added outcome",
     module6,
-    (body) => body.replace("so no outcome is added or recut", "so outcome O6.5 is added"),
+    (body) => body.replace("so no outcome is added or recut", () => "so outcome O6.5 is added"),
     /whether a separate outcome was added or recut/,
   ],
   [
     "an O6.2 completion row without its exit code",
     module6,
-    (body) => body.replace("the exact command, the exit code, and the result", "the exact command and the result"),
+    (body) => body.replace("the exact command, the exit code, and the result", () => "the exact command and the result"),
     /completion evidence is missing the exit code/,
   ],
   [
     "an O6.2 completion row without a positive structural result",
     module6,
-    (body) => body.replace("`xbrief:verify` exits `0` against that exact artifact path.", "The artifact looks similar to the solution."),
+    (body) => body.replace("`xbrief:verify` exits `0` against that exact artifact path.", () => "The artifact looks similar to the solution."),
     /missing a positive xbrief:verify exit/,
   ],
   [
@@ -498,56 +502,74 @@ for (const [label, path, mutate, pattern] of [
   [
     "a solution without the structural conformance row",
     solution6,
-    (body) => body.replace("Structural conformance of the exact artifact", "Prose comparison"),
+    (body) => body.replace("Structural conformance of the exact artifact", () => "Prose comparison"),
     /structural conformance of the exact artifact as O6\.2 evidence/,
   ],
   [
     "a lab without the adjacent authoring task",
     lab7,
-    (body) => body.replace("### Task 5 — Author and structurally verify your own proposed scope", "### Task 5 — Optional reading"),
+    (body) => body.replace("### Task 5 — Author and structurally verify your own proposed scope", () => "### Task 5 — Optional reading"),
     /adjacent authoring task that consumes the O6\.2 artifact/,
   ],
   [
     "a lab task that does not name the Module 6 artifact",
     lab7,
-    (body) => body.replace("[Module 6](../curriculum/modules/06-creating-well-shaped-work.md)", "an earlier module"),
+    (body) => body.replace("[Module 6](../curriculum/modules/06-creating-well-shaped-work.md)", () => "an earlier module"),
     /must name the Module 6 artifact it consumes/,
   ],
   [
     "a lab that replaces a supplied scope instead of adding a third record",
     lab7,
-    (body) => body.replace("yours is a third record beside them", "replace one of them with yours"),
+    (body) => body.replace("yours is a third record beside them", () => "replace one of them with yours"),
     /add the learner record beside them/,
   ],
   [
     "a lab that allows promotion of the authored scope",
     lab7,
-    (body) => body.replace("- `xbrief:verify` is not a lifecycle move. Do not promote or activate your scope.", "- Promote your scope next."),
+    (body) => body.replace("- `xbrief:verify` is not a lifecycle move. Do not promote or activate your scope.", () => "- Promote your scope next."),
     /refuse promotion and activation of the authored scope/,
   ],
   [
     "a lab that silently adds an outcome",
     lab7,
-    (body) => body.replace("adds no Lab 7 outcome", "adds outcome O7.5"),
+    (body) => body.replace("adds no Lab 7 outcome", () => "adds outcome O7.5"),
     /must not silently create an outcome/,
   ],
   [
     "a structural check not bound to the learner-authored path",
     lab7,
-    (body) => body.replace('--out "$authored"', '--out "$first_root/xbrief/proposed/2026-01-15-fictional-delivery.xbrief.json"'),
+    (body) => body.replace('--out "$authored"', () => '--out "$first_root/xbrief/proposed/2026-01-15-fictional-delivery.xbrief.json"'),
     /against the exact learner-authored path/,
   ],
   [
     "a lab that drops the retained structural exit code",
     lab7,
-    (body) => body.replace("authored_exit=$?", "true"),
+    (body) => body.replace("authored_exit=$?", () => "true"),
     /must retain the structural exit code/,
   ],
   [
     "a lab that removes one supplied scope",
     lab7,
-    (body) => body.replace('test -f "$first_root/xbrief/cancelled/2026-01-15-fictional-cancel.xbrief.json"', "true"),
+    (body) => body.replace('test -f "$first_root/xbrief/cancelled/2026-01-15-fictional-cancel.xbrief.json"', () => "true"),
     /must keep its supplied scope record/,
+  ],
+  [
+    "a lab that runs the structural check under errexit",
+    lab7,
+    (body) => body.replace("set +e\n", () => ""),
+    /must suspend errexit around the structural check/,
+  ],
+  [
+    "a lab that never captures the exact structural command",
+    lab7,
+    (body) => body.replace("--out $authored --style scope --project-root $first_root", () => "--help"),
+    /must capture the exact structural command/,
+  ],
+  [
+    "a lab that drops the command from its retained evidence record",
+    lab7,
+    (body) => body.replace("command=%s\\n", () => ""),
+    /must persist the exact structural command/,
   ],
 ]) {
   test(`rejects ${label}`, (t) => {
@@ -559,6 +581,6 @@ for (const [label, path, mutate, pattern] of [
 
 test("requires the pinned Module 6 source-validation record", (t) => {
   const files = fixture(t);
-  files.change("references/SOURCE-NOTES.md", (body) => body.replace("## Module 6 source validation", "## Other notes"));
+  files.change("references/SOURCE-NOTES.md", (body) => body.replace("## Module 6 source validation", () => "## Other notes"));
   assert.throws(() => verifyModule6(files.root), /source[- ]validation/);
 });
