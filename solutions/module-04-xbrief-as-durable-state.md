@@ -266,22 +266,26 @@ this exercise makes no claim about failure-transition mechanics.
 
 ## Self-assessment key
 
-1. **Specification, scope, and plan:** Specification describes project design; scope
+Each answer names the outcome whose Completion-evidence row scores it; items 3 and 4 both
+join O4.3. The key explains answers. It does not score the module.
+
+1. **O4.1 — Specification, scope, and plan:** Specification describes project design; scope
    defines a bounded unit with acceptance and lifecycle; tactical plan describes present
    execution steps. The shared `plan` container does not erase these roles. B, C, and D
    supply the evidence.
-2. **Lifecycle:** `draft` belongs in `proposed/`, `blocked` in `active/`, and `cancelled`
-   in `cancelled/`. C's pending item is unfinished detail under a running scope. K's own
-   `plan.status: pending` conflicts with its active folder, as its failed preflight confirms.
-3. **Checkpoint:** E establishes the prior session's recorded resume point and scope
+2. **O4.2 — Lifecycle:** `draft` belongs in `proposed/`, `blocked` in `active/`, and
+   `cancelled` in `cancelled/`. C's pending item is unfinished detail under a running scope.
+   K's own `plan.status: pending` conflicts with its active folder, as its failed preflight
+   confirms.
+3. **O4.3 — Checkpoint:** E establishes the prior session's recorded resume point and scope
    reference. A new session verifies current project/scope state, live intent, applicable
    gates, and the actual test result before claiming completion.
-4. **Live intent and historical chat:** Instruction 1 withholds implementation without
-   erasing C's durable active state. N is an old summary with no present lifecycle or test
-   proof; the author's confidence does not make it the current contract.
-5. **Mixed ownership:** Project narratives such as A's Overview are authored identity;
-   registry entries such as L derive from scopes. Inspect C, preserve its correct running
-   state, regenerate L/M, and inspect agreement. Do not repair L alone.
+4. **O4.3 — Live intent and historical chat:** Instruction 1 withholds implementation
+   without erasing C's durable active state. N is an old summary with no present lifecycle
+   or test proof; the author's confidence does not make it the current contract.
+5. **O4.4 — Mixed ownership:** Project narratives such as A's Overview are authored
+   identity; registry entries such as L derive from scopes. Inspect C, preserve its correct
+   running state, regenerate L/M, and inspect agreement. Do not repair L alone.
 
 ## Retry plan
 

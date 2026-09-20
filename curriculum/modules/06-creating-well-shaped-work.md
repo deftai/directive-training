@@ -545,7 +545,8 @@ then recheck all four acceptance rows. No repository reset or cleanup is require
 ## Self-assessment
 
 Answer without reopening the lesson, then compare with your retained evidence and the
-explained solution.
+explained solution. Items 1-4 name the outcome whose Completion-evidence row scores them;
+item 5 is ungraded practice with no Completion-evidence row to join.
 
 1. **O6.1:** Why is “build the query and interface” horizontal? State one vertical outcome,
    its artifact, exclusions, and literal inspection.
@@ -559,8 +560,8 @@ explained solution.
    safe next action. Which field/value pair fills the route row's revision cell —
    `Proposed mechanism revision` = `NS-INGEST-R2` — and which lifecycle actions remain on
    hold?
-5. Why can static inspection complete this command-free worksheet but not prove executable
-   product behavior?
+5. *Ungraded practice.* Why can static inspection complete this command-free worksheet but
+   not prove executable product behavior? No Completion-evidence row scores this item.
 
 - **Ready to continue:** O6.1, O6.2, O6.3, and O6.4 each have passing retained evidence.
 - **Revisit one section:** the outcome is right but a field, rationale, or authority limit is

@@ -364,6 +364,9 @@ An alternate does not pass if it requires a standalone specification file, inven
 
 ## Self-assessment key
 
+Each answer names the outcome whose Completion-evidence row scores it; item 5 is ungraded
+practice. The key explains answers. It does not score the module.
+
 1. **O6.1:** “Build query and interface” is horizontal because neither is a dispatcher
    result. The preview artifact, visible route details, named exclusions, and exact field
    inspection form one vertical outcome.
@@ -377,8 +380,9 @@ An alternate does not pass if it requires a standalone specification file, inven
    clearance behavior; promotion, activation, and implementation remain held.
    `M6-NOROUTE-01` remains in ordinary proposal review because only copy changes.
    `M6-INSUFFICIENT-01` stops until the missing mechanism and target evidence are supplied.
-5. Static inspection proves what the scratch artifacts say. It cannot prove code responds to
-   an input; a real implementation needs focused behavioral checks.
+5. **Ungraded practice.** Static inspection proves what the scratch artifacts say. It cannot
+   prove code responds to an input; a real implementation needs focused behavioral checks.
+   No Completion-evidence row scores this item.
 
 ## Retry plan
 

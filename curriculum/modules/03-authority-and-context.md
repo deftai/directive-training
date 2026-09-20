@@ -384,7 +384,9 @@ re-check all ten rows. No instructor or environment cleanup is required.
 
 ## Self-assessment
 
-Answer from memory, then cite the relevant model section:
+Answer from memory, then cite the relevant model section. Items 1-4 name the outcome whose
+Completion-evidence row scores them; item 5 is ungraded practice with no Completion-evidence
+row to join.
 
 1. **O3.1:** Why can a product acceptance criterion and a testing rule both control the same
    change without one overriding the other?
@@ -394,8 +396,8 @@ Answer from memory, then cite the relevant model section:
    condition for mutation readiness. What does a completed xBRIEF contribute?
 4. **O3.4:** You are reviewing Markdown links and will not use GitHub. Which deep guidance do
    you load, and which do you defer?
-5. Write a focused question for a request that adds a second output format outside the active
-   scope.
+5. *Ungraded practice.* Write a focused question for a request that adds a second output
+   format outside the active scope. No Completion-evidence row scores this item.
 
 **Demonstrated:** every answer identifies category and source, keeps both authority axes
 separate, and escalates only material ambiguity. **Retry needed:** an answer relies on a total
