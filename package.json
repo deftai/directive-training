@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "test": "npm run test:content && npm run test:runtime",
-    "test:content": "node --test scripts/verify-modules-4-5.test.mjs scripts/verify-module-6.test.mjs scripts/verify-module-7.test.mjs scripts/verify-module-8.test.mjs scripts/verify-module-9.test.mjs scripts/verify-module-10.test.mjs scripts/verify-module-11.test.mjs scripts/verify-module-12.test.mjs scripts/verify-module-numbering-migration.test.mjs scripts/verify-capstone.test.mjs scripts/teaching-baseline.test.mjs",
+    "test:content": "node scripts/verify-modules-2-3.mjs && node --test scripts/verify-modules-4-5.test.mjs scripts/verify-module-6.test.mjs scripts/verify-module-7.test.mjs scripts/verify-module-8.test.mjs scripts/verify-module-9.test.mjs scripts/verify-module-10.test.mjs scripts/verify-module-11.test.mjs scripts/verify-module-12.test.mjs scripts/verify-module-numbering-migration.test.mjs scripts/verify-capstone.test.mjs scripts/teaching-baseline.test.mjs",
     "test:runtime": "node --test scripts/capstone-lab.test.mjs scripts/gates-lab.test.mjs scripts/implementation-lab.test.mjs scripts/lifecycle-lab.test.mjs scripts/linked-path-suite-boundary.test.mjs scripts/projection-lab-eol.test.mjs scripts/projection-lab.test.mjs scripts/restore-validation-deposit.test.mjs scripts/verify-symlink-capability.test.mjs scripts/verify-text-portability.test.mjs scripts/windows-shim.test.mjs",
     "check:cold-start-readme": "node scripts/verify-cold-start-readme.mjs",
     "check:modules-2-3": "node scripts/verify-modules-2-3.mjs",
