@@ -8,7 +8,7 @@
 | Supports | `CAP.1`, `CAP.2`, `CAP.3`, and `CAP.4` |
 | Status | Learner-ready |
 | Last verified | 2026-09-17 |
-| Directive baseline | Exact `@deftai/directive@0.119.2` CLI/core/content/types graph; [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
+| Directive baseline | Exact `@deftai/directive@0.119.5` CLI/core/content/types graph; [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
 | Execution runtime | Node.js `22 or newer`; the verified local macOS run used `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
 | Prerequisite | Modules 1–12, ending with [Module 12 — PR, Review, and Actual Completion](../curriculum/modules/12-review-and-completion.md) |
 | Lesson | [Capstone — End-to-End Solo Directive Lifecycle](../curriculum/capstone-end-to-end.md) |
@@ -107,7 +107,7 @@ Expected outer outputs:
 | Verb | Output |
 | --- | --- |
 | `create` | Unique absolute repository root |
-| `install` | `OK: installed Directive 0.119.2` |
+| `install` | `OK: installed Directive 0.119.5` |
 | `orient` | `"PASS"` |
 | `activate` | `"PASS"` |
 | `ready` | `"READY"` |
@@ -133,7 +133,7 @@ in `red.json.focused.exitCode` and
 
 Run the lab's Node 22-or-newer capability assertion before `create`. The helper creates a
 unique OS-temporary repository on `training/capstone` with no remote.
-`install` contacts the public npm registry, verifies the exact 0.119.2 graph,
+`install` contacts the public npm registry, verifies the exact 0.119.5 graph,
 deposits Directive, and creates the clean fixture checkpoint.
 
 `orientation.json` then binds the project, branch, empty remote, exact

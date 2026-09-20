@@ -35,6 +35,6 @@
     "test:linked-path-safety": "node scripts/verify-symlink-capability.mjs && node --test scripts/linked-path-safety.test.mjs"
   },
   "devDependencies": {
-    "@deftai/directive": "0.119.2"
+    "@deftai/directive": "0.119.5"
   }
 }

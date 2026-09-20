@@ -103,7 +103,7 @@ test("guard rejects a remote, wrong branch, and gate-definition edits", () => {
 
 test("full lab retains ordered red-green-refactor and aggregate diagnosis evidence", { timeout: 300_000 }, () => {
   const root = installAttempt(createAttempt());
-  assert.equal(verifyPin(root), "0.119.2");
+  assert.equal(verifyPin(root), "0.119.5");
 
   addAverageTest(root);
   assert.equal(recordRed(root).finalStatus, "EXPECTED_FAILURE");

@@ -8,15 +8,15 @@
 | Supports | O10.5 readiness, O10.6 red-green, O10.7 bounded scope, O10.8 paired evidence, O10.9 recovery |
 | Status | Learner-ready on macOS/zsh; Linux/bash and Windows/PowerShell remain candidates |
 | Last verified | 2026-09-17 |
-| Directive baseline | CLI/core/content/types `0.119.2`; [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | CLI/core/content/types `0.119.5`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 40–45 minutes, including install, implementation, evidence, and cleanup |
 | Platforms verified | macOS/zsh local baseline-upgrade suite; go-task 3.50.0 |
-| Candidate platforms | Linux/bash and Windows/PowerShell are not verified on 0.119.2 |
+| Candidate platforms | Linux/bash and Windows/PowerShell are not verified on 0.119.5 |
 
 The helper is course tooling, not a new Directive command.
 
 The helper retains a Windows command path, but its prior walkthrough used the old
-baseline. It remains a candidate until the complete 0.119.2 implementation route runs natively.
+baseline. It remains a candidate until the complete 0.119.5 implementation route runs natively.
 
 ## Goal and done condition
 
@@ -70,8 +70,8 @@ node "$lab_root/node_modules/.bin/directive" --version
 git -C "$lab_root" status --short
 ```
 
-**Pass:** the helper reports Directive 0.119.2, the explicit local CLI reports engine
-0.119.2, and status is empty. The fixture pins CLI/core/content/types exactly.
+**Pass:** the helper reports Directive 0.119.5, the explicit local CLI reports engine
+0.119.5, and status is empty. The fixture pins CLI/core/content/types exactly.
 
 The deposited Task surface belongs to that exact local install.
 Do not substitute a newer global executable.
@@ -81,7 +81,7 @@ Do not substitute a newer global executable.
 - Work only in the exact guarded temporary attempt.
 - Only `src/greeting.mjs` is mutable after readiness. The helper, tests,
   manifest, active scope, CLI wrapper, Git metadata, and evidence contract stay unchanged.
-- Keep branch `training/module-10`, exact 0.119.2 pins, one active/running
+- Keep branch `training/module-10`, exact 0.119.5 pins, one active/running
   story, and an empty remote list.
 - Do not add a remote, use credentials, push, open a pull request, merge,
   deploy, publish, release, or copy business/client data.
@@ -203,7 +203,7 @@ node "$helper" verify "$lab_root"
 | `verify` | 0 | `"PASS"` | O10.5–O10.9 |
 
 Linux/bash and Windows/PowerShell remain candidate paths. The Windows/PowerShell acceptance
-route appears below for native 0.119.2 revalidation.
+route appears below for native 0.119.5 revalidation.
 
 ## Evidence bundle
 

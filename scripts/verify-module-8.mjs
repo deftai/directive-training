@@ -27,10 +27,10 @@ const liveInstruction = /^(?:open|inspect|read|fetch|query) the live (?:GitHub )
 
 function exactBaseline(path, prose, heading) {
   const row = section(prose, heading).match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-  assert.ok(row?.includes("0.119.2"), `${path} must declare exact Directive 0.119.2`);
+  assert.ok(row?.includes("0.119.5"), `${path} must declare exact Directive 0.119.5`);
   assert.deepEqual(
     [...new Set(row.match(/\b\d+\.\d+\.\d+\b/g))],
-    ["0.119.2"],
+    ["0.119.5"],
     `${path} contains a stale or ranged Directive baseline`,
   );
 }
@@ -148,7 +148,7 @@ export function verifyModule8(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(notes, /^## Module 8 source validation\s*$/m, "SOURCE-NOTES is missing the Module 8 source validation record");
   const baseline = content.get("references/SOURCE-BASELINE.md");
   for (const token of [
-    "exact 0.119.2 package graph", "content/tasks/session.yml", "content/tasks/plan-sequence.yml",
+    "exact 0.119.5 package graph", "content/tasks/session.yml", "content/tasks/plan-sequence.yml",
     "content/tasks/triage-queue.yml", "deft plan-sequence:current", "deft triage:queue",
     "xbrief/.triage-cache/candidates.jsonl", "completed-record boundary",
   ]) {

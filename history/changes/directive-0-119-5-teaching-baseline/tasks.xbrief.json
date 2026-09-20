@@ -1,0 +1,28 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Delivery checklist for the Directive 0.119.5 teaching-baseline upgrade."
+  },
+  "plan": {
+    "title": "Directive 0.119.5 Teaching Baseline",
+    "status": "running",
+    "items": [
+      {
+        "id": "release-proof",
+        "title": "Record immutable npm and Git release identity",
+        "status": "completed"
+      },
+      {
+        "id": "collapse-current-surfaces",
+        "title": "Update current curriculum, fixtures, references, and verifiers",
+        "status": "completed"
+      },
+      {
+        "id": "verify-and-open-pr",
+        "title": "Run repository gates, push the branch, and open the pull request",
+        "status": "running"
+      }
+    ],
+    "edges": []
+  }
+}

@@ -5,6 +5,10 @@
 
 # Roadmap
 
+## Active
+
+- Directive 0.119.5 Teaching Baseline Upgrade -- `[running]`
+
 ## Proposed
 
 _Scopes not yet promoted to pending. Orientation only — not a substitute for `task triage:queue`._

@@ -90,10 +90,10 @@ function requireMeaningful(cell, label, minimumWords = 8) {
 function exactBaseline(path, prose, recordHeading) {
   const record = section(prose, recordHeading);
   const baseline = record.match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-  assert.ok(baseline?.includes("0.119.2"), `${path} must declare the exact Directive 0.119.2 baseline`);
+  assert.ok(baseline?.includes("0.119.5"), `${path} must declare the exact Directive 0.119.5 baseline`);
   assert.deepEqual(
     [...new Set(baseline.match(/\b\d+\.\d+\.\d+\b/g))],
-    ["0.119.2"],
+    ["0.119.5"],
     `${path} contains a stale baseline version`,
   );
 }
@@ -283,10 +283,10 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
   }
 
   const baseline = content.get("references/SOURCE-BASELINE.md");
-  assert.match(baseline, /0\.119\.2/, "source baseline must retain Directive 0.119.2");
+  assert.match(baseline, /0\.119\.5/, "source baseline must retain Directive 0.119.5");
   const notes = content.get("references/SOURCE-NOTES.md");
   assert.match(notes, /^## Module 6 (?:source validation|verification)\s*$/m, "SOURCE-NOTES is missing the Module 6 source validation record");
-  assert.match(notes, /\b0\.119\.2\b/, "Module 6 source validation must name Directive 0.119.2");
+  assert.match(notes, /\b0\.119\.5\b/, "Module 6 source validation must name Directive 0.119.5");
   assert.match(notes, /disagreement/i, "Module 6 source validation must record source disagreements");
   for (const path of sourcePaths) {
     assert.ok(notes.includes(path), `Module 6 source validation is missing pinned source: ${path}`);

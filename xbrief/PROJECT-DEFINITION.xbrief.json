@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Project definition for the 3Ci Directive training curriculum",
     "created": "2026-09-05T14:54:49Z",
-    "updated": "2026-09-18T03:35:54Z",
+    "updated": "2026-09-20T02:29:27Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -112,17 +112,24 @@
         }
       },
       {
-        "id": "2026-09-18-4-refactor-core-curriculum-to-add-required-module-7-on-directi",
-        "title": "Refactor core curriculum to add required Module 7 on Directive design-critique arcs",
-        "status": "completed",
+        "id": "2026-09-20-directive-0-119-5-teaching-baseline-upgrade",
+        "title": "Directive 0.119.5 Teaching Baseline Upgrade",
+        "status": "running",
         "metadata": {
-          "source_path": "completed/2026-09-18-4-refactor-core-curriculum-to-add-required-module-7-on-directi.xbrief.json",
-          "lifecycle_folder": "completed",
+          "source_path": "active/2026-09-20-directive-0-119-5-teaching-baseline-upgrade.xbrief.json",
+          "lifecycle_folder": "active",
           "references": [
             {
-              "uri": "https://github.com/deftai/directive-training/issues/4",
-              "type": "x-xbrief/github-issue",
-              "title": "Issue #4: Refactor core curriculum to add required Module 7 on Directive design-critique arcs"
+              "uri": "urn:deftai:directive-training:user-request:2026-09-20:directive-0.119.5-upgrade",
+              "type": "x-xbrief/user-request",
+              "title": "David's request to complete the Directive upgrade, push the branch, and open a pull request",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../references/SOURCE-BASELINE.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Maintained Directive source and runtime baseline",
+              "TrustLevel": "internal"
             }
           ]
         }
@@ -739,6 +746,22 @@
               "type": "x-xbrief/github-pr",
               "title": "PR #5: chore(deft): upgrade Directive to 0.119.1",
               "TrustLevel": "internal"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-18-4-refactor-core-curriculum-to-add-required-module-7-on-directi",
+        "title": "Refactor core curriculum to add required Module 7 on Directive design-critique arcs",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-18-4-refactor-core-curriculum-to-add-required-module-7-on-directi.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/4",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #4: Refactor core curriculum to add required Module 7 on Directive design-critique arcs"
             }
           ]
         }

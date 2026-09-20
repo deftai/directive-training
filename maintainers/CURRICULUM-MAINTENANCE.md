@@ -1,7 +1,7 @@
 # Curriculum maintenance contract
 
 This document governs the authored 3Ci Directive curriculum. It describes the
-0.119.2 internal-alpha baseline and must be reviewed whenever the project pin,
+0.119.5 internal-alpha baseline and must be reviewed whenever the project pin,
 how Directive behaves, course outcomes, or the publication target changes.
 
 ## Ownership and release status
@@ -200,7 +200,7 @@ separate learner walkthrough have evidence.
 
 Those conditions were met for the prior 0.112.0 baseline on 2026-09-15: the Windows 2022
 CI proof was green and an independent native PowerShell walkthrough completed each route.
-That historical evidence does not promote Windows on 0.119.2; rerun both evidence paths
+That historical evidence does not promote Windows on 0.119.5; rerun both evidence paths
 against the current exact graph before changing the candidate label.
 
 Run the aggregate Directive consumer gate separately after the literal commands:
@@ -218,7 +218,7 @@ Modules 4–5 add classification and projection-recovery evidence. The two new
 focused commands supplement the active scope's literal conformance command;
 they do not replace it. Lab 5's macOS/zsh execution evidence is distinct from
 historical platform evidence. Keep Linux and Windows as candidates for Lab 5
-until their 0.119.2 written paths have been executed natively.
+until their 0.119.5 written paths have been executed natively.
 
 Module 6 adds a command-free worksheet and explained solution. Its focused
 checks prove required sections, outcome coverage, source-bound terminology,
@@ -233,17 +233,17 @@ and authority boundary together. It needs no platform execution or live critic. 
 fictional sources inert through the authored fixture and exercise procedure; do not claim
 that Directive guarantees runtime inertness.
 
-Module 10 adds an executable golden-path lab. Revalidate the exact 0.119.2 package graph,
+Module 10 adds an executable golden-path lab. Revalidate the exact 0.119.5 package graph,
 clean guarded checkpoint, session/story/active-preflight order, expected focused red,
 one-file `src/greeting.mjs` boundary, named/fallback behavior, patch check, retained JSON
-evidence, fresh reset, and recoverable archive together. Current 0.119.2 support is
+evidence, fresh reset, and recoverable archive together. Current 0.119.5 support is
 macOS/zsh; Linux/bash and Windows/PowerShell remain candidates pending native replay.
 
-Module 11 adds an executable testing-and-gates lab. Revalidate the exact 0.119.2 graph,
+Module 11 adds an executable testing-and-gates lab. Revalidate the exact 0.119.5 graph,
 meaningful red, frozen test digest, passing green and source-only refactor, literal `verify:ac`,
 forward coverage, the seeded `quality:record` aggregate failure, the one-record repair, final
 three-file diff, unchanged gate fingerprints, fresh reset, and recoverable archive together.
-Current 0.119.2 support is macOS/zsh; Linux/bash and Windows/PowerShell remain candidates
+Current 0.119.5 support is macOS/zsh; Linux/bash and Windows/PowerShell remain candidates
 pending native replay.
 
 Module 12 is a command-free fixed-state exercise. Revalidate the complete H1
@@ -257,17 +257,17 @@ reset.
 
 The learner-ready
 [capstone](../curriculum/capstone-end-to-end.md) combines the course lifecycle
-in one guarded no-remote fixture. Revalidate the exact 0.119.2 graph on Node.js
+in one guarded no-remote fixture. Revalidate the exact 0.119.5 graph on Node.js
 24.20.0, the full stage and evidence order, meaningful red and intentional
 review-evidence aggregate failure, source-only green and P1 repair, simulated
 current-product review timing, implemented/local-pass closeout boundary, fresh
 reset, and separate recoverable archives. Run both capstone commands above.
 The current local suite proves the capstone on macOS/zsh. The prior native matrix is
-historical evidence only; rerun Linux and Windows against 0.119.2 and record independent
+historical evidence only; rerun Linux and Windows against 0.119.5 and record independent
 learner walkthrough pilots separately.
 
 The [native Windows revalidation handoff](WINDOWS-REVALIDATION.md) is a preserved
-historical 0.112.0 assignment, not a current 0.119.2 runbook. Do not reuse it without a new
+historical 0.112.0 assignment, not a current 0.119.5 runbook. Do not reuse it without a new
 explicit request and a rewritten, pin-matched target. Any replacement must preserve the old
 failed attempt, distinguish native evidence from cross-platform unit-test inputs, validate
 the real npm launchers, and restore only an absent verified deposit. Doctor must pass before

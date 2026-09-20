@@ -1,0 +1,111 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Upgrade the complete Directive teaching baseline from 0.119.2 to 0.119.5, revalidate the exact package graph and taught behavior, run repository gates, push the branch, and open a pull request.",
+    "created": "2026-09-20T00:52:23Z",
+    "updated": "2026-09-20T02:40:12Z"
+  },
+  "plan": {
+    "title": "Directive 0.119.5 Teaching Baseline Upgrade",
+    "status": "running",
+    "narratives": {
+      "Overview": "Complete the repository-wide Directive teaching-baseline upgrade and stop at an open pull request.",
+      "Description": "Upgrade the authoring engine, managed deposit, exact learner fixture graph, current curriculum claims, solutions, references, maintenance guidance, and verification evidence from Directive 0.119.2 to the single frozen 0.119.5 release baseline.",
+      "ReleaseBinding": "npm latest resolved to 0.119.5 at implementation start. Record the @deftai/directive 0.119.5 integrity, npm gitHead, annotated Git tag object, peeled release commit, exact CLI/core/content/types graph, verification date, and host in references/SOURCE-BASELINE.md. A later release is follow-up work rather than a mid-run rebind unless it invalidates a taught surface already probed.",
+      "OccurrencePolicy": "Classify every 0.119.2 occurrence as current evidence to re-probe and replace, labeled historical evidence to preserve, or superseded material to remove. Do not mechanically relabel historical observations.",
+      "SafetyBoundary": "All release and learner probes run in unique disposable repositories with no remote. Do not execute learner mutation stages in this training checkout, change repository visibility or remotes, publish, deploy, merge, or modify /Users/davidcall/tools/deft/directive.",
+      "Acceptance": "One exact 0.119.5 baseline is visible across root authoring metadata, README declaration, current curriculum and solution claims, six fixture manifests and launcher guards, workflow assertions, restoration helpers, maintained references, and current verification scripts. Historical evidence stays explicitly labeled. The source baseline records immutable release identity and observed command behavior. Focused content/runtime tests, the baseline-upgrade aggregate, xBRIEF validation, and the repository merge chokepoint pass before push and PR creation.",
+      "QualityGate": "Use npm run test:baseline-upgrade as the causal regression lane, npm test for all maintained content/runtime tests, directive verify:vbrief-conformance --project-root . for xBRIEF conformance, and deft check once as the merge chokepoint. Greptile is disabled and is not required.",
+      "Handoff": "Stop at PR open. The user explicitly authorized push and pull-request creation in the 2026-09-20 operator turn; merge remains unauthorized. Keep the existing unrelated .deft-scratch tree out of commits."
+    },
+    "items": [
+      {
+        "id": "training.directive-baseline-0.119.5.release-proof",
+        "title": "Bind and record the immutable 0.119.5 release identity and observed command surface",
+        "status": "completed",
+        "effort": "M"
+      },
+      {
+        "id": "training.directive-baseline-0.119.5.executable-surfaces",
+        "title": "Move exact package graphs, fixture guards, workflows, helpers, and verification code to 0.119.5",
+        "status": "completed",
+        "effort": "L"
+      },
+      {
+        "id": "training.directive-baseline-0.119.5.curriculum",
+        "title": "Revalidate and update current curriculum, labs, solutions, references, and maintenance guidance",
+        "status": "completed",
+        "effort": "L"
+      },
+      {
+        "id": "training.directive-baseline-0.119.5.verification",
+        "title": "Run focused and aggregate gates, record evidence, and open the upgrade pull request",
+        "status": "running",
+        "effort": "M"
+      }
+    ],
+    "references": [
+      {
+        "uri": "urn:deftai:directive-training:user-request:2026-09-20:directive-0.119.5-upgrade",
+        "type": "x-xbrief/user-request",
+        "title": "David's request to complete the Directive upgrade, push the branch, and open a pull request",
+        "TrustLevel": "internal"
+      },
+      {
+        "uri": "../../references/SOURCE-BASELINE.md",
+        "type": "x-xbrief/spec-section",
+        "title": "Maintained Directive source and runtime baseline",
+        "TrustLevel": "internal"
+      }
+    ],
+    "metadata": {
+      "kind": "story",
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "xbriefCreate": true,
+      "stop_at": "pr-open"
+    },
+    "id": "training.directive-baseline-0.119.5",
+    "updated": "2026-09-20T02:40:12Z",
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Bind and record the immutable 0.119.5 release identity and observed command surface",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Move exact package graphs, fixture guards, workflows, helpers, and verification code to 0.119.5",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Revalidate and update current curriculum, labs, solutions, references, and maintenance guidance",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Run focused and aggregate gates, record evidence, and open the upgrade pull request",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    }
+  }
+}

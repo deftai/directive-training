@@ -67,8 +67,8 @@ test("Module 11 content contract accepts active and completed lifecycle states",
 
 test("verifier rejects a stale or ranged learner baseline", () => {
   const root = changedCopy("curriculum/modules/11-testing-gates-and-evidence.md", (body) => body.replaceAll(
-    "@deftai/directive@0.119.2",
-    "@deftai/directive@0.119.2–0.114.0",
+    "@deftai/directive@0.119.5",
+    "@deftai/directive@0.119.5–0.114.0",
   ));
   assert.throws(() => verifyModule11(root), /stale or ranged Directive baseline/);
 });
@@ -159,6 +159,6 @@ test("verifier rejects a missing Module 11 outcome mapping", () => {
 });
 
 test("verifier rejects an altered exact fixture pin", () => {
-  const root = changedCopy("labs/fixtures/11-testing-gates-and-evidence/package.json", (body) => body.replaceAll("0.119.2", "^0.119.2"));
+  const root = changedCopy("labs/fixtures/11-testing-gates-and-evidence/package.json", (body) => body.replaceAll("0.119.5", "^0.119.5"));
   assert.throws(() => verifyModule11(root), /exact Directive pin/);
 });

@@ -38,8 +38,8 @@ const forbiddenFixture = /\bgit\s+push\b|\bgh\s+(?:pr|issue|api|repo)\b|\brmSync
 
 function exactBaseline(path, prose, heading) {
   const row = section(prose, heading).match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-  assert.ok(row?.includes("0.119.2"), `${path} must declare exact Directive 0.119.2`);
-  assert.deepEqual([...new Set(row.match(/\b\d+\.\d+\.\d+\b/g))], ["0.119.2"], `${path} contains a stale or ranged Directive baseline`);
+  assert.ok(row?.includes("0.119.5"), `${path} must declare exact Directive 0.119.5`);
+  assert.deepEqual([...new Set(row.match(/\b\d+\.\d+\.\d+\b/g))], ["0.119.5"], `${path} contains a stale or ranged Directive baseline`);
 }
 
 function requireOutcomes(path, prose, headings) {
@@ -109,7 +109,7 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(startingState, /required and non-compensating/i, "Module 7 must make the O6.4 prerequisite non-compensating");
   assert.match(startingState, /presence-only, keyword-only, or incomplete/i, "Module 7 must reject superficial O6.4 evidence");
   assert.match(startingState, /curricular and human-semantic/i, "Module 7 must identify the O6.4 hold as human-semantic");
-  assert.match(startingState, /Directive 0\.119\.2 does not compute whether work\s+is mechanism-shaped/i, "Module 7 must not attribute mechanism-shaped judgment to Directive");
+  assert.match(startingState, /Directive 0\.119\.5 does not compute whether work\s+is mechanism-shaped/i, "Module 7 must not attribute mechanism-shaped judgment to Directive");
   assert.match(startingState, /`scope:promote` is not fail-closed on that judgment/i, "Module 7 must not present scope:promote as the routing boundary");
   assert.match(startingState, /does not claim that Directive enforced the\s+decision/i, "Module 7 must preserve the curricular enforcement boundary");
   assert.match(section(moduleProse, "Navigation"), /\]\(06-creating-well-shaped-work\.md\)/, "Module 7 must link back to Module 6");
@@ -124,7 +124,7 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   const helperBody = content.get(helper);
   const safetyBody = content.get(safety);
   assert.doesNotMatch(helperBody + "\n" + safetyBody, forbiddenFixture, "fixture contains a forbidden remote or destructive command");
-  for (const token of ["mkdtempSync", "3ci-directive-lab07-", "assertNoGitRedirection", 'git(root, ["remote"])', "exact 0.119.2 pin required"]) assert.ok((helperBody + safetyBody).includes(token), `fixture is missing safety token: ${token}`);
+  for (const token of ["mkdtempSync", "3ci-directive-lab07-", "assertNoGitRedirection", 'git(root, ["remote"])', "exact 0.119.5 pin required"]) assert.ok((helperBody + safetyBody).includes(token), `fixture is missing safety token: ${token}`);
   assert.match(safetyBody, /export function assertNoGitRedirection/, "fixture is missing the Git redirection guard");
   assert.match(safetyBody, /export function safePath/, "fixture is missing its path guard");
   for (const task of ["deft:scope:promote", "deft:scope:activate", "deft:scope:cancel", "deft:session:start", "deft:verify:session-ritual", "deft:xbrief:preflight", "deft:scope:complete"]) assert.ok(helperBody.includes(task), `fixture is missing Task transition: ${task}`);
@@ -140,8 +140,8 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
 
   const fixtureManifest = JSON.parse(content.get(fixturePackage));
   assert.equal(fixtureManifest.private, true, "fixture package must remain private");
-  assert.equal(fixtureManifest.devDependencies?.["@deftai/directive"], "0.119.2", "fixture must pin Directive exactly");
-  for (const name of ["directive-core", "directive-content", "directive-types"]) assert.equal(fixtureManifest.overrides?.[`@deftai/${name}`], "0.119.2", `fixture must pin ${name} exactly`);
+  assert.equal(fixtureManifest.devDependencies?.["@deftai/directive"], "0.119.5", "fixture must pin Directive exactly");
+  for (const name of ["directive-core", "directive-content", "directive-types"]) assert.equal(fixtureManifest.overrides?.[`@deftai/${name}`], "0.119.5", `fixture must pin ${name} exactly`);
   assert.equal(JSON.parse(content.get(fixtureProject)).xBRIEFInfo?.version, "0.8", "fixture project must use xBRIEF 0.8");
 
   const notes = content.get("references/SOURCE-NOTES.md");
@@ -159,7 +159,7 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   }
 
   const course = content.get("curriculum/README.md");
-  assert.match(course, /0\.119\.2 executable path is verified locally on[\s\S]{0,100}macOS\/zsh/i, "course overview must retain current macOS/zsh evidence");
+  assert.match(course, /0\.119\.5 executable path is verified locally on[\s\S]{0,100}macOS\/zsh/i, "course overview must retain current macOS/zsh evidence");
   assert.match(course, /Linux\/bash and Windows\/PowerShell remain candidates/i, "course overview must keep Linux and Windows as candidates");
   const module7Row = courseModuleRow(course, 7);
   assert.match(module7Row, /07-scope-lifecycle\.md/, "Module 7 course row must link the lesson");

@@ -22,22 +22,22 @@ function git(root, ...args) {
 
 function manifest() {
   const files = ["main.md", "QUICK-START.md", "Taskfile.yml", "SKILL.md", ".agents/skills/deft/SKILL.md", ...skills.flatMap((name) => [".agents/skills/" + name + "/SKILL.md", "skills/" + name + "/SKILL.md"])].map((path) => ({ path: ".deft/core/" + path, content: "# Pinned test content\n", encoding: "utf-8" }));
-  files.push({ path: ".deft/core/package.json", content: JSON.stringify({ name: "@deftai/directive-content", version: "0.119.2" }), encoding: "utf-8" });
-  files.push({ path: ".deft/core/VERSION", content: "ref: 'v0.119.2'\nsha: '0.119.2'\ntag: 'v0.119.2'\ninstall_root: '.deft/core'\nfetched_by: 'directive-init-headless'\n", encoding: "utf-8" });
+  files.push({ path: ".deft/core/package.json", content: JSON.stringify({ name: "@deftai/directive-content", version: "0.119.5" }), encoding: "utf-8" });
+  files.push({ path: ".deft/core/VERSION", content: "ref: 'v0.119.5'\nsha: '0.119.5'\ntag: 'v0.119.5'\ninstall_root: '.deft/core'\nfetched_by: 'directive-init-headless'\n", encoding: "utf-8" });
   files.push({ path: "AGENTS.md", content: "Do not overwrite the course", encoding: "utf-8" });
   files.push({ path: "package.json", content: "Do not overwrite the course", encoding: "utf-8" });
   files.push({ path: "xbrief/active/.gitkeep", content: "Do not scaffold the course", encoding: "utf-8" });
-  return { version: "0.119.2", files };
+  return { version: "0.119.5", files };
 }
 
 function fixture() {
   const holder = join(retained, String(++sequence));
   const root = join(holder, "course");
   mkdirSync(join(root, ".deft"), { recursive: true });
-  writeFileSync(join(root, "package.json"), JSON.stringify({ private: true, devDependencies: { "@deftai/directive": "0.119.2" } }) + "\n");
+  writeFileSync(join(root, "package.json"), JSON.stringify({ private: true, devDependencies: { "@deftai/directive": "0.119.5" } }) + "\n");
   writeFileSync(join(root, "AGENTS.md"), "Authored course entry\r\n");
   writeFileSync(join(root, ".gitignore"), ".deft/core/\n");
-  writeFileSync(join(root, ".deft/GENERATION.json"), JSON.stringify({ schemaVersion: 1, generation: 2, contentVersion: "0.119.2", surfaces: { payload: "0.119.2", version: "v0.119.2", templates: "0.119.2", skills: "0.119.2", docs: "0.119.2" } }) + "\n");
+  writeFileSync(join(root, ".deft/GENERATION.json"), JSON.stringify({ schemaVersion: 1, generation: 2, contentVersion: "0.119.5", surfaces: { payload: "0.119.5", version: "v0.119.5", templates: "0.119.5", skills: "0.119.5", docs: "0.119.5" } }) + "\n");
   git(root, "init", "--initial-branch=main");
   git(root, "config", "core.autocrlf", "false");
   git(root, "add", ".");
@@ -138,7 +138,7 @@ test("refuses a dangling core junction and linked root or .deft directory", () =
 
 test("rejects malformed manifests, mismatched versions and incomplete required payloads before writes", () => {
   const entry = fixture();
-  for (const value of [null, {}, [], { version: "0.119.3", files: [] }, { version: "0.119.2", files: null }, { version: "0.119.2", files: [] }]) {
+  for (const value of [null, {}, [], { version: "0.119.3", files: [] }, { version: "0.119.5", files: null }, { version: "0.119.5", files: [] }]) {
     entry.value = value;
     reject(entry, /manifest|required/);
   }
@@ -150,7 +150,7 @@ test("rejects malformed manifests, mismatched versions and incomplete required p
   for (const path of [".deft/core/package.json", ".deft/core/VERSION"]) {
     entry.value = manifest();
     const target = entry.value.files.find((file) => file.path === path);
-    target.content = target.content.replaceAll("0.119.2", "0.119.3");
+    target.content = target.content.replaceAll("0.119.5", "0.119.3");
     reject(entry, /version|pin|VERSION/);
   }
   writeFileSync(entry.manifestPath, "not JSON");
@@ -180,7 +180,7 @@ test("rejects unsafe Windows paths, malformed encodings and file-directory colli
 });
 
 test("refuses non-private or incorrectly pinned projects, malformed generation and dirty Git state", () => {
-  for (const pkg of [{}, { private: false }, { private: true, devDependencies: { "@deftai/directive": "^0.119.2" } }]) {
+  for (const pkg of [{}, { private: false }, { private: true, devDependencies: { "@deftai/directive": "^0.119.5" } }]) {
     const entry = fixture();
     writeFileSync(join(entry.root, "package.json"), JSON.stringify(pkg));
     reject(entry, /private|pin/);

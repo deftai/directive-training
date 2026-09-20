@@ -10,7 +10,7 @@
 | Result | `Hello, Ada!`; only `src/greeting.mjs` changed |
 | Status | Learner-ready draft for the verified macOS/zsh path |
 | Last verified | 2026-09-10 |
-| Directive baseline | CLI/core/content/types `0.119.2`; [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | CLI/core/content/types `0.119.5`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Lab 10](../labs/10-implementation-golden-path.md) |
 
 ## Before you use this solution
@@ -47,7 +47,7 @@ implementation is valid if it preserves the same behavior, boundary, and evidenc
 
 ### 1. Establish the controlling facts
 
-- At 0.119.2, the fixture's session ritual, story-ready check, and
+- At 0.119.5, the fixture's session ritual, story-ready check, and
   active xBRIEF preflight must pass before its implementation phase.
 - The active file scope is the complete mutation boundary: only
   `src/greeting.mjs` may change in this no-remote lab.
@@ -87,7 +87,7 @@ node "$helper" guard "$lab_root"
 node "$helper" readiness "$lab_root"
 ```
 
-Observe `"READY"`. The retained `readiness.json` records the exact 0.119.2 baseline, clean
+Observe `"READY"`. The retained `readiness.json` records the exact 0.119.5 baseline, clean
 checkpoint, branch, active contract, empty remote, green start gates, and focused exit `1`.
 
 **Why:** this is the complete pre-mutation evidence for O10.5 and the red half of O10.6.

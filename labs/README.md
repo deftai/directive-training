@@ -4,9 +4,9 @@ This guide defines the safe execution model for every hands-on exercise in the 3
 
 **Current status:** this guide remains the shared lab contract. The
 [Module 2 disposable initialization lab](02-disposable-initialization.md) is a
-learner-ready draft with local proof of the 0.119.2 pinned npm path on macOS/zsh,
+learner-ready draft with local proof of the 0.119.5 pinned npm path on macOS/zsh,
 dated 2026-09-17. Linux/bash and Windows/PowerShell remain candidates pending a
-native 0.119.2 replay. Generic author
+native 0.119.5 replay. Generic author
 examples below are not substitutes for a released lab's
 exact commands.
 
@@ -14,10 +14,10 @@ exact commands.
 learner-ready draft verified on macOS/zsh.
 It uses a minimal prepared projection fixture and a guarded helper;
 Linux and Windows execution are candidates for Lab 5. Historical platform evidence does not
-transfer to the 0.119.2 baseline.
+transfer to the 0.119.5 baseline.
 
 [Lab 7 — Scope lifecycle](07-scope-lifecycle.md) is a learner-ready draft
-verified on macOS/zsh. It uses an exact 0.119.2 package graph, isolated Task
+verified on macOS/zsh. It uses an exact 0.119.5 package graph, isolated Task
 PATH, guarded no-remote fixture, preserved failure evidence, fresh reset, and
 recoverable archive. Linux/bash and Windows/PowerShell remain candidates.
 
@@ -301,18 +301,18 @@ No instructor or review bot is required. If the documented recovery still cannot
 |---|---|---|
 | This environment guide | Available | Create, verify, reset, and archive disposable attempts |
 | [Module 1 — What Directive Is](../curriculum/modules/01-what-directive-is.md) | Available | Complete its embedded fictional classification exercise; it does not mutate a repository |
-| [Lab 2 — Initialize a Disposable Directive Consumer](02-disposable-initialization.md) | Learner-ready draft; 0.119.2 pinned npm path verified on macOS/zsh; Linux/bash and Windows/PowerShell candidates | Use its exact fixture, guards, checkpoints, acceptance, reset, and archive path |
+| [Lab 2 — Initialize a Disposable Directive Consumer](02-disposable-initialization.md) | Learner-ready draft; 0.119.5 pinned npm path verified on macOS/zsh; Linux/bash and Windows/PowerShell candidates | Use its exact fixture, guards, checkpoints, acceptance, reset, and archive path |
 | [Module 4 — xBRIEF as Durable State](../curriculum/modules/04-xbrief-as-durable-state.md) | Available | Complete its embedded artifact-classification exercise without mutating a repository |
-| [Lab 5 — Projection drift recovery](05-projection-drift-recovery.md) | Learner-ready draft; 0.119.2 path verified on macOS/zsh; Linux and Windows candidates | Use its exact fixture, ordered tasks, evidence, fresh reset, and archive path |
-| [Lab 7 — Scope lifecycle](07-scope-lifecycle.md) | Learner-ready draft; 0.119.2 pinned lifecycle path verified on macOS/zsh; Linux and Windows candidates | Use its guarded no-remote fixture, Task-driven transitions, retained evidence, fresh reset, and recoverable archive |
-| [Lab 10 — Implementation golden path](10-implementation-golden-path.md) | Learner-ready draft; exact 0.119.2 implementation path verified on macOS/zsh; Linux and Windows candidates | Use its guarded no-remote fixture, readiness-before-mutation sequence, one-file diff, paired evidence, fresh reset, and recoverable archive |
-| [Lab 11 — Testing, gates, and evidence](11-testing-gates-and-evidence.md) | Learner-ready draft; exact 0.119.2 gate path verified on macOS/zsh; Linux and Windows candidates | Use its guarded no-remote fixture, frozen focused test, ordered stage evidence, seeded aggregate failure, fresh reset, and recoverable archive |
+| [Lab 5 — Projection drift recovery](05-projection-drift-recovery.md) | Learner-ready draft; 0.119.5 path verified on macOS/zsh; Linux and Windows candidates | Use its exact fixture, ordered tasks, evidence, fresh reset, and archive path |
+| [Lab 7 — Scope lifecycle](07-scope-lifecycle.md) | Learner-ready draft; 0.119.5 pinned lifecycle path verified on macOS/zsh; Linux and Windows candidates | Use its guarded no-remote fixture, Task-driven transitions, retained evidence, fresh reset, and recoverable archive |
+| [Lab 10 — Implementation golden path](10-implementation-golden-path.md) | Learner-ready draft; exact 0.119.5 implementation path verified on macOS/zsh; Linux and Windows candidates | Use its guarded no-remote fixture, readiness-before-mutation sequence, one-file diff, paired evidence, fresh reset, and recoverable archive |
+| [Lab 11 — Testing, gates, and evidence](11-testing-gates-and-evidence.md) | Learner-ready draft; exact 0.119.5 gate path verified on macOS/zsh; Linux and Windows candidates | Use its guarded no-remote fixture, frozen focused test, ordered stage evidence, seeded aggregate failure, fresh reset, and recoverable archive |
 | [Module 6 — Creating well-shaped work](../curriculum/modules/06-creating-well-shaped-work.md) | Available; command-free exercise | Complete its embedded vertical-slice worksheet; no lab fixture is required |
 | [Module 8 — Session start and authorized work selection](../curriculum/modules/08-session-and-work-selection.md) | Available; command-free fixed-state exercise | Complete its embedded request-card matrix; no lab fixture is required |
 | [Module 9 — Design-critique arcs and verified synthesis](../curriculum/modules/09-design-critique-arcs.md) | Available; command-free fixed-state practicum | Complete its embedded fictional critique packet; Module 9 has no lab fixture |
 | [Module 12 — PR, review, and actual completion](../curriculum/modules/12-review-and-completion.md) | Available; command-free fixed-state exercise | Use the embedded fictional review packet and completion cards; Module 12 has no lab fixture |
 | [Lab authoring template](../templates/lab-template.md) | Available to maintainers | Build a lab with tasks, checkpoints, literal gates, reset, cleanup, and a solution |
-| [Capstone — End-to-End Solo Directive Lifecycle](capstone-end-to-end.md) | Learner-ready; guarded 0.119.2 fixture verified on macOS/zsh; Linux and Windows candidates | Use its exact two-hour orientation-to-local-closeout route, retained evidence, fresh reset drill, and recoverable archive of both attempts |
+| [Capstone — End-to-End Solo Directive Lifecycle](capstone-end-to-end.md) | Learner-ready; guarded 0.119.5 fixture verified on macOS/zsh; Linux and Windows candidates | Use its exact two-hour orientation-to-local-closeout route, retained evidence, fresh reset drill, and recoverable archive of both attempts |
 
 ## Maintainer acceptance
 

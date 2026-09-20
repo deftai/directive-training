@@ -81,6 +81,9 @@
 
 ### Changed
 
+- Upgrade the complete Directive teaching baseline from 0.119.2 to the verified
+  0.119.5 release across authoring metadata, curriculum, solutions, six
+  disposable fixtures, workflows, verifiers, and maintainer evidence.
 - The learner-ready core now runs through twelve modules, with implementation,
   testing, and review taught as Modules 10–12 and protected historical and
   lifecycle identities left unchanged (#4).

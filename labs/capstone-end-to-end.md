@@ -9,10 +9,10 @@
 | Status | Learner-ready |
 | Last verified | 2026-09-17 |
 | Suggested first attempt | 45 minutes before opening the solution |
-| Directive baseline | `@deftai/directive@0.119.2`; see the [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
+| Directive baseline | `@deftai/directive@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
 | Directive runtime | Node.js `22 or newer`; the verified local run used `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
 | Fixture | [`fixtures/capstone-end-to-end`](fixtures/capstone-end-to-end/) |
-| Platform evidence | Automated guarded fixture passed locally on macOS/zsh; Linux and Windows remain candidates pending native 0.119.2 evidence |
+| Platform evidence | Automated guarded fixture passed locally on macOS/zsh; Linux and Windows remain candidates pending native 0.119.5 evidence |
 
 ## Goal and done condition
 
@@ -39,9 +39,9 @@ deployment, instructor, Greptile, or other live reviewer.
 Use Node.js 22 or newer for the Directive proof. Record the exact runtime you
 use. The current local macOS/zsh proof used Node.js `24.20.0`; that patch version
 describes bounded evidence, not the Node.js learner requirement. Linux and Windows
-remain candidates pending a native 0.119.2 replay.
+remain candidates pending a native 0.119.5 replay.
 
-Directive 0.119.2 imports `node:fs` `globSync`, which is unavailable before
+Directive 0.119.5 imports `node:fs` `globSync`, which is unavailable before
 Node.js 22. The complete Directive proof therefore requires Node.js 22 or
 newer. The fictional application files remain Node.js
 20-compatible as a source-level design constraint; no isolated Node.js 20 run
@@ -183,7 +183,7 @@ if (@(& git -C $CapstoneRoot status --porcelain --untracked-files=all).Count -ne
 if (@(& git -C $CapstoneRoot remote).Count -ne 0) { throw "Capstone must have no remote." }
 ```
 
-Expected: `OK: installed Directive 0.119.2`, branch `training/capstone`, and a
+Expected: `OK: installed Directive 0.119.5`, branch `training/capstone`, and a
 clean worktree. Your earlier `node --version` check is the runtime evidence;
 the helper verifies the exact installed Directive CLI/core/content/types graph.
 
@@ -288,7 +288,7 @@ demonstrated until the fresh root and both recoverable archives are recorded.
 | Helper verb | Stage afterward | Helper output | Retained proof |
 | --- | --- | --- | --- |
 | `create` | `CREATED` | Absolute repository root | Sibling `lab-state.json`; `evidence/README.md` |
-| `install` | `CHECKPOINT` | `OK: installed Directive 0.119.2` | Clean checkpoint commit; no separate install JSON |
+| `install` | `CHECKPOINT` | `OK: installed Directive 0.119.5` | Clean checkpoint commit; no separate install JSON |
 | `orient` | `ORIENTED` | `"PASS"` | `orientation.json` (`CAP.1`) |
 | `activate` | `SCOPED` | `"PASS"` | `scope.json` (`CAP.1`) |
 | `ready` | `READY` | `"READY"` | `readiness.json` (`CAP.1`) |
@@ -456,7 +456,7 @@ fresh reset root to produce new evidence for any unmet outcome.
 
 ## Done statement
 
-> I demonstrated `CAP.1`–`CAP.4` against `@deftai/directive@0.119.2` on my
+> I demonstrated `CAP.1`–`CAP.4` against `@deftai/directive@0.119.5` on my
 > recorded Node.js 22-or-newer runtime. I preserved ordered readiness,
 > red/green, focused, literal,
 > aggregate, zero-change review, repair, current-product review, and closeout

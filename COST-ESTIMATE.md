@@ -1,7 +1,99 @@
 <!-- deft:template -->
-<!-- Purpose: current Windows portability issue cohort cost estimate with prior curriculum estimates retained -->
+<!-- Purpose: current Directive training scope cost estimate with prior curriculum estimates retained -->
 
 # Cost & Budget Estimate
+
+## Current scope — Directive 0.119.5 teaching-baseline upgrade (2026-09-20)
+
+Currency: **USD**. This scope upgrades the complete Directive teaching baseline
+from 0.119.2 to 0.119.5, revalidates exact release identity and taught behavior,
+updates current curriculum and executable fixtures, runs the repository gates,
+pushes the feature branch, and opens a pull request. It introduces no hosting
+service, paid account, publishing platform, production runtime, credential, or
+business-repository exercise.
+
+### TL;DR
+
+For one public curriculum repository using existing tooling, the expected
+incremental monthly service band is **low $0 / typical $0 / high $0**. The
+meaningful cost is approximately **16–40 hours** of release-proof collection,
+fixture and verifier updates, curriculum revalidation, disposable command
+probes, and repository-gate evidence. Ongoing maintenance attributable to this
+baseline is approximately **1–3 hours per month**, plus focused revalidation
+after the next material Directive release.
+
+### Assumptions and scale considerations
+
+- The scale assumption is one public curriculum repository and six maintained
+  disposable learner fixtures, using existing GitHub, coding-agent, workstation,
+  Node.js, npm, and GitHub Actions access.
+- All release and learner probes run in unique disposable repositories with no
+  remote. The training checkout and business repositories are not learner probe
+  targets.
+- The existing inventory contains at least 82 current-baseline files that still
+  mention 0.119.2, including 38 executable or manifest surfaces. Each occurrence
+  must be classified as current evidence, historical evidence, or superseded
+  material rather than changed mechanically.
+- Release identity is frozen to the verified 0.119.5 package graph for this run.
+  A later release is follow-up work unless it invalidates a surface already being
+  probed.
+- The pull request is the delivery boundary. Merge, publication, deployment, and
+  release are excluded.
+
+### What you will need to sign up for
+
+No new account is expected. Contributors use the repository's existing GitHub,
+coding-agent, Git, Node.js, npm, and GitHub Actions access.
+
+### Hosting, infrastructure, and third-party fees
+
+None are expected. The work changes repository-authored content, local fixtures,
+tests, and CI assertions; it does not deploy, publish, call a paid API, or create
+a hosted learner service.
+
+### Monthly band
+
+- **Low** _(quiet month)_: about **$0 per month**
+- **Typical** _(ordinary learner and maintainer use)_: about **$0 per month**
+- **High** _(heavier use within the same approved boundary)_: about **$0 per month**
+
+The $0 band depends on existing tooling access. Separately billed CI or agent
+usage, new paid accounts, publication, remote lab infrastructure, or another
+Directive release-pin change would require a new estimate.
+
+### Build and maintenance time
+
+- **Release identity and command-surface proof**: about **2–5 hours**
+- **Exact fixture graphs, launcher guards, workflows, and verifier updates**:
+  about **4–10 hours**
+- **Current curriculum, solutions, references, and maintenance guidance**:
+  about **6–15 hours**
+- **Disposable probes, focused tests, aggregate gates, and PR evidence**:
+  about **4–10 hours**
+- **Total build**: about **16–40 hours**
+- **Maintenance**: about **1–3 hours per month**, plus focused revalidation after
+  a material Directive release
+
+### Decision point — current scope
+
+1. **Build** -- accept the cost and start the build phase.
+2. **Rescope** -- keep building but reduce cost first.
+3. **No-build** -- stop here and record the reason.
+4. **Skip** -- skip the cost phase and record a short reason.
+5. **Discuss** -- ask follow-up questions before deciding.
+6. **Back** -- return to the upgrade scope.
+
+### Decision recorded — current scope
+
+- **Decision**: Build
+- **Date**: 2026-09-20
+- **Recorded by**: David
+- **Selection**: Option 1, Build
+- **Confirmation**: “1”
+- **Reason**: David accepted the Directive teaching-baseline estimate and
+  authorized the bounded build through push and pull-request creation. Directive
+  0.119.5 became latest before implementation began and is the frozen baseline
+  for this run. Merge, publication, deployment, and release remain excluded.
 
 ## Current scope — Windows portability issues 74–78 (2026-09-14)
 

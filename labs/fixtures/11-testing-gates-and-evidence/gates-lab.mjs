@@ -21,7 +21,7 @@ import { assertNoGitRedirection, assertPlainTree, git, safePath, sameFileSystemE
 
 const fixture = dirname(fileURLToPath(import.meta.url));
 const read = (path) => readFileSync(path, "utf8");
-const exactVersion = "0.119.2";
+const exactVersion = "0.119.5";
 const storyFile = "fictional-summary.xbrief.json";
 const storyPath = `xbrief/active/${storyFile}`;
 const testPath = "test/summary.test.mjs";
@@ -108,9 +108,9 @@ function story() {
 function verifyManifest(root) {
   const manifest = readJson(safePath(root, "package.json"));
   assert.equal(manifest.private, true, "fixture must remain private");
-  assert.equal(manifest.devDependencies?.["@deftai/directive"], exactVersion, "exact 0.119.2 pin required");
+  assert.equal(manifest.devDependencies?.["@deftai/directive"], exactVersion, "exact 0.119.5 pin required");
   for (const name of ["directive-core", "directive-content", "directive-types"]) {
-    assert.equal(manifest.overrides?.[`@deftai/${name}`], exactVersion, `exact 0.119.2 ${name} override required`);
+    assert.equal(manifest.overrides?.[`@deftai/${name}`], exactVersion, `exact 0.119.5 ${name} override required`);
   }
 }
 
@@ -281,7 +281,7 @@ function verifyInstalledGraph(root) {
   safePath(root, "node_modules");
   for (const name of ["directive", "directive-core", "directive-content", "directive-types"]) {
     const manifest = readJson(safePath(root, `node_modules/@deftai/${name}/package.json`));
-    assert.equal(manifest.version, exactVersion, `${name} must resolve to 0.119.2`);
+    assert.equal(manifest.version, exactVersion, `${name} must resolve to 0.119.5`);
   }
   const target = realpathSync(safePath(root, "node_modules/@deftai/directive/dist/bin.js"));
   if (process.platform !== "win32") {
@@ -372,7 +372,7 @@ export function guardAttempt(input = process.cwd()) {
   verifyGateDefinitions(root, marker);
   if (existsSync(join(root, "node_modules"))) verifyInstalledGraph(root);
   if (existsSync(join(root, ".deft/core/VERSION"))) {
-    assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.2'/, "Stop: Directive deposit must be 0.119.2.");
+    assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.5'/, "Stop: Directive deposit must be 0.119.5.");
   }
   return root;
 }
@@ -400,7 +400,7 @@ export function installAttempt(root = process.cwd(), platform = process.platform
     env: isolatedEnv(root),
     timeout: 180_000,
   }));
-  assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.2'/, "installed content deposit must be 0.119.2");
+  assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.5'/, "installed content deposit must be 0.119.5");
   copyFileSync(join(fixture, "Taskfile.yml"), safePath(root, "Taskfile.yml"));
   writeFileSync(join(root, ".deft/USER.md"), "# User Preferences\n\n## Personal\n\n**Name**: Address the user as: **Learner**\n\n## Defaults\n\n**Coverage**: >=90% test coverage\n");
   const tracked = [

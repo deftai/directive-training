@@ -31,8 +31,8 @@ test("create produces a unique guarded no-remote fixture with the exact manifest
   assert.equal(git(root, ["remote"]).trim(), "");
   assert.equal(git(root, ["branch", "--show-current"]).trim(), "training/module-07");
   const manifest = JSON.parse(read(join(root, "package.json")));
-  assert.equal(manifest.devDependencies["@deftai/directive"], "0.119.2");
-  assert.equal(manifest.overrides["@deftai/directive-core"], "0.119.2");
+  assert.equal(manifest.devDependencies["@deftai/directive"], "0.119.5");
+  assert.equal(manifest.overrides["@deftai/directive-core"], "0.119.5");
   archiveAttempt(root);
 });
 
@@ -47,8 +47,8 @@ test("guard rejects the curriculum, a remote, and a changed pin without repairin
   writeFileSync(config, originalConfig);
   const packagePath = join(root, "package.json");
   const originalPackage = read(packagePath);
-  writeFileSync(packagePath, originalPackage.replace('"0.119.2"', '"0.119.3"'));
-  assert.throws(() => guardAttempt(root), /0\.119\.2/);
+  writeFileSync(packagePath, originalPackage.replace('"0.119.5"', '"0.119.3"'));
+  assert.throws(() => guardAttempt(root), /0\.119\.5/);
   writeFileSync(packagePath, originalPackage);
   archiveAttempt(root);
 });
@@ -102,8 +102,8 @@ test("reset and archive retain the no-remote boundary", () => {
 test("reset preserves a drifted attempt and creates a clean replacement", () => {
   const drifted = createAttempt();
   const packagePath = join(drifted, "package.json");
-  writeFileSync(packagePath, read(packagePath).replace('"0.119.2"', '"0.119.3"'));
-  assert.throws(() => guardAttempt(drifted), /0\.119\.2/);
+  writeFileSync(packagePath, read(packagePath).replace('"0.119.5"', '"0.119.3"'));
+  assert.throws(() => guardAttempt(drifted), /0\.119\.5/);
   const fresh = resetAttempt(drifted);
   assert.match(read(packagePath), /0\.119\.3/);
   assert.equal(guardAttempt(fresh), fresh);
@@ -134,9 +134,9 @@ test("pinned task workflow records proposed failure, gated active success, compl
       else process.env[key] = value;
     }
   }
-  assert.equal(verifyPin(root), "0.119.2");
+  assert.equal(verifyPin(root), "0.119.5");
   const evidence = runLifecycle(root, { intent: "implement" });
-  assert.equal(evidence.baseline.engine, "0.119.2");
+  assert.equal(evidence.baseline.engine, "0.119.5");
   assert.equal(evidence.steps.proposedDirectivePreflight.exitCode, 1);
   assert.notEqual(evidence.steps.proposedTaskPreflight.exitCode, 0);
   for (const name of ["promote", "activate", "cancel", "sessionStart", "sessionRitual", "activePreflight", "complete"]) {

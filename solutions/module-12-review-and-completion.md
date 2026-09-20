@@ -4,7 +4,7 @@
 
 | Field | Value |
 | --- | --- |
-| Directive baseline | 0.119.2 |
+| Directive baseline | 0.119.5 |
 | Exercise | [Module 12 — PR, review, and actual completion](../curriculum/modules/12-review-and-completion.md#exercise) |
 | Evidence type | Explained fixed-state review worksheets |
 | Safety boundary | No live repository, PR, review bot, CI, merge, deployment, UAT, credential, or client data |

@@ -40,7 +40,7 @@ function fixture(t) {
     writeFileSync(join(root, path), content);
   };
   const record = [
-    "| Directive baseline | `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2` |",
+    "| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5` |",
     "| Status | learner-ready draft; command-free |",
   ].join("\n");
   write(module6, document(moduleHeadings, {
@@ -110,16 +110,16 @@ function fixture(t) {
   }));
   write(module5, "# Module 5\n\n## Navigation\n\nNext: [Module 6](06-creating-well-shaped-work.md).\n");
   write(module7, "# Module 7\n");
-  write("README.md", "# Training\n\n2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.2<!-- /directive-training:teaching-baseline --> with xBRIEF schema 0.8.\n\nContinue with [Module 6](curriculum/modules/06-creating-well-shaped-work.md).\n");
+  write("README.md", "# Training\n\n2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.5<!-- /directive-training:teaching-baseline --> with xBRIEF schema 0.8.\n\nContinue with [Module 6](curriculum/modules/06-creating-well-shaped-work.md).\n");
   write("curriculum/README.md", "# Course\n\n| Module | Status |\n| --- | --- |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| [Module 7](modules/07-scope-lifecycle.md) | Learner-ready draft |\n");
   write("assessments/README.md", "# Assessments\n\nUse [Module 6](../curriculum/modules/06-creating-well-shaped-work.md#self-assessment) to inspect the required route / no route / insufficient evidence matrix for O6.4.\n");
   write("solutions/README.md", "# Solutions\n\nUse the [Module 6 solution](module-06-creating-well-shaped-work.md).\n");
   write("references/GLOSSARY.md", "# Glossary\n\n## Vertical slice\n\nAn independently demoable, human-observable capability.\n\n## Horizontal plan\n\nWork grouped by component rather than outcome.\n\n## Proposed scope\n\nA reviewable candidate that grants no implementation authority.\n");
   write("references/QUICK-REFERENCE.md", "# Quick reference\n\n## Shape work\n\nRecord a bounded strategy choice, User-visible outcome, Dependency rationale, and Boundary rationale. Use the [Module 6 worksheet](../curriculum/modules/06-creating-well-shaped-work.md#exercise).\n");
-  write("references/SOURCE-BASELINE.md", "# Source baseline\n\nExact training release: `@deftai/directive@0.119.2` and `@deftai/directive-core@0.119.2`. See [notes](SOURCE-NOTES.md#module-6-source-validation).\n");
+  write("references/SOURCE-BASELINE.md", "# Source baseline\n\nExact training release: `@deftai/directive@0.119.5` and `@deftai/directive-core@0.119.5`. See [notes](SOURCE-NOTES.md#module-6-source-validation).\n");
   write("references/SOURCE-NOTES.md", [
     "# Source notes", "", "## Module 6 source validation", "",
-    "Validated against Directive 0.119.2: `.deft/core/docs/directive-lifecycle.md`, `.deft/core/strategies/README.md`, `.deft/core/strategies/interview.md`, `.deft/core/skills/deft-directive-setup/SKILL.md`, `.deft/core/skills/deft-directive-decompose/SKILL.md`, `.deft/core/vbrief/vbrief.md`, `.deft/core/verification/verification.md`, `.deft/core/verification/plan-checking.md`, `.deft/core/glossary.md`, `.deft/core/skills/deft-directive-gh-slice/SKILL.md`, `.deft/core/commands.md`, and `.deft/core/main.md`.",
+    "Validated against Directive 0.119.5: `.deft/core/docs/directive-lifecycle.md`, `.deft/core/strategies/README.md`, `.deft/core/strategies/interview.md`, `.deft/core/skills/deft-directive-setup/SKILL.md`, `.deft/core/skills/deft-directive-decompose/SKILL.md`, `.deft/core/vbrief/vbrief.md`, `.deft/core/verification/verification.md`, `.deft/core/verification/plan-checking.md`, `.deft/core/glossary.md`, `.deft/core/skills/deft-directive-gh-slice/SKILL.md`, `.deft/core/commands.md`, and `.deft/core/main.md`.",
     "", "Recorded disagreements: deprecated command aliases, legacy vBRIEF wording, optional specification, approval does not immediately promote, dependency field scope, SPECIFICATION.md assumption, legacy plan paths, curated help omissions, and consumer task namespacing.",
   ].join("\n"));
   write("maintainers/CURRICULUM-MAINTENANCE.md", "# Maintenance\n\nRun `npm run check:module-6` and `node --test scripts/verify-module-6.test.mjs`.\n");
@@ -133,7 +133,7 @@ function fixture(t) {
       "check:module-6": "node scripts/verify-module-6.mjs",
       "test:module-6": "node --test scripts/verify-module-6.test.mjs",
     },
-    devDependencies: { "@deftai/directive": "0.119.2" },
+    devDependencies: { "@deftai/directive": "0.119.5" },
   }));
   return {
     root,
@@ -291,10 +291,10 @@ for (const [label, addition, pattern] of [
 
 test("rejects stale and ranged Directive pins", (t) => {
   const files = fixture(t);
-  files.change(module6, (body) => body.replaceAll("0.119.2", "0.111.0"));
-  assert.throws(() => verifyModule6(files.root), /exact Directive 0\.119\.2 baseline/);
-  files.change(module6, (body) => body.replaceAll("0.111.0", "0.119.2"));
-  files.change("package.json", (body) => body.replace('"0.119.2"', '"^0.119.2"'));
+  files.change(module6, (body) => body.replaceAll("0.119.5", "0.111.0"));
+  assert.throws(() => verifyModule6(files.root), /exact Directive 0\.119\.5 baseline/);
+  files.change(module6, (body) => body.replaceAll("0.111.0", "0.119.5"));
+  files.change("package.json", (body) => body.replace('"0.119.5"', '"^0.119.5"'));
   assert.throws(() => verifyModule6(files.root), /must pin @deftai\/directive exactly/);
 });
 
