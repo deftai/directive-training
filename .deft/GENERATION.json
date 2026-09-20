@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "generation": 8,
-  "contentVersion": "0.119.2",
-  "stampedAt": "2026-09-17T20:40:46Z",
+  "generation": 10,
+  "contentVersion": "0.119.5",
+  "stampedAt": "2026-09-20T02:19:37Z",
   "stampedBy": "directive-update",
   "surfaces": {
-    "payload": "0.119.2",
-    "version": "v0.119.2",
-    "templates": "0.119.2",
-    "skills": "0.119.2",
-    "docs": "0.119.2"
+    "payload": "0.119.5",
+    "version": "v0.119.5",
+    "templates": "0.119.5",
+    "skills": "0.119.5",
+    "docs": "0.119.5"
   }
 }

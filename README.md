@@ -26,7 +26,7 @@ this Markdown; they will not replace it as the source of truth.
 ## Start here
 
 1. Confirm the prerequisites in the [course map](curriculum/README.md).
-2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.2<!-- /directive-training:teaching-baseline --> with xBRIEF
+2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.5<!-- /directive-training:teaching-baseline --> with xBRIEF
    schema 0.8.
 3. Complete [Module 1: What Directive Is](curriculum/modules/01-what-directive-is.md),
    [Module 2: Installation and Project Anatomy](curriculum/modules/02-installation-and-anatomy.md),
@@ -62,7 +62,7 @@ drift notes that are intentionally outside the beginner sequence.
 
 Modules 1–12 and the capstone are implemented and learner-ready. The curriculum
 remains an internal alpha until representative learner pilots complete; that
-release-maturity label does not mean the authored modules are partial. The 0.119.2 executable
+release-maturity label does not mean the authored modules are partial. The 0.119.5 executable
 path is verified locally on macOS/zsh. Modules 4, 6, 8, 9, and 12 are command-free. Linux/bash
 and Windows/PowerShell remain candidates pending pin-matched native evidence.
 Modules 9 and 12 use fixed fictional packets and need no lab fixture. The

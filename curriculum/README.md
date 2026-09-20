@@ -4,7 +4,7 @@ This is the navigation source for a 13-hour-15-minute (795-minute), self-directe
 11 hours 15 minutes (675 minutes) of core modules followed by a two-hour disposable capstone. Modules 1–12 and
 the capstone are implemented and learner-ready. The course remains an internal
 alpha pending representative learner pilots; that maturity label is separate
-from authored-content completeness. The 0.119.2 executable path is verified locally on
+from authored-content completeness. The 0.119.5 executable path is verified locally on
 macOS/zsh. Modules 4, 6, 8, 9, and 12 are command-free and use fixed fictional state where
 applicable. Linux/bash and Windows/PowerShell remain candidates pending pin-matched
 native evidence; independent walkthrough pilot evidence remains separate.
@@ -58,7 +58,7 @@ No step requires a live demonstration or an instructor's private knowledge.
 | ID | Module | Time | Status | Primary practice |
 | --- | --- | ---: | --- | --- |
 | 01 | [What Directive is](modules/01-what-directive-is.md) | 45 min | Learner-ready | Classify tools and scenarios by responsibility |
-| 02 | [Installation and project anatomy](modules/02-installation-and-anatomy.md) | 60 min | Learner-ready; 0.119.2 path verified on macOS/zsh; Linux and Windows candidates | Initialize and inspect a disposable consumer repository |
+| 02 | [Installation and project anatomy](modules/02-installation-and-anatomy.md) | 60 min | Learner-ready; 0.119.5 path verified on macOS/zsh; Linux and Windows candidates | Initialize and inspect a disposable consumer repository |
 | 03 | [Authority and context](modules/03-authority-and-context.md) | 45 min | Learner-ready | Resolve conflicting sample rules |
 | 04 | [xBRIEF as durable state](modules/04-xbrief-as-durable-state.md) | 45 min | Learner-ready; command-free | Classify project and work-state artifacts |
 | 05 | [Sources versus projections](modules/05-sources-versus-projections.md) | 50 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Repair projection drift through its source |

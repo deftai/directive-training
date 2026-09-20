@@ -7,7 +7,7 @@
 | Stable ID | `module-10-implementation-golden-path` |
 | Status | Learner-ready draft; executable lab verified on macOS/zsh |
 | Last verified | 2026-09-10 |
-| Directive baseline | `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Duration | 70 minutes, including the disposable lab |
 | Prerequisites | Modules 1–9; Node.js 20+, npm, Git, Task, `uv`, and a dedicated zsh terminal |
 | Native platform evidence | macOS/zsh verified; Linux/bash and Windows/PowerShell are candidates |
@@ -166,7 +166,7 @@ the following checkpoints:
 | Checkpoint | Expected state |
 | --- | --- |
 | Create | Unique OS-temporary no-remote Git repository on `training/module-10` |
-| Install | Exact CLI/core/content/types 0.119.2 graph and clean local checkpoint |
+| Install | Exact CLI/core/content/types 0.119.5 graph and clean local checkpoint |
 | Readiness | Four start gates green; focused test red; `readiness.json` says `READY` |
 | Implement | Only `src/greeting.mjs` differs |
 | Verify | Focused and CLI behavior green; diff check green; `implementation.json` says `PASS` |
@@ -192,7 +192,7 @@ and proof precise.
 ## Completion evidence
 
 - **O10.5:** `readiness.json` names the clean checkpoint, active scope, empty remote, branch,
-  exact 0.119.2 baseline, and four successful start gates.
+  exact 0.119.5 baseline, and four successful start gates.
 - **O10.6:** the readiness record retains focused exit `1`; the final record retains focused
   exit `0` after the smallest coherent change.
 - **O10.7:** the active scope and final diff each list only `src/greeting.mjs`.
@@ -263,5 +263,5 @@ Use it to diagnose the smallest gap, then retry from a known state.
 | Gate integrity | [Directive main][main] | 2026-09-10 |
 | Exact runtime observations | [Module 10 source validation](../../references/SOURCE-NOTES.md#module-10-source-validation) | 2026-09-10 |
 
-[commands]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/commands.md
-[main]: https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/main.md
+[commands]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/commands.md
+[main]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/main.md

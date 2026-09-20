@@ -1,0 +1,20 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Confirmed change proposal for the Directive 0.119.5 teaching-baseline upgrade."
+  },
+  "plan": {
+    "title": "Directive 0.119.5 Teaching Baseline",
+    "status": "confirmed",
+    "narratives": {
+      "Problem": "The repository's authoring pin had moved ahead of the 0.119.2 learner baseline, leaving current curriculum, fixtures, source links, and verification assertions stale.",
+      "Change": "Collapse all current teaching and executable surfaces onto the immutable Directive 0.119.5 package graph and release commit, preserving labeled historical evidence.",
+      "Scope": "In scope: managed upgrade metadata, current curriculum and solutions, six disposable fixtures, workflows, verifier code, source evidence, tests, push, and pull request. Out of scope: merge, publication, deployment, and changes to the Directive source repository.",
+      "Impact": "Learner examples, package graphs, runtime guards, current source citations, and maintenance evidence all identify one release.",
+      "Risks": "Mechanical replacement could rewrite history or miss escaped verifier literals. Classify occurrences and run causal, aggregate, content, runtime, and Deft gates.",
+      "Approach": "Bind npm and Git release identity, establish a failing coupling test, update current surfaces, re-run disposable learner workflows, and stop at an open pull request.",
+      "Alternatives": "A deposit-only refresh was rejected because it would leave learner-facing material on the stale baseline.",
+      "Dependencies": "Directive 0.119.5 published consistently across CLI, core, content, and types; existing local and GitHub tooling."
+    }
+  }
+}

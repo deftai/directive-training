@@ -1,6 +1,6 @@
 # Directive training glossary
 
-These definitions describe the course baseline: `@deftai/directive` 0.119.2
+These definitions describe the course baseline: `@deftai/directive` 0.119.5
 and xBRIEF schema 0.8, verified through 2026-09-12. See
 [SOURCE-BASELINE.md](SOURCE-BASELINE.md) before applying them to another
 release.
@@ -278,7 +278,7 @@ Markdown rendering, codebase map, or future internal-publishing page. Repair the
 source and regenerate; do not promote the projection over its source.
 
 **projection freshness**
-Agreement of an existing view with its expected rendering. In the 0.119.2 MAP
+Agreement of an existing view with its expected rendering. In the 0.119.5 MAP
 check, absence is allowed; a task requiring a MAP must separately prove that
 it exists and contains the intended result. See [Module 5](../curriculum/modules/05-sources-versus-projections.md).
 

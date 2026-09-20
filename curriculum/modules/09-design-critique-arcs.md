@@ -12,7 +12,7 @@ halt, verified synthesis, or later ingest.
 | Status | `learner-ready draft; command-free fixed-state practicum` |
 | Last content update | 2026-09-18 |
 | Last verified | 2026-09-18 |
-| Directive baseline | `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md#module-9-design-critique-validation) |
+| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md#module-9-design-critique-validation) |
 | Estimated duration | 75 minutes |
 | Prerequisite | Modules 1–8, including a passing [Module 6 O6.4 routing artifact](06-creating-well-shaped-work.md#exercise) |
 | Format | Fixed fictional cards and a personal scratch worksheet; no command, account, repository, or live critic |
@@ -56,7 +56,7 @@ controlling fact, disposition, safe next action, or proposed revision is missing
 [Module 8](08-session-and-work-selection.md) if durable state and conversation are still
 blurred. Do not infer a mechanism from keywords alone.
 
-This check and the practicum are human-semantic course work. Directive 0.119.2 does not
+This check and the practicum are human-semantic course work. Directive 0.119.5 does not
 compute whether a proposal is mechanism-shaped.
 
 ## Why this matters
@@ -420,10 +420,10 @@ always available and requires no instructor, account, or automation unlock.
 
 ## Official sources
 
-| Statement supported | Pinned 0.119.2 source | Verified date | Notes |
+| Statement supported | Pinned 0.119.5 source | Verified date | Notes |
 | --- | --- | --- | --- |
-| Arc boundary, stops, critic method, envelope, successor lean, dual stop, bind, and security context | [Design-critique contract](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/contracts/design-critique.md) | 2026-09-18 | Teach the stable bounded motion, not every maintainer detail |
-| Envelope fields and forbidden inputs | [Critic brief template](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/templates/design-critique-brief.md) | 2026-09-18 | Packet values are fictional |
-| Mechanize recording, not judgment | [ADR-005](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/docs/decisions/ADR-005-design-critique-judgment-gate.md) | 2026-09-18 | Routing remains human-semantic |
-| Parent-side substantiation needs independent clearance | [ADR-006](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/docs/decisions/ADR-006-parent-side-substantiation.md) | 2026-09-18 | Parent citation is not self-clearance |
+| Arc boundary, stops, critic method, envelope, successor lean, dual stop, bind, and security context | [Design-critique contract](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/contracts/design-critique.md) | 2026-09-18 | Teach the stable bounded motion, not every maintainer detail |
+| Envelope fields and forbidden inputs | [Critic brief template](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/templates/design-critique-brief.md) | 2026-09-18 | Packet values are fictional |
+| Mechanize recording, not judgment | [ADR-005](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/decisions/ADR-005-design-critique-judgment-gate.md) | 2026-09-18 | Routing remains human-semantic |
+| Parent-side substantiation needs independent clearance | [ADR-006](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/decisions/ADR-006-parent-side-substantiation.md) | 2026-09-18 | Parent citation is not self-clearance |
 | Course validation and adaptation boundary | [Source baseline](../../references/SOURCE-BASELINE.md#module-9-design-critique-validation) and [source notes](../../references/SOURCE-NOTES.md#module-9-design-critique-source-validation) | 2026-09-18 | Command-free fixed-state adaptation |

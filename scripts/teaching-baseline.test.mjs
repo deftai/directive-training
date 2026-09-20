@@ -10,13 +10,13 @@ const readme = (version, prose = "Learners use `@deftai/directive`") =>
 const packageJson = (version) => ({ devDependencies: { "@deftai/directive": version } });
 
 test("derives the exact pin from the single README teaching declaration", () => {
-  assert.equal(declaredTeachingBaseline(readme("0.119.2")), "0.119.2");
-  assert.equal(assertTeachingBaselinePin(packageJson("0.119.2"), readme("0.119.2")), "0.119.2");
+  assert.equal(declaredTeachingBaseline(readme("0.119.5")), "0.119.5");
+  assert.equal(assertTeachingBaselinePin(packageJson("0.119.5"), readme("0.119.5")), "0.119.5");
 });
 
 test("keeps the teaching-baseline gate stable when README prose changes", () => {
-  const reworded = readme("0.119.2", "Use the pinned release throughout the course.");
-  assert.equal(declaredTeachingBaseline(reworded), "0.119.2");
+  const reworded = readme("0.119.5", "Use the pinned release throughout the course.");
+  assert.equal(declaredTeachingBaseline(reworded), "0.119.5");
 });
 
 test("rejects the dc20d5e dual-pin content", () => {
@@ -28,14 +28,14 @@ test("rejects the dc20d5e dual-pin content", () => {
 
 test("rejects missing or duplicate teaching-baseline markers", () => {
   assert.throws(() => declaredTeachingBaseline("# Course\n"), /exactly one/);
-  assert.throws(() => declaredTeachingBaseline(readme("0.119.2") + readme("0.119.2")), /exactly one/);
-  assert.throws(() => declaredTeachingBaseline(readme("0.119.2").replace(closeMarker, "")), /exactly one/);
-  assert.throws(() => declaredTeachingBaseline(readme("0.119.2") + closeMarker), /exactly one/);
+  assert.throws(() => declaredTeachingBaseline(readme("0.119.5") + readme("0.119.5")), /exactly one/);
+  assert.throws(() => declaredTeachingBaseline(readme("0.119.5").replace(closeMarker, "")), /exactly one/);
+  assert.throws(() => declaredTeachingBaseline(readme("0.119.5") + closeMarker), /exactly one/);
 });
 
 test("rejects reversed markers and anything except a visible exact release", () => {
-  assert.throws(() => declaredTeachingBaseline(`${closeMarker}0.119.2${openMarker}`), /in order/);
-  for (const version of ["", "^0.119.2", "0.119.2-beta", "<!-- 0.119.2 -->", "0.119.2 0.112.0"]) {
+  assert.throws(() => declaredTeachingBaseline(`${closeMarker}0.119.5${openMarker}`), /in order/);
+  for (const version of ["", "^0.119.5", "0.119.5-beta", "<!-- 0.119.5 -->", "0.119.5 0.112.0"]) {
     assert.throws(() => declaredTeachingBaseline(readme(version)), /only the visible exact version/);
   }
 });

@@ -4,7 +4,7 @@
 
 | Field | Value |
 | --- | --- |
-| Directive baseline | 0.119.2 |
+| Directive baseline | 0.119.5 |
 | Exercise | [Module 8 — Session start and authorized work selection](../curriculum/modules/08-session-and-work-selection.md#exercise) |
 | Evidence type | Explained fixed-state decision matrix |
 | Safety boundary | No live backlog, cache, repository, or client data |

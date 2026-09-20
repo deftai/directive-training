@@ -54,10 +54,10 @@ const unfinished = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
 
 function exactBaseline(path, prose, heading) {
   const row = section(prose, heading).match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-  assert.ok(row?.includes("0.119.2"), `${path} must declare exact Directive 0.119.2`);
+  assert.ok(row?.includes("0.119.5"), `${path} must declare exact Directive 0.119.5`);
   assert.deepEqual(
     [...new Set(row.match(/\b\d+\.\d+\.\d+\b/g))],
-    ["0.119.2"],
+    ["0.119.5"],
     `${path} contains a stale or ranged Directive baseline`,
   );
 }
@@ -170,12 +170,12 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   for (const [platform, expected] of [["macos-zsh", "verified"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
     assert.match(baseline, new RegExp(`teaching-platform-proof:${platform} status=${expected}`), `SOURCE-BASELINE Module 11 platform status is missing: ${platform}`);
   }
-  for (const token of ["exact CLI/core/content/types 0.119.2 graph", "verify:ac"]) assert.ok(baseline.includes(token), `SOURCE-BASELINE Module 11 evidence is missing: ${token}`);
+  for (const token of ["exact CLI/core/content/types 0.119.5 graph", "verify:ac"]) assert.ok(baseline.includes(token), `SOURCE-BASELINE Module 11 evidence is missing: ${token}`);
 
   const fixturePackage = JSON.parse(content.get("labs/fixtures/11-testing-gates-and-evidence/package.json"));
-  assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.119.2", "Module 11 fixture must retain the exact Directive pin");
+  assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.119.5", "Module 11 fixture must retain the exact Directive pin");
   for (const name of ["directive-core", "directive-content", "directive-types"]) {
-    assert.equal(fixturePackage.overrides?.[`@deftai/${name}`], "0.119.2", `Module 11 fixture must pin ${name}`);
+    assert.equal(fixturePackage.overrides?.[`@deftai/${name}`], "0.119.5", `Module 11 fixture must pin ${name}`);
   }
   assert.equal(fixturePackage.scripts?.["test:focused"], "node --test test/summary.test.mjs", "Module 11 fixture must expose the focused test");
   assert.equal(fixturePackage.scripts?.["check:behavior"], "node src/summary.mjs 2 4 6", "Module 11 fixture must expose the literal behavior check");

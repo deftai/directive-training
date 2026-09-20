@@ -148,8 +148,8 @@ export function verifyModules45(root = fileURLToPath(new URL("../", import.meta.
       assert.ok(section(parts.prose, heading).trim(), `${path} has an empty section: ${heading}`);
     }
     const baseline = parts.prose.match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-    assert.ok(baseline?.includes("0.119.2"), `${path} must declare the exact Directive 0.119.2 baseline`);
-    assert.deepEqual([...new Set(baseline.match(/\b\d+\.\d+\.\d+\b/g))], ["0.119.2"], `${path} contains a stale baseline version`);
+    assert.ok(baseline?.includes("0.119.5"), `${path} must declare the exact Directive 0.119.5 baseline`);
+    assert.deepEqual([...new Set(baseline.match(/\b\d+\.\d+\.\d+\b/g))], ["0.119.5"], `${path} contains a stale baseline version`);
     assert.doesNotMatch(body, /"(?:xBRIEFInfo|vBRIEFInfo)"\s*:\s*\{[^}]*"version"\s*:\s*"0\.6"/, `${path} teaches a legacy xBRIEF write envelope`);
     assert.doesNotMatch(parts.prose, /\b(?:Directive behavior|3Ci policy|Course guidance)\b/i, `${path} contains a removed claim label`);
     for (const block of parts.blocks.filter(({ language }) => /^(?:sh|shell|bash|zsh|powershell|pwsh|console)$/.test(language))) {

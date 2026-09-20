@@ -12,7 +12,7 @@ applying behavior specificity, rule strength, authorization, or operator escalat
 | Outcomes covered | O3.1, O3.2, O3.3, O3.4 |
 | Status | `learner-ready draft` |
 | Last verified | 2026-09-07 |
-| Directive baseline | `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Module 3 conflict exercise](../curriculum/modules/03-authority-and-context.md#exercise) |
 
 ## Before you use this solution
@@ -214,7 +214,7 @@ product decision.
 1. Record the course pin and the newer project's installed Directive version.
 2. Re-open the matching release's core skill, Concepts rule-strength section, main xBRIEF
    authority statement, and session-routing contract.
-3. Keep this exercise on 0.119.2 or stop and report the version mismatch.
+3. Keep this exercise on 0.119.5 or stop and report the version mismatch.
 4. Do not silently combine hierarchies from different releases.
 
 ## Misconceptions exposed by this exercise
@@ -255,10 +255,10 @@ Never copy the actual contents of a shared `USER.md` into the scratch note.
 
 | Statement | Pinned source or policy | Verified date |
 | --- | --- | --- |
-| Personal/project/Defaults precedence and lazy loading | [Core skill — `Core Principle: Rule Precedence` and `File Reading Strategy (Lazy Loading)`](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/SKILL.md) | 2026-09-07 |
-| Deterministic enforcement order | [Concepts — `Rule Strength` and `Lazy Loading And Modularity`](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/docs/CONCEPTS.md) | 2026-09-07 |
-| Active scope plus live intent; completed-scope boundary | [main.md — xBRIEF Persistence](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/main.md#xbrief-persistence) | 2026-09-07 |
-| Session posture and implementation intent | [Commands — `Session routing (#2176)` and `Scope xBRIEF Lifecycle`](https://github.com/deftai/directive/blob/9038503ffac65e6d48e5ba34758c4e8e7077aba3/content/commands.md) | 2026-09-07 |
+| Personal/project/Defaults precedence and lazy loading | [Core skill — `Core Principle: Rule Precedence` and `File Reading Strategy (Lazy Loading)`](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/SKILL.md) | 2026-09-07 |
+| Deterministic enforcement order | [Concepts — `Rule Strength` and `Lazy Loading And Modularity`](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/CONCEPTS.md) | 2026-09-07 |
+| Active scope plus live intent; completed-scope boundary | [main.md — xBRIEF Persistence](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/main.md#xbrief-persistence) | 2026-09-07 |
+| Session posture and implementation intent | [Commands — `Session routing (#2176)` and `Scope xBRIEF Lifecycle`](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/commands.md) | 2026-09-07 |
 | Bounded operator escalation and no shared USER.md copying | `xbrief/PROJECT-DEFINITION.xbrief.json` ProjectRules and [Module 3](../curriculum/modules/03-authority-and-context.md) | 2026-09-07 |
 
 This solution is an original paraphrase/adaptation. See the complete

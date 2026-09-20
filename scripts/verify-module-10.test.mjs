@@ -72,8 +72,8 @@ test("Module 10 content contract accepts the completed lifecycle state", () => {
 
 test("verifier rejects a stale or ranged learner baseline", () => {
   const root = changedCopy("curriculum/modules/10-implementation-golden-path.md", (body) => body.replace(
-    "| Directive baseline | `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
-    "| Directive baseline | `@deftai/directive@0.119.2–0.114.0`, engine `@deftai/directive-core@0.119.2`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
+    "| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
+    "| Directive baseline | `@deftai/directive@0.119.5–0.114.0`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
   ));
   assert.throws(() => verifyModule10(root), /stale or ranged Directive baseline/);
 });

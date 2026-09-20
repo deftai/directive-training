@@ -117,8 +117,8 @@ test("verifier rejects presence-only O6.4 admission", () => {
 
 test("verifier rejects attributing mechanism-shaped judgment to Directive", () => {
   const root = changedCopy("curriculum/modules/07-scope-lifecycle.md", (body) => body.replace(
-    "Directive 0.119.2 does not compute whether work\nis mechanism-shaped, and `scope:promote` is not fail-closed on that judgment.",
-    "Directive 0.119.2 computes whether work\nis mechanism-shaped, and `scope:promote` is fail-closed on that judgment.",
+    "Directive 0.119.5 does not compute whether work\nis mechanism-shaped, and `scope:promote` is not fail-closed on that judgment.",
+    "Directive 0.119.5 computes whether work\nis mechanism-shaped, and `scope:promote` is fail-closed on that judgment.",
   ));
   assert.throws(() => verifyModule7(root), /mechanism-shaped judgment to Directive/);
 });

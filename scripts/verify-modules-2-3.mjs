@@ -220,7 +220,7 @@ for (const [label, content] of [
 }
 
 for (const content of [module2, lab2, lab2Solution]) {
-  assert.match(content, /0\.119\.2/, "Module 2 path must use the exact Directive pin");
+  assert.match(content, /0\.119\.5/, "Module 2 path must use the exact Directive pin");
   assert.match(content, /no[- ]remote/i, "Module 2 path must preserve the no-remote guard");
   assert.doesNotMatch(content, /doctor[^\n]*--repo-root/, "doctor must use the verified --project-root flag");
 }
@@ -236,10 +236,10 @@ for (const requiredSafetyPattern of [
   /local_bin="\$lab_root\/node_modules\/\.bin"/,
   /test "\$resolved_deft" = "\$local_bin\/deft"/,
   /git ls-files --error-unmatch/,
-  /g\.contentVersion!=="0\.119\.2"/,
+  /g\.contentVersion!=="0\.119\.5"/,
   /x\.xBRIEFInfo\?\.version!=="0\.8"/,
   /core\.hooksPath/,
-  /p\.devDependencies\?\.\["@deftai\/directive"\].*0\.119\.2/,
+  /p\.devDependencies\?\.\["@deftai\/directive"\].*0\.119\.5/,
 ]) {
   assert.match(lab2, requiredSafetyPattern, "Lab 2 is missing a fail-closed safety or pin check");
 }
@@ -408,7 +408,7 @@ for (const [relativePath, content] of [
   assert.match(
     content,
     /known false negative[\s\S]{0,180}(?:Missing directory: )?`?xbrief\/`?[\s\S]{0,220}PROJECT-DEFINITION\.xbrief\.json[\s\S]{0,120}(?:exists|present)/i,
-    relativePath + " must label the 0.119.2 doctor xbrief warning as a known false negative",
+    relativePath + " must label the 0.119.5 doctor xbrief warning as a known false negative",
   );
 }
 
@@ -456,7 +456,7 @@ const fixture = JSON.parse(read("labs/fixtures/02-disposable-initialization/pack
 assert.equal(fixture.private, true, "the fictional lab fixture must be private");
 assert.equal(
   fixture.devDependencies?.["@deftai/directive"],
-  "0.119.2",
+  "0.119.5",
   "the lab fixture must pin @deftai/directive exactly",
 );
 assert.deepEqual(
@@ -467,9 +467,9 @@ assert.deepEqual(
 assert.deepEqual(
   fixture.overrides,
   {
-    "@deftai/directive-content": "0.119.2",
-    "@deftai/directive-core": "0.119.2",
-    "@deftai/directive-types": "0.119.2",
+    "@deftai/directive-content": "0.119.5",
+    "@deftai/directive-core": "0.119.5",
+    "@deftai/directive-types": "0.119.5",
   },
   "the lab fixture must pin the complete Directive package graph",
 );
@@ -661,7 +661,7 @@ for (const token of [
 
 const sourceNotes = read("references/SOURCE-NOTES.md");
 const sourceBaseline = read("references/SOURCE-BASELINE.md");
-const releaseCommit = "9038503ffac65e6d48e5ba34758c4e8e7077aba3";
+const releaseCommit = "75e7d33f114b0e2e67741257813c095e74d9668f";
 const normalizeReferenceId = (value) => value.trim().replace(/\s+/g, " ").toLowerCase();
 const normalizeReferenceDestination = (value) =>
   value.startsWith("<") && value.endsWith(">") ? value.slice(1, -1) : value;
@@ -727,20 +727,20 @@ assert.deepEqual(
   platformProof.get("macos-zsh"),
   {
     status: "verified",
-    date: "2026-09-17",
+    date: "2026-09-20",
     evidence: "baseline-upgrade-65-of-65",
   },
-  "macOS/zsh must point to the current local 0.119.2 learner-path proof",
+  "macOS/zsh must point to the current local 0.119.5 learner-path proof",
 );
 for (const platformId of ["linux-bash", "windows-pwsh7"]) {
   assert.deepEqual(
     platformProof.get(platformId),
     {
       status: "candidate",
-      date: "2026-09-17",
+      date: "2026-09-20",
       evidence: "not-run",
     },
-    platformId + " must remain a candidate until a native 0.119.2 replay exists",
+    platformId + " must remain a candidate until a native 0.119.5 replay exists",
   );
 }
 assert.match(
@@ -796,12 +796,12 @@ assert.match(
 );
 assert.match(
   sourceBaseline,
-  /unpinned disposable no-remote `init --json` emitted parseable JSON and created the exact private package pin and 0\.119\.2 generation/,
+  /unpinned disposable no-remote `init --json` emitted parseable JSON and created the exact private package pin and 0\.119\.5 generation/,
   "SOURCE-BASELINE must record the successful current JSON init probe",
 );
 assert.doesNotMatch(
   sourceBaseline,
-  /released command rejects that separator|Pass the xBRIEF path directly for 0\.119\.2/,
+  /released command rejects that separator|Pass the xBRIEF path directly for 0\.119\.5/,
   "SOURCE-BASELINE must not retain the resolved 0.111.0 separator workaround",
 );
 
