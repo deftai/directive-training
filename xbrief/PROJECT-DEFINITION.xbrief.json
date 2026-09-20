@@ -114,10 +114,10 @@
       {
         "id": "2026-09-20-directive-0-119-5-teaching-baseline-upgrade",
         "title": "Directive 0.119.5 Teaching Baseline Upgrade",
-        "status": "running",
+        "status": "completed",
         "metadata": {
-          "source_path": "active/2026-09-20-directive-0-119-5-teaching-baseline-upgrade.xbrief.json",
-          "lifecycle_folder": "active",
+          "source_path": "completed/2026-09-20-directive-0-119-5-teaching-baseline-upgrade.xbrief.json",
+          "lifecycle_folder": "completed",
           "references": [
             {
               "uri": "urn:deftai:directive-training:user-request:2026-09-20:directive-0.119.5-upgrade",
