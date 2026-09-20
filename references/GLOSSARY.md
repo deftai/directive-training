@@ -233,6 +233,12 @@ when its result can be demonstrated and verified independently.
 A body of work too broad to be one independently verifiable story. Decompose it
 into ordered slices and record why each dependency and slice boundary exists.
 
+**proposed mechanism revision**
+The identifier of the concrete revision that a `route` disposition sends to design
+critique, such as `NS-INGEST-R2`. It names the routed target. It is not a redesign
+sentence describing how the mechanism should change, and naming it neither performs the
+critique nor authorizes promotion, activation, or implementation.
+
 **decomposition DAG**
 The directed acyclic graph formed by stories and their dependencies. Story
 dependencies use `plan.metadata.swarm.depends_on`; phase or epic records may

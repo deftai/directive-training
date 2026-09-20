@@ -171,3 +171,12 @@
   to a real warning row and rejects any other warning identity, with a replay
   suite in CI. The issue-19 scope brief records its plan and acceptance against
   the 0.119.5 baseline the change implements (#19).
+- Remove a hidden strengthening in the Module 6 Part D routing matrix. The
+  published rubric asks the learner to name the routed revision, but the
+  solution cell and `scripts/verify-module-6.mjs` required a Module 9
+  clearance sentence the learner has not been taught. The route row's
+  `Proposed mechanism revision` cell is now the identifier `NS-INGEST-R2`,
+  the verifier asserts that exact value and rejects a redesign sentence,
+  `Not applicable.` remains the non-route fill, and Module 6 Terminology,
+  the self-assessment key, and the glossary define the column as an
+  identifier (#16).
