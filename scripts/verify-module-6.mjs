@@ -15,10 +15,16 @@ import { assertTeachingBaselinePin } from "./teaching-baseline.mjs";
 const module6 = "curriculum/modules/06-creating-well-shaped-work.md";
 const solution6 = "solutions/module-06-creating-well-shaped-work.md";
 const module5 = "curriculum/modules/05-sources-versus-projections.md";
+const lab7 = "labs/07-scope-lifecycle.md";
+const suppliedScopes = [
+  "2026-01-15-fictional-delivery.xbrief.json",
+  "2026-01-15-fictional-cancel.xbrief.json",
+];
 const requiredFiles = [
   module6,
   solution6,
   module5,
+  lab7,
   "README.md",
   "curriculum/README.md",
   "assessments/README.md",
@@ -107,6 +113,177 @@ function requireSectionOutcomes(path, prose, headings) {
   }
 }
 
+/**
+ * Verify the O6.2 structural-evidence contract: O6.2 keeps its wording, its completion
+ * evidence records a positive structural result over the exact learner-authored artifact,
+ * the vehicle recut is named, and structural proof stays separate from the rubric.
+ * @param {string} moduleProse Module 6 prose with code fences removed.
+ * @param {string} solutionProse Module 6 solution prose with code fences removed.
+ * @param {string} labProse Lab 7 prose with code fences removed.
+ * @param {string} labCommands Joined Lab 7 shell blocks.
+ * @returns {void}
+ */
+function requireStructuralEvidenceContract(moduleProse, solutionProse, labProse, labCommands) {
+  const outcomesSection = section(moduleProse, "Learning outcomes");
+  assert.match(
+    outcomesSection,
+    /O6\.2 — Trace idea to proposed scope[\s\S]{0,400}schema-0\.8 proposed-scope artifact/,
+    "O6.2 must keep its shaping and schema-0.8 proposed-scope artifact outcome",
+  );
+  assert.match(
+    outcomesSection,
+    /proposal is not implementation authority/i,
+    "O6.2 must keep the proposal authority boundary in its outcome text",
+  );
+
+  const structural = section(moduleProse, "Structural evidence for O6.2");
+  assert.match(
+    structural,
+    /\]\([^)]*labs\/07-scope-lifecycle\.md(?:#[^)]*)?\)/,
+    "the O6.2 structural-evidence section must name the adjacent lab vehicle by link",
+  );
+  assert.match(
+    structural,
+    /adjacent practical lab\s+step/i,
+    "the vehicle recut must be named, not implied",
+  );
+  assert.match(
+    structural,
+    /command-free/i,
+    "the vehicle recut must state whether Module 6's command-free contract changed",
+  );
+  assert.match(
+    structural,
+    /xbrief:verify[^\n]*--out[^\n]*--project-root/,
+    "the structural check must name the exact command with its artifact path and project root",
+  );
+  for (const [pattern, label] of [
+    [/\*\*path\*\*/i, "path"],
+    [/\*\*command\*\*/i, "command"],
+    [/\*\*exit code\*\*/i, "exit code"],
+    [/\*\*result\*\*/i, "result"],
+  ]) {
+    assert.match(structural, pattern, `the O6.2 structural evidence must retain the ${label}`);
+  }
+  assert.match(
+    structural,
+    /`xbrief:preflight` and `doctor` are not the authoring-validity pass/,
+    "the structural check must refuse xbrief:preflight and doctor as the authoring-validity pass",
+  );
+  assert.match(
+    structural,
+    /^\|?\s*Surface\s*\|\s*Proves\s*\|\s*Does not prove\s*\|?\s*$/im,
+    "the O6.2 evidence surfaces must be split in a published table",
+  );
+  assert.match(
+    structural,
+    /Module 6 comparison rubric[^\n]*(?:strategy|acceptance)[^\n]*implementation authority/i,
+    "the comparison rubric must keep strategy, observability, traces, and the authority boundary",
+  );
+  assert.match(
+    structural,
+    /green structural result\s+grants no promotion, no activation, and no implementation authority/i,
+    "a green structural result must grant no promotion, activation, or implementation authority",
+  );
+  assert.match(
+    structural,
+    /no outcome is added or recut/i,
+    "the module must state whether a separate outcome was added or recut",
+  );
+  assert.match(
+    structural,
+    /(?:command choice, invocation, output interpretation, and recovery are not assessed)/i,
+    "the module must state the condition under which a separate outcome would be required",
+  );
+
+  const completion = section(moduleProse, "Completion evidence");
+  const completionRow = completion.split("\n").find((line) => /^\|\s*O6\.2\s*\|/.test(line.trim()));
+  assert.ok(completionRow, "Completion evidence must keep an O6.2 row");
+  for (const [pattern, label] of [
+    [/artifact path/i, "the artifact path"],
+    [/command/i, "the command"],
+    [/exit code/i, "the exit code"],
+    [/result/i, "the result"],
+    [/`xbrief:verify` exits `0`/, "a positive xbrief:verify exit"],
+    [/grants no promotion, activation, or implementation authority/i, "the no-authority boundary"],
+  ]) {
+    assert.match(completionRow, pattern, `O6.2 completion evidence is missing ${label}`);
+  }
+
+  const solutionEvidence = section(solutionProse, "Acceptance evidence");
+  assert.match(
+    solutionEvidence,
+    /Structural conformance of the exact artifact[^\n]*`xbrief:verify` exits `0`[^\n]*O6\.2/,
+    "the solution must record structural conformance of the exact artifact as O6.2 evidence",
+  );
+  assert.doesNotMatch(
+    solutionProse,
+    /O6\.2 passes without any file mutation or executable claim/,
+    "the solution must not keep the retired static-only O6.2 pass claim",
+  );
+
+  const labTasks = section(labProse, "Tasks");
+  assert.match(
+    labTasks,
+    /### Task 5 — Author and structurally verify your own proposed scope/,
+    "Lab 7 must carry the adjacent authoring task that consumes the O6.2 artifact",
+  );
+  assert.match(
+    labTasks,
+    /\]\([^)]*06-creating-well-shaped-work\.md(?:#[^)]*)?\)/,
+    "the Lab 7 authoring task must name the Module 6 artifact it consumes",
+  );
+  assert.match(
+    labTasks,
+    /third record/i,
+    "the Lab 7 authoring task must keep both supplied scopes and add the learner record beside them",
+  );
+  assert.match(
+    labTasks,
+    /`xbrief:verify` is not a lifecycle move\. Do not promote or activate your scope\./,
+    "the Lab 7 authoring task must refuse promotion and activation of the authored scope",
+  );
+  assert.match(
+    labTasks,
+    /`xbrief:preflight` and `doctor` are not the authoring-validity pass/,
+    "the Lab 7 authoring task must repeat the preflight and doctor refusal",
+  );
+  assert.match(
+    labTasks,
+    /grants no promotion, no activation, and no implementation authority/i,
+    "the Lab 7 authoring task must state that a green structural result grants no authority",
+  );
+  assert.match(
+    labTasks,
+    /adds no Lab 7 outcome/i,
+    "the Lab 7 authoring task must not silently create an outcome",
+  );
+  assert.match(
+    labCommands,
+    /xbrief:verify\s+--\s+--format json\s+--out\s+"\$authored"\s+--style scope\s+--project-root\s+"\$first_root"/,
+    "Lab 7 must run the structural check against the exact learner-authored path inside the guarded root",
+  );
+  assert.match(labCommands, /authored_exit=\$\?/, "Lab 7 must retain the structural exit code");
+  assert.match(
+    labCommands,
+    /set \+e\n(?:[^\n]*\n)*?authored_exit=\$\?\nset -e/,
+    "Lab 7 must suspend errexit around the structural check so a failing exit code survives to be recorded",
+  );
+  assert.match(
+    labCommands,
+    /authored_command="[^"]*xbrief:verify[^"]*--out [^"]*--project-root [^"]*"/,
+    "Lab 7 must capture the exact structural command, including its artifact path and project root",
+  );
+  assert.match(
+    labCommands,
+    /printf '[^']*command=%s[^']*'[^\n]*"\$authored_command"[^\n]*>>/,
+    "Lab 7 must persist the exact structural command into the retained evidence record",
+  );
+  for (const supplied of suppliedScopes) {
+    assert.ok(labCommands.includes(supplied), `Lab 7 must keep its supplied scope record: ${supplied}`);
+  }
+}
+
 function requireModule6Link(content, label) {
   assert.match(content, /\]\([^)]*06-creating-well-shaped-work\.md(?:#[^)]*)?\)/, `${label} is missing Module 6 navigation`);
 }
@@ -145,6 +322,12 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
     assert.ok(!parts.blocks.some(({ language }) => shellLanguage.test(language)), `${path} is command-free and must not contain a shell code fence`);
     verifyLinks(root, path, parts.prose);
   }
+
+  const labParts = markdownParts(content.get(lab7));
+  const labCommands = labParts.blocks
+    .filter(({ language }) => /^(?:sh|bash|zsh|console)$/.test(language))
+    .map(({ content: block }) => block)
+    .join("\n");
 
   const moduleProse = parsed.get(module6).prose;
   const solutionProse = parsed.get(solution6).prose;
@@ -253,6 +436,8 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
     assert.ok(typeof item?.status === "string" && item.status.trim(), `${solution6} worked proposal item status is required`);
     assert.ok(item?.narrative?.Acceptance?.trim() && item?.narrative?.Traces?.trim(), `${solution6} must contain two to five traced acceptance items`);
   }
+
+  requireStructuralEvidenceContract(moduleProse, solutionProse, labParts.prose, labCommands);
 
   const module5Navigation = section(markdownParts(content.get(module5)).prose, "Navigation");
   requireModule6Link(module5Navigation, "Module 5 navigation");
