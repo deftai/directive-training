@@ -150,3 +150,15 @@
 - Normalize new Lab 5 text fixtures to LF and pin the source JSON's Git text
   attributes. Accept LF/CRLF purpose edits while retaining trailing-whitespace
   rejection; update the nine-file checkpoint and exact Windows CRLF replay.
+- Stop teaching `Missing directory: xbrief/` as a 0.119.5 doctor known false
+  negative in Module 2, Lab 2, and the Lab 2 solution. The pinned engine cannot
+  emit that string. Lab 2 Task 2 now teaches the warning a pin-matched init
+  really prints — `canonical-vendored-npm-signpost` — with its check id,
+  message, recommended host-global action in a non-executable fence, and the
+  out-of-boundary verdict. O2.4 stays classify-and-boundary-judge of whatever
+  appeared and no longer scores a warning count. `verify-modules-2-3` now
+  rejects the dead string and any learner-executable global install, `@latest`
+  tag, or `directive migrate`. `SOURCE-NOTES.md` records a dedicated 0.119.5
+  Lab 2 doctor-warning replay and labels the 0.112.0 two-warning proof
+  historical; the Modules 2–3 CI jobs capture doctor output, assert the
+  expected warning set, and run the focused content contract (#19).

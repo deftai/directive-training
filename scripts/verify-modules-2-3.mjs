@@ -174,8 +174,11 @@ const module1 = read("curriculum/modules/01-what-directive-is.md");
 const module1Solution = read("solutions/module-01-what-directive-is.md");
 
 const executableFencePattern = /^\s*```(?:sh|bash|zsh|powershell|pwsh)\s*\n([\s\S]*?)^\s*```\s*$/gim;
+// A learner-executable fence may never mutate host-global state, leave the course pin, or
+// run the untaught provenance migration the doctor signpost recommends (#19). Those three
+// live only as quoted evidence in non-executable fences.
 const forbiddenLearnerCommand =
-  /^\s*(?:&\s*)?(?:git\s+(?:push\b|remote\s+(?:add|remove|rename|set-url)\b|reset\s+--hard\b|clean\b|checkout\s+--\b|branch\s+-D\b)|gh\s+(?!--version(?:\s|$))|npm\s+publish\b|(?:directive|deft)\s+(?:deploy|publish|release)\b|rm\s+-(?:rf|fr)\b|Remove-Item\b|(?:del|rmdir)\s+\/s\b)/im;
+  /^\s*(?:&\s*)?(?:git\s+(?:push\b|remote\s+(?:add|remove|rename|set-url)\b|reset\s+--hard\b|clean\b|checkout\s+--\b|branch\s+-D\b)|gh\s+(?!--version(?:\s|$))|npm\s+publish\b|npm(?:\.cmd)?\s+(?:i|in|install|add)\b[^\n]*?(?:\s-g(?=\s|$)|\s--global(?=\s|$))|npm(?:\.cmd)?\s+(?:i|in|install|add)\b[^\n]*@latest(?=\s|$|["'`])|(?:directive|deft)\s+migrate\b|(?:directive|deft)\s+(?:deploy|publish|release)\b|rm\s+-(?:rf|fr)\b|Remove-Item\b|(?:del|rmdir)\s+\/s\b)/im;
 for (const [relativePath, content] of [
   ["curriculum/modules/02-installation-and-anatomy.md", module2],
   ["curriculum/modules/03-authority-and-context.md", module3],
@@ -400,15 +403,61 @@ assert.match(
   /verify:codebase-map-fresh --help[\s\S]{0,220}(?:runs|performs)[\s\S]{0,80}check/i,
   "Module 2 must warn that command-specific help can execute a verifier",
 );
+// The pinned 0.119.5 engine cannot emit `Missing directory: xbrief/`: that string is
+// reserved for framework-content and engine-deposit rows, and the lifecycle row has its own
+// wording. Teaching it -- even behind an "if it appears" hedge -- locks a false evidence
+// lesson into the first executable lab, so the three learner files must teach the warning a
+// pin-matched Lab 2 init really prints (deftai/directive-training#19).
 for (const [relativePath, content] of [
   ["curriculum/modules/02-installation-and-anatomy.md", module2],
   ["labs/02-disposable-initialization.md", lab2],
   ["solutions/lab-02-disposable-initialization.md", lab2Solution],
 ]) {
-  assert.match(
+  assert.doesNotMatch(
     content,
-    /known false negative[\s\S]{0,180}(?:Missing directory: )?`?xbrief\/`?[\s\S]{0,220}PROJECT-DEFINITION\.xbrief\.json[\s\S]{0,120}(?:exists|present)/i,
-    relativePath + " must label the 0.119.5 doctor xbrief warning as a known false negative",
+    /Missing directory: *`?xbrief/i,
+    relativePath + " must not teach `Missing directory: xbrief/`; the pinned engine cannot emit it",
+  );
+  assert.doesNotMatch(
+    content,
+    /known false negative/i,
+    relativePath + " must not label a doctor finding a known false negative without a pin-matched replay",
+  );
+  assert.ok(
+    content.includes("canonical-vendored-npm-signpost"),
+    relativePath + " must name the doctor check a pin-matched Lab 2 init actually prints",
+  );
+}
+
+// Lab 2 Task 2 carries the live warning as a classification exercise: check id, message,
+// recommended action, and boundary verdict. The recommended action is host-global and
+// pin-breaking, so it may only appear as quoted evidence.
+assert.match(
+  lab2,
+  /canonical-vendored-npm-signpost[\s\S]{0,900}npm i -g @deftai\/directive@latest[\s\S]{0,400}directive migrate/i,
+  "Lab 2 must quote the signpost message with its recommended npm install and migrate action",
+);
+assert.match(
+  lab2,
+  /Boundary verdict[\s\S]{0,400}outside/i,
+  "Lab 2 must state the boundary verdict for the signpost recommendation",
+);
+assert.match(
+  lab2Solution,
+  /canonical-vendored-npm-signpost[\s\S]{0,900}outside/i,
+  "the Lab 2 solution must classify the signpost recommendation as outside the lab boundary",
+);
+
+// O2.4 stays classify-and-boundary-judge of whatever appeared: no file may make a warning
+// count the pass condition.
+for (const [relativePath, content] of [
+  ["labs/02-disposable-initialization.md", lab2],
+  ["solutions/lab-02-disposable-initialization.md", lab2Solution],
+]) {
+  assert.doesNotMatch(
+    content,
+    /(?:one|two|three|1|2|3) warnings? (?:and|in the verified|recorded|expected)/i,
+    relativePath + " must not make a warning count an acceptance criterion",
   );
 }
 
