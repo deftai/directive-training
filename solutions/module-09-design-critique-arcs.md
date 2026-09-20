@@ -217,6 +217,7 @@ applicable gates.
 | Take map | F1/F2/F3 each have one class and take | Agreement or silence replaced adjudication | Add missing consequence and take |
 | Audit | Parent premise remains asserted until independent clearance | Citation was treated as self-clearance | Hold bind and cite `DC9-AUDIT-01` |
 | Decisions | Each card uses only its controlling evidence | A chip or activity label became authority | Rebuild the evidence/authority columns |
+| F2 class | F2 is `sharpens-framing`: `NS-INGEST-R2` as written already carries the completed-arc record requirement, so no bind condition changes and F2 only corrects the sentence that calls the chip clearance | F2 was called `blocks-the-design` because a wrong authority statement looked like a missing bind condition, or because the repaired draft was classified instead of the draft as written | Reread the Catalog chip and Completed-arc record rows in the Module 9 Terminology table, then write one sentence saying which bind condition the as-written draft still satisfies |
 
 ## Valid alternatives
 

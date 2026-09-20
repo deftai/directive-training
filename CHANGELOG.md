@@ -134,6 +134,14 @@
 
 ### Fixed
 
+- Define the closed Module 9 finding classes `blocks-the-design`,
+  `sharpens-framing`, and `footnote` in the module Terminology table before
+  Artifact 3, as source-bound restatements of the pinned critic method, with
+  the residual-disagreement clause, an F2 misclassification recovery row that
+  classifies the as-written draft, a solution compare row, and verifier
+  assertions that read each class's own meaning cell (including the
+  `sharpens-framing` can-bind condition) with mutation tests for swapped and
+  weakened definitions (#17).
 - Reconcile every live root-package verifier and its focused negative tests
   with the exact `@deftai/directive` 0.119.1 authoring pin while preserving
   the curriculum's intentional 0.112.0 learner fixtures and historical record.

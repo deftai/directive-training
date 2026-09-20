@@ -1,0 +1,496 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #17",
+    "updated": "2026-09-20T16:46:04Z"
+  },
+  "plan": {
+    "title": "Module 9 grades a closed finding-classification vocabulary it never defines",
+    "status": "running",
+    "narratives": {
+      "Description": "Module 9 grades three finding-classification tokens — `blocks-the-design`, `sharpens-framing`, and `footnote` — before Artifact 3, but the module never states what they mean, so a learner classifying F2 has no taught rule to apply. The accepted remedy adds source-bound restatements of the pinned critic-method sentences to the Module 9 Terminology table ahead of the exercise and locks those phrases in the existing verifier, while explicitly refusing the issue body mechanism-versus-description table as the governing definition.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/17",
+      "Overview": "## Situation\n\nModule 9's Artifact 3 requires the learner to classify each supplied finding using a closed three-value vocabulary:\n\n> | Finding ID | Source IDs | **Classification** | … |\n> | F1–F3 | Cite every contributing source | **`blocks-the-design`, `sharpens-framing`, or `footnote`** | … |\n\nThat line (`curriculum/modules/09-design-critique-arcs.md:272`) is the **only** occurrence of `blocks-the-design` and `sharpens-framing` in the entire course:\n\n```sh\n$ grep -rn 'blocks-the-design\\|sharpens-framing' curriculum/ references/ labs/\ncurriculum/modules/09-design-critique-arcs.md:272   # the table header itself\n```\n\nThe three classes are never defined:\n\n- **Not in Module 9's own Terminology table.** It defines ten terms — Arc, Critic round, Target revision, Charter, Spend, Input ceiling, Successor lean, Independent audit, Catalog chip, Completed-arc record — and none of the three classifications the exercise actually grades.\n- **Not in the Guided explanation.** §4 says only \"Each blocking or sharpening finding needs evidence, a concrete failure mode, a disposition consequence, and one parent take\" — it uses the words but never says what makes a finding one rather than the other.\n- **Not in `references/GLOSSARY.md` or `references/QUICK-REFERENCE.md`.**\n\nClassification is nonetheless graded. Exercise acceptance O9.8 requires \"F1–F3 use the closed classes and a total take map\", and Completion evidence requires \"Closed classes, total takes, three source IDs…\". It is also non-compensating: \"All four artifacts are required and non-compensating.\"\n\nBy contrast, Module 12 — which asks for the structurally identical task of classifying findings before editing — uses **P0/P1/P2** and explains the severity boundary in its lesson body. So the course clearly knows this needs teaching; Module 9 just skips it.\n\n## Pain experienced\n\nI got F2 wrong and cannot tell why.\n\n`DC9-FIND-02` supplies: *\"The draft calls `design-critique:ingest-ready` clearance, collapsing list state into bind evidence.\"* I classified it **`blocks-the-design`**. The solution says **`sharpens-framing`**.\n\nWhat makes this frustrating rather than instructive is that the solution and I agree completely on the substance and differ only on the label:\n\n| | My row | Solution's row |\n|---|---|---|\n| Failure mode | \"A list-visible catalog chip would be read as proof the arc completed, so an issue could be ingested and later treated as cleared with no admitted completed-arc record\" | \"A list chip can be mistaken for a completed-arc record **and later authority**\" |\n| Consequence | \"Correct the chip to list state only; bind evidence must come from an admitted completed-arc record\" | \"Correct the authority statement and require the admitted record\" |\n| Parent take | `accept-into-contract` | `accept-into-contract` |\n| **Classification** | **`blocks-the-design`** | **`sharpens-framing`** |\n\nI identified the same failure, the same required correction, and the same take. I reasoned that a finding whose failure mode is \"an issue can be ingested and treated as cleared without any verified record\" blocks the design, since it defeats the very clearance property `NS-INGEST-R2` exists to establish. The solution's answer is defensible too — the *mechanism* is sound and only the draft's authority **wording** is wrong, which is a framing repair. But I can only reconstruct that rule *after* reading the answer. There is nothing in the module I could have applied beforehand.\n\nWorse, the packet actively points the other way. F1 and F2 are both marked `accept-into-contract` in `DC9-LEAN-02`, both have \"correct this before bind\" consequences, and F2's own supplied fact uses the phrase \"collapsing list state into **bind evidence**\" — bind evidence is exactly what the module elsewhere treats as load-bearing. A learner reading carefully has more reason to call that blocking than framing.\n\nThe concrete cost: **Module 9 is a 75-minute non-compensating practicum and I cannot certify O9.8.** The retry plan tells me to \"retry only the affected row\", but retrying a classification whose criteria are undefined is guesswork — I would just copy the solution's label, which the module explicitly says is not completion (\"Reading the solution is not completion\"). So the documented recovery path cannot actually recover this outcome.\n\nThis also compounds for Module 9 specifically, because it is the one module where a learner has the least outside intuition to fall back on. Design-critique arcs are novel Directive-specific machinery; unlike \"is this a P0 bug?\", I have no prior professional instinct for where the blocking/sharpening line falls in a critique arc. The module is otherwise excellent at defining its novel vocabulary — ten terms, each with a \"do not confuse it with\" column. These three were simply missed.\n\n## Proposed fix\n\n**Primary — add the three classes to Module 9's Terminology table**, in the same shape as its other entries, so they get the same \"do not confuse it with\" discipline. Something like:\n\n| Term | Meaning in this module | Do not confuse it with |\n|---|---|---|\n| `blocks-the-design` | The target revision cannot bind as written: a mechanism it relies on fails to deliver the property it claims. Fixing it changes the design. | A serious-sounding finding, or one that is merely expensive |\n| `sharpens-framing` | The mechanism holds, but the draft states its authority, scope, or claims wrongly. Fixing it changes the wording, not the design. | A blocking finding, when the underlying mechanism is sound |\n| `footnote` | Useful context that improves auditability or clarity but changes no disposition. | A finding with any bind weight |\n\nThe decisive question a learner can then apply *before* reading the answer is: **does the repair change the mechanism, or the description of the mechanism?** That single sentence would have resolved F2 for me, and it reproduces the solution's actual reasoning rather than inventing a new rule.\n\n**Secondary — say why F2 is framing rather than blocking, in the solution.** `solutions/module-09-design-critique-arcs.md` gives F2's row but no rationale for the class, and its \"Expected failures and recovery\" section covers post-ceiling contamination, half-attributed compositional sources, parent self-clearance, label-only clearance, and retry thrash — but not a misclassification between the three classes, which is the most likely error once the classes are undefined. Adding a short \"If you classified F2 as `blocks-the-design`…\" entry there would make the recovery path work.\n\n**Tertiary — add the three classes to `references/GLOSSARY.md`.** The glossary already carries the arc vocabulary; these belong with it, and it is where a learner looks when a module's terminology table comes up short.\n\n## Environment\n\n- Page: `curriculum/modules/09-design-critique-arcs.md` (Terminology table; Guided explanation §4; Artifact 3 at line 272; O9.8 acceptance), `solutions/module-09-design-critique-arcs.md` (Artifact 3 F2 row; Expected failures and recovery), `references/GLOSSARY.md`\n- Commit: f465008\n- Directive: `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`\n- OS/shell: macOS Darwin 25.6.0, zsh 5.9\n- Found while: completing Module 9's Artifact 3 command-free practicum, having taken Modules 1–8 in order\n\n",
+      "Labels": "documentation, design-critique:ingest-ready",
+      "UserStory": "As a learner classifying findings in Module 9 Artifact 3, I want the three disposition tokens defined in Terminology before the exercise grades them, so that I can apply a taught bindability rule instead of guessing at a closed vocabulary.",
+      "ImplementationPlan": "1. Add three Terminology rows in curriculum/modules/09-design-critique-arcs.md, before Artifact 3, as source-bound restatements of the pinned critic-method sentences: `blocks-the-design` means the lean cannot bind as written; `sharpens-framing` means it can bind, but the finding changes how it is stated or scoped; `footnote` carries no disposition weight.\n2. Carry the residual clause in the same row set — two critics may still disagree, and that is residual, not a defect.\n3. Keep Official sources as the source of truth; do not add a decision table of evidence, and do not bring the issue body mechanism-versus-description table into course voice beyond an F2 packet diagnostic.\n4. Extend scripts/verify-module-9.mjs so Terminology contains the three tokens plus the bind-as-written, restates-or-scopes, and no-disposition-weight phrases, with mutation tests in scripts/verify-module-9.test.mjs.\n5. Add an Expected-failures / solution Compare row for classifying F2 as `blocks-the-design` that points at chip-versus-record already in Terminology and requires one sentence applying the bindability test, without recutting O9.8 into a unique F2-label match and without adding a fourth non-compensating artifact.",
+      "Traces": "Accepted bound remedy on deftai/directive-training#17, comment 5734169164, confirmed by parent synthesis 5734291584 and verified-claims table 5734289500; relieves recorded pain P1."
+    },
+    "items": [
+      {
+        "title": "Define the three tokens in Module 9 Terminology before Artifact 3, as source-bound restatements of the pinned critic-method sentences: `blocks-the-design` means the lean cannot bind as written; `sharpens-framing` means it can bind, but the finding changes how it is stated or scoped; `footnote` carries no disposition weight. Carry the residual clause in the same row set: two critics may still disagree; that is residual, not a defect.",
+        "status": "proposed",
+        "id": "clause:1",
+        "narrative": {
+          "Acceptance": "Module 9 Terminology shows rows for `blocks-the-design`, `sharpens-framing`, and `footnote` before Artifact 3, restating the pinned critic-method sentences, and the same row set records the residual clause that two critics may disagree without that being a defect.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#17, comment 5734169164, confirmed by parent synthesis 5734291584 and verified-claims table 5734289500; relieves recorded pain P1."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Do not harvest the issue body's mechanism-versus-description table into course voice. Mechanism-versus-description may appear as the F2 packet diagnostic, not as the governing rule.",
+        "status": "proposed",
+        "id": "clause:2",
+        "narrative": {
+          "Acceptance": "The mechanism-versus-description table from the issue body never appears in course voice as the governing rule; when it appears at all, it shows only as the F2 packet diagnostic.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#17, comment 5734169164, confirmed by parent synthesis 5734291584 and verified-claims table 5734289500; relieves recorded pain P1."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Keep Official sources as SoT. Do not add a decision table of evidence.",
+        "status": "proposed",
+        "id": "clause:3",
+        "narrative": {
+          "Acceptance": "Official sources remain the stated source of truth, and neither the module nor its solution shows a decision table of evidence.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#17, comment 5734169164, confirmed by parent synthesis 5734291584 and verified-claims table 5734289500; relieves recorded pain P1."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Extend `scripts/verify-module-9.mjs` so Terminology contains the three tokens plus the bind-as-written / restates-or-scopes / no-disposition-weight phrases, with mutation tests. If the glossary is updated, mirror those three terms there; glossary is not the primary teaching surface and is not required to relieve P1.",
+        "status": "proposed",
+        "id": "clause:4",
+        "narrative": {
+          "Acceptance": "When any of the three tokens or the bind-as-written, restates-or-scopes, or no-disposition-weight phrases is removed from Terminology, `npm run check:module-9` fails, and a mutation test in `scripts/verify-module-9.test.mjs` covers each of those removals.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#17, comment 5734169164, confirmed by parent synthesis 5734291584 and verified-claims table 5734289500; relieves recorded pain P1."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Add an Expected-failures / solution Compare row for classifying F2 as `blocks-the-design`, pointing at chip-versus-record already in Terminology and requiring one sentence applying the bindability test. Do not recut O9.8 into a unique F2-label match, and do not add a fourth non-compensating artifact.",
+        "status": "proposed",
+        "id": "clause:5",
+        "narrative": {
+          "Acceptance": "An Expected-failures or solution Compare row shows the F2 `blocks-the-design` classification, points at chip-versus-record in Terminology, and requires one sentence applying the bindability test. O9.8 keeps its wording and no fourth non-compensating artifact is created.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#17, comment 5734169164, confirmed by parent synthesis 5734291584 and verified-claims table 5734289500; relieves recorded pain P1."
+        },
+        "effort": "S"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/17",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #17: Module 9 grades a closed finding-classification vocabulary it never defines"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 5 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Define the three tokens in Module 9 Terminology before Artifact 3, as source-bound restatements of the pinned critic-method sentences: `blocks-the-design` means the lean cannot bind as written; `sharpens-framing` means it can bind, but the finding changes how it is stated or scoped; `footnote` carries no disposition weight. Carry the residual clause in the same row set: two critics may still disagree; that is residual, not a defect.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Do not harvest the issue body's mechanism-versus-description table into course voice. Mechanism-versus-description may appear as the F2 packet diagnostic, not as the governing rule.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Keep Official sources as SoT. Do not add a decision table of evidence.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Extend `scripts/verify-module-9.mjs` so Terminology contains the three tokens plus the bind-as-written / restates-or-scopes / no-disposition-weight phrases, with mutation tests. If the glossary is updated, mirror those three terms there; glossary is not the primary teaching surface and is not required to relieve P1.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Add an Expected-failures / solution Compare row for classifying F2 as `blocks-the-design`, pointing at chip-versus-record already in Terminology and requiring one sentence applying the bindability test. Do not recut O9.8 into a unique F2-label match, and do not add a fourth non-compensating artifact.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because Module 9 grades a closed critic-method vocabulary that it never defines, so the practicum locks a false protocol: learners copy labels they could not have applied.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: refutation\nspend: N≥3\nstop-2: charter=refutation; spend=N≥3 because operator asked n=3 and the three-class vocabulary is the critic method the course grades\nrefutation-target: Module 9 must define `blocks-the-design`, `sharpens-framing`, and `footnote` in its Terminology table before grading them\npain: P1\nP1: Module 9 Artifact 3 grades a closed three-value classification vocabulary that is never defined in the module, glossary, or quick reference, so O9.8 cannot be certified without copying the solution\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: f4650085e02f8d2a32f2d3b6486d80b426c4cf37\n\n",
+          "id": 5733947659,
+          "html_url": "https://github.com/deftai/directive-training/issues/17#issuecomment-5733947659",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T17:47:04Z",
+          "updated_at": "2026-09-18T17:47:04Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\npanel-deposit\nround: 1\nsiblings: 3\ninput-ceiling: 5733959420\nfamilies: grok, claude, codex\nseat: grok launcher: spawn_subagent\nseat: claude launcher: claude\nseat: codex launcher: codex\n\n",
+          "id": 5733959420,
+          "html_url": "https://github.com/deftai/directive-training/issues/17#issuecomment-5733959420",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T17:48:04Z",
+          "updated_at": "2026-09-18T17:48:05Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: claude-opus-5\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\ncharter: refutation · round 1 fresh critic · ceiling 5733959420 · dispatch-sha `f4650085e02f8d2a32f2d3b6486d80b426c4cf37` · arc-mode: no-ingest\n\n## Verdict\n\nThe refutation target survives only in its weakest reading. **Defeated as written:** Module 9's Terminology table is not the required site, and the definition text the issue proposes cannot be written there, because it asserts a discrimination rule the pinned teaching source deliberately refuses to state. **Survives:** the three tokens are graded and the module carries no transferable criterion for the one boundary that actually bit — `blocks-the-design` vs `sharpens-framing`.\n\n## Re-verification of the triage's anchors\n\nEvery anchor below was re-derived at the dispatch SHA, not read off the cited line.\n\n| Anchor claim | Result | Check run |\n|---|---|---|\n| Line 272 is the only occurrence in `curriculum/`, `references/`, `labs/` | holds | `git show <sha>:<path>` sweep over every tracked file in those trees; single hit at `curriculum/modules/09-design-critique-arcs.md:272` |\n| Terminology defines ten terms, none of them the three classes | holds | `09-design-critique-arcs.md:78-91`; ten rows, Arc → Completed-arc record |\n| Not in `references/GLOSSARY.md` / `QUICK-REFERENCE.md` | holds | token sweep over both files; glossary's design-critique section (`GLOSSARY.md:241`) carries arc/ceiling/lean/record only |\n| Classification is graded and non-compensating | holds | `09-design-critique-arcs.md:312` (O9.8 acceptance), `:321` (completion evidence), `:324` (non-compensating) |\n| Guided explanation §4 uses the words without defining them | holds | `:146-149` |\n| Solution's F2 row is `sharpens-framing` with no class rationale | holds | `solutions/module-09-design-critique-arcs.md:154`; Reasoning §4 explains the *takes*, not the classes |\n| Module 12 teaches its severity boundary in the lesson body | **holds with a material qualification** | `curriculum/modules/12-review-and-completion.md:77-83` — see F4 |\n| \"There is nothing in the module I could have applied beforehand\" | **fails** | `09-design-critique-arcs.md:350` and `:219` — see F2 |\n\nAdditional check: `node scripts/verify-module-9.mjs` → `Module 9 content contract: ok (14 artifacts, 0 missing)`, exit 0. `git ls-remote origin master` → `f4650085…`, so the dispatch SHA is the default-branch tip and dest HEAD, as recorded.\n\n## Inventory of existing mechanisms (before proposing any new one)\n\n1. **The pinned teaching source already defines all three tokens.** `content/contracts/design-critique.md` at the module's own pinned commit `9038503f`, Critic method, line 151: \"`blocks-the-design` means the lean cannot bind as written. `sharpens-framing` means the lean can bind, but the finding changes how it is stated or scoped… Two critics may still disagree; that disagreement is residual, not a contract defect. **This contract does not add a decision table of evidence.**\" The same paragraph makes `footnote` the anatomy-failure class.\n2. **A mechanized consumer already exists.** `scripts/verify-module-9.mjs:269-275` pins the solution's class sequence and take map; `:282-284` enforces the contract's anatomy rule (evidence/failure/consequence word floors on the blocking and sharpening rows, F3 exempt); `:179` pins the packet at exactly fourteen cards; `:333-335` pins a fixed glossary term list.\n3. **The module already carries the answer twice.** Hint 3 (`:350`) and fixture card `DC9-LEAN-02` (`:219`).\n4. **A traceability discipline already governs new claims.** `maintainers/CURRICULUM-MAINTENANCE.md:26` (\"Verify; do not let this course define upstream behavior\") and the claim-review checklist at `:83-94` (\"Which official file and heading support it?\"), consumed by the module's own Official sources table.\n\nNone of these were named in the issue. Items 1, 2 and 4 each constrain the proposed remedy.\n\n## Findings\n\n### F1 — `blocks-the-design`: the proposed definition text asserts a rule the pinned source refuses\n\n- **Evidence.** Proposed row: \"`blocks-the-design` … a mechanism it relies on fails to deliver the property it claims\", plus the proposed decisive question \"does the repair change the mechanism, or the description of the mechanism?\" Pinned source, Critic method line 151: definitions are stated *as disposition consequence*, followed by \"This contract does not add a decision table of evidence\" and \"Two critics may still disagree; that disagreement is residual, not a contract defect.\" `CURRICULUM-MAINTENANCE.md:26` forbids the course from defining upstream behavior; `09-design-critique-arcs.md:421-429` requires each supported statement to name a pinned 0.119.2 source.\n- **Concrete failure mode.** A learner who internalizes \"mechanism vs description\" as *the* criterion arrives at a real panel, sees a sibling class the same finding differently, and treats that as a defect to be litigated or re-ceilinged — instead of recording it as residual, which is what the contract requires. Module 9 is the only place in the course that teaches the critic method, so the mistaught instinct has no later corrective. Secondarily, the Official sources table would carry a graded rule with no pinned row that supports it, which is the exact drift `CURRICULUM-MAINTENANCE.md:26` exists to stop.\n- **Disposition consequence.** The lean cannot bind as written. The Terminology rows must be source-bound restatements of the contract's two sentences, and must carry the residual clause (\"two critics may still disagree; that is residual, not a defect\") in the *same* row set, so the closed vocabulary is taught as a disposition consequence rather than as a decision table. Any sharper discriminator belongs to the packet (F4), not to the course voice. `SOURCE-BASELINE.md`'s Module 9 row already claims \"closed finding classes\" as a derived teaching contract, so the restatement needs no new source — the proposed rule does.\n\n### F2 — `sharpens-framing`: the pain premise is overstated, and the real gap is narrower than the fix\n\n- **Evidence.** `09-design-critique-arcs.md:350`, Hint 3: \"F1 changes the contract, F2 changes the authority framing, and F3 changes neither.\" That is in-module, pre-solution, inside the module's own designed order (`:328` \"Try for 20 minutes before opening a hint\"), and it resolves F2 by name using the word in the token. Separately, fixture card `DC9-LEAN-02` (`:219`) hands the learner F3's class outright: \"F3 `disagree` as disposition weight but retain as a footnote\". And `verify-module-9.mjs:282-284` already mechanizes the footnote boundary exactly as the contract states it — anatomy required of blocking and sharpening rows, F3 exempt.\n- **Concrete failure mode.** The issue reads as a three-class vacuum and sizes a three-limb remedy (Terminology + solution rationale + glossary) to it. Two of the three classes are already disambiguated in-module: `footnote` by the fixture and by the anatomy floor, and F2-vs-F1 by Hint 3. Implementing against the stated premise spends effort on the glossary limb, for which no pain is demonstrated, while leaving the actual defect unnamed: the module *supplies per-item answers* (a hint, a fixture card) where it owes a *transferable criterion*, so the learner can pass this packet and still not classify a new finding.\n- **Disposition consequence.** The lean can bind, but its scope and statement change: the target is one boundary (`blocks-the-design` vs `sharpens-framing`), the defect is answer-supply rather than absence, and the glossary limb needs its own justification or should be dropped (see F3 for what it costs if kept).\n\n### F3 — `blocks-the-design`: no limb of the remedy has a mechanized consumer, and the existing one constrains the remedy's shape\n\n- **Evidence.** `verify-module-9.mjs` asserts Terminology *section presence* only (via `moduleHeadings` in `scripts/verify-modules-4-5.mjs:12`); nothing asserts its rows. `:333-335` checks the glossary against a hardcoded four-term list that does not include the three classes. `:179` asserts the packet contains exactly fourteen source cards against a frozen `packetIds`. `maintainers/CURRICULUM-MAINTENANCE.md:229-235` makes the Module 9 readiness review the durability mechanism and enumerates what must be revalidated; classification vocabulary is absent from that enumeration.\n- **Concrete failure mode.** Prose-only rows land, a later baseline bump or editorial pass drops or softens them, and `npm run check:module-9` plus `npm run test:module-9` both stay green — the graded vocabulary is undefined again with no red test, which is the same silent-regression class the readiness review exists to prevent. The constraint cuts the other way too: the packet-scoped remedy in F4 *cannot* be implemented without editing `packetIds` and the fourteen-card assertion, so the verifier is a design input to this change, not cleanup after it.\n- **Disposition consequence.** The lean cannot bind as written. The change must extend `verify-module-9.mjs` — a terminology-row assertion for the three tokens, the glossary term list if the tertiary limb survives F2, and `packetIds` if a supplied-policy card lands — and add the Module 9 readiness paragraph a line for the closed classes.\n\n### F4 — `sharpens-framing`: the Module 12 precedent is packet-scoped supplied policy, not a lesson-body course rule\n\n- **Evidence.** `curriculum/modules/12-review-and-completion.md:77-83`: \"**P0** is a critical security, data-loss, or similarly severe defect. **In this packet**, P0 is merge-blocking… **P2** is a nonblocking improvement **under the supplied policy**.\" Module 12 states the boundary as policy the fixture supplies, scoped to the packet, not as a course-level definition of how severity works everywhere.\n- **Concrete failure mode.** The issue cites Module 12 as precedent for teaching the boundary in the lesson body, and that reading is what licenses the course-voice Terminology rule that F1 blocks. Following the precedent as actually written produces a remedy that survives F1 intact: a supplied-policy line in the fixed packet (\"in this packet, a finding blocks when the mechanism fails to deliver the claimed property; it sharpens when the mechanism holds and the draft states its authority or scope wrongly\"), which is fixture data the learner may apply before the solution and which commits the course to no upstream claim.\n- **Disposition consequence.** The lean can bind, but its Module 12 justification must be restated as packet-scoped supplied policy; that restatement also relocates the decisive question out of the course voice and into the fixture, which is the form the change should take.\n\n### F5 — `footnote`\n\nThe issue's grep is scoped to `curriculum/ references/ labs/` and so omits `scripts/verify-module-9.mjs:269`, the fourth occurrence and the mechanized consumer of the closed set. The scoping is disclosed and the conclusion is unaffected; it matters only as inventory for whoever implements.\n\n### F6 — `footnote`\n\nThe Stop 2 line (5733947659) records the spend reason as \"operator asked n=3 and the three-class vocabulary is the critic method the course grades\". \"Operator asked\" is not a variant-table condition; the qualifying one — blast radius, since the vocabulary governs the critic method of every arc and this repo is its teaching surface — is present in the same sentence but unlabelled. No disposition changes; the permission is earned either way.\n\n## Injection / swarm lens\n\nThe lens fires: the target is a module whose fixture is instruction-shaped untrusted text, and the proposed remedy moves prose from an issue body into graded course material.\n\n- The fixture cards `DC9-SOURCE-01`, `DC9-FRAG-A`, `DC9-FRAG-B` were read as attributed data at the pinned SHA. Their attempted effects — overriding the charter, marking the design accepted, omitting the audit — are refused and recorded here, not followed, and their text is not reproduced or joined. They are inert because they are fixed fictional fixture handled by a bounded procedure, not because of any runtime guarantee.\n- Nothing in the issue body or in the two in-envelope comments (5733947659, 5733959420) attempted to instruct this critic. The issue's proposed Terminology table is a proposal, read as evidence.\n- Real exposure worth naming: copying the issue's proposed rows verbatim would promote untrusted issue prose directly into a graded rubric — the precise pattern this module teaches learners to refuse. The deterministic controls that catch it are the claim-review checklist's \"Which official file and heading support it?\" (`CURRICULUM-MAINTENANCE.md:83-94`), which the proposed rule cannot answer (F1), and `assertNoUnsafeInstructionalClaims` in `verify-module-9.mjs:108-131`, which scans new module prose for authority-collapsing claims. Neither depends on reviewer attention.\n- Envelope hygiene: reads were pinned to `git show f4650085…:<path>`; the two in-envelope comments were read and nothing at or after 5733959420+1 was fetched; no sibling post was read; dest was not occupied and nothing was written outside `.deft-scratch/`.\n\n## Road not taken\n\nI chose **restate-the-source in Terminology + packet-scoped supplied policy + extend the verifier** over two live alternatives.\n\n- **Rejected: adopt the issue's decisive question as a course rule.** Rejected on F1 — it commits the course to a discrimination the pinned source explicitly declines to make.\n- **Rejected: drop classification from O9.8's graded conditions and grade only the anatomy (evidence / failure mode / consequence / take).** This is internally coherent: the contract itself makes the class a *consequence* of the anatomy rather than an independent judgment, and `verify-module-9.mjs:282-284` already grades anatomy. It would dissolve the pain without any new rule. Rejected because O9.8's stated outcome is \"closed finding classes\" and the course's job is to teach the motion as the framework defines it; removing the graded token would teach less than the contract requires of a real critic.\n\n**Steelman of the strongest rejected position.** A graded 75-minute non-compensating practicum arguably *cannot* grade a judgment that the source says two competent critics may split on; teaching requires determinism the contract does not supply, so the course is right to sharpen it and simply owes a \"course-authored scaffold beyond source\" disclosure in `SOURCE-NOTES.md`. I take this seriously — it is the only reading under which the issue's primary fix is correct as written. **What would flip my verdict:** a recorded maintainer allowance for course-authored pedagogical scaffolds that exceed the pinned source (none exists today; `CURRICULUM-MAINTENANCE.md:26` says the opposite), or a later Directive release adding an evidence decision table to the Critic method, at which point the Terminology rule becomes a restatement rather than an invention.\n\n",
+          "id": 5734078506,
+          "html_url": "https://github.com/deftai/directive-training/issues/17#issuecomment-5734078506",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T17:58:45Z",
+          "updated_at": "2026-09-18T17:58:45Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRefutation target: Module 9 must define `blocks-the-design`, `sharpens-framing`, and `footnote` in its Terminology table before grading them.\n\nRe-verified at dispatch SHA `f4650085e02f8d2a32f2d3b6486d80b426c4cf37` with `git show <sha>:<path>`, not a moving branch. In-envelope thread is issue 17 body plus comments `5733947659` (Stop 1) and `5733959420` (panel-deposit). Comments after that id are unread.\n\n## Verdict\n\nThe placement obligation survives. I could not refute that Artifact 3 grades a closed three-token vocabulary that Module 9 never states before the exercise. Terminology is the existing first-use table, and Module 12 already defines its graded classification vocabulary there.\n\nThe target still cannot bind as written. \"Define\" names the surface and the tokens, not the critic-method meanings. The only drafted content is the issue-body table, which recuts those meanings into a mechanism-versus-description test the contract refused. Bind on that sentence would harvest a false protocol.\n\n## Existing-mechanism inventory\n\nNo new teaching surface is required.\n\n- Module 9 Terminology (`curriculum/modules/09-design-critique-arcs.md:78-91`) already uses Term / Meaning / Do not confuse. It defines ten nouns and omits the three graded class tokens. Catalog chip versus completed-arc record is already in that table; that is the F2 substance, not the class labels.\n- Guided explanation §4 (`:146-154`) already requires evidence, failure mode, disposition consequence, and one parent take for \"blocking or sharpening\" findings. It never states the bind-as-written test or the closed tokens.\n- Hint 3 (`:348-353`) already maps this packet: F1 changes the contract, F2 changes the authority framing, F3 changes neither. Optional, after 20 minutes, packet-local. Not a definition of the vocabulary.\n- Expected failures (`:365-374`) and Common misconceptions (`:376-385`) cover ceiling, fragments, parent self-clearance, chip-as-clearance, and retry thrash. Neither has a class-boundary row.\n- Official sources (`:421-425`) already names the design-critique contract as SoT for critic method, pinned to `9038503ffac65e6d48e5ba34758c4e8e7077aba3`. That pin is after the exercise. The module says teach the stable bounded motion, not every maintainer detail.\n- `references/SOURCE-BASELINE.md:276` already lists \"closed finding classes\" as Module 9 teaching contract. `references/GLOSSARY.md:241-266` and `references/QUICK-REFERENCE.md:201-231` carry arc, ceiling, successor lean, completed-arc record, routing, and chip-versus-record. Neither defines the three class tokens.\n- `scripts/verify-module-9.mjs:266-270` locks the solution's F1/F2/F3 class cells. `:333-335` allowlists four glossary terms and not the class tokens. It does not require Terminology or §4 to define the classes.\n- `solutions/module-09-design-critique-arcs.md:153-155` keys the mapping without a class-boundary rationale. Valid alternatives (`:221-228`) allow `defer` on F3; they do not allow swapping F2's class. Compare (`:210-219`) treats a missing class or take as incomplete adjudication, not a wrong class with a recovery rule.\n- Module 12 Terminology (`curriculum/modules/12-review-and-completion.md:71-85`) already defines P0/P1/P2 before the classification worksheet. Course precedent is in-module first-use, not a new glossary-only home.\n- Module template (`templates/module-template.md:59-67`) already requires define-on-first-use in the Terminology table shape.\n\n## Findings\n\n### 1. Underspecified \"define\" harvests a recut critic method (`blocks-the-design`)\n\nEvidence. At this SHA, `git grep` of `curriculum/`, `references/`, and `labs/` finds `blocks-the-design` and `sharpens-framing` only at `curriculum/modules/09-design-critique-arcs.md:272`, the Artifact 3 closed-set cell. Terminology `:80-91` has no class rows. §4 uses \"blocking or sharpening\" without the tokens. Glossary and quick-reference omit them. O9.8 (`:312`, `:321`) and Completion evidence require closed classes on a non-compensating artifact. The solution verifier locks F1=`blocks-the-design`, F2=`sharpens-framing`, F3=`footnote`.\n\nThe contract critic method, which Official sources already cites, states: `blocks-the-design` means the lean cannot bind as written; `sharpens-framing` means the lean can bind, but the finding changes how it is stated or scoped; a `footnote` carries no disposition weight; two critics may still disagree; the contract does not add a decision table of evidence.\n\nThe issue body's proposed rows replace that test with: blocking means the mechanism fails and the repair changes the design; sharpening means the mechanism holds and the repair changes wording. That is a different question. Hint 3's packet-local \"contract versus authority framing\" matches this packet's F1/F2 pair; it is not the general method.\n\nFailure mode. An implementer filling Terminology from the issue body teaches learners to ask \"does the repair change the mechanism?\" Future critics trained here will mis-grade authority-statement and recording defects as mechanism failures, or the reverse. F2 in this packet is exactly that seam: `DC9-FIND-02` collapses list state into bind evidence; the catalog-chip versus completed-arc rows already teach the substance; the class is whether the draft can bind after restating clearance, not whether a chip mechanism is missing. A parallel rubric in the lesson becomes the prompt learners follow instead of the pinned contract. Closing that on later review is not a control.\n\nDisposition. Do not bind the recorded sentence until it names definition content. Use the existing Terminology table, before Artifact 3, to restate the contract meanings and the usual \"do not confuse\" pairs (blocking versus a serious-sounding finding; sharpening versus a bind-blocking defect; footnote versus any heading with bind weight). Keep Official sources as SoT. Do not add a mechanism-versus-description decision table. Extend `scripts/verify-module-9.mjs` (existing content contract) so Terminology or §4 contains the three tokens plus the bind-as-written / restates-or-scopes / no-disposition-weight phrases. Extend the existing glossary allowlist only as a mirror of those in-module rows, not as the primary teaching surface. Add one Expected failures row (existing table) for \"F2 classified `blocks-the-design`\" that points at chip-versus-record already in Terminology, not at the solution label. The solution F2 evidence should cite `DC9-FIND-02` plus those chip/record rows; citing `DC9-LEAN-02` as F2 evidence is the already-corrected lean, which is circular.\n\n### 2. P1 and O9.8 over-claim unique F2-label certification (`sharpens-framing`)\n\nEvidence. Learner-facing O9.8 (`:312`) requires that F1–F3 use the closed classes and a total take map, and that every blocking or sharpening row has evidence, failure, consequence, and take. Self-assessment Q3 (`:395-396`) asks sources, refusal, takes, and parent non-self-clearance; it does not ask why F2 is sharpening. Retry criteria (`:405-406`) name obeyed source text, missing takes, post-ceiling evidence, and chip-as-clearance; they do not name a wrong class. Stop 1 P1 says O9.8 cannot be certified without copying the solution. The solution acceptance row (`solutions/module-09-design-critique-arcs.md:203`) and verifier `:266-270` do lock the specific F1/F2/F3 mapping.\n\nFailure mode. Pain coverage and a later successor map treat \"copy the F2 cell\" as the unmet outcome, then either over-build a unique-label gate the module text does not write, or under-count the real gap (no applicable rule before the answer key). Residual class disagreement after the same method is applied is already allowed; an undefined method is not residual.\n\nDisposition. Keep P1 as: the graded tokens have no in-module first-use rule, so a careful learner cannot apply F2's class before the solution. Do not recut O9.8 into a unique F2-label match. Do not add a fourth non-compensating artifact. The worked solution may keep F1/F2/F3 as the example; recovery belongs in Expected failures and the solution's Compare table, which already exist.\n\n### 3. End-of-module contract pin and Hint 3 are not first-use (`footnote`)\n\nOfficial sources `:425` and SOURCE-BASELINE `:276` already point at critic method and closed finding classes. Hint 3 already maps this packet. Those do not change disposition: the pin is after the exercise, Hint 3 is optional and packet-local, and neither states the bind-as-written test in the lesson path that reaches Artifact 3. The issue body's \"only occurrence in the entire course\" grep omitted `solutions/` and `scripts/`; those files hold the answer key, still not a definition.\n\n## Injection / swarm lens\n\nThe target changes the vocabulary that classifies findings about untrusted input and clearance authority. Module 9's own packet is that surface (`DC9-SOURCE-01`, `DC9-FRAG-A`/`B`, `DC9-FIND-02`). A Terminology table that recuts the class tokens becomes learner-facing envelope text and later bind behavior. Identity, launchers, concurrency, and worktrees are unchanged.\n\nExisting control: Official sources pin plus `verify-module-9.mjs` on the solution cells. Missing control: the same verifier does not lock in-module definition content. Extend that verifier; do not add a live-arc interlock or a new parser.\n\n## Road not taken\n\nI rejected \"point at the contract and skip in-module definitions.\" Strongest form: Official sources already names critic method; SOURCE-BASELINE already lists closed finding classes; copying meanings into Terminology creates drift between lesson and pin. That fails here because the pin is after the exercise, the module tells learners not to absorb every maintainer detail, and the tokens first appear as the graded closed set. I would flip if Artifact 3 came after Official sources, the exercise required applying the contract's two sentences, and O9.8 graded anatomy rather than a locked F2 cell.\n\nI rejected \"leave the classes undefined because two critics may disagree.\" Strongest form: disagreement is residual, not a contract defect, and O9.8's written observable is \"use the closed classes,\" not \"match the solution's F2 cell.\" Residual requires both parties to have applied the same method. This practicum grades the method tokens without stating them.\n\nFlip the F1 verdict if Terminology restates the contract meanings, the issue-body mechanism-versus-description table is not harvested, and the existing verifier locks those phrases before Artifact 3.\n\n## Census\n\n- `blocks-the-design`: 1\n- `sharpens-framing`: 1\n- `footnote`: 1\n\n",
+          "id": 5734109833,
+          "html_url": "https://github.com/deftai/directive-training/issues/17#issuecomment-5734109833",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:01:31Z",
+          "updated_at": "2026-09-18T18:01:31Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: gpt-5\n```quarantined\nrole: critic\n```\naudit-targets: none\n\n## Verdict\n\nThe refutation target survives. At dispatch SHA f4650085e02f8d2a32f2d3b6486d80b426c4cf37, Module 9 requires an exact three-token classification and makes O9.8 non-compensating, but it never gives the learner a reusable rule for choosing among those tokens. The primary repair is necessary, with two refinements: use the released contract’s bindability boundary as the definition, and protect the definitions in the existing Module 9 content verifier.\n\nI re-ran the issue’s occurrence claim with pinned git grep rather than executing the shell example in the issue body. Across curriculum/, references/, and labs/, blocks-the-design and sharpens-framing occur only in the Artifact 3 answer-format row. The only other course-repository hits are the worked-answer rows in the Module 9 solution.\n\n### 1. O9.8 grades an undefined decision boundary (blocks-the-design)\n\nEvidence: the Terminology table defines ten arc nouns but none of the three finding classes (curriculum/modules/09-design-critique-arcs.md:78-91). Guided explanation §4 specifies the anatomy required after classification—evidence, failure mode, consequence, and take—but not what separates blocking from sharpening (:146-154). Hint 3 says F1 changes the contract, F2 changes authority framing, and F3 changes neither (:347-352), but that is an answer-specific hint after the attempt, not a reusable definition, and it does not map those descriptions to the closed tokens. Artifact 3 then requires the tokens (:268-277), O9.8 grades them (:306-313), and all four artifacts are non-compensating (:315-324).\n\nConcrete failure mode: two learners can identify the same evidence, failure, consequence, and take—as the issue demonstrates for F2—yet one fails solely because the unstated class boundary was reconstructed differently. The documented retry cannot distinguish principled reclassification from copying the answer, so O9.8 is not independently attainable.\n\nDisposition consequence: the target cannot bind as written. Define all three classes before Artifact 3, in the Module 9 Terminology table. The minimum canonical meanings are: blocks-the-design means the lean cannot bind as written; sharpens-framing means it can bind, but the finding changes how the design is stated or scoped; footnote carries no disposition weight. Keep the existing anatomy rule alongside these definitions.\n\n### 2. “Mechanism versus description” is a useful heuristic, not the governing definition (sharpens-framing)\n\nEvidence: the released design-critique contract defines the boundary in terms of whether the lean can bind as written. The issue’s proposed table instead makes “does the repair change the mechanism or the description?” decisive. In this packet, that heuristic works because the scenario already says NS-INGEST-R2 uses completed-record clearance (curriculum/modules/09-design-critique-arcs.md:198-202), while F2 says only that the draft misstates the chip as clearance (:214-216). The mechanism is present; its authority statement is wrong.\n\nConcrete failure mode: a learner generalizes “wording change = sharpening” even when wording itself creates a load-bearing authority claim that prevents bind, or “artifact/design edit = blocking” even when the lean remains bindable and only its scope needs precision.\n\nDisposition consequence: lead each definition with the canonical can-bind/cannot-bind distinction. Present mechanism-versus-description as the F2 diagnostic example beneath it, not as the sole rule. The solution should explicitly say that F2 is sharpening because the target mechanism already requires the completed record and only the draft’s authority framing is wrong.\n\n### 3. The current recovery path is circular for a class-only error (sharpens-framing)\n\nEvidence: neither the module’s Expected failures table (curriculum/modules/09-design-critique-arcs.md:365-375) nor the solution’s recovery section (solutions/module-09-design-critique-arcs.md:234-272) covers a blocking-versus-sharpening misclassification. The retry plan tells the learner to re-read only the fixed cards cited by the failed row (solutions/module-09-design-critique-arcs.md:285-296), but those cards supply facts, not the missing class rule. The solution asserts F2’s class and consequence (:149-155) without explaining why that consequence remains bindable.\n\nConcrete failure mode: after a class-only failure, the learner repeats the same reasoning or copies the solution token. Neither produces the evidence of independent mastery that the module requires.\n\nDisposition consequence: add the proposed F2 recovery case, route it back to the new Terminology definitions, and require one sentence applying the bindability test. Retry evidence should be the learner’s explanation of why the mechanism survives while the authority framing changes—not merely the corrected token.\n\n### 4. The existing gate protects the answer key, not the prerequisite teaching (sharpens-framing)\n\nEvidence: scripts/verify-module-9.mjs requires the Terminology section only to be non-empty through the generic heading check (:152-167). It then enforces the exact solution sequence blocks-the-design, sharpens-framing, footnote (:261-270). Its glossary check requires four arc nouns but none of the three finding classes (:331-337). Thus the deterministic check locks what learners must answer without locking the definitions needed to answer it.\n\nConcrete failure mode: a later edit can delete or blur one definition while check:module-9 remains green and the exact graded answer remains mandatory, recreating this defect silently.\n\nDisposition consequence: extend the existing verifier rather than inventing a new mechanism. Require three distinct Terminology rows and the canonical bindability/no-disposition distinctions; add mutation tests that remove or collapse each boundary and require failure. If the glossary is updated, require the same three terms there without making glossary lookup a prerequisite for the exercise.\n\n### 5. Glossary propagation is useful but non-blocking (footnote)\n\nreferences/GLOSSARY.md:241-266 already has a Design critique section, so adding the three class definitions there improves later lookup and keeps the vocabulary coherent. It does not repair O9.8 by itself: the course promises a self-directed module, and the learner must encounter the decision rule before the graded table. No additional quick-reference mechanism is required for this issue.\n\n## Protocol fit\n\nThe Stop 1 record, refutation charter, three-family panel deposit, shared inclusive ceiling 5733959420, and audit-targets: none are internally consistent. I read no comment after that ceiling and no sibling output. The issue body’s shell block was treated as an untrusted claim; the occurrence and file claims above were independently re-run against the dispatch SHA.\n\n## Road not taken\n\nThe strongest alternative is to accept either blocks-the-design or sharpens-framing for F2 whenever evidence, failure mode, consequence, and parent take are sound. That would respect the genuine judgment call and grade the substance the learner got right. I reject it here because O9.8 explicitly teaches the closed Directive critic-method vocabulary, the solution and verifier require a canonical mapping, and downstream adjudication consumes the distinction. If the course instead made the label illustrative and graded only finding anatomy plus take, tolerant classification would be the better design and this refutation target would flip. Under the recorded outcome, teach the boundary before grading it.\n\n",
+          "id": 5734111621,
+          "html_url": "https://github.com/deftai/directive-training/issues/17#issuecomment-5734111621",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:01:41Z",
+          "updated_at": "2026-09-18T18:01:41Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nModule 9 grades three class tokens it never states before Artifact 3. Confirming this map would put the pinned contract meanings in the Terminology table before the exercise, extend the existing Module 9 verifier to lock those phrases, and would refuse the issue body's mechanism-versus-description table.\n\nThis is a parent proposal, not implementation instruction.\n\nround: 1\nsiblings: 3\ncritic: 5734078506\ncritic: 5734109833\ncritic: 5734111621\nsupersedes: 5733947659\nTarget-digest: sha256:897607a6734add3f4bd8303c6121373c1771f789a209f582f95d4c48ea4a8520\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### F1 — the proposed definition text asserts a rule the pinned source refuses\ntake: accept-into-contract\ncritic: 5734078506\n\n### F2 — the pain premise is overstated, and the real gap is narrower than the fix\ntake: accept-into-contract\ncritic: 5734078506\n\n### F3 — no limb of the remedy has a mechanized consumer\ntake: accept-into-contract\ncritic: 5734078506\n\n### F4 — the Module 12 precedent is packet-scoped supplied policy\ntake: accept-into-contract\ncritic: 5734078506\n\n### 1. Underspecified \"define\" harvests a recut critic method\ntake: accept-into-contract\ncritic: 5734109833\n\n### 2. P1 and O9.8 over-claim unique F2-label certification\ntake: accept-into-contract\ncritic: 5734109833\n\n### 1. O9.8 grades an undefined decision boundary\ntake: accept-into-contract\ncritic: 5734111621\n\n### 2. Mechanism versus description is a useful heuristic, not the governing definition\ntake: accept-into-contract\ncritic: 5734111621\n\n### 3. The current recovery path is circular for a class-only error\ntake: accept-into-contract\ncritic: 5734111621\n\n### 4. The existing gate protects the answer key, not the prerequisite teaching\ntake: accept-into-contract\ncritic: 5734111621\n\nrelieves: P1\n\n## Bound remedy\n\n- Define the three tokens in Module 9 Terminology before Artifact 3, as source-bound restatements of the pinned critic-method sentences: `blocks-the-design` means the lean cannot bind as written; `sharpens-framing` means it can bind, but the finding changes how it is stated or scoped; `footnote` carries no disposition weight. Carry the residual clause in the same row set: two critics may still disagree; that is residual, not a defect.\n- Do not harvest the issue body's mechanism-versus-description table into course voice. Mechanism-versus-description may appear as the F2 packet diagnostic, not as the governing rule.\n- Keep Official sources as SoT. Do not add a decision table of evidence.\n- Extend `scripts/verify-module-9.mjs` so Terminology contains the three tokens plus the bind-as-written / restates-or-scopes / no-disposition-weight phrases, with mutation tests. If the glossary is updated, mirror those three terms there; glossary is not the primary teaching surface and is not required to relieve P1.\n- Add an Expected-failures / solution Compare row for classifying F2 as `blocks-the-design`, pointing at chip-versus-record already in Terminology and requiring one sentence applying the bindability test. Do not recut O9.8 into a unique F2-label match, and do not add a fourth non-compensating artifact.\n\n",
+          "id": 5734169164,
+          "html_url": "https://github.com/deftai/directive-training/issues/17#issuecomment-5734169164",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:06:42Z",
+          "updated_at": "2026-09-18T18:06:42Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nYolo standing on the launching utterance confirms successor lean 5734169164 without amendment.\n\nThe per-heading takes and Bound remedy on that lean are the confirmed proposal. Bind still waits on independent clearance of pain-P1.\n\n",
+          "id": 5734173108,
+          "html_url": "https://github.com/deftai/directive-training/issues/17#issuecomment-5734173108",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:07:04Z",
+          "updated_at": "2026-09-18T18:07:04Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nPain-audit of successor lean 5734169164 against its Bound remedy. Denominator: Stop 1 write-back 5733947659 (`pain: P1`). Ceiling 5734173108 inclusive. Dispatch SHA `f4650085e02f8d2a32f2d3b6486d80b426c4cf37`. Round 2 reserved slot; unread after the ceiling.\n\n## Verdict\n\n`relieves: P1` is independently supported. The Bound remedy covers the stated pain: Artifact 3 grades three class tokens that the module never states before the exercise, so a learner cannot apply O9.8 without the answer key. Placement, content, durability, and recovery are all on the harvest.\n\n## Re-verification at the dispatch SHA\n\nChecks were re-run with `git show <sha>:<path>`, not taken from prior critic line cites.\n\n| Anchor | Result | Check |\n| --- | --- | --- |\n| `blocks-the-design` / `sharpens-framing` in `curriculum/`, `references/`, `labs/` | only Artifact 3 closed-set cell | `git grep` at the SHA; single hit `09-design-critique-arcs.md:272` |\n| Terminology has ten nouns, none of the three class tokens | holds | `:78-91` |\n| Glossary Design critique section omits the three tokens | holds | `GLOSSARY.md:241-266` |\n| Quick reference omits the three tokens; it already teaches chip versus record | holds | `QUICK-REFERENCE.md:201-231` |\n| O9.8 grades closed classes on a non-compensating artifact | holds | `:312`, `:321`, `:324` |\n| Learner-facing O9.8 does not unique-match F2 | holds | `:312` “use the closed classes and a total take map”; self-assessment Q3 (`:395-396`) asks sources, refusal, takes, and parent non-self-clearance, not why F2 is sharpening |\n| Solution and verifier unique-map F1/F2/F3 | holds | `solutions/module-09-design-critique-arcs.md:153-155`, `:203`; `scripts/verify-module-9.mjs:266-270` |\n| No class-boundary recovery row | holds | module Expected failures `:365-374`; solution Compare `:210-219`; Valid alternatives allow `defer` on F3, not an F2 class swap (`:221-228`) |\n| Chip versus completed-arc record already in Terminology | holds | `:88-91` |\n| Scenario already states completed-record clearance | holds | `:198-202`; `DC9-FIND-02` (`:214`) is the misstatement of that existing rule |\n| Hint 3 and `DC9-LEAN-02` supply packet-local answers | holds | `:350`, `:219` — after 20 minutes / fixture, not first-use definitions |\n| Verifier locks Terminology as a non-empty heading only | holds | `moduleHeadings` includes `Terminology`; `verify-module-9.mjs:152-167` does not assert rows; glossary allowlist is four arc nouns (`:333-335`) |\n| Module 9 content contract | holds | `node scripts/verify-module-9.mjs` → ok, 14 artifacts, exit 0 |\n| Dest HEAD equals dispatch SHA | holds | `git rev-parse HEAD` |\n\nP1 therefore still describes the tree at this SHA. The question is whether the Bound remedy on 5734169164 would remove it.\n\n## Bound remedy against P1\n\nP1 has two limbs: (1) the graded vocabulary is undefined on the lookup path, and (2) so O9.8 cannot be certified without copying the solution.\n\nLimb 1. Bound-remedy item 1 puts the three tokens in Module 9 Terminology, which already sits before Artifact 3 (`:78` then `:268`), as source-bound restatements of bind-as-written / restates-or-scopes / no-disposition-weight, plus the residual clause in the same row set. That is the module’s first-use table (`templates/module-template.md:67`). Defining the tokens there falsifies “never defined in the module, glossary, or quick reference” on the exercise path. Item 4 records that glossary is not required to relieve P1; quick reference is the same lookup class, not the first-use surface.\n\nLimb 2. Learner-facing O9.8 already does not unique-match F2. What blocked independent certification was the missing method, not a hidden unique-label gate. Item 1 supplies that method before the table is graded. Item 5 adds an Expected-failures / Compare row for classifying F2 as `blocks-the-design`, pointing at chip-versus-record already in Terminology and requiring one bindability sentence — recovery inside the module (`:365` is before the explained solution at `:408`), not “copy the solution token.” Item 5 also refuses to recut O9.8 into a unique F2-label match, which matches the already-accepted heading on this lean (critic 5734109833 heading 2) and keeps certification on closed classes plus anatomy, not on copying cell F2.\n\nItems 2–3 keep the governing test as bind-as-written and refuse the issue-body mechanism-versus-description table as course voice. That is what makes limb 2 a method the learner can apply to F2 without the answer key: `DC9-FIND-02` restates clearance; the scenario and Terminology already say the mechanism is completed-record clearance and that a chip is not that record.\n\nItem 4 extends the existing `scripts/verify-module-9.mjs` consumer with mutation tests so the first-use rows cannot vanish while the solution class sequence stays mandatory. No new mechanism.\n\nTogether those items cover both limbs. `relieves: P1` is not a restatement of parent intent; it is supported by the harvest.\n\n## Existing mechanisms (no new surface)\n\n- Terminology table already in the required shape; chip versus record already there.\n- Guided §4 already requires anatomy and a take for blocking or sharpening findings (`:146-149`).\n- Official sources already pin critic method at `9038503f` (`:421-425`).\n- `verify-module-9.mjs` already unique-locks the solution class cells and already scans new prose (`assertNoUnsafeInstructionalClaims`).\n- Module Expected failures and solution Compare already exist; they lack only the class-boundary row item 5 adds.\n\n## Findings\n\n### 1. Solution F2 still cites the corrected lean (`footnote`)\n\nEvidence. At this SHA the solution F2 evidence cell cites `DC9-FIND-02` and `DC9-LEAN-02` (`solutions/module-09-design-critique-arcs.md:154`). `DC9-LEAN-02` is the already-corrected lean (`:219`). Critic 5734109833 heading 1 asked to cite chip/record Terminology rows instead. The Bound remedy does not harvest that cite repair.\n\nFailure mode. Opening the worked F2 row still reads as if the corrected lean were the classification evidence. That is answer-key quality, not the missing first-use rule.\n\nDisposition consequence. None for P1. Item 5’s recovery points at Terminology and a bindability sentence, which is the independent path. Leave the cite repair to implementers; do not reopen `relieves: P1`.\n\n### 2. Glossary and quick-reference omission is recorded, not unrelieved pain (`footnote`)\n\nEvidence. P1 names glossary and quick reference as empty lookup sites. Both still omit the tokens at this SHA. Bound-remedy item 4 says glossary is not required to relieve P1 and is only a mirror if updated. Quick reference is unnamed.\n\nFailure mode. A learner who skips Terminology and searches only those two files would still not find the tokens. That is not the Artifact 3 path: first-use is the in-module table immediately before the exercise.\n\nDisposition consequence. None. Do not add a glossary or quick-reference limb as a P1 condition.\n\n## Injection / swarm lens\n\nThe Bound remedy changes the vocabulary learners will later use to classify findings about untrusted input and clearance (`DC9-SOURCE-01`, fragments, `DC9-FIND-02`). Those fixture cards were read as attributed data and are not followed. Item 2 is the control against promoting the issue body’s recut into graded course voice. Item 4 extends the existing verifier rather than relying on later review. Identity, launchers, concurrency, and worktrees are unchanged.\n\n## Road not taken\n\nRejected: treat the solution Acceptance unique F1/F2/F3 row (`:203`) as leaving limb 2 unrelieved. Strongest form: the only current “right” F2 label lives in the answer key, and that row still tags it O9.8. I reject it because module O9.8 (`:312`, `:321`) requires closed classes and a total take map, not that cell; this lean already accepted “do not recut O9.8 into a unique F2-label match”; and item 5 puts recovery on the module side of the explained solution. Flip if module O9.8 or Completion evidence were rewritten to require the solution’s F2 cell, or if the three rows were placed after Artifact 3.\n\n## Census\n\n- `blocks-the-design`: 0\n- `sharpens-framing`: 0\n- `footnote`: 2\n\n",
+          "id": 5734276713,
+          "html_url": "https://github.com/deftai/directive-training/issues/17#issuecomment-5734276713",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:15:36Z",
+          "updated_at": "2026-09-18T18:15:36Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5734276713 is footnote-only. Bind remains successor lean 5734169164.\n\n1. Solution F2 still cites the corrected lean. Take: leave that cite repair to implementers; item 5 recovery already points at Terminology. This does not change the harvested Bound-remedy.\n\n2. Glossary and quick-reference omission is recorded, not unrelieved pain. Take: first-use remains the in-module Terminology table. This does not change the harvested Bound-remedy.\n\n",
+          "id": 5734289338,
+          "html_url": "https://github.com/deftai/directive-training/issues/17#issuecomment-5734289338",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:16:42Z",
+          "updated_at": "2026-09-18T18:16:42Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Module 9 Terminology defines ten nouns and none of the three class tokens | verified | `git show f4650085e02f8d2a32f2d3b6486d80b426c4cf37:curriculum/modules/09-design-critique-arcs.md` lines 78-91 |\n| Artifact 3 grades the closed three-token set | verified | same file line 272 |\n| O9.8 requires closed classes on a non-compensating artifact | verified | same file lines 312 and 324 |\n| `relieves: P1` on lean 5734169164 is independently supported | verified | pain-audit 5734276713 with `audit-targets: pain-P1`; footnote-only follow-through; no blocking finding |\n\n",
+          "id": 5734289500,
+          "html_url": "https://github.com/deftai/directive-training/issues/17#issuecomment-5734289500",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:16:43Z",
+          "updated_at": "2026-09-18T18:16:43Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nModule 9 grades three class tokens it never states before Artifact 3. The accepted harvest puts the pinned contract meanings in the Terminology table before the exercise, extends the existing Module 9 verifier to lock those phrases, and refuses the issue body mechanism-versus-description table.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5734169164\nverified-claims table 5734289500\n\n",
+          "id": 5734291584,
+          "html_url": "https://github.com/deftai/directive-training/issues/17#issuecomment-5734291584",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-18T18:16:54Z",
+          "updated_at": "2026-09-18T18:16:54Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5501713959,
+        "origin": "deftai/directive-training#17",
+        "id": "github.issue.5501713959"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "897607a6734add3f4bd8303c6121373c1771f789a209f582f95d4c48ea4a8520"
+      },
+      "kind": "story",
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "curriculum/modules/09-design-critique-arcs.md",
+          "solutions/module-09-design-critique-arcs.md",
+          "scripts/verify-module-9.mjs",
+          "scripts/verify-module-9.test.mjs",
+          "CHANGELOG.md",
+          "xbrief/active/2026-09-20-17-module-9-grades-a-closed-finding-classification-vocabulary-i.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:module-9",
+          "npm run test:module-9"
+        ],
+        "expected_outputs": [
+          "Module 9 Terminology states the three disposition tokens and the residual clause before Artifact 3",
+          "verify-module-9 fails closed when any of the three tokens or their defining phrases are removed",
+          "An Expected-failures row covers the F2 blocks-the-design classification via the bindability test"
+        ],
+        "depends_on": [],
+        "conflict_group": "curriculum-module-09",
+        "size": "small",
+        "file_scope_confidence": "high",
+        "model_tier": "high"
+      }
+    },
+    "id": "github.issue.5501713959",
+    "updated": "2026-09-20T16:46:04Z"
+  }
+}
