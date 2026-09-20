@@ -1,0 +1,44 @@
+name: content-contract
+
+# Focused content contracts run on every pull request so a learner file and its
+# verifier can never drift apart in a merged change (deftai/directive-training#19).
+on:
+  pull_request:
+permissions:
+  contents: read
+
+env:
+  GH_NO_UPDATE_NOTIFIER: "1"
+
+jobs:
+  modules-2-3:
+    name: modules-2-3-content-contract
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out authored training source
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Select Node.js 24 LTS
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24.20.0"
+          check-latest: false
+          package-manager-cache: false
+
+      - name: Run the focused Modules 2-3 content contract
+        shell: bash
+        run: |
+          set -eu
+          set -o pipefail
+          npm run check:modules-2-3
+
+      - name: Replay the captured doctor warning sets against the shared checker
+        shell: bash
+        run: |
+          set -eu
+          set -o pipefail
+          npm run test:doctor-warning-set
