@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Project definition for the 3Ci Directive training curriculum",
     "created": "2026-09-05T14:54:49Z",
-    "updated": "2026-09-20T02:29:27Z",
+    "updated": "2026-09-20T19:09:08Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -812,6 +812,51 @@
               "title": "Issue #58: Exact Node 24.20.0, --help side effects, and mixed version notes confuse the golden path"
             }
           ]
+        }
+      },
+      {
+        "id": "2026-09-20-15-nine-of-twelve-modules-have-a-self-assessment-gate-with-no-a",
+        "title": "Nine of twelve modules have a self-assessment gate with no answer key",
+        "status": "running",
+        "metadata": {
+          "source_path": "active/2026-09-20-15-nine-of-twelve-modules-have-a-self-assessment-gate-with-no-a.xbrief.json",
+          "lifecycle_folder": "active"
+        }
+      },
+      {
+        "id": "2026-09-20-16-module-6-part-d-proposed-mechanism-revision-column-contradic",
+        "title": "Module 6 Part D: 'Proposed mechanism revision' column contradicts its own rubric and needs Module 9 knowledge",
+        "status": "running",
+        "metadata": {
+          "source_path": "active/2026-09-20-16-module-6-part-d-proposed-mechanism-revision-column-contradic.xbrief.json",
+          "lifecycle_folder": "active"
+        }
+      },
+      {
+        "id": "2026-09-20-17-module-9-grades-a-closed-finding-classification-vocabulary-i",
+        "title": "Module 9 grades a closed finding-classification vocabulary it never defines",
+        "status": "running",
+        "metadata": {
+          "source_path": "active/2026-09-20-17-module-9-grades-a-closed-finding-classification-vocabulary-i.xbrief.json",
+          "lifecycle_folder": "active"
+        }
+      },
+      {
+        "id": "2026-09-20-19-lab-2s-documented-doctor-known-false-negative-does-not-repro",
+        "title": "Lab 2's documented doctor 'known false negative' does not reproduce on 0.119.2; the warning that does appear is undocumented",
+        "status": "running",
+        "metadata": {
+          "source_path": "active/2026-09-20-19-lab-2s-documented-doctor-known-false-negative-does-not-repro.xbrief.json",
+          "lifecycle_folder": "active"
+        }
+      },
+      {
+        "id": "2026-09-20-20-scope-authoring-o62-is-the-one-core-outcome-with-no-executab",
+        "title": "Scope authoring (O6.2) is the one core outcome with no executable verification anywhere in the course",
+        "status": "running",
+        "metadata": {
+          "source_path": "active/2026-09-20-20-scope-authoring-o62-is-the-one-core-outcome-with-no-executab.xbrief.json",
+          "lifecycle_folder": "active"
         }
       }
     ],
