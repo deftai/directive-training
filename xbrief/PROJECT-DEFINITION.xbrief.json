@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Project definition for the 3Ci Directive training curriculum",
     "created": "2026-09-05T14:54:49Z",
-    "updated": "2026-09-20T19:09:08Z",
+    "updated": "2026-09-20T20:45:00Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -28,13 +28,13 @@
       "PublishingBoundary": "The material may eventually be published to an internal wiki, Confluence, or SharePoint. Repository Markdown remains the authored source of truth; published pages will be generated or governed projections. Platform selection, export tooling, permissions, and publication are future work and require explicit authorization.",
       "Maintenance": "3Ci engineering enablement is the organizational content owner. A named individual maintainer and at least two representative pilot learners remain to be assigned before MVP exit. Maintainers must revalidate version-sensitive claims and literal commands when the Directive pin changes and record the result in the source baseline and maintenance notes.",
       "RisksAndUnknowns": "The named content owner and pilot learners are unresolved. The eventual internal publishing platform is unresolved. Command and prose drift across Directive releases can invalidate training quickly, so claims require per-release traceability and revalidation. Cross-platform shell differences can make otherwise correct labs non-reproducible and must be tested or explicitly bounded.",
-      "ProjectRules": "This repository is the public deftai/directive-training repository, owned by the deftai GitHub organization; it is a copy of 3Ci-Consulting/directive-training, not a GitHub fork. It is not the deftai/directive framework source repository. Treat the configured Git remote as repository identity; do not change its visibility or remote settings, modify /Users/davidcall/tools/deft/directive, or create issues or pull requests in deftai/directive. Resolve the shared USER.md in place; never replace, copy, distribute, or commit it. Use fictional projects and mock data only; never include client information, proprietary source, credentials, production logs, or confidential issue content. Learner exercises must run outside this working tree and outside business repositories. When a material ambiguity would change approved scope, safety, authorization, or observable behavior, stop and ask the operator a bounded question. Do not push, open a pull request, merge, publish, release, or deploy without explicit authorization. Greptile is disabled for this project. Do not enable, trigger, wait for, or require Greptile reviews or status checks. Treat missing Greptile signals as expected; use local checks, GitHub CI, and human review. Solutions should be available after a suggested first attempt rather than concealed behind instructor access."
+      "ProjectRules": "This repository is the public deftai/directive-training repository, owned by the deftai GitHub organization; it is a copy of 3Ci-Consulting/directive-training, not a GitHub fork. It is not the deftai/directive framework source repository. Treat the configured Git remote as repository identity; do not change its visibility or remote settings, modify /Users/davidcall/tools/deft/directive, or create issues or pull requests in deftai/directive. Resolve the shared USER.md in place; never replace, copy, distribute, or commit it. Use fictional projects and mock data only; never include client information, proprietary source, credentials, production logs, or confidential issue content. Learner exercises must run outside this working tree and outside business repositories. When a material ambiguity would change approved scope, safety, authorization, or observable behavior, stop and ask the operator a bounded question. Do not push, open a pull request, merge, publish, release, or deploy without explicit authorization. Greptile reviews this repository and its findings are load-bearing; treat a Greptile review as review evidence alongside local checks, GitHub CI, and human review. Solutions should be available after a suggested first attempt rather than concealed behind instructor access."
     },
     "references": [
       {
         "uri": "../COST-ESTIMATE.md",
         "type": "x-xbrief/spec-section",
-        "title": "Current Windows portability issues 74–78 cost estimate with prior curriculum decisions",
+        "title": "Current Windows portability issues 74\u201378 cost estimate with prior curriculum decisions",
         "TrustLevel": "internal"
       }
     ],
