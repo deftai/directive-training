@@ -382,17 +382,19 @@ acceptance table. No repository reset or environment cleanup is required.
 
 ## Self-assessment
 
-Answer without reopening the lesson, then compare with the explained solution.
+Answer without reopening the lesson, then compare with the explained solution. Each item
+names the outcome whose Completion-evidence row scores it; items 3 and 4 both join O4.3.
 
-1. Why do a specification, scope, and tactical plan remain different artifacts even when
-   all contain a `plan` object?
-2. Which scope folders hold `draft`, `blocked`, and `cancelled`? Why is C's pending item
-   different from K's pending `plan.status`?
-3. What can E establish after an interruption, and what must a new session still verify?
-4. Why can Instruction 1 prohibit implementation while C remains active? Why does N not
-   become authoritative simply because it is written by an earlier agent?
-5. Which part of `PROJECT-DEFINITION` is authored project identity, which part is a
-   generated scope registry, and where would you correct L's stale status?
+1. **O4.1:** Why do a specification, scope, and tactical plan remain different artifacts
+   even when all contain a `plan` object?
+2. **O4.2:** Which scope folders hold `draft`, `blocked`, and `cancelled`? Why is C's
+   pending item different from K's pending `plan.status`?
+3. **O4.3:** What can E establish after an interruption, and what must a new session still
+   verify?
+4. **O4.3:** Why can Instruction 1 prohibit implementation while C remains active? Why does
+   N not become authoritative simply because it is written by an earlier agent?
+5. **O4.4:** Which part of `PROJECT-DEFINITION` is authored project identity, which part is
+   a generated scope registry, and where would you correct L's stale status?
 
 - **Ready to continue:** all five explanations cite correct evidence and every exercise
   acceptance row passes.
@@ -403,6 +405,9 @@ Answer without reopening the lesson, then compare with the explained solution.
 
 After a suggested first attempt, use the [explained solution](../../solutions/module-04-xbrief-as-durable-state.md).
 It includes every card, lifecycle verdict, self-assessment answer, and a retry route.
+The [self-assessment key](../../solutions/module-04-xbrief-as-durable-state.md#self-assessment-key)
+answers the five items above. It explains answers; the Completion evidence table remains
+the instrument that scores this module.
 No instructor approval or automation unlock is required.
 
 ## Navigation

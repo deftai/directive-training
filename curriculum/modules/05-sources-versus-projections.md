@@ -278,7 +278,10 @@ passes. **Revisit:** the result is correct but explanation incomplete.
 
 After a suggested first attempt, use the [Lab 5 solution](../../solutions/lab-05-projection-drift-recovery.md).
 It explains the module outcomes, self-assessment, commands, recovery, and
-valid alternative approaches.
+valid alternative approaches. The
+[self-assessment key](../../solutions/lab-05-projection-drift-recovery.md#self-assessment-key)
+answers the four items above. It explains answers; the Completion evidence table remains
+the instrument that scores this module.
 
 ## Navigation
 

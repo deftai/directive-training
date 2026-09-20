@@ -20,6 +20,9 @@
   Structural proof and the Module 6 comparison rubric stay separate surfaces,
   `xbrief:preflight` and `doctor` are refused as the authoring-validity pass,
   both Lab 7 supplied scopes are kept,
+  path, the exact command, the exit code, and the result. Structural proof and the
+  Module 6 comparison rubric stay separate surfaces, `xbrief:preflight` and `doctor`
+  are refused as the authoring-validity pass, both Lab 7 supplied scopes are kept,
   and a green structural result grants no promotion, activation, or implementation
   authority (#20).
 - A required design-critique learning path with a scored Module 6 routing gate,
@@ -201,3 +204,14 @@
   `Not applicable.` remains the non-route fill, and Module 6 Terminology,
   the self-assessment key, and the glossary define the column as an
   identifier (#16).
+- Make the four shipped self-assessment keys findable and joinable. All four now
+  use `## Self-assessment key` at `h2`, including the Lab 5 key that was an `h3`
+  nested under `## Acceptance evidence`, and Modules 4, 5, and 6 link to them by
+  `#self-assessment-key` fragment in the same change. Module 4's five items carry
+  O4.1, O4.2, O4.3, O4.3, and O4.4 so each joins an existing Completion-evidence
+  row, and Module 3 item 5 and Module 6 item 5 are marked ungraded practice
+  because neither has a row to join. Completion evidence remains the scoring
+  instrument; the keys explain answers. `npm run test:content` now runs
+  `scripts/verify-modules-2-3.mjs`. Module 1 is excluded leftover: its items are
+  tagged, but its Completion evidence has no outcome-id rows and its scoring
+  lives in an in-section block (#15).

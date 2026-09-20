@@ -545,7 +545,8 @@ then recheck all four acceptance rows. No repository reset or cleanup is require
 ## Self-assessment
 
 Answer without reopening the lesson, then compare with your retained evidence and the
-explained solution.
+explained solution. Items 1-4 name the outcome whose Completion-evidence row scores them;
+item 5 is ungraded practice with no Completion-evidence row to join.
 
 1. **O6.1:** Why is “build the query and interface” horizontal? State one vertical outcome,
    its artifact, exclusions, and literal inspection.
@@ -559,8 +560,8 @@ explained solution.
    safe next action. Which field/value pair fills the route row's revision cell —
    `Proposed mechanism revision` = `NS-INGEST-R2` — and which lifecycle actions remain on
    hold?
-5. Why can static inspection complete this command-free worksheet but not prove executable
-   product behavior?
+5. *Ungraded practice.* Why can static inspection complete this command-free worksheet but
+   not prove executable product behavior? No Completion-evidence row scores this item.
 
 - **Ready to continue:** O6.1, O6.2, O6.3, and O6.4 each have passing retained evidence.
 - **Revisit one section:** the outcome is right but a field, rationale, or authority limit is
@@ -574,7 +575,10 @@ Confidence alone is not completion evidence.
 
 After a suggested first attempt, use the [explained solution](../../solutions/module-06-creating-well-shaped-work.md).
 It provides complete fictional artifacts, the worked O6.4 semantic matrix, reasoning, valid
-alternatives, recovery, and a bounded retry. No instructor, review bot, account, or automation
+alternatives, recovery, and a bounded retry. The
+[self-assessment key](../../solutions/module-06-creating-well-shaped-work.md#self-assessment-key)
+answers the five items above. It explains answers; the Completion evidence table remains
+the instrument that scores this module. No instructor, review bot, account, or automation
 unlock is required.
 
 ## Navigation
