@@ -150,3 +150,12 @@
 - Normalize new Lab 5 text fixtures to LF and pin the source JSON's Git text
   attributes. Accept LF/CRLF purpose edits while retaining trailing-whitespace
   rejection; update the nine-file checkpoint and exact Windows CRLF replay.
+- Remove a hidden strengthening in the Module 6 Part D routing matrix. The
+  published rubric asks the learner to name the routed revision, but the
+  solution cell and `scripts/verify-module-6.mjs` required a Module 9
+  clearance sentence the learner has not been taught. The route row's
+  `Proposed mechanism revision` cell is now the identifier `NS-INGEST-R2`,
+  the verifier asserts that exact value and rejects a redesign sentence,
+  `Not applicable.` remains the non-route fill, and Module 6 Terminology,
+  the self-assessment key, and the glossary define the column as an
+  identifier (#16).

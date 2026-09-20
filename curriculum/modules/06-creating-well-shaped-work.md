@@ -96,6 +96,7 @@ xBRIEF keys.
 | Boundary rationale | Why the slice includes and excludes specific behavior | A canonical xBRIEF field name |
 | Mechanism-shaped routing | A human-semantic decision about whether a concrete proposed mechanism needs design critique before lifecycle authorization | A keyword check or a result computed by `scope:promote` |
 | Controlling supplied fact | The specific fact in a fixed scenario that justifies its disposition | Repeating `route`, `no route`, or `insufficient evidence` without reasoning |
+| Proposed mechanism revision | The identifier of the revision a `route` row sends to design critique, such as `NS-INGEST-R2` | A redesign sentence describing how that mechanism should change |
 
 ## Mental model
 
@@ -486,8 +487,9 @@ explained solution.
 3. **O6.3:** What made the original scenario epic-sized? Read your three rows in order and
    explain every dependency and boundary rationale.
 4. **O6.4:** For each fixed fact-pattern ID, name the controlling fact, disposition, and
-   safe next action. Which revision does the route row target, and which lifecycle actions
-   remain on hold?
+   safe next action. Which field/value pair fills the route row's revision cell —
+   `Proposed mechanism revision` = `NS-INGEST-R2` — and which lifecycle actions remain on
+   hold?
 5. Why can static inspection complete this command-free worksheet but not prove executable
    product behavior?
 
