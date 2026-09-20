@@ -3,11 +3,11 @@
     "version": "0.8",
     "description": "Upgrade the complete Directive teaching baseline from 0.119.2 to 0.119.5, revalidate the exact package graph and taught behavior, run repository gates, push the branch, and open a pull request.",
     "created": "2026-09-20T00:52:23Z",
-    "updated": "2026-09-20T02:40:12Z"
+    "updated": "2026-09-20T03:36:18Z"
   },
   "plan": {
     "title": "Directive 0.119.5 Teaching Baseline Upgrade",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Overview": "Complete the repository-wide Directive teaching-baseline upgrade and stop at an open pull request.",
       "Description": "Upgrade the authoring engine, managed deposit, exact learner fixture graph, current curriculum claims, solutions, references, maintenance guidance, and verification evidence from Directive 0.119.2 to the single frozen 0.119.5 release baseline.",
@@ -40,8 +40,58 @@
       {
         "id": "training.directive-baseline-0.119.5.verification",
         "title": "Run focused and aggregate gates, record evidence, and open the upgrade pull request",
-        "status": "running",
-        "effort": "M"
+        "status": "completed",
+        "effort": "M",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "https://github.com/deftai/directive-training/pull/23",
+          "recorded_at": "2026-09-20T03:35:13Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "clause:1",
+        "title": "clause:1",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "observed_behavior",
+          "pointer": "references/SOURCE-BASELINE.md",
+          "recorded_at": "2026-09-20T03:35:13Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "clause:2",
+        "title": "clause:2",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/23/checks",
+          "recorded_at": "2026-09-20T03:35:13Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "clause:3",
+        "title": "clause:3",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/23",
+          "recorded_at": "2026-09-20T03:35:13Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "clause:4",
+        "title": "clause:4",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "https://github.com/deftai/directive-training/commit/fcef9f08eeae31d156cafff6f395eb79c1b55396",
+          "recorded_at": "2026-09-20T03:35:13Z",
+          "recorded_by": "agent:codex"
+        }
       }
     ],
     "references": [
@@ -66,10 +116,16 @@
         "module_boundary": ""
       },
       "xbriefCreate": true,
-      "stop_at": "pr-open"
+      "stop_at": "pr-open",
+      "completedAt": "2026-09-20T03:36:18Z",
+      "completedSessionId": "host:codex:v1:MDFhMGJjM2YtYWMwZC03YjIyLWFhMmYtZGI3MWQ4ZTZlODRi",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-20T03:36:18Z"
+      }
     },
     "id": "training.directive-baseline-0.119.5",
-    "updated": "2026-09-20T02:40:12Z",
+    "updated": "2026-09-20T03:36:18Z",
     "acceptance": {
       "commands": [],
       "none_stated": true,
