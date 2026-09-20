@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-20-16-module-6-part-d-proposed-mechanism-revision-column-contradic.xbrief.json",
+  "planId": "github.issue.5501656939",
+  "approvedAt": "2026-09-20T19:35:32Z",
+  "fileScope": [
+    "CHANGELOG.md",
+    "curriculum/modules/06-creating-well-shaped-work.md",
+    "references/GLOSSARY.md",
+    "scripts/verify-module-6.mjs",
+    "scripts/verify-module-6.test.mjs",
+    "solutions/module-06-creating-well-shaped-work.md",
+    "xbrief/active/2026-09-20-16-module-6-part-d-proposed-mechanism-revision-column-contradic.xbrief.json"
+  ],
+  "fileScopeDigest": "3298697809facd1d74c3efd3b930a1b51246b205c8e5d035736696011d455980",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "david",
+    "mintedAt": "2026-09-20T19:35:32Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "e681ec8d645a59bb23edd88ae70d31e5547e5d3ef3e557d2ee1912c59460df00",
+  "digestAlgo": "intent-extract-v1"
+}

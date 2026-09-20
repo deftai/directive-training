@@ -174,8 +174,93 @@ const module1 = read("curriculum/modules/01-what-directive-is.md");
 const module1Solution = read("solutions/module-01-what-directive-is.md");
 
 const executableFencePattern = /^\s*```(?:sh|bash|zsh|powershell|pwsh)\s*\n([\s\S]*?)^\s*```\s*$/gim;
-const forbiddenLearnerCommand =
-  /^\s*(?:&\s*)?(?:git\s+(?:push\b|remote\s+(?:add|remove|rename|set-url)\b|reset\s+--hard\b|clean\b|checkout\s+--\b|branch\s+-D\b)|gh\s+(?!--version(?:\s|$))|npm\s+publish\b|(?:directive|deft)\s+(?:deploy|publish|release)\b|rm\s+-(?:rf|fr)\b|Remove-Item\b|(?:del|rmdir)\s+\/s\b)/im;
+// A learner-executable fence may never mutate host-global state, leave the course pin, or
+// run the untaught provenance migration the doctor signpost recommends (#19). Those three
+// live only as quoted evidence in non-executable fences.
+//
+// npm accepts its options before or after the subcommand, so neither the install verb nor the
+// global flag may be anchored to a fixed position after `npm`: `npm --global install X` and
+// `npm -g install X@latest` are the same mutation as `npm install -g X`. The fragments below
+// are composed rather than inlined so each token boundary stays auditable, and the case table
+// that follows exercises the guard against every supported variant.
+const npmBinary = String.raw`npm(?:\.cmd)?`;
+// One or more further whitespace-separated npm arguments.
+const npmArguments = String.raw`[^\n]*?\s`;
+const npmInstallVerb = String.raw`(?:i|in|install|add)(?=\s|$)`;
+// `-g`, `--global` and `--location=global` as whole tokens. `--globalconfig` is a legitimate
+// isolation flag in this lab; the trailing lookahead is what keeps it out of this set.
+const npmGlobalFlag = String.raw`(?:--?g(?:lobal)?|--location[= ]global)(?=\s|$)`;
+const npmLatestTag = String.raw`@latest(?=\s|$|["'\x60])`;
+// An `env VAR=value` wrapper must not hide the command it runs.
+const commandPrefix = String.raw`^\s*(?:&\s*)?(?:env(?:\s+-\S+)*(?:\s+\w+=\S*)*\s+)?`;
+
+const forbiddenLearnerCommand = new RegExp(
+  commandPrefix +
+    "(?:" +
+    [
+      String.raw`git\s+(?:push\b|remote\s+(?:add|remove|rename|set-url)\b|reset\s+--hard\b|clean\b|checkout\s+--\b|branch\s+-D\b)`,
+      String.raw`gh\s+(?!--version(?:\s|$))`,
+      String.raw`npm\s+publish\b`,
+      // host-global install, subcommand first: `npm install -g @deftai/directive`
+      `${npmBinary}\\s+(?:${npmArguments})?${npmInstallVerb}${npmArguments}${npmGlobalFlag}`,
+      // host-global install, option first: `npm --global install @deftai/directive`
+      `${npmBinary}\\s+(?:${npmArguments})?${npmGlobalFlag}${npmArguments}${npmInstallVerb}`,
+      // any install that leaves the course pin: `npm i @deftai/directive@latest`
+      `${npmBinary}\\s+(?:${npmArguments})?${npmInstallVerb}[^\\n]*${npmLatestTag}`,
+      String.raw`(?:directive|deft)\s+migrate\b`,
+      String.raw`(?:directive|deft)\s+(?:deploy|publish|release)\b`,
+      String.raw`rm\s+-(?:rf|fr)\b`,
+      String.raw`Remove-Item\b`,
+      String.raw`(?:del|rmdir)\s+\/s\b`,
+    ].join("|") +
+    ")",
+  "im",
+);
+
+// Negative tests for the guard itself. Every supported host-global and off-pin variant must be
+// rejected, and every command the lab legitimately runs must survive -- in particular the
+// isolated `--globalconfig` installs, since `--global` is a prefix of `--globalconfig`.
+for (const rejected of [
+  "npm install -g @deftai/directive",
+  "npm i -g @deftai/directive",
+  "npm in -g @deftai/directive",
+  "npm add -g @deftai/directive",
+  "npm install --global @deftai/directive",
+  "npm --global install @deftai/directive",
+  "npm -g install @deftai/directive@latest",
+  "npm --registry https://registry.npmjs.org/ --global install @deftai/directive",
+  "npm install --location=global @deftai/directive",
+  "npm.cmd install -g @deftai/directive",
+  "npm.cmd --global install @deftai/directive",
+  "& npm install -g @deftai/directive",
+  "npm install @deftai/directive@latest",
+  "npm i @deftai/directive@latest --ignore-scripts",
+  'npm i "@deftai/directive@latest"',
+  'env -i PATH="$PATH" npm install -g @deftai/directive',
+  "  npm install -g @deftai/directive",
+  "directive migrate",
+  "deft migrate --project-root .",
+  "npm publish",
+  "git push origin training/module-02",
+  'rm -rf "$lab_parent"',
+]) {
+  assert.match(rejected, forbiddenLearnerCommand, "the learner-command guard must reject: " + rejected);
+}
+for (const allowed of [
+  'env -i PATH="$PATH" HOME="$HOME" npm install --userconfig "$lab_root/.npmrc" --globalconfig /dev/null --cache "$lab_root/.npm-cache" --ignore-scripts --no-audit --no-fund',
+  "npm install --globalconfig /dev/null",
+  "npm install --globalconfig NUL --userconfig .npmrc",
+  "npm --globalconfig /dev/null install",
+  "npm install --ignore-scripts --no-audit --no-fund",
+  "npm install @deftai/directive@0.119.5",
+  "npm ls @deftai/directive",
+  "npm config get registry",
+  "gh --version",
+  "directive doctor --full --project-root .",
+  "git status --porcelain --untracked-files=all",
+]) {
+  assert.doesNotMatch(allowed, forbiddenLearnerCommand, "the learner-command guard must allow: " + allowed);
+}
 for (const [relativePath, content] of [
   ["curriculum/modules/02-installation-and-anatomy.md", module2],
   ["curriculum/modules/03-authority-and-context.md", module3],
@@ -400,15 +485,61 @@ assert.match(
   /verify:codebase-map-fresh --help[\s\S]{0,220}(?:runs|performs)[\s\S]{0,80}check/i,
   "Module 2 must warn that command-specific help can execute a verifier",
 );
+// The pinned 0.119.5 engine cannot emit `Missing directory: xbrief/`: that string is
+// reserved for framework-content and engine-deposit rows, and the lifecycle row has its own
+// wording. Teaching it -- even behind an "if it appears" hedge -- locks a false evidence
+// lesson into the first executable lab, so the three learner files must teach the warning a
+// pin-matched Lab 2 init really prints (deftai/directive-training#19).
 for (const [relativePath, content] of [
   ["curriculum/modules/02-installation-and-anatomy.md", module2],
   ["labs/02-disposable-initialization.md", lab2],
   ["solutions/lab-02-disposable-initialization.md", lab2Solution],
 ]) {
-  assert.match(
+  assert.doesNotMatch(
     content,
-    /known false negative[\s\S]{0,180}(?:Missing directory: )?`?xbrief\/`?[\s\S]{0,220}PROJECT-DEFINITION\.xbrief\.json[\s\S]{0,120}(?:exists|present)/i,
-    relativePath + " must label the 0.119.5 doctor xbrief warning as a known false negative",
+    /Missing directory: *`?xbrief/i,
+    relativePath + " must not teach `Missing directory: xbrief/`; the pinned engine cannot emit it",
+  );
+  assert.doesNotMatch(
+    content,
+    /known false negative/i,
+    relativePath + " must not label a doctor finding a known false negative without a pin-matched replay",
+  );
+  assert.ok(
+    content.includes("canonical-vendored-npm-signpost"),
+    relativePath + " must name the doctor check a pin-matched Lab 2 init actually prints",
+  );
+}
+
+// Lab 2 Task 2 carries the live warning as a classification exercise: check id, message,
+// recommended action, and boundary verdict. The recommended action is host-global and
+// pin-breaking, so it may only appear as quoted evidence.
+assert.match(
+  lab2,
+  /canonical-vendored-npm-signpost[\s\S]{0,900}npm i -g @deftai\/directive@latest[\s\S]{0,400}directive migrate/i,
+  "Lab 2 must quote the signpost message with its recommended npm install and migrate action",
+);
+assert.match(
+  lab2,
+  /Boundary verdict[\s\S]{0,400}outside/i,
+  "Lab 2 must state the boundary verdict for the signpost recommendation",
+);
+assert.match(
+  lab2Solution,
+  /canonical-vendored-npm-signpost[\s\S]{0,900}outside/i,
+  "the Lab 2 solution must classify the signpost recommendation as outside the lab boundary",
+);
+
+// O2.4 stays classify-and-boundary-judge of whatever appeared: no file may make a warning
+// count the pass condition.
+for (const [relativePath, content] of [
+  ["labs/02-disposable-initialization.md", lab2],
+  ["solutions/lab-02-disposable-initialization.md", lab2Solution],
+]) {
+  assert.doesNotMatch(
+    content,
+    /(?:one|two|three|1|2|3) warnings? (?:and|in the verified|recorded|expected)/i,
+    relativePath + " must not make a warning count an acceptance criterion",
   );
 }
 
@@ -497,6 +628,24 @@ assert.doesNotMatch(
   workflow,
   /NPM_CONFIG_USERCONFIG/,
   "platform workflow must not fall back to the old empty-userconfig recovery path",
+);
+// Every platform lane must capture doctor output and bind the emitted warning identity set
+// through the one shared checker; a lane that re-inlines its own assertion drifts silently
+// (deftai/directive-training#19).
+assert.equal(
+  [...workflow.matchAll(/doctor --full --project-root \./g)].length,
+  3,
+  "every platform job must run the Lab 2 doctor command",
+);
+assert.equal(
+  [...workflow.matchAll(/scripts\/assert-doctor-warning-set\.mjs/g)].length,
+  3,
+  "every platform job must assert the doctor warning set through the shared checker",
+);
+assert.doesNotMatch(
+  workflow,
+  /System check completed with/,
+  "platform workflow must not re-inline the doctor warning assertion",
 );
 for (const [label, content] of [
   ["platform workflow", workflow],

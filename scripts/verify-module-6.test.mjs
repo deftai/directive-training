@@ -5,12 +5,41 @@ import { dirname, join } from "node:path";
 import test from "node:test";
 import { verifyModule6 } from "./verify-module-6.mjs";
 
+/**
+ * Splice out the first literal occurrence of `search` by position. Fixture mutations never
+ * go through string replacement, so no dollar-sign sequence in the replacement text can be
+ * expanded, and a target that no longer exists fails loudly instead of silently no-opping.
+ * @param {string} body Text to mutate.
+ * @param {string} search Literal substring to remove.
+ * @param {string} [replacement] Literal text to splice in.
+ * @returns {string} The mutated text.
+ */
+function splice(body, search, replacement = "") {
+  const at = body.indexOf(search);
+  assert.notEqual(at, -1, `fixture mutation target not found: ${search}`);
+  return body.slice(0, at) + replacement + body.slice(at + search.length);
+}
+
+/**
+ * Positional `splice` applied to every occurrence of `search`.
+ * @param {string} body Text to mutate.
+ * @param {string} search Literal substring to remove.
+ * @param {string} [replacement] Literal text to splice in.
+ * @returns {string} The mutated text.
+ */
+function spliceAll(body, search, replacement = "") {
+  const parts = body.split(search);
+  assert.ok(parts.length > 1, `fixture mutation target not found: ${search}`);
+  return parts.join(replacement);
+}
+
 const module6 = "curriculum/modules/06-creating-well-shaped-work.md";
 const solution6 = "solutions/module-06-creating-well-shaped-work.md";
 const module5 = "curriculum/modules/05-sources-versus-projections.md";
 const module7 = "curriculum/modules/07-scope-lifecycle.md";
+const lab7 = "labs/07-scope-lifecycle.md";
 const moduleHeadings = [
-  "Module record", "Learning outcomes", "Starting-state check", "Why this matters",
+  "Module record", "Learning outcomes", "Structural evidence for O6.2", "Starting-state check", "Why this matters",
   "Terminology", "Mental model", "Guided explanation", "Walkthrough", "Exercise",
   "Completion evidence", "Progressive hints", "Expected failures and recovery",
   "Common misconceptions", "Self-assessment", "Explained solution", "Navigation",
@@ -45,7 +74,30 @@ function fixture(t) {
   ].join("\n");
   write(module6, document(moduleHeadings, {
     "Module record": record,
-    "Learning outcomes": outcomes,
+    "Learning outcomes": [
+      "O6.1 and O6.3 and O6.4 are recorded here.",
+      "",
+      "- **O6.2 — Trace idea to proposed scope.** Record a bounded strategy choice, a testable specification statement, and a schema-0.8 proposed-scope artifact while preserving the boundary that a proposal is not implementation authority.",
+    ].join("\n"),
+    "Structural evidence for O6.2": [
+      "The worksheet stays command-free. The structural check is an **adjacent practical lab",
+      "step**: [Lab 7](../../labs/07-scope-lifecycle.md) Task 5 consumes the exact artifact.",
+      "",
+      "`directive xbrief:verify -- --format json --out <your artifact path> --style scope --project-root <lab root>`",
+      "",
+      "Retain the artifact **path**, the exact **command**, its **exit code**, and its **result**.",
+      "",
+      "`xbrief:preflight` and `doctor` are not the authoring-validity pass.",
+      "",
+      "| Surface | Proves | Does not prove |",
+      "| --- | --- | --- |",
+      "| `xbrief:verify` | Parse and lifecycle-record structure | The version, the status, or observability |",
+      "| Module 6 comparison rubric | Bounded strategy, observable acceptance, traces, and the absence of implementation authority | That the file parses |",
+      "",
+      "A green structural result grants no promotion, no activation, and no implementation authority.",
+      "",
+      "Command choice, invocation, output interpretation, and recovery are not assessed here, so no outcome is added or recut.",
+    ].join("\n"),
     "Starting-state check": "Pass: identify a horizontal plan. Recovery: review Module 5. " + outcomes,
     "Exercise": [
       "### Fictional scenario",
@@ -72,7 +124,13 @@ function fixture(t) {
       "### Exercise acceptance",
       outcomes,
     ].join("\n"),
-    "Completion evidence": outcomes,
+    "Completion evidence": [
+      "O6.1 and O6.3 and O6.4 keep their rows.",
+      "",
+      "| Outcome | Evidence to show | Passing condition |",
+      "| --- | --- | --- |",
+      "| O6.2 | Strategy decision and the Lab 7 Task 5 structural record naming the artifact path, the exact command, the exit code, and the result | `xbrief:verify` exits `0` against that exact artifact path. A green structural result grants no promotion, activation, or implementation authority. |",
+    ].join("\n"),
     "Self-assessment": outcomes,
     "Explained solution": "Use the [explained solution](../../solutions/module-06-creating-well-shaped-work.md).",
     "Navigation": "Previous: [Module 5](05-sources-versus-projections.md). Next: [Module 7](07-scope-lifecycle.md); see the [course map](../README.md).",
@@ -100,15 +158,49 @@ function fixture(t) {
       "",
       "| Fact pattern ID | Controlling supplied fact | Disposition | Proposed mechanism revision | Safe next action |",
       "| --- | --- | --- | --- | --- |",
-      "| M6-ROUTE-01 | NS-INGEST-R2 changes how untrusted issue text enters the agent envelope and how clearance is recognized. | route | Revise NS-INGEST-R2 so quoted source content stays evidence and only an admitted completed-arc record supplies clearance. | Preserve proposed state and route NS-INGEST-R2 to design critique before promotion, activation, or implementation. |",
+      "| M6-ROUTE-01 | NS-INGEST-R2 changes how untrusted issue text enters the agent envelope and how clearance is recognized. | route | `NS-INGEST-R2` | Preserve proposed state and route NS-INGEST-R2 to design critique before promotion, activation, or implementation. |",
       "| M6-NOROUTE-01 | The edit changes one error-message phrase while behavior, authority, parser inputs, and gates stay unchanged. | no route | Not applicable. | Continue through ordinary proposal review without inventing an arc. |",
       "| M6-INSUFFICIENT-01 | Make agent intake safer supplies no mechanism, target revision, or authority-boundary change. | insufficient evidence | Not applicable. | Request the missing mechanism and target evidence, then rerun the routing decision. |",
     ].join("\n"),
-    "Acceptance evidence": outcomes,
+    "Acceptance evidence": [
+      "O6.1 and O6.3 and O6.4 keep their rows.",
+      "",
+      "| Inspection | Required result | Worked evidence | Outcome |",
+      "| --- | --- | --- | --- |",
+      "| Structural conformance of the exact artifact | `xbrief:verify` exits `0` against the learner's artifact path, with path, command, exit code, and result retained | Step 2 structural record | O6.2 |",
+    ].join("\n"),
     "Continue": "Continue to [Module 7](../curriculum/modules/07-scope-lifecycle.md) or review the [course map](../curriculum/README.md).",
     "Sources": "See the [source baseline](../references/SOURCE-BASELINE.md) and [Module 6 source validation](../references/SOURCE-NOTES.md#module-6-source-validation).",
   }));
   write(module5, "# Module 5\n\n## Navigation\n\nNext: [Module 6](06-creating-well-shaped-work.md).\n");
+  write(lab7, [
+    "# Lab 7",
+    "",
+    "## Tasks",
+    "",
+    "### Task 5 — Author and structurally verify your own proposed scope",
+    "",
+    "Consume the artifact from [Module 6](../curriculum/modules/06-creating-well-shaped-work.md) Part B.",
+    "Both supplied scopes stay untouched; yours is a third record beside them.",
+    "",
+    "```sh",
+    'authored="$first_root/xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json"',
+    'authored_command="node $first_root/node_modules/.bin/directive xbrief:verify -- --format json --out $authored --style scope --project-root $first_root"',
+    "set +e",
+    'node "$first_root/node_modules/.bin/directive" xbrief:verify -- --format json --out "$authored" --style scope --project-root "$first_root" > "$evidence/authored-verify.txt" 2>&1',
+    "authored_exit=$?",
+    "set -e",
+    `printf 'path=%s\\ncommand=%s\\nexit=%s\\n' "$authored" "$authored_command" "$authored_exit" >> "$evidence/authored-verify.txt"`,
+    'test -f "$first_root/xbrief/completed/2026-01-15-fictional-delivery.xbrief.json"',
+    'test -f "$first_root/xbrief/cancelled/2026-01-15-fictional-cancel.xbrief.json"',
+    "```",
+    "",
+    "- `xbrief:verify` is not a lifecycle move. Do not promote or activate your scope.",
+    "- `xbrief:preflight` and `doctor` are not the authoring-validity pass.",
+    "- A green structural result grants no promotion, no activation, and no implementation authority.",
+    "",
+    "This step is supplied verbatim and adds no Lab 7 outcome.",
+  ].join("\n"));
   write(module7, "# Module 7\n");
   write("README.md", "# Training\n\n2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.5<!-- /directive-training:teaching-baseline --> with xBRIEF schema 0.8.\n\nContinue with [Module 6](curriculum/modules/06-creating-well-shaped-work.md).\n");
   write("curriculum/README.md", "# Course\n\n| Module | Status |\n| --- | --- |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| [Module 7](modules/07-scope-lifecycle.md) | Learner-ready draft |\n");
@@ -145,14 +237,14 @@ function fixture(t) {
 }
 
 test("accepts a complete command-free Module 6 contract", (t) => {
-  assert.equal(verifyModule6(fixture(t).root).artifactCount, 14);
+  assert.equal(verifyModule6(fixture(t).root).artifactCount, 15);
 });
 
 for (const [path, headings] of [[module6, moduleHeadings], [solution6, solutionHeadings]]) {
   for (const heading of headings) {
     test(`rejects missing ${heading} in ${path}`, (t) => {
       const files = fixture(t);
-      files.change(path, (body) => body.replace(`## ${heading}`, "## Unrelated section"));
+      files.change(path, (body) => splice(body, `## ${heading}`, "## Unrelated section"));
       assert.throws(() => verifyModule6(files.root), /missing heading/);
     });
   }
@@ -171,9 +263,9 @@ for (const [path, headings] of [
           const start = content.indexOf(marker);
           const next = content.indexOf("\n## ", start + marker.length);
           const end = next < 0 ? content.length : next;
-          return content.slice(0, start) + content.slice(start, end).replace(outcome, () => `${outcome}-extra`) + content.slice(end);
+          return content.slice(0, start) + splice(content.slice(start, end), outcome, `${outcome}-extra`) + content.slice(end);
         });
-        assert.throws(() => verifyModule6(files.root), new RegExp(`${heading}.*${outcome.replace(".", "\\.")}`));
+        assert.throws(() => verifyModule6(files.root), new RegExp(`${heading}.*${splice(outcome, ".", "\\.")}`));
       });
     }
   }
@@ -181,41 +273,42 @@ for (const [path, headings] of [
 
 test("rejects a near-match routing disposition", (t) => {
   const files = fixture(t);
-  files.change(module6, (content) => content.replaceAll("insufficient evidence", () => "insufficient evidence-extra"));
+  files.change(module6, (content) => spliceAll(content, "insufficient evidence", "insufficient evidence-extra"));
   assert.throws(() => verifyModule6(files.root), /missing disposition insufficient evidence/);
 });
 
 for (const field of ["Artifact", "User-visible outcome", "Exclusions", "Literal inspection", "Dependency rationale", "Boundary rationale"]) {
   test(`rejects a missing exercise field: ${field}`, (t) => {
     const files = fixture(t);
-    files.change(module6, (body) => body.replace(field, "Missing field"));
+    files.change(module6, (body) => splice(body, field, "Missing field"));
     assert.throws(() => verifyModule6(files.root), /exercise.*(?:field|rationale)/i);
   });
 }
 
 test("rejects a proposal that is not schema 0.8 proposed candidate state", (t) => {
   const files = fixture(t);
-  files.change(module6, (body) => body.replace("xBRIEFInfo.version: 0.8", "xBRIEFInfo.version: 0.6"));
+  files.change(module6, (body) => splice(body, "xBRIEFInfo.version: 0.8", "xBRIEFInfo.version: 0.6"));
   assert.throws(() => verifyModule6(files.root), /schema 0\.8|legacy xBRIEF/i);
-  files.change(module6, (body) => body.replace("xBRIEFInfo.version: 0.6", "xBRIEFInfo.version: 0.8").replace("plan.status: proposed", "plan.status: running"));
+  files.change(module6, (body) => splice(splice(body, "xBRIEFInfo.version: 0.6", "xBRIEFInfo.version: 0.8"), "plan.status: proposed", "plan.status: running"));
   assert.throws(() => verifyModule6(files.root), /proposed/);
 });
 
 test("rejects loss of the proposal authority boundary", (t) => {
   const files = fixture(t);
-  files.change(module6, (body) => body.replace("not implementation authority", "implementation authority"));
+  files.change(module6, (body) => splice(body, "not implementation authority", "implementation authority"));
   assert.throws(() => verifyModule6(files.root), /authority boundary/);
 });
 
 test("rejects loss of the two-to-five acceptance-criteria contract", (t) => {
   const files = fixture(t);
-  files.change(module6, (body) => body.replace("two to five criteria", "one criterion"));
+  files.change(module6, (body) => splice(body, "two to five criteria", "one criterion"));
   assert.throws(() => verifyModule6(files.root), /two to five acceptance criteria/i);
 });
 
 test("rejects a missing O6.4 routing matrix", (t) => {
   const files = fixture(t);
-  files.change(module6, (body) => body.replace(
+  files.change(module6, (body) => splice(
+    body,
     "Fact pattern ID | Controlling supplied fact | Disposition | Proposed mechanism revision | Safe next action",
     "Scenario summary",
   ));
@@ -224,7 +317,8 @@ test("rejects a missing O6.4 routing matrix", (t) => {
 
 test("rejects a presence-only O6.4 solution matrix", (t) => {
   const files = fixture(t);
-  files.change(solution6, (body) => body.replace(
+  files.change(solution6, (body) => splice(
+    body,
     "NS-INGEST-R2 changes how untrusted issue text enters the agent envelope and how clearance is recognized.",
     "untrusted issue text clearance",
   ));
@@ -233,7 +327,8 @@ test("rejects a presence-only O6.4 solution matrix", (t) => {
 
 test("rejects keyword-only O6.4 actions", (t) => {
   const files = fixture(t);
-  files.change(solution6, (body) => body.replace(
+  files.change(solution6, (body) => splice(
+    body,
     "Preserve proposed state and route NS-INGEST-R2 to design critique before promotion, activation, or implementation.",
     "proposed route design critique promotion activation implementation",
   ));
@@ -242,25 +337,45 @@ test("rejects keyword-only O6.4 actions", (t) => {
 
 test("rejects a route row without a proposed mechanism revision", (t) => {
   const files = fixture(t);
-  files.change(solution6, (body) => body.replace(
-    "Revise NS-INGEST-R2 so quoted source content stays evidence and only an admitted completed-arc record supplies clearance.",
-    "Not applicable.",
+  files.change(solution6, (body) => splice(body, "| route | `NS-INGEST-R2` |", "| route | Not applicable. |"));
+  assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 proposed mechanism revision/i);
+});
+
+test("rejects a redesign sentence in the proposed mechanism revision column", (t) => {
+  const files = fixture(t);
+  files.change(solution6, (body) => splice(
+    body,
+    "| route | `NS-INGEST-R2` |",
+    "| route | Revise NS-INGEST-R2 so quoted source content stays evidence and only an admitted completed-arc record supplies clearance. |",
   ));
   assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 proposed mechanism revision/i);
 });
 
+test("rejects a route row whose revision cell names a different identifier", (t) => {
+  const files = fixture(t);
+  files.change(solution6, (body) => splice(body, "| route | `NS-INGEST-R2` |", "| route | `NS-INGEST-R3` |"));
+  assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 proposed mechanism revision/i);
+});
+
+test("keeps `Not applicable.` as the non-route revision fill", (t) => {
+  const files = fixture(t);
+  assert.equal(verifyModule6(files.root).artifactCount, 15);
+  files.change(solution6, (body) => splice(body, "| no route | Not applicable. |", "| no route | `NS-INGEST-R2` |"));
+  assert.throws(() => verifyModule6(files.root), /M6-NOROUTE-01 must not invent a mechanism revision/i);
+});
+
 test("rejects a worked proposal with fewer than two traced acceptance items", (t) => {
   const files = fixture(t);
-  files.change(solution6, (body) => body.replace(
+  files.change(solution6, (body) => splice(
+    body,
     ',\n      { "id": "criterion-2", "title": "Preserve the boundary", "status": "proposed", "narrative": { "Acceptance": "Bounded exclusions", "Traces": "fictional-idea" } }',
-    "",
   ));
   assert.throws(() => verifyModule6(files.root), /two to five traced acceptance items/i);
 });
 
 test("rejects a worked proposal without the required plan title", (t) => {
   const files = fixture(t);
-  files.change(solution6, (body) => body.replace('    "title": "Preview one delayed route",\n', ""));
+  files.change(solution6, (body) => splice(body, '    "title": "Preview one delayed route",\n'));
   assert.throws(() => verifyModule6(files.root), /plan\.title/i);
 });
 
@@ -270,7 +385,7 @@ for (const [field, fragment] of [
 ]) {
   test(`rejects a worked proposal item without required ${field}`, (t) => {
     const files = fixture(t);
-    files.change(solution6, (body) => body.replace(fragment, ""));
+    files.change(solution6, (body) => splice(body, fragment));
     assert.throws(() => verifyModule6(files.root), new RegExp(`item ${field}`, "i"));
   });
 }
@@ -291,24 +406,24 @@ for (const [label, addition, pattern] of [
 
 test("rejects stale and ranged Directive pins", (t) => {
   const files = fixture(t);
-  files.change(module6, (body) => body.replaceAll("0.119.5", "0.111.0"));
+  files.change(module6, (body) => spliceAll(body, "0.119.5", "0.111.0"));
   assert.throws(() => verifyModule6(files.root), /exact Directive 0\.119\.5 baseline/);
-  files.change(module6, (body) => body.replaceAll("0.111.0", "0.119.5"));
-  files.change("package.json", (body) => body.replace('"0.119.5"', '"^0.119.5"'));
+  files.change(module6, (body) => spliceAll(body, "0.111.0", "0.119.5"));
+  files.change("package.json", (body) => splice(body, '"0.119.5"', '"^0.119.5"'));
   assert.throws(() => verifyModule6(files.root), /must pin @deftai\/directive exactly/);
 });
 
 test("requires durable Module 7 navigation without owning its lifecycle state", (t) => {
   const files = fixture(t);
-  files.change(module6, (body) => body.replace("[Module 7](07-scope-lifecycle.md)", "Module 7"));
+  files.change(module6, (body) => splice(body, "[Module 7](07-scope-lifecycle.md)", "Module 7"));
   assert.throws(() => verifyModule6(files.root), /Module 7 navigation/);
 
   const solutionFiles = fixture(t);
-  solutionFiles.change(solution6, (body) => body.replace("[Module 7](../curriculum/modules/07-scope-lifecycle.md)", "Module 7"));
+  solutionFiles.change(solution6, (body) => splice(body, "[Module 7](../curriculum/modules/07-scope-lifecycle.md)", "Module 7"));
   assert.throws(() => verifyModule6(solutionFiles.root), /Module 7 navigation/);
 
   const mapFiles = fixture(t);
-  mapFiles.change("curriculum/README.md", (body) => body.replace("[Module 7](modules/07-scope-lifecycle.md)", "Module 7"));
+  mapFiles.change("curriculum/README.md", (body) => splice(body, "[Module 7](modules/07-scope-lifecycle.md)", "Module 7"));
   assert.throws(() => verifyModule6(mapFiles.root), /Module 7 course-map navigation/);
 });
 
@@ -330,15 +445,174 @@ for (const command of ["pwd", "git push origin main", "rm -rf /tmp/work", "gh pr
 
 test("requires Module 6 navigation and maintenance surfaces", (t) => {
   const files = fixture(t);
-  files.change("README.md", (body) => body.replace("06-creating-well-shaped-work.md", "05-sources-versus-projections.md"));
+  files.change("README.md", (body) => splice(body, "06-creating-well-shaped-work.md", "05-sources-versus-projections.md"));
   assert.throws(() => verifyModule6(files.root), /Module 6 navigation/);
-  files.change("README.md", (body) => body.replace("05-sources-versus-projections.md", "06-creating-well-shaped-work.md"));
-  files.change("maintainers/CURRICULUM-MAINTENANCE.md", (body) => body.replace("npm run check:module-6", "npm test"));
+  files.change("README.md", (body) => splice(body, "05-sources-versus-projections.md", "06-creating-well-shaped-work.md"));
+  files.change("maintainers/CURRICULUM-MAINTENANCE.md", (body) => splice(body, "npm run check:module-6", "npm test"));
   assert.throws(() => verifyModule6(files.root), /maintenance.*check/i);
 });
 
+for (const [label, path, mutate, pattern] of [
+  [
+    "an O6.2 outcome stripped of its schema-0.8 artifact requirement",
+    module6,
+    (body) => splice(body, "a schema-0.8 proposed-scope artifact", "a short note"),
+    /schema-0\.8 proposed-scope artifact outcome/,
+  ],
+  [
+    "an O6.2 outcome stripped of its authority boundary",
+    module6,
+    (body) => splice(body, "proposal is not implementation authority", "proposal is reviewable"),
+    /authority boundary in its outcome text/,
+  ],
+  [
+    "an unnamed vehicle recut",
+    module6,
+    (body) => splice(body, "[Lab 7](../../labs/07-scope-lifecycle.md) Task 5", "a later lab"),
+    /adjacent lab vehicle by link/,
+  ],
+  [
+    "a structural check with no artifact path or project root",
+    module6,
+    (body) => splice(body, "`directive xbrief:verify -- --format json --out <your artifact path> --style scope --project-root <lab root>`", "`directive xbrief:verify`"),
+    /exact command with its artifact path and project root/,
+  ],
+  [
+    "a dropped exit code in the retained evidence",
+    module6,
+    (body) => splice(body, "its **exit code**, and", "and"),
+    /must retain the exit code/,
+  ],
+  [
+    "a dropped preflight and doctor refusal",
+    module6,
+    (body) => spliceAll(body, "`xbrief:preflight` and `doctor` are not the authoring-validity pass.", "Preflight is the authoring-validity pass."),
+    /refuse xbrief:preflight and doctor/,
+  ],
+  [
+    "merged evidence surfaces",
+    module6,
+    (body) => splice(body, "| Surface | Proves | Does not prove |", "| One combined surface |"),
+    /evidence surfaces must be split/,
+  ],
+  [
+    "a rubric that no longer proves the authority boundary",
+    module6,
+    (body) => splice(body, "| Module 6 comparison rubric | Bounded strategy, observable acceptance, traces, and the absence of implementation authority | That the file parses |", "| Module 6 comparison rubric | Prose similarity | That the file parses |"),
+    /comparison rubric must keep strategy/,
+  ],
+  [
+    "a structural result that grants lifecycle authority",
+    module6,
+    (body) => splice(body, "A green structural result grants no promotion, no activation, and no implementation authority.", "A green structural result clears the scope for promotion."),
+    /must grant no promotion, activation, or implementation authority/,
+  ],
+  [
+    "a silently added outcome",
+    module6,
+    (body) => splice(body, "so no outcome is added or recut", "so outcome O6.5 is added"),
+    /whether a separate outcome was added or recut/,
+  ],
+  [
+    "an O6.2 completion row without its exit code",
+    module6,
+    (body) => splice(body, "the exact command, the exit code, and the result", "the exact command and the result"),
+    /completion evidence is missing the exit code/,
+  ],
+  [
+    "an O6.2 completion row without a positive structural result",
+    module6,
+    (body) => splice(body, "`xbrief:verify` exits `0` against that exact artifact path.", "The artifact looks similar to the solution."),
+    /missing a positive xbrief:verify exit/,
+  ],
+  [
+    "a solution that keeps the retired static-only pass claim",
+    solution6,
+    (body) => `${body}\n\nRetry: O6.2 passes without any file mutation or executable claim.\n`,
+    /retired static-only O6\.2 pass claim/,
+  ],
+  [
+    "a solution without the structural conformance row",
+    solution6,
+    (body) => splice(body, "Structural conformance of the exact artifact", "Prose comparison"),
+    /structural conformance of the exact artifact as O6\.2 evidence/,
+  ],
+  [
+    "a lab without the adjacent authoring task",
+    lab7,
+    (body) => splice(body, "### Task 5 — Author and structurally verify your own proposed scope", "### Task 5 — Optional reading"),
+    /adjacent authoring task that consumes the O6\.2 artifact/,
+  ],
+  [
+    "a lab task that does not name the Module 6 artifact",
+    lab7,
+    (body) => splice(body, "[Module 6](../curriculum/modules/06-creating-well-shaped-work.md)", "an earlier module"),
+    /must name the Module 6 artifact it consumes/,
+  ],
+  [
+    "a lab that replaces a supplied scope instead of adding a third record",
+    lab7,
+    (body) => splice(body, "yours is a third record beside them", "replace one of them with yours"),
+    /add the learner record beside them/,
+  ],
+  [
+    "a lab that allows promotion of the authored scope",
+    lab7,
+    (body) => splice(body, "- `xbrief:verify` is not a lifecycle move. Do not promote or activate your scope.", "- Promote your scope next."),
+    /refuse promotion and activation of the authored scope/,
+  ],
+  [
+    "a lab that silently adds an outcome",
+    lab7,
+    (body) => splice(body, "adds no Lab 7 outcome", "adds outcome O7.5"),
+    /must not silently create an outcome/,
+  ],
+  [
+    "a structural check not bound to the learner-authored path",
+    lab7,
+    (body) => splice(body, '--out "$authored"', '--out "$first_root/xbrief/proposed/2026-01-15-fictional-delivery.xbrief.json"'),
+    /against the exact learner-authored path/,
+  ],
+  [
+    "a lab that drops the retained structural exit code",
+    lab7,
+    (body) => splice(body, "authored_exit=$?", "true"),
+    /must retain the structural exit code/,
+  ],
+  [
+    "a lab that removes one supplied scope",
+    lab7,
+    (body) => splice(body, 'test -f "$first_root/xbrief/cancelled/2026-01-15-fictional-cancel.xbrief.json"', "true"),
+    /must keep its supplied scope record/,
+  ],
+  [
+    "a lab that runs the structural check under errexit",
+    lab7,
+    (body) => splice(body, "set +e\n"),
+    /must suspend errexit around the structural check/,
+  ],
+  [
+    "a lab that never captures the exact structural command",
+    lab7,
+    (body) => splice(body, "--out $authored --style scope --project-root $first_root", "--help"),
+    /must capture the exact structural command/,
+  ],
+  [
+    "a lab that drops the command from its retained evidence record",
+    lab7,
+    (body) => splice(body, "command=%s\\n"),
+    /must persist the exact structural command/,
+  ],
+]) {
+  test(`rejects ${label}`, (t) => {
+    const files = fixture(t);
+    files.change(path, mutate);
+    assert.throws(() => verifyModule6(files.root), pattern);
+  });
+}
+
 test("requires the pinned Module 6 source-validation record", (t) => {
   const files = fixture(t);
-  files.change("references/SOURCE-NOTES.md", (body) => body.replace("## Module 6 source validation", "## Other notes"));
+  files.change("references/SOURCE-NOTES.md", (body) => splice(body, "## Module 6 source validation", "## Other notes"));
   assert.throws(() => verifyModule6(files.root), /source[- ]validation/);
 });

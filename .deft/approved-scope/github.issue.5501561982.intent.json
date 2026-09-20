@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "algo": "intent-extract-v1",
+  "plan": {
+    "title": "Nine of twelve modules have a self-assessment gate with no answer key",
+    "narratives": {
+      "Description": "Four of the twelve core modules ship a self-assessment answer key, and the four that exist use three different headings, one of them an h3 nested under Acceptance evidence in the Lab 5 solution. Seven numbered self-assessment items across Modules 3, 4, and 6 carry no outcome id, so a learner cannot join an answer to the Completion-evidence row that scores it. The accepted design-critique remedy keeps Completion evidence as the scoring instrument and repairs findability and the outcome join rather than authoring eight new keys. Module 1 is excluded leftover: its self-assessment items are already tagged, but its Completion evidence carries no outcome-id rows and its scoring lives in an in-section block, so this change does not extend to it. Module 3 item 5 and Module 6 item 5 are resolved as ungraded practice rather than gaining a Completion-evidence row.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/15",
+      "Overview": "> **Correction (author, during Module 5):** my first version of this issue said 3 keys exist and 9 are missing. That undercounted — my grep required the heading to begin with \"Self-assessment\", which missed Module 5's key at `### Module 5 self-assessment answers`. The accurate figure is **4 present, 8 missing**, and the table below is corrected. The finding stands; the *inconsistent heading and nesting* that hid Module 5's key from a reasonable search is now part of it.\n\n## Situation\n\nEvery one of the twelve core modules ends with a **Self-assessment** section whose questions are explicitly outcome-mapped (e.g. Module 2 question 3 is tagged `O2.3`). The curriculum map states the completion rule plainly:\n\n> A module is complete only when you can produce its stated evidence and answer its outcome-mapped self-assessment.\n\nOnly **four** modules ship an answer key. Eight do not.\n\n| Module | Solution the module points to | Answer key |\n|---|---|---|\n| 01 | `solutions/module-01-what-directive-is.md` | ✅ `## Self-assessment key` |\n| 02 | `solutions/lab-02-disposable-initialization.md` | ❌ |\n| 03 | `solutions/module-03-authority-and-context.md` | ❌ |\n| 04 | `solutions/module-04-xbrief-as-durable-state.md` | ✅ `## Self-assessment answers` |\n| 05 | `solutions/lab-05-projection-drift-recovery.md` | ⚠️ `### Module 5 self-assessment answers` — present, but an `h3` nested under `## Acceptance evidence` |\n| 06 | `solutions/module-06-creating-well-shaped-work.md` | ✅ `## Self-assessment answers` |\n| 07 | `solutions/lab-07-scope-lifecycle.md` | ❌ |\n| 08 | `solutions/module-08-session-and-work-selection.md` | ❌ |\n| 09 | `solutions/module-09-design-critique-arcs.md` | ❌ |\n| 10 | `solutions/lab-10-implementation-golden-path.md` | ❌ |\n| 11 | `solutions/lab-11-testing-gates-and-evidence.md` | ❌ |\n| 12 | `solutions/module-12-review-and-completion.md` | ❌ |\n\nReproduce:\n\n```sh\ngrep -c '^## Self-assessment' curriculum/modules/*.md                        # 1 for all twelve\ngrep -rniE 'self-assessment (key|answers)' solutions/                        # only 01, 04, 05, 06\n```\n\nThree distinct headings are in use for the same artifact — `## Self-assessment key`, `## Self-assessment answers`, and `### Module 5 self-assessment answers`. There is no convention to search for.\n\n## Pain experienced\n\nI hit this at the end of Module 2. The module tells me to answer five questions and then says:\n\n> **Demonstrated:** all five questions correctly demonstrate the four outcomes […] **Retry needed:** any answer depends only on memory […]\n\nIt then sends me to the \"explained solution\", which is `solutions/lab-02-disposable-initialization.md`. That file is thorough about the *lab* — install route, doctor warnings, the E401 decision drill, cleanup — but it never mentions the five self-assessment questions. So the module hands me a pass/retry gate and no way to evaluate it.\n\nThis is worse than simply having no self-assessment, for two reasons:\n\n1. **Modules 1, 4, 5 and 6 set an expectation.** After Module 1 gave me a numbered key that corrected my reasoning, I read \"use the explained solution to check your work\" in later modules as the same promise. Discovering it is not is a trust problem, not just a gap.\n2. **The course's own recovery ladder dead-ends.** `curriculum/README.md` prescribes: re-run the starting check → match expected failures → hints → \"After a genuine first attempt, compare with the explained solution.\" For a self-assessment miss in eight of twelve modules, step 4 does not exist. The root README says the remaining move is to file a curriculum defect — which is what this is.\n\nThe practical effect for a self-directed learner: on questions where I *am* confident, the missing key costs nothing. On exactly the questions where I am not — the ones the self-assessment exists to catch — I have no way to tell a correct answer from a confident wrong one, and no instructor to ask. That inverts the purpose of the section. For a mid-level engineer new to Directive, the highest-risk misconceptions (active scope vs. present mutation permission; tracked vs. authoritative; implemented vs. delivered) are precisely the ones these questions probe.\n\nIt also makes the module-completion rule unenforceable. I can produce the lab evidence, but I cannot honestly certify the second half of the completion condition, so I cannot tell whether I am ready for the next module or carrying a silent misunderstanding into it.\n\n**The inconsistent heading has its own cost,** which I paid directly. Module 5's key exists, but because it is an `h3` buried inside `## Acceptance evidence` rather than a top-level section like every other key, my first search for it came back empty and I recorded Module 5 as missing a key. A learner doing the same search reaches the same wrong conclusion and either re-derives the answers or files a duplicate defect. Module 5's prose does say the solution \"explains the module outcomes, self-assessment, commands, recovery\" — but that sentence is easy to read as boilerplate, because the identical promise in Module 2 is not kept.\n\n## Proposed fix\n\n**Primary — add the eight missing keys.** Add a self-assessment key to each of the eight solution files, matching the shape already proven in `solutions/module-01-what-directive-is.md`: one numbered entry per question, the outcome code it checks, a correct answer, and a short \"if you answered X instead, here is the distinction you missed\" note. That last part is what makes Module 1's key teach rather than just score.\n\nFor the five modules whose only solution is a *lab* solution (02, 07, 10, 11 — and 05, already done), the key belongs in that lab solution, because the module already links there. That avoids adding new files and keeps existing navigation correct.\n\n**Secondary — standardize the heading and level.** Pick one spelling (`## Self-assessment key` reads best) and use it as a top-level `##` section in all twelve solutions, including moving Module 5's existing `h3` out of `## Acceptance evidence`. One predictable heading is what makes the key findable without prose promising it.\n\n**Tertiary — close the loop so this cannot silently regress.** Add a maintainer check under `maintainers/CURRICULUM-MAINTENANCE.md` asserting that every module containing `^## Self-assessment` has a matching `^## Self-assessment key` in its linked solution. This is cheap and deterministic — exactly the kind of gate the course itself teaches in Module 11 — and it is the honest fix, since the defect is a *missing* artifact rather than a wrong one. It would also have caught the Module 5 heading drift.\n\n**If the keys are deliberately withheld** for some modules, say so in the module itself and give the learner the alternative: state which rubric row to self-check against and what evidence substitutes for a key. Silence currently reads as an oversight rather than a choice.\n\n## Environment\n\n- Page: all twelve `curriculum/modules/*.md`, `curriculum/README.md`, `solutions/*.md`\n- Commit: f465008\n- Directive: `@deftai/directive@0.119.2`, engine `@deftai/directive-core@0.119.2`\n- OS/shell: macOS Darwin 25.6.0, zsh 5.9\n- Found while: completing the Module 2 self-assessment after Lab 2 acceptance passed; corrected while completing Module 5\n\n",
+      "Labels": "documentation, design-critique:ingest-ready",
+      "UserStory": "As a self-directed 3Ci engineer working through the core modules, I want every shipped self-assessment key to sit under one predictable heading and every graded item to name its outcome, so that I can find the key by search and join my answer to the Completion-evidence row that scores it.",
+      "ImplementationPlan": "1. Rename the three non-canonical keys in solutions/module-04-xbrief-as-durable-state.md, solutions/lab-05-projection-drift-recovery.md, and solutions/module-06-creating-well-shaped-work.md to `## Self-assessment key`, promoting the Lab 5 h3 out of `## Acceptance evidence` to h2.\n2. In the same change, add `#self-assessment-key` fragment links to the explained-solution close of curriculum modules 04, 05, and 06 — never fragment-link first against the live misspelled or nested headings, which fails the link checker.\n3. Tag Module 4 self-assessment items 1-5 to O4.1, O4.2, O4.3, O4.3, O4.4 so each item joins an existing Completion-evidence row.\n4. Resolve Module 3 item 5 and Module 6 item 5 as ungraded practice or add a Completion-evidence row; do not tag all seven items uniformly.\n5. Wire `scripts/verify-modules-2-3.mjs` into the `test:content` lane in package.json without inventing `scripts/verify-modules-2-3.test.mjs`, then run the module verifiers to confirm the heading renames did not break the shared solution-heading contracts.",
+      "Traces": "Accepted bound remedy on deftai/directive-training#15, comment 5736015165, confirmed by parent bind 5736112359 and verified-claims table 5736112567; relieves recorded pains P1 (self-assessment items with no outcome join) and P2 (heading spellings hide an existing key)."
+    },
+    "items": [
+      {
+        "id": "clause:1",
+        "title": "Standardize the four extant keys to `## Self-assessment key`, including promoting Module 5's nested h3 out of Acceptance evidence. Land those heading edits and `#self-assessment-key` fragment links on Modules 4, 5, and 6 in one change. Do not land fragment-link first against the live misspelled or nested headings.",
+        "narrative": {
+          "Acceptance": "When a maintainer greps `^## Self-assessment key`, the search returns all four shipped keys, including the former Lab 5 h3 that now renders as an h2 outside `## Acceptance evidence`. The same change adds `#self-assessment-key` fragment links on modules 04, 05, and 06, and the link check emits no broken local heading link.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#15, comment 5736015165, confirmed by parent bind 5736112359 and verified-claims table 5736112567; relieves recorded pains P1 (self-assessment items with no outcome join) and P2 (heading spellings hide an existing key)."
+        }
+      },
+      {
+        "id": "clause:2",
+        "title": "Completion evidence stays the scoring instrument. Do not bind keys as a second scoring model.",
+        "narrative": {
+          "Acceptance": "Completion evidence remains the sole scoring instrument, and each key records answers without creating a competing second scoring model anywhere in the twelve modules.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#15, comment 5736015165, confirmed by parent bind 5736112359 and verified-claims table 5736112567; relieves recorded pains P1 (self-assessment items with no outcome join) and P2 (heading spellings hide an existing key)."
+        }
+      },
+      {
+        "id": "clause:3",
+        "title": "Tag Module 4's five untagged items to O4.1–O4.4 (two items may share one outcome). Module 3 item 5 and Module 6 item 5 need ungraded-practice or a new Completion-evidence row. Do not harvest \"tag all seven.\"",
+        "narrative": {
+          "Acceptance": "Each Module 4 self-assessment item shows an outcome id from O4.1 through O4.4 that joins an existing Completion-evidence row, and Module 3 item 5 and Module 6 item 5 each either show an ungraded-practice marker or gain a Completion-evidence row. No blanket tagging of all seven untagged items is applied.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#15, comment 5736015165, confirmed by parent bind 5736112359 and verified-claims table 5736112567; relieves recorded pains P1 (self-assessment items with no outcome join) and P2 (heading spellings hide an existing key)."
+        }
+      },
+      {
+        "id": "clause:4",
+        "title": "P1's cited denominator is those seven items. Module 1 is excluded leftover: its items are tagged, but Completion evidence has no outcome-id rows and scoring lives in an in-section block. Do not read `relieves: P1` as covering Module 1.",
+        "narrative": {
+          "Acceptance": "Module 1 stays untouched, and the xBRIEF records it as excluded leftover because its Completion evidence shows no outcome-id rows and its scoring lives in an in-section block.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#15, comment 5736015165, confirmed by parent bind 5736112359 and verified-claims table 5736112567; relieves recorded pains P1 (self-assessment items with no outcome join) and P2 (heading spellings hide an existing key)."
+        }
+      },
+      {
+        "id": "clause:5",
+        "title": "Wire `scripts/verify-modules-2-3.mjs` into `test:content`. Drop the \"record Modules 1–3 unenforced\" arm. Do not invent `scripts/verify-modules-2-3.test.mjs` as the named file.",
+        "narrative": {
+          "Acceptance": "When `npm run test:content` runs, it executes `scripts/verify-modules-2-3.mjs` and fails when that verifier fails. No `scripts/verify-modules-2-3.test.mjs` file is created.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#15, comment 5736015165, confirmed by parent bind 5736112359 and verified-claims table 5736112567; relieves recorded pains P1 (self-assessment items with no outcome join) and P2 (heading spellings hide an existing key)."
+        }
+      }
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/15",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #15: Nine of twelve modules have a self-assessment gate with no answer key"
+      }
+    ],
+    "metadata": {
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "## Self-assessment key",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L5"
+        }
+      ],
+      "swarm": {
+        "file_scope": [
+          "curriculum/modules/03-authority-and-context.md",
+          "curriculum/modules/04-xbrief-as-durable-state.md",
+          "curriculum/modules/05-sources-versus-projections.md",
+          "curriculum/modules/06-creating-well-shaped-work.md",
+          "solutions/module-04-xbrief-as-durable-state.md",
+          "solutions/lab-05-projection-drift-recovery.md",
+          "solutions/module-06-creating-well-shaped-work.md",
+          "scripts/verify-modules-4-5.mjs",
+          "scripts/verify-modules-4-5.test.mjs",
+          "scripts/verify-module-6.mjs",
+          "scripts/verify-module-6.test.mjs",
+          "package.json",
+          "maintainers/CURRICULUM-MAINTENANCE.md",
+          "CHANGELOG.md",
+          "xbrief/active/2026-09-20-15-nine-of-twelve-modules-have-a-self-assessment-gate-with-no-a.xbrief.json"
+        ]
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5501561982,
+        "origin": "deftai/directive-training#15",
+        "id": "github.issue.5501561982"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "d0ef12a77c88eb6dd779c4d14bd881400474b715033738148d0a1943a0bfc153"
+      },
+      "kind": "story"
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 5 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Standardize the four extant keys to `## Self-assessment key`, including promoting Module 5's nested h3 out of Acceptance evidence. Land those heading edits and `#self-assessment-key` fragment links on Modules 4, 5, and 6 in one change. Do not land fragment-link first against the live misspelled or nested headings.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Completion evidence stays the scoring instrument. Do not bind keys as a second scoring model.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Tag Module 4's five untagged items to O4.1–O4.4 (two items may share one outcome). Module 3 item 5 and Module 6 item 5 need ungraded-practice or a new Completion-evidence row. Do not harvest \"tag all seven.\"",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "P1's cited denominator is those seven items. Module 1 is excluded leftover: its items are tagged, but Completion evidence has no outcome-id rows and scoring lives in an in-section block. Do not read `relieves: P1` as covering Module 1.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Wire `scripts/verify-modules-2-3.mjs` into `test:content`. Drop the \"record Modules 1–3 unenforced\" arm. Do not invent `scripts/verify-modules-2-3.test.mjs` as the named file.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5501561982"
+  },
+  "approvedRepos": [
+    "deftai/directive-training"
+  ],
+  "unknownPaths": [
+    "metadata.intended_placement",
+    "metadata.kind",
+    "metadata.literal_acceptance_commands",
+    "metadata.literal_acceptance_rejected",
+    "metadata.x-directive/admitted-target-digest",
+    "metadata.x-directive/plan-id"
+  ]
+}

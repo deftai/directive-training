@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-20-15-nine-of-twelve-modules-have-a-self-assessment-gate-with-no-a.xbrief.json",
+  "planId": "github.issue.5501561982",
+  "approvedAt": "2026-09-20T20:12:27Z",
+  "fileScope": [
+    "CHANGELOG.md",
+    "curriculum/modules/03-authority-and-context.md",
+    "curriculum/modules/04-xbrief-as-durable-state.md",
+    "curriculum/modules/05-sources-versus-projections.md",
+    "curriculum/modules/06-creating-well-shaped-work.md",
+    "maintainers/CURRICULUM-MAINTENANCE.md",
+    "package.json",
+    "scripts/verify-module-6.mjs",
+    "scripts/verify-module-6.test.mjs",
+    "scripts/verify-modules-4-5.mjs",
+    "scripts/verify-modules-4-5.test.mjs",
+    "solutions/lab-05-projection-drift-recovery.md",
+    "solutions/module-04-xbrief-as-durable-state.md",
+    "solutions/module-06-creating-well-shaped-work.md",
+    "xbrief/active/2026-09-20-15-nine-of-twelve-modules-have-a-self-assessment-gate-with-no-a.xbrief.json"
+  ],
+  "fileScopeDigest": "a753a397de41e270f40fdb9ae01d3b345f9707236cbde37580477ca00a94d6f4",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "david",
+    "mintedAt": "2026-09-20T20:12:27Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "79a04d7a5745d03f3e9aba8508e687411d826a071db4b690c2161b9626c713d3",
+  "digestAlgo": "intent-extract-v1"
+}

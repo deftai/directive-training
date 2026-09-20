@@ -9,6 +9,19 @@
 
 ### Added
 
+- Executable structural verification for Module 6's O6.2 proposed-scope artifact.
+  Module 6 stays command-free and O6.2 keeps its shaping and artifact outcome; the
+  named vehicle recut is an adjacent practical step, Lab 7 Task 5, which runs
+  `xbrief:verify` against the exact learner-authored file inside the existing
+  disposable guarded repository. O6.2 completion evidence now retains the artifact
+  path, the exact command, the exit code, and the result; Task 5 brackets the check
+  with `set +e` / `set -e` so a failing structural run keeps its evidence under the
+  lab's `set -eu` shell, and the PowerShell route writes the same durable record.
+  Structural proof and the Module 6 comparison rubric stay separate surfaces,
+  `xbrief:preflight` and `doctor` are refused as the authoring-validity pass,
+  both Lab 7 supplied scopes are kept,
+  and a green structural result grants no promotion, activation, or implementation
+  authority (#20).
 - A required design-critique learning path with a scored Module 6 routing gate,
   a command-free Module 9 practicum, capstone checkpoint, explained solution,
   and focused positive and negative verification (#4).
@@ -121,6 +134,14 @@
 
 ### Fixed
 
+- Define the closed Module 9 finding classes `blocks-the-design`,
+  `sharpens-framing`, and `footnote` in the module Terminology table before
+  Artifact 3, as source-bound restatements of the pinned critic method, with
+  the residual-disagreement clause, an F2 misclassification recovery row that
+  classifies the as-written draft, a solution compare row, and verifier
+  assertions that read each class's own meaning cell (including the
+  `sharpens-framing` can-bind condition) with mutation tests for swapped and
+  weakened definitions (#17).
 - Reconcile every live root-package verifier and its focused negative tests
   with the exact `@deftai/directive` 0.119.1 authoring pin while preserving
   the curriculum's intentional 0.112.0 learner fixtures and historical record.
@@ -150,3 +171,33 @@
 - Normalize new Lab 5 text fixtures to LF and pin the source JSON's Git text
   attributes. Accept LF/CRLF purpose edits while retaining trailing-whitespace
   rejection; update the nine-file checkpoint and exact Windows CRLF replay.
+- Stop teaching `Missing directory: xbrief/` as a 0.119.5 doctor known false
+  negative in Module 2, Lab 2, and the Lab 2 solution. The pinned engine cannot
+  emit that string. Lab 2 Task 2 now teaches the warning a pin-matched init
+  really prints — `canonical-vendored-npm-signpost` — with its check id,
+  message, recommended host-global action in a non-executable fence, and the
+  out-of-boundary verdict. O2.4 stays classify-and-boundary-judge of whatever
+  appeared and no longer scores a warning count. `verify-modules-2-3` now
+  rejects the dead string and any learner-executable global install, `@latest`
+  tag, or `directive migrate`. `SOURCE-NOTES.md` records a dedicated 0.119.5
+  Lab 2 doctor-warning replay and labels the 0.112.0 two-warning proof
+  historical; the Modules 2–3 CI jobs capture doctor output, assert the
+  expected warning set, and run the focused content contract (#19).
+- Close three review findings on the same change. The learner-command guard now
+  rejects option-first npm forms (`npm --global install`, `npm -g install`,
+  `--location=global`) and `env`-wrapped invocations, and carries a case table
+  covering every supported variant plus the lab's legitimate `--globalconfig`
+  installs. The platform lanes assert the doctor warning *identity* set through
+  one shared `scripts/assert-doctor-warning-set.mjs`, which binds the check id
+  to a real warning row and rejects any other warning identity, with a replay
+  suite in CI. The issue-19 scope brief records its plan and acceptance against
+  the 0.119.5 baseline the change implements (#19).
+- Remove a hidden strengthening in the Module 6 Part D routing matrix. The
+  published rubric asks the learner to name the routed revision, but the
+  solution cell and `scripts/verify-module-6.mjs` required a Module 9
+  clearance sentence the learner has not been taught. The route row's
+  `Proposed mechanism revision` cell is now the identifier `NS-INGEST-R2`,
+  the verifier asserts that exact value and rejects a redesign sentence,
+  `Not applicable.` remains the non-route fill, and Module 6 Terminology,
+  the self-assessment key, and the glossary define the column as an
+  identifier (#16).

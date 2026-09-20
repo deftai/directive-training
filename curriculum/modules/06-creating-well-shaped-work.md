@@ -13,13 +13,16 @@ required route / no route / insufficient-evidence decision before lifecycle auth
 | Last content update | 2026-09-17 |
 | Last verified | 2026-09-17 |
 | Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| O6.2 structural check | Lab 7 Task 5, an adjacent practical step in a disposable guarded repository; this module stays command-free |
 | Estimated duration | 50–60 minutes |
 | Prerequisites | Complete [Module 5's](05-sources-versus-projections.md) conceptual outcomes; its practical outcome may remain environment-blocked as documented in the [course map](../README.md) |
 
 Suggested pacing: 5 minutes for the starting check, 15 for the explanation and
 walkthrough, 20 for the exercise, and 10–20 for evidence and solution comparison. This
 exercise is command-free on macOS, Linux, or Windows. Use only a personal scratch note;
-no CLI, repository, service, or account is required.
+no CLI, repository, service, or account is required. The structural check for O6.2 runs
+later, in [Lab 7](../../labs/07-scope-lifecycle.md) Task 5, against the exact artifact you
+write here.
 
 ## Learning outcomes
 
@@ -38,6 +41,60 @@ By the end of this module, you can:
   identify the controlling fact, choose `route`, `no route`, or `insufficient evidence`,
   and name the safe next action; when routing, identify the proposed mechanism revision
   that becomes the critique target.
+
+## Structural evidence for O6.2
+
+The outcome wording above is unchanged. What changed is the evidence that completes O6.2 and
+the vehicle that produces it.
+
+O6.2 already requires a schema-0.8 proposed-scope artifact. The course used to complete it by
+static inspection of a scratch note, so nothing ever checked whether the file you wrote parses
+and carries the required lifecycle-record fields.
+
+### Named vehicle recut
+
+The worksheet below stays command-free. The structural check is an **adjacent practical lab
+step**: [Lab 7](../../labs/07-scope-lifecycle.md) Task 5 consumes the exact artifact you write
+in Part B, inside the disposable guarded temporary repository Lab 7 already creates. No command
+enters this worksheet, and Lab 7 keeps both of its supplied scope records; your artifact is a
+third record beside them.
+
+The rejected alternative was to revise this module's command-free contract and build it a
+guarded environment of its own. Lab 7 already has one, so the adjacent step is the cheaper
+vehicle and the module's safety boundary is untouched.
+
+### The command and its evidence
+
+Lab 7 runs this against its pinned local install:
+
+`directive xbrief:verify -- --format json --out <your artifact path> --style scope --project-root <lab root>`
+
+Retain four things: the artifact **path**, the exact **command**, its **exit code**, and its
+**result**. Exit `0` against that exact path is the positive structural result. Exit `1` names
+the first structural defect in your file.
+
+`xbrief:preflight` and `doctor` are not the authoring-validity pass. Preflight answers whether
+a lifecycle record is ready to be worked; doctor probes the install and environment. Neither
+reads your artifact as a question about authoring validity.
+
+### What each evidence surface proves
+
+| Surface | Proves | Does not prove |
+| --- | --- | --- |
+| `xbrief:verify` | The file parses, carries `xBRIEFInfo`, and carries `plan.title`, `plan.status`, and correctly typed `plan.items[].narrative` fields | That the version is `0.8`, that the status is `proposed`, that acceptance is observable, that traces exist, or that authority is bounded |
+| Module 6 comparison rubric | Bounded strategy, observable acceptance, traces, schema `0.8`, `plan.status: proposed`, and the absence of implementation authority | That the file parses or conforms to the lifecycle-record structure |
+
+The two surfaces are separate and neither substitutes for the other. A green structural result
+grants no promotion, no activation, and no implementation authority; `xbrief:verify` is not a
+lifecycle move.
+
+### Why no new outcome
+
+Command choice, invocation, output interpretation, and recovery are not assessed here. The
+command is supplied verbatim and acts only as the assessor for the artifact O6.2 already
+requires, so no outcome is added or recut. A later revision that grades which command a learner
+picks, how they read its diagnostics, or how they recover from a red result must add its own
+outcome first.
 
 ## Starting-state check
 
@@ -96,6 +153,7 @@ xBRIEF keys.
 | Boundary rationale | Why the slice includes and excludes specific behavior | A canonical xBRIEF field name |
 | Mechanism-shaped routing | A human-semantic decision about whether a concrete proposed mechanism needs design critique before lifecycle authorization | A keyword check or a result computed by `scope:promote` |
 | Controlling supplied fact | The specific fact in a fixed scenario that justifies its disposition | Repeating `route`, `no route`, or `insufficient evidence` without reasoning |
+| Proposed mechanism revision | The identifier of the revision a `route` row sends to design critique, such as `NS-INGEST-R2` | A redesign sentence describing how that mechanism should change |
 
 ## Mental model
 
@@ -323,6 +381,9 @@ Create a proposed-scope artifact in your scratch note. It must name:
 Do not add a required `specification.xbrief.json`, an `Exclusions` schema key, or an active
 status. This is a schema-0.8 proposed-scope artifact, not a live work request.
 
+Keep this artifact. Lab 7 Task 5 runs the structural check against this exact file. You do not
+run a command here.
+
 #### Part C — decompose the epic
 
 Explain why the original idea is epic-sized. Create three ordered independently verifiable
@@ -372,7 +433,8 @@ name the missing mechanism or target evidence and require re-evaluation after it
 - Work only with this fictional scenario and a personal scratch note.
 - Keep this training repository and every business repository unchanged.
 - Do not run a CLI, open a terminal exercise, create a lifecycle file, contact a remote,
-  promote or activate scope, or implement any behavior.
+  promote or activate scope, or implement any behavior while completing this worksheet. The
+  structural check belongs to Lab 7 Task 5 and runs inside its disposable guarded repository.
 - Preserve `plan.status: proposed` and the proposal authority sentence.
 - Do not run a design critique or treat the routing artifact as implementation authority.
 - Treat static inspection as evidence for this worksheet only, not as proof of executable
@@ -383,6 +445,8 @@ name the missing mechanism or target evidence and require re-evaluation after it
 - The vertical-slice table with artifact, user-visible outcome, exclusions, and literal
   inspection.
 - The strategy decision, testable specification statement, and proposed-scope artifact.
+- The Lab 7 Task 5 structural record for that artifact: its path, the exact command, the exit
+  code, and the result.
 - The three-row ordered decomposition with dependency and boundary rationale for every slice.
 - The completed O6.4 routing matrix, including the route row's proposed mechanism revision.
 - Your original horizontal plan and first attempt, so comparison evidence survives retry.
@@ -401,7 +465,7 @@ name the missing mechanism or target evidence and require re-evaluation after it
 | Outcome | Evidence to show | Passing condition |
 | --- | --- | --- |
 | O6.1 | Vertical-slice worksheet and original horizontal plan | The slice produces one human-observable preview and excludes adjacent capabilities. |
-| O6.2 | Strategy decision, specification statement, and proposed-scope artifact | Strategy is bounded; acceptance is observable; schema is 0.8; status remains proposed; authority is not invented. |
+| O6.2 | Strategy decision, specification statement, proposed-scope artifact, and the Lab 7 Task 5 structural record naming the artifact path, the exact command, the exit code, and the result | Strategy is bounded; acceptance is observable; schema is 0.8; status remains proposed; authority is not invented; and `xbrief:verify` exits `0` against that exact artifact path. A green structural result grants no promotion, activation, or implementation authority. |
 | O6.3 | Three-row decomposition and epic diagnosis | Each slice is independently verifiable after its declared predecessors and has both rationales. |
 | O6.4 | Three-row route / no route / insufficient-evidence matrix | All rows satisfy the published semantic rubric; the route row identifies `NS-INGEST-R2` and holds lifecycle movement pending critique. |
 
@@ -456,6 +520,9 @@ evidence`, name what is missing, and require the routing decision to be repeated
 | Every decomposition row depends on every other row. | Ordering was described without a DAG. | Follow the arrows and look for a cycle. | Give row 1 no predecessor and each later row only the prerequisite it consumes. | One acyclic order with a rationale per edge. |
 | The routing row says only `route`. | The disposition keyword replaced semantic evidence. | Ask which supplied fact changes a mechanism and what happens next. | Add the scenario-specific fact, target revision, and bounded safe action. | The full `M6-ROUTE-01` row passes every rubric clause. |
 | “Make intake safer” is marked `no route`. | Missing evidence was mistaken for evidence of absence. | Look for a proposed mechanism and target revision. | Choose `insufficient evidence`, name both missing facts, and require re-evaluation. | The row stops without inventing a mechanism or advancing lifecycle. |
+| `xbrief:verify` reports `invalid JSON`. | The artifact was hand-edited into a non-parsing state. | Re-read the reported position in your own file. | Repair the JSON, rerun the same command against the same path, and retain both exit codes. | Exit `0` on the unchanged artifact path. |
+| `xbrief:verify` reports `narrative.Acceptance must be a string, got list`. | Acceptance was written as a list instead of one string. | Compare your item narrative with the worked solution. | Give each item one Acceptance string; add items rather than list entries. | Exit `0` with two to five items. |
+| `xbrief:verify` exits `0` while the record says `running`. | A structural pass was mistaken for rubric completion. | Compare the two evidence surfaces. | Restore `proposed`; the structural surface never inspected status. | Both surfaces pass separately. |
 | The route row proceeds to promotion. | Routing was confused with clearance or implementation authority. | Compare the safe action with the proposal boundary. | Keep the scope proposed and hold promotion, activation, and implementation pending critique. | The safe action names every held transition. |
 
 Preserve the failed attempt. Retry only the unmet outcome in a fresh section of your note,
@@ -472,6 +539,7 @@ then recheck all four acceptance rows. No repository reset or cleanup is require
 | Exclusions and literal inspection are required xBRIEF keys. | They are explicit course worksheet evidence in this exercise. | Compare the worksheet with the schema and story acceptance fields. |
 | Static inspection proves a future program works. | It proves only this planning artifact's contents. | Name the behavioral test still required after implementation. |
 | Directive decides whether a proposal is mechanism-shaped. | The semantic call is human judgment; 0.119.5 records its shape but does not compute it. | Compare the supplied facts with the design-critique Stop 1 boundary. |
+| A green `xbrief:verify` means the proposal is approved. | It proves parse and lifecycle-record structure only. | Read the command's own note that verify is not a lifecycle move, then check that nothing was promoted. |
 | `no route` and `insufficient evidence` are interchangeable. | `no route` is a supported negative decision; insufficient evidence means the decision cannot yet be made. | Ask whether a concrete mechanism and target revision were supplied. |
 
 ## Self-assessment
@@ -483,11 +551,14 @@ explained solution.
    its artifact, exclusions, and literal inspection.
 2. **O6.2:** Which uncertainty supports your strategy choice? Where does the observable
    acceptance live, which schema/status does the proposal use, and what authority is absent?
+   Which path, command, exit code, and result prove your artifact's structure, and what does a
+   green structural result still not grant?
 3. **O6.3:** What made the original scenario epic-sized? Read your three rows in order and
    explain every dependency and boundary rationale.
 4. **O6.4:** For each fixed fact-pattern ID, name the controlling fact, disposition, and
-   safe next action. Which revision does the route row target, and which lifecycle actions
-   remain on hold?
+   safe next action. Which field/value pair fills the route row's revision cell —
+   `Proposed mechanism revision` = `NS-INGEST-R2` — and which lifecycle actions remain on
+   hold?
 5. Why can static inspection complete this command-free worksheet but not prove executable
    product behavior?
 
@@ -539,6 +610,8 @@ and [glossary](../../references/GLOSSARY.md).
 - The walkthrough and exercise are fictional, command-free, and inspectable from the stated
   starting facts.
 - The proposal remains schema 0.8 and proposed; no implementation authority is implied.
+- O6.2 completion evidence names the artifact path, command, exit code, and result of its
+  structural check, and the vehicle recut is stated as the Lab 7 Task 5 adjacent step.
 - Every epic slice has its own outcome, evidence, dependency rationale, and boundary rationale.
 - Version-sensitive claims trace to the immutable 0.119.5 release and recorded disagreements.
 - Navigation and local source links pass the focused content verifier.
