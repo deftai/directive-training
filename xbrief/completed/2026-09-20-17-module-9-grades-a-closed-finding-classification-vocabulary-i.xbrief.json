@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #17",
-    "updated": "2026-09-20T16:46:04Z"
+    "updated": "2026-09-20T20:32:09Z"
   },
   "plan": {
     "title": "Module 9 grades a closed finding-classification vocabulary it never defines",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Module 9 grades three finding-classification tokens — `blocks-the-design`, `sharpens-framing`, and `footnote` — before Artifact 3, but the module never states what they mean, so a learner classifying F2 has no taught rule to apply. The accepted remedy adds source-bound restatements of the pinned critic-method sentences to the Module 9 Terminology table ahead of the exercise and locks those phrases in the existing verifier, while explicitly refusing the issue body mechanism-versus-description table as the governing definition.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/17",
@@ -19,53 +19,83 @@
     "items": [
       {
         "title": "Define the three tokens in Module 9 Terminology before Artifact 3, as source-bound restatements of the pinned critic-method sentences: `blocks-the-design` means the lean cannot bind as written; `sharpens-framing` means it can bind, but the finding changes how it is stated or scoped; `footnote` carries no disposition weight. Carry the residual clause in the same row set: two critics may still disagree; that is residual, not a defect.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
         "narrative": {
           "Acceptance": "Module 9 Terminology shows rows for `blocks-the-design`, `sharpens-framing`, and `footnote` before Artifact 3, restating the pinned critic-method sentences, and the same row set records the residual clause that two critics may disagree without that being a defect.",
           "Traces": "Accepted bound remedy on deftai/directive-training#17, comment 5734169164, confirmed by parent synthesis 5734291584 and verified-claims table 5734289500; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-9; npm run test:module-9; PR #26; merge e5d32189c4d0",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       },
       {
         "title": "Do not harvest the issue body's mechanism-versus-description table into course voice. Mechanism-versus-description may appear as the F2 packet diagnostic, not as the governing rule.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
         "narrative": {
           "Acceptance": "The mechanism-versus-description table from the issue body never appears in course voice as the governing rule; when it appears at all, it shows only as the F2 packet diagnostic.",
           "Traces": "Accepted bound remedy on deftai/directive-training#17, comment 5734169164, confirmed by parent synthesis 5734291584 and verified-claims table 5734289500; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-9; npm run test:module-9; PR #26; merge e5d32189c4d0",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       },
       {
         "title": "Keep Official sources as SoT. Do not add a decision table of evidence.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
         "narrative": {
           "Acceptance": "Official sources remain the stated source of truth, and neither the module nor its solution shows a decision table of evidence.",
           "Traces": "Accepted bound remedy on deftai/directive-training#17, comment 5734169164, confirmed by parent synthesis 5734291584 and verified-claims table 5734289500; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-9; npm run test:module-9; PR #26; merge e5d32189c4d0",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       },
       {
         "title": "Extend `scripts/verify-module-9.mjs` so Terminology contains the three tokens plus the bind-as-written / restates-or-scopes / no-disposition-weight phrases, with mutation tests. If the glossary is updated, mirror those three terms there; glossary is not the primary teaching surface and is not required to relieve P1.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:4",
         "narrative": {
           "Acceptance": "When any of the three tokens or the bind-as-written, restates-or-scopes, or no-disposition-weight phrases is removed from Terminology, `npm run check:module-9` fails, and a mutation test in `scripts/verify-module-9.test.mjs` covers each of those removals.",
           "Traces": "Accepted bound remedy on deftai/directive-training#17, comment 5734169164, confirmed by parent synthesis 5734291584 and verified-claims table 5734289500; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-9; npm run test:module-9; PR #26; merge e5d32189c4d0",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       },
       {
         "title": "Add an Expected-failures / solution Compare row for classifying F2 as `blocks-the-design`, pointing at chip-versus-record already in Terminology and requiring one sentence applying the bindability test. Do not recut O9.8 into a unique F2-label match, and do not add a fourth non-compensating artifact.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:5",
         "narrative": {
           "Acceptance": "An Expected-failures or solution Compare row shows the F2 `blocks-the-design` classification, points at chip-versus-record in Terminology, and requires one sentence applying the bindability test. O9.8 keeps its wording and no fourth non-compensating artifact is created.",
           "Traces": "Accepted bound remedy on deftai/directive-training#17, comment 5734169164, confirmed by parent synthesis 5734291584 and verified-claims table 5734289500; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:module-9; npm run test:module-9; PR #26; merge e5d32189c4d0",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       }
     ],
     "tags": [
@@ -488,9 +518,33 @@
         "size": "small",
         "file_scope_confidence": "high",
         "model_tier": "high"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 26,
+        "prBase": null,
+        "mergeCommit": "e5d32189c4d0",
+        "deliveryBranch": "master",
+        "deliveryCommit": "99a6d1d376c5139284a00c2245c3df2c8b5b6121",
+        "verifiedAt": "2026-09-20T20:32:09Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:claude:v1:NGRhNWExNDQtM2E1My00YjY5LTkzNTItNDU5OTc4MjgxMmFl"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-20T20:32:09Z",
+      "completedSessionId": "host:claude:v1:NGRhNWExNDQtM2E1My00YjY5LTkzNTItNDU5OTc4MjgxMmFl",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-20T20:32:09Z"
       }
     },
     "id": "github.issue.5501713959",
-    "updated": "2026-09-20T16:46:04Z"
+    "updated": "2026-09-20T20:32:09Z"
   }
 }

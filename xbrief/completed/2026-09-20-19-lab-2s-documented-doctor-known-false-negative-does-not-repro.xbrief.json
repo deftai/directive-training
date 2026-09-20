@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #19",
-    "updated": "2026-09-20T16:46:07Z"
+    "updated": "2026-09-20T20:32:51Z"
   },
   "plan": {
     "title": "Lab 2's documented doctor 'known false negative' does not reproduce on 0.119.2; the warning that does appear is undocumented",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Module 2 and Lab 2 teach `Missing directory: xbrief/` as a known doctor false negative, but a pin-matched Lab 2 init on Directive 0.119.2 cannot emit that string; the warning that actually appears is the `canonical-vendored-npm-signpost` provenance check, which the learner files do not document. `scripts/verify-modules-2-3.mjs` deterministically asserts the dead string, so the content contract currently enforces the false claim. The accepted remedy recuts the three learner files and the verifier together and captures real doctor output in CI.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/19",
@@ -19,53 +19,94 @@
     "items": [
       {
         "title": "Stop teaching `Missing directory: xbrief/` as current 0.119.5 doctor behavior, including behind an \"if it appears\" hedge. Quote only strings the pinned engine can emit. The live named warning on a pin-matched Lab 2 init is `canonical-vendored-npm-signpost`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
         "narrative": {
           "Acceptance": "No learner file or verifier shows `Missing directory: xbrief/` as current 0.119.5 doctor behavior, including behind an \"if it appears\" hedge, and every quoted warning string is one the pinned engine emits. The recut lands across Module 2 section 4, Lab 2 Task 2, the Lab 2 solution, and the Modules 2-3 verifier together.",
           "Traces": "Accepted bound remedy on deftai/directive-training#19, comment 5734169408, confirmed by parent synthesis 5734269672 and verified-claims table 5734268156; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:modules-2-3; npm run test:content; PR #27; merge 96946ae6d8ab",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       },
       {
         "title": "Keep O2.4 as classify-and-boundary-judge of whatever actually appeared. Drop a normative warning-count acceptance criterion. Reconcile Module Q4 (\"one warning\") with the solution in the same recut.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
         "narrative": {
           "Acceptance": "O2.4 still reads as classify-and-boundary-judge of whatever appeared, no normative warning-count acceptance criterion remains, and the Module 2 Q4 wording shows the same single-warning claim the solution shows after the change.",
           "Traces": "Accepted bound remedy on deftai/directive-training#19, comment 5734169408, confirmed by parent synthesis 5734269672 and verified-claims table 5734268156; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:modules-2-3; npm run test:content; PR #27; merge 96946ae6d8ab",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       },
       {
         "title": "Promote the existing solution sentence about the provenance signpost into Lab 2 Task 2 with check id, message text, and boundary verdict: the recommended action is host-global `npm i -g @deftai/directive@latest` then `directive migrate`, and it is outside this lab. Carry that command in a non-executable fence. Extend `forbiddenLearnerCommand` to cover global install / `@latest` / `directive migrate`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:4",
         "narrative": {
           "Acceptance": "Lab 2 Task 2 shows the `canonical-vendored-npm-signpost` check id, its message text, and its boundary verdict, and it carries the host-global `npm i -g @deftai/directive@latest` and `directive migrate` recommendation inside a non-executable fence.",
           "Traces": "Accepted bound remedy on deftai/directive-training#19, comment 5734169408, confirmed by parent synthesis 5734269672 and verified-claims table 5734268156; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:modules-2-3; npm run test:content; PR #27; merge 96946ae6d8ab",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       },
       {
         "title": "Add a dedicated 0.119.5 Lab 2 doctor-warning replay row to the maintained evidence surface. Restamp `Last verified` only after that replay. Leave the 0.112.0 two-warning proof labeled historical.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:5",
         "narrative": {
           "Acceptance": "When a learner command in Lab 2 uses a global install, an `@latest` tag, or `directive migrate`, `forbiddenLearnerCommand` in the Modules 2-3 verifier rejects it and the check fails.",
           "Traces": "Accepted bound remedy on deftai/directive-training#19, comment 5734169408, confirmed by parent synthesis 5734269672 and verified-claims table 5734268156; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:modules-2-3; npm run test:content; PR #27; merge 96946ae6d8ab",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       },
       {
         "title": "Capture doctor output in the Modules 2–3 platform jobs and assert the expected warning set. Wire `check:modules-2-3` into CI. Do not invent a new Last-verified field as the control.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:6",
         "narrative": {
           "Acceptance": "The maintained evidence surface records a dedicated 0.119.5 Lab 2 doctor-warning replay row, `Last verified` is restamped only after that replay, the 0.112.0 two-warning proof shows a historical label, and the Modules 2-3 CI jobs capture doctor output and fail when the emitted warning set differs from the expected one.",
           "Traces": "Accepted bound remedy on deftai/directive-training#19, comment 5734169408, confirmed by parent synthesis 5734269672 and verified-claims table 5734268156; relieves recorded pain P1."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "npm run check:modules-2-3; npm run test:content; PR #27; merge 96946ae6d8ab",
+          "recorded_at": "2026-09-20T20:30:59Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
+      },
+      {
+        "id": "clause:1",
+        "title": "clause:1",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "npm run check:modules-2-3; npm run test:content; PR #27; merge 96946ae6d8ab — commit cbdcce2 recut curriculum/modules/02, labs/02, solutions/lab-02 and scripts/verify-modules-2-3.mjs in one commit",
+          "recorded_at": "2026-09-20T20:32:50Z",
+          "recorded_by": "agent:claude-opus-5"
+        }
       }
     ],
     "tags": [
@@ -498,9 +539,33 @@
         "size": "medium",
         "file_scope_confidence": "high",
         "model_tier": "high"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 27,
+        "prBase": null,
+        "mergeCommit": "96946ae6d8ab",
+        "deliveryBranch": "master",
+        "deliveryCommit": "99a6d1d376c5139284a00c2245c3df2c8b5b6121",
+        "verifiedAt": "2026-09-20T20:32:51Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:claude:v1:NGRhNWExNDQtM2E1My00YjY5LTkzNTItNDU5OTc4MjgxMmFl"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-20T20:32:51Z",
+      "completedSessionId": "host:claude:v1:NGRhNWExNDQtM2E1My00YjY5LTkzNTItNDU5OTc4MjgxMmFl",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-20T20:32:51Z"
       }
     },
     "id": "github.issue.5501852437",
-    "updated": "2026-09-20T16:46:07Z"
+    "updated": "2026-09-20T20:32:51Z"
   }
 }
