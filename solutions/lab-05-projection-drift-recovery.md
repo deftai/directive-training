@@ -209,7 +209,10 @@ git diff --check
 Also retain both earlier stale exits 1 and the source/projection reasoning. A screenshot of
 the final green output alone loses the recovery evidence.
 
-### Module 5 self-assessment answers
+## Self-assessment key
+
+Each answer names the outcome whose Completion-evidence row scores it; items 3 and 4 both
+join O5.3. The key explains answers. It does not score the module.
 
 1. **O5.1:** `xbrief/PROJECT-DEFINITION.xbrief.json` owns the
    `plan.architecture.codeStructure.modules[0].purpose` field. The verified local
