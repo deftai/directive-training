@@ -3,6 +3,21 @@ import test from "node:test";
 
 import { checkDoctorWarningSet } from "./assert-doctor-warning-set.mjs";
 
+/**
+ * Splice out the first literal occurrence of `search` by position. Replay mutations never go
+ * through string replacement, so no dollar-sign sequence in the replacement text can ever be
+ * expanded, and a target that no longer exists fails loudly instead of silently no-opping.
+ * @param {string} body Text to mutate.
+ * @param {string} search Literal substring to remove.
+ * @param {string} [replacement] Literal text to splice in.
+ * @returns {string} The mutated text.
+ */
+function splice(body, search, replacement = "") {
+  const at = body.indexOf(search);
+  assert.notEqual(at, -1, `replay mutation target not found: ${search}`);
+  return body.slice(0, at) + replacement + body.slice(at + search.length);
+}
+
 const WARN = "⚠ ";
 const PASS = "✓ ";
 const signpostMessage =
@@ -29,7 +44,8 @@ const replays = [
   },
   {
     name: "dead-string: the retired xbrief false negative is rejected",
-    text: realCapture.replace(
+    text: splice(
+      realCapture,
       `${PASS}Project-lifecycle`,
       `${WARN}Missing directory: xbrief/ (lifecycle) at /tmp/x\n${PASS}Project-lifecycle`,
     ),
@@ -37,21 +53,25 @@ const replays = [
   },
   {
     name: "extra-warning: a second warning row is rejected",
-    text: realCapture
-      .replace(`${WARN}System check`, `${WARN}hook-runtime-executable: deft-hook is not executable.\n${WARN}System check`)
-      .replace("with 1 warning", "with 2 warning"),
+    text: splice(
+      splice(realCapture, `${WARN}System check`, `${WARN}hook-runtime-executable: deft-hook is not executable.\n${WARN}System check`),
+      "with 1 warning",
+      "with 2 warning",
+    ),
     expectProblem: /expected warning identities/,
   },
   {
     name: "no-warning: a clean run is rejected",
-    text: realCapture
-      .replace(`${WARN}canonical-vendored-npm-signpost: ${signpostMessage}\n`, "")
-      .replace("with 1 warning", "with 0 warning"),
+    text: splice(
+      splice(realCapture, `${WARN}canonical-vendored-npm-signpost: ${signpostMessage}\n`),
+      "with 1 warning",
+      "with 0 warning",
+    ),
     expectProblem: /expected the summary to report 1 warning/,
   },
   {
     name: "renamed-check: a different warning id is rejected",
-    text: realCapture.replace("canonical-vendored-npm-signpost", "canonical-vendored-npm-provenance"),
+    text: splice(realCapture, "canonical-vendored-npm-signpost", "canonical-vendored-npm-provenance"),
     expectProblem: /expected warning identities/,
   },
   {
@@ -82,17 +102,17 @@ const replays = [
   },
   {
     name: "missing project-lifecycle row is rejected",
-    text: realCapture.replace(`${PASS}Project-lifecycle: valid at`, `${PASS}Project-lifecycle: missing at`),
+    text: splice(realCapture, `${PASS}Project-lifecycle: valid at`, `${PASS}Project-lifecycle: missing at`),
     expectProblem: /valid project-lifecycle directory/,
   },
   {
     name: "no summary row is rejected",
-    text: realCapture.replace(`${WARN}System check completed with 1 warning(s).\n`, ""),
+    text: splice(realCapture, `${WARN}System check completed with 1 warning(s).\n`),
     expectProblem: /exactly one doctor summary row/,
   },
   {
     name: "unmarked summary row cannot bind warning identity",
-    text: realCapture.replace(`${WARN}System check`, "System check"),
+    text: splice(realCapture, `${WARN}System check`, "System check"),
     expectProblem: /no severity marker/,
   },
 ];
