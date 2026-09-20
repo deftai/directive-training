@@ -35,3 +35,10 @@ jobs:
           set -eu
           set -o pipefail
           npm run check:modules-2-3
+
+      - name: Replay the captured doctor warning sets against the shared checker
+        shell: bash
+        run: |
+          set -eu
+          set -o pipefail
+          npm run test:doctor-warning-set

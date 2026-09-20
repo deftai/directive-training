@@ -162,3 +162,12 @@
   Lab 2 doctor-warning replay and labels the 0.112.0 two-warning proof
   historical; the Modules 2–3 CI jobs capture doctor output, assert the
   expected warning set, and run the focused content contract (#19).
+- Close three review findings on the same change. The learner-command guard now
+  rejects option-first npm forms (`npm --global install`, `npm -g install`,
+  `--location=global`) and `env`-wrapped invocations, and carries a case table
+  covering every supported variant plus the lab's legitimate `--globalconfig`
+  installs. The platform lanes assert the doctor warning *identity* set through
+  one shared `scripts/assert-doctor-warning-set.mjs`, which binds the check id
+  to a real warning row and rejects any other warning identity, with a replay
+  suite in CI. The issue-19 scope brief records its plan and acceptance against
+  the 0.119.5 baseline the change implements (#19).

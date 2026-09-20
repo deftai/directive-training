@@ -177,8 +177,90 @@ const executableFencePattern = /^\s*```(?:sh|bash|zsh|powershell|pwsh)\s*\n([\s\
 // A learner-executable fence may never mutate host-global state, leave the course pin, or
 // run the untaught provenance migration the doctor signpost recommends (#19). Those three
 // live only as quoted evidence in non-executable fences.
-const forbiddenLearnerCommand =
-  /^\s*(?:&\s*)?(?:git\s+(?:push\b|remote\s+(?:add|remove|rename|set-url)\b|reset\s+--hard\b|clean\b|checkout\s+--\b|branch\s+-D\b)|gh\s+(?!--version(?:\s|$))|npm\s+publish\b|npm(?:\.cmd)?\s+(?:i|in|install|add)\b[^\n]*?(?:\s-g(?=\s|$)|\s--global(?=\s|$))|npm(?:\.cmd)?\s+(?:i|in|install|add)\b[^\n]*@latest(?=\s|$|["'`])|(?:directive|deft)\s+migrate\b|(?:directive|deft)\s+(?:deploy|publish|release)\b|rm\s+-(?:rf|fr)\b|Remove-Item\b|(?:del|rmdir)\s+\/s\b)/im;
+//
+// npm accepts its options before or after the subcommand, so neither the install verb nor the
+// global flag may be anchored to a fixed position after `npm`: `npm --global install X` and
+// `npm -g install X@latest` are the same mutation as `npm install -g X`. The fragments below
+// are composed rather than inlined so each token boundary stays auditable, and the case table
+// that follows exercises the guard against every supported variant.
+const npmBinary = String.raw`npm(?:\.cmd)?`;
+// One or more further whitespace-separated npm arguments.
+const npmArguments = String.raw`[^\n]*?\s`;
+const npmInstallVerb = String.raw`(?:i|in|install|add)(?=\s|$)`;
+// `-g`, `--global` and `--location=global` as whole tokens. `--globalconfig` is a legitimate
+// isolation flag in this lab; the trailing lookahead is what keeps it out of this set.
+const npmGlobalFlag = String.raw`(?:--?g(?:lobal)?|--location[= ]global)(?=\s|$)`;
+const npmLatestTag = String.raw`@latest(?=\s|$|["'\x60])`;
+// An `env VAR=value` wrapper must not hide the command it runs.
+const commandPrefix = String.raw`^\s*(?:&\s*)?(?:env(?:\s+-\S+)*(?:\s+\w+=\S*)*\s+)?`;
+
+const forbiddenLearnerCommand = new RegExp(
+  commandPrefix +
+    "(?:" +
+    [
+      String.raw`git\s+(?:push\b|remote\s+(?:add|remove|rename|set-url)\b|reset\s+--hard\b|clean\b|checkout\s+--\b|branch\s+-D\b)`,
+      String.raw`gh\s+(?!--version(?:\s|$))`,
+      String.raw`npm\s+publish\b`,
+      // host-global install, subcommand first: `npm install -g @deftai/directive`
+      `${npmBinary}\\s+(?:${npmArguments})?${npmInstallVerb}${npmArguments}${npmGlobalFlag}`,
+      // host-global install, option first: `npm --global install @deftai/directive`
+      `${npmBinary}\\s+(?:${npmArguments})?${npmGlobalFlag}${npmArguments}${npmInstallVerb}`,
+      // any install that leaves the course pin: `npm i @deftai/directive@latest`
+      `${npmBinary}\\s+(?:${npmArguments})?${npmInstallVerb}[^\\n]*${npmLatestTag}`,
+      String.raw`(?:directive|deft)\s+migrate\b`,
+      String.raw`(?:directive|deft)\s+(?:deploy|publish|release)\b`,
+      String.raw`rm\s+-(?:rf|fr)\b`,
+      String.raw`Remove-Item\b`,
+      String.raw`(?:del|rmdir)\s+\/s\b`,
+    ].join("|") +
+    ")",
+  "im",
+);
+
+// Negative tests for the guard itself. Every supported host-global and off-pin variant must be
+// rejected, and every command the lab legitimately runs must survive -- in particular the
+// isolated `--globalconfig` installs, since `--global` is a prefix of `--globalconfig`.
+for (const rejected of [
+  "npm install -g @deftai/directive",
+  "npm i -g @deftai/directive",
+  "npm in -g @deftai/directive",
+  "npm add -g @deftai/directive",
+  "npm install --global @deftai/directive",
+  "npm --global install @deftai/directive",
+  "npm -g install @deftai/directive@latest",
+  "npm --registry https://registry.npmjs.org/ --global install @deftai/directive",
+  "npm install --location=global @deftai/directive",
+  "npm.cmd install -g @deftai/directive",
+  "npm.cmd --global install @deftai/directive",
+  "& npm install -g @deftai/directive",
+  "npm install @deftai/directive@latest",
+  "npm i @deftai/directive@latest --ignore-scripts",
+  'npm i "@deftai/directive@latest"',
+  'env -i PATH="$PATH" npm install -g @deftai/directive',
+  "  npm install -g @deftai/directive",
+  "directive migrate",
+  "deft migrate --project-root .",
+  "npm publish",
+  "git push origin training/module-02",
+  'rm -rf "$lab_parent"',
+]) {
+  assert.match(rejected, forbiddenLearnerCommand, "the learner-command guard must reject: " + rejected);
+}
+for (const allowed of [
+  'env -i PATH="$PATH" HOME="$HOME" npm install --userconfig "$lab_root/.npmrc" --globalconfig /dev/null --cache "$lab_root/.npm-cache" --ignore-scripts --no-audit --no-fund',
+  "npm install --globalconfig /dev/null",
+  "npm install --globalconfig NUL --userconfig .npmrc",
+  "npm --globalconfig /dev/null install",
+  "npm install --ignore-scripts --no-audit --no-fund",
+  "npm install @deftai/directive@0.119.5",
+  "npm ls @deftai/directive",
+  "npm config get registry",
+  "gh --version",
+  "directive doctor --full --project-root .",
+  "git status --porcelain --untracked-files=all",
+]) {
+  assert.doesNotMatch(allowed, forbiddenLearnerCommand, "the learner-command guard must allow: " + allowed);
+}
 for (const [relativePath, content] of [
   ["curriculum/modules/02-installation-and-anatomy.md", module2],
   ["curriculum/modules/03-authority-and-context.md", module3],
@@ -546,6 +628,24 @@ assert.doesNotMatch(
   workflow,
   /NPM_CONFIG_USERCONFIG/,
   "platform workflow must not fall back to the old empty-userconfig recovery path",
+);
+// Every platform lane must capture doctor output and bind the emitted warning identity set
+// through the one shared checker; a lane that re-inlines its own assertion drifts silently
+// (deftai/directive-training#19).
+assert.equal(
+  [...workflow.matchAll(/doctor --full --project-root \./g)].length,
+  3,
+  "every platform job must run the Lab 2 doctor command",
+);
+assert.equal(
+  [...workflow.matchAll(/scripts\/assert-doctor-warning-set\.mjs/g)].length,
+  3,
+  "every platform job must assert the doctor warning set through the shared checker",
+);
+assert.doesNotMatch(
+  workflow,
+  /System check completed with/,
+  "platform workflow must not re-inline the doctor warning assertion",
 );
 for (const [label, content] of [
   ["platform workflow", workflow],
