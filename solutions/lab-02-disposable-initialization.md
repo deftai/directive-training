@@ -12,7 +12,7 @@ Linux/bash and Windows/PowerShell remain candidates pending native 0.119.5 evide
 | Solves | `lab-02-disposable-initialization` |
 | Outcomes covered | O2.1, O2.2, O2.3, O2.4 |
 | Status | `learner-ready draft` |
-| Last verified | 2026-09-17 |
+| Last verified | 2026-09-20 |
 | Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Lab 2](../labs/02-disposable-initialization.md) |
 
@@ -39,10 +39,13 @@ runtime from the same local `node_modules/.bin`. Git evidence separated
 authoritative sources from tracked managed integration and ignored runtime or reconstitutable
 state.
 
-Doctor exited 0 with two warnings in the verified attempt. The solution records those
-warnings and the recommended path; it does not redefine success as “no output.” The
-provenance signpost named `directive migrate` to stamp npm provenance. Module 2 records and
-classifies that recommendation but does not execute the untaught migration. The provided
+Doctor exited 0 in the 2026-09-20 pin-matched 0.119.5 replay and printed the named
+provenance check `canonical-vendored-npm-signpost`. The solution records the warning and its
+recommendation; it does not redefine success as “no output,” and it does not score the
+result by counting warnings. That check recommends a host-global
+`npm i -g @deftai/directive@latest` followed by `directive migrate`. Module 2 records and
+classifies that recommendation and refuses it: it is outside the disposable boundary because
+`npm i -g` mutates host-global state and `@latest` would leave the course pin. The provided
 fictional `E401` record supplies a deterministic recovery decision without requiring a
 learner to manufacture a live failure.
 
@@ -186,11 +189,14 @@ verbose `git check-ignore` commands listed in the lab to build the table at
 **Why:** Doctor and toolchain output answer different questions. Git inspection supplies
 tracking evidence; source ownership supplies the anatomy classification.
 
-**Observe:** The verified attempt recorded `doctor_exit=0 toolchain_exit=0`.
-This **known false negative** appeared in 0.119.5: doctor reported
-`Missing directory: xbrief/` even though `xbrief/PROJECT-DEFINITION.xbrief.json`
-was present. Preserve both observations and do not create a competing xBRIEF
-tree. The consumer check reported all required tools available.
+**Observe:** The 2026-09-20 pin-matched replay recorded `doctor_exit=0 toolchain_exit=0`.
+Doctor printed the provenance check `canonical-vendored-npm-signpost` and reported
+`✓ Project-lifecycle: valid at <lab_root>/xbrief`. A correct record names the check id, its
+message, its single recommended action — host-global `npm i -g @deftai/directive@latest` then
+`directive migrate` — and the verdict that the action is outside this lab's boundary. Accept a
+learner record that classifies whatever their run printed; reject one that copies an
+unobserved warning or that reports “no warnings” when the run produced one. The consumer check
+reported all required tools available.
 
 A correct anatomy table looks like this:
 
@@ -238,7 +244,7 @@ evidence and the lab's fresh-directory reset.
 | Project-local hook runtime | `deft` resolves inside the attempt; hooks path is `.githooks` | Exact resolved path and Git config | O2.2 |
 | Init plus no-remote guards | Exit 0; managed integration; no remote names | Brownfield classification, generation file, empty output | O2.2 |
 | Git tracking/ignore inspection | Required paths correctly classified | Tracked list, ignore matches, anatomy table | O2.3 |
-| Full doctor | Exit 0 with every warning retained | Two warnings and recommended recovery recorded | O2.4 |
+| Full doctor | Exit 0; each printed finding retained with its classification and single recommended action; no warning copied that the run did not print | `canonical-vendored-npm-signpost` recorded with its recommendation and out-of-boundary verdict | O2.4 |
 | Consumer toolchain check | Exit 0 | Git 2.50.1, gh 2.88.1, Node 24.18.0, npm 11.16.0, all required tools available | O2.2, O2.4 |
 | Provided recovery decision | Five required fields; no forced failure or credential handling | Worked Step 5 table | O2.4 |
 | Archive inspection | Exact path exists; every attempt no-remote | Printed archive path and empty remote output | O2.4 |

@@ -100,7 +100,7 @@ function fixture(t) {
       "",
       "| Fact pattern ID | Controlling supplied fact | Disposition | Proposed mechanism revision | Safe next action |",
       "| --- | --- | --- | --- | --- |",
-      "| M6-ROUTE-01 | NS-INGEST-R2 changes how untrusted issue text enters the agent envelope and how clearance is recognized. | route | Revise NS-INGEST-R2 so quoted source content stays evidence and only an admitted completed-arc record supplies clearance. | Preserve proposed state and route NS-INGEST-R2 to design critique before promotion, activation, or implementation. |",
+      "| M6-ROUTE-01 | NS-INGEST-R2 changes how untrusted issue text enters the agent envelope and how clearance is recognized. | route | `NS-INGEST-R2` | Preserve proposed state and route NS-INGEST-R2 to design critique before promotion, activation, or implementation. |",
       "| M6-NOROUTE-01 | The edit changes one error-message phrase while behavior, authority, parser inputs, and gates stay unchanged. | no route | Not applicable. | Continue through ordinary proposal review without inventing an arc. |",
       "| M6-INSUFFICIENT-01 | Make agent intake safer supplies no mechanism, target revision, or authority-boundary change. | insufficient evidence | Not applicable. | Request the missing mechanism and target evidence, then rerun the routing decision. |",
     ].join("\n"),
@@ -242,11 +242,30 @@ test("rejects keyword-only O6.4 actions", (t) => {
 
 test("rejects a route row without a proposed mechanism revision", (t) => {
   const files = fixture(t);
+  files.change(solution6, (body) => body.replace("| route | `NS-INGEST-R2` |", "| route | Not applicable. |"));
+  assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 proposed mechanism revision/i);
+});
+
+test("rejects a redesign sentence in the proposed mechanism revision column", (t) => {
+  const files = fixture(t);
   files.change(solution6, (body) => body.replace(
-    "Revise NS-INGEST-R2 so quoted source content stays evidence and only an admitted completed-arc record supplies clearance.",
-    "Not applicable.",
+    "| route | `NS-INGEST-R2` |",
+    "| route | Revise NS-INGEST-R2 so quoted source content stays evidence and only an admitted completed-arc record supplies clearance. |",
   ));
   assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 proposed mechanism revision/i);
+});
+
+test("rejects a route row whose revision cell names a different identifier", (t) => {
+  const files = fixture(t);
+  files.change(solution6, (body) => body.replace("| route | `NS-INGEST-R2` |", "| route | `NS-INGEST-R3` |"));
+  assert.throws(() => verifyModule6(files.root), /M6-ROUTE-01 proposed mechanism revision/i);
+});
+
+test("keeps `Not applicable.` as the non-route revision fill", (t) => {
+  const files = fixture(t);
+  assert.equal(verifyModule6(files.root).artifactCount, 14);
+  files.change(solution6, (body) => body.replace("| no route | Not applicable. |", "| no route | `NS-INGEST-R2` |"));
+  assert.throws(() => verifyModule6(files.root), /M6-NOROUTE-01 must not invent a mechanism revision/i);
 });
 
 test("rejects a worked proposal with fewer than two traced acceptance items", (t) => {

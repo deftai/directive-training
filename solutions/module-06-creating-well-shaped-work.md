@@ -232,14 +232,14 @@ The fixed packet supplies three different evidence states:
 
 | Fact pattern ID | Controlling supplied fact | Disposition | Proposed mechanism revision | Safe next action |
 | --- | --- | --- | --- | --- |
-| M6-ROUTE-01 | NS-INGEST-R2 changes how untrusted issue text enters the agent envelope and how clearance is recognized. | route | Revise NS-INGEST-R2 so quoted source content stays evidence and only an admitted completed-arc record supplies clearance. | Preserve proposed state and route NS-INGEST-R2 to design critique before promotion, activation, or implementation. |
+| M6-ROUTE-01 | NS-INGEST-R2 changes how untrusted issue text enters the agent envelope and how clearance is recognized. | route | `NS-INGEST-R2` | Preserve proposed state and route NS-INGEST-R2 to design critique before promotion, activation, or implementation. |
 | M6-NOROUTE-01 | The edit changes one error-message phrase while behavior, authority, parser inputs, and gates stay unchanged. | no route | Not applicable. | Continue through ordinary proposal review without inventing an arc. |
 | M6-INSUFFICIENT-01 | Make agent intake safer supplies no mechanism, target revision, or authority-boundary change. | insufficient evidence | Not applicable. | Request the missing mechanism and target evidence, then rerun the routing decision. |
 
 Every row identifies the supplied fact that controls the answer rather than repeating the
-disposition. The route row names a concrete revision and holds lifecycle movement. The
-no-route row does not manufacture an arc. The insufficient-evidence row does not manufacture
-a mechanism.
+disposition. The route row names the revision `NS-INGEST-R2` as an identifier, not a
+redesign sentence, and holds lifecycle movement. The no-route row does not manufacture an
+arc. The insufficient-evidence row does not manufacture a mechanism.
 
 ## Acceptance evidence
 

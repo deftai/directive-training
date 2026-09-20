@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-20-20-scope-authoring-o62-is-the-one-core-outcome-with-no-executab.xbrief.json",
+  "planId": "github.issue.5501867556",
+  "approvedAt": "2026-09-20T19:35:36Z",
+  "fileScope": [
+    "CHANGELOG.md",
+    "curriculum/modules/06-creating-well-shaped-work.md",
+    "labs/07-scope-lifecycle.md",
+    "labs/fixtures",
+    "package.json",
+    "scripts/verify-module-6.mjs",
+    "scripts/verify-module-6.test.mjs",
+    "solutions/module-06-creating-well-shaped-work.md",
+    "xbrief/active/2026-09-20-20-scope-authoring-o62-is-the-one-core-outcome-with-no-executab.xbrief.json"
+  ],
+  "fileScopeDigest": "3477fac0ddd2305817592d0e1a671e9a5bbe3c1203094290c1896c991b12498d",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "david",
+    "mintedAt": "2026-09-20T19:35:36Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "55c3fbce85efba927e20d0f1ba15c381bfa6608df013f79a2f682fc01bc9a191",
+  "digestAlgo": "intent-extract-v1"
+}

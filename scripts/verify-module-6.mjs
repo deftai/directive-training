@@ -207,8 +207,11 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
   assert.equal(routeRow?.[2], "route", "M6-ROUTE-01 disposition must be route");
   requireMeaningful(routeRow?.[1] ?? "", "M6-ROUTE-01 controlling fact", 11);
   assert.match(routeRow[1], /NS-INGEST-R2[^\n]*(?:untrusted|agent envelope)[^\n]*clearance|clearance[^\n]*(?:untrusted|agent envelope)[^\n]*NS-INGEST-R2/i, "M6-ROUTE-01 controlling fact must identify the authority and untrusted-input mechanism");
-  requireMeaningful(routeRow[3], "M6-ROUTE-01 proposed mechanism revision", 11);
-  assert.match(routeRow[3], /NS-INGEST-R2[^\n]*(?:source content|evidence)[^\n]*completed-arc record/i, "M6-ROUTE-01 proposed mechanism revision must name the concrete target and clearance rule");
+  assert.equal(
+    routeRow[3].replaceAll("`", "").trim(),
+    "NS-INGEST-R2",
+    "M6-ROUTE-01 proposed mechanism revision must be the exact routed-target identifier NS-INGEST-R2, not a redesign sentence",
+  );
   requireMeaningful(routeRow[4], "M6-ROUTE-01 safe next action", 11);
   for (const token of ["proposed", "design critique", "promotion", "activation", "implementation"]) {
     assert.ok(routeRow[4].toLowerCase().includes(token), `M6-ROUTE-01 safe next action must name ${token}`);
