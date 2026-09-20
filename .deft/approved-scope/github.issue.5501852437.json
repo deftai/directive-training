@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-20-19-lab-2s-documented-doctor-known-false-negative-does-not-repro.xbrief.json",
+  "planId": "github.issue.5501852437",
+  "approvedAt": "2026-09-20T19:35:34Z",
+  "fileScope": [
+    ".github/workflows",
+    "CHANGELOG.md",
+    "curriculum/modules/02-installation-and-anatomy.md",
+    "labs/02-disposable-initialization.md",
+    "references/SOURCE-BASELINE.md",
+    "references/SOURCE-NOTES.md",
+    "scripts/verify-modules-2-3.mjs",
+    "solutions/lab-02-disposable-initialization.md",
+    "xbrief/active/2026-09-20-19-lab-2s-documented-doctor-known-false-negative-does-not-repro.xbrief.json"
+  ],
+  "fileScopeDigest": "4d352168ab777d9e079f0dd3f59dc5a7acdc473af21c09a1ba87c21e3c24502c",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "david",
+    "mintedAt": "2026-09-20T19:35:34Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "3b4bc99dbd9b23aaca55dfc307ca83c023d58fbfd8af0d2e4e4d325357886cd2",
+  "digestAlgo": "intent-extract-v1"
+}
