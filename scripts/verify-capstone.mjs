@@ -606,6 +606,25 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
     section(parsed.get(solutionPath).prose, "Valid alternatives").includes(identifierBoundMessage),
     "solution valid alternatives must keep the WI-999 identifier bound",
   );
+  // Bounded WI-NNN namespace on the graded surface (#38): the assessment is
+  // the only artifact an examinee reads, so CAP.2 must state the bound and its
+  // refusal itself rather than point at the lab. Both windows are sentence-local
+  // (`[^.!?]`), so tokens scattered across other sentences cannot satisfy them.
+  const cap2Prose = cap2Task.replace(/\s+/g, " ");
+  assert.match(
+    cap2Prose,
+    /`WI-000` through `WI-999` are legal existing identifiers[^.!?]{0,120}empty collection allocates `WI-001`/,
+    "CAP.2 assessment task must state the legal WI-NNN namespace the learner implements",
+  );
+  assert.match(
+    cap2Prose,
+    new RegExp(
+      "`RangeError` with the exact message `" +
+        escapeRegExp(identifierBoundMessage) +
+        "`[^.!?]{0,80}already holds `WI-999`[^.!?]{0,60}even when lower identifiers are free",
+    ),
+    "CAP.2 assessment task must name the WI-999 exhaustion refusal and its pinned RangeError message in one sentence",
+  );
   const boundaryCase = content.get(fixtureTestPath).match(/test\("refuses to allocate past the bounded WI-999 identifier"[\s\S]*?\n\}\);/)?.[0] ?? "";
   assert.ok(boundaryCase, "supplied test must carry the focused WI-999 identifier bound case");
   assert.ok(boundaryCase.includes('{ id: "WI-999"'), "supplied WI-999 case must start from a collection whose maximum suffix is 999");
