@@ -1,0 +1,375 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #38",
+    "updated": "2026-09-21T18:17:43Z"
+  },
+  "plan": {
+    "title": "Capstone assessment never names the WI-NNN exhaustion bound",
+    "status": "running",
+    "narratives": {
+      "Description": "The capstone assessment tells the learner to implement the visible work-item contract and never names the WI-NNN exhaustion bound: Task 2 is silent, the CAP.2 hints stay at the evidence layer, and the green.json row names only WI-001. scripts/verify-capstone.mjs stays green whether or not that sentence is present, so the naming can be removed without any gate noticing. The accepted remedy makes the assessment Task 2 paragraph the naming carrier for the same 999 and RangeError bound issue 36 pins, and pins that sentence on the capstone verifier.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/38",
+      "Overview": "Leftover from [deftai/directive-training#36](https://github.com/deftai/directive-training/issues/36) design-critique Stop 1 assessment-naming conjunct.\n\nStop 1 `P2` named three learner-facing surfaces. This issue is the assessment surface only. Lab and explained-solution naming of the `WI-NNN` bound stay on #36.\n\nPain-audit [5761056035](https://github.com/deftai/directive-training/issues/36#issuecomment-5761056035) independently supported `relieves: P1` and blocked `relieves: P2` because the assessment can stay silent.\n\n## Unmet surface\n\nAt dispatch SHA `0cb9925d561733ea0907a8f1b450a61416ba1fd6`:\n\n- `assessments/capstone-end-to-end.md` Task 2 tells the learner to implement \"the visible work-item contract\"\n- CAP.2 hints are evidence-layer hints\n- the `green.json` evidence row names `WI-001` and does not name `999`, exhaustion, or `RangeError`\n- zero hits for `WI-NNN`, `999`, `exhaust`, or `RangeError` in that assessment\n\n## Required remainder\n\n- Assessment Task 2 / CAP.2 names the same monotonic refusal once a collection already holds `WI-999`, even when lower identifiers are free, and the same `RangeError` phrase the #36 Bound-remedy pins.\n- The `green.json` evidence row stays compatible with that contract.\n- `scripts/verify-capstone.mjs` asserts that assessment sentence. Do not skip the assessment with \"where it carries the contract.\"\n\n## Suggested acceptance criteria\n\n- A learner reading only the assessment can state the `WI-NNN` bound and the exhaustion throw without inventing it.\n- `node scripts/verify-capstone.mjs` fails if that assessment sentence is removed.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready",
+      "UserStory": "As a learner reading only the capstone assessment, I want Task 2 to state the WI-NNN bound and the exhaustion throw, so that I can implement the contract without inventing behavior the material never names.",
+      "ImplementationPlan": "1. Recut the assessments/capstone-end-to-end.md Task 2 (CAP.2) paragraph that currently says implement only the visible work-item contract so it names the monotonic refusal once a collection already holds WI-999, even when lower identifiers are free, and the RangeError throw.\n2. Copy the exact message string from the issue-36-landed lab Task 2 green-list bullet and both solution listings; do not author a second message here.\n3. Leave the CAP.2 progressive hints at the evidence layer and keep the Required evidence manifest green.json row as WI-001 / Capture capstone evidence / open.\n4. Extend scripts/verify-capstone.mjs so the extracted cap2Task must contain that sentence, and add a changedCopy mutation in scripts/verify-capstone.test.mjs that removes it and fails.\n5. Do not land lab or explained-solution naming here; those ride issue 36.",
+      "QualityGate": "npm run check:capstone and npm test exit 0, and the new cap2Task assertion fails closed when the assessment sentence is removed.",
+      "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
+    },
+    "items": [
+      {
+        "title": "In `assessments/capstone-end-to-end.md`, under heading `### Task 2 — Produce green and diagnose the broader gate (CAP.2)`, recut the paragraph that currently says implement only the visible work-item contract so it names the same monotonic refusal once a collection already holds `WI-999`, even when lower identifiers are free, and throws `RangeError` with the exact message string the issue-36-landed `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green-list bullet and both `solutions/capstone-end-to-end.md` listings use once those bytes are on origin/master. Type `RangeError` and the 999 rule are specified here. Do not author a second message on this issue.",
+        "status": "proposed",
+        "id": "clause:1",
+        "narrative": {
+          "Acceptance": "In `assessments/capstone-end-to-end.md`, under heading `### Task 2 — Produce green and diagnose the broader gate (CAP.2)`, recut the paragraph that currently says implement only the visible work-item contract so it names the same monotonic refusal once a collection already holds `WI-999`, even when lower identifiers are free, and throws `RangeError` with the exact message string the issue-36-landed `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green-list bullet and both `solutions/capstone-end-to-end.md` listings use once those bytes are on origin/master. Type `RangeError` and the 999 rule are specified here. Do not author a second message on this issue.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Do not add that sentence to CAP.2 progressive hints. Those hints stay evidence-layer.",
+        "status": "proposed",
+        "id": "clause:2",
+        "narrative": {
+          "Acceptance": "Do not add that sentence to CAP.2 progressive hints. Those hints stay evidence-layer.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Keep the Required evidence manifest `green.json` row's empty-collection add probe as `WI-001 / Capture capstone evidence / open`. That row stays compatible; it is not the exhaustion namer.",
+        "status": "proposed",
+        "id": "clause:3",
+        "narrative": {
+          "Acceptance": "Keep the Required evidence manifest `green.json` row's empty-collection add probe as `WI-001 / Capture capstone evidence / open`. That row stays compatible; it is not the exhaustion namer.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Extend `scripts/verify-capstone.mjs` so the extracted assessment Task 2 (`cap2Task`) must contain that 999 / `RangeError` sentence. Add a `changedCopy(\"assessments/capstone-end-to-end.md\", …)` mutation in `scripts/verify-capstone.test.mjs` that removes the sentence and fails.",
+        "status": "proposed",
+        "id": "clause:4",
+        "narrative": {
+          "Acceptance": "Extend `scripts/verify-capstone.mjs` so the extracted assessment Task 2 (`cap2Task`) must contain that 999 / `RangeError` sentence. Add a `changedCopy(\"assessments/capstone-end-to-end.md\", …)` mutation in `scripts/verify-capstone.test.mjs` that removes the sentence and fails.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Do not skip the assessment with \"where it carries the contract.\"",
+        "status": "proposed",
+        "id": "clause:5",
+        "narrative": {
+          "Acceptance": "Do not skip the assessment with \"where it carries the contract.\"",
+          "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Do not land lab or explained-solution naming here; those ride issue 36.",
+        "status": "proposed",
+        "id": "clause:6",
+        "narrative": {
+          "Acceptance": "Do not land lab or explained-solution naming here; those ride issue 36.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
+        },
+        "effort": "S"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/38",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #38: Capstone assessment never names the WI-NNN exhaustion bound"
+      }
+    ],
+    "metadata": {
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "changedCopy(\"assessments/capstone-end-to-end.md\", …)",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L8"
+        }
+      ],
+      "swarm": {
+        "readiness": "sequential",
+        "parallel_safe": false,
+        "depends_on": [
+          "github.issue.5521510608"
+        ],
+        "size": "small",
+        "conflict_group": "capstone",
+        "model_tier": "high",
+        "verify_commands": [
+          "npm run check:capstone",
+          "npm test"
+        ],
+        "expected_outputs": [
+          "assessments/capstone-end-to-end.md Task 2 (CAP.2) names the WI-999 monotonic refusal and the same RangeError message string the issue-36 harvest landed on the lab and both solution listings",
+          "CAP.2 progressive hints and the green.json WI-001 evidence row are unchanged",
+          "scripts/verify-capstone.mjs requires that sentence inside cap2Task and scripts/verify-capstone.test.mjs has a changedCopy mutation that removes it and fails",
+          "npm run check:capstone and npm test each exit 0"
+        ],
+        "dispatch_kind": "solo"
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": "Capstone assessment Task 2 (CAP.2) and the capstone verifier"
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the capstone assessment never names the WI-NNN exhaustion bound: Task 2 tells the learner to implement \"the visible work-item contract\", CAP.2 hints stay at the evidence layer, the green.json row names WI-001 only, and verify-capstone.mjs does not fail if that sentence is absent.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: resolved\nstop-2: charter=open critique; spend=N=1 because the operator answered proceed with n=1 on a closed identity recut of assessment Task 2 / CAP.2 / green.json / verify-capstone.mjs naming the WI-NNN bound already specified on #36\npain: P1, P2\nP1: assessments/capstone-end-to-end.md Task 2, CAP.2 hints, and the green.json evidence row never name WI-NNN, 999, exhaustion, or RangeError, so a learner reading only the assessment cannot state the bound\nP2: scripts/verify-capstone.mjs does not assert that assessment sentence, so removing it still passes\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: 1b52363c9fa210180a71e3626f250bd3c5569842\n\n",
+          "id": 5763246313,
+          "html_url": "https://github.com/deftai/directive-training/issues/38#issuecomment-5763246313",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T15:43:09Z",
+          "updated_at": "2026-09-21T15:43:09Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\ncharter: open critique · round 1 fresh critic · ceiling 5763246313 · dispatch-sha `1b52363c9fa210180a71e3626f250bd3c5569842` · arc-mode: no-ingest\n\n## Verdict\n\nThe assessment is silent on the `WI-NNN` bound at this SHA, and `scripts/verify-capstone.mjs` stays green through that silence. The leftover can bind after Stop 1 `P1` and the required remainder name the same carrier, and after this issue quotes the `RangeError` message it copies.\n\n## Re-verification of the triage's anchors\n\nChecks were re-run at dispatch SHA `1b52363c9fa210180a71e3626f250bd3c5569842`. Line cites on Stop 1 and on the issue body were treated as claims. In-envelope input is the issue body plus comment `5763246313`.\n\n| Anchor claim | Result | Check run |\n|---|---|---|\n| Assessment Task 2 says implement \"the visible work-item contract\" | holds | `### Task 2 — Produce green and diagnose the broader gate (\\`CAP.2\\`)` contains that phrase once and names no identifier bound |\n| CAP.2 hints stay at the evidence layer | holds | Hint 1 names red/tests/literal/aggregate; Hint 2 names `red.json`, `green.json`, `focused.json`, `literal.json`, `aggregate-failure.json`; Hint 3 names the seeded `review:evidence` stop. Zero `WI-NNN` / `999` / `exhaust` / `RangeError` |\n| The `green.json` evidence row names `WI-001` only | holds | Required evidence manifest row: add returns `WI-001 / Capture capstone evidence / open`. That is the only `WI-001` in the assessment |\n| Zero `WI-NNN`, `999`, exhaustion, or `RangeError` in the assessment | holds | Token counts on `assessments/capstone-end-to-end.md`: `WI-NNN` 0, `WI-999` 0, `999` 0, `RangeError` 0, `exhaust` 0, `WI-001` 1 |\n| `verify-capstone.mjs` does not fail if that assessment sentence is absent | holds | `node scripts/verify-capstone.mjs` prints `ok (36 artifacts, 0 missing)`, exit 0. `/tmp` probe A replaces `visible work-item contract` and still exits 0. Probe B inserts a `WI-999` / `RangeError` sentence and still exits 0. Probe C replaces the `WI-001` evidence-row clause and still exits 0. The script extracts `cap2Task` and requires retained `red.json`; it does not require an identifier-bound sentence |\n| #36 already specifies the bound this leftover names | holds for type and 999 rule; message unquoted | Bound-remedy on successor lean 5761685555: keep `/^WI-\\d{3}$/`; refuse add once a collection holds `WI-999` even when lower identifiers are free; throw `RangeError` with one stable phrase; leftover 38 is the assessment naming surface only. That comment does not quote the message string. This SHA's lab still has one `WI-NNN` (highest numeric suffix) and zero `999` / `exhaust` / `RangeError`. Supplied test mentions `WI-NNN` only on `completeWorkItem` with a bad id |\n\nP1 and P2 both still hold on the tree.\n\n## Inventory\n\nNo new mechanism.\n\n- Assessment Task 2 already tells the learner to implement the visible work-item contract.\n- Lab Task 2 (`CAP.2`) already has a five-bullet green list. #36 Bound-remedy 5761685555 already lands the lab bullet there.\n- Assessment CAP.3 Hint 3 and the `review-resolution.json` evidence row already carry a product phrase (`duplicates an existing work item`). The verifier pins the matching throw on the solution listing.\n- `scripts/verify-capstone.mjs` already extracts assessment Task 2 as `cap2Task` and uses `assert.match` / `includes` on `assessmentPath`.\n- `scripts/verify-capstone.test.mjs` already uses `changedCopy(\"assessments/capstone-end-to-end.md\", …)` for fail-if-removed cases.\n- Approved `training.capstone.learning-experience` `fileScope` already includes `assessments/capstone-end-to-end.md`, `scripts/verify-capstone.mjs`, and `scripts/verify-capstone.test.mjs`.\n\n## F1 — blocks-the-design: Stop 1 P1 and the required remainder name different carriers\n\n**Evidence.** Stop 1 `P1` names three assessment surfaces that never name `WI-NNN` / `999` / exhaustion / `RangeError`: Task 2, CAP.2 hints, and the `green.json` evidence row. The because-clause is that a learner reading only the assessment cannot state the bound.\n\nThe required remainder names one carrier: \"Assessment Task 2 / CAP.2 names the same monotonic refusal\". It then says the `green.json` evidence row stays compatible. CAP.2 hints are absent from that list. Measured today, \"compatible\" on that evidence row is the empty-collection probe `WI-001 / Capture capstone evidence / open`, which still omits `999` / `RangeError`. CAP.2 hints omit them too.\n\n**Failure mode.** A successor map that records `relieves: P1` after only Task 2 gains the sentence leaves two of the three P1 surfaces silent. That is the same three-surface hole that leftovered this issue from #36. Path-1 would treat `P1` as covered while a learner who follows the CAP.2 hint ladder or the evidence-manifest row still cannot state the bound from those surfaces.\n\n**Disposition consequence.** Align `P1` with the remainder, or widen the remainder to `P1`. Alignment recuts `P1` to the assessment Task 2 paragraph as the naming carrier, and records CAP.2 hints plus the `green.json` row as keep-silent evidence. Widening adds remainder items that CAP.2 Hint 3 (or an evidence-row clause) names the same 999 / `RangeError` sentence. Until that match exists, `relieves: P1` cannot bind.\n\n## F2 — sharpens-framing: quote the RangeError message this remainder copies\n\n**Evidence.** The remainder asks for \"the same `RangeError` phrase the #36 Bound-remedy pins\". Successor lean 5761685555 says throw `RangeError` with one stable phrase and pin that type and message on the lab, both listings, Valid alternatives, the supplied test, and `scripts/verify-capstone.mjs`. It does not quote the message. At this SHA the solution `RangeError` strings are `work item ` + id + ` not found` and `title duplicates an existing work item`. There is no exhaustion message in the tree.\n\n**Failure mode.** Two implementers pick two messages. Assessment Task 2 then disagrees with the lab bullet and the worked listings, which is the original cross-surface naming hole.\n\n**Disposition consequence.** Quote the message on this issue, or say this remainder copies the exact string from the #36-landed lab Task 2 bullet and both solution listings once that harvest is on `origin/<default>`. Type `RangeError` and the monotonic 999 rule are already specified.\n\n## F3 — sharpens-framing: name the assessment Task 2 paragraph\n\n**Evidence.** Lab heading: `### Task 2 — Preserve red/green and layered checks (`CAP.2`)`. Assessment heading: `### Task 2 — Produce green and diagnose the broader gate (`CAP.2`)`. #36 Bound-remedy already lands \"the learner-facing bullet on `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green list\". This issue's unmet surface is `assessments/capstone-end-to-end.md`. \"Task 2 / CAP.2\" locates both documents.\n\n**Failure mode.** An implementer lands the lab green-list bullet (already on #36) and treats CAP.2 as done. Assessment Task 2 still says only \"the visible work-item contract\".\n\n**Disposition consequence.** Name the assessment heading `### Task 2 — Produce green and diagnose the broader gate (`CAP.2`)` and the paragraph that currently says implement only the visible work-item contract. Keep leftover 38 as that paragraph plus the `verify-capstone.mjs` assertion and the existing `changedCopy` test in `scripts/verify-capstone.test.mjs`.\n\n## F4 — footnote: `green.json` is the helper evidence described by the assessment table row\n\nThere is no authored `green.json` in this repository. The remainder's \"green.json evidence row\" is the Required evidence manifest row whose add probe returns `WI-001 / Capture capstone evidence / open`. Probe C shows that row is currently unasserted. Compatibility means that empty-collection probe stays `WI-001`. The exhaustion comparison stays the #36 supplied test.\n\n## F5 — footnote: this SHA is still pre-#36-land\n\nLab token counts at this SHA: `WI-NNN` 1, `999` 0, `RangeError` 0. That is leftover-before-lab-land, expected for an assessment-only remainder.\n\n## Road not taken\n\nThe strongest rejected reading is to follow CAP.3: put the phrase in a hint and an evidence row, and leave assessment Task 2 as freeze-rules that point at the lab.\n\n**Steelman.** Assessment purpose already says it does not measure memorized wording. Task 3 body does not quote `RangeError`; Hint 3 and the `review-resolution.json` row carry `duplicates an existing work item`. After #36 lands the lab bullet, a learner who uses lab plus assessment is not inventing exhaustion. Assessment Task 2 can keep pointing at the visible work-item contract.\n\n**Flip.** I would take that reading if Stop 1 `P1` named only invent-behavior, or if this leftover required no assessment sentence. Stop 1 names three assessment surfaces, and the remainder requires an assessment sentence with a verifier pin. That is a stricter pin than CAP.3, and it uses the existing `cap2Task` / `changedCopy` mechanism.\n\n",
+          "id": 5763383068,
+          "html_url": "https://github.com/deftai/directive-training/issues/38#issuecomment-5763383068",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T15:52:39Z",
+          "updated_at": "2026-09-21T15:52:39Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe capstone assessment never names the WI-NNN exhaustion bound. Task 2 tells the learner to implement the visible work-item contract, CAP.2 hints stay at evidence, the green.json row names WI-001, and the verifier still passes if that sentence is missing. Confirming this map would make the assessment Task 2 paragraph the naming carrier for the same 999 / RangeError bound issue 36 pins, keep CAP.2 hints and the green.json WI-001 row silent and compatible, pin that sentence on verify-capstone.mjs, and copy the RangeError message from the issue-36-landed lab Task 2 bullet and both solution listings.\n\nParent forward verdict: F1 blocks bind until P1 and the remainder name the same carrier; this map aligns P1's because-clause onto that Task 2 paragraph.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5763246313 and these takes; the evidence is critic 5763383068.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5763383068\nsupersedes: 5763246313\nTarget-digest: sha256:67b6267f510e2a66703e80ba08e796d8abb48eca9be28f7d33ed870b21ad58b0\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Stop 1 P1 and the required remainder name different carriers\ntake: accept-into-contract\ncritic: 5763383068\nheading: Stop 1 P1 and the required remainder name different carriers\n\n### quote the RangeError message this remainder copies\ntake: accept-into-contract\ncritic: 5763383068\nheading: quote the RangeError message this remainder copies\n\n### name the assessment Task 2 paragraph\ntake: accept-into-contract\ncritic: 5763383068\nheading: name the assessment Task 2 paragraph\n\n### footnote — green.json is the helper evidence described by the assessment table row\ntake: accept-into-contract\ncritic: 5763383068\nheading: `green.json` is the helper evidence described by the assessment table row\n\n### footnote — this SHA is still pre-#36-land\ntake: accept-into-contract\ncritic: 5763383068\nheading: this SHA is still pre-#36-land\n\nrelieves: P1\nrelieves: P2\naudit:pain-P1 sha=1b52363c9fa210180a71e3626f250bd3c5569842 pointer=comment:5763383068 reading=asserted\naudit:pain-P2 sha=1b52363c9fa210180a71e3626f250bd3c5569842 pointer=comment:5763383068 reading=asserted\n\n## Bound remedy\n\n- In `assessments/capstone-end-to-end.md`, under heading `### Task 2 — Produce green and diagnose the broader gate (CAP.2)`, recut the paragraph that currently says implement only the visible work-item contract so it names the same monotonic refusal once a collection already holds `WI-999`, even when lower identifiers are free, and throws `RangeError` with the exact message string the issue-36-landed `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green-list bullet and both `solutions/capstone-end-to-end.md` listings use once those bytes are on origin/master. Type `RangeError` and the 999 rule are specified here. Do not author a second message on this issue.\n- Do not add that sentence to CAP.2 progressive hints. Those hints stay evidence-layer.\n- Keep the Required evidence manifest `green.json` row's empty-collection add probe as `WI-001 / Capture capstone evidence / open`. That row stays compatible; it is not the exhaustion namer.\n- Extend `scripts/verify-capstone.mjs` so the extracted assessment Task 2 (`cap2Task`) must contain that 999 / `RangeError` sentence. Add a `changedCopy(\"assessments/capstone-end-to-end.md\", …)` mutation in `scripts/verify-capstone.test.mjs` that removes the sentence and fails.\n- Do not skip the assessment with \"where it carries the contract.\"\n- Do not land lab or explained-solution naming here; those ride issue 36.\n\n",
+          "id": 5763422919,
+          "html_url": "https://github.com/deftai/directive-training/issues/38#issuecomment-5763422919",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T15:55:25Z",
+          "updated_at": "2026-09-21T15:55:25Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1, pain-P2\n\ncharter: open critique · round 4 fresh critic · pain-audit of successor lean 5763422919 · ceiling 5763422919 · dispatch-sha `1b52363c9fa210180a71e3626f250bd3c5569842` · arc-mode: no-ingest\n\n## Verdict\n\nSuccessor lean 5763422919's `relieves: P1` and `relieves: P2` hold. Bound-remedy covers P1 as Stop 1 named the harm: a learner reading only the assessment cannot state the bound. The Task 2 paragraph is the naming carrier. The existing `cap2Task` pin honestly relieves P2. `scanPainCites` emits one `relieves` disposition per id.\n\n## Re-verification\n\nChecks at dispatch SHA `1b52363c9fa210180a71e3626f250bd3c5569842`. In-envelope input is the issue body plus comments `5763246313`, `5763383068`, and `5763422919`.\n\n| Anchor | Result | Check |\n|---|---|---|\n| Stop 1 `pain: P1, P2` | holds | `scanPainList` on the published form → present, ids P1 P2, no duplicates, not malformed |\n| Assessment Task 2 silent on the bound | holds | Task 2 contains `visible work-item contract` once; `WI-NNN` / `WI-999` / `999` / `RangeError` / `exhaust` = 0 in that section |\n| CAP.2 hints stay at evidence | holds | Hint 1 names red/tests/literal/aggregate; Hint 2 names `red.json`, `green.json`, `focused.json`, `literal.json`, `aggregate-failure.json`; Hint 3 names the seeded `review:evidence` stop. Zero bound tokens |\n| `green.json` row names `WI-001` only | holds | Required evidence manifest row: add returns `WI-001 / Capture capstone evidence / open` |\n| Assessment-wide bound tokens | holds | File counts on `assessments/capstone-end-to-end.md`: `WI-NNN` 0, `WI-999` 0, `999` 0, `RangeError` 0, `exhaust` 0, `WI-001` 1 |\n| `verify-capstone.mjs` does not assert that sentence | holds | `node scripts/verify-capstone.mjs` prints `ok (36 artifacts, 0 missing)`, exit 0. `cap2Task` currently requires retained red / red.json only |\n| Removing or inserting the bound still green | holds | `/tmp` probes A–D all PASS: replace the visible-contract phrase; insert a `WI-999` / `RangeError` sentence; replace the `WI-001` row; drop the Task 2 implement-clause |\n| `scanPainCites` on lean 5763422919 | well-formed | cites = P1 relieves, P2 relieves; rejected = [] |\n| `evaluateBoundRemedyCites` with coveredIds P1 and P2 | ok | `{ ok: true }`; coveredIds P2-only returns `{ ok: false }` |\n\nP1 and P2 still hold on the tree. That is pre-harvest, expected.\n\n## F1 — footnote: scanPainCites emits one relieves per id\n\nOperative cite lines on lean 5763422919 are `relieves: P1` then `relieves: P2`. No `does-not-relieve`. No `operator-deferred`. Take headings and Bound-remedy prose do not match the closed cite regex. No second disposition for either id.\n\n## F2 — footnote: Bound-remedy covers P1 as Stop 1 named the harm\n\nStop 1 P1: Task 2, CAP.2 hints, and the `green.json` evidence row never name `WI-NNN` / `999` / exhaustion / `RangeError`, so a learner reading only the assessment cannot state the bound.\n\nBound-remedy recuts the assessment Task 2 paragraph (heading CAP.2) so it names the `WI-999` monotonic refusal and `RangeError`. After harvest, a learner reading the assessment can state the bound from that paragraph. CAP.2 hints stay evidence-layer. The `green.json` row stays the empty-collection add probe `WI-001 / Capture capstone evidence / open` and is not the exhaustion namer. Those keep-silent bullets are the F1 alignment this map already accepted: P1's because-clause onto the Task 2 paragraph.\n\n## F3 — footnote: P2 is honestly relieved by the cap2Task pin\n\nStop 1 P2: `scripts/verify-capstone.mjs` does not assert that assessment sentence, so removing it still passes.\n\nBound-remedy extends the existing `cap2Task` extract so it must contain that 999 / `RangeError` sentence, and adds a `changedCopy(\"assessments/capstone-end-to-end.md\", …)` mutation that removes the sentence and fails. `scripts/verify-capstone.mjs` already extracts assessment Task 2 as `cap2Task`. `scripts/verify-capstone.test.mjs` already uses `changedCopy` for fail-if-removed cases. Approved `training.capstone.learning-experience` `file_scope` already includes the assessment, `scripts/verify-capstone.mjs`, and `scripts/verify-capstone.test.mjs`. Probes A–D show the current pin is absent. That is P2.\n\n## Road not taken\n\nThe strongest rejected reading is that `relieves: P1` overclaims because two of three Stop 1 surfaces stay silent.\n\n**Steelman.** Stop 1 listed Task 2, CAP.2 hints, and the `green.json` row as the silence. Bound-remedy forbids the last two from naming the bound. If P1 is a conjunction of namers, two surfaces remain unmet.\n\n**Flip.** I would take that reading if P1 required each surface to name the bound, or if F1's alignment path had been refused. F1 offered alignment as a bind path: recut P1 to the Task 2 paragraph and record the other two as keep-silent evidence. This map took that path. Stop 1's because-clause is that a learner reading only the assessment cannot state the bound. Task 2 as naming carrier relieves that.\n\nNo new mechanism.\n\n",
+          "id": 5763568758,
+          "html_url": "https://github.com/deftai/directive-training/issues/38#issuecomment-5763568758",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T16:05:12Z",
+          "updated_at": "2026-09-21T16:05:12Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Status | Method |\n| --- | --- | --- |\n| Assessment Task 2 contains `visible work-item contract` and zero `WI-NNN` / `999` / `RangeError` / `exhaust` tokens at dispatch SHA `1b52363c9fa210180a71e3626f250bd3c5569842` | verified | measured: `git show 1b52363c9fa210180a71e3626f250bd3c5569842:assessments/capstone-end-to-end.md` |\n| CAP.2 progressive hints stay at evidence-layer artifacts | verified | measured: same file, Progressive hints CAP.2 Hint 1–3 |\n| Required evidence manifest `green.json` row add probe is `WI-001 / Capture capstone evidence / open` | verified | measured: same file, Required evidence manifest |\n| `scripts/verify-capstone.mjs` exits 0 without asserting that bound sentence | verified | measured: `node scripts/verify-capstone.mjs` prints `ok (36 artifacts, 0 missing)`; extracted `cap2Task` requires retained red / `red.json` only |\n| Bound-remedy Task 2 paragraph covers Stop 1 P1 because-clause | upheld | pain-audit 5763568758 targeting `pain-P1`; parent re-read of Stop 1 because-clause against Bound-remedy bullets on successor lean 5763422919 |\n| `cap2Task` pin covers Stop 1 P2 | upheld | pain-audit 5763568758 targeting `pain-P2`; parent re-read of Bound-remedy verifier bullet against current `cap2Task` |\n\n",
+          "id": 5763628682,
+          "html_url": "https://github.com/deftai/directive-training/issues/38#issuecomment-5763628682",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T16:08:51Z",
+          "updated_at": "2026-09-21T16:08:51Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\n\n## In plain English\n\nThe capstone assessment never names the WI-NNN exhaustion bound. The bound map makes assessment Task 2 the naming carrier for the same 999 / RangeError bound issue 36 pins, keeps CAP.2 hints and the green.json WI-001 row silent and compatible, and pins that sentence on verify-capstone.mjs.\n\nBound contract: successor lean 5763422919.\nverified-claims table 5763628682\n\n",
+          "id": 5763640716,
+          "html_url": "https://github.com/deftai/directive-training/issues/38#issuecomment-5763640716",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T16:09:35Z",
+          "updated_at": "2026-09-21T16:09:35Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5527554641,
+        "origin": "deftai/directive-training#38",
+        "id": "github.issue.5527554641"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "67b6267f510e2a66703e80ba08e796d8abb48eca9be28f7d33ed870b21ad58b0"
+      },
+      "kind": "story"
+    },
+    "acceptance": {
+      "commands": [
+        "npm run check:capstone",
+        "npm test"
+      ],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 6 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "In `assessments/capstone-end-to-end.md`, under heading `### Task 2 — Produce green and diagnose the broader gate (CAP.2)`, recut the paragraph that currently says implement only the visible work-item contract so it names the same monotonic refusal once a collection already holds `WI-999`, even when lower identifiers are free, and throws `RangeError` with the exact message string the issue-36-landed `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green-list bullet and both `solutions/capstone-end-to-end.md` listings use once those bytes are on origin/master. Type `RangeError` and the 999 rule are specified here. Do not author a second message on this issue.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Do not add that sentence to CAP.2 progressive hints. Those hints stay evidence-layer.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Keep the Required evidence manifest `green.json` row's empty-collection add probe as `WI-001 / Capture capstone evidence / open`. That row stays compatible; it is not the exhaustion namer.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Extend `scripts/verify-capstone.mjs` so the extracted assessment Task 2 (`cap2Task`) must contain that 999 / `RangeError` sentence. Add a `changedCopy(\"assessments/capstone-end-to-end.md\", …)` mutation in `scripts/verify-capstone.test.mjs` that removes the sentence and fails.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Do not skip the assessment with \"where it carries the contract.\"",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "Do not land lab or explained-solution naming here; those ride issue 36.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5527554641",
+    "updated": "2026-09-21T18:17:43Z"
+  }
+}
