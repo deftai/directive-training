@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #35",
-    "updated": "2026-09-21T18:17:42Z"
+    "updated": "2026-09-21T19:11:52Z"
   },
   "plan": {
     "title": "Lab 7 explained solution is stale after Task 5 and Module 8 became available",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "The Lab 7 explained solution predates Lab 7 Task 5 and the shipped Module 8, so a learner who obtains exit 0 from the supplied xbrief:verify command has no comparison surface for the retained path, command, exit code, result, or the no-authority boundary. Its Continue section still says Module 8 remains planned even though curriculum/modules/08-session-and-work-selection.md exists and Module 7 Navigation already links it. The accepted remedy refreshes that solution as the Task 5 comparison surface, repoints Continue at the shipped module after the Module 7 self-assessment, and locks both identities on the Module 6 and Module 7 content contracts that already own these files.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/35",
@@ -20,63 +20,99 @@
     "items": [
       {
         "title": "Refresh `solutions/lab-07-scope-lifecycle.md` itself so Result summary, worked approach, acceptance evidence, comparison, Expected failures and recovery, Retry plan, and Reset and cleanup name Task 5, the four retained fields (path, `xbrief:verify` command, exit code, result), and the four Task 5 boundary clauses: verify is not a lifecycle move; a green result grants no promotion, activation, or implementation authority; `xbrief:preflight` and `doctor` are not the authoring-validity pass; and a green structural result does not prove version `0.8`, proposed status, observable acceptance, or traces. Cross-link `solutions/module-06-creating-well-shaped-work.md#structural-record` for the long table. Do not paste the Module 6 shaping rubric into Lab 7.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
         "narrative": {
           "Acceptance": "Refresh `solutions/lab-07-scope-lifecycle.md` itself so Result summary, worked approach, acceptance evidence, comparison, Expected failures and recovery, Retry plan, and Reset and cleanup name Task 5, the four retained fields (path, `xbrief:verify` command, exit code, result), and the four Task 5 boundary clauses: verify is not a lifecycle move; a green result grants no promotion, activation, or implementation authority; `xbrief:preflight` and `doctor` are not the authoring-validity pass; and a green structural result does not prove version `0.8`, proposed status, observable acceptance, or traces. Cross-link `solutions/module-06-creating-well-shaped-work.md#structural-record` for the long table. Do not paste the Module 6 shaping rubric into Lab 7.",
           "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #44 merged as 98643ee5f0b1685a8b7436a27b77d07e5947b9c0. solutions/lab-07-scope-lifecycle.md names Lab 7 Task 5 in Result summary, Worked approach Step 5, Acceptance evidence, Compare with your attempt, Expected failures and recovery, Retry plan, and Reset and cleanup; Step 5 carries the four retained fields and all four boundary clauses plus the module-06-creating-well-shaped-work.md#structural-record sibling cross-link. Verified by scripts/verify-module-6.mjs requireLab7SolutionTask5Contract (npm run check:module-6, exit 0) and by the 17 negative cases in scripts/verify-module-6.test.mjs (npm run test:module-6, 138 pass / 0 fail).",
+          "recorded_at": "2026-09-21T19:25:00Z",
+          "recorded_by": "dbcall2"
+        }
       },
       {
         "title": "Keep Outcomes covered as O7.1–O7.4. Name Task 5 as adjacent Module 6 O6.2 evidence. Do not add O6.2 or O7.5 to the Lab 7 outcome set.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
         "narrative": {
           "Acceptance": "Keep Outcomes covered as O7.1–O7.4. Name Task 5 as adjacent Module 6 O6.2 evidence. Do not add O6.2 or O7.5 to the Lab 7 outcome set.",
           "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #44 merged as 98643ee5f0b1685a8b7436a27b77d07e5947b9c0. The Solution record keeps Outcomes covered as O7.1-O7.4 and the Outcome map keeps four rows; Task 5 is named as adjacent Module 6 O6.2 structural evidence that adds no Lab 7 outcome. Verified by the \"adds no Lab 7 outcome\" lock in scripts/verify-module-6.mjs and by verifyModule7 requireOutcomes over the Outcome map and Acceptance evidence (npm run check:module-6 and npm run check:module-7, both exit 0).",
+          "recorded_at": "2026-09-21T19:25:00Z",
+          "recorded_by": "dbcall2"
+        }
       },
       {
         "title": "Keep the Continue sentence that returns to Module 7 self-assessment. Replace the whole false planned-claim, including \"use the course map rather than assuming a future filename is ready,\" with a working link to `../curriculum/modules/08-session-and-work-selection.md`. Lock that path-correct form. Do not copy Module 7 Navigation's `08-session-and-work-selection.md` href, which is broken from `solutions/`. The course map may remain a secondary pointer after that working link.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
         "narrative": {
           "Acceptance": "Keep the Continue sentence that returns to Module 7 self-assessment. Replace the whole false planned-claim, including \"use the course map rather than assuming a future filename is ready,\" with a working link to `../curriculum/modules/08-session-and-work-selection.md`. Lock that path-correct form. Do not copy Module 7 Navigation's `08-session-and-work-selection.md` href, which is broken from `solutions/`. The course map may remain a secondary pointer after that working link.",
           "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #44 merged as 98643ee5f0b1685a8b7436a27b77d07e5947b9c0. Continue keeps the Module 7 self-assessment return, drops both halves of the planned claim, and links ../curriculum/modules/08-session-and-work-selection.md with the course map as a secondary pointer. Verified by scripts/verify-module-7.mjs (doesNotMatch on \"Module 8 remains planned\" and on the course-map fallback, plus the path-correct link requirement), by verifyLinks, and by the five new negative cases in scripts/verify-module-7.test.mjs (npm run test:module-7, 38 pass / 0 fail).",
+          "recorded_at": "2026-09-21T19:25:00Z",
+          "recorded_by": "dbcall2"
+        }
       },
       {
         "title": "In Compare with your attempt or Retry plan, send a Task 5 miss to Module 6 Part B re-authoring plus rerun of the same command against the same path, retaining both exit codes. Do not route that miss through a Lab 7 outcome retry or a fresh-root reinstall.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:4",
         "narrative": {
           "Acceptance": "In Compare with your attempt or Retry plan, send a Task 5 miss to Module 6 Part B re-authoring plus rerun of the same command against the same path, retaining both exit codes. Do not route that miss through a Lab 7 outcome retry or a fresh-root reinstall.",
           "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #44 merged as 98643ee5f0b1685a8b7436a27b77d07e5947b9c0. Compare with your attempt routes a Task 5 miss to Module 6 Part B re-authoring plus a rerun of the same xbrief:verify command against the same path retaining both exit codes, and the Retry plan states the miss needs no fresh root. Verified by the three routing locks in scripts/verify-module-6.mjs, including the doesNotMatch that refuses the retired blanket outcome retry, with matching negative cases in scripts/verify-module-6.test.mjs.",
+          "recorded_at": "2026-09-21T19:25:00Z",
+          "recorded_by": "dbcall2"
+        }
       },
       {
         "title": "Add that Lab 7 solution to `scripts/verify-module-6.mjs` `requiredFiles` and lock the four-field Task 5 comparison plus \"adds no Lab 7 outcome\" and the four boundary clauses. Update the module-6 synthetic fixture to author a Lab 7 solution body carrying those locked strings, and update the `artifactCount` 15 assertions. On `scripts/verify-module-7.mjs` refuse the retired planned-claim clauses and require the path-correct Module 8 lesson link. Mirror those mutations in `scripts/verify-module-6.test.mjs` and `scripts/verify-module-7.test.mjs`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:5",
         "narrative": {
           "Acceptance": "Add that Lab 7 solution to `scripts/verify-module-6.mjs` `requiredFiles` and lock the four-field Task 5 comparison plus \"adds no Lab 7 outcome\" and the four boundary clauses. Update the module-6 synthetic fixture to author a Lab 7 solution body carrying those locked strings, and update the `artifactCount` 15 assertions. On `scripts/verify-module-7.mjs` refuse the retired planned-claim clauses and require the path-correct Module 8 lesson link. Mirror those mutations in `scripts/verify-module-6.test.mjs` and `scripts/verify-module-7.test.mjs`.",
           "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #44 merged as 98643ee5f0b1685a8b7436a27b77d07e5947b9c0. scripts/verify-module-6.mjs adds solutions/lab-07-scope-lifecycle.md to requiredFiles (16 artifacts) and locks the four-field Task 5 comparison, the adjacency wording, and the four boundary clauses; scripts/verify-module-7.mjs refuses the retired planned-claim clauses and requires the path-correct Module 8 link. No third verifier was added. The module-6 synthetic fixture authors a Lab 7 solution body carrying the locked strings and both artifactCount assertions moved to 16. All 15 new module-6 locks plus both placement locks were mutated away against a copy of the real tree and each went red. npm test: 392 content and 116 runtime tests pass, 0 fail.",
+          "recorded_at": "2026-09-21T19:25:00Z",
+          "recorded_by": "dbcall2"
+        }
       },
       {
         "title": "Bump the solution `Last verified` date with the recut. Do not widen this recut to a Windows verification claim.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:6",
         "narrative": {
           "Acceptance": "Bump the solution `Last verified` date with the recut. Do not widen this recut to a Windows verification claim.",
           "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #44 merged as 98643ee5f0b1685a8b7436a27b77d07e5947b9c0. The Solution record Last verified moved from 2026-09-09 to 2026-09-21 and the Platform limit row is unchanged, so Windows stays a candidate. Verified by scripts/verify-module-7.mjs exactBaseline and its Windows-candidate assertion over the solution prose (npm run check:module-7, exit 0).",
+          "recorded_at": "2026-09-21T19:25:00Z",
+          "recorded_by": "dbcall2"
+        }
       }
     ],
     "tags": [
@@ -475,9 +511,33 @@
           "npm run check:module-6, npm run check:module-7 and npm test each exit 0"
         ],
         "dispatch_kind": "solo"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 44,
+        "prBase": null,
+        "mergeCommit": "98643ee5f0b1685a8b7436a27b77d07e5947b9c0",
+        "deliveryBranch": "master",
+        "deliveryCommit": "98643ee5f0b1685a8b7436a27b77d07e5947b9c0",
+        "verifiedAt": "2026-09-21T19:11:52Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:claude:v1:YTU3NjU4N2MtNjM1Mi00YjkxLWE4NGEtNzQ1MmNkYWM0YWZm"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-21T19:11:52Z",
+      "completedSessionId": "host:claude:v1:YTU3NjU4N2MtNjM1Mi00YjkxLWE4NGEtNzQ1MmNkYWM0YWZm",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-21T19:11:52Z"
       }
     },
     "id": "github.issue.5521334681",
-    "updated": "2026-09-21T18:17:42Z"
+    "updated": "2026-09-21T19:11:52Z"
   }
 }
