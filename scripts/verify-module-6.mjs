@@ -16,6 +16,7 @@ const module6 = "curriculum/modules/06-creating-well-shaped-work.md";
 const solution6 = "solutions/module-06-creating-well-shaped-work.md";
 const module5 = "curriculum/modules/05-sources-versus-projections.md";
 const lab7 = "labs/07-scope-lifecycle.md";
+const lab7Solution = "solutions/lab-07-scope-lifecycle.md";
 const suppliedScopes = [
   "2026-01-15-fictional-delivery.xbrief.json",
   "2026-01-15-fictional-cancel.xbrief.json",
@@ -25,6 +26,7 @@ const requiredFiles = [
   solution6,
   module5,
   lab7,
+  lab7Solution,
   "README.md",
   "curriculum/README.md",
   "assessments/README.md",
@@ -284,6 +286,81 @@ function requireStructuralEvidenceContract(moduleProse, solutionProse, labProse,
   }
 }
 
+/**
+ * Verify that the Lab 7 explained solution is the comparison surface for Task 5: its question
+ * list compares the four retained structural fields, a Task 5 miss is repaired in place rather
+ * than retried as a Lab 7 outcome, the adjacency is stated, and every Task 5 boundary clause the
+ * lab publishes is restated where the learner reads a green result.
+ * @param {string} prose Lab 7 explained-solution prose with code fences removed.
+ * @returns {void}
+ */
+function requireLab7SolutionTask5Contract(prose) {
+  const compare = section(prose, "Compare with your attempt");
+  assert.match(
+    compare,
+    /^\s*\d+\.[^\n]*Task 5/m,
+    "the Lab 7 solution comparison must ask a numbered Task 5 question, not only name the fields in surrounding prose",
+  );
+  for (const [pattern, label] of [
+    [/\*\*path\*\*/i, "artifact path"],
+    [/\*\*command\*\*/i, "exact command"],
+    [/\*\*exit code\*\*/i, "exit code"],
+    [/\*\*result\*\*/i, "result"],
+  ]) {
+    assert.match(compare, pattern, `the Lab 7 solution Task 5 comparison must compare the ${label}`);
+  }
+  assert.doesNotMatch(
+    compare,
+    /Any\s+[“"]no[”"]\s+identifies the smallest outcome to retry/,
+    "a Task 5 miss must not be routed through the blanket Lab 7 outcome retry",
+  );
+  assert.match(
+    compare,
+    /Module 6[^\n]{0,160}Part B/,
+    "a Task 5 miss must route to Module 6 Part B re-authoring",
+  );
+  assert.match(
+    compare,
+    /same `xbrief:verify` command against the same path and retain both exit codes/,
+    "a Task 5 miss must rerun the same command against the same path and retain both exit codes",
+  );
+  assert.match(
+    prose,
+    /adds no Lab 7 outcome/,
+    "the Lab 7 solution must state that Task 5 adds no Lab 7 outcome",
+  );
+  for (const [pattern, label] of [
+    [
+      /`xbrief:verify` is not a lifecycle move\. Do not promote or activate your scope\./,
+      "verify is not a lifecycle move",
+    ],
+    [
+      /A green structural result grants no promotion, no activation, and no implementation authority\./,
+      "a green result grants no promotion, activation, or implementation authority",
+    ],
+    [
+      /`xbrief:preflight` and `doctor` are not the authoring-validity pass\./,
+      "preflight and doctor are not the authoring-validity pass",
+    ],
+    [
+      /The structural result does not prove version `0\.8`, proposed status, observable acceptance,\s+or traces\./,
+      "a green result does not prove version 0.8, proposed status, observable acceptance, or traces",
+    ],
+  ]) {
+    assert.match(prose, pattern, `the Lab 7 solution is missing the Task 5 boundary clause: ${label}`);
+  }
+  assert.doesNotMatch(
+    prose,
+    /\]\(solutions\/module-06-creating-well-shaped-work\.md(?:#[^)]*)?\)/,
+    "the Module 6 cross-link must not use the repository-root path, which does not resolve from solutions/",
+  );
+  assert.match(
+    prose,
+    /\]\(module-06-creating-well-shaped-work\.md#structural-record\)/,
+    "the Lab 7 solution must cross-link the Module 6 structural record with the sibling href that resolves from solutions/",
+  );
+}
+
 function requireModule6Link(content, label) {
   assert.match(content, /\]\([^)]*06-creating-well-shaped-work\.md(?:#[^)]*)?\)/, `${label} is missing Module 6 navigation`);
 }
@@ -438,6 +515,7 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
   }
 
   requireStructuralEvidenceContract(moduleProse, solutionProse, labParts.prose, labCommands);
+  requireLab7SolutionTask5Contract(markdownParts(content.get(lab7Solution)).prose);
 
   const module5Navigation = section(markdownParts(content.get(module5)).prose, "Navigation");
   requireModule6Link(module5Navigation, "Module 5 navigation");

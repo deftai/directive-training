@@ -226,6 +226,55 @@ test("verifier rejects naming the advanced swarm closer more than once", () => {
   assert.throws(() => verifyModule7(root), /exactly once/);
 });
 
+// Module 11 models the shipped-next-module link the same way: a "remains planned" claim is the
+// negative for a lesson that exists in the tree.
+test("verifier rejects a Lab 7 solution that still calls Module 8 planned", () => {
+  const root = splicedCopy(
+    "solutions/lab-07-scope-lifecycle.md",
+    "[Module 8 — Session start and authorized work selection](../curriculum/modules/08-session-and-work-selection.md).",
+    "Module 8 remains planned.",
+  );
+  assert.throws(() => verifyModule7(root), /must not claim that Module 8 is planned/);
+});
+
+test("verifier rejects the retired course-map fallback for a shipped Module 8", () => {
+  const root = splicedCopy(
+    "solutions/lab-07-scope-lifecycle.md",
+    "The [course map](../curriculum/README.md) lists the rest of the path.",
+    "Use the [course map](../curriculum/README.md) rather than assuming a future filename is ready.",
+  );
+  assert.throws(() => verifyModule7(root), /course-map fallback/);
+});
+
+test("verifier rejects a Lab 7 solution that drops the Module 8 lesson link", () => {
+  const root = splicedCopy(
+    "solutions/lab-07-scope-lifecycle.md",
+    "[Module 8 — Session start and authorized work selection](../curriculum/modules/08-session-and-work-selection.md)",
+    "Module 8",
+  );
+  assert.throws(() => verifyModule7(root), /must link the shipped Module 8 lesson/);
+});
+
+// Module 7 Navigation's own href is relative to curriculum/modules/, so copying it into the
+// solution breaks the link rather than pointing at the shipped lesson.
+test("verifier rejects the Module 7 Navigation href copied into the solution", () => {
+  const root = splicedCopy(
+    "solutions/lab-07-scope-lifecycle.md",
+    "](../curriculum/modules/08-session-and-work-selection.md)",
+    "](08-session-and-work-selection.md)",
+  );
+  assert.throws(() => verifyModule7(root), /broken local link/);
+});
+
+test("verifier rejects a Lab 7 solution that drops the Module 7 self-assessment return", () => {
+  const root = splicedCopy(
+    "solutions/lab-07-scope-lifecycle.md",
+    "Return to [Module 7](../curriculum/modules/07-scope-lifecycle.md) and complete its",
+    "Return to Module 7 and complete its",
+  );
+  assert.throws(() => verifyModule7(root), /Continue must return the learner to Module 7/);
+});
+
 test("verifier rejects a quick reference that drops the leftover-completion repair", () => {
   const root = splicedCopy(
     "references/QUICK-REFERENCE.md",

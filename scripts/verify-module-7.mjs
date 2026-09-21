@@ -116,6 +116,32 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(section(moduleProse, "Navigation"), /\]\(\.\.\/README\.md\)/, "Module 7 must link to the course map");
   assert.match(section(moduleProse, "Navigation"), /\]\(08-session-and-work-selection\.md\)/, "Module 7 must link to Module 8");
 
+  // The explained solution lives in solutions/, so the Module 7 Navigation href above does not
+  // resolve from there. Its Continue section keeps the self-assessment return and must forward
+  // the learner to the shipped Module 8 lesson through a solutions-relative href.
+  const solutionProse = parsed.get(solution7).prose;
+  const solutionContinue = section(solutionProse, "Continue");
+  assert.doesNotMatch(
+    solutionProse,
+    /Module 8 remains planned/i,
+    `${solution7} must not claim that Module 8 is planned`,
+  );
+  assert.doesNotMatch(
+    solutionProse,
+    /rather than assuming a future filename is ready/i,
+    `${solution7} must not keep the course-map fallback that was written for an unshipped Module 8`,
+  );
+  assert.match(
+    solutionContinue,
+    /\]\(\.\.\/curriculum\/modules\/07-scope-lifecycle\.md(?:#[^)]*)?\)/,
+    `${solution7} Continue must return the learner to Module 7 and its self-assessment`,
+  );
+  assert.match(
+    solutionContinue,
+    /\]\(\.\.\/curriculum\/modules\/08-session-and-work-selection\.md(?:#[^)]*)?\)/,
+    `${solution7} Continue must link the shipped Module 8 lesson with the solutions-relative href`,
+  );
+
   const labBlocks = parsed.get(lab7).blocks.filter(({ language }) => /^(?:sh|bash|zsh|console)$/.test(language)).map(({ content: block }) => block).join("\n");
   assert.match(labBlocks, /helper="[^"\n]*lifecycle-lab\.mjs"/, `${lab7} must bind the supplied lifecycle helper`);
   for (const command of ["create", "install", "run", "reset", "archive"]) assert.match(labBlocks, new RegExp(`node\\s+"\\$helper"\\s+${command}\\b`), `${lab7} must include the ${command} helper command`);
