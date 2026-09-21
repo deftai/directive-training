@@ -151,17 +151,24 @@ The block fails clearly if that learner input is absent.
 
 ```powershell
 if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
+$Module02OriginalErrorActionPreference = $ErrorActionPreference
+$Module02OriginalNativePreference = $PSNativeCommandUseErrorActionPreference
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
-$Helper = ''
-if (-not [string]::IsNullOrWhiteSpace($env:DIRECTIVE_TRAINING_ROOT)) {
-  $Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
+try {
+  $Helper = ''
+  if (-not [string]::IsNullOrWhiteSpace($env:DIRECTIVE_TRAINING_ROOT)) {
+    $Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
+  }
+  if ([string]::IsNullOrWhiteSpace($Helper)) { throw 'Paste refusal: set DIRECTIVE_TRAINING_ROOT to the absolute curriculum clone path; this is a missing paste, not a boundary stop' }
+  if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
+  $LabRoot = (& node $Helper create | Out-String).Trim()
+  "lab_root=$LabRoot"
+  "module_02_start=ready"
+} finally {
+  $ErrorActionPreference = $Module02OriginalErrorActionPreference
+  $PSNativeCommandUseErrorActionPreference = $Module02OriginalNativePreference
 }
-if ([string]::IsNullOrWhiteSpace($Helper)) { throw 'Paste refusal: set DIRECTIVE_TRAINING_ROOT to the absolute curriculum clone path; this is a missing paste, not a boundary stop' }
-if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
-$LabRoot = (& node $Helper create | Out-String).Trim()
-"lab_root=$LabRoot"
-"module_02_start=ready"
 ```
 
 Set `$env:LAB_ROOT` to the printed path in a separate command, then run
@@ -226,23 +233,30 @@ checks are the learner-visible O2.2 proof: `$lab_root/node_modules/.bin/directiv
 
 ```powershell
 if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
+$Module02OriginalErrorActionPreference = $ErrorActionPreference
+$Module02OriginalNativePreference = $PSNativeCommandUseErrorActionPreference
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
-$Helper = ''
-if (-not [string]::IsNullOrWhiteSpace($env:DIRECTIVE_TRAINING_ROOT)) {
-  $Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
+try {
+  $Helper = ''
+  if (-not [string]::IsNullOrWhiteSpace($env:DIRECTIVE_TRAINING_ROOT)) {
+    $Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
+  }
+  if ([string]::IsNullOrWhiteSpace($Helper)) { throw 'Paste refusal: set DIRECTIVE_TRAINING_ROOT to the absolute curriculum clone path; this is a missing paste, not a boundary stop' }
+  if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
+  & node $Helper guard $env:LAB_ROOT
+  & node $Helper install $env:LAB_ROOT
+  $DirectivePath = Join-Path $env:LAB_ROOT 'node_modules/.bin/directive.cmd'
+  $DeftPath = Join-Path $env:LAB_ROOT 'node_modules/.bin/deft.cmd'
+  if (-not (Test-Path -LiteralPath $DirectivePath -PathType Leaf)) { throw 'project-local Directive CLI is missing' }
+  if (-not (Test-Path -LiteralPath $DeftPath -PathType Leaf)) { throw 'project-local Deft hook runtime is missing' }
+  & $DirectivePath --version
+  & git -C $env:LAB_ROOT log -1 --format=%s
+  & node $Helper guard $env:LAB_ROOT
+} finally {
+  $ErrorActionPreference = $Module02OriginalErrorActionPreference
+  $PSNativeCommandUseErrorActionPreference = $Module02OriginalNativePreference
 }
-if ([string]::IsNullOrWhiteSpace($Helper)) { throw 'Paste refusal: set DIRECTIVE_TRAINING_ROOT to the absolute curriculum clone path; this is a missing paste, not a boundary stop' }
-if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
-& node $Helper guard $env:LAB_ROOT
-& node $Helper install $env:LAB_ROOT
-$DirectivePath = Join-Path $env:LAB_ROOT 'node_modules/.bin/directive.cmd'
-$DeftPath = Join-Path $env:LAB_ROOT 'node_modules/.bin/deft.cmd'
-if (-not (Test-Path -LiteralPath $DirectivePath -PathType Leaf)) { throw 'project-local Directive CLI is missing' }
-if (-not (Test-Path -LiteralPath $DeftPath -PathType Leaf)) { throw 'project-local Deft hook runtime is missing' }
-& $DirectivePath --version
-& git -C $env:LAB_ROOT log -1 --format=%s
-& node $Helper guard $env:LAB_ROOT
 ```
 
 ### What `install` runs for you
@@ -324,15 +338,22 @@ On Windows/PowerShell 7.4+:
 
 ```powershell
 if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
+$Module02OriginalErrorActionPreference = $ErrorActionPreference
+$Module02OriginalNativePreference = $PSNativeCommandUseErrorActionPreference
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
-$Helper = ''
-if (-not [string]::IsNullOrWhiteSpace($env:DIRECTIVE_TRAINING_ROOT)) {
-  $Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
+try {
+  $Helper = ''
+  if (-not [string]::IsNullOrWhiteSpace($env:DIRECTIVE_TRAINING_ROOT)) {
+    $Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
+  }
+  if ([string]::IsNullOrWhiteSpace($Helper)) { throw 'Paste refusal: set DIRECTIVE_TRAINING_ROOT to the absolute curriculum clone path; this is a missing paste, not a boundary stop' }
+  if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
+  & node $Helper diagnose $env:LAB_ROOT
+} finally {
+  $ErrorActionPreference = $Module02OriginalErrorActionPreference
+  $PSNativeCommandUseErrorActionPreference = $Module02OriginalNativePreference
 }
-if ([string]::IsNullOrWhiteSpace($Helper)) { throw 'Paste refusal: set DIRECTIVE_TRAINING_ROOT to the absolute curriculum clone path; this is a missing paste, not a boundary stop' }
-if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
-& node $Helper diagnose $env:LAB_ROOT
 ```
 
 `diagnose` runs these two commands and writes their captured output beside the attempt as
@@ -481,15 +502,22 @@ node "$helper" accept "$lab_root"
 
 ```powershell
 if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
+$Module02OriginalErrorActionPreference = $ErrorActionPreference
+$Module02OriginalNativePreference = $PSNativeCommandUseErrorActionPreference
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
-$Helper = ''
-if (-not [string]::IsNullOrWhiteSpace($env:DIRECTIVE_TRAINING_ROOT)) {
-  $Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
+try {
+  $Helper = ''
+  if (-not [string]::IsNullOrWhiteSpace($env:DIRECTIVE_TRAINING_ROOT)) {
+    $Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
+  }
+  if ([string]::IsNullOrWhiteSpace($Helper)) { throw 'Paste refusal: set DIRECTIVE_TRAINING_ROOT to the absolute curriculum clone path; this is a missing paste, not a boundary stop' }
+  if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
+  & node $Helper accept $env:LAB_ROOT
+} finally {
+  $ErrorActionPreference = $Module02OriginalErrorActionPreference
+  $PSNativeCommandUseErrorActionPreference = $Module02OriginalNativePreference
 }
-if ([string]::IsNullOrWhiteSpace($Helper)) { throw 'Paste refusal: set DIRECTIVE_TRAINING_ROOT to the absolute curriculum clone path; this is a missing paste, not a boundary stop' }
-if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
-& node $Helper accept $env:LAB_ROOT
 ```
 
 `accept` prints `module_02_accept=PASS` only after every row below holds. It re-reads the
@@ -600,11 +628,18 @@ On PowerShell 7.4+, use:
 
 ```powershell
 if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
+$Module02OriginalErrorActionPreference = $ErrorActionPreference
+$Module02OriginalNativePreference = $PSNativeCommandUseErrorActionPreference
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
-$Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
-if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
-& node $Helper recovery-npmrc $env:LAB_ROOT
+try {
+  $Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
+  if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
+  & node $Helper recovery-npmrc $env:LAB_ROOT
+} finally {
+  $ErrorActionPreference = $Module02OriginalErrorActionPreference
+  $PSNativeCommandUseErrorActionPreference = $Module02OriginalNativePreference
+}
 ```
 
 The helper derives the probe file's parent from the printed root, writes an empty npm user
@@ -642,13 +677,20 @@ On Windows/PowerShell 7.4+:
 
 ```powershell
 if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
+$Module02OriginalErrorActionPreference = $ErrorActionPreference
+$Module02OriginalNativePreference = $PSNativeCommandUseErrorActionPreference
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
-$Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
-if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
-$NextRoot = (& node $Helper reset $env:LAB_ROOT | Out-String).Trim()
-"lab_root=$NextRoot"
-& node $Helper guard $NextRoot
+try {
+  $Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
+  if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
+  $NextRoot = (& node $Helper reset $env:LAB_ROOT | Out-String).Trim()
+  "lab_root=$NextRoot"
+  & node $Helper guard $NextRoot
+} finally {
+  $ErrorActionPreference = $Module02OriginalErrorActionPreference
+  $PSNativeCommandUseErrorActionPreference = $Module02OriginalNativePreference
+}
 ```
 
 Then repeat the lab from the starting checkpoint against the new root. The failed attempt
@@ -660,6 +702,8 @@ Cleanup is recoverable: move the exact lab parent into a new operating-system te
 archive. Do not delete it. This lab starts no process, container, listener, or remote service.
 Nothing has to be restored in your shell, because no block ever changed your `PATH` or your
 npm user configuration.
+Each PowerShell block restores the two error-action preferences it sets in its own
+`finally`, so an interactive session is left exactly as it was found.
 
 ### macOS or Linux
 
@@ -679,11 +723,18 @@ node "$helper" archive "$lab_root"
 
 ```powershell
 if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
+$Module02OriginalErrorActionPreference = $ErrorActionPreference
+$Module02OriginalNativePreference = $PSNativeCommandUseErrorActionPreference
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
-$Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
-if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
-& node $Helper archive $env:LAB_ROOT
+try {
+  $Helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
+  if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Paste refusal: no helper file at $Helper; this is a missing paste, not a boundary stop" }
+  & node $Helper archive $env:LAB_ROOT
+} finally {
+  $ErrorActionPreference = $Module02OriginalErrorActionPreference
+  $PSNativeCommandUseErrorActionPreference = $Module02OriginalNativePreference
+}
 ```
 
 `archive` refuses to run while your shell is inside the attempt parent, then moves the parent,

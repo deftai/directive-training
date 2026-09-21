@@ -78,8 +78,13 @@ test("create produces a guarded no-remote attempt and records no caller shell st
   const marker = JSON.parse(read(join(dirname(root), "lab-state.json")));
   assert.equal(marker.lab, "module-02");
   assert.equal(marker.root, root);
+  assert.deepEqual(
+    Object.keys(marker).sort(),
+    ["fixtureDigest", "lab", "root", "schema"],
+    "lab-state.json must replay no caller shell state",
+  );
   const markerText = read(join(dirname(root), "lab-state.json"));
-  for (const forbidden of ["PATH", "npmUserconfig", "NPM_CONFIG_USERCONFIG", process.env.HOME ?? "\u0000"]) {
+  for (const forbidden of ["PATH", "npmUserconfig", "NPM_CONFIG_USERCONFIG"]) {
     assert.equal(markerText.includes(forbidden), false, "lab-state.json must not replay caller state: " + forbidden);
   }
   const manifest = JSON.parse(read(join(root, "package.json")));

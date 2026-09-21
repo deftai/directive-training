@@ -27,6 +27,8 @@ const parentPrefix = "3ci-directive-module-02.";
 const archivePrefix = "3ci-directive-module-02-archive.";
 const attemptPattern = /^attempt-\d{2}\.[A-Za-z0-9]{6}$/;
 const checkpointSubject = "checkpoint: initialize fictional Directive consumer";
+const defaultChildTimeout = 180_000;
+const childTimeoutCeiling = 600_000;
 const gitignoreText = "node_modules/\n/.npm-cache/\n/USER.md\n/.deft/USER.md\n";
 const npmrcText = "registry=https://registry.npmjs.org/\naudit=false\nfund=false\nignore-scripts=true\n";
 
@@ -184,7 +186,10 @@ function hookRuntimeEnv(root) {
 }
 
 function runChild(command, args, options = {}) {
-  const result = spawnSync(command, args, { encoding: "utf8", timeout: 180_000, ...options });
+  // A caller may ask for a longer wait than the default, but never past the ceiling: the spread
+  // must not be able to lift the resource cap.
+  const { timeout = defaultChildTimeout, ...rest } = options;
+  const result = spawnSync(command, args, { encoding: "utf8", ...rest, timeout: Math.min(timeout, childTimeoutCeiling) });
   if (result.error) throw result.error;
   assert.equal(result.signal, null, "Stop: " + basename(command) + " terminated by signal " + result.signal + ".");
   return { exitCode: result.status, stdout: result.stdout ?? "", stderr: result.stderr ?? "" };
