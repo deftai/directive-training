@@ -38,6 +38,7 @@ const solution6 = "solutions/module-06-creating-well-shaped-work.md";
 const module5 = "curriculum/modules/05-sources-versus-projections.md";
 const module7 = "curriculum/modules/07-scope-lifecycle.md";
 const lab7 = "labs/07-scope-lifecycle.md";
+const lab7Solution = "solutions/lab-07-scope-lifecycle.md";
 const moduleHeadings = [
   "Module record", "Learning outcomes", "Structural evidence for O6.2", "Starting-state check", "Why this matters",
   "Terminology", "Mental model", "Guided explanation", "Walkthrough", "Exercise",
@@ -201,6 +202,35 @@ function fixture(t) {
     "",
     "This step is supplied verbatim and adds no Lab 7 outcome.",
   ].join("\n"));
+  write(lab7Solution, document(solutionHeadings, {
+    "Solution record": record,
+    "Result summary": [
+      "Task 5 checked the scope authored in Module 6 Part B. It supplies adjacent Module 6 O6.2",
+      "structural evidence and adds no Lab 7 outcome.",
+    ].join("\n"),
+    "Worked approach": [
+      "### Step 5 — Verify the scope you authored (Task 5)",
+      "",
+      "- `xbrief:verify` is not a lifecycle move. Do not promote or activate your scope.",
+      "- A green structural result grants no promotion, no activation, and no implementation authority.",
+      "- `xbrief:preflight` and `doctor` are not the authoring-validity pass.",
+      "- The structural result does not prove version `0.8`, proposed status, observable acceptance,",
+      "  or traces.",
+      "",
+      "The long table stays in the [Module 6 structural record](module-06-creating-well-shaped-work.md#structural-record).",
+    ].join("\n"),
+    "Compare with your attempt": [
+      "1. Did you record both the Task and engine exits?",
+      "2. Does your Task 5 record carry all four retained fields — the artifact **path**, the exact",
+      "   `xbrief:verify` **command**, the **exit code**, and the **result** line?",
+      "",
+      "A “no” on question 1 identifies the smallest Lab 7 outcome to retry. A “no” on question 2",
+      "is not a Lab 7 outcome miss. Re-author the artifact against",
+      "[Module 6](../curriculum/modules/06-creating-well-shaped-work.md) Part B in place, then rerun",
+      "the same `xbrief:verify` command against the same path and retain both exit codes.",
+    ].join("\n"),
+    "Continue": "Continue to [Module 8](../curriculum/modules/08-session-and-work-selection.md).",
+  }));
   write(module7, "# Module 7\n");
   write("README.md", "# Training\n\n2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.5<!-- /directive-training:teaching-baseline --> with xBRIEF schema 0.8.\n\nContinue with [Module 6](curriculum/modules/06-creating-well-shaped-work.md).\n");
   write("curriculum/README.md", "# Course\n\n| Module | Status |\n| --- | --- |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| [Module 7](modules/07-scope-lifecycle.md) | Learner-ready draft |\n");
@@ -237,7 +267,7 @@ function fixture(t) {
 }
 
 test("accepts a complete command-free Module 6 contract", (t) => {
-  assert.equal(verifyModule6(fixture(t).root).artifactCount, 15);
+  assert.equal(verifyModule6(fixture(t).root).artifactCount, 16);
 });
 
 for (const [path, headings] of [[module6, moduleHeadings], [solution6, solutionHeadings]]) {
@@ -359,7 +389,7 @@ test("rejects a route row whose revision cell names a different identifier", (t)
 
 test("keeps `Not applicable.` as the non-route revision fill", (t) => {
   const files = fixture(t);
-  assert.equal(verifyModule6(files.root).artifactCount, 15);
+  assert.equal(verifyModule6(files.root).artifactCount, 16);
   files.change(solution6, (body) => splice(body, "| no route | Not applicable. |", "| no route | `NS-INGEST-R2` |"));
   assert.throws(() => verifyModule6(files.root), /M6-NOROUTE-01 must not invent a mechanism revision/i);
 });
@@ -603,10 +633,157 @@ for (const [label, path, mutate, pattern] of [
     (body) => splice(body, "command=%s\\n"),
     /must persist the exact structural command/,
   ],
+  [
+    "a Lab 7 solution comparison that never asks about Task 5",
+    lab7Solution,
+    (body) => splice(body, "2. Does your Task 5 record carry", "2. Does your record carry"),
+    /comparison must ask a numbered Task 5 question/,
+  ],
+  [
+    "a Lab 7 solution comparison that drops the artifact path",
+    lab7Solution,
+    (body) => splice(body, "the artifact **path**, the exact", "the exact"),
+    /Task 5 comparison must compare the artifact path/,
+  ],
+  [
+    "a Lab 7 solution comparison that drops the exact command",
+    lab7Solution,
+    (body) => splice(body, "`xbrief:verify` **command**", "`xbrief:verify` output"),
+    /Task 5 comparison must compare the exact command/,
+  ],
+  [
+    "a Lab 7 solution comparison that drops the exit code",
+    lab7Solution,
+    (body) => splice(body, "the **exit code**, and", "and"),
+    /Task 5 comparison must compare the exit code/,
+  ],
+  [
+    "a Lab 7 solution comparison that drops the result line",
+    lab7Solution,
+    (body) => splice(body, "the **result** line", "the summary line"),
+    /Task 5 comparison must compare the result/,
+  ],
+  [
+    "a Task 5 miss routed through the blanket Lab 7 outcome retry",
+    lab7Solution,
+    (body) => splice(
+      body,
+      "A “no” on question 1 identifies the smallest Lab 7 outcome to retry.",
+      "Any “no” identifies the smallest outcome to retry.",
+    ),
+    /must not be routed through the blanket Lab 7 outcome retry/,
+  ],
+  [
+    "a Task 5 miss that never reaches Module 6 Part B re-authoring",
+    lab7Solution,
+    (body) => splice(body, " Part B in place"),
+    /must route to Module 6 Part B re-authoring/,
+  ],
+  [
+    "a Task 5 miss that does not rerun the same command against the same path",
+    lab7Solution,
+    (body) => splice(
+      body,
+      "the same `xbrief:verify` command against the same path and retain both exit codes",
+      "the command again",
+    ),
+    /rerun the same command against the same path and retain both exit codes/,
+  ],
+  [
+    "a Lab 7 solution that silently gives Task 5 an outcome",
+    lab7Solution,
+    (body) => splice(body, "adds no Lab 7 outcome", "adds outcome O7.5"),
+    /must state that Task 5 adds no Lab 7 outcome/,
+  ],
+  [
+    "a Lab 7 solution that lets the authored scope be promoted",
+    lab7Solution,
+    (body) => splice(
+      body,
+      "- `xbrief:verify` is not a lifecycle move. Do not promote or activate your scope.",
+      "- Promote your scope next.",
+    ),
+    /worked approach is missing the Task 5 boundary clause: verify is not a lifecycle move/,
+  ],
+  [
+    "a Lab 7 solution that reads a green result as lifecycle authority",
+    lab7Solution,
+    (body) => splice(
+      body,
+      "- A green structural result grants no promotion, no activation, and no implementation authority.",
+      "- A green structural result clears the scope for promotion.",
+    ),
+    /worked approach is missing the Task 5 boundary clause: a green result grants no promotion, activation, or implementation authority/,
+  ],
+  [
+    "a Lab 7 solution that treats preflight as the authoring-validity pass",
+    lab7Solution,
+    (body) => splice(
+      body,
+      "- `xbrief:preflight` and `doctor` are not the authoring-validity pass.",
+      "- Preflight is the authoring-validity pass.",
+    ),
+    /worked approach is missing the Task 5 boundary clause: preflight and doctor are not the authoring-validity pass/,
+  ],
+  [
+    "a Lab 7 solution that reads exit 0 as a well-shaped verdict",
+    lab7Solution,
+    (body) => splice(
+      body,
+      "- The structural result does not prove version `0.8`, proposed status, observable acceptance,\n  or traces.",
+      "- The structural result proves the whole record.",
+    ),
+    /worked approach is missing the Task 5 boundary clause: a green result does not prove version 0\.8/,
+  ],
+  [
+    "a Lab 7 solution that drops the Module 6 structural-record cross-link",
+    lab7Solution,
+    (body) => splice(
+      body,
+      "[Module 6 structural record](module-06-creating-well-shaped-work.md#structural-record)",
+      "Module 6 structural record",
+    ),
+    /worked approach must cross-link the Module 6 structural record with the sibling href/,
+  ],
+  [
+    "a Module 6 cross-link written as a repository-root path",
+    lab7Solution,
+    (body) => splice(
+      body,
+      "](module-06-creating-well-shaped-work.md#structural-record)",
+      "](solutions/module-06-creating-well-shaped-work.md#structural-record)",
+    ),
+    /must not use the repository-root path/,
+  ],
 ]) {
   test(`rejects ${label}`, (t) => {
     const files = fixture(t);
     files.change(path, mutate);
+    assert.throws(() => verifyModule6(files.root), pattern);
+  });
+}
+
+// Relocation, not deletion: the required text still exists in the file, so only a
+// section-scoped assertion catches it leaving the surface a learner reads at exit `0`.
+for (const [label, moved, pattern] of [
+  [
+    "a Task 5 boundary clause moved out of the worked approach",
+    "- The structural result does not prove version `0.8`, proposed status, observable acceptance,\n  or traces.",
+    /worked approach is missing the Task 5 boundary clause: a green result does not prove version 0\.8/,
+  ],
+  [
+    "a Module 6 cross-link moved out of the worked approach",
+    "The long table stays in the [Module 6 structural record](module-06-creating-well-shaped-work.md#structural-record).",
+    /worked approach must cross-link the Module 6 structural record with the sibling href/,
+  ],
+]) {
+  test(`rejects ${label}`, (t) => {
+    const files = fixture(t);
+    files.change(lab7Solution, (body) => splice(
+      splice(body, moved),
+      "## Misconceptions exposed by this exercise\n\n",
+      `## Misconceptions exposed by this exercise\n\n${moved}\n\n`,
+    ));
     assert.throws(() => verifyModule6(files.root), pattern);
   });
 }
