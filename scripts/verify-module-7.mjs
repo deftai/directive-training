@@ -187,10 +187,13 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   // Quick Reference sits outside the forbiddenShell loop above, so its leftover-completion block needs explicit assertions.
   const quickReference = content.get("references/QUICK-REFERENCE.md");
   const quickReferenceParts = markdownParts(quickReference);
+  // Every command sequence on this surface is a `text` fence, including the Module 7 no-remote block,
+  // so this scan is language-independent on purpose: a shell-language filter would miss the exact block
+  // the contract protects. These verbs stay in prose on this reference, never inside a fence.
   const leftoverVerbs = /verify:orphan-active|verify:completed-tracked|swarm:finalize-cohort/;
   assert.ok(
     !quickReferenceParts.blocks.some(({ content: block }) => leftoverVerbs.test(block)),
-    "quick reference must keep leftover-completion verbs out of its runnable command blocks, including the Module 7 no-remote sequence",
+    "quick reference must keep leftover-completion verbs in prose, out of every fenced command block, including the Module 7 no-remote sequence",
   );
   const leftoverBlock = section(quickReferenceParts.prose, "Leftover completion and tracked closeout");
   for (const verb of ["verify:orphan-active", "verify:completed-tracked"]) {

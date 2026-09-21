@@ -238,6 +238,11 @@ export function verifyModule12(root = fileURLToPath(new URL("../", import.meta.u
   );
   assert.match(
     deliveryAxis,
+    /\*\*delivered provenance\*\* names exactly that tracked\s+closeout[\s\S]{0,200}satisfied `verify:completed-tracked`/,
+    `${module12} must define delivered provenance as tracked closeout so card C7 stays determinate`,
+  );
+  assert.match(
+    deliveryAxis,
     /reachable, locally completed,\s+and untracked[\s\S]{0,240}deliberately not one of the nine cards/,
     `${module12} must leave the untracked-closeout state uncarded rather than contrast it with C7`,
   );

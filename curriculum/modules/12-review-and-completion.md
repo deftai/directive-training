@@ -202,6 +202,10 @@ the recorded closeout artifact is itself tracked on the configured delivery
 branch. Delivered therefore means the change is reachable from the delivery
 branch and its closeout artifact is tracked there.
 
+On the cards below, **delivered provenance** names exactly that tracked
+closeout. A card whose lifecycle closeout records delivered provenance has
+already satisfied `verify:completed-tracked`.
+
 Those two gates leave a third state between them: reachable, locally completed,
 and untracked. That state is deliberately not one of the nine cards below,
 because the packet grades only the fixed evidence it supplies. Its repair is a

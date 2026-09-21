@@ -191,7 +191,7 @@ test("verifier rejects leftover-completion verbs inside the Module 7 no-remote T
     "task deft:scope:complete -- xbrief/active/<scope>.xbrief.json",
     "task deft:scope:complete -- xbrief/active/<scope>.xbrief.json\ntask deft:verify:completed-tracked",
   );
-  assert.throws(() => verifyModule7(root), /out of its runnable command blocks/);
+  assert.throws(() => verifyModule7(root), /out of every fenced command block/);
 });
 
 test("verifier rejects a runnable advanced swarm closer in the quick reference", () => {
@@ -200,7 +200,7 @@ test("verifier rejects a runnable advanced swarm closer in the quick reference",
     "task deft:scope:cancel -- xbrief/proposed/<obsolete-scope>.xbrief.json",
     "task deft:scope:cancel -- xbrief/proposed/<obsolete-scope>.xbrief.json\ndeft swarm:finalize-cohort",
   );
-  assert.throws(() => verifyModule7(root), /out of its runnable command blocks/);
+  assert.throws(() => verifyModule7(root), /out of every fenced command block/);
 });
 
 test("verifier rejects a quick reference that drops the advanced swarm closer", () => {

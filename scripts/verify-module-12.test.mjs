@@ -491,6 +491,15 @@ test("verifier rejects dropping the tracked-delivery wording", () => {
   assert.throws(() => verifyModule12(root), /missing the tracked-delivery wording/);
 });
 
+test("verifier rejects leaving delivered provenance undefined for card C7", () => {
+  const root = splicedCopy(
+    module12Path,
+    "**delivered provenance** names exactly that tracked",
+    "delivered provenance loosely suggests some tracked",
+  );
+  assert.throws(() => verifyModule12(root), /define delivered provenance as tracked closeout/);
+});
+
 test("verifier rejects carding the untracked-closeout state against C7", () => {
   const root = splicedCopy(module12Path, "deliberately not one of the nine cards below", "the state card C7 below already carries");
   assert.throws(() => verifyModule12(root), /uncarded rather than contrast it with C7/);
