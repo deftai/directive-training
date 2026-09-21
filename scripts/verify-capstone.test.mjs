@@ -413,6 +413,18 @@ test("verifier rejects a Task 2 green list that omits the identifier bound", () 
   assert.throws(() => verifyCapstone(root), /lab Task 2 green list must state the WI-999 identifier bound/);
 });
 
+test("verifier rejects a CAP.2 assessment task that drops the exhaustion refusal", () => {
+  const root = changedCopy("assessments/capstone-end-to-end.md", (body) =>
+    withoutFirst(body, "and add throws\n`RangeError` with the exact message `next work-item id would exceed WI-999`\nonce the collection already holds `WI-999`, even when lower identifiers are\nfree. "));
+  assert.throws(() => verifyCapstone(root), /CAP\.2 assessment task must name the WI-999 exhaustion refusal/);
+});
+
+test("verifier rejects a CAP.2 assessment task that drops the legal WI-NNN namespace", () => {
+  const root = changedCopy("assessments/capstone-end-to-end.md", (body) =>
+    withoutFirst(body, "`WI-000` through `WI-999` are legal\nexisting identifiers, an empty collection allocates `WI-001`, "));
+  assert.throws(() => verifyCapstone(root), /CAP\.2 assessment task must state the legal WI-NNN namespace/);
+});
+
 // Executable counterpart to the content contract: the verifier pins the guard as
 // text, and these cases run the very bytes a learner compares against.
 function workedListing(markdown, startHeading, endHeading) {

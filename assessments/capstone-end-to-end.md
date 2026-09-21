@@ -90,9 +90,13 @@ ritual, story-ready check, preflight, or readiness evidence differs.
 Before editing, run `red` and confirm that `red.json` retains the intended
 nested test failure with no changed product file. Then implement only the
 visible work-item contract and run `green`, `focused`, `literal`, and
-`aggregate`. Treat the aggregate's seeded
-`review:evidence` failure as diagnostic success; do not change the Taskfile,
-verifier, acceptance commands, test, or policy.
+`aggregate`. That contract is bounded: `WI-000` through `WI-999` are legal
+existing identifiers, an empty collection allocates `WI-001`, and add throws
+`RangeError` with the exact message `next work-item id would exceed WI-999`
+once the collection already holds `WI-999`, even when lower identifiers are
+free. Treat the aggregate's seeded `review:evidence` failure as diagnostic
+success; do not change the Taskfile, verifier, acceptance commands, test, or
+policy.
 
 The first green version must not reject normalized duplicate titles. That
 behavior belongs to the later classified repair.

@@ -28,6 +28,22 @@
   contract is proved by running the authored bytes rather than only by
   matching them (#36).
 
+- The capstone assessment now names the `WI-NNN` exhaustion bound it grades.
+  `assessments/capstone-end-to-end.md` Task 2 (`CAP.2`) told the examinee to
+  implement "the visible work-item contract" and left the bound unstated, so
+  the graded surface could be read end to end without learning it. That
+  paragraph now carries the contract issue 36 pinned on the lab and both
+  explained listings: `WI-000` through `WI-999` are legal existing
+  identifiers, an empty collection allocates `WI-001`, and add throws
+  `RangeError` with the exact message `next work-item id would exceed WI-999`
+  once the collection already holds `WI-999`, even when lower identifiers are
+  free. `scripts/verify-capstone.mjs` pins that naming on the extracted
+  assessment Task 2 with two sentence-local assertions, so tokens scattered
+  elsewhere in the file cannot satisfy the gate, and two
+  `scripts/verify-capstone.test.mjs` mutations prove each one fails closed.
+  The `green.json` evidence row stays `WI-001 / Capture capstone evidence /
+  open` and the `CAP.2` progressive hints stay evidence-layer (#38).
+
 ### Verified
 
 - Native Windows/PowerShell learner walkthroughs now verify the complete Lab 7,
