@@ -116,6 +116,19 @@
 
 ### Changed
 
+- The core learner path now names the leftover-completion gates. Glossary
+  **delivered** requires lifecycle closeout recorded *and* tracked on the
+  configured delivery branch. Module 12's delivery axis maps
+  `verify:orphan-active` to card C6, repaired by `scope:complete`, and
+  `verify:completed-tracked` to the deliberately uncarded reachable, locally
+  completed, untracked state, repaired by a lifecycle pull request. Module 7 §4
+  and the Lab 7 Done statement point forward to that gate without adding a
+  remote-capable command, and the quick reference gains a separate
+  leftover-completion block — outside the Module 7 no-remote Task sequence —
+  naming both verifiers with their preconditions and `swarm:finalize-cohort`
+  once as an advanced option this course never invokes. The nine-card lock,
+  O12.4, the Module 12 solution table, and the frozen C7 `Delivered` key are
+  unchanged (#22).
 - Upgrade the complete Directive teaching baseline from 0.119.2 to the verified
   0.119.5 release across authoring metadata, curriculum, solutions, six
   disposable fixtures, workflows, verifiers, and maintainer evidence.

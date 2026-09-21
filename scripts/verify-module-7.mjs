@@ -177,6 +177,39 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   for (const phrase of ["task deft:scope:promote", "task deft:scope:activate", "task deft:xbrief:preflight", "live implementation intent"]) assert.match(content.get("references/QUICK-REFERENCE.md"), new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"), `quick reference is missing Module 7 guidance: ${phrase}`);
   assert.match(content.get("references/SOURCE-BASELINE.md"), /^## Module 7 (?:source boundary|lifecycle validation)\s*$/m, "source baseline is missing Module 7 lifecycle validation");
 
+  // The lab ends at local closeout, so its Done statement must name the gate that decides tracked closeout.
+  const labDone = section(parsed.get(lab7).prose, "Done statement");
+  assert.ok(labDone.includes("`verify:completed-tracked`"), `${lab7} Done statement must name verify:completed-tracked as the tracked-closeout gate`);
+  assert.match(labDone, /\]\([^)]*12-review-and-completion\.md(?:#[^)]*)?\)/, `${lab7} Done statement must forward-link Module 12 for tracked closeout`);
+  assert.match(labDone, /claims no\s+leftover completion and no tracked closeout/, `${lab7} Done statement must state that this no-remote lab claims no tracked closeout`);
+  assert.doesNotMatch(labDone, /swarm:finalize-cohort/, `${lab7} Done statement must keep cohort orchestration out of the lab sequence`);
+
+  // Quick Reference sits outside the forbiddenShell loop above, so its leftover-completion block needs explicit assertions.
+  const quickReference = content.get("references/QUICK-REFERENCE.md");
+  const quickReferenceParts = markdownParts(quickReference);
+  // Every command sequence on this surface is a `text` fence, including the Module 7 no-remote block,
+  // so this scan is language-independent on purpose: a shell-language filter would miss the exact block
+  // the contract protects. These verbs stay in prose on this reference, never inside a fence.
+  const leftoverVerbs = /verify:orphan-active|verify:completed-tracked|swarm:finalize-cohort/;
+  assert.ok(
+    !quickReferenceParts.blocks.some(({ content: block }) => leftoverVerbs.test(block)),
+    "quick reference must keep leftover-completion verbs in prose, out of every fenced command block, including the Module 7 no-remote sequence",
+  );
+  const leftoverBlock = section(quickReferenceParts.prose, "Leftover completion and tracked closeout");
+  for (const verb of ["verify:orphan-active", "verify:completed-tracked"]) {
+    assert.ok(leftoverBlock.includes(`\`${verb}\``), `quick reference leftover-completion block is missing ${verb}`);
+  }
+  assert.match(leftoverBlock, /no-remote/i, "quick reference leftover-completion block must keep its remote precondition");
+  assert.match(leftoverBlock, /general repair[\s\S]{0,160}lifecycle pull request/i, "quick reference leftover-completion block must name a lifecycle pull request as the general repair");
+  assert.ok(leftoverBlock.includes("`swarm:finalize-cohort`"), "quick reference leftover-completion block must name the advanced swarm closer");
+  assert.match(leftoverBlock, /advanced orchestration/i, "quick reference must treat the advanced swarm closer as orchestration, not a learner step");
+  assert.match(leftoverBlock, /never invokes it/i, "quick reference must keep the advanced swarm closer named but not invoked");
+  assert.equal(
+    (quickReference.match(/swarm:finalize-cohort/g) ?? []).length,
+    1,
+    "quick reference must name swarm:finalize-cohort exactly once",
+  );
+
   const project = JSON.parse(content.get("xbrief/PROJECT-DEFINITION.xbrief.json"));
   const projectItems = project.plan.items.filter((item) => item.id === "2026-09-08-module-7-scope-lifecycle-and-implementation-authorization");
   assert.equal(projectItems.length, 1, "PROJECT-DEFINITION must register Module 7 exactly once");

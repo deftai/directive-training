@@ -217,6 +217,46 @@ export function verifyModule12(root = fileURLToPath(new URL("../", import.meta.u
   for (const card of ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"]) {
     assert.ok(hasExactIdentifier(moduleProse, card), `${module12} is missing completion card ${card}`);
   }
+
+  // The delivery axis names one gate per half; the untracked-closeout failure shape stays deliberately uncarded.
+  const deliveryAxis = subsection(
+    section(moduleProse, "Guided explanation"),
+    "4. State only what the evidence proves",
+    `${module12} delivery-axis explanation`,
+  );
+  assert.match(deliveryAxis, /`verify:orphan-active` decides \*\*C6\*\*/, `${module12} must map verify:orphan-active to completion card C6`);
+  assert.match(deliveryAxis, /its repair\s+is `scope:complete`/, `${module12} must name scope:complete as the C6 repair`);
+  assert.match(
+    deliveryAxis,
+    /`verify:completed-tracked` decides the other half[\s\S]{0,240}tracked on the configured delivery\s+branch/,
+    `${module12} must map verify:completed-tracked to tracked closeout on the delivery branch`,
+  );
+  assert.match(
+    deliveryAxis,
+    /reachable from the delivery\s+branch and its closeout artifact is tracked there/,
+    `${module12} is missing the tracked-delivery wording`,
+  );
+  assert.match(
+    deliveryAxis,
+    /\*\*delivered provenance\*\* names exactly that tracked\s+closeout[\s\S]{0,200}satisfied `verify:completed-tracked`/,
+    `${module12} must define delivered provenance as tracked closeout so card C7 stays determinate`,
+  );
+  assert.match(
+    deliveryAxis,
+    /reachable, locally completed,\s+and untracked[\s\S]{0,240}deliberately not one of the nine cards/,
+    `${module12} must leave the untracked-closeout state uncarded rather than contrast it with C7`,
+  );
+  assert.match(deliveryAxis, /repair is a\s+lifecycle pull request/, `${module12} must name a lifecycle pull request as the untracked-closeout repair`);
+  assert.match(
+    section(moduleProse, "Expected failures and recovery"),
+    /^\| A local closeout is called delivered \|[^\n]*`verify:completed-tracked`[^\n]*lifecycle pull request \|$/m,
+    `${module12} recovery table is missing the untracked-closeout row`,
+  );
+  assert.match(
+    section(moduleProse, "Common misconceptions"),
+    /Completed means landed\.[\s\S]{0,240}`verify:completed-tracked`/,
+    `${module12} is missing the completed-means-landed misconception`,
+  );
   const exercise = section(moduleProse, "Exercise");
   const prePrWorksheet = subsection(exercise, "Worksheet A — pre-PR loop", "pre-PR worksheet");
   for (const pass of ["Pass A", "Pass B"]) {

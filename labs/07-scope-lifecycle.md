@@ -459,3 +459,9 @@ Use this form without widening the claim:
 > archived. My own Module 6 proposed scope passed `xbrief:verify` at a retained path with a
 > retained command, exit code, and result, and stayed in `proposed/`. No remote or product
 > implementation occurred, and no structural result granted lifecycle authority.
+
+That claim stops at local lifecycle closeout. This lab has no remote, so it claims no
+leftover completion and no tracked closeout: whether a recorded `completed/` artifact is
+itself tracked on a configured delivery branch is decided by `verify:completed-tracked`,
+which [Module 12](../curriculum/modules/12-review-and-completion.md) covers. That gate reads a
+remote delivery tip, so it is not part of this no-remote sequence and you do not run it here.

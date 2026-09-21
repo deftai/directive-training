@@ -221,7 +221,7 @@ curricular evidence, not a new lifecycle-engine gate.
 | `task deft:scope:cancel` | Exit `0`; the separate proposed story became `cancelled/cancelled`. |
 | `task deft:session:start` then `task deft:verify:session-ritual` | Exits `0`, `0` under one current session ID after activation. |
 | `task deft:xbrief:preflight` on active | Exit `0` after explicit current lab intent and the session gates. |
-| `task deft:scope:complete` | Exit `0`; the active story became `completed/completed`. This fixture contains no product implementation, so completion is not called delivery. |
+| `task deft:scope:complete` | Exit `0`; the active story became `completed/completed`. This fixture contains no product implementation, so completion is not called delivery. The resulting `completed/` artifact stays untracked inside the disposable repository, and an untracked `completed/` artifact is not land. |
 
 The fixture writes the expected failure before promotion, creates a different unique root for
 reset, and uses an exact-parent rename into a recoverable temporary archive for cleanup. The

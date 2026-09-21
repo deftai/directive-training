@@ -186,13 +186,31 @@ Use three axes:
 
 | Axis | Questions |
 | --- | --- |
-| Git, review, and delivery | Is there only a local change, a PR, current-head merge-ready evidence, an integration merge, or both delivery-branch reachability and lifecycle closeout? |
+| Git, review, and delivery | Is there only a local change, a PR, current-head merge-ready evidence, an integration merge, or both delivery-branch reachability and tracked lifecycle closeout? |
 | Deployment | Is there an environment-specific record tying the revision to a running environment? |
 | UAT | Is there an authorized acceptance result for the named environment and behavior? |
 
 Deployment and UAT are independent. A Git merge proves neither. Deployment
 does not prove UAT, and UAT evidence for one environment does not invent a
 deployment record for another.
+
+The delivery axis has two separately decided halves, and Directive names one
+deterministic gate for each. `verify:orphan-active` decides **C6**: whether a
+merged change still has its lifecycle scope sitting in `active/`, and its repair
+is `scope:complete`. `verify:completed-tracked` decides the other half: whether
+the recorded closeout artifact is itself tracked on the configured delivery
+branch. Delivered therefore means the change is reachable from the delivery
+branch and its closeout artifact is tracked there.
+
+On the cards below, **delivered provenance** names exactly that tracked
+closeout. A card whose lifecycle closeout records delivered provenance has
+already satisfied `verify:completed-tracked`.
+
+Those two gates leave a third state between them: reachable, locally completed,
+and untracked. That state is deliberately not one of the nine cards below,
+because the packet grades only the fixed evidence it supplies. Its repair is a
+lifecycle pull request that lands the `completed/` artifact on the delivery
+branch.
 
 ## Walkthrough
 
@@ -344,6 +362,7 @@ this exercise.
 | One change is pushed for each finding | Finding count was mistaken for batch structure | Group the blocking in-scope repair, tests, and consistency checks into one coherent batch |
 | H1 review is cited for H2 | Review evidence was not bound to the current head | Mark H1 stale and require a fresh H2 review |
 | C5 or C6 is called delivered | Integration merge or reachability was treated as the whole delivery contract | Require both delivery-branch reachability and lifecycle closeout with delivered provenance |
+| A local closeout is called delivered | The `completed/` artifact was recorded but never tracked on the delivery branch | Name `verify:completed-tracked` as the deciding gate, then land the artifact through a lifecycle pull request |
 | Git evidence is used for deployment or UAT | Independent evidence axes were collapsed | Mark the unsupported axis unknown and name the missing record |
 
 Reset by making fresh blank worksheets. This command-free exercise creates no
@@ -361,6 +380,9 @@ repository or remote state and needs no cleanup.
 - “Merge-ready means merge now.” Readiness does not grant merge authority.
 - “Merged means delivered.” The configured delivery branch and lifecycle
   closeout still matter.
+- “Completed means landed.” A local `scope:complete` records lifecycle closeout;
+  `verify:completed-tracked` decides whether that closeout is tracked on the
+  configured delivery branch.
 - “Delivered means deployed and accepted.” Deployment and UAT need their own
   evidence.
 

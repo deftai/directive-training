@@ -173,6 +173,27 @@ and do not relabel the wrapper result as the engine contract. See
 [Module 7](../curriculum/modules/07-scope-lifecycle.md) and its
 [disposable lab](../labs/07-scope-lifecycle.md).
 
+## Leftover completion and tracked closeout
+
+This block sits outside the Module 7 Task sequence above. Both verbs below read
+a configured delivery branch and a fetched remote tip, so neither belongs in
+Lab 7 or in any other no-remote disposable repository.
+
+| Verb | What it decides | Precondition | Repair when it fails |
+| --- | --- | --- | --- |
+| `verify:orphan-active` | Whether merged work still has its lifecycle scope left in `active/` | A configured delivery branch and a fetched `origin/<delivery-branch>` tip | `scope:complete` on the named active scope |
+| `verify:completed-tracked` | Whether the recorded closeout artifact is tracked on that delivery branch | The same delivery-tip read, resolved against `origin/<delivery-branch>` rather than a local feature head | A lifecycle pull request that lands the `completed/` artifact |
+
+A local `scope:complete` is valid lifecycle closeout, but a `completed/`
+artifact that exists only in one working tree is not land. The general repair
+for a missing tracked artifact is a lifecycle pull request.
+
+`swarm:finalize-cohort` is the advanced orchestration alternative that sweeps
+leftover closeouts for a whole cohort in one pass. It is named here so the term
+is not a surprise later; this course never invokes it, and its operation belongs
+to the [future advanced electives](../curriculum/README.md#future-advanced-electives)
+and to the Envelope SLA in a project's AGENTS.md.
+
 ## Session and work selection
 
 Classify posture before running ceremony:
