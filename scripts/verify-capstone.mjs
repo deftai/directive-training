@@ -25,6 +25,7 @@ const fixtureTaskfilePath = "labs/fixtures/capstone-end-to-end/Taskfile.yml";
 const fixturePackagePath = "labs/fixtures/capstone-end-to-end/package.json";
 const fixtureTestPath = "labs/fixtures/capstone-end-to-end/test/work-items.test.mjs";
 const workflowPath = ".github/workflows/capstone-platform-validation.yml";
+const rehearsalPath = "scripts/capstone-lab.test.mjs";
 
 const stageOrder = [
   "CREATED",
@@ -149,7 +150,7 @@ const staticRequiredFiles = [
   "labs/fixtures/capstone-end-to-end/scripts/verify-evidence.mjs",
   "labs/fixtures/capstone-end-to-end/safety.mjs",
   workflowPath,
-  "scripts/capstone-lab.test.mjs",
+  rehearsalPath,
   "scripts/verify-capstone.mjs",
   "scripts/verify-capstone.test.mjs",
 ];
@@ -233,6 +234,12 @@ const executableLanguage = /^(?:sh|shell|bash|zsh|powershell|pwsh|console)$/;
 const forbiddenCommand = /\b(?:git\s+(?:push\b|remote\s+(?:add|remove|rename|set-url|prune|update)\b|reset\s+--hard\b|clean\b|checkout\s+--(?:\s|$)|branch\s+-D\b|merge\b)|gh\s+(?!--version(?:\s|$))|npm\s+publish\b|(?:directive|deft)\s+(?:deploy|publish|release)\b|rm\s+-[\w-]*r[\w-]*\b|Remove-Item\b|(?:del|rmdir)\s+\/s\b|(?:curl|wget|Invoke-WebRequest|Invoke-RestMethod)\b)/i;
 const staleAvailability = /capstone (?:remains|is) planned|planned two-hour capstone|still-planned capstone|keeping the capstone planned|capstone[^\n|]*\|\s*Not yet available/i;
 const escapeRegExp = (value) => value.replace(/[\^$.*+?()[\]{}|\\]/g, "\\$&");
+// Pinned bounded-namespace contract for the capstone work-item identifier (#36).
+const identifierBoundMessage = "next work-item id would exceed WI-999";
+const identifierBoundThrow = 'throw new RangeError("' + identifierBoundMessage + '");';
+// The guard is pinned as condition-plus-throw, so an ineffective condition
+// (`if (false)`) around the right throw statement still fails the contract.
+const identifierBoundGuard = /if \(highest >= 999\)\s*\{?\s*throw new RangeError\("next work-item id would exceed WI-999"\);/;
 
 function readRequiredFiles(root, paths) {
   const values = new Map();
@@ -572,6 +579,53 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.doesNotMatch(greenWorked, /title duplicates an existing work item/, "green implementation must preserve the seeded review finding");
   const reviewedWorked = solution.match(/### 6\. Make the reviewed source-only repair([\s\S]*?)### 7\./)?.[1] ?? "";
   assert.match(reviewedWorked, /title duplicates an existing work item/, "reviewed implementation must reject normalized duplicates");
+
+  const rehearsal = content.get(rehearsalPath);
+  // Bounded WI-NNN namespace (#36): every authored copy of addWorkItem must
+  // refuse at WI-999 rather than emit WI-1000, with one pinned RangeError.
+  assert.equal(
+    countToken(solution, identifierBoundThrow),
+    2,
+    "solution must pin the WI-999 identifier bound in both worked addWorkItem implementations",
+  );
+  for (const [stage, worked] of [["green", greenWorked], ["reviewed", reviewedWorked]]) {
+    const reduceIndex = worked.indexOf("const highest = items.reduce");
+    const guard = identifierBoundGuard.exec(worked);
+    const constructIndex = worked.indexOf('padStart(3, "0")');
+    assert.ok(reduceIndex >= 0, stage + " implementation must calculate the highest suffix");
+    assert.ok(guard, stage + " implementation must refuse on `highest >= 999`, not on an ineffective condition");
+    assert.ok(guard.index > reduceIndex, stage + " implementation must pin the WI-999 identifier bound after the highest-suffix calculation");
+    assert.ok(constructIndex > guard.index, stage + " implementation must pin the WI-999 identifier bound before constructing the new item");
+  }
+  const labTask2 = content.get(labPath).match(/### Task 2 —[\s\S]*?(?=\n### Task 3 —)/)?.[0] ?? "";
+  assert.ok(labTask2, "lab is missing the Task 2 (CAP.2) stage");
+  for (const token of ["`RangeError`", identifierBoundMessage, "even when lower identifiers are free"]) {
+    assert.ok(labTask2.includes(token), "lab Task 2 green list must state the WI-999 identifier bound: " + token);
+  }
+  assert.ok(
+    section(parsed.get(solutionPath).prose, "Valid alternatives").includes(identifierBoundMessage),
+    "solution valid alternatives must keep the WI-999 identifier bound",
+  );
+  const boundaryCase = content.get(fixtureTestPath).match(/test\("refuses to allocate past the bounded WI-999 identifier"[\s\S]*?\n\}\);/)?.[0] ?? "";
+  assert.ok(boundaryCase, "supplied test must carry the focused WI-999 identifier bound case");
+  assert.ok(boundaryCase.includes('{ id: "WI-999"'), "supplied WI-999 case must start from a collection whose maximum suffix is 999");
+  assert.match(boundaryCase, /name: "RangeError"/, "supplied WI-999 case must assert the documented RangeError type");
+  assert.ok(boundaryCase.includes('message: "' + identifierBoundMessage + '"'), "supplied WI-999 case must assert the pinned identifier bound message");
+  assert.match(boundaryCase, /assert\.deepEqual\(existing,/, "supplied WI-999 case must prove the input collection is unchanged");
+  assert.match(content.get(fixtureTestPath), /preserves 50 ordinary fictional work-item inputs/, "supplied suite must keep the 50-item ordinary-range test");
+  const rehearsalGreen = rehearsal.match(/const greenImplementation = `([\s\S]*?)`\.trimStart\(\);/)?.[1] ?? "";
+  assert.ok(rehearsalGreen, "capstone rehearsal is missing the green implementation string");
+  const rehearsalReduce = rehearsalGreen.indexOf("const highest = items.reduce");
+  const rehearsalGuard = identifierBoundGuard.exec(rehearsalGreen);
+  assert.ok(rehearsalReduce >= 0, "rehearsal green implementation must calculate the highest suffix");
+  assert.ok(rehearsalGuard, "rehearsal green implementation must refuse on `highest >= 999`, not on an ineffective condition");
+  assert.ok(rehearsalGuard.index > rehearsalReduce, "rehearsal green implementation must pin the WI-999 bound after the reduce so the reviewed copy inherits it");
+  assert.match(
+    rehearsal,
+    /const reviewedImplementation = greenImplementation\.replace\(\s*"const highest = items\.reduce",/,
+    "rehearsal reviewed implementation must stay derived from the green string",
+  );
+  assert.equal(countToken(rehearsal, identifierBoundThrow), 1, "rehearsal must carry one authored WI-999 guard, not a second hand-written copy");
   for (const heading of ["Valid alternatives", "Expected failures and recovery", "Misconceptions exposed", "Retry plan", "Reset and archive"]) {
     assert.ok(section(parsed.get(solutionPath).prose, heading).trim(), "solution is missing required recovery section: " + heading);
   }

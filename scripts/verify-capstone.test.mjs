@@ -3,7 +3,7 @@ import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, renameSync, w
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { test } from "node:test";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { verifyCapstone } from "./verify-capstone.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
@@ -44,6 +44,18 @@ function changedCopy(path, transform) {
   assert.notEqual(after, before, "negative mutation must change " + path);
   writeFileSync(target, after);
   return root;
+}
+
+function withoutFirst(body, snippet) {
+  const index = body.indexOf(snippet);
+  assert.ok(index >= 0, "mutation snippet must exist in the copied artifact");
+  return body.slice(0, index) + body.slice(index + snippet.length);
+}
+
+function replaceFirst(body, snippet, replacement) {
+  const index = body.indexOf(snippet);
+  assert.ok(index >= 0, "mutation snippet must exist in the copied artifact");
+  return body.slice(0, index) + replacement + body.slice(index + snippet.length);
 }
 
 function alternateLifecycleCopy() {
@@ -362,6 +374,140 @@ test("verifier rejects a broken capstone cross-link", () => {
   const root = changedCopy("solutions/capstone-end-to-end.md", (body) =>
     body.replace("../assessments/capstone-end-to-end.md", "../assessments/missing.md"));
   assert.throws(() => verifyCapstone(root), /broken local link/);
+});
+
+test("verifier rejects removing the supplied WI-999 boundary case", () => {
+  const root = changedCopy("labs/fixtures/capstone-end-to-end/test/work-items.test.mjs", (body) => {
+    const start = body.indexOf('test("refuses to allocate past the bounded WI-999 identifier"');
+    assert.ok(start >= 0, "supplied suite must carry the WI-999 boundary case");
+    const end = body.indexOf("\n});\n\n", start);
+    assert.ok(end > start, "WI-999 boundary case must be a complete test block");
+    return body.slice(0, start) + body.slice(end + "\n});\n\n".length);
+  });
+  assert.throws(() => verifyCapstone(root), /focused WI-999 identifier bound case/);
+});
+
+test("verifier rejects a green rehearsal implementation without the WI-999 guard", () => {
+  const root = changedCopy("scripts/capstone-lab.test.mjs", (body) =>
+    withoutFirst(body, '  if (highest >= 999) throw new RangeError("next work-item id would exceed WI-999");\n'));
+  assert.throws(() => verifyCapstone(root), /rehearsal green implementation must refuse on/);
+});
+
+test("verifier rejects a rehearsal guard hoisted above the reduce", () => {
+  const guard = '  if (highest >= 999) throw new RangeError("next work-item id would exceed WI-999");\n';
+  const reduce = "  const highest = items.reduce((value, item) => Math.max(value, Number(item.id.slice(3))), 0);\n";
+  const root = changedCopy("scripts/capstone-lab.test.mjs", (body) =>
+    replaceFirst(withoutFirst(body, guard), reduce, guard + reduce));
+  assert.throws(() => verifyCapstone(root), /after the reduce so the reviewed copy inherits it/);
+});
+
+test("verifier rejects a worked green implementation that can emit WI-1000", () => {
+  const root = changedCopy("solutions/capstone-end-to-end.md", (body) =>
+    withoutFirst(body, '  if (highest >= 999) {\n    throw new RangeError("next work-item id would exceed WI-999");\n  }\n'));
+  assert.throws(() => verifyCapstone(root), /both worked addWorkItem implementations/);
+});
+
+test("verifier rejects a Task 2 green list that omits the identifier bound", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) =>
+    withoutFirst(body, "- refuse to allocate outside the bounded `WI-NNN` namespace: `WI-000` through\n  `WI-999` are legal existing identifiers, an empty collection allocates\n  `WI-001`, and add throws `RangeError` with the exact message\n  `next work-item id would exceed WI-999` once the collection already holds\n  `WI-999`, even when lower identifiers are free;\n"));
+  assert.throws(() => verifyCapstone(root), /lab Task 2 green list must state the WI-999 identifier bound/);
+});
+
+// Executable counterpart to the content contract: the verifier pins the guard as
+// text, and these cases run the very bytes a learner compares against.
+function workedListing(markdown, startHeading, endHeading) {
+  const slice = markdown.slice(markdown.indexOf(startHeading), markdown.indexOf(endHeading));
+  const listings = [...slice.matchAll(/~~~js\n([\s\S]*?)~~~/g)].map((match) => match[1]);
+  assert.equal(listings.length, 1, startHeading + " must carry exactly one worked listing");
+  return listings[0];
+}
+
+async function loadAuthoredImplementations() {
+  const scratch = mkdtempSync(join(tmpdir(), "capstone-boundary-"));
+  const solution = readFileSync(join(repositoryRoot, "solutions/capstone-end-to-end.md"), "utf8").replace(/\r\n/g, "\n");
+  const rehearsalSource = readFileSync(join(repositoryRoot, "scripts/capstone-lab.test.mjs"), "utf8").replace(/\r\n/g, "\n");
+
+  // Evaluate the rehearsal pair exactly as the runtime suite derives it, so the
+  // derived reviewed copy is proved rather than assumed to inherit the guard.
+  const pairTail = "  const highest = items.reduce`,\n);\n";
+  const pairStart = rehearsalSource.indexOf("const greenImplementation = `");
+  const pairEnd = rehearsalSource.indexOf(pairTail, pairStart);
+  assert.ok(pairStart >= 0 && pairEnd > pairStart, "rehearsal implementation pair must be extractable");
+  const pairPath = join(scratch, "pair.mjs");
+  writeFileSync(
+    pairPath,
+    rehearsalSource.slice(pairStart, pairEnd + pairTail.length)
+      + "\nexport { greenImplementation, reviewedImplementation };\n",
+  );
+  const pair = await import(pathToFileURL(pairPath).href);
+
+  const named = [
+    ["solution green listing", workedListing(solution, "### 3. Write the intentionally incomplete green implementation", "### 4."), false],
+    ["solution reviewed listing", workedListing(solution, "### 6. Make the reviewed source-only repair", "### 7."), true],
+    ["rehearsal greenImplementation", pair.greenImplementation, false],
+    ["rehearsal reviewedImplementation", pair.reviewedImplementation, true],
+  ];
+
+  const loaded = [];
+  for (const [label, source, rejectsDuplicates] of named) {
+    const modulePath = join(scratch, "impl-" + loaded.length + ".mjs");
+    writeFileSync(modulePath, source);
+    loaded.push({ label, rejectsDuplicates, module: await import(pathToFileURL(modulePath).href) });
+  }
+  return loaded;
+}
+
+test("every authored addWorkItem refuses the WI-999 bound when executed", async () => {
+  const implementations = await loadAuthoredImplementations();
+  assert.equal(implementations.length, 4, "capstone must carry two worked listings and the derived rehearsal pair");
+
+  for (const { label, module } of implementations) {
+    const atBound = [{ id: "WI-999", title: "Last addressable work item", status: "open" }];
+    assert.throws(
+      () => module.addWorkItem(atBound, "One work item too many"),
+      { name: "RangeError", message: "next work-item id would exceed WI-999" },
+      label + " must refuse at WI-999",
+    );
+    assert.deepEqual(atBound, [{ id: "WI-999", title: "Last addressable work item", status: "open" }], label + " must not mutate the refused input");
+
+    assert.throws(
+      () => module.addWorkItem([
+        { id: "WI-000", title: "Zeroth", status: "open" },
+        { id: "WI-999", title: "Last", status: "open" },
+      ], "One work item too many"),
+      { name: "RangeError", message: "next work-item id would exceed WI-999" },
+      label + " must refuse monotonically, not fill the free lower identifiers",
+    );
+
+    assert.equal(module.addWorkItem([{ id: "WI-998", title: "Still allocatable", status: "open" }], "Final").at(-1).id, "WI-999", label + " must still allocate WI-999");
+    assert.equal(module.addWorkItem([], "First").at(-1).id, "WI-001", label + " must allocate WI-001 from empty");
+    assert.equal(module.addWorkItem([{ id: "WI-000", title: "Zeroth", status: "open" }], "Next").at(-1).id, "WI-001", label + " must treat WI-000 as a legal existing identifier");
+
+    let items = [];
+    for (let index = 1; index <= 120; index += 1) items = module.addWorkItem(items, "Item " + index);
+    assert.deepEqual(module.summarizeWorkItems(items), { total: 120, open: 120, done: 0 }, label + " must preserve ordinary allocation");
+  }
+});
+
+test("the executed boundary proof keeps the CAP.3 seeded duplicate distinction", async () => {
+  for (const { label, rejectsDuplicates, module } of await loadAuthoredImplementations()) {
+    const seeded = [{ id: "WI-001", title: "Review onboarding", status: "open" }];
+    if (rejectsDuplicates) {
+      assert.throws(() => module.addWorkItem(seeded, "  review ONBOARDING  "), /duplicates an existing work item/, label + " must reject normalized duplicates");
+    } else {
+      assert.equal(module.addWorkItem(seeded, "  review ONBOARDING  ").length, 2, label + " must still expose the seeded duplicate defect");
+    }
+  }
+});
+
+test("verifier rejects an ineffective WI-999 guard condition", () => {
+  const root = changedCopy("solutions/capstone-end-to-end.md", (body) => replaceFirst(body, "if (highest >= 999) {", "if (false) {"));
+  assert.throws(() => verifyCapstone(root), /ineffective condition/);
+});
+
+test("verifier rejects an ineffective WI-999 guard condition in the rehearsal", () => {
+  const root = changedCopy("scripts/capstone-lab.test.mjs", (body) => replaceFirst(body, "if (highest >= 999) throw", "if (false) throw"));
+  assert.throws(() => verifyCapstone(root), /ineffective condition/);
 });
 
 test("verifier rejects reading the solution as completion evidence", () => {

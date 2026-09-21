@@ -223,6 +223,11 @@ implementation must:
 - validate the collection and every existing work item;
 - require a nonempty trimmed title;
 - allocate the next `WI-NNN` from the highest numeric suffix, not array length;
+- refuse to allocate outside the bounded `WI-NNN` namespace: `WI-000` through
+  `WI-999` are legal existing identifiers, an empty collection allocates
+  `WI-001`, and add throws `RangeError` with the exact message
+  `next work-item id would exceed WI-999` once the collection already holds
+  `WI-999`, even when lower identifiers are free;
 - return a new array and new item from add;
 - validate the completion ID, reject a missing item, and return a new collection
   without mutating any input; and

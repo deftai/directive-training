@@ -44,6 +44,23 @@ test("rejects malformed collections, titles, identifiers, and missing work items
   assert.throws(() => summarizeWorkItems([{ id: "WI-001", title: "Bad", status: "unknown" }]), /open or done/);
 });
 
+test("refuses to allocate past the bounded WI-999 identifier", () => {
+  const existing = [
+    { id: "WI-000", title: "Seed the collection", status: "done" },
+    { id: "WI-999", title: "Last addressable work item", status: "open" },
+  ];
+
+  assert.throws(() => addWorkItem(existing, "One work item too many"), {
+    name: "RangeError",
+    message: "next work-item id would exceed WI-999",
+  });
+  assert.deepEqual(existing, [
+    { id: "WI-000", title: "Seed the collection", status: "done" },
+    { id: "WI-999", title: "Last addressable work item", status: "open" },
+  ]);
+  assert.equal(addWorkItem([{ id: "WI-998", title: "Still allocatable", status: "open" }], "Final identifier").at(-1).id, "WI-999");
+});
+
 test("preserves 50 ordinary fictional work-item inputs", () => {
   let items = [];
   for (let index = 1; index <= 50; index += 1) {
