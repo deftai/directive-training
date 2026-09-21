@@ -15,9 +15,11 @@ const requiredFiles = [
   "curriculum/modules/02-installation-and-anatomy.md",
   "curriculum/modules/03-authority-and-context.md",
   "labs/02-disposable-initialization.md",
+  "labs/fixtures/02-disposable-initialization/init-lab.mjs",
   "labs/fixtures/02-disposable-initialization/package.json",
   "labs/README.md",
   "package.json",
+  "scripts/init-lab.test.mjs",
   "references/GLOSSARY.md",
   "references/QUICK-REFERENCE.md",
   "references/SOURCE-BASELINE.md",
@@ -167,6 +169,11 @@ for (const [relativePath, headings] of Object.entries(headingContracts)) {
 const module2 = read("curriculum/modules/02-installation-and-anatomy.md");
 const module3 = read("curriculum/modules/03-authority-and-context.md");
 const lab2 = read("labs/02-disposable-initialization.md");
+// Lab 2 runs through a course helper invoked in a fresh subprocess per fence
+// (deftai/directive-training#18). The safety, pin, and npm-isolation guarantees that used to
+// live in the lab's own shell functions now live in that helper, so the contract follows them
+// there instead of relaxing them.
+const initHelper = read("labs/fixtures/02-disposable-initialization/init-lab.mjs");
 const lab2Solution = read("solutions/lab-02-disposable-initialization.md");
 const module3Solution = read("solutions/module-03-authority-and-context.md");
 const assessments = read("assessments/README.md");
@@ -311,24 +318,118 @@ for (const content of [module2, lab2, lab2Solution]) {
 }
 assert.match(lab2, /doctor --full --project-root \./, "Lab 2 must teach the verified doctor project-root flag");
 for (const requiredSafetyPattern of [
-  /git_root="\$\(git rev-parse --show-toplevel\)"/,
-  /temporary parent is inside another Git repository/,
-  /status --porcelain --untracked-files=all/,
-  /for archived_attempt in "\$archive_target"\/attempt-\*/,
   /\$PSNativeCommandUseErrorActionPreference = \$true/,
   /\$PSVersionTable\.PSVersion -lt \[version\]'7\.4'/,
-  /evidence_note="\$lab_parent\/evidence\.md"/,
-  /local_bin="\$lab_root\/node_modules\/\.bin"/,
-  /test "\$resolved_deft" = "\$local_bin\/deft"/,
+  /status --porcelain --untracked-files=all/,
   /git ls-files --error-unmatch/,
-  /g\.contentVersion!=="0\.119\.5"/,
-  /x\.xBRIEFInfo\?\.version!=="0\.8"/,
-  /core\.hooksPath/,
-  /p\.devDependencies\?\.\["@deftai\/directive"\].*0\.119\.5/,
+  /core\.hooksPath|check-ignore/,
 ]) {
   assert.match(lab2, requiredSafetyPattern, "Lab 2 is missing a fail-closed safety or pin check");
 }
-assert.doesNotMatch(lab2, /git[^\n]*remote[^\n]*\|\|\s*true/, "Lab 2 must not swallow a Git remote inspection failure");
+for (const requiredHelperPattern of [
+  /"rev-parse", "--show-toplevel"/,
+  /Stop: temporary parent is inside another Git repository\./,
+  /"status", "--porcelain", "--untracked-files=all"/,
+  /attemptPattern\.test\(entry\.name\)/,
+  /Stop: archived attempt has a remote/,
+  /join\(parent, "evidence\.md"\)/,
+  /join\(root, "node_modules\/\.bin"\)/,
+  /resolveOnPath\("deft", hookPath\)/,
+  /"ls-files", "--error-unmatch"/,
+  /generation\.contentVersion/,
+  /xBRIEFInfo\?\.version/,
+  /"config", "--get", "core\.hooksPath"/,
+  /devDependencies\?\.\["@deftai\/directive"\], exactVersion/,
+]) {
+  assert.match(initHelper, requiredHelperPattern, "the Lab 2 helper is missing a fail-closed safety or pin check");
+}
+for (const [relativePath, content] of [
+  ["labs/02-disposable-initialization.md", lab2],
+  ["labs/fixtures/02-disposable-initialization/init-lab.mjs", initHelper],
+]) {
+  assert.doesNotMatch(
+    content,
+    /git[^\n]*remote[^\n]*\|\|\s*true/,
+    relativePath + " must not swallow a Git remote inspection failure",
+  );
+}
+
+// #18: every fence after create runs in a fresh subprocess from the course-relative helper path
+// plus the one printed absolute attempt root. No fence may reintroduce carried shell state.
+assert.ok(
+  [...lab2.matchAll(/node "\$helper" (?:create|guard|install|diagnose|accept|reset|archive|recovery-npmrc)\b/g)].length >= 8,
+  "Lab 2 must drive every step through the course helper",
+);
+for (const carriedState of [
+  "module_02_start()",
+  "module_02_initialize()",
+  "module_02_diagnose()",
+  "module_02_accept()",
+  "module_02_archive()",
+  "module_02_restore_environment",
+  'module_02_original_path="$PATH"',
+  "$Module02OriginalPath = $env:PATH",
+  "assert_no_remote()",
+  "assert_lab_root()",
+  "in the same terminal session",
+  "in the same PowerShell session",
+]) {
+  assert.ok(
+    !lab2.includes(carriedState),
+    "Lab 2 must not carry live shell state between command blocks: " + carriedState,
+  );
+}
+// Fence-level guards on the helper path, separate from the in-helper root refusal. Both refusal
+// texts must stay distinguishable from a safety-boundary stop.
+assert.match(lab2, /test -n "\$helper" \|\| \{ echo "Paste refusal:/, "Lab 2 fences must refuse an empty helper path");
+assert.match(lab2, /test -f "\$helper" \|\| \{ echo "Paste refusal:/, "Lab 2 fences must refuse a missing helper file");
+assert.match(
+  initHelper,
+  /Usage refusal: pass exactly one absolute attempt root[\s\S]{0,200}not a boundary stop/,
+  "the helper must refuse an empty or relative root with text distinguishable from a boundary stop",
+);
+assert.match(
+  initHelper,
+  /function requireAbsoluteRootArgument\(value\) \{[\s\S]{0,400}isAbsolute\(value\)[\s\S]{0,200}return value;/,
+  "the helper must refuse a non-absolute root before resolve or join touches it",
+);
+assert.match(
+  initHelper,
+  /Runtime refusal: the project-local binary is missing or not executable[\s\S]{0,240}not a boundary stop/,
+  "the helper must refuse a missing project-local runtime with text distinguishable from a boundary stop",
+);
+// Learner-visible O2.2 proof stays the explicit project-local launcher paths.
+for (const explicitProof of [
+  'test -x "$lab_root/node_modules/.bin/directive"',
+  'test -x "$lab_root/node_modules/.bin/deft"',
+  '"$lab_root/node_modules/.bin/directive" --version',
+]) {
+  assert.ok(lab2.includes(explicitProof), "Lab 2 must keep the explicit project-local O2.2 proof: " + explicitProof);
+}
+// A missing printed-root paste is a usage problem, never "Stop if the root guard fails".
+assert.doesNotMatch(
+  lab2,
+  /Stop if the root guard fails/,
+  "Lab 2 must not describe a missing printed-root paste as a failed root guard",
+);
+for (const distinguishedRefusal of [
+  "`Paste refusal: …`",
+  "`lab-02: Usage refusal: …`",
+  "`lab-02: Runtime refusal: …`",
+  "`lab-02: Stop: …`",
+]) {
+  assert.ok(lab2.includes(distinguishedRefusal), "Lab 2 must name the refusal class: " + distinguishedRefusal);
+}
+assert.match(
+  lab2,
+  /A `Paste refusal:` or `Usage refusal:` is not a boundary stop/,
+  "the Lab 2 safety boundary must separate a missing paste from a boundary stop",
+);
+assert.match(
+  lab2,
+  /\| Refusal class \|[^\n]*not a `Paste refusal` or a `Usage refusal`/,
+  "the Task 4 fact table must classify the provided failure against the refusal classes",
+);
 assert.doesNotMatch(
   lab2,
   /git check-ignore -v PATH/,
@@ -368,20 +469,43 @@ assert.match(
   /worked repository-boundary answer[\s\S]{0,240}`directive doctor`[\s\S]{0,240}disposable Northstar consumer repository[\s\S]{0,240}`task check:framework-source`[\s\S]{0,240}maintainer-only[\s\S]{0,240}`deftai\/directive` source checkout/i,
   "The Lab 2 solution must explain one concrete consumer surface and one maintainer-only surface",
 );
-for (const requiredEnvironmentCleanup of [
-  'module_02_original_path="$PATH"',
-  'module_02_had_npm_userconfig',
-  'PATH="$module_02_original_path"',
-  "$Module02OriginalPath = $env:PATH",
-  "$Module02HadNpmUserConfig",
-  "$env:PATH = $Module02OriginalPath",
-  "SetEnvironmentVariable('NPM_CONFIG_USERCONFIG', $null",
+// #18 recut: the lab no longer mutates the caller's PATH or npm user configuration, so there is
+// nothing to restore. The guarantee moved up a level -- the caller environment is never touched,
+// and no caller state is replayed out of the marker into a later attempt.
+assert.match(
+  lab2,
+  /Nothing has to be restored in your shell, because no block ever changed your `PATH` or your\s+npm user configuration\./,
+  "Lab 2 cleanup must state that the caller environment was never changed",
+);
+assert.match(
+  lab2,
+  /deliberately records no caller `PATH` and no npm user\s+configuration/,
+  "Lab 2 must state that the marker replays no caller shell state",
+);
+for (const requiredHelperEnvironmentRule of [
+  'env -i PATH="$PATH" HOME="$HOME"',
+  'normalized.startsWith("npm_config_")',
+  'normalized !== "npm_token"',
+  'normalized !== "node_auth_token"',
+  "withoutHostNpmConfig(governingEnv())",
 ]) {
   assert.ok(
-    lab2.includes(requiredEnvironmentCleanup),
-    "Lab 2 must restore the caller environment: " + requiredEnvironmentCleanup,
+    initHelper.includes(requiredHelperEnvironmentRule),
+    "the Lab 2 helper must govern child environments: " + requiredHelperEnvironmentRule,
   );
 }
+assert.match(
+  initHelper,
+  /const allowed = process\.platform === "win32"[\s\S]{0,400}: \["PATH", "HOME"\];/,
+  "the Lab 2 helper must keep a closed caller-environment allowlist",
+);
+const markerLiteral = initHelper.match(/JSON\.stringify\(\{ (schema: "3ci\.training\.module02\.lab-state\.v1"[^}]*)\}/);
+assert.ok(markerLiteral, "the Lab 2 helper must write a versioned lab-state marker");
+assert.deepEqual(
+  markerLiteral[1].split(",").map((field) => field.split(":")[0].trim()),
+  ["schema", "lab", "root", "fixtureDigest"],
+  "lab-state.json must record only the lab identity and fixture digest -- no caller PATH and no npm user configuration",
+);
 assert.doesNotMatch(
   lab2,
   /export DIRECTIVE_TRAINING_ROOT=["']\/absolute\/path|GetFullPath\(["']C:\\absolute\\path/i,
@@ -405,16 +529,22 @@ assert.match(
   /LF will be replaced by CRLF[\s\S]{0,300}core\.autocrlf=true[\s\S]{0,500}(?:exit code|checkpoint)/i,
   "Lab 2 recovery must explain non-failing autocrlf checkpoint warnings",
 );
+assert.match(lab2, /registry=https:\/\/registry\.npmjs\.org\//, "Lab 2 must show the public-registry npm config it writes");
+assert.match(
+  lab2,
+  /npm install --userconfig <root>\/\.npmrc --globalconfig \/dev\/null --cache <root>\/\.npm-cache --ignore-scripts --no-audit --no-fund/,
+  "Lab 2 must quote the isolated public-registry install the helper runs",
+);
 for (const npmIsolationPattern of [
   /registry=https:\/\/registry\.npmjs\.org\//,
-  /env -i PATH="\$PATH" HOME="\$HOME" npm install --userconfig "\$lab_root\/\.npmrc" --globalconfig \/dev\/null --cache "\$lab_root\/\.npm-cache"/,
-  /Object\.entries\(process\.env\)\.filter\(\(\[key\]\) => !\/\^npm_config_\/i\.test\(key\)\)/,
-  /"--userconfig", "\.npmrc", "--globalconfig", "NUL", "--cache", "\.npm-cache"/,
+  /"--userconfig", join\(root, "\.npmrc"\),/,
+  /"--globalconfig", devNull,/,
+  /"--cache", join\(root, "\.npm-cache"\),/,
 ]) {
-  assert.match(lab2, npmIsolationPattern, "Lab 2 must isolate its normal public-registry npm install");
+  assert.match(initHelper, npmIsolationPattern, "the Lab 2 helper must isolate its normal public-registry npm install");
 }
 assert.match(lab2, /\?\? \.npmrc/, "Lab 2 starting status must include its public-registry npm config");
-assert.match(lab2, /\.npmrc\|/, "Lab 2 staging allowlist must include its npm config");
+assert.match(initHelper, /\/\^\\\.npmrc\$\//, "the Lab 2 staging allowlist must include its npm config");
 for (const [relativePath, content] of [
   ["curriculum/modules/01-what-directive-is.md", module1],
   ["solutions/module-01-what-directive-is.md", module1Solution],
