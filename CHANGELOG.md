@@ -19,7 +19,9 @@
   Task 5 is named as adjacent Module 6 O6.2 evidence that adds no Lab 7 outcome, so
   a Task 5 miss routes to Module 6 Part B re-authoring plus a rerun of the same
   command against the same path rather than to a Lab 7 outcome retry or a fresh
-  root. `Continue` now links the shipped
+  root; exit `1` is named as a retained diagnostic rather than O6.2 completion, and
+  the solution now says to preserve `evidence/authored-verify.txt` before that rerun
+  because the supplied redirect truncates it. `Continue` now links the shipped
   [Module 8](curriculum/modules/08-session-and-work-selection.md) lesson instead of
   claiming it is planned. The Module 6 and Module 7 content contracts lock both
   identities; no third verifier was added (#35).

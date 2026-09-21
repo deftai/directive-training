@@ -296,6 +296,7 @@ function requireStructuralEvidenceContract(moduleProse, solutionProse, labProse,
  */
 function requireLab7SolutionTask5Contract(prose) {
   const compare = section(prose, "Compare with your attempt");
+  const worked = section(prose, "Worked approach");
   assert.match(
     compare,
     /^\s*\d+\.[^\n]*Task 5/m,
@@ -347,7 +348,7 @@ function requireLab7SolutionTask5Contract(prose) {
       "a green result does not prove version 0.8, proposed status, observable acceptance, or traces",
     ],
   ]) {
-    assert.match(prose, pattern, `the Lab 7 solution is missing the Task 5 boundary clause: ${label}`);
+    assert.match(worked, pattern, `the Lab 7 solution worked approach is missing the Task 5 boundary clause: ${label}`);
   }
   assert.doesNotMatch(
     prose,
@@ -355,9 +356,9 @@ function requireLab7SolutionTask5Contract(prose) {
     "the Module 6 cross-link must not use the repository-root path, which does not resolve from solutions/",
   );
   assert.match(
-    prose,
+    worked,
     /\]\(module-06-creating-well-shaped-work\.md#structural-record\)/,
-    "the Lab 7 solution must cross-link the Module 6 structural record with the sibling href that resolves from solutions/",
+    "the Lab 7 solution worked approach must cross-link the Module 6 structural record with the sibling href that resolves from solutions/",
   );
 }
 

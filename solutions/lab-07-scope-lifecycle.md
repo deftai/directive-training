@@ -188,8 +188,13 @@ supplied command. Retain all four fields from `evidence/authored-verify.txt`:
 | **Exit code** | `0` |
 | **Result** | the `xbrief:verify` result line naming the checked path |
 
-Exit `0` against that exact path is the positive structural result; exit `1` names the first
-structural defect in your file. Both are complete O6.2 evidence once all four fields are kept.
+Exit `0` against that exact path is the positive structural result and, with all four fields
+kept, complete O6.2 evidence. Exit `1` names the first structural defect in your file; it is a
+retained diagnostic, not O6.2 completion, so repair the record and rerun until it exits `0`.
+
+The supplied command truncates `evidence/authored-verify.txt` on every run. Copy that file aside
+or write down its `exit=` line before you rerun; retaining both exit codes is your job, and the
+supplied redirect does not do it for you.
 
 Exit `0` is where a learner is most tempted to conclude the artifact is well shaped. It is not.
 Lab 7 publishes four boundary clauses, and all four still hold:
@@ -264,7 +269,8 @@ Ask these questions:
 A “no” on questions 1–7 identifies the smallest Lab 7 outcome to retry. A “no” on question 8
 is not a Lab 7 outcome miss, because Task 5 adds no Lab 7 outcome. Re-author the artifact
 against [Module 6](../curriculum/modules/06-creating-well-shaped-work.md) Part B in place, then
-rerun the same `xbrief:verify` command against the same path and retain both exit codes.
+rerun the same `xbrief:verify` command against the same path and retain both exit codes. Step 5
+names how: the supplied redirect truncates the evidence file, so preserve that record beforehand.
 
 ## Valid alternatives
 
@@ -289,7 +295,7 @@ a remote-enabled fixture are not valid alternatives.
 | Folder/status mismatch | Do not hand-edit either half; reset and rerun commands. |
 | Missing live-intent flag | Supply it only if you currently choose to perform this lab run. |
 | Archive target refusal | Return to the course root and use the exact absolute path; never broaden the helper. |
-| Task 5 exits `1` | Repair the authored record in place against Module 6 Part B, rerun the same command against the same path, and retain both exit codes. |
+| Task 5 exits `1` | Preserve the first `evidence/authored-verify.txt`; the supplied command truncates it on rerun. Then repair the authored record in place against Module 6 Part B, rerun the same command against the same path, and retain both exit codes. |
 | Task 5 exits `0` and the scope looks ready to promote | Keep it `proposed/proposed`. Reread the four Task 5 boundary clauses in Step 5; none of them grants a lifecycle move or implementation authority. |
 
 ## Misconceptions exposed by this exercise
@@ -316,8 +322,9 @@ a remote-enabled fixture are not valid alternatives.
 A Task 5 miss uses none of those steps and needs no fresh root. Re-author the artifact against
 [Module 6](../curriculum/modules/06-creating-well-shaped-work.md) Part B inside the same
 attempt, rerun the same `xbrief:verify` command against the same path, and retain both exit
-codes with the artifact path and the result line. The four Task 5 boundary clauses in Step 5
-still hold once it exits `0`.
+codes with the artifact path and the result line. Copy the first `evidence/authored-verify.txt`
+aside before that rerun, because the supplied redirect truncates it. The four Task 5 boundary
+clauses in Step 5 still hold once it exits `0`.
 
 Stop after three identical no-progress failures and report a curriculum defect with sanitized
 paths, versions, exits, and output. Do not loop indefinitely.

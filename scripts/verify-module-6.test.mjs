@@ -703,7 +703,7 @@ for (const [label, path, mutate, pattern] of [
       "- `xbrief:verify` is not a lifecycle move. Do not promote or activate your scope.",
       "- Promote your scope next.",
     ),
-    /boundary clause: verify is not a lifecycle move/,
+    /worked approach is missing the Task 5 boundary clause: verify is not a lifecycle move/,
   ],
   [
     "a Lab 7 solution that reads a green result as lifecycle authority",
@@ -713,7 +713,7 @@ for (const [label, path, mutate, pattern] of [
       "- A green structural result grants no promotion, no activation, and no implementation authority.",
       "- A green structural result clears the scope for promotion.",
     ),
-    /boundary clause: a green result grants no promotion, activation, or implementation authority/,
+    /worked approach is missing the Task 5 boundary clause: a green result grants no promotion, activation, or implementation authority/,
   ],
   [
     "a Lab 7 solution that treats preflight as the authoring-validity pass",
@@ -723,7 +723,7 @@ for (const [label, path, mutate, pattern] of [
       "- `xbrief:preflight` and `doctor` are not the authoring-validity pass.",
       "- Preflight is the authoring-validity pass.",
     ),
-    /boundary clause: preflight and doctor are not the authoring-validity pass/,
+    /worked approach is missing the Task 5 boundary clause: preflight and doctor are not the authoring-validity pass/,
   ],
   [
     "a Lab 7 solution that reads exit 0 as a well-shaped verdict",
@@ -733,7 +733,7 @@ for (const [label, path, mutate, pattern] of [
       "- The structural result does not prove version `0.8`, proposed status, observable acceptance,\n  or traces.",
       "- The structural result proves the whole record.",
     ),
-    /boundary clause: a green result does not prove version 0\.8/,
+    /worked approach is missing the Task 5 boundary clause: a green result does not prove version 0\.8/,
   ],
   [
     "a Lab 7 solution that drops the Module 6 structural-record cross-link",
@@ -743,7 +743,7 @@ for (const [label, path, mutate, pattern] of [
       "[Module 6 structural record](module-06-creating-well-shaped-work.md#structural-record)",
       "Module 6 structural record",
     ),
-    /must cross-link the Module 6 structural record with the sibling href/,
+    /worked approach must cross-link the Module 6 structural record with the sibling href/,
   ],
   [
     "a Module 6 cross-link written as a repository-root path",
@@ -759,6 +759,31 @@ for (const [label, path, mutate, pattern] of [
   test(`rejects ${label}`, (t) => {
     const files = fixture(t);
     files.change(path, mutate);
+    assert.throws(() => verifyModule6(files.root), pattern);
+  });
+}
+
+// Relocation, not deletion: the required text still exists in the file, so only a
+// section-scoped assertion catches it leaving the surface a learner reads at exit `0`.
+for (const [label, moved, pattern] of [
+  [
+    "a Task 5 boundary clause moved out of the worked approach",
+    "- The structural result does not prove version `0.8`, proposed status, observable acceptance,\n  or traces.",
+    /worked approach is missing the Task 5 boundary clause: a green result does not prove version 0\.8/,
+  ],
+  [
+    "a Module 6 cross-link moved out of the worked approach",
+    "The long table stays in the [Module 6 structural record](module-06-creating-well-shaped-work.md#structural-record).",
+    /worked approach must cross-link the Module 6 structural record with the sibling href/,
+  ],
+]) {
+  test(`rejects ${label}`, (t) => {
+    const files = fixture(t);
+    files.change(lab7Solution, (body) => splice(
+      splice(body, moved),
+      "## Misconceptions exposed by this exercise\n\n",
+      `## Misconceptions exposed by this exercise\n\n${moved}\n\n`,
+    ));
     assert.throws(() => verifyModule6(files.root), pattern);
   });
 }
