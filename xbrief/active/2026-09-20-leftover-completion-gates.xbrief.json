@@ -1,0 +1,144 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Name the leftover-completion gates on the core learner path",
+    "created": "2026-09-20T23:40:00Z",
+    "updated": "2026-09-21T01:07:45Z",
+    "author": "agent:deft-directive-swarm"
+  },
+  "plan": {
+    "id": "training.leftover-completion-gates",
+    "title": "Module 12 reaches tracked lifecycle closeout",
+    "status": "running",
+    "narratives": {
+      "Description": "The course teaches delivery-branch reachability and lifecycle closeout but never grades whether that closeout is tracked, and never names verify:orphan-active, verify:completed-tracked or swarm:finalize-cohort to a learner. A learner who finishes Module 12 believing C7 is the end state will strand active briefs on their first real merge.",
+      "Acceptance": "Given the learner-facing tree, when a reader greps curriculum, labs, references and solutions for verify:orphan-active, verify:completed-tracked and swarm:finalize-cohort, then each name is present on at least one core-path surface, and node scripts/verify-module-7.mjs, node scripts/verify-module-12.mjs and npm test all exit 0.",
+      "Traces": "deftai/directive-training#22; accepted synthesis 'design-critique: synthesis accepted'; successor lean 5751272452; verified-claims table 5751328539; line cites anchored to dispatch SHA dacc9299",
+      "QualityGate": "npm test, plus node scripts/verify-module-7.mjs and node scripts/verify-module-12.mjs. Run deft check separately as the aggregate merge chokepoint.",
+      "UserStory": "As a learner finishing the core path, I want Module 12 to name the gate that decides whether lifecycle closeout is tracked, so that I do not strand an active brief on my first real merge.",
+      "ImplementationPlan": "Sharpen references/GLOSSARY.md delivered so closeout must be recorded and tracked on the configured delivery branch. Settle C7's delivered provenance as tracked closeout under that definition, with verify:completed-tracked as the gate that decides it and its failure shape left deliberately uncarded. Recut Module 12's Guided explanation section 4, one recovery row and one misconception, mapping verify:orphan-active to C6 and verify:completed-tracked to the uncarded untracked state. Add one successor sentence to Module 7 section 4 and a non-command Lab 7 Done pointer naming verify:completed-tracked. Add a separate leftover-completion block to references/QUICK-REFERENCE.md outside the Module 7 no-remote Task sequence, naming both verifiers with their preconditions, a lifecycle PR as the general repair, and swarm:finalize-cohort once as named-but-not-invoked. Extend the Module 7 and Module 12 verifiers and their focused tests to lock those statements. Keep the nine-card lock, O12.4, the frozen C7 Delivered key and the capstone mirrors untouched."
+    },
+    "items": [
+      {
+        "id": "training.leftover-completion-gates.glossary",
+        "title": "Sharpen the delivered definition in references/GLOSSARY.md",
+        "status": "proposed",
+        "effort": "S",
+        "narrative": {
+          "Acceptance": "Given references/GLOSSARY.md, when a reader looks up delivered, then it states that lifecycle closeout must be recorded and tracked on the configured delivery branch, and that a local scope:complete remains valid lifecycle closeout but is not land."
+        }
+      },
+      {
+        "id": "training.leftover-completion-gates.module12",
+        "title": "Recut Module 12 command-free surfaces",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "Given Module 12 Guided explanation section 4, when a learner reads the delivery axis, then verify:orphan-active is named as deciding C6 with repair scope:complete and verify:completed-tracked is named as deciding C7 tracked closeout and contrasted with an uncarded untracked state repaired by a lifecycle PR; and when node scripts/verify-module-12.mjs runs, then it exits 0 with exactly nine completion rows and C7 still keyed Delivered."
+        }
+      },
+      {
+        "id": "training.leftover-completion-gates.module7",
+        "title": "Add the successor sentence to Module 7 section 4 and the Lab 7 Done pointer",
+        "status": "proposed",
+        "effort": "S",
+        "narrative": {
+          "Acceptance": "Given curriculum/modules/07-scope-lifecycle.md section 4, when a learner finishes the scope:complete and scope:cancel pair, then one sentence states that delivered work additionally requires the completed artifact tracked on the delivery branch and links forward to Module 12; and given the Lab 7 Done statement, when a learner reaches it, then a non-command pointer names verify:completed-tracked while the lab sequence still contains no remote-capable command."
+        }
+      },
+      {
+        "id": "training.leftover-completion-gates.quickref",
+        "title": "Add a separate leftover-completion block to references/QUICK-REFERENCE.md",
+        "status": "proposed",
+        "effort": "S",
+        "narrative": {
+          "Acceptance": "Given references/QUICK-REFERENCE.md, when a learner reads past the Module 7 no-remote Task block, then a separate labelled block names verify:orphan-active and verify:completed-tracked with their delivery-tip and remote preconditions, names a lifecycle PR as the general repair, and names swarm:finalize-cohort once as a named-but-not-invoked advanced option; and references/SOURCE-BASELINE.md Lab 7 row states that an untracked completed artifact is not land."
+        }
+      },
+      {
+        "id": "training.leftover-completion-gates.verifiers",
+        "title": "Extend the Module 7 and Module 12 content contracts",
+        "status": "proposed",
+        "effort": "M",
+        "narrative": {
+          "Acceptance": "Given node scripts/verify-module-7.mjs and node scripts/verify-module-12.mjs, when either runs against the recut content, then it exits 0; and when the Lab 7 Done pointer verify:completed-tracked name or the Quick Reference swarm-closer treatment is removed, then the focused tests in scripts/verify-module-7.test.mjs and scripts/verify-module-12.test.mjs fail."
+        }
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "node scripts/verify-module-7.mjs",
+        "node scripts/verify-module-12.mjs",
+        "npm test"
+      ],
+      "none_stated": false,
+      "source_rung": "stated",
+      "derived_reason": "derived 5 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "delivered means lifecycle closeout is recorded and tracked on the configured delivery branch. Local scope:complete stays valid lifecycle closeout; it is not land.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "C7's delivered provenance means tracked closeout under the sharpened glossary, and verify:completed-tracked is the gate that decides C7. Its failure shape (reachable, locally completed, untracked) is a state the nine-card set deliberately does not carry. Guided explanation section 4, one recovery row and one misconception ('Completed means landed') are recut. verify:orphan-active maps to C6 with repair scope:complete; verify:completed-tracked is the contrast with the uncarded untracked-closeout state with repair a lifecycle PR, not a contrast with C7. The nine-card lock, O12.4, the Module 12 solution table and the frozen C7 Delivered key are kept. No C10. Capstone S5/S6 inherit the sharpened definition and are not edited.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "curriculum/modules/07-scope-lifecycle.md section 4 gains one sentence after the scope:complete / scope:cancel pair: local completion proves lifecycle mechanism, and delivered work additionally requires the completed artifact tracked on the delivery branch, with a forward link to Module 12. The labs/07-scope-lifecycle.md Done statement gains a non-command forward pointer to Module 12 that names verify:completed-tracked and states leftover-completion / tracked closeout is not claimed by this no-remote lab. No remote-capable commands and no swarm:finalize-cohort in the lab sequence.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Leftover-completion verbs are not appended inside the Module 7 no-remote Task block. A separate block, labelled outside that sequence, names verify:orphan-active and verify:completed-tracked with delivery-tip and remote preconditions, names a lifecycle PR as the general repair, and names swarm:finalize-cohort once as a named-but-not-invoked advanced orchestration option whose operation stays in parked electives and the AGENTS.md Envelope SLA. That swarm name is mandatory on this surface, not optional. references/SOURCE-BASELINE.md's Lab 7 row is extended: untracked completed/ is not land.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "scripts/verify-module-7.mjs and scripts/verify-module-7.test.mjs lock the Lab 7 Done pointer's verify:completed-tracked name and the advanced / non-runnable treatment of the swarm closer on the Quick Reference surface as an explicit assertion, since Quick Reference sits outside the existing forbiddenShell loop. scripts/verify-module-12.mjs and scripts/verify-module-12.test.mjs lock the Module 12 mapping of verify:orphan-active to C6 and verify:completed-tracked to the uncarded untracked-closeout state, plus the tracked-delivery wording. No new verifier. The nine-card negative test is not recut into a tenth card.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "origin": {
+        "issue": 22,
+        "repo": "deftai/directive-training"
+      },
+      "swarm": {
+        "readiness": "sequential",
+        "parallel_safe": false,
+        "depends_on": [],
+        "size": "medium",
+        "conflict_group": "modules-7-12",
+        "model_tier": "high",
+        "verify_commands": [
+          "node scripts/verify-module-7.mjs",
+          "node scripts/verify-module-12.mjs",
+          "npm test"
+        ],
+        "expected_outputs": [
+          "verify:orphan-active, verify:completed-tracked and swarm:finalize-cohort each appear on a learner-facing surface",
+          "node scripts/verify-module-7.mjs and node scripts/verify-module-12.mjs exit 0 and lock the new statements",
+          "npm test exits 0 with the nine-card Module 12 lock intact"
+        ],
+        "dispatch_kind": "solo"
+      }
+    },
+    "updated": "2026-09-21T01:07:45Z"
+  }
+}
