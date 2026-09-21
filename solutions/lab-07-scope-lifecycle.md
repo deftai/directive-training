@@ -8,7 +8,7 @@
 | Solves | [Lab 7 — Scope Lifecycle](../labs/07-scope-lifecycle.md) |
 | Outcomes covered | O7.1, O7.2, O7.3, O7.4 |
 | Status | Learner-ready draft for the verified macOS/zsh path |
-| Last verified | 2026-09-09 |
+| Last verified | 2026-09-21 |
 | Directive baseline | CLI/core/content/types `0.119.5`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Platform limit | Linux/bash and Windows/PowerShell are candidates and are not verified or learner-ready for this lab |
 
@@ -30,6 +30,12 @@ then produced `pending/pending` and `active/running`; the separate obsolete scop
 `cancelled/cancelled`. Explicit current intent preceded session start, the gated ritual, and
 active preflight, all of which passed. Completion produced `completed/completed`.
 
+Lab 7 Task 5 then checked the scope authored in Module 6 Part B. The retained
+`evidence/authored-verify.txt` carried all four fields: the artifact **path**, the exact
+`xbrief:verify` **command**, the **exit code** `0`, and the **result** line. That record is
+adjacent Module 6 **O6.2 structural evidence** and adds no Lab 7 outcome; the authored scope
+stayed `proposed/proposed`, because the four Task 5 boundary clauses in Step 5 hold at exit `0`.
+
 The first failure and the complete run remained in the parent evidence directory. Reset
 returned a different guarded root without changing the first. Cleanup, when chosen, moved an
 exact guarded parent into a recoverable temporary archive. No product code or remote changed.
@@ -42,6 +48,10 @@ exact guarded parent into a recoverable temporary archive. No product code or re
 | O7.2 | Lifecycle commands own folder/status transitions; manual moves do not. | Task exits `0`; pending, active/running, completed, and cancelled pairs |
 | O7.3 | Current authority requires active/running scope plus live implementation intent; current gates establish readiness. | `liveIntent`, then session start, ritual, and active preflight exits `0` |
 | O7.4 | Recovery preserves evidence by creating a new root; archive is an exact recoverable move. | Different reset paths, readable original JSON, guarded archive path |
+
+- **O6.2 structural evidence:** Task 5 supplies Module 6's O6.2 structural completion
+  evidence and adds no Lab 7 outcome, so this map keeps four rows. Its comparison is in
+  Step 5, Acceptance evidence, and question 8 below.
 
 ## Reasoning
 
@@ -166,7 +176,35 @@ A precise statement is:
 “The feature shipped” is unsupported. “The preflight authorized all later work” is also
 unsupported because live intent is current and scope-bounded.
 
-### Step 5 — Reset without rewriting history
+### Step 5 — Verify the scope you authored (Task 5)
+
+Write your Module 6 Part B artifact into the first attempt's `xbrief/proposed/`, then run the
+supplied command. Retain all four fields from `evidence/authored-verify.txt`:
+
+| Retained field | Worked value |
+| --- | --- |
+| Artifact **path** | `<first_root>/xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json` |
+| Exact **command** | `node <first_root>/node_modules/.bin/directive xbrief:verify -- --format json --out <artifact path> --style scope --project-root <first_root>` |
+| **Exit code** | `0` |
+| **Result** | the `xbrief:verify` result line naming the checked path |
+
+Exit `0` against that exact path is the positive structural result; exit `1` names the first
+structural defect in your file. Both are complete O6.2 evidence once all four fields are kept.
+
+Exit `0` is where a learner is most tempted to conclude the artifact is well shaped. It is not.
+Lab 7 publishes four boundary clauses, and all four still hold:
+
+- `xbrief:verify` is not a lifecycle move. Do not promote or activate your scope.
+- A green structural result grants no promotion, no activation, and no implementation authority.
+- `xbrief:preflight` and `doctor` are not the authoring-validity pass.
+- The structural result does not prove version `0.8`, proposed status, observable acceptance,
+  or traces.
+
+The Module 6 comparison rubric proves what this surface cannot. Its long table is the
+[Module 6 structural record](module-06-creating-well-shaped-work.md#structural-record); read it
+there rather than treating either surface as the other.
+
+### Step 6 — Reset without rewriting history
 
 Run the documented reset against the first guarded root. It creates another unique proposed
 fixture and returns its path. It does not move, delete, or repair the first root.
@@ -178,7 +216,7 @@ fixture digest, or coherent lifecycle state from the failed attempt.
 Verify both roots and reread the first evidence. This shows recovery as isolation: a known
 fresh starting point plus an intact failure record.
 
-### Step 6 — Archive exact attempts
+### Step 7 — Archive exact attempts
 
 Leave both attempt parents and invoke archive from the course root. The helper verifies the
 absolute canonical target, marker binding, Git root, branch, and empty remote. It intentionally
@@ -198,6 +236,12 @@ and `evidence/`. Record the new path. This is recoverable cleanup, not deletion.
 | O7.3 | Explicit current intent; session start, ritual, active preflight exits `0` in order | Current authority and readiness were established without conflation. |
 | O7.4 | Different guarded reset root; old evidence readable; retained/archive locations | Recovery did not overwrite evidence or widen the target. |
 
+**O6.2 structural evidence (Task 5, adjacent):** `evidence/authored-verify.txt` retains the
+artifact **path**, the exact `xbrief:verify` **command**, the **exit code** `0`, and the
+**result** line, and the authored record is still under `xbrief/proposed/`. Task 5 adds no
+Lab 7 outcome, so this table keeps its four O7 rows, and the four Task 5 boundary clauses in
+Step 5 govern how the green result may be read.
+
 Also retain the exact 0.119.5 package graph and empty remote value. A screenshot of final
 folders alone does not prove O7.1 or O7.3.
 
@@ -212,8 +256,15 @@ Ask these questions:
 5. Did your readiness sentence add session and preflight gates?
 6. Did reset return a different canonical root while the first evidence remained readable?
 7. Is every result still no-remote and bounded to fictional data?
+8. Does your Task 5 record carry all four retained fields — the artifact **path**, the exact
+   `xbrief:verify` **command**, the **exit code**, and the **result** line — and did you read
+   exit `0` under the four Task 5 boundary clauses in Step 5 rather than as a well-shaped
+   verdict?
 
-Any “no” identifies the smallest outcome to retry.
+A “no” on questions 1–7 identifies the smallest Lab 7 outcome to retry. A “no” on question 8
+is not a Lab 7 outcome miss, because Task 5 adds no Lab 7 outcome. Re-author the artifact
+against [Module 6](../curriculum/modules/06-creating-well-shaped-work.md) Part B in place, then
+rerun the same `xbrief:verify` command against the same path and retain both exit codes.
 
 ## Valid alternatives
 
@@ -238,6 +289,8 @@ a remote-enabled fixture are not valid alternatives.
 | Folder/status mismatch | Do not hand-edit either half; reset and rerun commands. |
 | Missing live-intent flag | Supply it only if you currently choose to perform this lab run. |
 | Archive target refusal | Return to the course root and use the exact absolute path; never broaden the helper. |
+| Task 5 exits `1` | Repair the authored record in place against Module 6 Part B, rerun the same command against the same path, and retain both exit codes. |
+| Task 5 exits `0` and the scope looks ready to promote | Keep it `proposed/proposed`. Reread the four Task 5 boundary clauses in Step 5; none of them grants a lifecycle move or implementation authority. |
 
 ## Misconceptions exposed by this exercise
 
@@ -260,6 +313,12 @@ a remote-enabled fixture are not valid alternatives.
 7. Run only with current `--intent=implement`.
 8. Re-evaluate the smallest unmet outcome.
 
+A Task 5 miss uses none of those steps and needs no fresh root. Re-author the artifact against
+[Module 6](../curriculum/modules/06-creating-well-shaped-work.md) Part B inside the same
+attempt, rerun the same `xbrief:verify` command against the same path, and retain both exit
+codes with the artifact path and the result line. The four Task 5 boundary clauses in Step 5
+still hold once it exits `0`.
+
 Stop after three identical no-progress failures and report a curriculum defect with sanitized
 paths, versions, exits, and output. Do not loop indefinitely.
 
@@ -272,6 +331,11 @@ uses a recursive delete.
 Keep the original helper path, run from outside the attempt parents, and record every returned
 root or archive path. A rejected archive leaves the source intact.
 
+Your Task 5 artifact and its `evidence/authored-verify.txt` record — path, command, exit code,
+and result — sit inside the first attempt's guarded parent, so reset leaves both untouched and
+archive moves them with that exact parent. Reset is not the Task 5 repair route, and the four
+Task 5 boundary clauses in Step 5 hold across both routes.
+
 ## Sources
 
 - [Module 7 source validation](../references/SOURCE-NOTES.md#module-7-source-validation)
@@ -282,5 +346,6 @@ root or archive path. A rejected archive leaves the source intact.
 ## Continue
 
 Return to [Module 7](../curriculum/modules/07-scope-lifecycle.md) and complete its
-self-assessment from your evidence. Module 8 remains planned; use the
-[course map](../curriculum/README.md) rather than assuming a future filename is ready.
+self-assessment from your evidence, including the Task 5 record. Then continue to
+[Module 8 — Session start and authorized work selection](../curriculum/modules/08-session-and-work-selection.md).
+The [course map](../curriculum/README.md) lists the rest of the path.
