@@ -960,14 +960,14 @@ for (const token of [
 ]) {
   assert.ok(initHelper.includes(token), "the Lab 2 helper does not exercise the full learner path: " + token);
 }
-for (const paths of [
+for (const triggerPath of [
   "labs/02-disposable-initialization.md",
   "labs/fixtures/02-disposable-initialization/**",
   "scripts/init-lab.test.mjs",
 ]) {
   assert.ok(
-    workflow.includes('- "' + paths + '"'),
-    "platform workflow must re-run when the converted lab path changes: " + paths,
+    workflow.includes('- "' + triggerPath + '"'),
+    "platform workflow must re-run when the converted lab path changes: " + triggerPath,
   );
 }
 

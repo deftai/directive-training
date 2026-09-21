@@ -111,9 +111,10 @@ if test -n "${DIRECTIVE_TRAINING_ROOT:-}"; then
 fi
 test -n "$helper" || { echo "Paste refusal: DIRECTIVE_TRAINING_ROOT must be set to the absolute curriculum clone path; this is a missing paste, not a boundary stop" >&2; exit 2; }
 test -f "$helper" || { echo "Paste refusal: no helper file at $helper; this is a missing paste, not a boundary stop" >&2; exit 2; }
-node "$helper" guard "${LAB_ROOT:-}"
-git -C "${LAB_ROOT:-}" status --short
-git -C "${LAB_ROOT:-}" branch --show-current
+lab_root="${LAB_ROOT:-}"
+node "$helper" guard "$lab_root"
+git -C "$lab_root" status --short
+git -C "$lab_root" branch --show-current
 ```
 
 Required starting status, in lexical order:
@@ -315,7 +316,8 @@ if test -n "${DIRECTIVE_TRAINING_ROOT:-}"; then
 fi
 test -n "$helper" || { echo "Paste refusal: DIRECTIVE_TRAINING_ROOT must be set to the absolute curriculum clone path; this is a missing paste, not a boundary stop" >&2; exit 2; }
 test -f "$helper" || { echo "Paste refusal: no helper file at $helper; this is a missing paste, not a boundary stop" >&2; exit 2; }
-node "$helper" diagnose "${LAB_ROOT:-}"
+lab_root="${LAB_ROOT:-}"
+node "$helper" diagnose "$lab_root"
 ```
 
 On Windows/PowerShell 7.4+:
@@ -471,7 +473,8 @@ if test -n "${DIRECTIVE_TRAINING_ROOT:-}"; then
 fi
 test -n "$helper" || { echo "Paste refusal: DIRECTIVE_TRAINING_ROOT must be set to the absolute curriculum clone path; this is a missing paste, not a boundary stop" >&2; exit 2; }
 test -f "$helper" || { echo "Paste refusal: no helper file at $helper; this is a missing paste, not a boundary stop" >&2; exit 2; }
-node "$helper" accept "${LAB_ROOT:-}"
+lab_root="${LAB_ROOT:-}"
+node "$helper" accept "$lab_root"
 ```
 
 ### Windows PowerShell 7.4+
@@ -589,7 +592,8 @@ if test -n "${DIRECTIVE_TRAINING_ROOT:-}"; then
 fi
 test -n "$helper" || { echo "Paste refusal: DIRECTIVE_TRAINING_ROOT must be set to the absolute curriculum clone path; this is a missing paste, not a boundary stop" >&2; exit 2; }
 test -f "$helper" || { echo "Paste refusal: no helper file at $helper; this is a missing paste, not a boundary stop" >&2; exit 2; }
-node "$helper" recovery-npmrc "${LAB_ROOT:-}"
+lab_root="${LAB_ROOT:-}"
+node "$helper" recovery-npmrc "$lab_root"
 ```
 
 On PowerShell 7.4+, use:
@@ -628,7 +632,8 @@ if test -n "${DIRECTIVE_TRAINING_ROOT:-}"; then
 fi
 test -n "$helper" || { echo "Paste refusal: DIRECTIVE_TRAINING_ROOT must be set to the absolute curriculum clone path; this is a missing paste, not a boundary stop" >&2; exit 2; }
 test -f "$helper" || { echo "Paste refusal: no helper file at $helper; this is a missing paste, not a boundary stop" >&2; exit 2; }
-next_root="$(node "$helper" reset "${LAB_ROOT:-}")"
+lab_root="${LAB_ROOT:-}"
+next_root="$(node "$helper" reset "$lab_root")"
 printf 'lab_root=%s\n' "$next_root"
 node "$helper" guard "$next_root"
 ```
@@ -666,7 +671,8 @@ if test -n "${DIRECTIVE_TRAINING_ROOT:-}"; then
 fi
 test -n "$helper" || { echo "Paste refusal: DIRECTIVE_TRAINING_ROOT must be set to the absolute curriculum clone path; this is a missing paste, not a boundary stop" >&2; exit 2; }
 test -f "$helper" || { echo "Paste refusal: no helper file at $helper; this is a missing paste, not a boundary stop" >&2; exit 2; }
-node "$helper" archive "${LAB_ROOT:-}"
+lab_root="${LAB_ROOT:-}"
+node "$helper" archive "$lab_root"
 ```
 
 ### Windows PowerShell 7.4+

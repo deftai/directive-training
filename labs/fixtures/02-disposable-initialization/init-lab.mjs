@@ -264,8 +264,10 @@ function requireAbsoluteRootArgument(value) {
 function canonicalRoot(value) {
   const supplied = requireAbsoluteRootArgument(value);
   const root = resolve(supplied);
-  assert.equal(root, supplied, "Stop: the attempt root must be the exact canonical path create printed.");
-  assert.ok(existsSync(root), "Stop: no attempt exists at " + root + ".");
+  // A reshaped or stale paste (trailing separator, `..`, a path that is simply not there) is still
+  // a paste problem: nothing has been inspected yet, so it must not read as a boundary stop.
+  assert.equal(root, supplied, rootArgumentRefusal);
+  assert.ok(existsSync(root), rootArgumentRefusal);
   assert.equal(realpathSync(root), root, "Stop: the attempt root resolves through a link.");
   return root;
 }

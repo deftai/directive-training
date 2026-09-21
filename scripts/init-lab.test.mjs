@@ -90,8 +90,10 @@ test("create produces a guarded no-remote attempt and records no caller shell st
   archiveAttempt(root);
 });
 
-test("an empty or relative root is a usage refusal, never a boundary stop", () => {
-  for (const supplied of ["", "   ", "labs/fixtures", "./attempt-01"]) {
+test("an empty, relative, reshaped, or stale root is a usage refusal, never a boundary stop", () => {
+  const root = createAttempt();
+  const stale = join(dirname(root), "attempt-99.zzzzzz");
+  for (const supplied of ["", "   ", "labs/fixtures", "./attempt-01", stale, join(stale, "..") + "/", stale + "/.."]) {
     assert.throws(
       () => guardAttempt(supplied),
       (error) => {
@@ -113,6 +115,7 @@ test("an empty or relative root is a usage refusal, never a boundary stop", () =
       "refused argv: " + JSON.stringify(argv),
     );
   }
+  archiveAttempt(root);
 });
 
 test("guard refuses the curriculum clone, a remote, and a changed pin without repairing them", () => {
