@@ -1,0 +1,853 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #36",
+    "updated": "2026-09-21T18:17:43Z"
+  },
+  "plan": {
+    "title": "Capstone solution emits invalid WI-1000 after valid WI-999",
+    "status": "running",
+    "narratives": {
+      "Description": "Both worked addWorkItem listings allocate the next identifier as max-suffix plus one and pad to three digits, so a valid collection whose highest identifier is WI-999 yields WI-1000, which the same module's /^WI-\\d{3}$/ validator rejects. The CI rehearsal copy in scripts/capstone-lab.test.mjs derives from the same source and inherits the defect, and no supplied test reaches that boundary. The accepted remedy keeps the bounded WI-NNN namespace and adds a documented RangeError once the highest suffix is 999, pinned across the lab, both listings, the supplied test, and the capstone verifier.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/36",
+      "Overview": "## Learner context\n\nI found this while completing the end-to-end capstone as a 5–10 year engineer, using the learner-facing material only.\n\n- Course baseline: `@deftai/directive@0.119.5`\n- Host: macOS/zsh\n- Node.js: `v24.20.0`\n- Affected material:\n  - `labs/capstone-end-to-end.md`, Task 2: allocate the next `WI-NNN` from the highest numeric suffix\n  - `solutions/capstone-end-to-end.md`, both worked implementations of `addWorkItem`\n\n## What happened\n\nThe supplied validator accepts only `/^WI-\\d{3}$/`, but the worked solution calculates the next ID with:\n\n```js\n\"WI-\" + String(highest + 1).padStart(3, \"0\")\n```\n\nFor a valid collection whose highest ID is `WI-999`, that expression produces `WI-1000`. A direct evaluation produced:\n\n```json\n{\"id\":\"WI-1000\",\"passesValidator\":false}\n```\n\nThe helper's 50-item probe does not reach this boundary. The solution can therefore return an item that its own `validateItems` rejects on the next add, complete, or summary call.\n\n## Expected\n\nThe course should define the finite `WI-NNN` namespace boundary, and the worked implementation should either:\n\n1. reject exhaustion before returning an invalid item; or\n2. deliberately widen the ID contract and validator.\n\n## Learner pain\n\nThe capstone asks for a complete implementation and presents the solution as the comparison, but it leaves the only domain-boundary case undefined and the worked code violates its own invariant. I had to invent behavior not stated by the exercise. My first attempt chose to throw a `RangeError` when the next number would exceed `999`, which passed every guarded stage, but the course gives a learner no basis for knowing whether that is the intended product behavior.\n\nThis is especially distracting in a capstone whose core lesson is that tests, acceptance, and independent evidence answer different questions: the protected checks all pass while the worked implementation is internally inconsistent at a reachable valid input.\n\n## Proposed fix\n\nPrefer the bounded-namespace interpretation:\n\n- State explicitly that `WI-NNN` supports `WI-000`/`WI-001` through `WI-999` (whichever lower bound is intended).\n- Before constructing the new item, throw a documented `RangeError` when the highest suffix is `999`.\n- Add a supplied test or helper-owned independent probe for a collection containing `WI-999`.\n- Update both green and reviewed solution listings and explain why the boundary preserves the validator invariant.\n\nAn alternative is to change the contract, regex, examples, and prose consistently to an unbounded `WI-<digits>` form, but that is a larger teaching change.\n\n## Suggested acceptance criteria\n\n- The learner-facing contract names exhaustion behavior.\n- `addWorkItem` never returns an ID that `validateItems` rejects.\n- A protected comparison covers the highest valid suffix.\n- The lab, assessment, and explained solution agree on the identifier boundary.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready",
+      "UserStory": "As a learner completing the capstone, I want the worked implementation to refuse identifier exhaustion instead of returning an id its own validator rejects, so that the comparison solution is internally consistent and I do not have to invent product behavior the exercise never states.",
+      "ImplementationPlan": "1. Keep bounded WI-NNN and refuse the unbounded WI-<digits> alternative.\n2. Keep max-suffix + 1 allocation, WI-001 from empty, WI-000 as a legal existing identifier, and refuse once a collection already holds WI-999 even when lower identifiers are free.\n3. Throw RangeError with one stable phrase after validateItems and the highest-suffix calculation and before constructing the item; pin that type and message on the lab, both solution listings, Valid alternatives, the supplied test, and scripts/verify-capstone.mjs.\n4. Put the guard in scripts/capstone-lab.test.mjs greenImplementation after the reduce so reviewedImplementation inherits it; there is no second authored source.\n5. Add the frozen supplied WI-999 case to labs/fixtures/capstone-end-to-end/test/work-items.test.mjs, keep the 50-item ordinary-range test, and keep duplicateProbe intact.\n6. Land the learner-facing bullet on the lab Task 2 (CAP.2) green list in the same change as that test.\n7. Extend scripts/verify-capstone.mjs and add mutation tests; update the authored five supplied tests count.",
+      "QualityGate": "npm run check:capstone, npm run test:capstone and npm test all exit 0. addWorkItem never returns an identifier validateItems rejects, and the verifier fails closed when the boundary case or the green rehearsal guard is removed.",
+      "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
+    },
+    "items": [
+      {
+        "title": "Keep bounded `WI-NNN` (`/^WI-\\d{3}$/`). Refuse the unbounded `WI-<digits>` alternative on this issue.",
+        "status": "proposed",
+        "id": "clause:1",
+        "narrative": {
+          "Acceptance": "Keep bounded `WI-NNN` (`/^WI-\\d{3}$/`). Refuse the unbounded `WI-<digits>` alternative on this issue.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Allocation stays max-suffix + 1. Generated-from-empty is `WI-001`. `WI-000` remains a legal existing identifier. Add refuses once a collection already holds `WI-999`, even when lower identifiers are free.",
+        "status": "proposed",
+        "id": "clause:2",
+        "narrative": {
+          "Acceptance": "Allocation stays max-suffix + 1. Generated-from-empty is `WI-001`. `WI-000` remains a legal existing identifier. Add refuses once a collection already holds `WI-999`, even when lower identifiers are free.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "After `validateItems` and the highest-suffix calculation, and before constructing the item, throw `RangeError` with one stable phrase. Pin that type and message on `labs/capstone-end-to-end.md`, both solution listings, Valid alternatives, the supplied test, and `scripts/verify-capstone.mjs`.",
+        "status": "proposed",
+        "id": "clause:3",
+        "narrative": {
+          "Acceptance": "After `validateItems` and the highest-suffix calculation, and before constructing the item, throw `RangeError` with one stable phrase. Pin that type and message on `labs/capstone-end-to-end.md`, both solution listings, Valid alternatives, the supplied test, and `scripts/verify-capstone.mjs`.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Put the guard in `scripts/capstone-lab.test.mjs` `greenImplementation` after the reduce so `reviewedImplementation` inherits it. There is no second authored source.",
+        "status": "proposed",
+        "id": "clause:4",
+        "narrative": {
+          "Acceptance": "Put the guard in `scripts/capstone-lab.test.mjs` `greenImplementation` after the reduce so `reviewedImplementation` inherits it. There is no second authored source.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Bind the protected comparison as a frozen supplied test in `labs/fixtures/capstone-end-to-end/test/work-items.test.mjs` that `recordGreen` already runs: call `addWorkItem` on a valid collection whose maximum suffix is `999`, assert the documented `RangeError`, and prove the input is unchanged. Keep the 50-item ordinary-range test and add one direct `WI-999` case. Do not carry that comparison in a helper-owned probe modeled on `duplicateProbe`. Do not delete `duplicateProbe`.",
+        "status": "proposed",
+        "id": "clause:5",
+        "narrative": {
+          "Acceptance": "Bind the protected comparison as a frozen supplied test in `labs/fixtures/capstone-end-to-end/test/work-items.test.mjs` that `recordGreen` already runs: call `addWorkItem` on a valid collection whose maximum suffix is `999`, assert the documented `RangeError`, and prove the input is unchanged. Keep the 50-item ordinary-range test and add one direct `WI-999` case. Do not carry that comparison in a helper-owned probe modeled on `duplicateProbe`. Do not delete `duplicateProbe`.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Land the learner-facing bullet on `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green list, in the same change as that test.",
+        "status": "proposed",
+        "id": "clause:6",
+        "narrative": {
+          "Acceptance": "Land the learner-facing bullet on `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green list, in the same change as that test.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Extend `scripts/verify-capstone.mjs` to assert that boundary on the lab, both listings, supplied test, and rehearsal copy. Add mutation tests that remove the focused boundary case or the guard from the green rehearsal string.",
+        "status": "proposed",
+        "id": "clause:7",
+        "narrative": {
+          "Acceptance": "Extend `scripts/verify-capstone.mjs` to assert that boundary on the lab, both listings, supplied test, and rehearsal copy. Add mutation tests that remove the focused boundary case or the guard from the green rehearsal string.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Update the authored \"five supplied tests\" count with the suite.",
+        "status": "proposed",
+        "id": "clause:8",
+        "narrative": {
+          "Acceptance": "Update the authored \"five supplied tests\" count with the suite.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Leftover issue 38 is the assessment naming surface only. Lab and explained-solution naming of the bound ride this harvest.",
+        "status": "proposed",
+        "id": "clause:9",
+        "narrative": {
+          "Acceptance": "Leftover issue 38 is the assessment naming surface only. Lab and explained-solution naming of the bound ride this harvest.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
+        },
+        "effort": "S"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/36",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #36: Capstone solution emits invalid WI-1000 after valid WI-999"
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "npm run check:capstone",
+        "npm run test:capstone",
+        "npm test"
+      ],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 9 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Keep bounded `WI-NNN` (`/^WI-\\d{3}$/`). Refuse the unbounded `WI-<digits>` alternative on this issue.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Allocation stays max-suffix + 1. Generated-from-empty is `WI-001`. `WI-000` remains a legal existing identifier. Add refuses once a collection already holds `WI-999`, even when lower identifiers are free.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "After `validateItems` and the highest-suffix calculation, and before constructing the item, throw `RangeError` with one stable phrase. Pin that type and message on `labs/capstone-end-to-end.md`, both solution listings, Valid alternatives, the supplied test, and `scripts/verify-capstone.mjs`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Put the guard in `scripts/capstone-lab.test.mjs` `greenImplementation` after the reduce so `reviewedImplementation` inherits it. There is no second authored source.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Bind the protected comparison as a frozen supplied test in `labs/fixtures/capstone-end-to-end/test/work-items.test.mjs` that `recordGreen` already runs: call `addWorkItem` on a valid collection whose maximum suffix is `999`, assert the documented `RangeError`, and prove the input is unchanged. Keep the 50-item ordinary-range test and add one direct `WI-999` case. Do not carry that comparison in a helper-owned probe modeled on `duplicateProbe`. Do not delete `duplicateProbe`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "Land the learner-facing bullet on `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green list, in the same change as that test.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 7,
+          "text": "Extend `scripts/verify-capstone.mjs` to assert that boundary on the lab, both listings, supplied test, and rehearsal copy. Add mutation tests that remove the focused boundary case or the guard from the green rehearsal string.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 8,
+          "text": "Update the authored \"five supplied tests\" count with the suite.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 9,
+          "text": "Leftover issue 38 is the assessment naming surface only. Lab and explained-solution naming of the bound ride this harvest.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": "Capstone lab, explained solution, supplied fixture test and capstone verifier"
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the capstone worked addWorkItem can emit WI-1000 after valid WI-999, which its own /^WI-\\d{3}$/ validator rejects, and the course never names exhaustion so a learner must invent the product behavior.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N≥3\nspend-ask: resolved\nstop-2: charter=open critique; spend=N≥3 because operator authorized n=1 or n=3 as needed and this is an open solution space (bounded RangeError vs unbounded WI-<digits>) with capstone blast across lab, both solution listings, assessment, and tests\npain: P1, P2\nP1: both worked addWorkItem listings construct WI-1000 from highest suffix 999, and that id fails validateItems\nP2: learner-facing lab, assessment, and explained solution never name the WI-NNN namespace bound or exhaustion behavior\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: 0cb9925d561733ea0907a8f1b450a61416ba1fd6\n\n",
+          "id": 5760665545,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5760665545",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T12:43:03Z",
+          "updated_at": "2026-09-21T12:43:03Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\npanel-deposit\nround: 1\nsiblings: 3\ninput-ceiling: 5760695622\nfamilies: grok, claude, codex\nseat: grok launcher: grok\nseat: claude launcher: claude\nseat: codex launcher: codex\n\n",
+          "id": 5760695622,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5760695622",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T12:45:26Z",
+          "updated_at": "2026-09-21T12:45:36Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: claude-opus-5\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh critic, seat family claude. Open critique. Process-only. Reads pinned to `0cb9925d561733ea0907a8f1b450a61416ba1fd6`; in-envelope input is the issue body plus comments through `5760695622`.\n\n## Re-verification\n\nThe triage anchors are measured here, not taken from line cites.\n\n- P1 reproduced end-to-end. I extracted the green listing from the `### 3.` slice of `solutions/capstone-end-to-end.md` and ran it behind the fixture CLI: `add \"Next\" '[{\"id\":\"WI-999\",\"title\":\"Last\",\"status\":\"open\"}]'` exits `0` and emits `WI-1000`; feeding that exact output back to `summary` exits `1` with `work-item id must use WI-NNN`. The round trip through the two documented verbs breaks.\n- The allocation policy is **already** pinned. I implemented the competing reading (next-free-slot with a 999 guard) and ran it against the frozen supplied test: it fails test 1, because `existing=[WI-002]` expects `WI-003` and next-free yields `WI-001`. So the undetermined surface is narrower than the body implies — exactly one branch, `highest === 999`, plus the thrown type and message.\n- Lower bound measured: `/^WI-\\d{3}$/` accepts `WI-000`, and the allocator seeds `highest` at `0`, so it can never emit it. Reachable allocation range is `WI-001` through `WI-999`.\n\nP1 and P2 both hold. The target survives. The **proposed fix** does not bind as written, for F1 and F2.\n\n## Inventory\n\nEvery carrier this change needs already exists; none of the findings below asks for a new mechanism. The contract surfaces are the supplied test `labs/fixtures/capstone-end-to-end/test/work-items.test.mjs`, the Task 2 bullet list at `labs/capstone-end-to-end.md:225`, and the two listings in `solutions/`. The gates are `scripts/verify-capstone.mjs` (cross-surface content assertions) and the staged probes in `labs/fixtures/capstone-end-to-end/capstone-lab.mjs`. Scope control is the two minted records under `.deft/approved-scope/`.\n\n## F1 — blocks-the-design: three allocator copies, and the missed one is what CI executes\n\nEvidence. `git grep 'padStart(3'` at the dispatch SHA returns four sites: `solutions/capstone-end-to-end.md:203`, `solutions/capstone-end-to-end.md:322`, `scripts/capstone-lab.test.mjs:88`, and the expectation formula at `labs/fixtures/capstone-end-to-end/test/work-items.test.mjs:51`. The body names the first two. `scripts/capstone-lab.test.mjs:88` is an inlined reference green implementation carrying the identical expression, and `.github/workflows/capstone-platform-validation.yml:62` runs `node --test scripts/capstone-lab.test.mjs` on `macos-15`, `ubuntu-24.04`, and `windows-2022`.\n\nFailure mode. A change that satisfies \"Update both green and reviewed solution listings\" leaves the CI reference still emitting `WI-1000`. Either the acceptance criterion \"`addWorkItem` never returns an ID that `validateItems` rejects\" is false for the one copy the project actually executes, or — if the change also adds a supplied test for the boundary — that untouched reference fails and the platform matrix goes red on all three runners.\n\nScope consequence, measured. The two halves sit in different minted plans. `scripts/capstone-lab.test.mjs` and the fixture test are in the `fileScope` of `.deft/approved-scope/training.capstone.fixture-runtime.json`; `labs/capstone-end-to-end.md`, `solutions/capstone-end-to-end.md`, `assessments/capstone-end-to-end.md`, and `scripts/verify-capstone.mjs` are in `training.capstone.learning-experience.json`. Both records' `xbriefRelPath` points at an `xbrief/active/...` path that does not exist at this SHA — both briefs are under `xbrief/completed/`.\n\nDisposition consequence. The scope statement is wrong and needs restating over four sites, and the delivery shape is either two PRs along the existing plan boundary or one PR behind a fresh operator mint. Neither existing record is reusable by path.\n\n## F2 — blocks-the-design: \"a protected comparison covers the highest valid suffix\" is two different changes\n\nEvidence. The criterion is satisfiable as a supplied test or as a helper-owned probe, and the body offers both (\"a supplied test or helper-owned independent probe\"). The two branches diverge hard against machinery that already exists. `recordGreen` runs the supplied test under `requireSuccess`, so anything added there is a blocking stage gate. `recordPrePrReview` hardcodes exactly one finding, `CAP-P1-001`, and asserts `duplicate.exitCode === 0` with `\"Stop: simulated P1 is already resolved; review must classify before editing.\"` — the pre-PR stage is built around exactly one seeded defect. `scripts/verify-capstone.mjs:572` asserts the green slice does **not** contain the duplicate-title fix. `labs/capstone-end-to-end.md:225` states the green contract as five bullets and names no exhaustion behavior.\n\nFailure mode, supplied-test branch. The guard has to move into the green listing to keep `green` reachable. Task 2's bullet list is the learner's only statement of that contract, and the body's acceptance criteria never name it. A learner who implements those five bullets faithfully now hard-stops at `green` on a rule the lab never gave them. That is the reported pain relocated from a latent inconsistency to a blocking stage.\n\nFailure mode, helper-probe branch. The behavior is enforced and still never stated. `maintainers/CURRICULUM-MAINTENANCE.md` sets learner-ready as completable \"from a clean stated start\" with \"no hidden instructor action\" — a protected probe for unstated behavior sits against that bar.\n\nDisposition consequence. The criterion must name one carrier, and the change must land the Task 2 bullet in the same commit. Left as written, the criterion is satisfiable in a shape that makes the lab worse than it is today.\n\n## F3 — sharpens-framing: \"exhaustion\" misnames the condition\n\nEvidence. Allocation is `Math.max` over existing suffixes plus one, and the supplied test pins that (see Re-verification). A collection holding only `WI-999` has 998 free identifiers and still refuses.\n\nFailure mode. A contract sentence reading \"the `WI-NNN` namespace is exhausted\" invites reuse-a-free-slot at the boundary, which the frozen supplied test then refuses for an unrelated reason and with an unrelated message — a second round of inventing behavior.\n\nDisposition consequence. State it as monotonic refusal: allocation only ever increases, and `add` refuses once `WI-999` exists even when lower identifiers are free. Pin the thrown type and message too. The course pins its other error contracts by regex (`/nonempty/`, `/not found/`, `/WI-NNN/`), and `scripts/verify-capstone.mjs:657` pins one supplied-test assertion string exactly, so an unpinned message is drift waiting to happen.\n\n## F4 — sharpens-framing: the unbounded alternative is not merely larger, it is defective\n\nEvidence, measured. Under a widened `WI-<digits>` regex, `Number(\"99999999999999999999\") + 1` is `1e20`, equal to the input, so `String(highest + 1)` reproduces the id it was given and `addWorkItem` returns a duplicate identifier for an argv-supplied collection. Separately `Number(\"0001\") === Number(\"001\")`, so the widened regex admits `WI-0001` and `WI-001` as distinct ids sharing one numeric suffix, and `padStart(3, \"0\")` no longer normalizes either.\n\nFailure mode. `completeWorkItem` matches by exact id string over `items.some(...)`, so a duplicate id makes completion silently pick the first match. That is a worse teaching artifact than the bounded defect being fixed, and it is reachable from the same CLI argument that reaches the current one.\n\nDisposition consequence. Record the alternative as refused on this evidence rather than deferred as \"a larger teaching change.\" Deferred-as-larger leaves it available as the cheap escape for a later arc.\n\n## F5 — sharpens-framing: cross-surface agreement is vacuous on two surfaces and ungated\n\nEvidence. `curriculum/capstone-end-to-end.md` contains zero `WI-` occurrences. `assessments/capstone-end-to-end.md` contains one, `WI-001` in the green evidence row at line 151. `scripts/verify-capstone.mjs` asserts many cross-surface strings and none that binds the identifier contract.\n\nFailure mode. \"The lab, assessment, and explained solution agree on the identifier boundary\" is satisfiable by editing the lab and the solutions and touching nothing else, and no check detects later drift between the stated bound and the listings.\n\nDisposition consequence. Either narrow the criterion to the surfaces that actually carry the contract — Task 2 and both solution listings — or add the `verify-capstone.mjs` assertion that makes agreement checkable. Prefer the second: that gate is where every other cross-surface agreement in this course is enforced.\n\n## F6 — footnote: lower bound\n\nThe validator accepts `WI-000` and the allocator can never emit it, so the stated bound should carry both facts rather than picking one. No failure mode found; this only closes the body's open parenthetical.\n\n## Injection / swarm lens\n\nTriggered, narrowly, and not `N/A` theater: the change edits an input-validation contract over argv-supplied JSON, since `parseItems` in `src/cli.mjs` hands unvalidated parsed JSON straight to `validateItems` and then to `Number(item.id.slice(3))`. The concrete product of that lens is F4 — the widened-regex branch is the one that lets argv reach a duplicate-id state. Nothing else in the target touches authority, identity, concurrency, worktrees, or shared state; the blast radius is course content and a disposable fixture.\n\n## Road not taken\n\nI treated next-free-slot allocation as a second under-determined branch and was going to report it as such. Running it against the frozen supplied test refuted that: the policy is already pinned and only the boundary branch is open. F3 is what survived, and it is a naming finding rather than a second open decision.\n\n## Steelman of the strongest rejected position\n\nThe strongest case against acting is close as won't-fix. No guarded stage of the lab constructs a `WI-999` collection, so the defect is unreachable on the documented path; Task 2 already carries five contract bullets on a 474-line lab; and the capstone's lesson is about evidence layers, not domain modelling.\n\nWhat flips it, and did. The boundary is one documented CLI call away — I reproduced it above through `src/cli.mjs` with no fixture edits — and `maintainers/CURRICULUM-MAINTENANCE.md` sets the learner-ready bar at completable from a clean stated start. I would still flip back if a maintainer policy recorded fictional-app domain completeness as deliberately out of capstone scope. I looked for one in `maintainers/CURRICULUM-MAINTENANCE.md` and `curriculum/capstone-end-to-end.md` and found none; the curriculum page does not mention the identifier format at all.\n\n",
+          "id": 5760792204,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5760792204",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T12:53:03Z",
+          "updated_at": "2026-09-21T12:53:03Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\ncharter: open critique · round 1 fresh critic · ceiling 5760695622 · dispatch-sha `0cb9925d561733ea0907a8f1b450a61416ba1fd6` · arc-mode: no-ingest\n\n## Verdict\n\nThe overflow is real, one-call reachable, and present in both worked `addWorkItem` listings. Bounded `WI-NNN` with a `RangeError` when the max suffix is `999` is the extension that fits the mechanisms already on the tree. Unbounded `WI-<digits>` fights the `WI-NNN` / `/^WI-\\d{3}$/` contract. Gap-fill fights the supplied `WI-002` → `WI-003` case.\n\nThe draft still cannot bind as a learner-facing contract. It leaves the comparison owner on two incompatible lanes, leaves the generated lower bound as \"whichever,\" names no observable error text, and under-counts the bytes that actually rehearse the listings in CI.\n\n## Re-verification of the triage's anchors\n\nEvery row was re-derived at `0cb9925d561733ea0907a8f1b450a61416ba1fd6` with `git show <sha>:<path>` plus a Node probe of the worked algorithm. Line cites were not treated as evidence.\n\n| Anchor | Result | Check |\n|---|---|---|\n| Both worked listings allocate with `\"WI-\" + String(highest + 1).padStart(3, \"0\")` | holds | `solutions/capstone-end-to-end.md` green listing ~203 and reviewed listing ~322; third copy in `scripts/capstone-lab.test.mjs` `greenImplementation` / `reviewedImplementation` |\n| Validator is `/^WI-\\d{3}$/` | holds | both listings' `validateItems`; fixture stub `labs/fixtures/capstone-end-to-end/src/work-items.mjs`; `completeWorkItem` uses the same regex |\n| Highest suffix `999` yields `WI-1000`, which `validateItems` rejects | holds | Node probe of that algorithm: `{ id: \"WI-1000\", passesValidator: false }`; `String(1000).padStart(3, \"0\") === \"1000\"` (padStart does not cap width). `WI-998` → `WI-999` still passes |\n| `WI-999` is a valid input collection | holds | regex accepts it; supplied malformed test never rejects it |\n| Next add / complete / summary then throws | holds | those three functions call `validateItems` on entry; a collection that already contains `WI-1000` TypeErrors `work-item id must use WI-NNN` |\n| Reachable without 999 sequential adds | holds | CLI is `add <title> [items-json]` (`src/cli.mjs`). Same channel as `duplicateProbe` |\n| \"Helper's 50-item probe\" | fails as named | the 50-item loop is the supplied test `preserves 50 ordinary fictional work-item inputs` in `test/work-items.test.mjs`. Helper independent comparison is `duplicateProbe` only |\n| Learner-facing text never names overflow | holds | lab Task 2 / Hint 3 say \"highest numeric suffix\"; assessment freeze rules never mention `999`; solution Valid alternatives never mention overflow; helper `story()` Acceptance names add/complete/summary/invalid-input/empty-collection only |\n\nIn-envelope thread: issue body, Stop 1 `5760665545`, panel-deposit `5760695622`. Nothing after that id was used.\n\n## Existing mechanisms (inventory before any new one)\n\n1. **Allocation is already max-suffix + 1, not densest-pack.** Supplied test `adds a work item without mutating the existing collection` starts from `WI-002` and expects `WI-003`. Lab Task 2 and Hint 3 repeat \"highest numeric suffix, not array length.\"\n2. **Generated-from-empty is already `WI-001`.** Reduce init `0`; 50-item test expects `WI-001` at index 1; `recordGreen` CLI add from default `[]` expects `WI-001`. Validator still accepts `WI-000`.\n3. **Green contract lives in the supplied suite.** `recordGreen` / `recordRed` freeze `test/work-items.test.mjs` by digest. The deposited story Acceptance is \"the supplied focused tests and work-items CLI pass.\" A new green invariant belongs in that suite, or in a `recordGreen` CLI assertion of the `WI-001` kind.\n4. **\"Helper-owned independent probe\" is already a term of art for CAP.3.** Lab Task 3 and assessment: do not add a duplicate-title regression test; `duplicateProbe` is the independent comparison. `recordPrePrReview` requires that probe exit `0` on green and records exactly `CAP-P1-001`. Assessment manifest and `findingsResolved: 1` pin that singleton.\n5. **Domain-range errors are already `RangeError`.** Missing id: `work item ${id} not found`. Duplicate title: exact phrase `title duplicates an existing work item`, matched by `assert.match` on the probe. Shape errors are `TypeError` (`WI-NNN`, nonempty, open or done). Overflow is a range, not a shape.\n6. **CI rehearses the listings from a third copy.** `scripts/capstone-lab.test.mjs` embeds `greenImplementation` / `reviewedImplementation` with the same `padStart` line. `scripts/verify-capstone.mjs` pins the duplicate `RangeError` string, both `addWorkItem` listings, and that green must still omit the duplicate phrase.\n7. **Learners must not edit tests or helper.** Course-author fixture edits are how the five supplied tests exist. That is a different act from a learner adding a regression test.\n\nNo new error class, no new stage, and no second seeded P1 are required.\n\n## Findings\n\n### F1 — `sharpens-framing`: the comparison owner is two lanes, and one is the CAP.3 probe\n\n- **Evidence.** Proposed fix: \"Add a supplied test or helper-owned independent probe for a collection containing `WI-999`,\" and also \"update both green and reviewed solution listings\" plus AC `addWorkItem` never returns an id `validateItems` rejects. In this capstone, \"independent probe\" is the duplicate probe: green must still accept, pre-PR records one P1, review asserts rejection. A green-contract overflow cannot use that polarity.\n- **Failure mode.** An implementer copies `duplicateProbe` for exhaustion. Either green still emits `WI-1000`, which violates the AC and the dual-listing edit, and CAP.3 grows a second finding (assessment \"exactly one `CAP-P1-001`\" and `findingsResolved: 1` go red), or green already throws and a pre-PR \"already resolved\" assertion fires on the wrong stage. The seeded duplicate lesson stays the only hidden-defect comparison.\n- **Disposition.** Bind the supplied-test lane (or, if a helper assertion is wanted, name it as a `recordGreen` check of the WI-001 kind). Strike \"helper-owned independent probe\" unless that rename is explicit. Course-owned fixture test edits stay legal; learner freeze-the-test language stays.\n\n### F2 — `sharpens-framing`: learner-facing contract still has an unbound lower bound and no observable message\n\n- **Evidence.** Proposed sentence: \"`WI-000`/`WI-001` through `WI-999` (whichever lower bound is intended).\" Measured: empty → `WI-001`; `WI-000` is valid existing input and then yields `WI-001`; `WI-999` is the only max+1 overflow. Duplicate repair is gated on the exact phrase `title duplicates an existing work item`. This draft names `RangeError` and no message. Valid alternatives already allow a loop instead of `reduce` for the highest identifier and do not mention a bound.\n- **Failure mode.** Lab/assessment/solution can each pick a different generated floor, or a different throw text, and every protected comparison that uses `/phrase/` or `/WI-NNN/` will disagree. A loop alternative that omits the guard still ships `WI-1000`. Calling `validateItems` on the would-be result reuses `TypeError` / `work-item id must use WI-NNN` and collides with malformed caller input.\n- **Disposition.** State three facts: allocation is max-suffix + 1; generated-from-empty is `WI-001`; `WI-000` remains a legal existing id. Exhaustion is `highest === 999`, which can leave gaps, because the supplied `WI-002` → `WI-003` case already chose max+1. Name a `RangeError` message in the same style as the duplicate phrase, and keep that guard in Valid alternatives.\n\n### F3 — `sharpens-framing`: blast list omits the CI rehearsal copy and the frozen story digest\n\n- **Evidence.** Stop 1 / issue AC name lab, both solution listings, assessment, and a protected comparison. The bytes that run in `scripts/capstone-lab.test.mjs` full rehearsal are a separate `greenImplementation` string with the same `padStart` line. Helper `story()` Acceptance is digested (`storyContractDigest`); guard fails if that narrative changes. Solution prose says \"all five supplied tests pass.\" `scripts/verify-capstone.mjs` already string-pins the duplicate `RangeError`.\n- **Failure mode.** Listings and a new supplied test land; rehearsal still emits `WI-1000` and CI fails. Or authors recut story Acceptance and every identity-guard test that hashes it. Or solution count stays \"five\" after a sixth test.\n- **Disposition.** Treat `scripts/capstone-lab.test.mjs` as a third listing. Prefer putting the new case in the supplied suite so the existing story Acceptance (\"supplied focused tests pass\") covers it without a helper-story recut. Extend the existing verifier pin the same way the duplicate phrase is pinned. Update \"five supplied tests\" with the suite.\n\n### F4 — `footnote`: the 50-item loop is a supplied test named \"ordinary\"\n\n`test/work-items.test.mjs` `preserves 50 ordinary fictional work-item inputs` walks index 1..50 from empty. It is not in `capstone-lab.mjs`. Extending that loop to 999 would also catch max+1 overflow and is slower than one `WI-999` fixture, which is the collection the issue already names.\n\n### F5 — `footnote`: panel-deposit and envelope ceiling match\n\nDeposit `5760695622` names `input-ceiling: 5760695622`, `round: 1`, `siblings: 3`, families grok/claude/codex. Envelope Id ceiling is that snapshot. No deposit/envelope mismatch.\n\n## Road not taken\n\nChose **max-suffix + 1, `RangeError` at 999, new case in the supplied suite, both listings plus the rehearsal copy** over three live alternatives.\n\n- **Rejected: widen to `/^WI-\\d+$/`.** Smaller code change; `padStart` already emits extra digits. Rejected because lab Task 2, CLI usage `complete <WI-NNN>`, and the validator message already teach three digits.\n- **Rejected: next free slot in `000`–`999`.** Uses the namespace more completely. Rejected because the supplied `WI-002` → `WI-003` case already binds max+1.\n- **Rejected: leave the listings, call overflow out of exercise scope.** The capstone payload is lifecycle evidence; the 50-item test is named ordinary; no happy-path step builds 999 items.\n\n**Steelman of that last reject.** Growing the frozen suite and the product contract competes with CAP.2 / CAP.3 attention, and a 5–10 year engineer who never passes `items-json` will not hit `WI-999`. **Flip:** if the CLI did not take `items-json` (it does; `duplicateProbe` uses it), or if the reviewed listing were labeled incomplete (it is the complete repair). A one-call valid collection producing an id the same module rejects is an invariant hole in the comparison answer, not an ordinary-scale footnote.\n\nFlip F1 if the successor map names the supplied-test (or `recordGreen`) lane and keeps CAP.3 at one duplicate P1. Flip F2 if the lab sentence names generated-from-empty `WI-001`, legal `WI-000`, max-suffix exhaustion, and the throw phrase. Flip F3 if the rehearsal string and the \"five tests\" / verifier pins are in the bound file list.\n\n",
+          "id": 5760827789,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5760827789",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T12:55:50Z",
+          "updated_at": "2026-09-21T12:55:50Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: gpt-5\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound-1 fresh critic at dispatch SHA `0cb9925d561733ea0907a8f1b450a61416ba1fd6`, input ceiling `5760695622`. I read the issue body, Stop 1 comment `5760665545`, and panel-deposit `5760695622`; later comments and sibling posts were not read. The deposit matches the envelope ceiling. Source reads were pinned to the dispatch SHA.\n\n## Verdict\n\nThe bounded-namespace direction survives, but the issue is not bindable exactly as written. Both worked implementations need the same fail-closed exhaustion guard, and the contract must select the frozen supplied test—not an unspecified helper probe—as the normative comparison. The current capstone verifier and full rehearsal both pass while the invariant is broken, so the remedy also needs to close that deterministic blind spot.\n\n### F1 — `blocks-the-design` — a supplied test and the existing helper-probe surface are not interchangeable\n\n**Evidence.** I executed each worked implementation directly from `solutions/capstone-end-to-end.md:174-230` and `:282-349` against one valid `WI-999` item. Each returned `WI-1000`; `/^WI-\\d{3}$/` returned false; and the next `summarizeWorkItems` call threw `TypeError: work-item id must use WI-NNN`. The frozen focused test imports `addWorkItem` directly (`labs/fixtures/capstone-end-to-end/test/work-items.test.mjs:1-53`), and `recordGreen` already runs that test (`capstone-lab.mjs:668-695`). By contrast, the helper's existing add probes go through `src/cli.mjs`; `runCli` catches the exception and reduces it to exit `1` plus the message (`src/cli.mjs:36-45`), erasing whether it was the required `RangeError`.\n\n**Failure mode.** The issue's “supplied test or helper-owned independent probe” permits a helper-only implementation that observes merely nonzero exit or a phrase. That can accept the wrong exception class, hide a core Task 2 contract from the test the learner is told to read, or discover it only after green. It also conflates this baseline invariant with the intentionally later helper-owned duplicate-title review finding.\n\n**Disposition consequence.** Require a frozen focused unit test at the green stage. It should call `addWorkItem` with a valid collection whose maximum suffix is `999`, assert `RangeError` with one stable phrase such as `work-item id namespace exhausted`, and prove the input remains unchanged. `recordGreen` already executes this comparison; no new helper probe is needed. Put the identical guard in both the green and reviewed solution listings, after `validateItems` and highest-suffix calculation but before constructing the item.\n\n### F2 — `blocks-the-design` — the deterministic capstone contract does not cover the boundary\n\n**Evidence.** With both bad worked listings present, `node scripts/verify-capstone.mjs` reported `ok (36 artifacts, 0 missing)`, the full `scripts/capstone-lab.test.mjs` rehearsal passed 8/8, and `scripts/verify-capstone.test.mjs` passed 41/41. The verifier currently checks generic implementation tokens and the duplicate-title repair (`scripts/verify-capstone.mjs:565-574`); its frozen-test inspection checks only blank-title wording (`:654-660`). Its mutation suite has a duplicate-repair case (`scripts/verify-capstone.test.mjs:304-307`) but no exhaustion mutation. The full rehearsal installs the separate `greenImplementation` string in `scripts/capstone-lab.test.mjs:74-111`, which repeats the same missing guard.\n\n**Failure mode.** A patch can fix one Markdown listing, omit the assessment contract, or leave the executable rehearsal implementation broken while every project-owned capstone gate remains green. The defect can therefore recur immediately even if one visible example is corrected.\n\n**Disposition consequence.** Extend the existing mechanism rather than adding a new verifier: update the frozen fixture test, the canonical rehearsal implementation, Task 2/CAP.2 prose in the lab and assessment, and both solution listings; then make `verify-capstone.mjs` assert the boundary on each relevant surface. Add mutation tests that remove the focused boundary case and remove the guard from either worked stage. The aggregate `test:capstone` lane should then prove both executable behavior and authored-content agreement.\n\n### F3 — `sharpens-framing` — separate the accepted input namespace from the allocator's first output\n\n**Evidence.** The current validator accepts every three-digit suffix, including `WI-000` (`solutions/capstone-end-to-end.md:174-189`), while the allocator seeds `highest` with `0`, so an empty collection produces `WI-001` (`:196-204`). The focused examples and helper evidence likewise start at `WI-001`.\n\n**Failure mode.** Saying only “IDs are `WI-001` through `WI-999`” while retaining the regex silently leaves `WI-000` valid; tightening the regex instead would reject a previously valid input for no reason needed to close this issue. Saying allocation starts at `WI-000` would contradict the executed examples.\n\n**Disposition consequence.** Bind the narrow contract: valid existing identifiers remain exactly three digits (`WI-000` through `WI-999`); allocation from an empty/no-positive-suffix collection starts at `WI-001`; allocation advances from the highest suffix; and highest `999` throws the documented `RangeError`. If the product instead wants to ban `WI-000`, treat that as a separate contract recut with its own validator and fixtures, not an incidental part of exhaustion handling.\n\n### F4 — `sharpens-framing` — the unbounded-regex alternative is unsafe with the current numeric mechanism\n\n**Evidence.** The CLI accepts caller-provided JSON collections (`src/cli.mjs:7-28`), so this is an untrusted-input surface. The proposed `/^WI-\\d+$/` form accepts arbitrarily long suffixes, but allocation converts the suffix with `Number`. A runtime probe showed a 400-digit suffix becomes `Infinity`; it also showed `9007199254740992` and `9007199254740993` convert to the same Number. `padStart(3)` supplies a minimum width, not an upper bound or safe-integer guarantee.\n\n**Failure mode.** Widening only the validator admits IDs the allocator cannot order exactly. It can collapse distinct IDs, stop advancing, or emit `WI-Infinity`, replacing the visible `WI-1000` defect with a larger integrity defect on attacker-controlled input.\n\n**Disposition consequence.** Make bounded exhaustion the only remedy in this issue. It reuses the already-valid 0–999 numeric representation and adds no shell, authority, identity, concurrency, worktree, or shared-state surface. An unbounded design would require a separate contract for string/`BigInt` ordering, leading-zero canonicalization, duplicate identity, CLI help, validators, examples, and tests.\n\n### F5 — `footnote` — retain the 50-item ordinary-range test\n\nThe existing loop (`work-items.test.mjs:47-53`) still usefully proves sequential allocation and immutability over ordinary inputs. Add one direct `WI-999` exhaustion case; replacing the loop with a long march to the boundary would make the failure less local and would discard distinct coverage.\n\n## Road not taken\n\nThe strongest rejected position is to widen IDs to `WI-<digits>`. Its steelman is real: an arbitrary 999-item ceiling disappears, normal adds need no exhaustion branch, and persisted collections can grow without renumbering. I would flip if the fictional product actually required more than 999 items and the design replaced `Number` suffix arithmetic with a canonical exact representation while recutting every `WI-NNN` contract surface. No such requirement or mechanism exists at this SHA; the bounded guard is the smaller, safer teaching contract.\n\n",
+          "id": 5760865843,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5760865843",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T12:58:45Z",
+          "updated_at": "2026-09-21T12:58:45Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe capstone worked `addWorkItem` can emit `WI-1000` after valid `WI-999`, which the same module rejects, and the course never names that bound. Confirming this map would keep bounded `WI-NNN`, throw a documented `RangeError` once the highest suffix is `999`, put that guard in both solution listings plus the CI rehearsal copy, add a frozen supplied test at green rather than a CAP.3 helper probe, and state that `WI-000` stays a legal existing id, generated-from-empty is `WI-001`, and add refuses once `WI-999` exists even with gaps.\n\nParent forward verdict: both recorded pains hold; bounded-namespace with a fail-closed guard survives; the draft as written does not bind.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5760665545 and these takes; the evidence is critics 5760792204, 5760827789, and 5760865843.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 3\ncritic: 5760792204\ncritic: 5760827789\ncritic: 5760865843\nsupersedes: 5760665545\nTarget-digest: sha256:e725b9cd5a536a65f817a8505a8efdb329e385f620166a7ab94021967b91919b\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### three allocator copies, and the missed one is what CI executes\ntake: accept-into-contract\ncritic: 5760792204\nheading: three allocator copies, and the missed one is what CI executes\n\n### a protected comparison covers the highest valid suffix is two different changes\ntake: accept-into-contract\ncritic: 5760792204\nheading: \"a protected comparison covers the highest valid suffix\" is two different changes\n\n### exhaustion misnames the condition\ntake: accept-into-contract\ncritic: 5760792204\nheading: \"exhaustion\" misnames the condition\n\n### the unbounded alternative is not merely larger, it is defective\ntake: accept-into-contract\ncritic: 5760792204\nheading: the unbounded alternative is not merely larger, it is defective\n\n### cross-surface agreement is vacuous on two surfaces and ungated\ntake: accept-into-contract\ncritic: 5760792204\nheading: cross-surface agreement is vacuous on two surfaces and ungated\n\n### footnote — lower bound\ntake: accept-into-contract\ncritic: 5760792204\nheading: lower bound\n\n### the comparison owner is two lanes, and one is the CAP.3 probe\ntake: accept-into-contract\ncritic: 5760827789\nheading: the comparison owner is two lanes, and one is the CAP.3 probe\n\n### learner-facing contract still has an unbound lower bound and no observable message\ntake: accept-into-contract\ncritic: 5760827789\nheading: learner-facing contract still has an unbound lower bound and no observable message\n\n### blast list omits the CI rehearsal copy and the frozen story digest\ntake: accept-into-contract\ncritic: 5760827789\nheading: blast list omits the CI rehearsal copy and the frozen story digest\n\n### footnote — the 50-item loop is a supplied test named ordinary\ntake: accept-into-contract\ncritic: 5760827789\nheading: the 50-item loop is a supplied test named \"ordinary\"\n\n### footnote — panel-deposit and envelope ceiling match\ntake: accept-into-contract\ncritic: 5760827789\nheading: panel-deposit and envelope ceiling match\n\n### a supplied test and the existing helper-probe surface are not interchangeable\ntake: accept-into-contract\ncritic: 5760865843\nheading: a supplied test and the existing helper-probe surface are not interchangeable\n\n### the deterministic capstone contract does not cover the boundary\ntake: accept-into-contract\ncritic: 5760865843\nheading: the deterministic capstone contract does not cover the boundary\n\n### separate the accepted input namespace from the allocator's first output\ntake: accept-into-contract\ncritic: 5760865843\nheading: separate the accepted input namespace from the allocator's first output\n\n### the unbounded-regex alternative is unsafe with the current numeric mechanism\ntake: accept-into-contract\ncritic: 5760865843\nheading: the unbounded-regex alternative is unsafe with the current numeric mechanism\n\n### footnote — retain the 50-item ordinary-range test\ntake: accept-into-contract\ncritic: 5760865843\nheading: retain the 50-item ordinary-range test\n\nrelieves: P1\nrelieves: P2\naudit:pain-P1 sha=0cb9925d561733ea0907a8f1b450a61416ba1fd6 pointer=comment:5760792204 reading=asserted\naudit:pain-P2 sha=0cb9925d561733ea0907a8f1b450a61416ba1fd6 pointer=comment:5760827789 reading=asserted\n\n## Bound remedy\n\n- Keep bounded `WI-NNN` (`/^WI-\\d{3}$/`). Refuse the unbounded `WI-<digits>` alternative on this issue: `Number` suffix arithmetic cannot order widened ids, and gap-fill already fails the supplied `WI-002` → `WI-003` case.\n- Allocation stays max-suffix + 1. Generated-from-empty is `WI-001`. `WI-000` remains a legal existing identifier. Add refuses once a collection already holds `WI-999`, even when lower identifiers are free. Do not teach reuse of a free slot at that boundary.\n- After `validateItems` and the highest-suffix calculation, and before constructing the item, throw `RangeError` with one stable phrase (same style as the duplicate-title phrase). Pin that type and message on lab, both solution listings, Valid alternatives, the supplied test, and `scripts/verify-capstone.mjs`.\n- Put the identical guard in both worked listings in `solutions/capstone-end-to-end.md` and in the CI rehearsal copy `scripts/capstone-lab.test.mjs` (`greenImplementation` / `reviewedImplementation`).\n- Bind the protected comparison as a frozen supplied test in `labs/fixtures/capstone-end-to-end/test/work-items.test.mjs` that `recordGreen` already runs: call `addWorkItem` on a valid collection whose maximum suffix is `999`, assert the documented `RangeError`, and prove the input is unchanged. Strike \"helper-owned independent probe\" unless renamed as a `recordGreen` check of the `WI-001` kind. Do not grow CAP.3 / `duplicateProbe` / `CAP-P1-001`.\n- Keep the existing 50-item ordinary-range test. Add one direct `WI-999` case rather than marching the loop to the boundary.\n- Land the Task 2 / CAP.2 learner-facing bullet in the same change as that test, so green does not hard-stop on an unstated rule.\n- Extend `scripts/verify-capstone.mjs` to assert the boundary on each relevant surface (lab, both listings, assessment where it carries the contract, supplied test, rehearsal copy). Add mutation tests that remove the focused boundary case or the guard from either worked stage.\n- Update the authored \"five supplied tests\" count with the suite. Prefer putting the new case in the supplied suite so existing story Acceptance (\"supplied focused tests pass\") covers it without a helper-story recut.\n- Delivery bytes span both completed minted fileScopes (`training.capstone.fixture-runtime` and `training.capstone.learning-experience`). Restate scope over those four sites; do not treat the two Markdown listings as the whole file list.\n\n",
+          "id": 5760907178,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5760907178",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:02:00Z",
+          "updated_at": "2026-09-21T13:02:00Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1, pain-P2\n\nRound 2 fresh pain-audit of successor lean 5760907178 Bound remedy against Stop 1 write-back 5760665545. Ceiling 5760907178 inclusive. Dispatch SHA `0cb9925d561733ea0907a8f1b450a61416ba1fd6`. Process-only. File reads via `git show <sha>:`. Sibling agreement was not used as confirmation.\n\n## Verdict\n\n`relieves: P1` is independently supported. A `/tmp` apply of the Bound-remedy guard to both worked listings stops `WI-1000` and keeps `WI-998` → `WI-999` and empty → `WI-001`.\n\n`relieves: P2` is not independently supported. Stop 1 P2 names three learner-facing surfaces. The harvest names the bound on the lab and the explained solution. It does not require the assessment to name that bound, and it lets a verifier skip that surface.\n\n## Re-verification at the dispatch SHA\n\nChecks were re-run here. Line cites on the lean and on round-1 comments were treated as claims.\n\n| Anchor | Result | Check |\n| --- | --- | --- |\n| Both worked listings emit `WI-1000` from valid `WI-999`; that id fails `/^WI-\\d{3}$/` | holds | Extracted the two `~~~js` `addWorkItem` fences from `solutions/capstone-end-to-end.md`. Green and reviewed both returned `{ emitted: \"WI-1000\", passesValidator: false }`. Next `summarizeWorkItems` threw `TypeError: work-item id must use WI-NNN`. `WI-998` still yields `WI-999`. `String(1000).padStart(3, \"0\") === \"1000\"` |\n| Same formula in the CI rehearsal copy | holds | `scripts/capstone-lab.test.mjs` `greenImplementation` uses the same `padStart(3)` allocation. Independent evaluation of that formula from `WI-999` is `{ rehearsalFormula: \"WI-1000\", passes: false }` |\n| P1 is live in project gates | holds | `node scripts/verify-capstone.mjs` at this SHA prints `ok (36 artifacts, 0 missing)` |\n| Lab never names `999` / exhaustion | holds | `labs/capstone-end-to-end.md`: `WI-NNN` once (Task 2 “highest numeric suffix”); zero `999`, `exhaust`, `WI-000`, `WI-1000`, `RangeError` |\n| Assessment never names `999` / exhaustion | holds | `assessments/capstone-end-to-end.md`: one `WI-001` in the green evidence row; zero `WI-NNN`, `999`, `exhaust`, `RangeError`. Task 2 / CAP.2 says implement “the visible work-item contract” and lists evidence stages. CAP.2 hints are evidence-layer hints |\n| Explained solution never names exhaustion | holds | `solutions/capstone-end-to-end.md`: two `padStart` allocations, four `WI-NNN` validator messages, three `RangeError` hits (`not found` ×2, duplicate title ×1). Valid alternatives accept a loop for the highest identifier and do not mention a 999 guard. Zero `999` / `exhaust` |\n| Bound-remedy guard closes P1 on those two listings | holds | `/tmp` patch: after `highest` is computed and before the item is constructed, `if (highest >= 999) throw new RangeError(...)`. Both listings then throw; input unchanged; `WI-998` still passes; empty still yields `WI-001` |\n\nP1 and P2 both still hold on the tree. The harvest covers P1. It does not cover P2 as Stop 1 wrote it.\n\n## Inventory\n\nNo new mechanism is required.\n\n- Product contract bullets already live in lab Task 2 (`labs/capstone-end-to-end.md` five-bullet green list).\n- Explained listings and Valid alternatives already live in `solutions/capstone-end-to-end.md`.\n- Frozen comparison already lives in `labs/fixtures/capstone-end-to-end/test/work-items.test.mjs`, run by `recordGreen`.\n- Cross-surface pins already live in `scripts/verify-capstone.mjs` (duplicate-title phrase, both `addWorkItem` listings). That gate is green while P1 is live.\n- CI rehearsal copy already lives in `scripts/capstone-lab.test.mjs`.\n- Assessment already lives in the same minted `fileScope` as the lab and solutions (`.deft/approved-scope/training.capstone.learning-experience.json`).\n- Domain-range errors are already `RangeError` (missing id; duplicate title). Overflow is a range.\n\n## F1 — blocks-the-design: `relieves: P2` leaves the assessment surface Stop 1 named\n\n**Evidence.** Stop 1 P2 is: learner-facing lab, assessment, and explained solution never name the `WI-NNN` namespace bound or exhaustion behavior. Bound-remedy coverage of that sentence, read off the harvest list:\n\n- Lab: “Land the Task 2 / CAP.2 learner-facing bullet” plus “Pin that type and message on lab …” That is the five-bullet green list. Covered.\n- Explained solution: pin type and message on both listings and Valid alternatives. Covered.\n- Assessment: the pin list is lab, both solution listings, Valid alternatives, the supplied test, and `scripts/verify-capstone.mjs`. Assessment is not on it. The only assessment mention is “assert the boundary on each relevant surface (… assessment where it carries the contract …)”. That is a verifier hedge, not a naming obligation. Measured today, assessment does not carry an identifier-bound contract (zero `999` / `exhaust` / `WI-NNN`). A harvest implementer can skip it and still satisfy every list item.\n\n`evaluateBoundRemedyCites` takes `coveredIds` as an input and does not grade Bound-remedy English. P2 is not in `coveredIds` on this measurement.\n\n**Failure mode.** Path-1 / completed-arc treats `relieves: P2` as coverage. The harvest can land with assessment still silent. A learner whose assessment Task 2 still says only “the visible work-item contract,” with green evidence still `WI-001` and no 999/RangeError sentence, is still looking at a learner-facing surface that never names exhaustion. That is the Stop 1 P2 sentence remaining true of one of the three surfaces it named.\n\n**Disposition consequence.** Do not bind `relieves: P2` on lean 5760907178. Either add an operative Bound-remedy item that the assessment names the same monotonic 999 refusal and the same `RangeError` phrase (drop the “where it carries the contract” skip), or recut the cite to the surfaces the harvest actually names (`does-not-relieve` / leftover for the assessment conjunct). Assessment is already in the learning-experience `fileScope`; this is not a new carrier.\n\n## Injection / swarm lens\n\nTriggered only as argv-supplied JSON into `validateItems` / `Number(id.slice(3))`. Bound-remedy keeps `/^WI-\\d{3}$/` and refuses the unbounded alternative. No new authority, identity, concurrency, worktree, or shared-state surface. No extra finding.\n\n## Road not taken\n\nThe strongest rejected reading is that P2 is already relieved because the lab bullet ends invent-behavior, and assessment Task 2’s “visible work-item contract” would point at that bullet.\n\n**Steelman.** Stop 1’s because-clause is that a learner must invent exhaustion. Assessment is freeze-rules and evidence, not a second product-contract list. After the lab names the bound, a learner following both documents is not inventing it. F5 already recut “lab, assessment, and explained solution agree” toward the verifier.\n\n**Flip.** I would flip if Stop 1 P2 named only the invent-behavior because, or if the harvest required assessment prose to carry the same RangeError sentence with no skip. Neither is true on 5760907178: P2 lists three surfaces, the pin list omits assessment, and the hedge is operative. Verifier English is not learner-facing naming.\n\n",
+          "id": 5761056035,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5761056035",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:13:00Z",
+          "updated_at": "2026-09-21T13:13:00Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe bind map claimed P2 relief that the Bound-remedy does not cover. The harvest names the identifier bound on the lab and the explained solution, and it lets the assessment stay silent. Confirming this retraction would drop the P2 relief cite, leave P2 unrelieved, and keep P1 covered by the same harvest.\n\nParent forward verdict: lean 5760907178 does not bind.\nDisposition: accept the pain-audit blocking finding; P2 stays unrelieved; P1 remains covered on this harvest.\nNon-self-arbitration: this parent authored Stop 1, the retracted bind map, and these takes; the evidence is critic 5761056035.\nThis arc does not ingest.\n\nround: 2\nsiblings: 1\ncritic: 5761056035\nsupersedes: 5760907178\nTarget-digest: sha256:e725b9cd5a536a65f817a8505a8efdb329e385f620166a7ab94021967b91919b\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### relieves P2 leaves the assessment surface Stop 1 named\ntake: accept-into-contract\ncritic: 5761056035\nheading: `relieves: P2` leaves the assessment surface Stop 1 named\n\nrelieves: P1\ndoes-not-relieve: P2\naudit:pain-P1 sha=0cb9925d561733ea0907a8f1b450a61416ba1fd6 pointer=comment:5761056035 reading=asserted\n\n## Bound remedy\n\nUnchanged from 5760907178 for the P1 bytes: bounded `WI-NNN`, `RangeError` once highest suffix is `999`, both solution listings plus the CI rehearsal copy, frozen supplied test at green, Task 2 bullet in the same change, verifier pins, `WI-000` legal existing, generated-from-empty `WI-001`, monotonic refusal once `WI-999` exists.\n\nThat harvest does not require `assessments/capstone-end-to-end.md` to name the same bound. P2 stays unmet on this map.\n\n",
+          "id": 5761088607,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5761088607",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:15:17Z",
+          "updated_at": "2026-09-21T13:15:17Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nHandoff\n\nopen-question: For unrelieved P2 (assessment still silent on the WI-NNN bound), file a leftover issue for that unmet naming surface, or halt?\n\nYolo leftover-pain recommendation: file a leftover issue for the assessment naming conjunct, and keep the current harvest as the P1 remainder. Yolo standing does not confirm that split.\n\n",
+          "id": 5761089083,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5761089083",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:15:19Z",
+          "updated_at": "2026-09-21T13:15:19Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nleftover-issue: 38\n\nOperator confirmed the leftover split as a live turn. Parent issue-create returned https://github.com/deftai/directive-training/issues/38. That number is the only leftover id for Stop 1 P2.\n\n",
+          "id": 5761184066,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5761184066",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:22:00Z",
+          "updated_at": "2026-09-21T13:22:00Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe operator confirmed the leftover split. P2 assessment naming is issue 38. Confirming this map would bind the P1 remainder on this issue: bounded `WI-NNN`, a documented `RangeError` once the highest suffix is `999`, both explained listings plus the CI rehearsal copy, a frozen supplied test at green, and the Lab Task 2 bullet.\n\nParent forward verdict: retraction 5761088607 does not bind; this remainder map is the bind offer after the confirmed split.\nDisposition: P1 remain on #36; P2 is operator-deferred to issue 38.\nNon-self-arbitration: this parent authored Stop 1, the retracted map, leftover create, and these takes; P1 coverage evidence is critic 5761056035.\nThis arc does not ingest.\n\nround: 2\nsiblings: 1\ncritic: 5761056035\nsupersedes: 5761088607\nTarget-digest: sha256:e725b9cd5a536a65f817a8505a8efdb329e385f620166a7ab94021967b91919b\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### relieves P2 leaves the assessment surface Stop 1 named\ntake: accept-into-contract\ncritic: 5761056035\nheading: `relieves: P2` leaves the assessment surface Stop 1 named\n\nrelieves: P1\noperator-deferred: P2 #38\naudit:pain-P1 sha=0cb9925d561733ea0907a8f1b450a61416ba1fd6 pointer=comment:5761056035 reading=asserted\naudit:pain-P2 sha=0cb9925d561733ea0907a8f1b450a61416ba1fd6 pointer=comment:5761056035 reading=asserted\n\n## Bound remedy\n\n- Keep bounded `WI-NNN` (`/^WI-\\d{3}$/`). Refuse the unbounded `WI-<digits>` alternative on this issue.\n- Allocation stays max-suffix + 1. Generated-from-empty is `WI-001`. `WI-000` remains a legal existing identifier. Add refuses once a collection already holds `WI-999`, even when lower identifiers are free.\n- After `validateItems` and the highest-suffix calculation, and before constructing the item, throw `RangeError` with one stable phrase. Pin that type and message on the lab, both solution listings, Valid alternatives, the supplied test, and `scripts/verify-capstone.mjs`.\n- Put the identical guard in both worked listings in `solutions/capstone-end-to-end.md` and in `scripts/capstone-lab.test.mjs` (`greenImplementation` / `reviewedImplementation`).\n- Bind the protected comparison as a frozen supplied test in `labs/fixtures/capstone-end-to-end/test/work-items.test.mjs` that `recordGreen` already runs. Strike helper-owned independent probe / CAP.3 `duplicateProbe`. Keep the 50-item ordinary-range test and add one direct `WI-999` case.\n- Land the Task 2 / CAP.2 learner-facing bullet in the same change as that test.\n- Extend `scripts/verify-capstone.mjs` to assert that boundary on the lab, both listings, supplied test, and rehearsal copy. Add mutation tests that remove the focused boundary case or the guard from either worked stage.\n- Update the authored \"five supplied tests\" count with the suite.\n- Assessment naming of the same bound is leftover issue 38.\n\n",
+          "id": 5761184399,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5761184399",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:22:01Z",
+          "updated_at": "2026-09-21T13:22:01Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ncap-raise\nissue: 36\nspend: N≥3\nprior critic posts: 4 (three round-1 siblings plus one reserved-slot pain-audit)\nraise: +1 critic post\nreason: operator proceed-with-36 — pain-audit of remainder lean 5761184399 after leftover issue 38\nnew critic-post cap: 5\n\n",
+          "id": 5761457650,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5761457650",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:41:46Z",
+          "updated_at": "2026-09-21T13:41:46Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: claude-opus-5\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1, pain-P2\n\nRound 3 fresh pain-audit of bind lean 5761184399 against Stop 1 write-back 5760665545. Ceiling 5761184399 inclusive. Dispatch SHA `0cb9925d561733ea0907a8f1b450a61416ba1fd6`. Process-only: no ingest, no dest edits, throwaway `/tmp` probes only. Prior tables on 5761056035 were re-run, not accepted. Sibling agreement was not used as confirmation.\n\n## Verdict\n\n`relieves: P1` is independently supported. The Bound-remedy guard closes the boundary on both worked listings and on the derived rehearsal pair, and it leaves the ordinary range intact.\n\n`operator-deferred: P2 #38` picks the right target. 38 is a different issue and its body is the assessment naming conjunct, stated as such. But lean 5761184399 **as posted** does not express that deferral to the parser. It emits two dispositions for `P2`, so the pain conjunct on `evaluateCompletedArcRecord` returns `malformed-pain` and the lean cannot bind. One line-edit fixes it.\n\n## Re-verification at the dispatch SHA\n\nChecks were run here. Line cites on the lean and on 5761056035 were treated as claims.\n\n| Anchor | Result | Check |\n| --- | --- | --- |\n| Denominator is `P1`, `P2` | holds | `scanPainList` on 5760665545 returns `{\"present\":true,\"ids\":[\"P1\",\"P2\"],\"duplicates\":[],\"malformed\":false}` |\n| Both worked listings emit `WI-1000` from valid `WI-999` | holds | Extracted both ` ```js ` `addWorkItem` fences from `solutions/capstone-end-to-end.md` (L174, L282). Both return `{\"emitted\":\"WI-1000\",\"passesValidator\":false}`; next `summarizeWorkItems` throws `TypeError: work-item id must use WI-NNN`. `WI-998` still yields `WI-999`; empty still yields `WI-001` |\n| Bound-remedy guard closes that on both listings | holds | `/tmp` positional splice of `if (highest >= 999) throw new RangeError(...)` after the reduce, before construction. Both throw at `WI-999`; `WI-998`→`WI-999`; empty→`WI-001`; `WI-000`-only→`WI-001`; `[WI-000, WI-999]`→throws, so the monotonic-refusal clause holds with lower identifiers free |\n| The rehearsal pair survives that guard | holds | `scripts/capstone-lab.test.mjs` L104 derives `reviewedImplementation` from `greenImplementation` by `.replace(\"const highest = items.reduce\", ...)`. Re-ran that derivation over the guarded green: anchor survives, reviewed keeps both the 999 guard and the duplicate-title guard, and both throw at `WI-999` |\n| `P2` still live on all three named surfaces | holds | At this SHA: `labs/capstone-end-to-end.md` 0 hits for `999`/`exhaust`/`RangeError`; `assessments/capstone-end-to-end.md` 0 hits for `WI-NNN`/`999`/`exhaust`/`RangeError`, one `WI-001` in the L151 `green.json` row; `solutions/capstone-end-to-end.md` 0 hits for `999`/`exhaust`, and all 3 `RangeError` hits are not-found ×2 and duplicate-title ×1 |\n| Issue 38 body is the assessment conjunct | holds | Title names the assessment; Required remainder is assessment Task 2 / CAP.2 plus the verifier sentence; body states \"This issue is the assessment naming conjunct only\" |\n| Lean 5761184399 cites cleanly | **fails** | `scanPainCites` on that body returns three accepted cites: `P1` relieves, `P2` relieves, `P2` operator-deferred 38. See F1 |\n| No gate pins `duplicateProbe` | holds | 0 hits in `scripts/verify-capstone.mjs`; `scripts/capstone-lab.test.mjs` contains the duplicate-title phrase only inside the reviewed-source string, never as a probe assertion. The helper pins there are stage order, verb order, and evidence order |\n\n## F1 — blocks-the-design: lean 5761184399 emits conflicting dispositions for `P2`\n\n**Evidence.** `PAIN_CITE_RE` in `packages/core/src/design-critique/citation-grammar.ts` L401 has no line-start anchor. It scans the whole body for the disposition keyword plus a pain id, and filters only by `classifyPosition` — fence, quote, strike, inline code. Line 22 of the lean is a section heading that reproduces the 5761056035 finding title verbatim:\n\n    ### relieves P2 leaves the assessment surface Stop 1 named\n\nRunning the unmodified scanner over the posted body:\n\n```\nL22  match=\"relieves P2\"              classifyPosition=null          <- accepted\nL25  match=\"relieves: P2\"             classifyPosition=\"inline-code\" <- rejected\nL27  match=\"relieves: P1\"             classifyPosition=null          <- accepted\nL28  match=\"operator-deferred: P2 #38\" classifyPosition=null         <- accepted\n```\n\nL25 writes the same phrase inside backticks and is correctly rejected. L22 does not, and a `###` heading is not a refused position.\n\n**Failure mode.** `completed-arc-record.ts` L427-465 groups cites by pain id and takes `new Set(rows.map(row => row.disposition))`. For `P2` that set is `{relieves, operator-deferred}`, size 2, so the id lands in `conflicting` and the verdict is `blocked` / `malformed-pain`. Replaying that exact loop against the real scan output:\n\n```\nAS POSTED (5761184399):\n  {\"status\":\"blocked\",\"reason\":\"malformed-pain\",\n   \"detail\":\"conflicting or incomplete dispositions for pain id(s) P2\"}\n```\n\nThis is not an advisory miss. `## Pain coverage (#4496)` makes the named Stop 1 pains a bind conjunct on `evaluateCompletedArcRecord`, and `#### Yolo leftover-pain` requires the parent to chip ingest-ready only when that predicate would return complete. So the arc cannot bind on this lean, and the block is on `P2` — the marker this envelope targets — not on the relief the parent actually intends.\n\nIt also silently inverts the round-2 outcome. The parent retracted `relieves: P2` at 5761088607 precisely because 5761056035 blocked it; the heading carried over from that retraction reasserts it as an operative cite. The retraction comment has the identical defect: `scanPainCites` on 5761088607 returns `P2` relieves from L22 alongside `does-not-relieve: P2` on L28. So this is a copied heading, not a one-off slip.\n\n**Disposition consequence.** Do not bind lean 5761184399 as written. The minimal repair is to write L22 the way L25 already writes it:\n\n    ### `relieves: P2` leaves the assessment surface Stop 1 named\n\nVerified: with that one line inline-coded, the scan returns exactly `P1` relieves and `P2` operator-deferred 38, and the same partition loop returns `{\"status\":\"ok\",\"relieved\":[\"P1\"],\"deferred\":[\"P2\"]}`. `#### Yolo leftover-pain` already states the rule this breaks — every mention of a pain id or a disposition token that is not an operative cite goes in inline code. Since the posted lean cannot be edited into compliance without re-posting, this is a new bind lean carrying the corrected heading, not a walk take.\n\n## F2 — sharpens-framing: `P2` is a three-surface conjunct and 38 carries one of them\n\n**Evidence.** Stop 1 `P2` is \"learner-facing lab, assessment, and explained solution never name the `WI-NNN` namespace bound or exhaustion behavior\" — three surfaces. Issue 38 covers the assessment and explicitly disclaims the rest (\"P1 product bytes stay on #36\"). The other two are on this lean's harvest: bullet 3 pins the type and message on the lab, both listings, and Valid alternatives; bullet 8 lands the Task 2 / CAP.2 learner-facing bullet. Both are `P2` naming work, and neither is reachable from Stop 1 `P1`, which is only that the listings emit an id `validateItems` rejects.\n\nThe cite grammar has no way to defer a fraction of an id, and the denominator is owned by the Stop 1 write-back, so splitting `P2` would take a new Stop 1 rather than a lean edit. Given that box, `operator-deferred: P2 #38` is the closest in-grammar cite available. The gap is in the record, not the coverage.\n\n**Failure mode.** A reader of the bind lean alone sees `P2` discharged by 38. Issue 38's \"P1 product bytes stay on #36\" invites the reciprocal reading, that #36 owes only the product guard. Someone reconciling the two issues can trim the lab and Valid-alternatives naming out of the #36 harvest and still believe `P2` is fully accounted for.\n\n**Disposition consequence.** Not blocking: bullet 9 extends `scripts/verify-capstone.mjs` to assert the boundary on the lab, both listings, supplied test, and rehearsal copy, so a trim goes red deterministically rather than resting on review attention. Name the split in the plain-English paragraph of the new bind lean — 38 is the assessment surface, the lab and explained-solution surfaces of `P2` ride this harvest — and correct 38's \"P1 product bytes stay on #36\" to say the assessment surface only.\n\n## F3 — sharpens-framing: \"Task 2 / CAP.2\" names a surface that exists on both sides of the split\n\n**Evidence.** Bound-remedy bullet 8 is \"Land the Task 2 / CAP.2 learner-facing bullet in the same change as that test.\" It names no file. At this SHA `CAP.2` is a shared capability id with a Task 2 heading on both surfaces: `labs/capstone-end-to-end.md` L210 \"Task 2 — Preserve red/green and layered checks (`CAP.2`)\" and `assessments/capstone-end-to-end.md` L88 \"Task 2 — Produce green and diagnose the broader gate (`CAP.2`)\". Issue 38's Required remainder uses the same phrase, disambiguated only by the word \"Assessment\".\n\n**Failure mode.** The lean declares `Spec-path: Bound-remedy harvest`, and `## Successor lean` points that harvest at plan.items with literal capture. The captured task statement is therefore ambiguous across exactly the #36/#38 seam: an implementer can satisfy bullet 8 by editing the assessment, which is the surface 38 owns, producing duplicated contract prose across two issues or a lab bullet that never lands.\n\n**Disposition consequence.** Write the file into bullet 8 on the new bind lean — the lab Task 2 (`CAP.2`) green-list bullet. The lab is separately pinned by bullets 3 and 9, so this is a harvest-precision fix, not new coverage.\n\n## F4 — sharpens-framing: \"Strike ... `duplicateProbe`\" reads as a deletion under literal capture\n\n**Evidence.** Bound-remedy bullet 7 is \"Bind the protected comparison as a frozen supplied test ... Strike helper-owned independent probe / CAP.3 `duplicateProbe`. Keep the 50-item ordinary-range test and add one direct `WI-999` case.\" Every other clause in that list is an imperative to perform, and the harvest is literal capture. `duplicateProbe` is live at `labs/fixtures/capstone-end-to-end/capstone-lab.mjs` L763, called twice: L780 asserts exit 0 at pre-PR so the review must classify before editing, and L817-819 assert nonzero plus the observable rejection phrase at review resolution. That pair is CAP.3's independent-evidence control.\n\n**Failure mode.** Read as an instruction, the bullet deletes a mechanism unrelated to `P1`, and nothing catches it: `scripts/verify-capstone.mjs` has zero `duplicateProbe` hits and pins only stage order, verb order, and evidence order on that helper; `scripts/capstone-lab.test.mjs` carries the duplicate-title phrase only inside the reviewed-source string. Removing the function with both call sites leaves both gates green while CAP.3 stops proving the very distinction issue 36's own body calls the capstone's core lesson.\n\n**Disposition consequence.** Restate bullet 7 as the rejected carrier it is — do not carry the `WI-999` comparison in a helper-owned probe modeled on `duplicateProbe`; the frozen supplied test is the carrier — so the captured task statement cannot read as a deletion. If the intent really is to remove `duplicateProbe`, that is a separate change and needs its own gate.\n\n## F5 — footnote: bullet 4 describes `reviewedImplementation` as separately editable\n\nBullet 4 says to put the identical guard in `greenImplementation` / `reviewedImplementation`. At L104 the reviewed copy is derived, not authored: `greenImplementation.replace(\"const highest = items.reduce\", ...)`. There is no second source to edit. Re-ran the derivation over the guarded green: the anchor survives a guard placed after the reduce and the reviewed copy inherits it, so the bullet is satisfiable as intended and nothing is at risk. Footnote only — it costs a harvest implementer one read.\n\n## Injection / swarm lens\n\nTriggered: the target is untrusted thread prose parsed at runtime into a bind decision. F1 is that lens, not a separate hazard. `### Reserved line-starts` fences four predicates that classify a comment by a line-start anywhere in the body, and warns that prose in comment bodies is not inert. The pain-cite scanner has the same anywhere-in-body reach with no position predicate beyond `classifyPosition`, and it is not in that matrix. The reachable path is structural rather than adversarial: a parent quoting a critic's finding heading is quoting text that, by construction, contains a disposition token and a pain id, because that is what the finding was about. Both the retraction and the bind lean took that path. The product change itself adds no authority, identity, concurrency, worktree, or shared-state surface — the guard is a local bound on `Number(id.slice(3))` inside a documented listing — so no further finding there.\n\n## Road not taken\n\nThe fork was whether F1 is real or an artifact of reading the regex without running it. I ran the unmodified `citation-grammar.ts` scanner over the posted body rather than reasoning from the pattern, then replayed the consumer's grouping loop, then verified the repair flips the verdict.\n\n**Steelman.** The strongest rejected position is that F1 is cosmetic: the parent's intent is unambiguous to a human, `## Plain-language summary` says live parent turns stay unenforced, and the surrounding fixtures are explicitly fixtures over claimed inputs rather than live observers. On that reading L22 is a formatting nit and the bind should proceed.\n\n**Why it fails.** The unenforced-live-turn note describes what observes the parent, not what the parent owes. `#### Yolo leftover-pain` binds the parent to chip ingest-ready only when the predicate would return complete, and that predicate reads the cited lean's body — the one artifact where the defect lives. A parent that binds here either checks the predicate and sees `malformed-pain`, or skips the check it is required to run.\n\n**Flip.** I would flip if `classifyPosition` refused heading position, if the cite scan were line-start anchored the way `Target-digest:` is, or if the pain conjunct read a structured field rather than the lean body. None of those hold at this SHA; the first two I measured directly.\n\n",
+          "id": 5761646309,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5761646309",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:55:31Z",
+          "updated_at": "2026-09-21T13:55:31Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe remainder bind lean cannot bind: a finding heading is an operative `relieves` cite for `P2`, so `P2` has two dispositions and the pain conjunct is malformed-pain. Confirming this retraction would drop lean 5761184399 as the bind offer.\n\nParent forward verdict: lean 5761184399 does not bind.\nDisposition: accept the blocking finding; P1 coverage and the leftover split remain the intended cites after a heading recut.\nNon-self-arbitration: this parent authored Stop 1, leftover 38, remainder lean 5761184399, and these takes; the evidence is critic 5761646309.\nThis arc does not ingest.\n\nround: 3\nsiblings: 1\ncritic: 5761646309\nsupersedes: 5761184399\nTarget-digest: sha256:e725b9cd5a536a65f817a8505a8efdb329e385f620166a7ab94021967b91919b\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### `relieves P2` heading is an operative cite\ntake: accept-into-contract\ncritic: 5761646309\nheading: lean 5761184399 emits conflicting dispositions for `P2`\n\nrelieves: P1\noperator-deferred: P2 #38\naudit:pain-P1 sha=0cb9925d561733ea0907a8f1b450a61416ba1fd6 pointer=comment:5761646309 reading=asserted\naudit:pain-P2 sha=0cb9925d561733ea0907a8f1b450a61416ba1fd6 pointer=comment:5761646309 reading=asserted\n\n## Bound remedy\n\nUnchanged harvest intent from 5761184399. That comment cannot bind while the finding heading remains an operative `P2` cite.\n\n",
+          "id": 5761673352,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5761673352",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:57:25Z",
+          "updated_at": "2026-09-21T13:57:25Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe prior remainder lean could not bind because a heading reasserted `P2` relief. Confirming this map would keep leftover issue 38 as the assessment naming surface, keep the lab and explained-solution surfaces of Stop 1 `P2` on this harvest, and bind the P1 product guard: bounded `WI-NNN`, a documented `RangeError` once the highest suffix is `999`, both listings plus the derived CI rehearsal copy, a frozen supplied test at green, and the lab Task 2 green-list bullet.\n\nParent forward verdict: retraction 5761184399's successor is this recut; leftover 38 is assessment-only.\nDisposition: accept the blocking finding and the three harvest sharpenings; footnote stays in the census.\nNon-self-arbitration: this parent authored Stop 1, leftover 38, and these takes; the evidence is critic 5761646309.\nThis arc does not ingest.\n\nround: 3\nsiblings: 1\ncritic: 5761646309\nsupersedes: 5761673352\nTarget-digest: sha256:e725b9cd5a536a65f817a8505a8efdb329e385f620166a7ab94021967b91919b\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### conflicting dispositions for P2\ntake: accept-into-contract\ncritic: 5761646309\nheading: lean 5761184399 emits conflicting dispositions for `P2`\n\n### P2 is a three-surface conjunct and 38 carries one of them\ntake: accept-into-contract\ncritic: 5761646309\nheading: `P2` is a three-surface conjunct and 38 carries one of them\n\n### Task 2 / CAP.2 names a surface that exists on both sides of the split\ntake: accept-into-contract\ncritic: 5761646309\nheading: \"Task 2 / CAP.2\" names a surface that exists on both sides of the split\n\n### Strike duplicateProbe reads as a deletion under literal capture\ntake: accept-into-contract\ncritic: 5761646309\nheading: \"Strike ... `duplicateProbe`\" reads as a deletion under literal capture\n\n### footnote — reviewedImplementation is derived\ntake: accept-into-contract\ncritic: 5761646309\nheading: bullet 4 describes `reviewedImplementation` as separately editable\n\nrelieves: P1\noperator-deferred: P2 #38\naudit:pain-P1 sha=0cb9925d561733ea0907a8f1b450a61416ba1fd6 pointer=comment:5761646309 reading=asserted\naudit:pain-P2 sha=0cb9925d561733ea0907a8f1b450a61416ba1fd6 pointer=comment:5761646309 reading=asserted\n\n## Bound remedy\n\n- Keep bounded `WI-NNN` (`/^WI-\\d{3}$/`). Refuse the unbounded `WI-<digits>` alternative on this issue.\n- Allocation stays max-suffix + 1. Generated-from-empty is `WI-001`. `WI-000` remains a legal existing identifier. Add refuses once a collection already holds `WI-999`, even when lower identifiers are free.\n- After `validateItems` and the highest-suffix calculation, and before constructing the item, throw `RangeError` with one stable phrase. Pin that type and message on `labs/capstone-end-to-end.md`, both solution listings, Valid alternatives, the supplied test, and `scripts/verify-capstone.mjs`.\n- Put the guard in `scripts/capstone-lab.test.mjs` `greenImplementation` after the reduce so `reviewedImplementation` inherits it. There is no second authored source.\n- Bind the protected comparison as a frozen supplied test in `labs/fixtures/capstone-end-to-end/test/work-items.test.mjs` that `recordGreen` already runs: call `addWorkItem` on a valid collection whose maximum suffix is `999`, assert the documented `RangeError`, and prove the input is unchanged. Keep the 50-item ordinary-range test and add one direct `WI-999` case. Do not carry that comparison in a helper-owned probe modeled on `duplicateProbe`. Do not delete `duplicateProbe`.\n- Land the learner-facing bullet on `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green list, in the same change as that test.\n- Extend `scripts/verify-capstone.mjs` to assert that boundary on the lab, both listings, supplied test, and rehearsal copy. Add mutation tests that remove the focused boundary case or the guard from the green rehearsal string.\n- Update the authored \"five supplied tests\" count with the suite.\n- Leftover issue 38 is the assessment naming surface only. Lab and explained-solution naming of the bound ride this harvest.\n\n",
+          "id": 5761685555,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5761685555",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:58:17Z",
+          "updated_at": "2026-09-21T13:58:17Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nHandoff\n\nopen-question: Raise Dual-stop by 1 so a pain-audit of the recut remainder lean can target pain-P1 and pain-P2 after the heading cite is repaired?\n\n",
+          "id": 5761685870,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5761685870",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:58:18Z",
+          "updated_at": "2026-09-21T13:58:18Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ncap-raise\nissue: 36\nspend: N≥3\nprior critic posts: 5 (three round-1 siblings, reserved-slot pain-audit, then one raised pain-audit)\nraise: +1 critic post\nreason: operator raise dual-stop on 36 by 1 — pain-audit of recut remainder lean 5761685555\nnew critic-post cap: 6\n\n",
+          "id": 5762445558,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5762445558",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T14:47:53Z",
+          "updated_at": "2026-09-21T14:47:53Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1, pain-P2\n\nRound 4 fresh pain-audit of recut bind lean 5761685555 against Stop 1 write-back 5760665545. Ceiling 5761685555 inclusive. Dispatch SHA `0cb9925d561733ea0907a8f1b450a61416ba1fd6`. Process-only. File reads via `git show <sha>:`. Tables on 5761646309 and 5761056035 were re-run, not accepted.\n\n## Verdict\n\n`relieves: P1` is independently supported. The Bound-remedy still closes `WI-1000` on both worked listings and on the derived rehearsal pair, and it leaves the ordinary range intact.\n\n`operator-deferred: P2 #38` is an honest deferral of the unmet assessment remainder to a different issue. 38 is not 36. At this SHA the assessment still does not name the bound. The recut Bound-remedy last bullet keeps lab and explained-solution naming on this harvest.\n\nLean 5761685555 is well-formed for `scanPainCites`: one `relieves` for `P1`, one `operator-deferred` for `P2` to 38, no second disposition. I found no `blocks-the-design` finding and no `sharpens-framing` finding that changes the harvested Bound-remedy.\n\n## Re-verification at the dispatch SHA\n\nChecks were run here. Line cites on the lean were treated as claims.\n\n| Anchor | Result | Check |\n| --- | --- | --- |\n| Denominator is `P1`, `P2` | holds | `scanPainList` on 5760665545 returns `{\"present\":true,\"ids\":[\"P1\",\"P2\"],\"duplicates\":[],\"malformed\":false}` |\n| Both worked listings emit `WI-1000` from valid `WI-999` | holds | Extracted both `~~~js` `addWorkItem` fences from `solutions/capstone-end-to-end.md`. Both return `{emitted:\"WI-1000\",passesValidator:false}`; next `summarizeWorkItems` throws `TypeError: work-item id must use WI-NNN`. `WI-998` still yields `WI-999`; empty still yields `WI-001`. `String(1000).padStart(3,\"0\")===\"1000\"`; `/^WI-\\d{3}$/.test(\"WI-1000\")===false` |\n| Bound-remedy guard closes that on both listings | holds | `/tmp` splice of `if (highest >= 999) throw new RangeError(...)` after the reduce, before construction. Both throw at `WI-999`; `WI-998`→`WI-999`; empty→`WI-001`; `WI-000`-only→`WI-001`; `[WI-000, WI-999]`→throws |\n| The rehearsal pair survives that guard | holds | Reconstructed `greenImplementation` / `reviewedImplementation` from `scripts/capstone-lab.test.mjs` L75-111. Unmodified green emits `WI-1000`. Guarded green and the derived reviewed copy both throw at `WI-999`; reviewed keeps the duplicate-title `RangeError`; `WI-998` still yields `WI-999` |\n| P1 is live in project gates | holds | `node scripts/verify-capstone.mjs` at this SHA prints `ok (36 artifacts, 0 missing)` |\n| Assessment remainder still unnamed | holds | `assessments/capstone-end-to-end.md`: 0 hits for `WI-NNN` / `999` / `exhaust` / `RangeError`; one `WI-001` in the L151 `green.json` row. Task 2 heading is L88 |\n| Lab exhaustion still unnamed | holds | `labs/capstone-end-to-end.md`: `WI-NNN` once (L225 highest numeric suffix); 0 hits for `999` / `exhaust` / `RangeError`. Task 2 heading is L210 |\n| Explained-solution exhaustion still unnamed | holds | `solutions/capstone-end-to-end.md`: 0 hits for `999` / `exhaust`; three `RangeError` hits are not-found ×2 and duplicate-title ×1 |\n| Issue 38 is a different-issue assessment remainder | holds | Number 38, title names the assessment, state open. Body: \"This issue is the assessment surface only. Lab and explained-solution naming of the `WI-NNN` bound stay on #36.\" Required remainder is assessment Task 2 / CAP.2 plus `verify-capstone.mjs` asserting that sentence |\n| Recut Bound-remedy covers P1 and keeps lab/explained-solution naming here | holds | Refuse at `WI-999`; pin `RangeError` on `labs/capstone-end-to-end.md`, both listings, Valid alternatives, supplied test, and `scripts/verify-capstone.mjs`; lab Task 2 (`CAP.2`) green-list bullet; verifier on lab, both listings, supplied test, rehearsal; last bullet: leftover 38 is assessment naming only |\n| Lean 5761685555 cites cleanly | holds | Unmodified `scanPainCites` on that body: accepted `P1` relieves and `P2` operator-deferred 38; `rejected: []`. Grouping loop: `{\"status\":\"ok\",\"relieved\":[\"P1\"],\"deferred\":[\"P2\"]}`. Control on 5761184399 still `malformed-pain` for `P2` |\n| Target-digest matches the issue body | holds | SHA-256 of the REST body is `e725b9cd5a536a65f817a8505a8efdb329e385f620166a7ab94021967b91919b` |\n| `evaluateBoundRemedyCites` with covered `P1` and unmet `P2` | holds | `{ok:true}` against issue 36. Same cites return `{ok:false}` if `P2` is treated as covered or as not unmet |\n| `duplicateProbe` still live | holds | `labs/fixtures/capstone-end-to-end/capstone-lab.mjs` L763, L780, L817; 0 hits in `scripts/verify-capstone.mjs`. Recut bullet says do not delete it |\n\n## F1 — footnote: two take-map headings mention `P2` without a disposition token\n\n**Evidence.** `PAIN_CITE_RE` has no line-start anchor. It scans the whole body for a disposition keyword plus a pain id, then `classifyPosition`. Lines 30 and 34 of lean 5761685555 are:\n\n    ### conflicting dispositions for P2\n    ### P2 is a three-surface conjunct and 38 carries one of them\n\nRunning the unmodified scanner over the posted body:\n\n    L30  no match\n    L34  no match\n    L47  match=\"relieves: P1\"              classifyPosition=null          <- accepted\n    L48  match=\"operator-deferred: P2 #38\" classifyPosition=null          <- accepted\n\nThe superseded remainder 5761184399 still matches `relieves P2` on its heading. This recut dropped that keyword from the heading text.\n\n**Failure mode.** Bare `P2` in a heading is not an operative cite on this body. A later heading edit that inserts `relieves` or `does-not-relieve` would re-create `malformed-pain`. The leftover-pain hygiene line still wants non-cite mentions in inline code.\n\n**Disposition consequence.** None for this bind. The lean can bind as written. Optional recording-comment hygiene only. Do not recut Bound-remedy.\n\n## Injection / swarm lens\n\nTriggered: untrusted thread prose parsed at runtime into a bind decision. F1 is that lens. This recut's headings were scanned and did not emit a second disposition. The product guard is a local bound on `Number(id.slice(3))` inside documented listings. No further finding.\n\n## Road not taken\n\nThe fork was whether `operator-deferred: P2 #38` is still dishonest because Stop 1 `P2` names three surfaces and this harvest still names two of them.\n\n**Steelman.** The cite grammar cannot defer a fraction of an id. Deferring the whole id while Bound-remedy still pins the lab Task 2 green-list bullet and both listings' `RangeError` phrase treats `P2` as unmet when two surfaces ride this harvest. `evaluateBoundRemedyCites` returns `{ok:false}` if `P2` is not in `unmetIds`. On that reading the honest cite is `relieves: P2`, or a new Stop 1 that splits the denominator.\n\n**Why it fails.** 5761056035 already blocked `relieves: P2` because the assessment can stay silent. At this SHA that assessment still has zero `WI-NNN` / `999` / `exhaust` / `RangeError` hits. Issue 38's required remainder is that assessment sentence. The recut plain-English paragraph and Bound-remedy last bullet name the partition. `evaluateBoundRemedyCites` with `coveredIds=[\"P1\"]` and `unmetIds=[\"P2\"]` against issue 36 returns `{ok:true}`.\n\n**Flip.** I would flip if 38's required remainder included lab or explained-solution naming, if this harvest omitted those surfaces, or if `scanPainCites` on 5761685555 emitted a second `P2` disposition. None of those hold.\n\n",
+          "id": 5762633722,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5762633722",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T15:00:51Z",
+          "updated_at": "2026-09-21T15:00:51Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5762633722 is footnote-only. Bind remains successor lean 5761685555. Harvest unchanged.\n\n### footnote — two take-map headings mention P2 without a disposition token\ntake: accept-into-contract\ncritic: 5762633722\nheading: two take-map headings mention `P2` without a disposition token\n\n",
+          "id": 5762673268,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5762673268",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T15:03:34Z",
+          "updated_at": "2026-09-21T15:03:34Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Both worked `addWorkItem` listings emit `WI-1000` from valid `WI-999`, which `/^WI-\\d{3}$/` rejects | verified | Extracted both `~~~js` fences from `solutions/capstone-end-to-end.md` at `0cb9925d561733ea0907a8f1b450a61416ba1fd6`; Node probe `{id:\"WI-1000\",passes:false}`; next `summarizeWorkItems` throws `TypeError: work-item id must use WI-NNN` |\n| Same formula is in the CI rehearsal copy | verified | `git grep padStart(3` hits `scripts/capstone-lab.test.mjs:88` at that SHA |\n| `node scripts/verify-capstone.mjs` is green while that invariant is broken | verified | ran at dest SHA; `ok (36 artifacts, 0 missing)` |\n| Assessment never names `999` / exhaustion / `RangeError` | verified | `git grep` of `assessments/capstone-end-to-end.md` at that SHA; zero matches |\n| Issue 38 is a different-issue assessment remainder | verified | REST GET issue 38: open, title names the assessment, body says assessment surface only |\n| Lean 5761685555 cites `relieves: P1` and `operator-deferred: P2 #38` with no second disposition | verified | Pain-audit 5762633722 re-ran `scanPainCites` on that body: accepted `P1` relieves and `P2` operator-deferred 38; grouping `{relieved:[\"P1\"],deferred:[\"P2\"]}` |\n| Bound-remedy on 5761685555 covers P1 | verified | `/tmp` splice of `if (highest >= 999) throw new RangeError(...)` after the reduce on both listings and the derived rehearsal pair; both throw at `WI-999`; `WI-998` still yields `WI-999`; empty still yields `WI-001` |\n\n",
+          "id": 5762673659,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5762673659",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T15:03:35Z",
+          "updated_at": "2026-09-21T15:03:35Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nThe capstone worked `addWorkItem` can emit `WI-1000` after valid `WI-999`, which the same module rejects, and the assessment still never names that bound. The accepted harvest keeps bounded `WI-NNN` with a documented `RangeError` once the highest suffix is `999`, on both listings plus the derived CI copy, a frozen supplied test at green, and the lab Task 2 green-list bullet. Assessment naming is leftover issue 38.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5761685555\nverified-claims table 5762673659\n\n",
+          "id": 5762676188,
+          "html_url": "https://github.com/deftai/directive-training/issues/36#issuecomment-5762676188",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T15:03:45Z",
+          "updated_at": "2026-09-21T15:03:45Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5521510608,
+        "origin": "deftai/directive-training#36",
+        "id": "github.issue.5521510608"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "e725b9cd5a536a65f817a8505a8efdb329e385f620166a7ab94021967b91919b"
+      },
+      "kind": "story",
+      "swarm": {
+        "readiness": "sequential",
+        "parallel_safe": false,
+        "depends_on": [],
+        "size": "medium",
+        "conflict_group": "capstone",
+        "model_tier": "high",
+        "verify_commands": [
+          "npm run check:capstone",
+          "npm run test:capstone",
+          "npm test"
+        ],
+        "expected_outputs": [
+          "Both solutions/capstone-end-to-end.md addWorkItem listings and the derived scripts/capstone-lab.test.mjs rehearsal pair throw the documented RangeError once the highest suffix is 999, while WI-998 still yields WI-999 and an empty collection still yields WI-001",
+          "labs/fixtures/capstone-end-to-end/test/work-items.test.mjs carries a frozen WI-999 case that recordGreen runs, asserting the documented RangeError and an unchanged input, with the 50-item ordinary-range test and duplicateProbe both intact",
+          "labs/capstone-end-to-end.md Task 2 (CAP.2) green list names the bound, and scripts/verify-capstone.mjs asserts it on the lab, both listings, the supplied test and the rehearsal copy",
+          "npm run check:capstone, npm run test:capstone and npm test each exit 0"
+        ],
+        "dispatch_kind": "solo"
+      }
+    },
+    "id": "github.issue.5521510608",
+    "updated": "2026-09-21T18:17:43Z"
+  }
+}

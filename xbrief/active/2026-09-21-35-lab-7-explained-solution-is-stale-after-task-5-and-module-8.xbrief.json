@@ -1,0 +1,483 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #35",
+    "updated": "2026-09-21T18:17:42Z"
+  },
+  "plan": {
+    "title": "Lab 7 explained solution is stale after Task 5 and Module 8 became available",
+    "status": "running",
+    "narratives": {
+      "Description": "The Lab 7 explained solution predates Lab 7 Task 5 and the shipped Module 8, so a learner who obtains exit 0 from the supplied xbrief:verify command has no comparison surface for the retained path, command, exit code, result, or the no-authority boundary. Its Continue section still says Module 8 remains planned even though curriculum/modules/08-session-and-work-selection.md exists and Module 7 Navigation already links it. The accepted remedy refreshes that solution as the Task 5 comparison surface, repoints Continue at the shipped module after the Module 7 self-assessment, and locks both identities on the Module 6 and Module 7 content contracts that already own these files.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/35",
+      "Overview": "## Course context\n\nI encountered this as a mid/senior learner following the course in order on the verified macOS/zsh path with Directive 0.119.5. I completed Module 6's command-free shaping artifact, then all five Lab 7 tasks, including the structural verification that closes Module 6 O6.2.\n\n## What happened\n\n`labs/07-scope-lifecycle.md` now includes Task 5 and makes the authored-scope structural result part of the lab's done condition. It requires retaining the artifact path, exact `xbrief:verify` command, exit code, result, and the boundary that a green result is not a lifecycle move.\n\nHowever, `solutions/lab-07-scope-lifecycle.md` appears to predate that addition:\n\n- its result summary, outcome map, worked approach, acceptance evidence, comparison questions, and retry/cleanup guidance never mention Task 5 or the Module 6 O6.2 structural record;\n- its final `Continue` section says “Module 8 remains planned,” even though `curriculum/modules/08-session-and-work-selection.md` exists and Module 7's own Navigation section links to it.\n\n## Learner pain\n\nThe course requires every lab step to be completed and compared with an explained solution. After a successful Task 5 result, the named Lab 7 solution gives no comparison surface for that required step, so a self-directed learner cannot tell from the solution whether the retained path/command/exit/result and no-authority boundary are complete. The stale Module 8 sentence then suggests stopping or falling back to the course map even though the next module is directly available.\n\nThis is especially confusing because Task 5 intentionally completes an earlier module outcome without adding a Lab 7 outcome; that nuance needs to be stated, not silently omitted.\n\n## Reproduction\n\n1. Complete Module 6 Part B and retain the proposed-scope artifact.\n2. Run Lab 7 Tasks 1–5 and obtain exit `0` from the supplied `xbrief:verify` command.\n3. Open the lab's named explained solution and try to compare Task 5 evidence.\n4. Read the solution's final continuation instruction.\n\n## Proposed fix\n\nRefresh the Lab 7 explained solution to:\n\n1. explicitly cover Task 5 as adjacent Module 6 O6.2 evidence while saying it adds no Lab 7 outcome;\n2. include the four retained structural fields and the separate rubric/authority boundary in the worked approach, acceptance evidence, comparison, and recovery sections; and\n3. replace the stale “Module 8 remains planned” sentence with a direct link to the available Module 8 (or an accurate course-map instruction).\n\nThe existing Module 6 solution already models the structural record well and could be cross-linked to avoid duplicating a long explanation.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready",
+      "UserStory": "As a learner who has just completed Lab 7 Task 5, I want the named explained solution to compare my retained structural evidence and point me at the module that actually shipped, so that I can tell whether my record is complete without guessing and without stopping at a stale course map.",
+      "ImplementationPlan": "1. Refresh solutions/lab-07-scope-lifecycle.md so Result summary, worked approach, acceptance evidence, Compare with your attempt, Expected failures and recovery, Retry plan, and Reset and cleanup all name Task 5, the four retained fields, and the four Task 5 boundary clauses.\n2. Cross-link the Module 6 solution structural-record section with a solutions-relative href; do not paste the Module 6 shaping rubric into Lab 7.\n3. Keep Outcomes covered as O7.1-O7.4 and name Task 5 as adjacent Module 6 O6.2 evidence only.\n4. Replace the whole false planned-claim in Continue, including the course-map clause, with a working ../curriculum/modules/08-session-and-work-selection.md link after the Module 7 self-assessment sentence.\n5. Route a Task 5 miss to Module 6 Part B re-authoring plus a rerun of the same command against the same path, retaining both exit codes.\n6. Extend scripts/verify-module-6.mjs and scripts/verify-module-7.mjs plus their test suites rather than adding a third verifier; update the module-6 synthetic fixture and its artifactCount assertions.\n7. Bump the solution Last verified date and keep the Windows platform claim unchanged.",
+      "QualityGate": "npm run check:module-6, npm run check:module-7 and npm test all exit 0. The new locks fail closed when the Task 5 comparison, the four boundary clauses, or the working Module 8 link is removed.",
+      "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
+    },
+    "items": [
+      {
+        "title": "Refresh `solutions/lab-07-scope-lifecycle.md` itself so Result summary, worked approach, acceptance evidence, comparison, Expected failures and recovery, Retry plan, and Reset and cleanup name Task 5, the four retained fields (path, `xbrief:verify` command, exit code, result), and the four Task 5 boundary clauses: verify is not a lifecycle move; a green result grants no promotion, activation, or implementation authority; `xbrief:preflight` and `doctor` are not the authoring-validity pass; and a green structural result does not prove version `0.8`, proposed status, observable acceptance, or traces. Cross-link `solutions/module-06-creating-well-shaped-work.md#structural-record` for the long table. Do not paste the Module 6 shaping rubric into Lab 7.",
+        "status": "proposed",
+        "id": "clause:1",
+        "narrative": {
+          "Acceptance": "Refresh `solutions/lab-07-scope-lifecycle.md` itself so Result summary, worked approach, acceptance evidence, comparison, Expected failures and recovery, Retry plan, and Reset and cleanup name Task 5, the four retained fields (path, `xbrief:verify` command, exit code, result), and the four Task 5 boundary clauses: verify is not a lifecycle move; a green result grants no promotion, activation, or implementation authority; `xbrief:preflight` and `doctor` are not the authoring-validity pass; and a green structural result does not prove version `0.8`, proposed status, observable acceptance, or traces. Cross-link `solutions/module-06-creating-well-shaped-work.md#structural-record` for the long table. Do not paste the Module 6 shaping rubric into Lab 7.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Keep Outcomes covered as O7.1–O7.4. Name Task 5 as adjacent Module 6 O6.2 evidence. Do not add O6.2 or O7.5 to the Lab 7 outcome set.",
+        "status": "proposed",
+        "id": "clause:2",
+        "narrative": {
+          "Acceptance": "Keep Outcomes covered as O7.1–O7.4. Name Task 5 as adjacent Module 6 O6.2 evidence. Do not add O6.2 or O7.5 to the Lab 7 outcome set.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Keep the Continue sentence that returns to Module 7 self-assessment. Replace the whole false planned-claim, including \"use the course map rather than assuming a future filename is ready,\" with a working link to `../curriculum/modules/08-session-and-work-selection.md`. Lock that path-correct form. Do not copy Module 7 Navigation's `08-session-and-work-selection.md` href, which is broken from `solutions/`. The course map may remain a secondary pointer after that working link.",
+        "status": "proposed",
+        "id": "clause:3",
+        "narrative": {
+          "Acceptance": "Keep the Continue sentence that returns to Module 7 self-assessment. Replace the whole false planned-claim, including \"use the course map rather than assuming a future filename is ready,\" with a working link to `../curriculum/modules/08-session-and-work-selection.md`. Lock that path-correct form. Do not copy Module 7 Navigation's `08-session-and-work-selection.md` href, which is broken from `solutions/`. The course map may remain a secondary pointer after that working link.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "In Compare with your attempt or Retry plan, send a Task 5 miss to Module 6 Part B re-authoring plus rerun of the same command against the same path, retaining both exit codes. Do not route that miss through a Lab 7 outcome retry or a fresh-root reinstall.",
+        "status": "proposed",
+        "id": "clause:4",
+        "narrative": {
+          "Acceptance": "In Compare with your attempt or Retry plan, send a Task 5 miss to Module 6 Part B re-authoring plus rerun of the same command against the same path, retaining both exit codes. Do not route that miss through a Lab 7 outcome retry or a fresh-root reinstall.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Add that Lab 7 solution to `scripts/verify-module-6.mjs` `requiredFiles` and lock the four-field Task 5 comparison plus \"adds no Lab 7 outcome\" and the four boundary clauses. Update the module-6 synthetic fixture to author a Lab 7 solution body carrying those locked strings, and update the `artifactCount` 15 assertions. On `scripts/verify-module-7.mjs` refuse the retired planned-claim clauses and require the path-correct Module 8 lesson link. Mirror those mutations in `scripts/verify-module-6.test.mjs` and `scripts/verify-module-7.test.mjs`.",
+        "status": "proposed",
+        "id": "clause:5",
+        "narrative": {
+          "Acceptance": "Add that Lab 7 solution to `scripts/verify-module-6.mjs` `requiredFiles` and lock the four-field Task 5 comparison plus \"adds no Lab 7 outcome\" and the four boundary clauses. Update the module-6 synthetic fixture to author a Lab 7 solution body carrying those locked strings, and update the `artifactCount` 15 assertions. On `scripts/verify-module-7.mjs` refuse the retired planned-claim clauses and require the path-correct Module 8 lesson link. Mirror those mutations in `scripts/verify-module-6.test.mjs` and `scripts/verify-module-7.test.mjs`.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Bump the solution `Last verified` date with the recut. Do not widen this recut to a Windows verification claim.",
+        "status": "proposed",
+        "id": "clause:6",
+        "narrative": {
+          "Acceptance": "Bump the solution `Last verified` date with the recut. Do not widen this recut to a Windows verification claim.",
+          "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
+        },
+        "effort": "S"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/35",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #35: Lab 7 explained solution is stale after Task 5 and Module 8 became available"
+      }
+    ],
+    "acceptance": {
+      "commands": [
+        "npm run check:module-6",
+        "npm run check:module-7",
+        "npm test"
+      ],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 6 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Refresh `solutions/lab-07-scope-lifecycle.md` itself so Result summary, worked approach, acceptance evidence, comparison, Expected failures and recovery, Retry plan, and Reset and cleanup name Task 5, the four retained fields (path, `xbrief:verify` command, exit code, result), and the four Task 5 boundary clauses: verify is not a lifecycle move; a green result grants no promotion, activation, or implementation authority; `xbrief:preflight` and `doctor` are not the authoring-validity pass; and a green structural result does not prove version `0.8`, proposed status, observable acceptance, or traces. Cross-link `solutions/module-06-creating-well-shaped-work.md#structural-record` for the long table. Do not paste the Module 6 shaping rubric into Lab 7.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Keep Outcomes covered as O7.1–O7.4. Name Task 5 as adjacent Module 6 O6.2 evidence. Do not add O6.2 or O7.5 to the Lab 7 outcome set.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Keep the Continue sentence that returns to Module 7 self-assessment. Replace the whole false planned-claim, including \"use the course map rather than assuming a future filename is ready,\" with a working link to `../curriculum/modules/08-session-and-work-selection.md`. Lock that path-correct form. Do not copy Module 7 Navigation's `08-session-and-work-selection.md` href, which is broken from `solutions/`. The course map may remain a secondary pointer after that working link.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "In Compare with your attempt or Retry plan, send a Task 5 miss to Module 6 Part B re-authoring plus rerun of the same command against the same path, retaining both exit codes. Do not route that miss through a Lab 7 outcome retry or a fresh-root reinstall.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Add that Lab 7 solution to `scripts/verify-module-6.mjs` `requiredFiles` and lock the four-field Task 5 comparison plus \"adds no Lab 7 outcome\" and the four boundary clauses. Update the module-6 synthetic fixture to author a Lab 7 solution body carrying those locked strings, and update the `artifactCount` 15 assertions. On `scripts/verify-module-7.mjs` refuse the retired planned-claim clauses and require the path-correct Module 8 lesson link. Mirror those mutations in `scripts/verify-module-6.test.mjs` and `scripts/verify-module-7.test.mjs`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "Bump the solution `Last verified` date with the recut. Do not widen this recut to a Windows verification claim.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": "Module 6 O6.2 structural evidence and Module 7 Lab 7 explained solution"
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the Lab 7 explained solution never covers required Task 5 / Module 6 O6.2 structural evidence, and its Continue sentence still says Module 8 remains planned after that module shipped.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: resolved\nstop-2: charter=open critique; spend=N=1 because operator authorized n=1 or n=3 as needed and this is a closed identity recut of one explained solution plus one stale Continue sentence\npain: P1, P2\nP1: after a successful Task 5 result, solutions/lab-07-scope-lifecycle.md has no comparison surface for the retained path, xbrief:verify command, exit code, result, and no-authority boundary\nP2: the solution Continue section says Module 8 remains planned while curriculum/modules/08-session-and-work-selection.md exists and Module 7 Navigation already links it\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: 0cb9925d561733ea0907a8f1b450a61416ba1fd6\n\n",
+          "id": 5760665099,
+          "html_url": "https://github.com/deftai/directive-training/issues/35#issuecomment-5760665099",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T12:43:01Z",
+          "updated_at": "2026-09-21T12:43:01Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound-1 open critique at dispatch SHA `0cb9925d561733ea0907a8f1b450a61416ba1fd6`. In-envelope inputs: issue body and Stop 1 comment 5760665099. File reads were `git show` of that SHA. Charter is open critique of a closed identity recut of `solutions/lab-07-scope-lifecycle.md` after Lab 7 Task 5 and Module 8 shipped.\n\nThe recorded pains hold. The proposed recut can bind once the Lab 7 solution is the Task 5 comparison surface, Lab 7 outcomes stay O7.1–O7.4, Module 8 is named as available after Module 7 self-assessment, and the existing Module 6 / Module 7 content contracts lock those identities.\n\n## Findings\n\n### 1. sharpens-framing — P1 is the missing Lab 7 comparison surface, not a missing Module 6 explanation\n\n**Evidence (re-verified at the dispatch SHA).**\n\n- `labs/07-scope-lifecycle.md` Supports names “plus Module 6 O6.2 structural completion evidence in Task 5”. Goal and done condition: “Task 5 adds no Lab 7 outcome.” Task 5 supplies the verbatim `xbrief:verify` command, retains path / command / exit / result in `evidence/authored-verify.txt`, and states that a green result is not a lifecycle move.\n- Literal acceptance commands add a separate **O6.2 structural evidence** bullet. The Done statement includes the authored-scope verify and the no-authority sentence. Checkpoint 6 is the authoring checkpoint. Expected failures already have three Task 5 rows.\n- `solutions/lab-07-scope-lifecycle.md` Outcomes covered are only O7.1–O7.4. Last verified is 2026-09-09; the lab is 2026-09-17.\n- Search of that solution at this SHA: one hit, the Continue sentence “Module 8 remains planned”. Zero hits for `Task 5`, `O6.2`, `xbrief:verify`, or `authored-verify`. Result summary, outcome map, worked approach (steps 1–6), acceptance evidence, seven comparison questions, retry, and recovery are all O7-only.\n- `solutions/module-06-creating-well-shaped-work.md` already has the four-field structural record and says Lab 7 Task 5 checks that exact artifact. `verify-module-6.mjs` `requireStructuralEvidenceContract` already locks that Module 6 solution row.\n\n**Failure mode.** A recut that only cross-links the Module 6 solution leaves the named Lab 7 comparison questions silent after a successful Task 5. That is P1 as written. Duplicating the Module 6 shaping rubric into Lab 7 would mix the two surfaces Task 5 already splits: verify proves parse and typed structure; the Module 6 rubric proves version, proposed status, observable acceptance, and traces.\n\n**Disposition.** Bind proposed-fix items 1 and 2 onto `solutions/lab-07-scope-lifecycle.md` itself. Result summary, worked approach, acceptance evidence, comparison, and recovery must name the four retained fields and the no-authority / not-a-lifecycle-move / not-preflight-or-doctor split. Cross-link the Module 6 solution for the long structural-record table. Do not paste the Module 6 shaping rubric into Lab 7.\n\n### 2. sharpens-framing — both content contracts currently accept the stale solution\n\n**Evidence.** Re-ran the issue’s implied anchors as executable checks at this SHA:\n\n- `node scripts/verify-module-7.mjs` → `Module 7 content contract: ok (21 artifacts, 0 missing)`, exit 0.\n- `node scripts/verify-module-6.mjs` → `Module 6 content contract: ok (15 artifacts, 0 missing)`, exit 0.\n\nInventory of existing mechanisms:\n\n- `verify-module-6.mjs` `requiredFiles` includes `labs/07-scope-lifecycle.md` and `solutions/module-06-creating-well-shaped-work.md`. It does not include `solutions/lab-07-scope-lifecycle.md`. `requireStructuralEvidenceContract` already locks Lab 7 Task 5 on the lab, the four retained fields on Module 6, the adjacent-vehicle wording, the preflight/doctor refusal, and “adds no Lab 7 outcome”.\n- `verify-module-7.mjs` already requires `solutions/lab-07-scope-lifecycle.md`. `requireOutcomes` on that file is O7.1–O7.4 in Outcome map and Acceptance evidence only. It already requires Module 7 Navigation to link `08-session-and-work-selection.md` and the course-map Module 8 row to keep that lesson link. It does not read the Lab 7 solution Continue sentence.\n- `scripts/verify-module-11.test.mjs` already uses a “Module 12 remains planned” mutation as the negative for a shipped next-module link. That is the Continue-staleness pattern.\n\n**Failure mode.** A markdown-only refresh of the Lab 7 solution will pass both verifiers today. That is how Task 5 and Module 8 shipped while this solution stayed on 2026-09-09. The same drift can return.\n\n**Disposition.** Do not add a third verifier. Extend the two that already own these files. Put the Lab 7 solution’s four-field Task 5 comparison, “adds no Lab 7 outcome”, and no-authority sentences on the existing O6.2 structural-evidence contract (add that solution to `verify-module-6.mjs` `requiredFiles`). Put the Continue lock on `verify-module-7.mjs`: refuse `Module 8 remains planned` and require the same `08-session-and-work-selection.md` link Module 7 Navigation already has. Mirror those mutations in `verify-module-6.test.mjs` / `verify-module-7.test.mjs`.\n\n### 3. sharpens-framing — keep O6.2 off the Lab 7 outcome set\n\n**Evidence.** Lab Goal: “Task 5 adds no Lab 7 outcome.” Literal acceptance already splits O7.1–O7.4 from **O6.2 structural evidence**. `verify-module-7.mjs` `outcomes = [\"O7.1\", \"O7.2\", \"O7.3\", \"O7.4\"]` and `requireOutcomes(solution7, …)`. Module 6 Completion evidence already owns the four-field structural record as O6.2. assessments/README Lab 7 row still describes only the four lifecycle outcomes; that index is outside this closed recut.\n\n**Failure mode.** Adding O6.2 to the Lab 7 solution’s Outcomes covered, or adding an O7.5 / fifth Outcome-map row, recuts Lab 7 identity. A learner then reads a green `xbrief:verify` as a Lab 7 lifecycle pass and may promote or activate the third, untrusted authored file. Task 5 already forbids that.\n\n**Injection / swarm lens.** This finding changes taught authority over untrusted learner JSON and the promote/activate path. The recut must repeat Task 5’s existing boundary: the authored record is a third file beside the two supplied scopes; verify is not a lifecycle move; a green result grants no promotion, activation, or implementation authority; `xbrief:preflight` and `doctor` are not the authoring-validity pass. Do not teach the helper to consume that path.\n\n**Disposition.** Keep Outcomes covered as O7.1–O7.4. Name Task 5 as adjacent O6.2 evidence the way the lab’s Literal acceptance commands already do. The solution record may say it also supplies that adjacent evidence. It must not absorb O6.2 as a Lab 7 outcome.\n\n### 4. sharpens-framing — P2 is the false planned-claim; keep the Module 7 self-assessment first\n\n**Evidence.**\n\n- Lab 7 solution Continue: “Return to [Module 7](../curriculum/modules/07-scope-lifecycle.md) and complete its self-assessment from your evidence. Module 8 remains planned; use the [course map](../curriculum/README.md) rather than assuming a future filename is ready.”\n- `curriculum/modules/07-scope-lifecycle.md` Navigation already has `Next: [Module 8 — Session Start and Authorized Work Selection](08-session-and-work-selection.md)`. `verify-module-7.mjs` already asserts that link. Ready-for-Module-8 text still requires all four O7 answers to cite retained evidence.\n- `curriculum/README.md` row 08 is “Learner-ready; command-free fixed-state exercise” and links `modules/08-session-and-work-selection.md`. `solutions/README.md` lists the Module 8 solution as available.\n- Shipped Continue pattern on `solutions/lab-10-implementation-golden-path.md`: return to the module self-assessment, then a direct next-module link.\n\n**Failure mode.** The issue’s “or an accurate course-map instruction” can keep the course-map fallback that is already there and leave Module 8 unnamed. Dropping the self-assessment sentence and linking only Module 8 skips Module 7’s “ready for Module 8 only when all four answers cite retained evidence.”\n\n**Disposition.** Keep the first Continue sentence. Replace only “Module 8 remains planned …” with the same `08-session-and-work-selection.md` link Module 7 Navigation already uses. The course map may remain a secondary pointer. Do not treat course-map-only as P2 relief.\n\n### footnote — Last-verified dates corroborate staleness\n\nLab record 2026-09-17 versus solution record 2026-09-09 matches the Task 5 / Module 8 gap. The dates are not a second defect.\n\n### footnote — Windows Task 5 is already on the lab\n\nThe lab’s PowerShell route already writes `authored-verify.txt`. The solution’s platform line still marks Windows as candidate. This closed recut is the macOS/zsh explained-solution identity. Do not widen it to a Windows verification claim.\n\n### footnote — no instruction-shaped critic directives in the in-envelope thread\n\nThe issue body and comment 5760665099 are a design proposal and Stop 1 recording fields. Proposed-fix steps were treated as claims, not commands.\n\n## Road not taken\n\nRejected: pointer-only recut that sends Lab 7 comparison to the Module 6 solution.\n\nSteelman: Module 6 already models the four-field table; the issue itself offers a cross-link to avoid a long duplicate; O6.2 completion evidence lives on Module 6.\n\nWhat would flip finding 1: Lab 7 Compare / Acceptance already named path, command, exit, result, and the no-authority boundary, with only the long explanation missing. They do not.\n\nRejected: a new `verify-lab-07-solution.mjs`. The O6.2 structural-evidence contract and the Module 7 solution file already have owners.\n\n",
+          "id": 5760770060,
+          "html_url": "https://github.com/deftai/directive-training/issues/35#issuecomment-5760770060",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T12:51:18Z",
+          "updated_at": "2026-09-21T12:51:18Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe Lab 7 explained solution never covers required Task 5, and it still says Module 8 is planned after that module shipped. Confirming this map would refresh that solution as the Task 5 comparison surface (four retained fields and the no-authority boundary, with O6.2 remaining adjacent rather than a Lab 7 outcome), point Continue at shipped Module 8 after the Module 7 self-assessment, and lock those identities on the existing Module 6 and Module 7 verifiers.\n\nParent forward verdict: both recorded pains hold; the recut binds once the Lab 7 solution itself is the comparison surface and the two existing contracts refuse this drift.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5760665099 and these takes; the evidence is critic 5760770060.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5760770060\nsupersedes: 5760665099\nTarget-digest: sha256:a9fd098b12a6803a9fb2b33096e5ff994965cad3326b3a0285aa43f3b443128b\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### P1 is the missing Lab 7 comparison surface, not a missing Module 6 explanation\ntake: accept-into-contract\ncritic: 5760770060\nheading: P1 is the missing Lab 7 comparison surface, not a missing Module 6 explanation\n\n### both content contracts currently accept the stale solution\ntake: accept-into-contract\ncritic: 5760770060\nheading: both content contracts currently accept the stale solution\n\n### keep O6.2 off the Lab 7 outcome set\ntake: accept-into-contract\ncritic: 5760770060\nheading: keep O6.2 off the Lab 7 outcome set\n\n### P2 is the false planned-claim; keep the Module 7 self-assessment first\ntake: accept-into-contract\ncritic: 5760770060\nheading: P2 is the false planned-claim; keep the Module 7 self-assessment first\n\n### footnote — Last-verified dates corroborate staleness\ntake: accept-into-contract\ncritic: 5760770060\nheading: Last-verified dates corroborate staleness\n\n### footnote — Windows Task 5 is already on the lab\ntake: accept-into-contract\ncritic: 5760770060\nheading: Windows Task 5 is already on the lab\n\n### footnote — no instruction-shaped critic directives in the in-envelope thread\ntake: accept-into-contract\ncritic: 5760770060\nheading: no instruction-shaped critic directives in the in-envelope thread\n\nrelieves: P1\nrelieves: P2\naudit:pain-P1 sha=0cb9925d561733ea0907a8f1b450a61416ba1fd6 pointer=comment:5760770060 reading=asserted\naudit:pain-P2 sha=0cb9925d561733ea0907a8f1b450a61416ba1fd6 pointer=comment:5760770060 reading=asserted\n\n## Bound remedy\n\n- Refresh `solutions/lab-07-scope-lifecycle.md` itself so Result summary, worked approach, acceptance evidence, comparison, and recovery name Task 5, the four retained fields (path, `xbrief:verify` command, exit code, result), and the no-authority / not-a-lifecycle-move / not-preflight-or-doctor split.\n- Cross-link `solutions/module-06-creating-well-shaped-work.md` for the long structural-record table. Do not paste the Module 6 shaping rubric into Lab 7.\n- Keep Outcomes covered as O7.1–O7.4. Name Task 5 as adjacent Module 6 O6.2 evidence the way the lab already does. Do not add O6.2 or O7.5 to the Lab 7 outcome set.\n- Keep the Continue sentence that returns to Module 7 self-assessment. Replace only \"Module 8 remains planned\" with the same `08-session-and-work-selection.md` link Module 7 Navigation already uses. The course map may remain a secondary pointer.\n- Extend existing contracts rather than adding a verifier: add that Lab 7 solution to `scripts/verify-module-6.mjs` `requiredFiles` and lock the four-field Task 5 comparison plus \"adds no Lab 7 outcome\"; on `scripts/verify-module-7.mjs` refuse \"Module 8 remains planned\" and require the Module 8 lesson link. Mirror those mutations in `scripts/verify-module-6.test.mjs` and `scripts/verify-module-7.test.mjs`.\n- Do not widen this recut to a Windows verification claim.\n\n",
+          "id": 5760906890,
+          "html_url": "https://github.com/deftai/directive-training/issues/35#issuecomment-5760906890",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:01:58Z",
+          "updated_at": "2026-09-21T13:01:58Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: claude-opus-5\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1, pain-P2\n\nRound-2 pain-audit. Fresh critic, process-only. In-envelope: issue 35 body plus comments 5760665099, 5760770060, and 5760906890 (id ceiling 5760906890, inclusive). All file reads are `git show 0cb9925d:` in the dispatch dest; no fetch, no reset, no product edit. Checks below were run, not cited.\n\nDenominator authority is the Stop 1 write-back 5760665099 text of `P1` and `P2`, not the issue body's proposed-fix wording.\n\n## Verdict on the two asserted cites\n\n- `pain-P1` — not refuted. Every item `P1` names (retained path, `xbrief:verify` command, exit code, result, no-authority boundary) appears in the first harvested item, on the file `P1` names, across the comparison surfaces `P1` is about. Findings 3 and 4 scope it.\n- `pain-P2` — not refuted, but the harvested text does not achieve it as literally written. The `P2` phrase \"Module 8 remains planned\" is removed; findings 1 and 2 are what stands between that instruction and a Continue section that actually points at the shipped module.\n\nNo `blocks-the-design` finding. Five `sharpens-framing` findings change the harvested remedy text, which is the sharpening-that-changes-the-harvest case, not the footnote-only case.\n\n## Findings\n\n### 1. sharpens-framing — \"replace only\" permits keeping the other half of the false claim\n\n**Evidence.** The whole Continue sentence at `solutions/lab-07-scope-lifecycle.md:285-286`:\n\n> Return to [Module 7](../curriculum/modules/07-scope-lifecycle.md) and complete its self-assessment from your evidence. Module 8 remains planned; use the [course map](../curriculum/README.md) rather than assuming a future filename is ready.\n\nThe harvested item says replace **only** `Module 8 remains planned`, and adds that the course map may remain a secondary pointer. Applied literally, what survives is \"…[Module 8 link]; use the course map rather than assuming a future filename is ready.\"\n\n**Failure mode.** The learner is handed the Module 8 filename and told in the same sentence not to assume that filename is ready. The operative half of the false claim is the \"rather than assuming a future filename is ready\" clause, not the four words the item targets, and the item's own course-map permission licenses keeping it.\n\n**Disposition consequence.** The item has to name the clause it is retiring, not only the phrase. It would have been `blocks-the-design` had the literal instruction also preserved the \"remains planned\" wording; it does not, so `P2` is not refuted.\n\n### 2. sharpens-framing — \"the same link Module 7 Navigation already uses\" is a broken link from `solutions/`, and the Navigation pattern cannot match a correct one\n\n**Evidence (run).** `curriculum/modules/07-scope-lifecycle.md` Navigation uses `](08-session-and-work-selection.md)` because it sits in `curriculum/modules/`. `scripts/verify-module-7.mjs` already runs `verifyLinks` over `solutions/lab-07-scope-lifecycle.md`, and `verifyLinks` resolves each destination against `dirname(path)` and asserts existence. Probe against the real module, that file path, both link forms, plus the existing Navigation pattern from `verify-module-7.mjs:56`:\n\n```text\nFAIL   literal Module 7 Navigation form -> solutions/lab-07-scope-lifecycle.md has a broken local link: 08-session-and-work-selection.md\nPASS   sibling-solution relative form\nnav-regex vs literal form      : true\nnav-regex vs relative form     : false\n```\n\nThe shipped form in this repo is the relative one: `solutions/lab-10-implementation-golden-path.md` Continue uses `](../curriculum/modules/11-testing-gates-and-evidence.md)`.\n\n**Failure mode.** The two harvested items are unsatisfiable as paired. Copy the Navigation link and `check:module-7` goes red on a broken local link. Write the correct relative link and a lock reusing that Navigation pattern can never pass. An implementer who resolves the contradiction by satisfying the lock produces exactly the broken link the same verifier rejects.\n\n**Disposition consequence.** Harvest the link as `../curriculum/modules/08-session-and-work-selection.md`, and state the lock as the path-correct pattern rather than \"the same link Module 7 Navigation already uses\". Both halves are one edit.\n\n### 3. sharpens-framing — the boundary is harvested as three clauses; Task 5 states four\n\n**Evidence.** `labs/07-scope-lifecycle.md` Task 5 boundary is four bullets: `xbrief:verify` is not a lifecycle move; a green result grants no promotion, activation, or implementation authority; `xbrief:preflight` and `doctor` are not the authoring-validity pass; and the structural result does not prove the version is `0.8`, the status is `proposed`, the acceptance is observable, or the traces exist, because Module 6's comparison rubric proves those and the two surfaces stay separate. The harvested split names the first three. `curriculum/modules/06-creating-well-shaped-work.md` carries the fourth as a locked `| Surface | Proves | Does not prove |` table (`requireStructuralEvidenceContract`, `scripts/verify-module-6.mjs:126`), and the cross-link target `solutions/module-06-creating-well-shaped-work.md:218-221` states it in prose under `#### Structural record`.\n\n**Failure mode.** Exit `0` is precisely the moment a learner concludes their artifact is well shaped. The clause that refuses that reading is the one the harvested list drops, and an implementer treating that list as exhaustive ships a comparison surface answering \"did you keep the boundary?\" with three of the lab's four bullets.\n\n**Disposition consequence.** Either add the does-not-prove clause to the inline list, or say expressly that the cross-link carries it. The cross-link does reach it, so this is enumeration scope, not a missing surface. The `#structural-record` anchor exists, so a fragment link passes `verifyLinks`.\n\n### 4. sharpens-framing — Task 5 retry routing stays uncovered, and the comparison section misroutes it\n\n**Evidence.** `solutionHeadings` (`scripts/verify-modules-4-5.mjs:14`) is frozen and carries `Expected failures and recovery`, `Retry plan`, and `Reset and cleanup` as three separate sections. The harvested item names recovery and not the other two. `Compare with your attempt` closes: \"Any \"no\" identifies the smallest outcome to retry.\" The lab's route for a Task 5 miss is repair in place and rerun the same command against the same path, retaining both exit codes (`labs/07-scope-lifecycle.md:350-353`); the solution's `Retry plan` route is keep the attempt, create a fresh root, install once.\n\n**Failure mode.** A learner whose only miss is a Task 5 structural defect is sent to retry \"the smallest outcome\" — and Task 5 adds no Lab 7 outcome — then into a fresh-root reinstall the lab does not ask for. The comparison surface `P1` asks for exists but routes its own answer wrongly.\n\n**Disposition consequence.** Name where a Task 5 \"no\" goes: Module 6 Part B re-authoring plus rerun, not a Lab 7 outcome retry. That is one sentence, in `Compare with your attempt` or `Retry plan`. Outside `P1`'s literal text, so it does not refute the cite.\n\n### 5. sharpens-framing — the module-6 `requiredFiles` addition costs more than the item implies\n\n**Evidence (run).** `node scripts/verify-module-6.mjs` → ok, 15 artifacts, exit 0. `node scripts/verify-module-7.mjs` → ok, 21 artifacts, exit 0. `scripts/verify-module-6.test.mjs` builds a synthetic tree with `document(headings, overrides)`; it does not copy the repo. `verifyModule6` returns `requiredFiles.length`, and the suite asserts `artifactCount, 15` twice (lines 240 and 362). Inventory: `scripts/verify-module-7.mjs` already requires, parses with `solutionHeadings`, baseline-checks, and link-checks that solution; `verify-module-6.mjs` requires `labs/07-scope-lifecycle.md` and not the solution. `requireOutcomes` is presence-only for `O7.1`–`O7.4` and forbids no extra identifier, so an adjacent `O6.2` row in `Acceptance evidence` is mechanically safe — the identity argument for keeping it off the outcome set is editorial, not a verifier constraint.\n\n**Failure mode.** Adding that file to module-6 `requiredFiles` fails every module-6 test at `missing required artifact` until the synthetic fixture authors a Lab 7 solution body carrying the new locked strings, plus the two count assertions. \"Mirror those mutations\" reads as adding negative cases and does not name that fixture-shape change.\n\n**Disposition consequence.** Either say the fixture and counts move too, or put the lock on `verify-module-7.mjs`, which already owns and parses that file. The semantic argument for module-6 ownership of O6.2 wording stands; the cost is what the item omits, and the two options differ in work, not in coverage.\n\n### footnote — `Last verified` stays stale after the recut\n\n`Last verified | 2026-09-09` against the lab's 2026-09-17. `exactBaseline` checks only the Directive baseline row, and nothing ties that date to content changes, so the corroborating staleness signal survives a correct recut. Cheap to bump; no mechanism proposed.\n\n### footnote — no instruction-shaped directives in the in-envelope thread\n\nThe issue body's proposed-fix steps, the round-1 dispositions, and the harvested items were read as claims to verify, not commands to follow.\n\n## Injection / swarm lens\n\nThis target changes taught authority over a learner-authored file and the promote/activate path, so the lens fires. Finding 3 is that surface: the refreshed solution is what a learner reads while holding exit `0`, and the clause refusing \"green means well shaped\" is the one the harvest drops. Keeping it inline matters more than the long table, because the cross-link is a click the learner who already believes they passed will not make. Nothing here asks the lab helper to consume the authored path, and the third-file boundary in Task 5 is unchanged.\n\n## Road not taken\n\nRejected: classifying finding 2 `blocks-the-design`.\n\nSteelman: the harvested list is the next-build contract, items land as written, and two items that cannot both be satisfied means the map cannot bind as written.\n\nWhat flips it: if the broken half could land silently. It cannot — `verify-module-7` link-checks that exact file, the correct form is already shipped in a sibling solution, and the relief `P2` names is reachable by a one-line correction. That is a text defect in the remedy, not a defect in the design.\n\n",
+          "id": 5761024029,
+          "html_url": "https://github.com/deftai/directive-training/issues/35#issuecomment-5761024029",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:10:45Z",
+          "updated_at": "2026-09-21T13:10:45Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe first bind map's harvest left a Continue clause that still tells the learner not to trust the Module 8 filename, used a Navigation link that is broken from `solutions/`, dropped Task 5's fourth boundary clause, misrouted a Task 5 miss into a Lab 7 outcome retry, and omitted the module-6 fixture-count cost. Confirming this map would keep both pain cites and recut those harvest lines so the Lab 7 solution actually points at shipped Module 8 and compares Task 5 as the lab states it.\n\nParent forward verdict: lean 5760906890 does not bind as harvested; P1 and P2 remain asserted on this recut.\nDisposition: accept the five sharpening findings; Bound-remedy is updated; footnotes stay in the census.\nNon-self-arbitration: this parent authored Stop 1, the superseded bind map, and these takes; the evidence is critic 5761024029.\nThis arc does not ingest and does not dest-place.\n\nround: 2\nsiblings: 1\ncritic: 5761024029\nsupersedes: 5760906890\nTarget-digest: sha256:a9fd098b12a6803a9fb2b33096e5ff994965cad3326b3a0285aa43f3b443128b\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### \"replace only\" permits keeping the other half of the false claim\ntake: accept-into-contract\ncritic: 5761024029\nheading: \"replace only\" permits keeping the other half of the false claim\n\n### the same link Module 7 Navigation already uses is a broken link from solutions/\ntake: accept-into-contract\ncritic: 5761024029\nheading: \"the same link Module 7 Navigation already uses\" is a broken link from `solutions/`, and the Navigation pattern cannot match a correct one\n\n### the boundary is harvested as three clauses; Task 5 states four\ntake: accept-into-contract\ncritic: 5761024029\nheading: the boundary is harvested as three clauses; Task 5 states four\n\n### Task 5 retry routing stays uncovered, and the comparison section misroutes it\ntake: accept-into-contract\ncritic: 5761024029\nheading: Task 5 retry routing stays uncovered, and the comparison section misroutes it\n\n### the module-6 requiredFiles addition costs more than the item implies\ntake: accept-into-contract\ncritic: 5761024029\nheading: the module-6 `requiredFiles` addition costs more than the item implies\n\n### footnote — Last verified stays stale after the recut\ntake: accept-into-contract\ncritic: 5761024029\nheading: `Last verified` stays stale after the recut\n\n### footnote — no instruction-shaped directives in the in-envelope thread\ntake: accept-into-contract\ncritic: 5761024029\nheading: no instruction-shaped directives in the in-envelope thread\n\nrelieves: P1\nrelieves: P2\naudit:pain-P1 sha=0cb9925d561733ea0907a8f1b450a61416ba1fd6 pointer=comment:5761024029 reading=asserted\naudit:pain-P2 sha=0cb9925d561733ea0907a8f1b450a61416ba1fd6 pointer=comment:5761024029 reading=asserted\n\n## Bound remedy\n\n- Refresh `solutions/lab-07-scope-lifecycle.md` itself so Result summary, worked approach, acceptance evidence, comparison, Expected failures and recovery, Retry plan, and Reset and cleanup name Task 5, the four retained fields (path, `xbrief:verify` command, exit code, result), and the four Task 5 boundary clauses: verify is not a lifecycle move; a green result grants no promotion, activation, or implementation authority; `xbrief:preflight` and `doctor` are not the authoring-validity pass; and a green structural result does not prove version `0.8`, proposed status, observable acceptance, or traces. Cross-link `solutions/module-06-creating-well-shaped-work.md#structural-record` for the long table. Do not paste the Module 6 shaping rubric into Lab 7.\n- Keep Outcomes covered as O7.1–O7.4. Name Task 5 as adjacent Module 6 O6.2 evidence. Do not add O6.2 or O7.5 to the Lab 7 outcome set.\n- Keep the Continue sentence that returns to Module 7 self-assessment. Replace the whole false planned-claim, including \"use the course map rather than assuming a future filename is ready,\" with a working link to `../curriculum/modules/08-session-and-work-selection.md`. Lock that path-correct form. Do not copy Module 7 Navigation's `08-session-and-work-selection.md` href, which is broken from `solutions/`. The course map may remain a secondary pointer after that working link.\n- In Compare with your attempt or Retry plan, send a Task 5 miss to Module 6 Part B re-authoring plus rerun of the same command against the same path, retaining both exit codes. Do not route that miss through a Lab 7 outcome retry or a fresh-root reinstall.\n- Add that Lab 7 solution to `scripts/verify-module-6.mjs` `requiredFiles` and lock the four-field Task 5 comparison plus \"adds no Lab 7 outcome\" and the four boundary clauses. Update the module-6 synthetic fixture to author a Lab 7 solution body carrying those locked strings, and update the `artifactCount` 15 assertions. On `scripts/verify-module-7.mjs` refuse the retired planned-claim clauses and require the path-correct Module 8 lesson link. Mirror those mutations in `scripts/verify-module-6.test.mjs` and `scripts/verify-module-7.test.mjs`.\n- Bump the solution `Last verified` date with the recut. Do not widen this recut to a Windows verification claim.\n\n",
+          "id": 5761087800,
+          "html_url": "https://github.com/deftai/directive-training/issues/35#issuecomment-5761087800",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:15:13Z",
+          "updated_at": "2026-09-21T13:15:13Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nHandoff\n\nopen-question: Does the updated harvest now name the retired Continue clause, the solutions-relative Module 8 link, the fourth Task 5 boundary, Task 5 retry routing, and the module-6 fixture-count cost, such that P1 and P2 stay relieved on this recut?\n\n",
+          "id": 5761088163,
+          "html_url": "https://github.com/deftai/directive-training/issues/35#issuecomment-5761088163",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:15:15Z",
+          "updated_at": "2026-09-21T13:15:15Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1, pain-P2\n\nRound-3 pain-audit. Fresh critic, process-only. In-envelope: issue 35 body and comments through 5761087800 inclusive (5760665099, 5760770060, 5760906890, 5761024029, 5761087800). File reads are `git show 0cb9925d561733ea0907a8f1b450a61416ba1fd6:`. Checks below were run.\n\nDenominator is Stop 1 comment 5760665099:\n\n- `P1`: after a successful Task 5 result, `solutions/lab-07-scope-lifecycle.md` has no comparison surface for the retained path, `xbrief:verify` command, exit code, result, and no-authority boundary\n- `P2`: the solution Continue section says Module 8 remains planned while `curriculum/modules/08-session-and-work-selection.md` exists and Module 7 Navigation already links it\n\n## Verdict on the two asserted cites\n\n- `pain-P1` — covered. Bound-remedy item 1 on comment 5761087800 puts Task 5, the four retained fields, and the four Task 5 boundary clauses on Compare with your attempt and the other named sections of the file `P1` names. The no-authority boundary is in that four-clause list. Item 4 sends a Task 5 miss to Module 6 Part B plus rerun. Item 5 locks those strings.\n- `pain-P2` — covered. Item 3 keeps the Module 7 self-assessment sentence, replaces the whole false planned-claim including \"use the course map rather than assuming a future filename is ready,\" and names the working href `../curriculum/modules/08-session-and-work-selection.md`. Item 5 refuses the retired planned-claim clauses and requires that path-correct form.\n\nNo `blocks-the-design` finding. No `sharpens-framing` finding. Both asserted `relieves` cites on comment 5761087800 hold.\n\n## Evidence (re-verified at the dispatch SHA)\n\nStop 1 `P1` and `P2` still describe the tree:\n\n- `node scripts/verify-module-6.mjs` → `Module 6 content contract: ok (15 artifacts, 0 missing)`, exit 0.\n- `node scripts/verify-module-7.mjs` → `Module 7 content contract: ok (21 artifacts, 0 missing)`, exit 0.\n- Search of `solutions/lab-07-scope-lifecycle.md`: the only `Task 5` / `O6.2` / `xbrief:verify` / `authored-verify` / planned-claim hits are Continue lines 285–286, \"Module 8 remains planned; use the course map rather than assuming a future filename is ready.\" Outcomes covered, Result summary, Outcome map, Worked approach steps 1–6, Acceptance evidence, seven Compare questions, Expected failures, Retry plan, and Reset and cleanup stay O7-only.\n- Compare closes \"Any “no” identifies the smallest outcome to retry.\" Retry plan still creates a fresh root.\n\nLab Task 5 boundary at this SHA is four bullets, and item 1 names all four:\n\n1. `` `xbrief:verify` is not a lifecycle move. Do not promote or activate your scope. ``\n2. A green structural result grants no promotion, no activation, and no implementation authority.\n3. `` `xbrief:preflight` and `doctor` are not the authoring-validity pass. ``\n4. The structural result does not prove version `0.8`, proposed status, observable acceptance, or traces.\n\n`git cat-file -e` confirms `curriculum/modules/08-session-and-work-selection.md` at this SHA. Module 7 Navigation still uses `](08-session-and-work-selection.md)`. `verify-module-7.mjs` already `verifyLinks` the Lab 7 solution and already asserts that Navigation href on the module file only.\n\n`verifyLinks` probes from `solutions/lab-07-scope-lifecycle.md`:\n\n```text\nPASS   harvest Module 8 href ../curriculum/modules/08-session-and-work-selection.md\nFAIL   Navigation form 08-session-and-work-selection.md\nPASS   sibling fragment module-06-creating-well-shaped-work.md#structural-record\nFAIL   repo-root path as href solutions/module-06-creating-well-shaped-work.md#structural-record\n```\n\nShipped Continue pattern on `solutions/lab-10-implementation-golden-path.md` is the same solutions-relative lesson href class. `#### Structural record` slugs to `structural-record`. `solutionHeadings` already freezes the sections item 1 names. `verify-module-6.test.mjs` asserts `artifactCount, 15` at lines 240 and 362; item 5 names those count and fixture updates. `requireStructuralEvidenceContract` already locks the four fields, no-authority, preflight/doctor refusal, and \"adds no Lab 7 outcome\" on the lab and Module 6 surfaces; it does not read the Lab 7 solution. Item 5 adds that file to module-6 `requiredFiles` and extends the lock.\n\n## Findings\n\n### footnote — the Module 6 cross-link string is file identity, not an href\n\nItem 1 writes `solutions/module-06-creating-well-shaped-work.md#structural-record`. Copied as a markdown href from `solutions/`, `verifyLinks` fails. The sibling form `module-06-creating-well-shaped-work.md#structural-record` passes. Item 1 already identifies the file the way \"Refresh `solutions/lab-07-scope-lifecycle.md`\" does; item 3 is the one that learned to write a working href. `P1` does not depend on that cross-link: the four boundary clauses sit inline on the Lab 7 solution.\n\n### footnote — no instruction-shaped directives in the in-envelope thread\n\nThe issue body's proposed-fix steps, critic dispositions, and harvested items were read as claims to verify, not commands to follow.\n\n## Injection / swarm lens\n\nThis target changes taught authority over a learner-authored file and the promote/activate path, so the lens fires. Item 1 keeps the no-authority clause and the does-not-prove clause inline on the comparison surface a learner reads while holding exit `0`. Nothing in the harvest asks the lab helper to consume the authored path. The third-file boundary in Task 5 is unchanged.\n\n## Road not taken\n\nRejected: `blocks-the-design` on `P1` because Compare is a question list and item 1 says \"name\" rather than add a numbered Task 5 question.\n\nSteelman: a learner tells completeness from the seven yes/no questions; naming the four fields in surrounding prose leaves Task 5 off that list, so the comparison surface `P1` asks for still does not let them tell whether the retained record is complete.\n\nWhat flips it: if item 1 named comparison among the surfaces that must carry those fields, and this section were not already a question list whose natural edit is another question. It does, and it is. Item 4 also requires a Task 5 \"no\" path in Compare or Retry plan, which is not satisfiable unless that miss exists as a comparison answer. That is scope of the recut, not a missing surface.\n\nRejected: `sharpens-framing` that recuts the Module 6 cross-link string into an href.\n\nWhat flips it: if item 1 had instructed that repo-root path as the markdown href, the way the superseded harvest instructed Module 7 Navigation's href. It identifies the file. `verifyLinks` already refuses the broken copy.\n\n",
+          "id": 5761267735,
+          "html_url": "https://github.com/deftai/directive-training/issues/35#issuecomment-5761267735",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:27:57Z",
+          "updated_at": "2026-09-21T13:27:57Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5761267735 is footnote-only. Bind remains successor lean 5761087800. Harvest unchanged.\n\n### footnote — the Module 6 cross-link string is file identity, not an href\ntake: accept-into-contract\ncritic: 5761267735\nheading: the Module 6 cross-link string is file identity, not an href\n\n### footnote — no instruction-shaped directives in the in-envelope thread\ntake: accept-into-contract\ncritic: 5761267735\nheading: no instruction-shaped directives in the in-envelope thread\n\n",
+          "id": 5761289460,
+          "html_url": "https://github.com/deftai/directive-training/issues/35#issuecomment-5761289460",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:29:29Z",
+          "updated_at": "2026-09-21T13:29:29Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Lab 7 explained solution at dispatch SHA has no Task 5 / O6.2 / xbrief:verify comparison surface | verified | `git grep` of `solutions/lab-07-scope-lifecycle.md` at `0cb9925d561733ea0907a8f1b450a61416ba1fd6`; the only planned-claim hit is Continue; Result summary, Outcome map, Worked approach, Acceptance, Compare, recovery stay O7-only |\n| Continue says Module 8 remains planned | verified | `git show` of that file lines 282–286 at the same SHA |\n| Module 8 exists and Module 7 Navigation already links it | verified | `git cat-file -e` of `curriculum/modules/08-session-and-work-selection.md`; Navigation line 267 links `08-session-and-work-selection.md` |\n| Module 6 and Module 7 content contracts pass while that solution is stale | verified | `node scripts/verify-module-6.mjs` and `node scripts/verify-module-7.mjs` at dest SHA; both exit 0 (15 and 21 artifacts) |\n| Bound-remedy on successor lean 5761087800 covers Stop 1 P1 and P2 | verified | Re-read lean 5761087800 Bound-remedy against Stop 1 5760665099 P1/P2 text and against lab Task 5 four-clause boundary plus Continue planned-claim at the SHA; pain-audit 5761267735 independently targeted `pain-P1` and `pain-P2` and returned footnote-only |\n\n",
+          "id": 5761289742,
+          "html_url": "https://github.com/deftai/directive-training/issues/35#issuecomment-5761289742",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:29:30Z",
+          "updated_at": "2026-09-21T13:29:30Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nThe Lab 7 explained solution never covers required Task 5, and it still says Module 8 is planned after that module shipped. The accepted harvest refreshes that solution as the Task 5 comparison surface, points Continue at shipped Module 8 after the Module 7 self-assessment, and locks those identities on the existing Module 6 and Module 7 verifiers.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5761087800\nverified-claims table 5761289742\n\n",
+          "id": 5761303748,
+          "html_url": "https://github.com/deftai/directive-training/issues/35#issuecomment-5761303748",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T13:30:30Z",
+          "updated_at": "2026-09-21T13:30:30Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5521334681,
+        "origin": "deftai/directive-training#35",
+        "id": "github.issue.5521334681"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "a9fd098b12a6803a9fb2b33096e5ff994965cad3326b3a0285aa43f3b443128b"
+      },
+      "kind": "story",
+      "swarm": {
+        "readiness": "sequential",
+        "parallel_safe": false,
+        "depends_on": [],
+        "size": "medium",
+        "conflict_group": "modules-6-7",
+        "model_tier": "high",
+        "verify_commands": [
+          "npm run check:module-6",
+          "npm run check:module-7",
+          "npm test"
+        ],
+        "expected_outputs": [
+          "solutions/lab-07-scope-lifecycle.md names Task 5, the four retained fields (path, xbrief:verify command, exit code, result), and the four Task 5 boundary clauses across Result summary, worked approach, acceptance evidence, comparison, and the three recovery sections",
+          "That solution's Continue section links ../curriculum/modules/08-session-and-work-selection.md and no longer carries the planned-claim or the course-map-instead clause",
+          "scripts/verify-module-6.mjs requires that solution and locks the Task 5 strings; scripts/verify-module-7.mjs refuses the retired planned-claim and requires the path-correct Module 8 link",
+          "npm run check:module-6, npm run check:module-7 and npm test each exit 0"
+        ],
+        "dispatch_kind": "solo"
+      }
+    },
+    "id": "github.issue.5521334681",
+    "updated": "2026-09-21T18:17:42Z"
+  }
+}
