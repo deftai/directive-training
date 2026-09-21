@@ -19,7 +19,6 @@ const requiredFiles = [
   "labs/fixtures/02-disposable-initialization/package.json",
   "labs/README.md",
   "package.json",
-  "scripts/init-lab.test.mjs",
   "references/GLOSSARY.md",
   "references/QUICK-REFERENCE.md",
   "references/SOURCE-BASELINE.md",
@@ -739,20 +738,45 @@ for (const forbiddenField of ["dependencies", "scripts"]) {
 }
 
 const workflow = read(".github/workflows/modules-2-3-platform-validation.yml");
-assert.equal(
-  [...workflow.matchAll(/registry=https:\/\/registry\.npmjs\.org\//g)].length,
-  3,
-  "platform workflow must create the public-registry npm config on all three targets",
-);
-assert.equal(
-  [...workflow.matchAll(/env -i PATH="\$PATH" HOME="\$HOME" npm install --userconfig "\$lab_root\/\.npmrc" --globalconfig \/dev\/null --cache "\$lab_root\/\.npm-cache"/g)].length,
-  2,
-  "macOS and Linux workflow jobs must strip inherited npm configuration",
-);
-assert.equal(
-  [...workflow.matchAll(/Object\.entries\(process\.env\)\.filter\(\(\[key\]\) => !\/\^npm_config_\/i\.test\(key\)\)/g)].length,
-  1,
-  "Windows workflow job must strip inherited npm configuration",
+// #18 recut: the three platform lanes no longer re-implement Lab 2's shell. They drive the same
+// course helper the converted lab teaches, so the npm-isolation and doctor guarantees are proven
+// on the one code path a learner actually runs. A lane that hand-rolls the install again drifts.
+const proofIds = ["macos-zsh", "linux-bash", "windows-pwsh7"];
+const proofOffsets = proofIds.map((proofId) => ({ proofId, start: workflow.indexOf("if: matrix.proof == '" + proofId + "'") }));
+for (const { proofId, start } of proofOffsets) {
+  assert.notEqual(start, -1, "platform workflow is missing the " + proofId + " proof step");
+  const followingStarts = proofOffsets.map((entry) => entry.start).filter((offset) => offset > start);
+  const step = workflow.slice(start, followingStarts.length > 0 ? Math.min(...followingStarts) : workflow.length);
+  assert.ok(
+    step.includes("labs/fixtures/02-disposable-initialization/init-lab.mjs"),
+    proofId + " must run the lab through the course helper",
+  );
+  for (const verb of ["create", "guard", "reset", "install", "diagnose", "accept", "recovery-npmrc", "archive"]) {
+    assert.match(
+      step,
+      new RegExp('(?:"\\$helper"|\\$helper)\\s+' + escapeRegExp(verb) + "\\b"),
+      proofId + " must exercise the helper verb " + verb,
+    );
+  }
+  assert.ok(
+    step.includes("scripts/assert-doctor-warning-set.mjs"),
+    proofId + " must assert the doctor warning set through the shared checker",
+  );
+  assert.match(
+    step,
+    /Usage refusal/,
+    proofId + " must prove that a missing printed root refuses as a usage problem",
+  );
+  assert.match(
+    step,
+    /must not read as a boundary stop/,
+    proofId + " must prove that a missing printed root is not reported as a boundary stop",
+  );
+}
+assert.doesNotMatch(
+  workflow,
+  /npm install|npm\.cmd/,
+  "platform workflow must not re-implement the isolated install the helper owns",
 );
 assert.doesNotMatch(
   workflow,
@@ -762,11 +786,6 @@ assert.doesNotMatch(
 // Every platform lane must capture doctor output and bind the emitted warning identity set
 // through the one shared checker; a lane that re-inlines its own assertion drifts silently
 // (deftai/directive-training#19).
-assert.equal(
-  [...workflow.matchAll(/doctor --full --project-root \./g)].length,
-  3,
-  "every platform job must run the Lab 2 doctor command",
-);
 assert.equal(
   [...workflow.matchAll(/scripts\/assert-doctor-warning-set\.mjs/g)].length,
   3,
@@ -879,14 +898,16 @@ assert.equal(
   "both Unix jobs must put the disposable project-local binaries first on PATH",
 );
 assert.equal(
-  (workflow.match(/test "\$resolved_deft" = "\$local_bin\/deft"/g) ?? []).length,
+  (workflow.match(/test -x "\$local_bin\/deft"/g) ?? []).length,
   2,
-  "both Unix jobs must prove the initial local Deft hook runtime",
+  "both Unix jobs must prove the executable project-local Deft hook runtime",
 );
-assert.equal(
-  (workflow.match(/test "\$\(command -v deft\)" = "\$local_bin\/deft"/g) ?? []).length,
-  2,
-  "both Unix jobs must re-prove the local Deft hook runtime before commit",
+// #18 recut: electing the local `deft` before the hook-runtime commit moved into the helper, so
+// the guarantee is asserted where it now lives rather than duplicated in every platform lane.
+assert.match(
+  initHelper,
+  /Stop: deft does not resolve inside the disposable repository/,
+  "the helper must re-prove the local Deft hook runtime before a hook-runtime child",
 );
 assert.match(
   workflow,
@@ -895,8 +916,8 @@ assert.match(
 );
 assert.match(
   workflow,
-  /Get-Command deft -CommandType Application -All -ErrorAction Stop \| Select-Object -First 1/,
-  "the Windows job must select the first project-local Deft hook runtime when multiple shims resolve",
+  /Join-Path \$localBin "deft\.cmd"/,
+  "the Windows job must prove the project-local Deft hook runtime shim explicitly",
 );
 assert.match(
   workflow,
@@ -924,18 +945,30 @@ assert.deepEqual(
   "platform workflow must use only the reviewed, immutable official actions",
 );
 
+// #18 recut: the full learner path is one helper away from every platform lane, so the tokens that
+// prove it are asserted on the helper. The lanes are checked above for the complete verb sequence.
 for (const token of [
-  "toolchain:check --help",
-  "git add --pathspec-from-file",
-  "git commit -m",
-  "git ls-files --error-unmatch",
+  "toolchain:check", "--help",
+  '"add", "--pathspec-from-file=" + trackableFile',
+  '"commit", "-m", checkpointSubject',
+  '"ls-files", "--error-unmatch"',
   "contentVersion",
   "xBRIEFInfo?.version",
   "core.hooksPath",
-  "status --porcelain --untracked-files=all",
-  "archive",
+  '"status", "--porcelain", "--untracked-files=all"',
+  "archiveAttempt",
 ]) {
-  assert.ok(workflow.includes(token), "platform workflow does not exercise the full learner path: " + token);
+  assert.ok(initHelper.includes(token), "the Lab 2 helper does not exercise the full learner path: " + token);
+}
+for (const paths of [
+  "labs/02-disposable-initialization.md",
+  "labs/fixtures/02-disposable-initialization/**",
+  "scripts/init-lab.test.mjs",
+]) {
+  assert.ok(
+    workflow.includes('- "' + paths + '"'),
+    "platform workflow must re-run when the converted lab path changes: " + paths,
+  );
 }
 
 const sourceNotes = read("references/SOURCE-NOTES.md");

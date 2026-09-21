@@ -6,7 +6,8 @@ on:
       - ".github/workflows/modules-2-3-platform-validation.yml"
       - "curriculum/modules/02-installation-and-anatomy.md"
       - "labs/02-disposable-initialization.md"
-      - "labs/fixtures/02-disposable-initialization/package.json"
+      - "labs/fixtures/02-disposable-initialization/**"
+      - "scripts/init-lab.test.mjs"
       - "solutions/lab-02-disposable-initialization.md"
       - "references/SOURCE-NOTES.md"
 permissions:
@@ -44,163 +45,66 @@ jobs:
           check-latest: false
           package-manager-cache: false
 
+      # Each platform job runs the learner path the converted lab teaches: one course-relative
+      # helper invoked per step with the single printed absolute attempt root, exactly as a
+      # coding-agent host that starts a fresh shell per command block would (#18).
       - name: Prove the disposable consumer path on macOS with zsh
         if: matrix.proof == 'macos-zsh'
         shell: zsh {0}
         run: |
           set -eu
           set -o pipefail
-          runner_root="$(cd "$RUNNER_TEMP" && pwd -P)"
-          lab_parent="$(mktemp -d "$runner_root/3ci-directive-module-02.XXXXXX")"
-          lab_parent="$(cd "$lab_parent" && pwd -P)"
-          case "$lab_parent" in
-            "$runner_root"/3ci-directive-module-02.*) ;;
-            *) echo "unsafe lab parent: $lab_parent" >&2; exit 2 ;;
+          export DIRECTIVE_TRAINING_ROOT="$GITHUB_WORKSPACE"
+          helper=""
+          if test -n "${DIRECTIVE_TRAINING_ROOT:-}"; then
+            helper="$DIRECTIVE_TRAINING_ROOT/labs/fixtures/02-disposable-initialization/init-lab.mjs"
+          fi
+          test -n "$helper" || { echo "Paste refusal: DIRECTIVE_TRAINING_ROOT is empty" >&2; exit 2; }
+          test -f "$helper" || { echo "Paste refusal: no helper file at $helper" >&2; exit 2; }
+
+          set +e
+          refusal="$(node "$helper" guard "" 2>&1)"
+          refusal_exit=$?
+          set -e
+          test "$refusal_exit" -ne 0
+          case "$refusal" in
+            *"Usage refusal"*) ;;
+            *) echo "expected a usage refusal for a missing printed root: $refusal" >&2; exit 2 ;;
+          esac
+          case "$refusal" in
+            *"Stop:"*) echo "a missing printed root must not read as a boundary stop" >&2; exit 2 ;;
           esac
 
-          ancestor="$lab_parent"
-          while :
-          do
-            test ! -e "$ancestor/.git" || { echo "temporary parent is inside another Git repository" >&2; exit 2; }
-            test "$ancestor" = / && break
-            ancestor="$(dirname "$ancestor")"
-          done
+          lab_root="$(node "$helper" create)"
+          node "$helper" guard "$lab_root"
+          lab_root="$(node "$helper" reset "$lab_root")"
+          node "$helper" guard "$lab_root"
+          node "$helper" install "$lab_root"
 
-          assert_lab_root() {
-            test "$(pwd -P)" = "$lab_root"
-            case "$lab_root" in
-              "$lab_parent"/attempt-*) ;;
-              *) echo "unsafe lab root: $lab_root" >&2; return 2 ;;
-            esac
-          }
-
-          assert_no_remote() {
-            assert_lab_root || return 2
-            test -e .git || return 2
-            git_root="$(git rev-parse --show-toplevel)" || return 2
-            git_root="$(cd "$git_root" && pwd -P)" || return 2
-            test "$git_root" = "$lab_root" || return 2
-            remote_output="$(git remote)" || return 2
-            test -z "$remote_output"
-          }
-
-          lab_root="$(mktemp -d "$lab_parent/attempt-01.XXXXXX")"
-          lab_root="$(cd "$lab_root" && pwd -P)"
-          cd "$lab_root"
-          assert_lab_root
-          git init --initial-branch=main
-          git switch -c training/module-02
-          assert_no_remote
-
-          cd "$lab_parent"
-          lab_root="$(mktemp -d "$lab_parent/attempt-02.XXXXXX")"
-          lab_root="$(cd "$lab_root" && pwd -P)"
-          cd "$lab_root"
-          assert_lab_root
-          git init --initial-branch=main
-          git switch -c training/module-02
-          assert_no_remote
-          cp "$GITHUB_WORKSPACE/labs/fixtures/02-disposable-initialization/package.json" package.json
-          printf 'node_modules/\n/.npm-cache/\n/USER.md\n/.deft/USER.md\n' > .gitignore
-          printf 'registry=https://registry.npmjs.org/\naudit=false\nfund=false\nignore-scripts=true\n' > .npmrc
-          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.5" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.5")) process.exit(2)'
-
-          env -i PATH="$PATH" HOME="$HOME" npm install --userconfig "$lab_root/.npmrc" --globalconfig /dev/null --cache "$lab_root/.npm-cache" --ignore-scripts --no-audit --no-fund
-          assert_no_remote
           local_bin="$lab_root/node_modules/.bin"
-          export PATH="$local_bin:$PATH"
-          hash -r
-          resolved_deft="$(command -v deft)"
-          test "$resolved_deft" = "$local_bin/deft"
           directive_path="$local_bin/directive"
           test -x "$directive_path"
           test -x "$local_bin/deft"
-          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.5") process.exit(2) }'
-          version_output="$("$directive_path" --version)"
-          case "$version_output" in
-            *'@deftai/directive-core@0.119.5'*) ;;
-            *) echo "wrong Directive version" >&2; exit 2 ;;
-          esac
-          "$directive_path" --help >/dev/null
-          "$directive_path" commands >/dev/null
-          "$directive_path" init --help >/dev/null
-          "$directive_path" update --help >/dev/null
-          "$directive_path" doctor --help >/dev/null
-          set +e
-          "$directive_path" toolchain:check --help >"$lab_parent/toolchain-help.txt" 2>&1
-          toolchain_help_exit=$?
-          set -e
-          test "$toolchain_help_exit" -eq 2
-          grep -F 'unrecognized argument: --help' "$lab_parent/toolchain-help.txt"
-
-          assert_no_remote
-          "$directive_path" init --yes --repo-root .
-          assert_no_remote
-          for required_tracked_path in AGENTS.md Taskfile.yml .deft/GENERATION.json .githooks/pre-commit .npmrc xbrief/PROJECT-DEFINITION.xbrief.json
-          do
-            test -f "$required_tracked_path"
-          done
-          node -e 'const g=require("./.deft/GENERATION.json"); if(g.contentVersion!=="0.119.5" || g.surfaces?.payload!=="0.119.5") process.exit(2)'
-          node -e 'const x=require("./xbrief/PROJECT-DEFINITION.xbrief.json"); if(x.xBRIEFInfo?.version!=="0.8") process.exit(2)'
-          test "$(git config --get core.hooksPath)" = ".githooks"
-          for ignored_path in .deft/core/VERSION .deft/.cli/example .deft-cache/example .deft/ritual-state.json xbrief/.triage-cache/candidates.jsonl USER.md .npm-cache/example node_modules/example
-          do
-            git check-ignore -q -- "$ignored_path"
-          done
-
-          trackable_files="$lab_parent/trackable-files.txt"
-          {
-            git diff --cached --name-only
-            git ls-files --others --exclude-standard
-          } | LC_ALL=C sort -u >"$trackable_files"
-          test -s "$trackable_files"
-          while IFS= read -r relative_path
-          do
-            case "$relative_path" in
-              .agents/*|.claude/*|.codex/*|.cursor/*|.deft/GENERATION.json|.deft/approved-scope/*|.gitattributes|.githooks/*|.github/*|.gitignore|.grok/*|.npmrc|.prettierignore|AGENTS.md|Taskfile.yml|greptile.json|package.json|package-lock.json|xbrief/*) ;;
-              *) echo "unexpected trackable path: $relative_path" >&2; exit 2 ;;
-            esac
-          done <"$trackable_files"
-          git add --pathspec-from-file="$trackable_files"
-          for required_tracked_path in AGENTS.md Taskfile.yml .deft/GENERATION.json .githooks/pre-commit .npmrc xbrief/PROJECT-DEFINITION.xbrief.json
-          do
-            git ls-files --error-unmatch -- "$required_tracked_path" >/dev/null
-          done
-          git config user.name 'Northstar Training Learner'
-          git config user.email 'learner@northstar.invalid'
-          test "$(command -v deft)" = "$local_bin/deft"
-          git commit -m 'checkpoint: initialize fictional Directive consumer'
+          "$directive_path" --version
+          test "$(git -C "$lab_root" log -1 --format=%s)" = 'checkpoint: initialize fictional Directive consumer'
+          test "$(git -C "$lab_root" branch --show-current)" = training/module-02
 
           # Capture doctor output and assert the expected 0.119.5 warning identity set (#19).
-          doctor_output="$lab_parent/doctor-full.txt"
-          "$directive_path" doctor --full --project-root . >"$doctor_output" 2>&1
+          node "$helper" diagnose "$lab_root"
+          doctor_output="$(dirname "$lab_root")/doctor-full.txt"
           cat "$doctor_output"
           node "$GITHUB_WORKSPACE/scripts/assert-doctor-warning-set.mjs" "$doctor_output"
-          "$directive_path" toolchain:check --consumer --project-root .
-          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.5" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.5")) process.exit(2)'
-          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.5") process.exit(2) }'
-          git diff --quiet
-          git diff --cached --quiet
-          test -z "$(git status --porcelain --untracked-files=all)"
-          git check-ignore -q -- .deft/core/VERSION
-          test "$(git branch --show-current)" = training/module-02
-          assert_no_remote
 
-          cd "$runner_root"
-          archive_root="$(mktemp -d "$runner_root/3ci-directive-module-02-archive.XXXXXX")"
-          archive_target="$archive_root/lab-parent"
-          test ! -e "$archive_target"
-          mv -- "$lab_parent" "$archive_target"
-          test ! -e "$lab_parent"
+          node "$helper" accept "$lab_root"
+          node "$helper" recovery-npmrc "$lab_root"
+
+          archived="$(node "$helper" archive "$lab_root")"
+          archive_target="${archived#archived=}"
           attempt_count=0
           for archived_attempt in "$archive_target"/attempt-*
           do
             test -e "$archived_attempt/.git"
-            archived_git_root="$(git -C "$archived_attempt" rev-parse --show-toplevel)"
-            archived_git_root="$(cd "$archived_git_root" && pwd -P)"
-            test "$archived_git_root" = "$(cd "$archived_attempt" && pwd -P)"
-            archived_remotes="$(git -C "$archived_attempt" remote)"
-            test -z "$archived_remotes"
+            test -z "$(git -C "$archived_attempt" remote)"
             attempt_count=$((attempt_count + 1))
           done
           test "$attempt_count" -eq 2
@@ -210,157 +114,57 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          runner_root="$(cd "$RUNNER_TEMP" && pwd -P)"
-          lab_parent="$(mktemp -d "$runner_root/3ci-directive-module-02.XXXXXX")"
-          lab_parent="$(cd "$lab_parent" && pwd -P)"
-          case "$lab_parent" in
-            "$runner_root"/3ci-directive-module-02.*) ;;
-            *) echo "unsafe lab parent: $lab_parent" >&2; exit 2 ;;
+          export DIRECTIVE_TRAINING_ROOT="$GITHUB_WORKSPACE"
+          helper=""
+          if test -n "${DIRECTIVE_TRAINING_ROOT:-}"; then
+            helper="$DIRECTIVE_TRAINING_ROOT/labs/fixtures/02-disposable-initialization/init-lab.mjs"
+          fi
+          test -n "$helper" || { echo "Paste refusal: DIRECTIVE_TRAINING_ROOT is empty" >&2; exit 2; }
+          test -f "$helper" || { echo "Paste refusal: no helper file at $helper" >&2; exit 2; }
+
+          set +e
+          refusal="$(node "$helper" guard "" 2>&1)"
+          refusal_exit=$?
+          set -e
+          test "$refusal_exit" -ne 0
+          case "$refusal" in
+            *"Usage refusal"*) ;;
+            *) echo "expected a usage refusal for a missing printed root: $refusal" >&2; exit 2 ;;
+          esac
+          case "$refusal" in
+            *"Stop:"*) echo "a missing printed root must not read as a boundary stop" >&2; exit 2 ;;
           esac
 
-          ancestor="$lab_parent"
-          while :
-          do
-            test ! -e "$ancestor/.git" || { echo "temporary parent is inside another Git repository" >&2; exit 2; }
-            test "$ancestor" = / && break
-            ancestor="$(dirname "$ancestor")"
-          done
+          lab_root="$(node "$helper" create)"
+          node "$helper" guard "$lab_root"
+          lab_root="$(node "$helper" reset "$lab_root")"
+          node "$helper" guard "$lab_root"
+          node "$helper" install "$lab_root"
 
-          assert_lab_root() {
-            test "$(pwd -P)" = "$lab_root"
-            case "$lab_root" in
-              "$lab_parent"/attempt-*) ;;
-              *) echo "unsafe lab root: $lab_root" >&2; return 2 ;;
-            esac
-          }
-
-          assert_no_remote() {
-            assert_lab_root || return 2
-            test -e .git || return 2
-            git_root="$(git rev-parse --show-toplevel)" || return 2
-            git_root="$(cd "$git_root" && pwd -P)" || return 2
-            test "$git_root" = "$lab_root" || return 2
-            remote_output="$(git remote)" || return 2
-            test -z "$remote_output"
-          }
-
-          lab_root="$(mktemp -d "$lab_parent/attempt-01.XXXXXX")"
-          lab_root="$(cd "$lab_root" && pwd -P)"
-          cd "$lab_root"
-          assert_lab_root
-          git init --initial-branch=main
-          git switch -c training/module-02
-          assert_no_remote
-
-          cd "$lab_parent"
-          lab_root="$(mktemp -d "$lab_parent/attempt-02.XXXXXX")"
-          lab_root="$(cd "$lab_root" && pwd -P)"
-          cd "$lab_root"
-          assert_lab_root
-          git init --initial-branch=main
-          git switch -c training/module-02
-          assert_no_remote
-          cp "$GITHUB_WORKSPACE/labs/fixtures/02-disposable-initialization/package.json" package.json
-          printf 'node_modules/\n/.npm-cache/\n/USER.md\n/.deft/USER.md\n' > .gitignore
-          printf 'registry=https://registry.npmjs.org/\naudit=false\nfund=false\nignore-scripts=true\n' > .npmrc
-          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.5" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.5")) process.exit(2)'
-
-          env -i PATH="$PATH" HOME="$HOME" npm install --userconfig "$lab_root/.npmrc" --globalconfig /dev/null --cache "$lab_root/.npm-cache" --ignore-scripts --no-audit --no-fund
-          assert_no_remote
           local_bin="$lab_root/node_modules/.bin"
-          export PATH="$local_bin:$PATH"
-          hash -r
-          resolved_deft="$(command -v deft)"
-          test "$resolved_deft" = "$local_bin/deft"
           directive_path="$local_bin/directive"
           test -x "$directive_path"
           test -x "$local_bin/deft"
-          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.5") process.exit(2) }'
-          version_output="$("$directive_path" --version)"
-          case "$version_output" in
-            *'@deftai/directive-core@0.119.5'*) ;;
-            *) echo "wrong Directive version" >&2; exit 2 ;;
-          esac
-          "$directive_path" --help >/dev/null
-          "$directive_path" commands >/dev/null
-          "$directive_path" init --help >/dev/null
-          "$directive_path" update --help >/dev/null
-          "$directive_path" doctor --help >/dev/null
-          set +e
-          "$directive_path" toolchain:check --help >"$lab_parent/toolchain-help.txt" 2>&1
-          toolchain_help_exit=$?
-          set -e
-          test "$toolchain_help_exit" -eq 2
-          grep -F 'unrecognized argument: --help' "$lab_parent/toolchain-help.txt"
-
-          assert_no_remote
-          "$directive_path" init --yes --repo-root .
-          assert_no_remote
-          for required_tracked_path in AGENTS.md Taskfile.yml .deft/GENERATION.json .githooks/pre-commit .npmrc xbrief/PROJECT-DEFINITION.xbrief.json
-          do
-            test -f "$required_tracked_path"
-          done
-          node -e 'const g=require("./.deft/GENERATION.json"); if(g.contentVersion!=="0.119.5" || g.surfaces?.payload!=="0.119.5") process.exit(2)'
-          node -e 'const x=require("./xbrief/PROJECT-DEFINITION.xbrief.json"); if(x.xBRIEFInfo?.version!=="0.8") process.exit(2)'
-          test "$(git config --get core.hooksPath)" = ".githooks"
-          for ignored_path in .deft/core/VERSION .deft/.cli/example .deft-cache/example .deft/ritual-state.json xbrief/.triage-cache/candidates.jsonl USER.md .npm-cache/example node_modules/example
-          do
-            git check-ignore -q -- "$ignored_path"
-          done
-
-          trackable_files="$lab_parent/trackable-files.txt"
-          {
-            git diff --cached --name-only
-            git ls-files --others --exclude-standard
-          } | LC_ALL=C sort -u >"$trackable_files"
-          test -s "$trackable_files"
-          while IFS= read -r relative_path
-          do
-            case "$relative_path" in
-              .agents/*|.claude/*|.codex/*|.cursor/*|.deft/GENERATION.json|.deft/approved-scope/*|.gitattributes|.githooks/*|.github/*|.gitignore|.grok/*|.npmrc|.prettierignore|AGENTS.md|Taskfile.yml|greptile.json|package.json|package-lock.json|xbrief/*) ;;
-              *) echo "unexpected trackable path: $relative_path" >&2; exit 2 ;;
-            esac
-          done <"$trackable_files"
-          git add --pathspec-from-file="$trackable_files"
-          for required_tracked_path in AGENTS.md Taskfile.yml .deft/GENERATION.json .githooks/pre-commit .npmrc xbrief/PROJECT-DEFINITION.xbrief.json
-          do
-            git ls-files --error-unmatch -- "$required_tracked_path" >/dev/null
-          done
-          git config user.name 'Northstar Training Learner'
-          git config user.email 'learner@northstar.invalid'
-          test "$(command -v deft)" = "$local_bin/deft"
-          git commit -m 'checkpoint: initialize fictional Directive consumer'
+          "$directive_path" --version
+          test "$(git -C "$lab_root" log -1 --format=%s)" = 'checkpoint: initialize fictional Directive consumer'
+          test "$(git -C "$lab_root" branch --show-current)" = training/module-02
 
           # Capture doctor output and assert the expected 0.119.5 warning identity set (#19).
-          doctor_output="$lab_parent/doctor-full.txt"
-          "$directive_path" doctor --full --project-root . >"$doctor_output" 2>&1
+          node "$helper" diagnose "$lab_root"
+          doctor_output="$(dirname "$lab_root")/doctor-full.txt"
           cat "$doctor_output"
           node "$GITHUB_WORKSPACE/scripts/assert-doctor-warning-set.mjs" "$doctor_output"
-          "$directive_path" toolchain:check --consumer --project-root .
-          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.5" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.5")) process.exit(2)'
-          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.5") process.exit(2) }'
-          git diff --quiet
-          git diff --cached --quiet
-          test -z "$(git status --porcelain --untracked-files=all)"
-          git check-ignore -q -- .deft/core/VERSION
-          test "$(git branch --show-current)" = training/module-02
-          assert_no_remote
 
-          cd "$runner_root"
-          archive_root="$(mktemp -d "$runner_root/3ci-directive-module-02-archive.XXXXXX")"
-          archive_target="$archive_root/lab-parent"
-          test ! -e "$archive_target"
-          mv -- "$lab_parent" "$archive_target"
-          test ! -e "$lab_parent"
+          node "$helper" accept "$lab_root"
+          node "$helper" recovery-npmrc "$lab_root"
+
+          archived="$(node "$helper" archive "$lab_root")"
+          archive_target="${archived#archived=}"
           attempt_count=0
           for archived_attempt in "$archive_target"/attempt-*
           do
             test -e "$archived_attempt/.git"
-            archived_git_root="$(git -C "$archived_attempt" rev-parse --show-toplevel)"
-            archived_git_root="$(cd "$archived_git_root" && pwd -P)"
-            test "$archived_git_root" = "$(cd "$archived_attempt" && pwd -P)"
-            archived_remotes="$(git -C "$archived_attempt" remote)"
-            test -z "$archived_remotes"
+            test -z "$(git -C "$archived_attempt" remote)"
             attempt_count=$((attempt_count + 1))
           done
           test "$attempt_count" -eq 2
@@ -372,184 +176,59 @@ jobs:
           if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw "PowerShell 7.4 or newer is required" }
           $ErrorActionPreference = 'Stop'
           $PSNativeCommandUseErrorActionPreference = $true
-          $runnerRoot = [IO.Path]::GetFullPath($env:RUNNER_TEMP).TrimEnd([IO.Path]::DirectorySeparatorChar)
-          $labParent = Join-Path $runnerRoot ("3ci-directive-module-02." + [guid]::NewGuid().ToString("N"))
-          New-Item -ItemType Directory -Path $labParent | Out-Null
-          $labParent = [IO.Path]::GetFullPath($labParent).TrimEnd([IO.Path]::DirectorySeparatorChar)
-          if (-not $labParent.StartsWith($runnerRoot + [IO.Path]::DirectorySeparatorChar + "3ci-directive-module-02.")) {
-            throw "unsafe lab parent: $labParent"
+          $env:DIRECTIVE_TRAINING_ROOT = $env:GITHUB_WORKSPACE
+          $helper = ''
+          if (-not [string]::IsNullOrWhiteSpace($env:DIRECTIVE_TRAINING_ROOT)) {
+            $helper = Join-Path $env:DIRECTIVE_TRAINING_ROOT 'labs/fixtures/02-disposable-initialization/init-lab.mjs'
           }
+          if ([string]::IsNullOrWhiteSpace($helper)) { throw "Paste refusal: DIRECTIVE_TRAINING_ROOT is empty" }
+          if (-not (Test-Path -LiteralPath $helper -PathType Leaf)) { throw "Paste refusal: no helper file at $helper" }
 
-          $ancestor = Get-Item -LiteralPath $labParent
-          while ($null -ne $ancestor) {
-            if (Test-Path -LiteralPath (Join-Path $ancestor.FullName ".git")) {
-              throw "temporary parent is inside another Git repository"
-            }
-            $ancestor = $ancestor.Parent
+          $PSNativeCommandUseErrorActionPreference = $false
+          try {
+            $refusal = (& node $helper guard '' 2>&1 | Out-String)
+            $refusalExit = $LASTEXITCODE
+          } finally {
+            $PSNativeCommandUseErrorActionPreference = $true
           }
+          if ($refusalExit -eq 0) { throw "expected a nonzero exit for a missing printed root" }
+          if ($refusal -notmatch 'Usage refusal') { throw "expected a usage refusal for a missing printed root: $refusal" }
+          if ($refusal -match 'Stop:') { throw "a missing printed root must not read as a boundary stop" }
 
-          function Assert-LabRoot {
-            $current = [IO.Path]::GetFullPath((Get-Location).Path).TrimEnd([IO.Path]::DirectorySeparatorChar)
-            if ($current -ne $labRoot) { throw "working directory differs from recorded lab root" }
-            if (-not $labRoot.StartsWith($labParent + [IO.Path]::DirectorySeparatorChar + "attempt-")) {
-              throw "unsafe lab root: $labRoot"
-            }
-          }
+          $labRoot = (& node $helper create | Out-String).Trim()
+          & node $helper guard $labRoot
+          $labRoot = (& node $helper reset $labRoot | Out-String).Trim()
+          & node $helper guard $labRoot
+          & node $helper install $labRoot
 
-          function Assert-NoRemote {
-            Assert-LabRoot
-            if (-not (Test-Path -LiteralPath (Join-Path $labRoot ".git"))) { throw ".git is missing" }
-            $gitRoot = (& git rev-parse --show-toplevel | Out-String).Trim()
-            if ($LASTEXITCODE -ne 0) { throw "could not resolve the Git root" }
-            $gitRoot = [IO.Path]::GetFullPath($gitRoot).TrimEnd([IO.Path]::DirectorySeparatorChar)
-            if ($gitRoot -ne $labRoot) { throw "Git root differs from recorded lab root" }
-            $remotes = @(git remote)
-            if ($LASTEXITCODE -ne 0) { throw "could not inspect Git remotes" }
-            if ($remotes.Count -ne 0) { throw "the disposable repository has a Git remote" }
-          }
-
-          $labRoot = Join-Path $labParent ("attempt-01." + [guid]::NewGuid().ToString("N"))
-          New-Item -ItemType Directory -Path $labRoot | Out-Null
-          $labRoot = [IO.Path]::GetFullPath($labRoot).TrimEnd([IO.Path]::DirectorySeparatorChar)
-          Set-Location $labRoot
-          Assert-LabRoot
-          git init --initial-branch=main
-          git switch -c training/module-02
-          Assert-NoRemote
-
-          Set-Location $labParent
-          $labRoot = Join-Path $labParent ("attempt-02." + [guid]::NewGuid().ToString("N"))
-          New-Item -ItemType Directory -Path $labRoot | Out-Null
-          $labRoot = [IO.Path]::GetFullPath($labRoot).TrimEnd([IO.Path]::DirectorySeparatorChar)
-          Set-Location $labRoot
-          Assert-LabRoot
-          git init --initial-branch=main
-          git switch -c training/module-02
-          Assert-NoRemote
-
-          Copy-Item "$env:GITHUB_WORKSPACE/labs/fixtures/02-disposable-initialization/package.json" package.json
-          [IO.File]::WriteAllText((Join-Path $labRoot ".gitignore"), "node_modules/`n/.npm-cache/`n/USER.md`n/.deft/USER.md`n", [Text.UTF8Encoding]::new($false))
-          [IO.File]::WriteAllText((Join-Path $labRoot ".npmrc"), "registry=https://registry.npmjs.org/`naudit=false`nfund=false`nignore-scripts=true`n", [Text.UTF8Encoding]::new($false))
-          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.5" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.5")) process.exit(2)'
-
-          node -e 'const { spawnSync } = require("node:child_process"); const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => !/^npm_config_/i.test(key))); const result = spawnSync("npm.cmd", ["install", "--userconfig", ".npmrc", "--globalconfig", "NUL", "--cache", ".npm-cache", "--ignore-scripts", "--no-audit", "--no-fund"], { env, stdio: "inherit", shell: true }); process.exit(result.status ?? 1)'
-          if ($LASTEXITCODE -ne 0) { throw "isolated npm install failed" }
-          Assert-NoRemote
           $localBin = [IO.Path]::GetFullPath((Join-Path $labRoot "node_modules/.bin"))
-          $env:PATH = $localBin + [IO.Path]::PathSeparator + $env:PATH
           $directivePath = [IO.Path]::GetFullPath((Join-Path $localBin "directive.cmd"))
           $deftPath = [IO.Path]::GetFullPath((Join-Path $localBin "deft.cmd"))
           if (-not (Test-Path -LiteralPath $directivePath -PathType Leaf)) { throw "project-local Directive CLI is missing" }
           if (-not (Test-Path -LiteralPath $deftPath -PathType Leaf)) { throw "project-local Deft hook runtime is missing" }
-          $resolvedDeft = [IO.Path]::GetFullPath((Get-Command deft -CommandType Application -All -ErrorAction Stop | Select-Object -First 1).Source)
-          if ($resolvedDeft -ne $deftPath) { throw "deft does not resolve to the disposable repository: $resolvedDeft" }
-          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.5") process.exit(2) }'
           $versionOutput = (& $directivePath --version | Out-String)
           if ($versionOutput -notmatch '@deftai/directive-core@0\.119\.5') { throw "wrong Directive version: $versionOutput" }
-          & $directivePath --help | Out-Null
-          & $directivePath commands | Out-Null
-          & $directivePath init --help | Out-Null
-          & $directivePath update --help | Out-Null
-          & $directivePath doctor --help | Out-Null
-          $toolchainHelpPath = Join-Path $labParent "toolchain-help.txt"
-          $PSNativeCommandUseErrorActionPreference = $false
-          try {
-            & $directivePath toolchain:check --help *> $toolchainHelpPath
-            $toolchainHelpExit = $LASTEXITCODE
-          } finally {
-            $PSNativeCommandUseErrorActionPreference = $true
-          }
-          if ($toolchainHelpExit -ne 2) { throw "expected toolchain help exit 2; got $toolchainHelpExit" }
-          if (-not (Select-String -LiteralPath $toolchainHelpPath -SimpleMatch "unrecognized argument: --help")) {
-            throw "expected 0.119.5 toolchain help diagnostic is missing"
-          }
-
-          Assert-NoRemote
-          & $directivePath init --yes --repo-root .
-          Assert-NoRemote
-          $requiredTrackedPaths = @(
-            "AGENTS.md",
-            "Taskfile.yml",
-            ".deft/GENERATION.json",
-            ".githooks/pre-commit",
-            ".npmrc",
-            "xbrief/PROJECT-DEFINITION.xbrief.json"
-          )
-          foreach ($requiredTrackedPath in $requiredTrackedPaths) {
-            if (-not (Test-Path -LiteralPath $requiredTrackedPath -PathType Leaf)) {
-              throw "required initialized path is missing: $requiredTrackedPath"
-            }
-          }
-          node -e 'const g=require("./.deft/GENERATION.json"); if(g.contentVersion!=="0.119.5" || g.surfaces?.payload!=="0.119.5") process.exit(2)'
-          node -e 'const x=require("./xbrief/PROJECT-DEFINITION.xbrief.json"); if(x.xBRIEFInfo?.version!=="0.8") process.exit(2)'
-          $hooksPath = (& git config --get core.hooksPath | Out-String).Trim()
-          if ($hooksPath -ne ".githooks") { throw "unexpected Git hooks path: $hooksPath" }
-          $ignoredPaths = @(
-            ".deft/core/VERSION",
-            ".deft/.cli/example",
-            ".deft-cache/example",
-            ".deft/ritual-state.json",
-            "xbrief/.triage-cache/candidates.jsonl",
-            "USER.md",
-            ".npm-cache/example",
-            "node_modules/example"
-          )
-          foreach ($ignoredPath in $ignoredPaths) {
-            git check-ignore -q -- $ignoredPath
-          }
-
-          $trackableFilesPath = Join-Path $labParent "trackable-files.txt"
-          $cachedFiles = @(git diff --cached --name-only)
-          $untrackedFiles = @(git ls-files --others --exclude-standard)
-          $trackableFiles = @($cachedFiles + $untrackedFiles) | Where-Object { $_ } | Sort-Object -Unique
-          if ($trackableFiles.Count -eq 0) { throw "no trackable files found" }
-          [IO.File]::WriteAllLines($trackableFilesPath, $trackableFiles, [Text.UTF8Encoding]::new($false))
-          $allowedPath = '^(\.agents/|\.claude/|\.codex/|\.cursor/|\.deft/GENERATION\.json$|\.deft/approved-scope/|\.gitattributes$|\.githooks/|\.github/|\.gitignore$|\.grok/|\.npmrc$|\.prettierignore$|AGENTS\.md$|Taskfile\.yml$|greptile\.json$|package\.json$|package-lock\.json$|xbrief/)'
-          foreach ($relativePath in $trackableFiles) {
-            if ($relativePath -notmatch $allowedPath) { throw "unexpected trackable path: $relativePath" }
-          }
-          git add --pathspec-from-file=$trackableFilesPath
-          foreach ($requiredTrackedPath in $requiredTrackedPaths) {
-            git ls-files --error-unmatch -- $requiredTrackedPath | Out-Null
-          }
-          git config user.name "Northstar Training Learner"
-          git config user.email "learner@northstar.invalid"
-          $resolvedDeft = [IO.Path]::GetFullPath((Get-Command deft -CommandType Application -All -ErrorAction Stop | Select-Object -First 1).Source)
-          if ($resolvedDeft -ne $deftPath) { throw "project-local Deft hook runtime is no longer first on PATH" }
-          git commit -m "checkpoint: initialize fictional Directive consumer"
+          $subject = (& git -C $labRoot log -1 --format=%s | Out-String).Trim()
+          if ($subject -ne 'checkpoint: initialize fictional Directive consumer') { throw "unexpected checkpoint subject: $subject" }
+          if ((& git -C $labRoot branch --show-current | Out-String).Trim() -ne 'training/module-02') { throw "wrong lab branch" }
 
           # Capture doctor output and assert the expected 0.119.5 warning identity set (#19).
-          $doctorOutput = Join-Path $labParent "doctor-full.txt"
-          & $directivePath doctor --full --project-root . *>&1 | Tee-Object -FilePath $doctorOutput -Encoding utf8
-          node (Join-Path $env:GITHUB_WORKSPACE "scripts/assert-doctor-warning-set.mjs") $doctorOutput
-          if ($LASTEXITCODE -ne 0) { throw "doctor warning set did not match the expected 0.119.5 set" }
-          & $directivePath toolchain:check --consumer --project-root .
-          node -e 'const p=require("./package.json"); const o=p.overrides||{}; if(p.private!==true || p.devDependencies?.["@deftai/directive"]!=="0.119.5" || ["@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"].some((n)=>o[n]!=="0.119.5")) process.exit(2)'
-          node -e 'for (const n of ["@deftai/directive","@deftai/directive-content","@deftai/directive-core","@deftai/directive-types"]) { if(require("./node_modules/"+n+"/package.json").version!=="0.119.5") process.exit(2) }'
-          git diff --quiet
-          git diff --cached --quiet
-          $statusOutput = @(git status --porcelain --untracked-files=all)
-          if ($statusOutput.Count -ne 0) { throw "tracked or untracked changes remain" }
-          git check-ignore -q -- .deft/core/VERSION
-          if ((git branch --show-current) -ne "training/module-02") { throw "wrong lab branch" }
-          Assert-NoRemote
+          & node $helper diagnose $labRoot
+          $doctorOutput = Join-Path (Split-Path -Parent $labRoot) "doctor-full.txt"
+          Get-Content -LiteralPath $doctorOutput
+          & node (Join-Path $env:GITHUB_WORKSPACE "scripts/assert-doctor-warning-set.mjs") $doctorOutput
 
-          Set-Location $runnerRoot
-          $archiveRoot = Join-Path $runnerRoot ("3ci-directive-module-02-archive." + [guid]::NewGuid().ToString("N"))
-          New-Item -ItemType Directory -Path $archiveRoot | Out-Null
-          $archiveTarget = Join-Path $archiveRoot "lab-parent"
-          if (Test-Path -LiteralPath $archiveTarget) { throw "archive target already exists" }
-          Move-Item -LiteralPath $labParent -Destination $archiveTarget
-          if (Test-Path -LiteralPath $labParent) { throw "original lab parent still exists" }
+          & node $helper accept $labRoot
+          & node $helper recovery-npmrc $labRoot
+
+          $archived = (& node $helper archive $labRoot | Out-String).Trim()
+          $archiveTarget = $archived.Substring("archived=".Length)
           $archivedAttempts = @(Get-ChildItem -LiteralPath $archiveTarget -Directory | Where-Object { $_.Name -like "attempt-*" })
           if ($archivedAttempts.Count -ne 2) { throw "expected two archived attempts" }
           foreach ($archivedAttempt in $archivedAttempts) {
             if (-not (Test-Path -LiteralPath (Join-Path $archivedAttempt.FullName ".git"))) {
               throw "archived attempt lacks .git"
             }
-            $archivedGitRoot = (& git -C $archivedAttempt.FullName rev-parse --show-toplevel | Out-String).Trim()
-            $archivedGitRoot = [IO.Path]::GetFullPath($archivedGitRoot).TrimEnd([IO.Path]::DirectorySeparatorChar)
-            if ($archivedGitRoot -ne $archivedAttempt.FullName) { throw "archived Git root differs from attempt path" }
             $archivedRemotes = @(git -C $archivedAttempt.FullName remote)
             if ($archivedRemotes.Count -ne 0) { throw "archived attempt has a remote" }
           }
