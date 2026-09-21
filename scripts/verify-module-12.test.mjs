@@ -41,6 +41,15 @@ function replaceAfterHeading(body, heading, pattern, replacement) {
   return body.slice(0, index) + body.slice(index).replace(pattern, () => replacement);
 }
 
+// Splice the first anchor positionally so no replacement metacharacter is interpreted.
+function splicedCopy(path, anchor, replacement) {
+  return changedCopy(path, (body) => {
+    const index = body.indexOf(anchor);
+    assert.ok(index >= 0, `negative mutation anchor is missing in ${path}: ${anchor}`);
+    return body.slice(0, index) + replacement + body.slice(index + anchor.length);
+  });
+}
+
 function completedLifecycleCopy() {
   const root = copiedRepository();
   const activeScope = join(root, "xbrief", "active", scopeFilename);
@@ -459,4 +468,45 @@ test("verifier rejects an altered Module 12 package entry", () => {
     '"test:module-12": "node scripts/verify-module-12.test.mjs"',
   ));
   assert.throws(() => verifyModule12(root), /test:module-12/);
+});
+
+const module12Path = "curriculum/modules/12-review-and-completion.md";
+
+test("verifier rejects dropping the verify:orphan-active mapping to C6", () => {
+  const root = splicedCopy(module12Path, "`verify:orphan-active` decides **C6**", "`verify:orphan-active` decides a later card");
+  assert.throws(() => verifyModule12(root), /map verify:orphan-active to completion card C6/);
+});
+
+test("verifier rejects dropping scope:complete as the C6 repair", () => {
+  const root = splicedCopy(module12Path, "and its repair\nis `scope:complete`", "and it has no stated repair");
+  assert.throws(() => verifyModule12(root), /name scope:complete as the C6 repair/);
+});
+
+test("verifier rejects dropping the tracked-delivery wording", () => {
+  const root = splicedCopy(
+    module12Path,
+    "reachable from the delivery\nbranch and its closeout artifact is tracked there",
+    "reachable from the delivery branch",
+  );
+  assert.throws(() => verifyModule12(root), /missing the tracked-delivery wording/);
+});
+
+test("verifier rejects carding the untracked-closeout state against C7", () => {
+  const root = splicedCopy(module12Path, "deliberately not one of the nine cards below", "the state card C7 below already carries");
+  assert.throws(() => verifyModule12(root), /uncarded rather than contrast it with C7/);
+});
+
+test("verifier rejects dropping the lifecycle-pull-request repair", () => {
+  const root = splicedCopy(module12Path, "Its repair is a\nlifecycle pull request", "It has no repair");
+  assert.throws(() => verifyModule12(root), /lifecycle pull request as the untracked-closeout repair/);
+});
+
+test("verifier rejects dropping the untracked-closeout recovery row", () => {
+  const root = splicedCopy(module12Path, "| A local closeout is called delivered |", "| A local closeout is enough |");
+  assert.throws(() => verifyModule12(root), /recovery table is missing the untracked-closeout row/);
+});
+
+test("verifier rejects dropping the completed-means-landed misconception", () => {
+  const root = splicedCopy(module12Path, "Completed means landed.", "Completion is landing.");
+  assert.throws(() => verifyModule12(root), /completed-means-landed misconception/);
 });

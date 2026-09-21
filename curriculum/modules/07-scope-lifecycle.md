@@ -152,6 +152,9 @@ A gate tests a condition; it does not expand scope or invent human permission.
 `scope:complete` closes an active scope as
 `completed/completed`. `scope:cancel` preserves a no-longer-wanted scope as
 `cancelled/cancelled`. Neither outcome should be imitated by deletion or manual movement.
+Local completion proves only the lifecycle mechanism; delivered work additionally requires
+that completed artifact tracked on the configured delivery branch, which
+[Module 12](12-review-and-completion.md) grades.
 
 In the lab, the completion story has no product edit or remote delivery.
 Its completion proves the lifecycle mechanism, not that software shipped. This deliberate

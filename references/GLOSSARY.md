@@ -399,8 +399,10 @@ delivery evidence. An integration-branch merge is not delivery-branch
 reachability.
 
 **delivered**
-The accepted change is present on the intended delivery branch and its lifecycle
-closeout is recorded.
+The accepted change is present on the intended delivery branch, and its
+lifecycle closeout is recorded and tracked on that same configured delivery
+branch. A local `scope:complete` is valid lifecycle closeout, but a `completed/`
+artifact that exists only in one working tree is not land.
 
 **deployed**
 The delivered change is running in the claimed environment. A merge is not

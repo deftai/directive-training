@@ -30,6 +30,15 @@ function changedCopy(path, transform) {
   return root;
 }
 
+// Splice the first anchor positionally so no replacement metacharacter is interpreted.
+function splicedCopy(path, anchor, replacement) {
+  return changedCopy(path, (body) => {
+    const index = body.indexOf(anchor);
+    assert.ok(index >= 0, `negative mutation anchor is missing in ${path}: ${anchor}`);
+    return body.slice(0, index) + replacement + body.slice(index + anchor.length);
+  });
+}
+
 function activeLifecycleCopy() {
   const root = copiedRepository();
   const completedScope = join(root, "xbrief", "completed", scopeFilename);
@@ -160,4 +169,68 @@ test("verifier rejects a course index that drops candidate platforms", () => {
 test("verifier rejects remote mutation text in executable fixture code", () => {
   const root = changedCopy("labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs", (body) => body + '\n// git push origin training/module-07\n');
   assert.throws(() => verifyModule7(root), /forbidden remote or destructive command/);
+});
+
+test("verifier rejects a Lab 7 Done pointer that drops the tracked-closeout gate", () => {
+  const root = splicedCopy("labs/07-scope-lifecycle.md", "`verify:completed-tracked`", "a gate taught later");
+  assert.throws(() => verifyModule7(root), /must name verify:completed-tracked/);
+});
+
+test("verifier rejects a Lab 7 Done pointer that claims tracked closeout", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "so it claims no\nleftover completion and no tracked closeout",
+    "so it also proves leftover completion and tracked closeout",
+  );
+  assert.throws(() => verifyModule7(root), /claims no tracked closeout/);
+});
+
+test("verifier rejects leftover-completion verbs inside the Module 7 no-remote Task block", () => {
+  const root = splicedCopy(
+    "references/QUICK-REFERENCE.md",
+    "task deft:scope:complete -- xbrief/active/<scope>.xbrief.json",
+    "task deft:scope:complete -- xbrief/active/<scope>.xbrief.json\ntask deft:verify:completed-tracked",
+  );
+  assert.throws(() => verifyModule7(root), /out of its runnable command blocks/);
+});
+
+test("verifier rejects a runnable advanced swarm closer in the quick reference", () => {
+  const root = splicedCopy(
+    "references/QUICK-REFERENCE.md",
+    "task deft:scope:cancel -- xbrief/proposed/<obsolete-scope>.xbrief.json",
+    "task deft:scope:cancel -- xbrief/proposed/<obsolete-scope>.xbrief.json\ndeft swarm:finalize-cohort",
+  );
+  assert.throws(() => verifyModule7(root), /out of its runnable command blocks/);
+});
+
+test("verifier rejects a quick reference that drops the advanced swarm closer", () => {
+  const root = splicedCopy(
+    "references/QUICK-REFERENCE.md",
+    "`swarm:finalize-cohort` is the advanced orchestration alternative",
+    "A cohort sweep is the advanced orchestration alternative",
+  );
+  assert.throws(() => verifyModule7(root), /must name the advanced swarm closer/);
+});
+
+test("verifier rejects a quick reference that invokes the advanced swarm closer", () => {
+  const root = splicedCopy("references/QUICK-REFERENCE.md", "this course never invokes it", "run it after every merge");
+  assert.throws(() => verifyModule7(root), /named but not invoked/);
+});
+
+test("verifier rejects naming the advanced swarm closer more than once", () => {
+  const root = splicedCopy(
+    "references/QUICK-REFERENCE.md",
+    "this course never invokes it",
+    "this course never invokes it, and `swarm:finalize-cohort` stays parked",
+  );
+  assert.throws(() => verifyModule7(root), /exactly once/);
+});
+
+test("verifier rejects a quick reference that drops the leftover-completion repair", () => {
+  const root = splicedCopy(
+    "references/QUICK-REFERENCE.md",
+    "The general repair\nfor a missing tracked artifact is a lifecycle pull request.",
+    "There is no repair for a missing tracked artifact.",
+  );
+  assert.throws(() => verifyModule7(root), /lifecycle pull request as the general repair/);
 });
