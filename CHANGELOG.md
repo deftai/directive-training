@@ -39,8 +39,10 @@
   once the collection already holds `WI-999`, even when lower identifiers are
   free. `scripts/verify-capstone.mjs` pins that naming on the extracted
   assessment Task 2 with two sentence-local assertions, so tokens scattered
-  elsewhere in the file cannot satisfy the gate, and two
-  `scripts/verify-capstone.test.mjs` mutations prove each one fails closed.
+  elsewhere in the file cannot satisfy the gate, and three
+  `scripts/verify-capstone.test.mjs` mutations — one per removed sentence, one
+  that scatters the same tokens across separate sentences — prove the pin
+  fails closed rather than counting tokens.
   The `green.json` evidence row stays `WI-001 / Capture capstone evidence /
   open` and the `CAP.2` progressive hints stay evidence-layer (#38).
 

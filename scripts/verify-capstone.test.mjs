@@ -425,6 +425,19 @@ test("verifier rejects a CAP.2 assessment task that drops the legal WI-NNN names
   assert.throws(() => verifyCapstone(root), /CAP\.2 assessment task must state the legal WI-NNN namespace/);
 });
 
+// Non-vacuity guard: every token the pin names is still present here, but in
+// separate sentences. A token-presence assertion would pass this; the
+// sentence-local pin must not.
+test("verifier rejects CAP.2 bound tokens scattered across separate sentences", () => {
+  const root = changedCopy("assessments/capstone-end-to-end.md", (body) =>
+    replaceFirst(
+      body,
+      "and add throws\n`RangeError` with the exact message `next work-item id would exceed WI-999`\nonce the collection already holds `WI-999`, even when lower identifiers are\nfree.",
+      "and the lab names\n`RangeError`. The message is `next work-item id would exceed WI-999`. Refusal\nis monotonic even when lower identifiers are free.",
+    ));
+  assert.throws(() => verifyCapstone(root), /CAP\.2 assessment task must name the WI-999 exhaustion refusal/);
+});
+
 // Executable counterpart to the content contract: the verifier pins the guard as
 // text, and these cases run the very bytes a learner compares against.
 function workedListing(markdown, startHeading, endHeading) {
