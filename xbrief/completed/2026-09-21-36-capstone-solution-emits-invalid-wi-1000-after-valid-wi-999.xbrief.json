@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #36",
-    "updated": "2026-09-21T18:17:43Z"
+    "updated": "2026-09-21T19:04:42Z"
   },
   "plan": {
     "title": "Capstone solution emits invalid WI-1000 after valid WI-999",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Both worked addWorkItem listings allocate the next identifier as max-suffix plus one and pad to three digits, so a valid collection whose highest identifier is WI-999 yields WI-1000, which the same module's /^WI-\\d{3}$/ validator rejects. The CI rehearsal copy in scripts/capstone-lab.test.mjs derives from the same source and inherits the defect, and no supplied test reaches that boundary. The accepted remedy keeps the bounded WI-NNN namespace and adds a documented RangeError once the highest suffix is 999, pinned across the lab, both listings, the supplied test, and the capstone verifier.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/36",
@@ -20,93 +20,147 @@
     "items": [
       {
         "title": "Keep bounded `WI-NNN` (`/^WI-\\d{3}$/`). Refuse the unbounded `WI-<digits>` alternative on this issue.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
         "narrative": {
           "Acceptance": "Keep bounded `WI-NNN` (`/^WI-\\d{3}$/`). Refuse the unbounded `WI-<digits>` alternative on this issue.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "solutions/capstone-end-to-end.md and labs/fixtures/capstone-end-to-end/src/work-items.mjs keep `/^WI-\\d{3}$/` unchanged; the unbounded `WI-<digits>` form is recorded as a rejected alternative in the solution `Valid alternatives` section. `npm run check:capstone` and `npm test` exit 0 on merge commit 4b3f0d25189c00858fb808682fe66c07767791ea (PR #43).",
+          "recorded_at": "2026-09-21T19:04:33Z",
+          "recorded_by": "agent:claude"
+        }
       },
       {
         "title": "Allocation stays max-suffix + 1. Generated-from-empty is `WI-001`. `WI-000` remains a legal existing identifier. Add refuses once a collection already holds `WI-999`, even when lower identifiers are free.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
         "narrative": {
           "Acceptance": "Allocation stays max-suffix + 1. Generated-from-empty is `WI-001`. `WI-000` remains a legal existing identifier. Add refuses once a collection already holds `WI-999`, even when lower identifiers are free.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "`scripts/verify-capstone.test.mjs` test \"every authored addWorkItem refuses the WI-999 bound when executed\" runs both worked listings and the derived rehearsal pair and proves WI-001 from empty, WI-001 from a WI-000-only collection, WI-998 to WI-999, refusal at WI-999, and monotonic refusal on [WI-000, WI-999]. Exit 0 on merge commit 4b3f0d25189c00858fb808682fe66c07767791ea.",
+          "recorded_at": "2026-09-21T19:04:33Z",
+          "recorded_by": "agent:claude"
+        }
       },
       {
         "title": "After `validateItems` and the highest-suffix calculation, and before constructing the item, throw `RangeError` with one stable phrase. Pin that type and message on `labs/capstone-end-to-end.md`, both solution listings, Valid alternatives, the supplied test, and `scripts/verify-capstone.mjs`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
         "narrative": {
           "Acceptance": "After `validateItems` and the highest-suffix calculation, and before constructing the item, throw `RangeError` with one stable phrase. Pin that type and message on `labs/capstone-end-to-end.md`, both solution listings, Valid alternatives, the supplied test, and `scripts/verify-capstone.mjs`.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "`RangeError(\"next work-item id would exceed WI-999\")` is thrown after `validateItems` and the highest-suffix reduce and before item construction, and `scripts/verify-capstone.mjs` pins the type and message on labs/capstone-end-to-end.md Task 2, both solution listings, `Valid alternatives`, labs/fixtures/capstone-end-to-end/test/work-items.test.mjs, and the rehearsal copy. Ordering and condition are asserted, with mutation tests for an ineffective condition. `npm run check:capstone` exit 0 on 4b3f0d25189c00858fb808682fe66c07767791ea.",
+          "recorded_at": "2026-09-21T19:04:33Z",
+          "recorded_by": "agent:claude"
+        }
       },
       {
         "title": "Put the guard in `scripts/capstone-lab.test.mjs` `greenImplementation` after the reduce so `reviewedImplementation` inherits it. There is no second authored source.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:4",
         "narrative": {
           "Acceptance": "Put the guard in `scripts/capstone-lab.test.mjs` `greenImplementation` after the reduce so `reviewedImplementation` inherits it. There is no second authored source.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "The guard is authored once, in `scripts/capstone-lab.test.mjs` `greenImplementation` after the reduce; `reviewedImplementation` still derives from it through the unchanged `greenImplementation.replace(\"const highest = items.reduce\", ...)` anchor. `scripts/verify-capstone.mjs` asserts guard-after-reduce, the intact derivation anchor, and exactly one authored guard; the executed proof shows the derived reviewed copy refuses at WI-999. Exit 0 on 4b3f0d25189c00858fb808682fe66c07767791ea.",
+          "recorded_at": "2026-09-21T19:04:33Z",
+          "recorded_by": "agent:claude"
+        }
       },
       {
         "title": "Bind the protected comparison as a frozen supplied test in `labs/fixtures/capstone-end-to-end/test/work-items.test.mjs` that `recordGreen` already runs: call `addWorkItem` on a valid collection whose maximum suffix is `999`, assert the documented `RangeError`, and prove the input is unchanged. Keep the 50-item ordinary-range test and add one direct `WI-999` case. Do not carry that comparison in a helper-owned probe modeled on `duplicateProbe`. Do not delete `duplicateProbe`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:5",
         "narrative": {
           "Acceptance": "Bind the protected comparison as a frozen supplied test in `labs/fixtures/capstone-end-to-end/test/work-items.test.mjs` that `recordGreen` already runs: call `addWorkItem` on a valid collection whose maximum suffix is `999`, assert the documented `RangeError`, and prove the input is unchanged. Keep the 50-item ordinary-range test and add one direct `WI-999` case. Do not carry that comparison in a helper-owned probe modeled on `duplicateProbe`. Do not delete `duplicateProbe`.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "`labs/fixtures/capstone-end-to-end/test/work-items.test.mjs` carries \"refuses to allocate past the bounded WI-999 identifier\", which `recordGreen` runs: it asserts the documented RangeError on a collection whose maximum suffix is 999 and proves the input unchanged. The 50-item ordinary-range test is retained and `duplicateProbe` in labs/fixtures/capstone-end-to-end/capstone-lab.mjs is untouched. `npm run test:capstone` exit 0 on 4b3f0d25189c00858fb808682fe66c07767791ea.",
+          "recorded_at": "2026-09-21T19:04:33Z",
+          "recorded_by": "agent:claude"
+        }
       },
       {
         "title": "Land the learner-facing bullet on `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green list, in the same change as that test.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:6",
         "narrative": {
           "Acceptance": "Land the learner-facing bullet on `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green list, in the same change as that test.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "The Task 2 (`CAP.2`) green-list bullet in labs/capstone-end-to-end.md and the frozen supplied test landed in the same commit, 79b27f79bc8019bb1350a822a50f1f4ea92c7e2f, merged as 4b3f0d25189c00858fb808682fe66c07767791ea (PR #43).",
+          "recorded_at": "2026-09-21T19:04:33Z",
+          "recorded_by": "agent:claude"
+        }
       },
       {
         "title": "Extend `scripts/verify-capstone.mjs` to assert that boundary on the lab, both listings, supplied test, and rehearsal copy. Add mutation tests that remove the focused boundary case or the guard from the green rehearsal string.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:7",
         "narrative": {
           "Acceptance": "Extend `scripts/verify-capstone.mjs` to assert that boundary on the lab, both listings, supplied test, and rehearsal copy. Add mutation tests that remove the focused boundary case or the guard from the green rehearsal string.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "`scripts/verify-capstone.mjs` asserts the bound on the lab, both listings, `Valid alternatives`, the supplied test, and the rehearsal copy; `scripts/verify-capstone.test.mjs` adds mutation tests that remove the focused boundary case, remove the guard from the green rehearsal string, remove it from the worked green listing, remove the Task 2 bullet, hoist the guard above the reduce, and neuter the condition in both the listing and the rehearsal. All red as required; suite exit 0 on 4b3f0d25189c00858fb808682fe66c07767791ea.",
+          "recorded_at": "2026-09-21T19:04:33Z",
+          "recorded_by": "agent:claude"
+        }
       },
       {
         "title": "Update the authored \"five supplied tests\" count with the suite.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:8",
         "narrative": {
           "Acceptance": "Update the authored \"five supplied tests\" count with the suite.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "solutions/capstone-end-to-end.md \"Expected green observations\" now reads \"all six supplied tests pass\", matching the six tests in labs/fixtures/capstone-end-to-end/test/work-items.test.mjs. It is the only authored occurrence of that count in the course. Merged as 4b3f0d25189c00858fb808682fe66c07767791ea.",
+          "recorded_at": "2026-09-21T19:04:33Z",
+          "recorded_by": "agent:claude"
+        }
       },
       {
         "title": "Leftover issue 38 is the assessment naming surface only. Lab and explained-solution naming of the bound ride this harvest.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:9",
         "narrative": {
           "Acceptance": "Leftover issue 38 is the assessment naming surface only. Lab and explained-solution naming of the bound ride this harvest.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "Merge commit 4b3f0d25189c00858fb808682fe66c07767791ea (PR #43) changes CHANGELOG.md, labs/capstone-end-to-end.md, labs/fixtures/capstone-end-to-end/test/work-items.test.mjs, scripts/capstone-lab.test.mjs, scripts/verify-capstone.mjs, scripts/verify-capstone.test.mjs, and solutions/capstone-end-to-end.md. assessments/capstone-end-to-end.md is untouched and remains the issue #38 surface; lab and explained-solution naming of the bound landed here.",
+          "recorded_at": "2026-09-21T19:04:33Z",
+          "recorded_by": "agent:claude"
+        }
       }
     ],
     "tags": [
@@ -845,9 +899,33 @@
           "npm run check:capstone, npm run test:capstone and npm test each exit 0"
         ],
         "dispatch_kind": "solo"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 43,
+        "prBase": null,
+        "mergeCommit": "4b3f0d25189c00858fb808682fe66c07767791ea",
+        "deliveryBranch": "master",
+        "deliveryCommit": "4b3f0d25189c00858fb808682fe66c07767791ea",
+        "verifiedAt": "2026-09-21T19:04:42Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:claude:v1:YTU3NjU4N2MtNjM1Mi00YjkxLWE4NGEtNzQ1MmNkYWM0YWZm"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-21T19:04:42Z",
+      "completedSessionId": "host:claude:v1:YTU3NjU4N2MtNjM1Mi00YjkxLWE4NGEtNzQ1MmNkYWM0YWZm",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-21T19:04:42Z"
       }
     },
     "id": "github.issue.5521510608",
-    "updated": "2026-09-21T18:17:43Z"
+    "updated": "2026-09-21T19:04:42Z"
   }
 }
