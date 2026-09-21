@@ -237,6 +237,9 @@ const escapeRegExp = (value) => value.replace(/[\^$.*+?()[\]{}|\\]/g, "\\$&");
 // Pinned bounded-namespace contract for the capstone work-item identifier (#36).
 const identifierBoundMessage = "next work-item id would exceed WI-999";
 const identifierBoundThrow = 'throw new RangeError("' + identifierBoundMessage + '");';
+// The guard is pinned as condition-plus-throw, so an ineffective condition
+// (`if (false)`) around the right throw statement still fails the contract.
+const identifierBoundGuard = /if \(highest >= 999\)\s*\{?\s*throw new RangeError\("next work-item id would exceed WI-999"\);/;
 
 function readRequiredFiles(root, paths) {
   const values = new Map();
@@ -587,11 +590,12 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   );
   for (const [stage, worked] of [["green", greenWorked], ["reviewed", reviewedWorked]]) {
     const reduceIndex = worked.indexOf("const highest = items.reduce");
-    const guardIndex = worked.indexOf(identifierBoundThrow);
+    const guard = identifierBoundGuard.exec(worked);
     const constructIndex = worked.indexOf('padStart(3, "0")');
     assert.ok(reduceIndex >= 0, stage + " implementation must calculate the highest suffix");
-    assert.ok(guardIndex > reduceIndex, stage + " implementation must pin the WI-999 identifier bound after the highest-suffix calculation");
-    assert.ok(constructIndex > guardIndex, stage + " implementation must pin the WI-999 identifier bound before constructing the new item");
+    assert.ok(guard, stage + " implementation must refuse on `highest >= 999`, not on an ineffective condition");
+    assert.ok(guard.index > reduceIndex, stage + " implementation must pin the WI-999 identifier bound after the highest-suffix calculation");
+    assert.ok(constructIndex > guard.index, stage + " implementation must pin the WI-999 identifier bound before constructing the new item");
   }
   const labTask2 = content.get(labPath).match(/### Task 2 —[\s\S]*?(?=\n### Task 3 —)/)?.[0] ?? "";
   assert.ok(labTask2, "lab is missing the Task 2 (CAP.2) stage");
@@ -612,9 +616,10 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   const rehearsalGreen = rehearsal.match(/const greenImplementation = `([\s\S]*?)`\.trimStart\(\);/)?.[1] ?? "";
   assert.ok(rehearsalGreen, "capstone rehearsal is missing the green implementation string");
   const rehearsalReduce = rehearsalGreen.indexOf("const highest = items.reduce");
-  const rehearsalGuard = rehearsalGreen.indexOf(identifierBoundThrow);
+  const rehearsalGuard = identifierBoundGuard.exec(rehearsalGreen);
   assert.ok(rehearsalReduce >= 0, "rehearsal green implementation must calculate the highest suffix");
-  assert.ok(rehearsalGuard > rehearsalReduce, "rehearsal green implementation must pin the WI-999 bound after the reduce so the reviewed copy inherits it");
+  assert.ok(rehearsalGuard, "rehearsal green implementation must refuse on `highest >= 999`, not on an ineffective condition");
+  assert.ok(rehearsalGuard.index > rehearsalReduce, "rehearsal green implementation must pin the WI-999 bound after the reduce so the reviewed copy inherits it");
   assert.match(
     rehearsal,
     /const reviewedImplementation = greenImplementation\.replace\(\s*"const highest = items\.reduce",/,

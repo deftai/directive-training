@@ -20,8 +20,13 @@
   green list, the supplied focused suite carries a sixth frozen test that
   proves the `RangeError` and an unchanged input collection alongside the
   retained 50-item ordinary-range test, and `scripts/verify-capstone.mjs`
-  pins the type and message on the lab, both listings, `Valid alternatives`,
-  the supplied test, and the rehearsal copy with mutation coverage (#36).
+  pins the guard as condition-plus-throw — so an ineffective condition around
+  the right message still fails — on the lab, both listings,
+  `Valid alternatives`, the supplied test, and the rehearsal copy, with
+  mutation coverage. `scripts/verify-capstone.test.mjs` also executes both
+  worked listings and the derived rehearsal pair at the boundary, so the
+  contract is proved by running the authored bytes rather than only by
+  matching them (#36).
 
 ### Verified
 
