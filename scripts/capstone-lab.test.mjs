@@ -85,6 +85,7 @@ export function addWorkItem(items, title) {
   validateItems(items);
   if (typeof title !== "string" || title.trim() === "") throw new TypeError("title must be nonempty");
   const highest = items.reduce((value, item) => Math.max(value, Number(item.id.slice(3))), 0);
+  if (highest >= 999) throw new RangeError("next work-item id would exceed WI-999");
   return [...items, { id: \`WI-\${String(highest + 1).padStart(3, "0")}\`, title: title.trim(), status: "open" }];
 }
 

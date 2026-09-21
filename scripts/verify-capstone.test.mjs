@@ -46,6 +46,12 @@ function changedCopy(path, transform) {
   return root;
 }
 
+function withoutFirst(body, snippet) {
+  const index = body.indexOf(snippet);
+  assert.ok(index >= 0, "mutation snippet must exist in the copied artifact");
+  return body.slice(0, index) + body.slice(index + snippet.length);
+}
+
 function alternateLifecycleCopy() {
   const root = copiedRepository();
   const startsActive = existsSync(join(root, "xbrief", "active", learningScope));
@@ -362,6 +368,35 @@ test("verifier rejects a broken capstone cross-link", () => {
   const root = changedCopy("solutions/capstone-end-to-end.md", (body) =>
     body.replace("../assessments/capstone-end-to-end.md", "../assessments/missing.md"));
   assert.throws(() => verifyCapstone(root), /broken local link/);
+});
+
+test("verifier rejects removing the supplied WI-999 boundary case", () => {
+  const root = changedCopy("labs/fixtures/capstone-end-to-end/test/work-items.test.mjs", (body) => {
+    const start = body.indexOf('test("refuses to allocate past the bounded WI-999 identifier"');
+    assert.ok(start >= 0, "supplied suite must carry the WI-999 boundary case");
+    const end = body.indexOf("\n});\n\n", start);
+    assert.ok(end > start, "WI-999 boundary case must be a complete test block");
+    return body.slice(0, start) + body.slice(end + "\n});\n\n".length);
+  });
+  assert.throws(() => verifyCapstone(root), /focused WI-999 identifier bound case/);
+});
+
+test("verifier rejects a green rehearsal implementation without the WI-999 guard", () => {
+  const root = changedCopy("scripts/capstone-lab.test.mjs", (body) =>
+    withoutFirst(body, '  if (highest >= 999) throw new RangeError("next work-item id would exceed WI-999");\n'));
+  assert.throws(() => verifyCapstone(root), /rehearsal green implementation must pin the WI-999 bound after the reduce/);
+});
+
+test("verifier rejects a worked green implementation that can emit WI-1000", () => {
+  const root = changedCopy("solutions/capstone-end-to-end.md", (body) =>
+    withoutFirst(body, '  if (highest >= 999) {\n    throw new RangeError("next work-item id would exceed WI-999");\n  }\n'));
+  assert.throws(() => verifyCapstone(root), /both worked addWorkItem implementations/);
+});
+
+test("verifier rejects a Task 2 green list that omits the identifier bound", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) =>
+    withoutFirst(body, "- refuse to allocate outside the bounded `WI-NNN` namespace: `WI-000` through\n  `WI-999` are legal existing identifiers, an empty collection allocates\n  `WI-001`, and add throws `RangeError` with the exact message\n  `next work-item id would exceed WI-999` once the collection already holds\n  `WI-999`, even when lower identifiers are free;\n"));
+  assert.throws(() => verifyCapstone(root), /lab Task 2 green list must state the WI-999 identifier bound/);
 });
 
 test("verifier rejects reading the solution as completion evidence", () => {

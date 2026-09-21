@@ -197,6 +197,9 @@ export function addWorkItem(items, title) {
     (value, item) => Math.max(value, Number(item.id.slice(3))),
     0,
   );
+  if (highest >= 999) {
+    throw new RangeError("next work-item id would exceed WI-999");
+  }
   return [
     ...items,
     {
@@ -233,9 +236,22 @@ export function summarizeWorkItems(items) {
 This is intentionally not the final answer. It must exist long enough for the
 zero-change pre-PR probe to observe normalized duplicate acceptance.
 
+The identifier guard is not optional. `WI-NNN` is a bounded namespace:
+`validateItems` accepts `WI-000` through `WI-999`, and allocation is
+max-suffix + 1, so an empty collection allocates `WI-001` and `WI-998`
+allocates `WI-999`. Without the guard, a valid collection holding `WI-999`
+yields `WI-1000`, which the module's own `/^WI-\d{3}$/` validator rejects on
+the next add, complete, or summary call. Refusal is monotonic, not
+gap-filling: add refuses once the collection holds `WI-999` even when lower
+identifiers are free, because reusing a free lower identifier would
+contradict the supplied `WI-002` to `WI-003` case. Throwing
+`RangeError("next work-item id would exceed WI-999")` before the new item is
+constructed keeps `addWorkItem` from ever returning an identifier its own
+validator rejects.
+
 Expected green observations:
 
-- all five supplied tests pass;
+- all six supplied tests pass;
 - add returns `[{"id":"WI-001","title":"Capture capstone evidence","status":"open"}]`;
 - complete returns the named item with `status: "done"`;
 - behavior summary is `{"total":2,"open":1,"done":1}`; and
@@ -316,6 +332,9 @@ export function addWorkItem(items, title) {
     (value, item) => Math.max(value, Number(item.id.slice(3))),
     0,
   );
+  if (highest >= 999) {
+    throw new RangeError("next work-item id would exceed WI-999");
+  }
   return [
     ...items,
     {
@@ -441,7 +460,9 @@ guarded stage pass.
 
 Accepted alternatives include:
 
-- a loop instead of `reduce` for the highest identifier;
+- a loop instead of `reduce` for the highest identifier, provided it still
+  throws `RangeError` with `next work-item id would exceed WI-999` at the
+  bound;
 - equivalent immutable `map` behavior;
 - ASCII-equivalent lowercasing that passes the exact duplicate probe; and
 - different formatting that passes every guarded stage.
@@ -452,6 +473,9 @@ Rejected alternatives include:
 - changing the supplied test, helper, Taskfile, story, policy, marker, evidence,
   or allowlist;
 - an error that omits `duplicates an existing work item`;
+- returning `WI-1000`, widening the validator to `WI-<digits>`, reusing a free
+  lower identifier at the bound, or an error that omits
+  `next work-item id would exceed WI-999`;
 - adding a remote or widening file scope; and
 - skipping the expected aggregate diagnosis.
 
@@ -465,6 +489,7 @@ Rejected alternatives include:
 | Aggregate says pre-PR evidence is missing | Intended seeded failure | Preserve it, then run `pre-pr`; do not edit the gate |
 | Duplicate remains accepted after repair | Normalization or rejection is incomplete | Change only source and retry `review` |
 | Duplicate rejects but message differs | Required observable error is missing | Use a message containing `duplicates an existing work item` |
+| `next work-item id would exceed WI-999` | The collection already holds `WI-999` | Expected bounded-namespace refusal; the input is unchanged and no invalid identifier is emitted |
 | Guard names another mutable path | Scope was exceeded | Preserve and reset; do not widen the allowlist |
 | Reset rejects branch, remote, root, or link identity | Reset itself requires a valid attempt | Leave it untouched and use fresh `create` from a new safe launcher |
 | Archive refuses | Caller is inside the parent, root is not exact/canonical, a prohibited link exists, or destination exists | Move outside and pass one exact valid root; otherwise preserve and create fresh |

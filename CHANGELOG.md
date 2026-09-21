@@ -2,6 +2,27 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- The capstone work-item identifier namespace is now bounded and stated. Both
+  worked `addWorkItem` listings in `solutions/capstone-end-to-end.md` and the
+  derived CI rehearsal implementation in `scripts/capstone-lab.test.mjs` refuse
+  at the bound instead of allocating `WI-1000` from a valid collection whose
+  highest identifier is `WI-999` — an identifier the module's own
+  `/^WI-\d{3}$/` validator rejects on the next add, complete, or summary call.
+  After `validateItems` and the highest-suffix calculation, and before the new
+  item is constructed, `addWorkItem` throws
+  `RangeError("next work-item id would exceed WI-999")`. Allocation still runs
+  max-suffix + 1, an empty collection still allocates `WI-001`, `WI-000`
+  remains a legal existing identifier, and refusal is monotonic rather than
+  gap-filling: add refuses once the collection holds `WI-999` even when lower
+  identifiers are free. Lab Task 2 (`CAP.2`) now states that contract on the
+  green list, the supplied focused suite carries a sixth frozen test that
+  proves the `RangeError` and an unchanged input collection alongside the
+  retained 50-item ordinary-range test, and `scripts/verify-capstone.mjs`
+  pins the type and message on the lab, both listings, `Valid alternatives`,
+  the supplied test, and the rehearsal copy with mutation coverage (#36).
+
 ### Verified
 
 - Native Windows/PowerShell learner walkthroughs now verify the complete Lab 7,
