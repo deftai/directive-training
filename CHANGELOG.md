@@ -7,6 +7,25 @@
 - Native Windows/PowerShell learner walkthroughs now verify the complete Lab 7,
   Lab 9, and Lab 10 paths against the exact Directive 0.112.0 graph (#78).
 
+### Changed
+
+- Lab 2 now runs from a coding-agent host. Every command block executes in its own
+  shell against one course-relative helper path plus the single printed absolute
+  attempt root, so the nine shell functions and the carried variables that made
+  every block after the first fail at `assert_no_remote` with `command not found`
+  are gone. `labs/fixtures/02-disposable-initialization/init-lab.mjs` exposes
+  `create`, `guard`, `install`, `diagnose`, `accept`, `reset`, `archive`, and
+  `recovery-npmrc`, each re-deriving its state from disk. Helper-spawned children
+  run under the governing `env -i PATH="$PATH" HOME="$HOME"` base with the npm
+  credential strip layered on top, npm children keep Lab 2's `--userconfig` /
+  `--globalconfig` / `--cache` isolation, and hook-runtime children prepend the
+  printed root's `node_modules/.bin` and refuse before the spawn when that local
+  `deft` is missing or not executable. Fence-level and in-helper refusals are now
+  worded so a missing printed-root paste never reads as the safety boundary
+  tripping. The Modules 2-3 content contract and its three-platform validation
+  workflow follow the same helper path the lab teaches, and the Lab 2 solution
+  reports seven verbose `git check-ignore` commands rather than six (#18).
+
 ### Added
 
 - Executable structural verification for Module 6's O6.2 proposed-scope artifact.

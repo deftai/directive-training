@@ -12,7 +12,7 @@ Linux/bash and Windows/PowerShell remain candidates pending native 0.119.5 evide
 | Solves | `lab-02-disposable-initialization` |
 | Outcomes covered | O2.1, O2.2, O2.3, O2.4 |
 | Status | `learner-ready draft` |
-| Last verified | 2026-09-20 |
+| Last verified | 2026-09-21 |
 | Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Lab 2](../labs/02-disposable-initialization.md) |
 
@@ -116,23 +116,25 @@ Before running the verified route, the expected observations were:
 
 ## Worked approach
 
-The walkthrough below assumes the lab's complete macOS/zsh starting-state block has defined
-`training_root`, `fixture`, `lab_parent`, `lab_root`, `evidence_note`,
-`assert_lab_root`, and `assert_no_remote`, and that the current directory is the new Git root on
+The walkthrough below assumes the lab's macOS/zsh starting-state block has already run
+`node "$helper" create` and that you exported its two values, `DIRECTIVE_TRAINING_ROOT` and
+`LAB_ROOT`. Every step is one fresh helper invocation against that one printed root; no shell
+function or variable survives from a previous step. The attempt is the new Git root on
 `training/module-02` containing only
 `.gitignore`, `.npmrc`, and the fictional `package.json`. That linked block is part of this worked
 approach; do not substitute an existing repository.
 
 ### Step 1 — Install and prove the pinned local executable
 
-**Action:** Run the lab's complete `module_02_initialize` block on the fresh attempt. Its
-first phase checks the fixture pin and installs from the public-registry `.npmrc`
-with inherited `NPM_CONFIG_*` values removed from the child process. The install
-uses a lab-local cache and no lifecycle scripts. It then sets `local_bin` to
-the attempt's `node_modules/.bin`, prepends it to `PATH`, and proves both
-`directive_path` and the resolved `deft` command are inside that exact directory. It then
-checks every installed Directive package and captures the CLI version before inspecting the
-version string.
+**Action:** Run the lab's `node "$helper" install "$lab_root"` block on the fresh attempt. Its
+first phase re-reads the guard from disk, checks the fixture pin, and installs from the
+public-registry `.npmrc` under the governing `env -i PATH="$PATH" HOME="$HOME"` child
+environment, with the npm credential strip layered on that base. The install
+uses a lab-local cache and no lifecycle scripts. It then proves the explicit
+`node_modules/.bin/directive` and `node_modules/.bin/deft` launchers are present and
+executable, and elects that local `deft` on the hook-runtime child's `PATH` before any commit.
+It then checks every installed Directive package and captures the CLI version before
+inspecting the version string.
 
 **Why:** The package file is both fictional/private and exact. Testing the explicit local
 path prevents a global installation from standing in for the project pin. Selecting the
@@ -145,10 +147,11 @@ the exact core version is the required signal.
 
 ### Step 2 — Verify help and initialize the consumer
 
-**Action:** Continue the same checkpoint block. It runs global help, the command inventory,
-and init/update/doctor help through `directive_path`. It captures the known
-`toolchain:check --help` exit without changing interactive shell options, then runs init
-between two no-remote checks. The post-init assertions positively require tracked
+**Action:** The same `install` invocation continues. It runs global help, the command
+inventory, and init/update/doctor help through the project-local CLI. It captures the known
+`toolchain:check --help` exit to `toolchain-help.txt` beside the attempt without changing any
+interactive shell option, then runs init between two guard checks. The post-init assertions
+positively require tracked
 `AGENTS.md`, `Taskfile.yml`, `.deft/GENERATION.json`, `.githooks/pre-commit`, and
 `xbrief/PROJECT-DEFINITION.xbrief.json`; schema 0.8; generation 0.119.5; and
 `core.hooksPath=.githooks`.
@@ -164,12 +167,12 @@ add a remote.
 
 ### Step 3 — Inspect and commit only the accepted path set
 
-Use the remainder of the lab's complete `module_02_initialize` block. Directive 0.119.5 stages
-many installer-managed paths during init, so the block unions the already-staged paths with
-remaining untracked paths, prints every candidate, rejects anything outside the named
-patterns, stages only the paths named in `trackable-files.txt`, assigns the fictional local
-Git identity, rechecks the project-local `deft` lookup, commits through the installed hook,
-and reruns the no-remote guard.
+The same `install` invocation finishes the checkpoint. Directive 0.119.5 stages
+many installer-managed paths during init, so the helper unions the already-staged paths with
+remaining untracked paths, rejects anything outside the named
+patterns, stages only the paths written to `trackable-files.txt` beside the attempt, assigns
+the fictional local Git identity, re-elects the project-local `deft` for the hook-runtime
+child, commits through the installed hook, and reruns the guard.
 
 **Why:** The exact list printed in this attempt is the staging input. Git identity is local
 and fictional; no credential or remote is involved.
@@ -180,11 +183,11 @@ tracked status is clean, and the remote list is empty.
 
 ### Step 4 — Diagnose and classify
 
-**Action:** Run the lab's `module_02_diagnose` function. It captures doctor and consumer
-toolchain exits without enabling interactive `errexit`, prints both, and rechecks the
-remote boundary. Use `git ls-files`, `git status --short --ignored`, and the six explicit
-verbose `git check-ignore` commands listed in the lab to build the table at
-`$evidence_note`, outside the attempt repository.
+**Action:** Run the lab's `node "$helper" diagnose "$lab_root"` block. It captures doctor and
+consumer toolchain exits to `doctor-full.txt` and `toolchain-consumer.txt` beside the attempt,
+prints both, and rechecks the guard. Use `git ls-files`, `git status --short --ignored`, and
+the seven explicit verbose `git check-ignore` commands listed in the lab to build the table at
+`evidence.md`, outside the attempt repository.
 
 **Why:** Doctor and toolchain output answer different questions. Git inspection supplies
 tracking evidence; source ownership supplies the anatomy classification.
@@ -321,8 +324,8 @@ paths and has host-integration exclusions that a beginner dry-run does not fully
 - **Symptom:** the commit is rejected because the current branch is `main`.
 - **Cause:** Directive's installed hook applies the default branch-protection policy.
 - **Confirm:** `git branch --show-current` prints `main`.
-- **Recover:** do not bypass the hook. In the unborn disposable repository, switch to
-  `training/module-02`, regenerate and inspect the staged-plus-untracked allowlist, then retry.
+- **Recover:** do not bypass the hook. Create a fresh attempt so the helper puts the unborn
+  disposable repository on `training/module-02`, then re-run `install`.
 - **Retry:** the commit succeeds and the current branch is `training/module-02`.
 
 ### When the baseline differs
@@ -364,8 +367,9 @@ creates no listener, container, service, remote, or production state.
   command-output files beside them under the named temporary parent.
 - Cleanup action: move that parent to the separately created exact temporary archive target.
 - Cleanup evidence: original parent absent because it moved; archive target and archived
-  `evidence.md` present; every attempt's `git remote` output empty; and the caller's original
-  `PATH` and npm user-config selection restored (plus PowerShell error preferences on Windows).
+  `evidence.md` present; and every attempt's `git remote` output empty. There is no caller
+  environment to restore: the helper governs its own children and never edits your `PATH` or
+  npm user configuration.
 
 Do not replace this route with `git reset --hard`, broad `git clean`, recursive workspace
 deletion, or a home-directory target.

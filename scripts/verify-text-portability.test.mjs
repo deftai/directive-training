@@ -29,6 +29,7 @@ const modulesFiles = new Map([
   ["LICENSE", readSource("LICENSE")],
   [modulesVerifier, readSource(modulesVerifier)],
   [workflowPath, readSource(workflowPath)],
+  ["labs/fixtures/02-disposable-initialization/init-lab.mjs", readSource("labs/fixtures/02-disposable-initialization/init-lab.mjs")],
   ["labs/fixtures/02-disposable-initialization/package.json", readSource("labs/fixtures/02-disposable-initialization/package.json")],
   ["xbrief/PROJECT-DEFINITION.xbrief.json", readSource("xbrief/PROJECT-DEFINITION.xbrief.json")],
 ]);
@@ -92,7 +93,7 @@ for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
   test(`Modules 2-3 verifier accepts ${label} content, workflow, references, and headings`, () => {
     const result = runVerifier(`modules-valid-${label}`, modulesVerifier, modulesFiles, eol);
     assert.equal(result.status, 0, result.stderr);
-    assert.equal(result.stdout, "Modules 2-3 content contract: ok (19 artifacts, 0 missing)\n");
+    assert.equal(result.stdout, "Modules 2-3 content contract: ok (20 artifacts, 0 missing)\n");
   });
 
   test(`cold-start verifier rejects separated title with ${label}`, () => {
