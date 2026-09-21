@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #38",
-    "updated": "2026-09-21T18:17:43Z"
+    "updated": "2026-09-21T19:40:16Z"
   },
   "plan": {
     "title": "Capstone assessment never names the WI-NNN exhaustion bound",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "The capstone assessment tells the learner to implement the visible work-item contract and never names the WI-NNN exhaustion bound: Task 2 is silent, the CAP.2 hints stay at the evidence layer, and the green.json row names only WI-001. scripts/verify-capstone.mjs stays green whether or not that sentence is present, so the naming can be removed without any gate noticing. The accepted remedy makes the assessment Task 2 paragraph the naming carrier for the same 999 and RangeError bound issue 36 pins, and pins that sentence on the capstone verifier.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/38",
@@ -20,63 +20,99 @@
     "items": [
       {
         "title": "In `assessments/capstone-end-to-end.md`, under heading `### Task 2 — Produce green and diagnose the broader gate (CAP.2)`, recut the paragraph that currently says implement only the visible work-item contract so it names the same monotonic refusal once a collection already holds `WI-999`, even when lower identifiers are free, and throws `RangeError` with the exact message string the issue-36-landed `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green-list bullet and both `solutions/capstone-end-to-end.md` listings use once those bytes are on origin/master. Type `RangeError` and the 999 rule are specified here. Do not author a second message on this issue.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
         "narrative": {
           "Acceptance": "In `assessments/capstone-end-to-end.md`, under heading `### Task 2 — Produce green and diagnose the broader gate (CAP.2)`, recut the paragraph that currently says implement only the visible work-item contract so it names the same monotonic refusal once a collection already holds `WI-999`, even when lower identifiers are free, and throws `RangeError` with the exact message string the issue-36-landed `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green-list bullet and both `solutions/capstone-end-to-end.md` listings use once those bytes are on origin/master. Type `RangeError` and the 999 rule are specified here. Do not author a second message on this issue.",
           "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "assessments/capstone-end-to-end.md Task 2 (`CAP.2`) now reads: \"That contract is bounded: `WI-000` through `WI-999` are legal existing identifiers, an empty collection allocates `WI-001`, and add throws `RangeError` with the exact message `next work-item id would exceed WI-999` once the collection already holds `WI-999`, even when lower identifiers are free.\" The message string was read off labs/capstone-end-to-end.md Task 2, both solutions/capstone-end-to-end.md listings, and the `identifierBoundMessage` constant on origin/master before it was copied; no second message was authored. scripts/verify-capstone.mjs pins that sentence on the extracted assessment Task 2 (`cap2Task`). `npm run check:capstone`, `npm test`, and `deft check` exit 0 on merge commit e8ee028113ca6be14be584620823232af1e8f1c1 (PR #47).",
+          "recorded_at": "2026-09-21T19:39:42Z",
+          "recorded_by": "agent:claude"
+        }
       },
       {
         "title": "Do not add that sentence to CAP.2 progressive hints. Those hints stay evidence-layer.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
         "narrative": {
           "Acceptance": "Do not add that sentence to CAP.2 progressive hints. Those hints stay evidence-layer.",
           "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "`git diff e153c10 e8ee028 -- assessments/capstone-end-to-end.md` changes only the Task 2 paragraph; the `Progressive hints` section is byte-identical. CAP.2 Hint 1 still names red, tests, literal acceptance, and the aggregate; Hint 2 still names `red.json`, `green.json`, `focused.json`, `literal.json`, and `aggregate-failure.json`; Hint 3 still names the seeded `review:evidence` stop. All three stay evidence-layer. Merge commit e8ee028113ca6be14be584620823232af1e8f1c1 (PR #47).",
+          "recorded_at": "2026-09-21T19:39:42Z",
+          "recorded_by": "agent:claude"
+        }
       },
       {
         "title": "Keep the Required evidence manifest `green.json` row's empty-collection add probe as `WI-001 / Capture capstone evidence / open`. That row stays compatible; it is not the exhaustion namer.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
         "narrative": {
           "Acceptance": "Keep the Required evidence manifest `green.json` row's empty-collection add probe as `WI-001 / Capture capstone evidence / open`. That row stays compatible; it is not the exhaustion namer.",
           "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "The Required evidence manifest `green.json` row is unchanged in `git diff e153c10 e8ee028 -- assessments/capstone-end-to-end.md` and still reads \"add returns `WI-001 / Capture capstone evidence / open`; complete returns `done`\". The empty-collection add probe stays compatible with the bound and is not the exhaustion namer. Merge commit e8ee028113ca6be14be584620823232af1e8f1c1 (PR #47).",
+          "recorded_at": "2026-09-21T19:39:42Z",
+          "recorded_by": "agent:claude"
+        }
       },
       {
         "title": "Extend `scripts/verify-capstone.mjs` so the extracted assessment Task 2 (`cap2Task`) must contain that 999 / `RangeError` sentence. Add a `changedCopy(\"assessments/capstone-end-to-end.md\", …)` mutation in `scripts/verify-capstone.test.mjs` that removes the sentence and fails.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:4",
         "narrative": {
           "Acceptance": "Extend `scripts/verify-capstone.mjs` so the extracted assessment Task 2 (`cap2Task`) must contain that 999 / `RangeError` sentence. Add a `changedCopy(\"assessments/capstone-end-to-end.md\", …)` mutation in `scripts/verify-capstone.test.mjs` that removes the sentence and fails.",
           "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-capstone.mjs adds two assertions on `cap2Task`: the legal `WI-000`-`WI-999` namespace with `WI-001` from an empty collection, and the `RangeError` refusal whose message reuses the existing `identifierBoundMessage` constant through `escapeRegExp`. Both windows are sentence-local (`[^.!?]`). scripts/verify-capstone.test.mjs adds eight `changedCopy(\"assessments/capstone-end-to-end.md\", ...)` mutations: two remove a sentence outright, and six keep every named token while splitting the clauses with `.`, `!`, or `?`. All eight make `node scripts/verify-capstone.mjs` exit 1; the fail-closed and non-vacuity behavior was also reproduced outside the harness on scratch copies. `node --test scripts/verify-capstone.test.mjs` exit 0, 58 tests, 0 failed, on merge commit e8ee028113ca6be14be584620823232af1e8f1c1 (PR #47).",
+          "recorded_at": "2026-09-21T19:39:42Z",
+          "recorded_by": "agent:claude"
+        }
       },
       {
         "title": "Do not skip the assessment with \"where it carries the contract.\"",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:5",
         "narrative": {
           "Acceptance": "Do not skip the assessment with \"where it carries the contract.\"",
           "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "The recut paragraph states the contract in the assessment itself; it does not point the learner at labs/capstone-end-to-end.md or solutions/capstone-end-to-end.md, and no \"where it carries the contract\" pointer was added. A learner reading only assessments/capstone-end-to-end.md can state the legal `WI-NNN` range, the empty-collection allocation, the `RangeError` type, and the exact message without inventing them. Merge commit e8ee028113ca6be14be584620823232af1e8f1c1 (PR #47).",
+          "recorded_at": "2026-09-21T19:39:42Z",
+          "recorded_by": "agent:claude"
+        }
       },
       {
         "title": "Do not land lab or explained-solution naming here; those ride issue 36.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:6",
         "narrative": {
           "Acceptance": "Do not land lab or explained-solution naming here; those ride issue 36.",
           "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
         },
-        "effort": "S"
+        "effort": "S",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "Merge commit e8ee028113ca6be14be584620823232af1e8f1c1 (PR #47) changes exactly four files: CHANGELOG.md, assessments/capstone-end-to-end.md, scripts/verify-capstone.mjs, and scripts/verify-capstone.test.mjs. labs/capstone-end-to-end.md, solutions/capstone-end-to-end.md, scripts/capstone-lab.test.mjs, and labs/fixtures/capstone-end-to-end/ are untouched; that naming rode issue #36 and is already on origin/master.",
+          "recorded_at": "2026-09-21T19:39:42Z",
+          "recorded_by": "agent:claude"
+        }
       }
     ],
     "tags": [
@@ -313,7 +349,31 @@
         "algorithm": "sha256",
         "sha256": "67b6267f510e2a66703e80ba08e796d8abb48eca9be28f7d33ed870b21ad58b0"
       },
-      "kind": "story"
+      "kind": "story",
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 47,
+        "prBase": null,
+        "mergeCommit": "e8ee028113ca6be14be584620823232af1e8f1c1",
+        "deliveryBranch": "master",
+        "deliveryCommit": "e8ee028113ca6be14be584620823232af1e8f1c1",
+        "verifiedAt": "2026-09-21T19:40:16Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:claude:v1:YTU3NjU4N2MtNjM1Mi00YjkxLWE4NGEtNzQ1MmNkYWM0YWZm"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-21T19:40:16Z",
+      "completedSessionId": "host:claude:v1:YTU3NjU4N2MtNjM1Mi00YjkxLWE4NGEtNzQ1MmNkYWM0YWZm",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-21T19:40:16Z"
+      }
     },
     "acceptance": {
       "commands": [
@@ -370,6 +430,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5527554641",
-    "updated": "2026-09-21T18:17:43Z"
+    "updated": "2026-09-21T19:40:16Z"
   }
 }
