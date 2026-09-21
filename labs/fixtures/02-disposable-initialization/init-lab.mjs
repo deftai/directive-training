@@ -91,6 +91,9 @@ const readText = (path) => readFileSync(path, "utf8");
 const readJson = (path) => JSON.parse(readText(path));
 const normalizeEol = (text) => text.split("\r\n").join("\n");
 const digest = (text) => createHash("sha256").update(normalizeEol(text)).digest("hex");
+// Windows hands back 8.3 short names (RUNNER~1) from the temp directory and long names from
+// `git rev-parse`, so every path this helper compares is canonicalized natively first.
+const canonicalPath = (value) => realpathSync.native(value);
 const lines = (text) => text.split("\n").map((line) => line.trim()).filter(Boolean);
 
 /**
@@ -209,7 +212,7 @@ function npmCliScript() {
   for (const searchRoot of searchRoots) {
     for (const relativePath of ["node_modules/npm/bin/npm-cli.js", "lib/node_modules/npm/bin/npm-cli.js"]) {
       const candidate = join(searchRoot, relativePath);
-      if (existsSync(candidate)) return realpathSync(candidate);
+      if (existsSync(candidate)) return canonicalPath(candidate);
     }
   }
   assert.fail(runtimeRefusal("npm-cli.js (no npm installation found next to the caller node)"));
@@ -228,11 +231,16 @@ function runNpm(root, args, options = {}) {
   });
 }
 
+/**
+ * The Directive CLI registers and live-probes the agent hook runtime, so it is a hook-runtime
+ * child: it runs with the printed root's `node_modules/.bin` first on the governing PATH, which
+ * is the same precedence the lab proves with `test -x` and never a host-global fallback.
+ */
 function runDirective(root, args, options = {}) {
   requireLocalLauncher(root, "directive");
   return runChild(process.execPath, [join(root, "node_modules/@deftai/directive/dist/bin.js"), ...args], {
     cwd: root,
-    env: withoutHostNpmConfig(governingEnv()),
+    env: hookRuntimeEnv(root),
     ...options,
   });
 }
@@ -268,7 +276,7 @@ function canonicalRoot(value) {
   // a paste problem: nothing has been inspected yet, so it must not read as a boundary stop.
   assert.equal(root, supplied, rootArgumentRefusal);
   assert.ok(existsSync(root), rootArgumentRefusal);
-  assert.equal(realpathSync(root), root, "Stop: the attempt root resolves through a link.");
+  assert.equal(canonicalPath(root), root, "Stop: the attempt root resolves through a link.");
   return root;
 }
 
@@ -292,9 +300,9 @@ function verifyInstalledGraph(root) {
 
 /** Create one unique no-remote temporary attempt and print the single absolute root every later fence uses. */
 export function createAttempt() {
-  const temporaryRoot = realpathSync(tmpdir());
+  const temporaryRoot = canonicalPath(tmpdir());
   assertNotInsideGitRepository(temporaryRoot);
-  const parent = realpathSync(mkdtempSync(join(temporaryRoot, parentPrefix)));
+  const parent = canonicalPath(mkdtempSync(join(temporaryRoot, parentPrefix)));
   writeFileSync(join(parent, "evidence.md"), "# Module 2 retained evidence\n\nWrite the chooser, anatomy table, and five-field recovery decision here.\n", { flag: "wx" });
   return seedAttempt(parent, "attempt-01.");
 }
@@ -307,7 +315,7 @@ export function createAttempt() {
 function seedAttempt(parent, attemptPrefix) {
   const fixture = join(fixtureDirectory, "package.json");
   assert.ok(existsSync(fixture), "Stop: run create from the original course fixture, not from an edited attempt.");
-  const root = realpathSync(mkdtempSync(join(parent, attemptPrefix)));
+  const root = canonicalPath(mkdtempSync(join(parent, attemptPrefix)));
   copyFileSync(fixture, join(root, "package.json"));
   writeFileSync(join(root, ".gitignore"), gitignoreText, { flag: "wx" });
   writeFileSync(join(root, ".npmrc"), npmrcText, { flag: "wx" });
@@ -325,7 +333,7 @@ function seedAttempt(parent, attemptPrefix) {
 function verifyAttemptIdentity(input) {
   const root = canonicalRoot(input);
   const parent = dirname(root);
-  const temporaryRoot = realpathSync(tmpdir());
+  const temporaryRoot = canonicalPath(tmpdir());
   assert.ok(attemptPattern.test(basename(root)), "Stop: unsafe lab root: " + root + ".");
   assert.ok(
     basename(parent).startsWith(parentPrefix) && dirname(parent) === temporaryRoot,
@@ -338,7 +346,7 @@ function verifyAttemptIdentity(input) {
   assert.ok(marker.lab === labId, "Stop: lab marker mismatch.");
   assert.ok(existsSync(join(root, ".git")) && lstatSync(join(root, ".git")).isDirectory(), "Stop: .git is missing.");
   assert.equal(
-    realpathSync(runGit(root, ["rev-parse", "--show-toplevel"]).trim()),
+    canonicalPath(runGit(root, ["rev-parse", "--show-toplevel"]).trim()),
     root,
     "Stop: Git root differs from the recorded lab root.",
   );
@@ -441,7 +449,9 @@ export function installAttempt(input) {
   }
   runGit(root, ["config", "user.name", "Northstar Training Learner"]);
   runGit(root, ["config", "user.email", "learner@northstar.invalid"]);
-  runGit(root, ["commit", "-m", checkpointSubject], { hookRuntime: true, root });
+  // The fictional checkpoint must not depend on the learner's global signing setup; the installed
+  // pre-commit hook still runs, which is the part this lab is teaching.
+  runGit(root, ["-c", "commit.gpgsign=false", "commit", "-m", checkpointSubject], { hookRuntime: true, root });
   const commit = runGit(root, ["rev-parse", "HEAD"]).trim();
   assert.equal(runGit(root, ["log", "-1", "--format=%s"]).trim(), checkpointSubject, "Stop: the checkpoint subject is not exact.");
   guardAttempt(root);
@@ -485,8 +495,8 @@ export function acceptAttempt(input) {
 export function archiveAttempt(input) {
   const { parent } = verifyAttemptIdentity(input);
   const temporaryRoot = dirname(parent);
-  assert.ok(!isInside(parent, realpathSync(process.cwd())), "Stop: run archive from outside the attempt parent.");
-  const archiveRoot = realpathSync(mkdtempSync(join(temporaryRoot, archivePrefix)));
+  assert.ok(!isInside(parent, canonicalPath(process.cwd())), "Stop: run archive from outside the attempt parent.");
+  const archiveRoot = canonicalPath(mkdtempSync(join(temporaryRoot, archivePrefix)));
   const archiveTarget = join(archiveRoot, "lab-parent");
   assert.ok(!existsSync(archiveTarget), "Stop: archive destination already exists.");
   renameSync(parent, archiveTarget);
@@ -498,8 +508,8 @@ export function archiveAttempt(input) {
     const archivedAttempt = join(archiveTarget, entry.name);
     assert.ok(existsSync(join(archivedAttempt, ".git")), "Stop: archived attempt lacks .git: " + archivedAttempt + ".");
     assert.equal(
-      realpathSync(runGit(archivedAttempt, ["rev-parse", "--show-toplevel"]).trim()),
-      realpathSync(archivedAttempt),
+      canonicalPath(runGit(archivedAttempt, ["rev-parse", "--show-toplevel"]).trim()),
+      canonicalPath(archivedAttempt),
       "Stop: archived Git root differs from the attempt path.",
     );
     assert.equal(runGit(archivedAttempt, ["remote"]).trim(), "", "Stop: archived attempt has a remote: " + archivedAttempt + ".");
@@ -544,7 +554,7 @@ export function main(args = process.argv.slice(2)) {
   throw new Error(helperUsage);
 }
 
-if (process.argv[1] && realpathSync(resolve(process.argv[1])) === realpathSync(fileURLToPath(import.meta.url))) {
+if (process.argv[1] && canonicalPath(resolve(process.argv[1])) === canonicalPath(fileURLToPath(import.meta.url))) {
   try {
     console.log(main());
   } catch (error) {
