@@ -3,13 +3,13 @@
     "version": "0.8",
     "description": "Convert Lab 2 to the stateless helper shape so coding-agent hosts can run it",
     "created": "2026-09-20T23:40:00Z",
-    "updated": "2026-09-21T01:07:42Z",
+    "updated": "2026-09-21T15:08:53Z",
     "author": "agent:deft-directive-swarm"
   },
   "plan": {
     "id": "training.lab-02-stateless-helper",
     "title": "Lab 2 runs from a coding-agent host without live shell state",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Lab 2 is the only lab whose command blocks carry shell functions and bare variables between blocks, so on Codex / Claude Code / Cursor every block after the first fails at assert_no_remote with 'command not found' — a failure that reads like the safety guard tripping. Convert it to the stateless helper shape Labs 5, 7, 10, 11 and the capstone already use.",
       "Acceptance": "Given a fresh shell per command block, when a learner runs Lab 2 from the first fence to archive, then every fence succeeds using only the course-relative helper path and one printed absolute attempt root, and node scripts/verify-modules-2-3.mjs and npm test both exit 0.",
@@ -22,46 +22,131 @@
       {
         "id": "training.lab-02-stateless-helper.helper",
         "title": "Add labs/fixtures/02-disposable-initialization/init-lab.mjs",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "Given labs/fixtures/02-disposable-initialization/init-lab.mjs, when any of create, install, guard, diagnose, accept or archive is invoked with the absolute attempt root as its one argument, then it re-derives its own state from disk and succeeds in a shell that never ran the previous subcommand; and when it is invoked with an empty or relative root, then it refuses before resolve or join with text distinguishable from a boundary stop, and lab-state.json contains no caller PATH and no npm userconfig."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/39 (squash-merged as 6678688); scripts/init-lab.test.mjs 8/8 passing, 97.3% line and 100% function coverage of labs/fixtures/02-disposable-initialization/init-lab.mjs",
+          "recorded_at": "2026-09-21T14:05:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
         }
       },
       {
         "id": "training.lab-02-stateless-helper.childenv",
         "title": "Govern helper-spawned children with env -i PATH and HOME",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Given a helper-spawned child, when it is created, then its environment is env -i with only PATH and HOME plus the withoutHostNpmConfig credential strip layered on that base, so DEFT_HOOKS_PREFER_GLOBAL cannot cross; and when that child is npm, then it carries Lab 2 --userconfig, --globalconfig and --cache flags or the matching NPM_CONFIG_ overlays and resolves the public registry rather than the host ~/.npmrc."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/39; modules-2-3-platform-validation lanes macos-zsh, linux-bash and windows-pwsh7 all green on head 6385217, each driving the helper's env -i PATH/HOME child with Lab 2's --userconfig/--globalconfig/--cache flags against the public registry",
+          "recorded_at": "2026-09-21T14:05:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
         }
       },
       {
         "id": "training.lab-02-stateless-helper.hookpath",
         "title": "Elect project-local deft for hook-runtime children",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Given a hook-runtime child, when the helper spawns it, then the printed root node_modules/.bin is prepended to the env -i caller PATH and command -v deft resolves that local path; and when that local deft is absent or not executable, then the helper refuses before spawn with text distinguishable from a boundary stop and never falls through to global deft."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/39; the 3-OS lanes caught and now cover the deft-hook live probe under a bare env -i base — directive init runs with the printed root's node_modules/.bin first on PATH, behind a pre-spawn test -x refusal",
+          "recorded_at": "2026-09-21T14:05:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
         }
       },
       {
         "id": "training.lab-02-stateless-helper.labrecut",
         "title": "Recut labs/02-disposable-initialization.md to the helper fences",
-        "status": "proposed",
+        "status": "completed",
         "effort": "L",
         "narrative": {
           "Acceptance": "Given labs/02-disposable-initialization.md, when a learner pastes a fence with an empty helper path, then fence-level test -n and test -f refuse with text distinguishable from a boundary stop; and when a learner reads the recovery row, the safety-boundary line and the Task 4 fact table, then a missing printed-root paste is not described as a failed root guard, while O2.2 proof still shows the explicit node_modules/.bin/directive and deft paths."
+        },
+        "x-directive/evidence": {
+          "kind": "observed_behavior",
+          "pointer": "https://github.com/deftai/directive-training/pull/39; all eight labs/02-disposable-initialization.md sh fences extracted and run in separate zsh processes with only DIRECTIVE_TRAINING_ROOT and LAB_ROOT set — create, guard, install, diagnose, accept, recovery-npmrc, reset and archive each exit 0. This is the sequence that previously died at the second block on 'assert_no_remote: command not found' (issue #18)",
+          "recorded_at": "2026-09-21T14:05:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
         }
       },
       {
         "id": "training.lab-02-stateless-helper.contract",
         "title": "Recut the Modules 2-3 content contract against the converted lab",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Given the converted lab, when node scripts/verify-modules-2-3.mjs runs, then it exits 0 with no missing artifacts; and when the modules-2-3 platform-validation workflow runs on macOS, Linux and Windows, then each job proves the same helper path the lab teaches, and solutions/lab-02-disposable-initialization.md reports seven verbose git check-ignore commands rather than six."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/39; npm run check:modules-2-3 exit 0 against the converted lab and the modules-2-3-content-contract CI check green; solutions/lab-02-disposable-initialization.md corrected to seven git check-ignore commands",
+          "recorded_at": "2026-09-21T14:05:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
+        }
+      },
+      {
+        "id": "clause:1",
+        "title": "clause:1",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/39 (merged 6678688); scripts/init-lab.test.mjs 8/8 passing covers the subcommand surface, the empty/relative-root refusal before resolve/join, and lab-state.json holding only schema/lab/root/fixtureDigest",
+          "recorded_at": "2026-09-21T14:05:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
+        }
+      },
+      {
+        "id": "clause:2",
+        "title": "clause:2",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/39; modules-2-3-platform-validation green on macos-zsh, linux-bash and windows-pwsh7 at head 6385217, exercising the env -i PATH/HOME base with the credential strip layered on it and Lab 2's npm config flags retained; Lab 7 isolatedEnv/createIsolatedTools/git() are not imported",
+          "recorded_at": "2026-09-21T14:05:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
+        }
+      },
+      {
+        "id": "clause:3",
+        "title": "clause:3",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/39; the printed root's node_modules/.bin is prepended for hook-runtime children and a pre-spawn test -x refusal fires before any fallthrough to global deft — reproduced locally under a synthetic PATH with no global deft, then green on all three platform lanes",
+          "recorded_at": "2026-09-21T14:05:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
+        }
+      },
+      {
+        "id": "clause:4",
+        "title": "clause:4",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "observed_behavior",
+          "pointer": "https://github.com/deftai/directive-training/pull/39; fence-level test -n / test -f refusals are distinguishable from the in-helper empty-root refusal and from a boundary stop, and the recovery row, safety-boundary line and Task 4 fact table were recut so a missing printed-root paste no longer reads as a failed root guard; the explicit node_modules/.bin/directive and deft O2.2 proof is retained",
+          "recorded_at": "2026-09-21T14:05:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
+        }
+      },
+      {
+        "id": "clause:5",
+        "title": "clause:5",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/39; scripts/verify-modules-2-3.mjs recut by re-running it against the converted lab (npm run check:modules-2-3 exit 0, modules-2-3-content-contract CI green), the platform-validation workflow now drives the helper, and solutions/lab-02-disposable-initialization.md reports seven git check-ignore commands",
+          "recorded_at": "2026-09-21T14:05:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
         }
       }
     ],
@@ -135,8 +220,14 @@
           "npm test exits 0"
         ],
         "dispatch_kind": "solo"
+      },
+      "completedAt": "2026-09-21T15:08:53Z",
+      "completedSessionId": "host:claude:v1:YmZjNGQ4YWMtZjBkMC00ZWJhLThkZmMtODVhMDI1NmMzM2Ni",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-21T15:08:53Z"
       }
     },
-    "updated": "2026-09-21T01:07:42Z"
+    "updated": "2026-09-21T15:08:53Z"
   }
 }

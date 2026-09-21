@@ -862,10 +862,10 @@
       {
         "id": "2026-09-20-lab-02-stateless-helper",
         "title": "Lab 2 runs from a coding-agent host without live shell state",
-        "status": "running",
+        "status": "completed",
         "metadata": {
-          "source_path": "active/2026-09-20-lab-02-stateless-helper.xbrief.json",
-          "lifecycle_folder": "active",
+          "source_path": "completed/2026-09-20-lab-02-stateless-helper.xbrief.json",
+          "lifecycle_folder": "completed",
           "references": [
             {
               "uri": "https://github.com/deftai/directive-training/issues/18",
@@ -878,10 +878,10 @@
       {
         "id": "2026-09-20-leftover-completion-gates",
         "title": "Module 12 reaches tracked lifecycle closeout",
-        "status": "running",
+        "status": "completed",
         "metadata": {
-          "source_path": "active/2026-09-20-leftover-completion-gates.xbrief.json",
-          "lifecycle_folder": "active",
+          "source_path": "completed/2026-09-20-leftover-completion-gates.xbrief.json",
+          "lifecycle_folder": "completed",
           "references": [
             {
               "uri": "https://github.com/deftai/directive-training/issues/22",

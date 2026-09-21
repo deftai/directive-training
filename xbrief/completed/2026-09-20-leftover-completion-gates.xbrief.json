@@ -3,13 +3,13 @@
     "version": "0.8",
     "description": "Name the leftover-completion gates on the core learner path",
     "created": "2026-09-20T23:40:00Z",
-    "updated": "2026-09-21T01:07:45Z",
+    "updated": "2026-09-21T15:11:41Z",
     "author": "agent:deft-directive-swarm"
   },
   "plan": {
     "id": "training.leftover-completion-gates",
     "title": "Module 12 reaches tracked lifecycle closeout",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "The course teaches delivery-branch reachability and lifecycle closeout but never grades whether that closeout is tracked, and never names verify:orphan-active, verify:completed-tracked or swarm:finalize-cohort to a learner. A learner who finishes Module 12 believing C7 is the end state will strand active briefs on their first real merge.",
       "Acceptance": "Given the learner-facing tree, when a reader greps curriculum, labs, references and solutions for verify:orphan-active, verify:completed-tracked and swarm:finalize-cohort, then each name is present on at least one core-path surface, and node scripts/verify-module-7.mjs, node scripts/verify-module-12.mjs and npm test all exit 0.",
@@ -22,46 +22,131 @@
       {
         "id": "training.leftover-completion-gates.glossary",
         "title": "Sharpen the delivered definition in references/GLOSSARY.md",
-        "status": "proposed",
+        "status": "completed",
         "effort": "S",
         "narrative": {
           "Acceptance": "Given references/GLOSSARY.md, when a reader looks up delivered, then it states that lifecycle closeout must be recorded and tracked on the configured delivery branch, and that a local scope:complete remains valid lifecycle closeout but is not land."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/40 (squash-merged as 59442ce); GLOSSARY delivered now requires closeout recorded AND tracked on the configured delivery branch, with local scope:complete kept valid but not land; Greptile 5/5, 0 P0/P1",
+          "recorded_at": "2026-09-21T14:10:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
         }
       },
       {
         "id": "training.leftover-completion-gates.module12",
         "title": "Recut Module 12 command-free surfaces",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Given Module 12 Guided explanation section 4, when a learner reads the delivery axis, then verify:orphan-active is named as deciding C6 with repair scope:complete and verify:completed-tracked is named as deciding C7 tracked closeout and contrasted with an uncarded untracked state repaired by a lifecycle PR; and when node scripts/verify-module-12.mjs runs, then it exits 0 with exactly nine completion rows and C7 still keyed Delivered."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/40; npm run check:module-12 exit 0; 8 new negative tests in scripts/verify-module-12.test.mjs lock the verify:orphan-active -> C6 and verify:completed-tracked -> uncarded-state mapping; nine-row lock, O12.4, solution table and frozen C7 Delivered key unchanged, and a supplied tenth card is asserted rejected",
+          "recorded_at": "2026-09-21T14:10:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
         }
       },
       {
         "id": "training.leftover-completion-gates.module7",
         "title": "Add the successor sentence to Module 7 section 4 and the Lab 7 Done pointer",
-        "status": "proposed",
+        "status": "completed",
         "effort": "S",
         "narrative": {
           "Acceptance": "Given curriculum/modules/07-scope-lifecycle.md section 4, when a learner finishes the scope:complete and scope:cancel pair, then one sentence states that delivered work additionally requires the completed artifact tracked on the delivery branch and links forward to Module 12; and given the Lab 7 Done statement, when a learner reaches it, then a non-command pointer names verify:completed-tracked while the lab sequence still contains no remote-capable command."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/40; npm run check:module-7 exit 0; Module 7 section 4 gained the successor sentence with a forward link to Module 12, and the Lab 7 Done statement names verify:completed-tracked with no remote-capable command entering the lab sequence; 7 new negative tests in scripts/verify-module-7.test.mjs",
+          "recorded_at": "2026-09-21T14:10:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
         }
       },
       {
         "id": "training.leftover-completion-gates.quickref",
         "title": "Add a separate leftover-completion block to references/QUICK-REFERENCE.md",
-        "status": "proposed",
+        "status": "completed",
         "effort": "S",
         "narrative": {
           "Acceptance": "Given references/QUICK-REFERENCE.md, when a learner reads past the Module 7 no-remote Task block, then a separate labelled block names verify:orphan-active and verify:completed-tracked with their delivery-tip and remote preconditions, names a lifecycle PR as the general repair, and names swarm:finalize-cohort once as a named-but-not-invoked advanced option; and references/SOURCE-BASELINE.md Lab 7 row states that an untracked completed artifact is not land."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/40; QUICK-REFERENCE.md carries a separate 'Leftover completion and tracked closeout' block outside the Module 7 no-remote Task sequence, naming both verifiers with their preconditions, a lifecycle PR as the general repair, and swarm:finalize-cohort exactly once as named-but-not-invoked; locked by an explicit assertion in scripts/verify-module-7.mjs since QUICK-REFERENCE sits outside the forbiddenShell loop",
+          "recorded_at": "2026-09-21T14:10:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
         }
       },
       {
         "id": "training.leftover-completion-gates.verifiers",
         "title": "Extend the Module 7 and Module 12 content contracts",
-        "status": "proposed",
+        "status": "completed",
         "effort": "M",
         "narrative": {
           "Acceptance": "Given node scripts/verify-module-7.mjs and node scripts/verify-module-12.mjs, when either runs against the recut content, then it exits 0; and when the Lab 7 Done pointer verify:completed-tracked name or the Quick Reference swarm-closer treatment is removed, then the focused tests in scripts/verify-module-7.test.mjs and scripts/verify-module-12.test.mjs fail."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/40; npm test 478/478 pass and deft check exit 0; 15 new negative tests total (7 Module 7, 8 Module 12) fail when the locked statements are removed; no new verifier added and the nine-card negative test was not recut into a tenth card",
+          "recorded_at": "2026-09-21T14:10:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
+        }
+      },
+      {
+        "id": "clause:1",
+        "title": "clause:1",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/40 (merged 59442ce); references/GLOSSARY.md delivered requires closeout recorded and tracked on the configured delivery branch, and keeps a local scope:complete valid as lifecycle closeout while stating it is not land",
+          "recorded_at": "2026-09-21T14:10:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
+        }
+      },
+      {
+        "id": "clause:2",
+        "title": "clause:2",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/40; Module 12 section 4 defines delivered provenance as the tracked closeout verify:completed-tracked decides, with its failure shape left deliberately uncarded; npm run check:module-12 exit 0 with the nine-row lock, O12.4, the solution table and the frozen C7 Delivered key untouched and no C10 added",
+          "recorded_at": "2026-09-21T14:10:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
+        }
+      },
+      {
+        "id": "clause:3",
+        "title": "clause:3",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/40; curriculum/modules/07-scope-lifecycle.md section 4 gained one sentence after the scope:complete / scope:cancel pair with a forward link to Module 12, and labs/07-scope-lifecycle.md's Done statement gained a non-command pointer naming verify:completed-tracked; npm run check:module-7 exit 0",
+          "recorded_at": "2026-09-21T14:10:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
+        }
+      },
+      {
+        "id": "clause:4",
+        "title": "clause:4",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/40; leftover-completion verbs were not appended inside the Module 7 no-remote Task block — a separate labelled QUICK-REFERENCE block names both verifiers with delivery-tip and remote preconditions, a lifecycle PR as the general repair, and swarm:finalize-cohort once as named-but-not-invoked; SOURCE-BASELINE's Lab 7 row states an untracked completed artifact is not land",
+          "recorded_at": "2026-09-21T14:10:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
+        }
+      },
+      {
+        "id": "clause:5",
+        "title": "clause:5",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "https://github.com/deftai/directive-training/pull/40; scripts/verify-module-7.mjs and verify-module-12.mjs plus both .test.mjs files were extended with 15 negative tests locking the Lab 7 Done pointer name, the Quick Reference swarm-closer treatment, and the Module 12 gate mapping; npm test 478/478 and deft check exit 0; no new verifier and no tenth card",
+          "recorded_at": "2026-09-21T14:10:00Z",
+          "recorded_by": "agent:claude-opus-5/parent-session"
         }
       }
     ],
@@ -137,8 +222,14 @@
           "npm test exits 0 with the nine-card Module 12 lock intact"
         ],
         "dispatch_kind": "solo"
+      },
+      "completedAt": "2026-09-21T15:11:41Z",
+      "completedSessionId": "host:claude:v1:YmZjNGQ4YWMtZjBkMC00ZWJhLThkZmMtODVhMDI1NmMzM2Ni",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-21T15:11:41Z"
       }
     },
-    "updated": "2026-09-21T01:07:45Z"
+    "updated": "2026-09-21T15:11:41Z"
   }
 }
