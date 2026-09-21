@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Project definition for the 3Ci Directive training curriculum",
     "created": "2026-09-05T14:54:49Z",
-    "updated": "2026-09-20T20:45:00Z",
+    "updated": "2026-09-21T02:50:39Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -34,7 +34,7 @@
       {
         "uri": "../COST-ESTIMATE.md",
         "type": "x-xbrief/spec-section",
-        "title": "Current Windows portability issues 74\u201378 cost estimate with prior curriculum decisions",
+        "title": "Current Windows portability issues 74–78 cost estimate with prior curriculum decisions",
         "TrustLevel": "internal"
       }
     ],
@@ -857,6 +857,38 @@
         "metadata": {
           "source_path": "completed/2026-09-20-20-scope-authoring-o62-is-the-one-core-outcome-with-no-executab.xbrief.json",
           "lifecycle_folder": "completed"
+        }
+      },
+      {
+        "id": "2026-09-20-lab-02-stateless-helper",
+        "title": "Lab 2 runs from a coding-agent host without live shell state",
+        "status": "running",
+        "metadata": {
+          "source_path": "active/2026-09-20-lab-02-stateless-helper.xbrief.json",
+          "lifecycle_folder": "active",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/18",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #18: Lab 2 requires persistent shell state, unlike every other lab"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-20-leftover-completion-gates",
+        "title": "Module 12 reaches tracked lifecycle closeout",
+        "status": "running",
+        "metadata": {
+          "source_path": "active/2026-09-20-leftover-completion-gates.xbrief.json",
+          "lifecycle_folder": "active",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/22",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #22: Module 12 stops one step short of tracked lifecycle closeout"
+            }
+          ]
         }
       }
     ],
