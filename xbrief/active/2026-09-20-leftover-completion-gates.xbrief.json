@@ -67,8 +67,8 @@
     ],
     "acceptance": {
       "commands": [
-        "node scripts/verify-module-7.mjs",
-        "node scripts/verify-module-12.mjs",
+        "npm run check:module-7",
+        "npm run check:module-12",
         "npm test"
       ],
       "none_stated": false,
@@ -127,8 +127,8 @@
         "conflict_group": "modules-7-12",
         "model_tier": "high",
         "verify_commands": [
-          "node scripts/verify-module-7.mjs",
-          "node scripts/verify-module-12.mjs",
+          "npm run check:module-7",
+          "npm run check:module-12",
           "npm test"
         ],
         "expected_outputs": [
