@@ -20,10 +20,14 @@ function copiedRepository() {
   return root;
 }
 
+function toLf(text) {
+  return text.replaceAll("\r\n", "\n").replaceAll("\r", "\n");
+}
+
 function changedCopy(path, transform) {
   const root = copiedRepository();
   const target = join(root, path);
-  const before = readFileSync(target, "utf8");
+  const before = toLf(readFileSync(target, "utf8"));
   const after = transform(before);
   assert.notEqual(after, before, `negative mutation must change ${path}`);
   writeFileSync(target, after);
