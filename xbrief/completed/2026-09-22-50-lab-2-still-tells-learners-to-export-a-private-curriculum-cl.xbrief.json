@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #50",
-    "updated": "2026-09-22T01:03:21Z"
+    "updated": "2026-09-22T03:50:09Z"
   },
   "plan": {
     "title": "Lab 2 still tells learners to export a private curriculum clone after the public deftai move",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Lab 2 still tells learners to export a private curriculum clone after the public deftai move",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/50",
@@ -16,33 +16,69 @@
     "items": [
       {
         "title": "Recut the two leftover phrases `private curriculum clone` and `private curriculum repository` at these six cites: `labs/02-disposable-initialization.md:38`, `:64`, `:87`, `:149`; `labs/README.md:57`; `labs/capstone-end-to-end.md:91`.",
-        "status": "proposed",
-        "id": "clause:1"
+        "status": "completed",
+        "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Leave `this curriculum clone` / `this curriculum repository` on those lines, matching Lab 2 paste-refusal `curriculum clone path`.",
-        "status": "proposed",
-        "id": "clause:2"
+        "status": "completed",
+        "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Keep already-pinned `private` strings: Lab 7 fixture-must-remain-private, capstone private notes, fixture `package.json` `\"private\": true`, `labs/README.md` private chat.",
-        "status": "proposed",
-        "id": "clause:3"
+        "status": "completed",
+        "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "On Lab 2 required-environment bullet `:38`, say the public `deftai/directive-training` checkout is a valid `DIRECTIVE_TRAINING_ROOT`, used only to read the fixture and run the helper. Do not collapse `DIRECTIVE_TRAINING_ROOT` with `LAB_ROOT`.",
-        "status": "proposed",
-        "id": "clause:4"
+        "status": "completed",
+        "id": "clause:4",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Capstone Windows takes the phrase recut at `:91`. Lab 2 carries the first-lab identity sentence.",
-        "status": "proposed",
-        "id": "clause:5"
+        "status": "completed",
+        "id": "clause:5",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Leave `COST-ESTIMATE.md` outside this recut.",
-        "status": "proposed",
-        "id": "clause:6"
+        "status": "completed",
+        "id": "clause:6",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       }
     ],
     "tags": [
@@ -329,9 +365,31 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "4cffb9d8269456e8660e289aeeff70067c4cecd635cd92434ae5e4835fd650fb"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 57,
+        "prBase": null,
+        "mergeCommit": "0056f19a7f695be153b72e8422bfd449de5c2f30",
+        "deliveryBranch": "master",
+        "deliveryCommit": "0056f19a7f695be153b72e8422bfd449de5c2f30",
+        "verifiedAt": "2026-09-22T03:50:09Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-22T03:50:09Z",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-22T03:50:09Z"
       }
     },
     "id": "github.issue.5532696597",
-    "updated": "2026-09-22T01:03:21Z"
+    "updated": "2026-09-22T03:50:09Z"
   }
 }

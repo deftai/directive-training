@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #52",
-    "updated": "2026-09-22T01:03:22Z"
+    "updated": "2026-09-22T03:50:13Z"
   },
   "plan": {
     "title": "Module 6 solution and Lab 7 Task 5 disagree on the proposed-scope filename",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Module 6 solution and Lab 7 Task 5 disagree on the proposed-scope filename",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/52",
@@ -16,23 +16,47 @@
     "items": [
       {
         "title": "Keep `2026-01-15-your-proposed-scope.xbrief.json` as the Lab 7 drop-in basename at `labs/07-scope-lifecycle.md:236`, `:415`, and `solutions/lab-07-scope-lifecycle.md:186`.",
-        "status": "proposed",
-        "id": "clause:1"
+        "status": "completed",
+        "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Recut `solutions/module-06-creating-well-shaped-work.md:213` Artifact path to that same basename so the sentence that Lab 7 Task 5 checks this exact artifact is true.",
-        "status": "proposed",
-        "id": "clause:2"
+        "status": "completed",
+        "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Keep walkthrough `plan.id` `northstar.delayed-route-preview` in the JSON example. Filename and `plan.id` may differ; Task 5 remains a copy-into-a-fixed-path step.",
-        "status": "proposed",
-        "id": "clause:3"
+        "status": "completed",
+        "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Extend `scripts/verify-module-6.mjs` `requireStructuralEvidenceContract` so one basename appears in all four learner sites, including the PowerShell `$Authored` line read from the lab file. Update `scripts/verify-module-6.test.mjs` only as needed. The fake-lab fixture at test line 188 is not a fifth learner path.",
-        "status": "proposed",
-        "id": "clause:4"
+        "status": "completed",
+        "id": "clause:4",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       }
     ],
     "tags": [
@@ -305,9 +329,31 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "25076c31e867a728e638a8c5f8ea24cd0d04d91fbfb8a5a5314f73308da0e6a3"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 57,
+        "prBase": null,
+        "mergeCommit": "0056f19a7f695be153b72e8422bfd449de5c2f30",
+        "deliveryBranch": "master",
+        "deliveryCommit": "0056f19a7f695be153b72e8422bfd449de5c2f30",
+        "verifiedAt": "2026-09-22T03:50:13Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-22T03:50:13Z",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-22T03:50:13Z"
       }
     },
     "id": "github.issue.5532750191",
-    "updated": "2026-09-22T01:03:22Z"
+    "updated": "2026-09-22T03:50:13Z"
   }
 }

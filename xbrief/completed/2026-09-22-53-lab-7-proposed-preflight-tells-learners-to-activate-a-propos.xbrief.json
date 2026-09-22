@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #53",
-    "updated": "2026-09-22T01:03:22Z"
+    "updated": "2026-09-22T03:50:15Z"
   },
   "plan": {
     "title": "Lab 7 proposed preflight tells learners to activate a proposed file, skipping promotion",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Lab 7 proposed preflight tells learners to activate a proposed file, skipping promotion",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/53",
@@ -16,28 +16,58 @@
     "items": [
       {
         "title": "Drop the issue-body identity that printed `scope:activate` on a proposed path is retained 0.119.5 wording already covered by Module 7 vBRIEF disagreement rows.",
-        "status": "proposed",
-        "id": "clause:1"
+        "status": "completed",
+        "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Quote the exact 0.119.5 proposed-preflight stderr at Lab 7 Task 1. Classify the eligibility clause as correct (proposed is not active). Classify the next-command line as `ACTIVATE_HINT` substituting the rejected proposed path into a pending-only verb, inapplicable from proposed/.",
-        "status": "proposed",
-        "id": "clause:2"
+        "status": "completed",
+        "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Keep the lab's next move as `deft:scope:promote` on the proposed file, then activate on pending.",
-        "status": "proposed",
-        "id": "clause:3"
+        "status": "completed",
+        "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Put that first-sighting classification on the Task 1 confirm list, the expected-failures recovery cell, and one SOURCE-NOTES Module 7 disagreement row. Do not add a fourth classification surface.",
-        "status": "proposed",
-        "id": "clause:4"
+        "status": "completed",
+        "id": "clause:4",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Leave `--vbrief-path` on the existing SOURCE-NOTES / SOURCE-BASELINE disagreement. Leave the optional product remainder (preflight defaulting to `formatActivateHint` on folder-ineligible) off this recut.",
-        "status": "proposed",
-        "id": "clause:5"
+        "status": "completed",
+        "id": "clause:5",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       }
     ],
     "tags": [
@@ -317,9 +347,31 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "ae05fa0b8cba5b739618dc5355c9a84b06e9c6a5b1a6cde35c65d81954c61a4d"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 57,
+        "prBase": null,
+        "mergeCommit": "0056f19a7f695be153b72e8422bfd449de5c2f30",
+        "deliveryBranch": "master",
+        "deliveryCommit": "0056f19a7f695be153b72e8422bfd449de5c2f30",
+        "verifiedAt": "2026-09-22T03:50:15Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-22T03:50:15Z",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-22T03:50:15Z"
       }
     },
     "id": "github.issue.5532750210",
-    "updated": "2026-09-22T01:03:22Z"
+    "updated": "2026-09-22T03:50:15Z"
   }
 }

@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #49",
-    "updated": "2026-09-22T01:03:21Z"
+    "updated": "2026-09-22T03:50:07Z"
   },
   "plan": {
     "title": "Lab 2 accept prints PASS without checking the written chooser, anatomy, or recovery evidence",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Lab 2 accept prints PASS without checking the written chooser, anatomy, or recovery evidence",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/49",
@@ -16,33 +16,69 @@
     "items": [
       {
         "title": "In `labs/02-disposable-initialization.md`, keep the helper-PASS table rows that match `acceptAttempt` at `labs/fixtures/02-disposable-initialization/init-lab.mjs:481-496` and the command list at lab lines 526-536 (version, doctor, toolchain, Git cleanliness, ignore, branch, empty remote).",
-        "status": "proposed",
-        "id": "clause:1"
+        "status": "completed",
+        "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Move the written chooser/anatomy and five-field recovery rows off that helper-PASS table onto the existing Module 2 inspection path: compare with `solutions/lab-02-disposable-initialization.md` and the evidence bundle.",
-        "status": "proposed",
-        "id": "clause:2"
+        "status": "completed",
+        "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Teach `module_02_accept=PASS` as that executable re-read only.",
-        "status": "proposed",
-        "id": "clause:3"
+        "status": "completed",
+        "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Recut Goal, Hint 3, and the Done statement in the same pass so written rows are attested by comparison with the explained solution and the evidence bundle, not by helper PASS.",
-        "status": "proposed",
-        "id": "clause:4"
+        "status": "completed",
+        "id": "clause:4",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Drop issue-body option 2 (fail-closed token presence in `evidence.md`) from this next-build contract.",
-        "status": "proposed",
-        "id": "clause:5"
+        "status": "completed",
+        "id": "clause:5",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Extend `scripts/verify-modules-2-3.mjs` so the helper-PASS claim's rows stay aligned with `acceptAttempt`, and written chooser/anatomy/recovery stay on the module inspection path.",
-        "status": "proposed",
-        "id": "clause:6"
+        "status": "completed",
+        "id": "clause:6",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       }
     ],
     "tags": [
@@ -329,9 +365,31 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "f641b3df47c9ee049197b24e2a2490a76cb722df0ffa02ba4eabf3b36f78d327"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 57,
+        "prBase": null,
+        "mergeCommit": "0056f19a7f695be153b72e8422bfd449de5c2f30",
+        "deliveryBranch": "master",
+        "deliveryCommit": "0056f19a7f695be153b72e8422bfd449de5c2f30",
+        "verifiedAt": "2026-09-22T03:50:07Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-22T03:50:07Z",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-22T03:50:07Z"
       }
     },
     "id": "github.issue.5532696537",
-    "updated": "2026-09-22T01:03:21Z"
+    "updated": "2026-09-22T03:50:07Z"
   }
 }

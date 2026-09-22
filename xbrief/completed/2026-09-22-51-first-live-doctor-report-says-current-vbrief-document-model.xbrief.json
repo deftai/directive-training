@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #51",
-    "updated": "2026-09-22T01:03:22Z"
+    "updated": "2026-09-22T03:50:11Z"
   },
   "plan": {
     "title": "First live doctor report says current vBRIEF document model after Module 1 forbids old names",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "First live doctor report says current vBRIEF document model after Module 1 forbids old names",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/51",
@@ -16,28 +16,58 @@
     "items": [
       {
         "title": "In Lab 2 Task 2, Module 2 §4, and the Lab 2 explained solution, quote both live strings as expected healthy output, in a separate sentence from classified warning `canonical-vendored-npm-signpost`: `Pre-cutover: none -- project is on the current vBRIEF document model.` and `xBrief migration: none -- xbrief active, vbrief removed.`",
-        "status": "proposed",
-        "id": "clause:1"
+        "status": "completed",
+        "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "State that this banner's \"vBRIEF\" means post-pre-cutover document-model state, while learner-facing files stay xBRIEF 0.8. New course writes stay `xbrief/` schema 0.8.",
-        "status": "proposed",
-        "id": "clause:2"
+        "status": "completed",
+        "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Leave `EXPECTED_WARNING_IDS` as the signpost only. Do not put the banner in the O2.4 finding table as a classified warning with a recommended action.",
-        "status": "proposed",
-        "id": "clause:3"
+        "status": "completed",
+        "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Keep the Module 7 help/Task `vBRIEF` sentence in Module 7.",
-        "status": "proposed",
-        "id": "clause:4"
+        "status": "completed",
+        "id": "clause:4",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       },
       {
         "title": "Add a `verify-modules-2-3.mjs` assert that those three learner files quote both banner strings. Keep `assert-doctor-warning-set.mjs` on warning rows.",
-        "status": "proposed",
-        "id": "clause:5"
+        "status": "completed",
+        "id": "clause:5",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
+          "recorded_at": "2026-09-22T03:50:06Z",
+          "recorded_by": "agent:grok"
+        }
       }
     ],
     "tags": [
@@ -317,9 +347,31 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "0147494d1a5910342559eba8063be5876fb665cc961d8f7fa17fb573515ec689"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 57,
+        "prBase": null,
+        "mergeCommit": "0056f19a7f695be153b72e8422bfd449de5c2f30",
+        "deliveryBranch": "master",
+        "deliveryCommit": "0056f19a7f695be153b72e8422bfd449de5c2f30",
+        "verifiedAt": "2026-09-22T03:50:11Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-22T03:50:11Z",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-22T03:50:11Z"
       }
     },
     "id": "github.issue.5532696596",
-    "updated": "2026-09-22T01:03:22Z"
+    "updated": "2026-09-22T03:50:11Z"
   }
 }
