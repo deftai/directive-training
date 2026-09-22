@@ -189,10 +189,10 @@ test("verifier rejects Task 4 JSON example drift that still has tokens in the fi
 });
 
 test("verifier accepts CRLF Lab 11 Task 4 markup", () => {
-  const root = changedCopy("labs/11-testing-gates-and-evidence.md", (body) => {
-    const lf = body.replaceAll("\r\n", "\n").replaceAll("\r", "\n");
-    return lf.replaceAll("\n", "\r\n");
-  });
+  const root = copiedRepository();
+  const target = join(root, "labs/11-testing-gates-and-evidence.md");
+  const lf = readFileSync(target, "utf8").replaceAll("\r\n", "\n").replaceAll("\r", "\n");
+  writeFileSync(target, lf.replaceAll("\n", "\r\n"));
   assert.ok(verifyModule11(root).artifactCount > 25);
 });
 
