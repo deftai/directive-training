@@ -507,6 +507,21 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
 
   const evidenceBundle = section(parsed.get(labPath).prose, "Evidence bundle");
   requireOrdered(evidenceBundle, evidenceFiles, "capstone lab evidence bundle", { unique: true });
+  assert.match(
+    checkpointSection,
+    /orient[\s\S]*CAP-DC-01[\s\S]*activate/i,
+    "lab checkpoints must name the private CAP-DC-01 row between orient and activate",
+  );
+  assert.match(
+    evidenceBundle,
+    /CAP-DC-01[\s\S]{0,120}between `orient` and\s+`activate`/,
+    "lab evidence bundle must name the private CAP-DC-01 row between orient and activate",
+  );
+  assert.doesNotMatch(
+    content.get(labPath),
+    /private curriculum (?:clone|repository)/,
+    "capstone lab must not call the public course a private curriculum clone or repository",
+  );
   assert.match(checkpointSection, /CREATED[\s\S]*lab-state\.json/, "CREATED must use lab-state.json evidence");
   assert.match(checkpointSection, /CHECKPOINT[\s\S]*no separate install JSON/, "CHECKPOINT must not invent install JSON evidence");
   assert.match(evidenceBundle, /Reset\s+and\s+archive\s+do\s+not\s+emit\s+JSON/, "reset and archive must use a private disposition note");
@@ -526,6 +541,28 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   for (const command of ["npm run test:focused", "npm run check:behavior"]) {
     assert.ok(section(parsed.get(labPath).prose, "Literal acceptance commands").includes(command), "lab literal acceptance is missing " + command);
   }
+  const labLiteral = section(parsed.get(labPath).prose, "Literal acceptance commands");
+  assert.ok(
+    content.get(labPath).includes("The supplied focused tests and work-items CLI pass for add, complete, summary, invalid-input, and empty-collection cases without mutating input collections."),
+    "capstone lab must quote the work-items verify:ac clause 1 text",
+  );
+  for (const phrase of [
+    "0 verified, 1 unverifiable",
+    "no artifact path bound",
+    "quoted evidence, not a step to type",
+    "literal.json.literalAcceptance.stdout",
+    "closeout.json.gate.currentHeadGate.stdout",
+    "[rung=derived]",
+  ]) {
+    assert.ok(content.get(labPath).includes(phrase), "capstone lab must lock the verify:ac PASS fragment: " + phrase);
+  }
+  assert.ok(labLiteral.includes("npm run test:focused") && labLiteral.includes("npm run check:behavior"), "literal acceptance must keep the two stored npm commands");
+  const solutionPage = content.get(solutionPath);
+  assert.ok(
+    solutionPage.includes("The supplied focused tests and work-items CLI pass for add, complete, summary, invalid-input, and empty-collection cases without mutating input collections."),
+    "capstone solution must classify the work-items verify:ac clause 1 fragment",
+  );
+  assert.ok(solutionPage.includes("no artifact path bound"), "capstone solution must classify unverifiable as no bound artifact path");
 
   const combinedCore = [content.get(curriculumPath), content.get(labPath), content.get(assessmentPath), content.get(solutionPath)].join("\n");
   for (const token of [
@@ -597,6 +634,24 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
     assert.ok(guard.index > reduceIndex, stage + " implementation must pin the WI-999 identifier bound after the highest-suffix calculation");
     assert.ok(constructIndex > guard.index, stage + " implementation must pin the WI-999 identifier bound before constructing the new item");
   }
+  const labTask1 = content.get(labPath).match(/### Task 1 —[\s\S]*?(?=\n### Task 2 —)/)?.[0] ?? "";
+  assert.ok(labTask1, "lab is missing the Task 1 (CAP.1) stage");
+  const task1Fences = [...labTask1.matchAll(/```sh\n([\s\S]*?)```/g)].map((match) => match[1]);
+  assert.ok(task1Fences.length >= 2, "lab Task 1 must split orient from activate");
+  for (const fence of task1Fences) {
+    assert.ok(
+      !(/\borient\b/.test(fence) && /\bactivate\b/.test(fence)),
+      "lab Task 1 must not keep orient then activate in one fence",
+    );
+  }
+  assert.match(task1Fences[0], /\borient\b/, "lab Task 1 first fence must run orient");
+  assert.doesNotMatch(task1Fences[0], /\bactivate\b/, "lab Task 1 first fence must stop after orient");
+  assert.match(task1Fences[1], /\bactivate\b/, "lab Task 1 second fence must run activate");
+  assert.match(labTask1, /command-free/, "lab Task 1 pause must stay command-free");
+  assert.match(labTask1, /CAP-DC-01/, "lab Task 1 pause must name CAP-DC-01");
+  assert.match(labTask1, /\$CAPSTONE_ASSESSMENT_NOTE/, "lab Task 1 must write the private row into $CAPSTONE_ASSESSMENT_NOTE");
+  assert.match(labTask1, /\$CapstoneAssessmentNote/, "lab Task 1 must write the private row into $CapstoneAssessmentNote");
+  assert.match(labTask1, /fixture transition/, "lab Task 1 expected line must treat helper green as the fixture transition");
   const labTask2 = content.get(labPath).match(/### Task 2 —[\s\S]*?(?=\n### Task 3 —)/)?.[0] ?? "";
   assert.ok(labTask2, "lab is missing the Task 2 (CAP.2) stage");
   for (const token of ["`RangeError`", identifierBoundMessage, "even when lower identifiers are free"]) {

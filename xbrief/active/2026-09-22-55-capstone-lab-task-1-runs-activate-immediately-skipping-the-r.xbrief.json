@@ -1,0 +1,337 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #55",
+    "updated": "2026-09-22T01:03:23Z"
+  },
+  "plan": {
+    "title": "Capstone lab Task 1 runs activate immediately, skipping the required CAP-DC-01 checkpoint",
+    "status": "running",
+    "narratives": {
+      "Description": "Capstone lab Task 1 runs activate immediately, skipping the required CAP-DC-01 checkpoint",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/55",
+      "Overview": "## Situation\n\nThe capstone curriculum and assessment require a command-free `CAP-DC-01` routing row **before** `activate`:\n\n- `curriculum/capstone-end-to-end.md` CAP.1: “Before `activate`, complete this command-free recognition checkpoint in your private `capstone-assessment-note.md`.”\n- `assessments/capstone-end-to-end.md` Task 1: “Run `install` and `orient`. Before `activate`, copy this exact table…”\n\nThe lab’s Task 1 command block (`labs/capstone-end-to-end.md`) is:\n\n```sh\nnode …/capstone-lab.mjs orient \"$CAPSTONE_ROOT\"\nnode …/capstone-lab.mjs activate \"$CAPSTONE_ROOT\"\nnode …/capstone-lab.mjs ready \"$CAPSTONE_ROOT\"\n```\n\nThere is no pause, no note path, and no mention of `CAP-DC-01` between `orient` and `activate`. Expected results are `PASS`, `PASS`, then `READY`.\n\nI completed the capstone on macOS/zsh against 0.119.5. I only inserted the routing row because I had just read the curriculum page. A learner who treats the lab Tasks section as the executable source of truth will activate immediately.\n\nThe helper cannot check the private note, so `activate` still prints `PASS` without that checkpoint.\n\n## Pain\n\nCAP.1 is scored on the routing row being captured before activation. Following the lab’s own Task 1 block produces a green helper sequence and a missing required artifact. That is the same class of split as Lab 2 `accept` printing PASS without written inspections.\n\nA mid-level engineer is trained throughout this course to run the literal command blocks. Here the literal block omits the one step that distinguishes Module 9 transfer from a lifecycle demo.\n\n## Proposed fix\n\nIn Lab Task 1, split the block after `orient`. Tell the learner to write the `CAP-DC-01` table into `$CAPSTONE_ASSESSMENT_NOTE`, then run `activate` and `ready`. Repeat the same pause in the Windows route.\n\nKeep helper `PASS` as the fixture transition. State explicitly that helper `PASS` on `activate` does not score CAP.1’s routing row.\n\nOS: macOS Darwin 25.6.0 arm64  \nShell: zsh 5.9  \nDirective: 0.119.5  \nHelper: orient PASS, activate PASS, ready READY after a separately written CAP-DC-01 row\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "Split `labs/capstone-end-to-end.md` Task 1 after `orient`. Reuse Task 3's split-fence shape and the explained-solution pause. Keep the checkpoint command-free.",
+        "status": "proposed",
+        "id": "clause:1"
+      },
+      {
+        "title": "Point the pause at curriculum CAP.1 or assessment Task 1. Write the row into `$CAPSTONE_ASSESSMENT_NOTE` / `$CapstoneAssessmentNote` already set at lab 78 and 121. Do not paste the filled assessment row into the lab.",
+        "status": "proposed",
+        "id": "clause:2"
+      },
+      {
+        "title": "Recut Checkpoints retained-proof and the Evidence bundle so they name the private `CAP-DC-01` row between `orient` and `activate`.",
+        "status": "proposed",
+        "id": "clause:3"
+      },
+      {
+        "title": "Keep helper `PASS` on activate as the fixture transition. Recut the Task 1 expected line so helper green is the fixture transition and the private row is the CAP.1 routing evidence.",
+        "status": "proposed",
+        "id": "clause:4"
+      },
+      {
+        "title": "Keep the existing PowerShell same-verbs sentence covering both verb groups after the pause. Do not add a unique Task 1 PowerShell fence.",
+        "status": "proposed",
+        "id": "clause:5"
+      },
+      {
+        "title": "Extend the existing assessment sequence assertion onto lab Task 1 in `scripts/verify-capstone.mjs`, with a negative test that one fence of `orient` then `activate` under that heading fails. Keep the command-free locks on curriculum, assessment, and solution.",
+        "status": "proposed",
+        "id": "clause:6"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/55",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #55: Capstone lab Task 1 runs activate immediately, skipping the required CAP-DC-01 checkpoint"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 6 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Split `labs/capstone-end-to-end.md` Task 1 after `orient`. Reuse Task 3's split-fence shape and the explained-solution pause. Keep the checkpoint command-free.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Point the pause at curriculum CAP.1 or assessment Task 1. Write the row into `$CAPSTONE_ASSESSMENT_NOTE` / `$CapstoneAssessmentNote` already set at lab 78 and 121. Do not paste the filled assessment row into the lab.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Recut Checkpoints retained-proof and the Evidence bundle so they name the private `CAP-DC-01` row between `orient` and `activate`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Keep helper `PASS` on activate as the fixture transition. Recut the Task 1 expected line so helper green is the fixture transition and the private row is the CAP.1 routing evidence.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Keep the existing PowerShell same-verbs sentence covering both verb groups after the pause. Do not add a unique Task 1 PowerShell fence.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "Extend the existing assessment sequence assertion onto lab Task 1 in `scripts/verify-capstone.mjs`, with a negative test that one fence of `orient` then `activate` under that heading fails. Keep the command-free locks on curriculum, assessment, and solution.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the capstone lab Task 1 command block activates immediately, and curriculum/assessment require CAP-DC-01 before activate.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the ambiguous n=1/n=3 ask with N=1 on each of 49-56; this is a closed identity recut of splitting Lab Task 1 after orient so CAP-DC-01 is written before activate\npain: P1\nP1: curriculum/capstone-end-to-end.md:112 and assessments/capstone-end-to-end.md:70,298 require CAP-DC-01 before activate; labs/capstone-end-to-end.md:192-205 runs orient, activate, ready in one block with expected PASS, PASS, READY\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5768902148,
+          "html_url": "https://github.com/deftai/directive-training/issues/55#issuecomment-5768902148",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:23:34Z",
+          "updated_at": "2026-09-21T23:23:34Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh open critique of issue 55 at dispatch-sha `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`, ceiling 5768902148. Stop 1 P1 line cites re-checked on that tree. `node scripts/verify-capstone.mjs` prints `Capstone content contract: ok (36 artifacts, 0 missing)`.\n\nThe identity recut is sound. Curriculum walkthrough (`curriculum/capstone-end-to-end.md:193–198`) sends learners to the lab for literal commands and already places command-free `CAP-DC-01` before activation. Lab Task 1’s single fence then runs `orient` immediately into `activate`. Helper `activate` is the fixture transition; the scored row lives in the private note.\n\n## 1. Task 1 is not the only lab sequence that skips the checkpoint\n\nsharpens-framing\n\nEvidence: `labs/capstone-end-to-end.md` Task 1 (192–208) is one fence (`orient`, `activate`, `ready`), expected `PASS`, `PASS`, `READY`, keep `orientation.json` / `scope.json` / `readiness.json`. Checkpoints rows 297–299 list those three helper verbs in order with retained proof tagged `CAP.1` and JSON only. Evidence bundle 337–349 names the private note for runtime, launcher roots, archives, and versions. Python count of `CAP-DC-01` in that lab file is 0. Existing pause shapes already in-tree: this lab’s Task 3 (250–267) splits helper fences around a learner inspect/write; `solutions/capstone-end-to-end.md` predicted evidence (79–87) inserts `[record command-free CAP-DC-01 row for CAP-DC-R1]` between `orient` and `activate`.\n\nFailure mode: an implementer who only splits the Task 1 fence leaves Checkpoints and Evidence bundle teaching that CAP.1 proof is the three helper JSON files. A learner who uses those maps still activates immediately, the helper still prints `PASS`, and the scored row is missing.\n\nDisposition: bind the recut as the Task 1 split plus Checkpoints retained-proof and Evidence bundle naming the private `CAP-DC-01` row between `orient` and `activate`. Reuse Task 3’s split-fence shape and the solution pause. Keep the checkpoint command-free.\n\n## 2. The sequence lock is on assessment Task 1, not lab Task 1\n\nsharpens-framing\n\nEvidence: `scripts/verify-capstone.mjs:476` requires assessment Task 1 to match `install` … `orient` … `CAP-DC-01` … `activate` … `ready`. Lab checks at 500–506 require helper verb names somewhere and checkpoint helper rows equal to `stageOrder`. `scripts/verify-capstone.test.mjs` has negative cases for CAP.1 absorbing `red.json` and for a bind-ready chip; it has none for a concatenated lab Task 1 fence. Measured at this SHA: verifier exit 0 while lab `CAP-DC-01` count is 0.\n\nFailure mode: the lab prose recut lands, a later edit concatenates Task 1 again, and `check:capstone` stays green.\n\nDisposition: extend the existing assessment sequence assertion onto lab Task 1, with a negative test that one fence of `orient` then `activate` under that heading fails. Keep the command-free locks on curriculum, assessment, and solution (446–449).\n\n## 3. The pause points at the existing table; Task 1’s Windows surface is one sentence\n\nsharpens-framing\n\nEvidence: curriculum CAP.1 (112–134) already has the empty header, passing criteria, and the hold that does not block later independently authorized fixture steps. Assessment Task 1 (70–81) already has the filled scored table, then `activate` and `ready` “in the lab’s exact order.” Lab Task 1 names PowerShell in one sentence (202–203). Full Windows fences already exist for Environment, Starting checkpoint, Reset, and Cleanup; Tasks 2–4 are Unix fences. The proposed fix says write “the CAP-DC-01 table” into `$CAPSTONE_ASSESSMENT_NOTE` and repeat the pause in the Windows route, without naming which table or which Windows surface.\n\nFailure mode: pause text with no table still leaves a lab-as-commands learner unable to write the row (the lab file currently contains zero `CAP-DC-01`). Pasting the filled assessment row into the lab turns the recognition card into copy-from-lab. A new Task 1 PowerShell fence would be unique among the Tasks.\n\nDisposition: the pause is a pointer to curriculum CAP.1 or assessment Task 1, written into `$CAPSTONE_ASSESSMENT_NOTE` / `$CapstoneAssessmentNote` already set at lab 78 and 121. Keep the existing PowerShell same-verbs sentence covering both verb groups after the pause.\n\n## 4. Helper `PASS` on activate stays the fixture transition\n\nfootnote\n\nEvidence: `activateScope` in `labs/fixtures/capstone-end-to-end/capstone-lab.mjs` (587–613) requires stage `ORIENTED`, runs promote/activate, and writes `scope.json` with `finalStatus: PASS`. It does not read the notes directory. `verify-capstone.mjs` 446–449 require the checkpoint remain command-free. Task 1 expected line 205 currently treats `PASS`, `PASS`, `READY` as the Task 1 result.\n\nFailure mode: copying Lab 2 `accept` (PASS after attempt-from-disk inspection rows) onto capstone `activate` would put private-note bytes under the helper and recut the command-free lock. Leaving line 205 unchanged after a fence split still names helper green as Task 1 completion.\n\nDisposition: keep helper `PASS`. Fold the expected-line change into finding 1 so helper green is the fixture transition, and the private row is the CAP.1 routing evidence.\n\n## Road not taken\n\nHelper-gated `activate` that requires a note path. Strongest rejected case: skip-the-prose would fail closed, matching Lab 2’s claim that `accept` waits on written inspections. Flip condition: CAP.1 stops being command-free and the note moves inside the attempt. Those are existing locks, so the recut stays a lab-prose pause using Task 3’s fence split.\n\n",
+          "id": 5768998861,
+          "html_url": "https://github.com/deftai/directive-training/issues/55#issuecomment-5768998861",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:31:37Z",
+          "updated_at": "2026-09-21T23:31:37Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe capstone lab Task 1 command block activates immediately, and curriculum/assessment require CAP-DC-01 before activate. Confirming this map would split Task 1 after orient, point the pause at the existing curriculum/assessment table written into the private note, name that row on Checkpoints and the Evidence bundle, keep helper PASS as the fixture transition, keep the existing PowerShell same-verbs sentence, and lock the lab Task 1 sequence on the existing capstone verifier.\n\nParent forward verdict: P1 holds; the recut binds once the lab sequence matches the already-scored CAP-DC-01 pause.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5768902148 and these takes; the evidence is critic 5768998861.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5768998861\nsupersedes: 5768902148\nTarget-digest: sha256:84cb32eebf420bf1e414b6b640bac9626e240b4e96d9e61a7d51cd9be91ed101\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Task 1 is not the only lab sequence that skips the checkpoint\ntake: accept-into-contract\ncritic: 5768998861\nheading: Task 1 is not the only lab sequence that skips the checkpoint\n\n### The sequence lock is on assessment Task 1, not lab Task 1\ntake: accept-into-contract\ncritic: 5768998861\nheading: The sequence lock is on assessment Task 1, not lab Task 1\n\n### The pause points at the existing table; Task 1's Windows surface is one sentence\ntake: accept-into-contract\ncritic: 5768998861\nheading: The pause points at the existing table; Task 1's Windows surface is one sentence\n\n### footnote — Helper `PASS` on activate stays the fixture transition\ntake: accept-into-contract\ncritic: 5768998861\nheading: Helper `PASS` on activate stays the fixture transition\n\nrelieves: P1\naudit:pain-P1 sha=19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23 pointer=comment:5768998861 reading=asserted\n\n## Bound remedy\n\n- Split `labs/capstone-end-to-end.md` Task 1 after `orient`. Reuse Task 3's split-fence shape and the explained-solution pause. Keep the checkpoint command-free.\n- Point the pause at curriculum CAP.1 or assessment Task 1. Write the row into `$CAPSTONE_ASSESSMENT_NOTE` / `$CapstoneAssessmentNote` already set at lab 78 and 121. Do not paste the filled assessment row into the lab.\n- Recut Checkpoints retained-proof and the Evidence bundle so they name the private `CAP-DC-01` row between `orient` and `activate`.\n- Keep helper `PASS` on activate as the fixture transition. Recut the Task 1 expected line so helper green is the fixture transition and the private row is the CAP.1 routing evidence.\n- Keep the existing PowerShell same-verbs sentence covering both verb groups after the pause. Do not add a unique Task 1 PowerShell fence.\n- Extend the existing assessment sequence assertion onto lab Task 1 in `scripts/verify-capstone.mjs`, with a negative test that one fence of `orient` then `activate` under that heading fails. Keep the command-free locks on curriculum, assessment, and solution.\n\n",
+          "id": 5769136677,
+          "html_url": "https://github.com/deftai/directive-training/issues/55#issuecomment-5769136677",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:43:34Z",
+          "updated_at": "2026-09-21T23:43:34Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 pain-audit of successor lean 5769136677, ceiling 5769136677, dispatch-sha `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`. Stop 1 write-back 5768902148 `pain: P1`. `scanPainList` on that write-back: present, ids=[P1], duplicates=[], malformed=false. `node scripts/verify-capstone.mjs` prints `Capstone content contract: ok (36 artifacts, 0 missing)`.\n\n## 1. Bound-remedy covers Stop 1 P1; scanPainCites records one relieves cite\n\nfootnote\n\nEvidence: Stop 1 P1 names `curriculum/capstone-end-to-end.md:112`, `assessments/capstone-end-to-end.md:70,298`, and `labs/capstone-end-to-end.md:192-205`. At this SHA those lines are: curriculum 112–113 command-free `CAP-DC-01` before `activate`; assessment Task 1 70–71 copy the table before `activate`, then `activate` and `ready`; assessment Hint 3 298 `orient -> CAP-DC-01 -> activate -> ready`; lab Task 1 196–200 one fence `orient` then `activate` then `ready`, expected 205 `PASS`, `PASS`, then `READY`. Python count of `CAP-DC-01` in the lab file is 0. `scanPainCites` on lean 5769136677 returned one cite `{painId:P1,disposition:relieves,deferredIssueNumber:null}` and rejected=[]. `classifyPosition` at `relieves: P1` offset 1944 is null. Token scan of the lean body found one `relieves` (that line) and zero `does-not-relieve` / `operator-deferred`. The four `###` take headings and `## Bound remedy` contain none of those tokens. Prose `P1 holds` is outside the closed cite forms. `evaluateBoundRemedyCites` with coveredIds=[P1] and this cite set returns ok. Bound-remedy harvest items 1, 2, and 4 split Task 1 after `orient`, point the pause at curriculum CAP.1 or assessment Task 1 written into `$CAPSTONE_ASSESSMENT_NOTE` / `$CapstoneAssessmentNote` (lab 78 and 121), keep the checkpoint command-free, and recut the Task 1 expected line so helper green is the fixture transition. `activateScope` in `labs/fixtures/capstone-end-to-end/capstone-lab.mjs:587-613` writes `finalStatus: PASS` from stage `ORIENTED` without reading the notes directory, which matches harvest item 4.\n\nFailure mode: a second operative disposition on P1 would fail closed as `malformed-pain`. A Bound-remedy that left the concatenated Task 1 fence as the executable sequence would make the asserted `relieves: P1` premise false. This lean has one operative cite and harvest items that split that fence and insert the existing table pause.\n\nDisposition: the `pain-P1` asserted `relieves` cite stands on lean 5769136677 as written.\n\n",
+          "id": 5769242814,
+          "html_url": "https://github.com/deftai/directive-training/issues/55#issuecomment-5769242814",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:54:23Z",
+          "updated_at": "2026-09-21T23:54:23Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5769242814 is footnote-only. Bind remains successor lean 5769136677. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5769242814\nsupersedes: 5769136677\n\n",
+          "id": 5769300876,
+          "html_url": "https://github.com/deftai/directive-training/issues/55#issuecomment-5769300876",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:46Z",
+          "updated_at": "2026-09-22T00:01:46Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Curriculum and assessment require CAP-DC-01 before activate | verified | `curriculum/capstone-end-to-end.md:112`; `assessments/capstone-end-to-end.md:70,298` |\n| Lab Task 1 runs orient then activate then ready in one fence | verified | `labs/capstone-end-to-end.md:192-205`; `CAP-DC-01` count in that file is 0 |\n| Capstone content contract is green while lab Task 1 concatenates those verbs | verified | `node scripts/verify-capstone.mjs` ok (36 artifacts) |\n| Helper `activate` writes PASS without reading the private note | verified | `capstone-lab.mjs` `activateScope` 587-613 |\n| Bound-remedy splits Task 1 after orient and keeps the checkpoint command-free | verified | harvest; pain-audit 5769242814 footnote-only |\n\n",
+          "id": 5769301163,
+          "html_url": "https://github.com/deftai/directive-training/issues/55#issuecomment-5769301163",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:49Z",
+          "updated_at": "2026-09-22T00:01:49Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nCapstone lab Task 1 splits after orient. The pause points at the existing CAP-DC-01 table written into the private note. Helper PASS stays the fixture transition. The capstone verifier locks that lab sequence.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5769136677\nverified-claims table 5769301163\npain-audit 5769242814\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5769301523,
+          "html_url": "https://github.com/deftai/directive-training/issues/55#issuecomment-5769301523",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:51Z",
+          "updated_at": "2026-09-22T00:01:51Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5532818989,
+        "origin": "deftai/directive-training#55",
+        "id": "github.issue.5532818989"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "84cb32eebf420bf1e414b6b640bac9626e240b4e96d9e61a7d51cd9be91ed101"
+      }
+    },
+    "id": "github.issue.5532818989",
+    "updated": "2026-09-22T01:03:23Z"
+  }
+}

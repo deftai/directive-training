@@ -94,6 +94,22 @@ The refactor helper observed a new source digest and the same passing behavior.
 
 The pinned literal gate accepted `npm run test:focused` and `npm run check:behavior`. It safety-refused direct `node` and arbitrary npm script forms during validation, so the supplied contract uses the released allowlist rather than a bypass. Forward coverage passed its source-to-test correspondence; without a coverage report, it did not claim changed-branch percentage evidence.
 
+`literal.json.literalAcceptance.stdout` carries this quoted PASS fragment. It is quoted
+evidence, not a step to type:
+
+```text
+verify:ac passed (#3284) (0 verified, 1 unverifiable) [rung=derived]
+verify:ac clause walk (#3323): 0 verified, 1 unverifiable, 0 failed
+  [unverifiable] clause 1 @ (no path): The focused test and numeric-summary CLI pass for an ordinary sample and an empty sample. — no artifact path bound
+Literal acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim
+AC-pass bank checkpoint required (finalize-on-green) (#3285)
+unbounded budget — dual-stop still applies; bank is optional discipline
+```
+
+The two stored npm commands are the literal-acceptance proof. `unverifiable` means clause 1
+has no bound artifact path, not a failed focused test. `[rung=derived]` and the AC-pass-bank
+dual-stop line are upstream 0.119.5 diagnostics.
+
 ### Step 6 — Diagnose and repair the aggregate
 
 The aggregate ran focused, literal, and forward checks before failing at `quality:record`. Only `quality-record.json` changed after that observation:

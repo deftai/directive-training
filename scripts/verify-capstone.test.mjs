@@ -88,6 +88,15 @@ test("capstone content contract accepts active and completed lifecycle states", 
   assert.equal(verifyCapstone(alternate.root).lifecycle, alternate.lifecycle);
 });
 
+test("verifier rejects one Task 1 fence of orient then activate", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    'node "$COURSE_ROOT/labs/fixtures/capstone-end-to-end/capstone-lab.mjs" orient "$CAPSTONE_ROOT"\n```',
+    'node "$COURSE_ROOT/labs/fixtures/capstone-end-to-end/capstone-lab.mjs" orient "$CAPSTONE_ROOT"\nnode "$COURSE_ROOT/labs/fixtures/capstone-end-to-end/capstone-lab.mjs" activate "$CAPSTONE_ROOT"\n```',
+  ));
+  assert.throws(() => verifyCapstone(root), /orient then activate in one fence/);
+});
+
 test("verifier rejects a missing assessment artifact", () => {
   const root = copiedRepository();
   renameSync(

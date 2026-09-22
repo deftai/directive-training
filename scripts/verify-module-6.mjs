@@ -125,7 +125,7 @@ function requireSectionOutcomes(path, prose, headings) {
  * @param {string} labCommands Joined Lab 7 shell blocks.
  * @returns {void}
  */
-function requireStructuralEvidenceContract(moduleProse, solutionProse, labProse, labCommands) {
+function requireStructuralEvidenceContract(moduleProse, solutionProse, labProse, labCommands, extra = {}) {
   const outcomesSection = section(moduleProse, "Learning outcomes");
   assert.match(
     outcomesSection,
@@ -284,6 +284,27 @@ function requireStructuralEvidenceContract(moduleProse, solutionProse, labProse,
   for (const supplied of suppliedScopes) {
     assert.ok(labCommands.includes(supplied), `Lab 7 must keep its supplied scope record: ${supplied}`);
   }
+  const authoredBasename = "2026-01-15-your-proposed-scope.xbrief.json";
+  const labFile = extra.labFile ?? "";
+  const lab7SolutionProse = extra.lab7SolutionProse ?? "";
+  for (const [label, text] of [
+    ["Lab 7 unix authored assignment", labCommands],
+    ["Lab 7 PowerShell $Authored", labFile],
+    ["Lab 7 explained solution", lab7SolutionProse],
+    ["Module 6 solution Artifact path", solutionProse],
+  ]) {
+    assert.ok(text.includes(authoredBasename), `${label} must use ${authoredBasename}`);
+  }
+  assert.match(
+    labFile,
+    /\$Authored = Join-Path \$LabRoot "xbrief\/proposed\/2026-01-15-your-proposed-scope\.xbrief\.json"/,
+    "Lab 7 PowerShell $Authored must use the shared proposed-scope basename",
+  );
+  assert.doesNotMatch(
+    solutionProse,
+    /2026-01-15-northstar-delayed-route-preview\.xbrief\.json/,
+    "Module 6 solution Artifact path must not keep the walkthrough filename",
+  );
 }
 
 /**
@@ -515,7 +536,10 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
     assert.ok(item?.narrative?.Acceptance?.trim() && item?.narrative?.Traces?.trim(), `${solution6} must contain two to five traced acceptance items`);
   }
 
-  requireStructuralEvidenceContract(moduleProse, solutionProse, labParts.prose, labCommands);
+  requireStructuralEvidenceContract(moduleProse, solutionProse, labParts.prose, labCommands, {
+    labFile: content.get(lab7),
+    lab7SolutionProse: markdownParts(content.get(lab7Solution)).prose,
+  });
   requireLab7SolutionTask5Contract(markdownParts(content.get(lab7Solution)).prose);
 
   const module5Navigation = section(markdownParts(content.get(module5)).prose, "Navigation");

@@ -196,6 +196,17 @@ fix. Record:
 3. the single recommended next action;
 4. whether the action is within the disposable boundary.
 
+The healthy doctor banner also prints these two lines as expected output, in a
+separate sentence from the classified warning:
+
+```text
+Pre-cutover: none -- project is on the current vBRIEF document model.
+xBrief migration: none -- xbrief active, vbrief removed.
+```
+
+This banner's "vBRIEF" names post-pre-cutover document-model state. Learner-facing files
+stay xBRIEF 0.8, and new course writes stay `xbrief/` schema 0.8.
+
 The pin-matched 0.119.5 replay exits 0 and prints the named provenance check
 `canonical-vendored-npm-signpost`. Its single recommended action is a host-global
 engine install followed by a provenance migration. Read it, classify it, and stop:

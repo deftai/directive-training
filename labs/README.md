@@ -54,7 +54,7 @@ OS temporary directory/
 ```
 
 The lab instructions either create the fictional fixture in the active directory or copy a
-named fixture read-only from this private curriculum clone. They never copy from a business
+named fixture read-only from this curriculum clone. They never copy from a business
 repository. A fixture must be reconstructible from checked-in instructions and fictional
 data.
 

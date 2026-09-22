@@ -153,6 +153,49 @@ test("verifier rejects Module 12 becoming unavailable under another label", () =
   assert.throws(() => verifyModule11(root), /Module 12 must remain learner-ready/);
 });
 
+test("verifier rejects a lab page that omits quality-record completed tokens", () => {
+  const root = changedCopy("labs/11-testing-gates-and-evidence.md", (body) => body.replaceAll(
+    "quality-record.json only",
+    "the quality file",
+  ));
+  assert.throws(() => verifyModule11(root), /Task 4 field table completed column drifted|Task 4 completed quality-record example drifted/);
+});
+
+test("verifier rejects Task 4 table drift that still has tokens in the JSON example", () => {
+  const root = changedCopy("labs/11-testing-gates-and-evidence.md", (body) => {
+    const after = body.replace(
+      "| `status` | `INCOMPLETE` | `COMPLETE` |",
+      "| `status` | `INCOMPLETE` | `DONE` |",
+    );
+    assert.ok(after.includes('"status": "COMPLETE"'), "JSON example must still contain COMPLETE");
+    return after;
+  });
+  assert.throws(() => verifyModule11(root), /Task 4 field table completed column drifted/);
+});
+
+test("verifier rejects Task 4 JSON example drift that still has tokens in the field table", () => {
+  const root = changedCopy("labs/11-testing-gates-and-evidence.md", (body) => {
+    const after = body.replace(
+      '  "status": "COMPLETE",',
+      '  "status": "DONE",',
+    );
+    assert.ok(
+      after.includes("| `status` | `INCOMPLETE` | `COMPLETE` |"),
+      "field table must still contain COMPLETE",
+    );
+    return after;
+  });
+  assert.throws(() => verifyModule11(root), /Task 4 completed quality-record example drifted/);
+});
+
+test("verifier accepts CRLF Lab 11 Task 4 markup", () => {
+  const root = copiedRepository();
+  const target = join(root, "labs/11-testing-gates-and-evidence.md");
+  const lf = readFileSync(target, "utf8").replaceAll("\r\n", "\n").replaceAll("\r", "\n");
+  writeFileSync(target, lf.replaceAll("\n", "\r\n"));
+  assert.ok(verifyModule11(root).artifactCount > 25);
+});
+
 test("verifier rejects a missing Module 11 outcome mapping", () => {
   const root = changedCopy("curriculum/modules/11-testing-gates-and-evidence.md", (body) => body.replaceAll("O11.8", "O11.X"));
   assert.throws(() => verifyModule11(root), /missing O11\.8/);

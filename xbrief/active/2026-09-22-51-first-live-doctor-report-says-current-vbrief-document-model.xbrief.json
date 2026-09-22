@@ -1,0 +1,325 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #51",
+    "updated": "2026-09-22T01:03:22Z"
+  },
+  "plan": {
+    "title": "First live doctor report says current vBRIEF document model after Module 1 forbids old names",
+    "status": "running",
+    "narratives": {
+      "Description": "First live doctor report says current vBRIEF document model after Module 1 forbids old names",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/51",
+      "Overview": "## Situation\n\nModule 1 teaches that this course uses the current public term **xBRIEF** and schema `0.8`, and lists as a misconception: “Old names or schemas are fine for new material.”\n\nLab 2 is the first live Directive command. `directive doctor --full --project-root .` on a fresh 0.119.5 init exited 0 and opened with:\n\n```text\nPre-cutover: none -- project is on the current vBRIEF document model.\nxBrief migration: none -- xbrief active, vbrief removed.\n```\n\nModule 2 tells the learner to record doctor findings by classification. It does not say that the first line of a healthy 0.119.5 doctor report will still say “vBRIEF document model.” Module 7 later notes that 0.119.5 help and Task descriptions retain some `vBRIEF` wording; that warning arrives five modules after the first live sighting.\n\n## Pain\n\nAfter Module 1’s naming rule, I treated “current vBRIEF document model” as possible evidence that I had initialized the wrong product or an old schema. I spent time re-checking the pin (`@deftai/directive-core@0.119.5`) and `xbrief/` layout before accepting the doctor result.\n\nA mid-level engineer is being trained to trust exact command output. The first health report uses the name the course just told them not to use for new material.\n\n## Proposed fix\n\nIn Module 2 / Lab 2, record this as an expected 0.119.5 doctor fragment: healthy current projects can still print “vBRIEF document model” while the learner-facing files are xBRIEF 0.8. Tell the learner to classify it as retained upstream wording, not as a failed init or a license to write new `vbrief/` artifacts.\n\nOptionally move the Module 7 vBRIEF-wording note earlier, next to the Lab 2 doctor warning already documented for `canonical-vendored-npm-signpost`.\n\nOS: macOS Darwin 25.6.0 arm64  \nShell: zsh 5.9  \nDirective: `@deftai/directive@0.119.5`  \nCommand: `directive doctor --full --project-root .` (exit 0)\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "In Lab 2 Task 2, Module 2 §4, and the Lab 2 explained solution, quote both live strings as expected healthy output, in a separate sentence from classified warning `canonical-vendored-npm-signpost`: `Pre-cutover: none -- project is on the current vBRIEF document model.` and `xBrief migration: none -- xbrief active, vbrief removed.`",
+        "status": "proposed",
+        "id": "clause:1"
+      },
+      {
+        "title": "State that this banner's \"vBRIEF\" means post-pre-cutover document-model state, while learner-facing files stay xBRIEF 0.8. New course writes stay `xbrief/` schema 0.8.",
+        "status": "proposed",
+        "id": "clause:2"
+      },
+      {
+        "title": "Leave `EXPECTED_WARNING_IDS` as the signpost only. Do not put the banner in the O2.4 finding table as a classified warning with a recommended action.",
+        "status": "proposed",
+        "id": "clause:3"
+      },
+      {
+        "title": "Keep the Module 7 help/Task `vBRIEF` sentence in Module 7.",
+        "status": "proposed",
+        "id": "clause:4"
+      },
+      {
+        "title": "Add a `verify-modules-2-3.mjs` assert that those three learner files quote both banner strings. Keep `assert-doctor-warning-set.mjs` on warning rows.",
+        "status": "proposed",
+        "id": "clause:5"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/51",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #51: First live doctor report says current vBRIEF document model after Module 1 forbids old names"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 5 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "In Lab 2 Task 2, Module 2 §4, and the Lab 2 explained solution, quote both live strings as expected healthy output, in a separate sentence from classified warning `canonical-vendored-npm-signpost`: `Pre-cutover: none -- project is on the current vBRIEF document model.` and `xBrief migration: none -- xbrief active, vbrief removed.`",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "State that this banner's \"vBRIEF\" means post-pre-cutover document-model state, while learner-facing files stay xBRIEF 0.8. New course writes stay `xbrief/` schema 0.8.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Leave `EXPECTED_WARNING_IDS` as the signpost only. Do not put the banner in the O2.4 finding table as a classified warning with a recommended action.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Keep the Module 7 help/Task `vBRIEF` sentence in Module 7.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Add a `verify-modules-2-3.mjs` assert that those three learner files quote both banner strings. Keep `assert-doctor-warning-set.mjs` on warning rows.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the first live doctor line still says current vBRIEF document model after Module 1 forbids old names, and Lab 2 never quotes that fragment.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the ambiguous n=1/n=3 ask with N=1 on each of 49-56; this is a closed identity recut of the expected Lab 2 doctor fragment\npain: P1\nP1: curriculum/modules/01-what-directive-is.md:258 forbids old names for new material; 0.119.5 prints Pre-cutover: none -- project is on the current vBRIEF document model.; Lab 2 documents canonical-vendored-npm-signpost only\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5768897028,
+          "html_url": "https://github.com/deftai/directive-training/issues/51#issuecomment-5768897028",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:23:03Z",
+          "updated_at": "2026-09-21T23:23:03Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh critic, open critique, spend N=1. In-envelope: issue body plus Stop 1 comment 5768897028. File reads used `git show 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23:`. Probes ran only under `/tmp`.\n\nThe destination class holds: Lab 2 should quote the live 0.119.5 doctor opening fragment so a learner who just accepted Module 1's old-name rule can keep a healthy init. The proposed wording still needs a recut of output kind, which consecutive strings to quote, which files lock them, and what stays on Module 7.\n\n## Re-verification\n\nStop 1 P1 anchors reproduced at the dispatch SHA.\n\n- Module 1 line 258 forbids old names for new material and names xBRIEF 0.8. The Module 1 terminology table defines xBRIEF and never mentions vBRIEF.\n- `git grep vBRIEF` over `curriculum/modules` and `labs` at this SHA hits only Module 6 strategy notes and the Module 7 help/Task note. Module 2 and Lab 2 contain zero `vBRIEF` tokens. Lab 2 Task 2 and Module 2 §4 quote only `canonical-vendored-npm-signpost`.\n- Host `@deftai/directive@0.119.5` / `@deftai/directive-core@0.119.5`. `renderPrecutoverLine` on dest returns `Pre-cutover: none -- project is on the current vBRIEF document model.` `renderXbriefMigrationLine` returns `xBrief migration: none -- xbrief active, vbrief removed.` `directive doctor --full --project-root /tmp/dc51-doctor-probe` printed those two lines first, then the rest of the wrapper banner, then `cmdDoctor`.\n\nThe consumer CLI wrapper `dist/doctor.js` writes those lines on a valid human invocation before `cmdDoctor`. They carry no check id and no warning marker. `scripts/assert-doctor-warning-set.mjs` binds warning-row identity (`canonical-vendored-npm-signpost`) and already ignores this banner.\n\n## Existing mechanisms\n\nReuse the #19 Lab 2 doctor lock: Module 2 §4, Lab 2 Task 2, Lab 2 solution, `scripts/verify-modules-2-3.mjs` taught-string asserts, `references/SOURCE-NOTES.md` warning-only replay, platform `doctor-full.txt` capture, and `assert-doctor-warning-set.mjs`. Module 7 lines 129–131 and `references/GLOSSARY.md` Legacy note already cover leftover help-surface wording. This fragment is a live status predicate in the doctor wrapper.\n\n## Findings\n\n### 1. Opening status banner is a different output kind than the classified warning\n\nclass: sharpens-framing\n\nEvidence: `dist/doctor.js` prints `renderPrecutoverLine`, `renderXbriefMigrationLine`, `renderStaleHeaderLine`, deposit hygiene, and deposit closure, then runs `cmdDoctor`. Lab 2 Task 2 asks for each doctor finding's severity and one recommended next action. Module 2 §4 records warning/error classification and a single recommended action. On the healthy `none` path the Pre-cutover line has neither.\n\nFailure mode: following \"classify it as retained upstream wording\" puts the banner in the O2.4 finding table. Learners hunt for a recommended action the engine does not print. The warning-identity checker cannot catch that prose error.\n\nDisposition: quote the opening status lines as expected healthy output, in a separate sentence from the classified warning `canonical-vendored-npm-signpost`. Leave `EXPECTED_WARNING_IDS` as the signpost only.\n\n### 2. Quote the consecutive pair and the engine's three-era meaning\n\nclass: sharpens-framing\n\nEvidence: `renderPrecutoverLine` returns the \"current vBRIEF document model\" sentence when `detectPreCutover` is false. `frozenPreCutoverMigrationGuidance` names the chain pre-v0.20 flat model → vBRIEF v0.6 → xBRIEF. Wrapper comment `#2022` calls this pre-v0.20 document-model state. The next printed line already reports `xbrief active, vbrief removed.` Module 1 never names the token `vBRIEF`, so this banner is the first live sighting of that word on the beginner path.\n\nFailure mode: quoting only \"vBRIEF document model\" without the companion line or the three-era gloss leaves the Module 1 collision in place. Calling it retained upstream wording lumps it with Module 7 help cards, a different surface.\n\nDisposition: Lab 2 Task 2, Module 2 §4, and the Lab 2 solution quote both live strings and state that this banner's \"vBRIEF\" means post-pre-cutover document-model state, while learner-facing files stay xBRIEF 0.8. New course writes stay `xbrief/` schema 0.8.\n\n### 3. Module 7 help/Task note stays on Module 7\n\nclass: sharpens-framing\n\nEvidence: Module 7 lines 129–131 already record that 0.119.5 help and Task descriptions retain `vBRIEF` wording as a documentation disagreement. That surface is `scope:promote` / `scope:activate` help and Task descriptions.\n\nFailure mode: the issue's optional \"move the Module 7 note earlier\" sentence leaves this identity unbounded and mixes two mechanisms.\n\nDisposition: this recut covers the Lab 2 doctor opening banner. The Module 7 help/Task sentence stays in Module 7.\n\n### 4. Taught banner strings need the same content-contract lock #19 used for the warning\n\nclass: sharpens-framing\n\nEvidence: `verify-modules-2-3.mjs` requires `canonical-vendored-npm-signpost` in the three learner files and rejects `Missing directory: xbrief/`. Platform lanes already write `doctor-full.txt` and run `assert-doctor-warning-set.mjs`. SOURCE-NOTES records warning lines only.\n\nFailure mode: a prose-only recut can drift on the next pin, the same class of defect #19 already closed for the warning row.\n\nDisposition: add a `verify-modules-2-3.mjs` assert that those three files quote `Pre-cutover: none -- project is on the current vBRIEF document model.` and `xBrief migration: none -- xbrief active, vbrief removed.` Keep the warning-set checker on warning rows. A substring check on the already-captured `doctor-full.txt` covers engine-string drift if the parent wants that extra lock.\n\n### 5. Third wrapper banner also carries a vbrief token\n\nclass: footnote\n\n`renderStaleHeaderLine` on dest returns `AGENTS.md header drift: none -- unmanaged header has no legacy vbrief path literals.` Same wrapper block, lowercase path token. No disposition weight.\n\n## Road not taken\n\nWidening `assert-doctor-warning-set.mjs` to parse banners. That checker exists to bind warning-row identity after #19; the banners are a different printer. A taught-string assert in `verify-modules-2-3.mjs` plus the existing capture is the mechanism already on this path. That choice would flip if a pin-matched Lab 2 `doctor-full.txt` stopped containing the Pre-cutover `none` line.\n\n",
+          "id": 5769017847,
+          "html_url": "https://github.com/deftai/directive-training/issues/51#issuecomment-5769017847",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:33:14Z",
+          "updated_at": "2026-09-21T23:33:14Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe first live doctor banner still says current vBRIEF document model after Module 1 forbids old names, and Lab 2 never quotes that fragment. Confirming this map would quote both healthy opening status lines as expected output beside the classified warning, keep the Module 7 help/Task note on Module 7, and lock those two banner strings on the existing Modules 2-3 content contract.\n\nParent forward verdict: P1 holds; the recut binds once the banner is taught as healthy status, not as a classified warning.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5768897028 and these takes; the evidence is critic 5769017847.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5769017847\nsupersedes: 5768897028\nTarget-digest: sha256:0147494d1a5910342559eba8063be5876fb665cc961d8f7fa17fb573515ec689\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Opening status banner is a different output kind than the classified warning\ntake: accept-into-contract\ncritic: 5769017847\nheading: Opening status banner is a different output kind than the classified warning\n\n### Quote the consecutive pair and the engine's three-era meaning\ntake: accept-into-contract\ncritic: 5769017847\nheading: Quote the consecutive pair and the engine's three-era meaning\n\n### Module 7 help/Task note stays on Module 7\ntake: accept-into-contract\ncritic: 5769017847\nheading: Module 7 help/Task note stays on Module 7\n\n### Taught banner strings need the same content-contract lock #19 used for the warning\ntake: accept-into-contract\ncritic: 5769017847\nheading: Taught banner strings need the same content-contract lock #19 used for the warning\n\n### footnote — Third wrapper banner also carries a vbrief token\ntake: accept-into-contract\ncritic: 5769017847\nheading: Third wrapper banner also carries a vbrief token\n\nrelieves: P1\naudit:pain-P1 sha=19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23 pointer=comment:5769017847 reading=asserted\n\n## Bound remedy\n\n- In Lab 2 Task 2, Module 2 §4, and the Lab 2 explained solution, quote both live strings as expected healthy output, in a separate sentence from classified warning `canonical-vendored-npm-signpost`: `Pre-cutover: none -- project is on the current vBRIEF document model.` and `xBrief migration: none -- xbrief active, vbrief removed.`\n- State that this banner's \"vBRIEF\" means post-pre-cutover document-model state, while learner-facing files stay xBRIEF 0.8. New course writes stay `xbrief/` schema 0.8.\n- Leave `EXPECTED_WARNING_IDS` as the signpost only. Do not put the banner in the O2.4 finding table as a classified warning with a recommended action.\n- Keep the Module 7 help/Task `vBRIEF` sentence in Module 7.\n- Add a `verify-modules-2-3.mjs` assert that those three learner files quote both banner strings. Keep `assert-doctor-warning-set.mjs` on warning rows.\n\n",
+          "id": 5769132351,
+          "html_url": "https://github.com/deftai/directive-training/issues/51#issuecomment-5769132351",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:43:08Z",
+          "updated_at": "2026-09-21T23:43:08Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 pain-audit of successor lean 5769132351 asserted `relieves: P1`. In-envelope: issue body, Stop 1 5768897028, round-1 critic 5769017847, lean 5769132351. File reads used `git show 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23:`. Probes under `/tmp`. Live banners from dest `directive doctor --full --project-root .`. Scanners: `@deftai/directive-core@0.119.5` `scanPainList`, `scanPainCites`, `classifyPosition`, `evaluateBoundRemedyCites`.\n\n## Re-verification\n\nStop 1 `pain: P1` parses as `{P1}` (`scanPainList` present, no duplicates). P1 names three measured facts at this SHA, and all three hold:\n\n- `curriculum/modules/01-what-directive-is.md:258` forbids old names for new material and names xBRIEF schema `0.8`. Module 1 has no `vBRIEF` token.\n- Host `@deftai/directive@0.119.5` / `@deftai/directive-core@0.119.5`. `renderPrecutoverLine` on dest returns `Pre-cutover: none -- project is on the current vBRIEF document model.` `renderXbriefMigrationLine` returns `xBrief migration: none -- xbrief active, vbrief removed.` Live doctor printed those two lines first.\n- `git grep` over Lab 2, Module 2, and the Lab 2 solution has zero `vBRIEF` / `Pre-cutover` hits. Those three files name `canonical-vendored-npm-signpost` only.\n\n`scanPainCites` on lean 5769132351 returns one cite `{painId: P1, disposition: relieves}` and `rejected: []`. The only `PAIN_CITE_RE` match is the line-start `relieves: P1` (`classifyPosition` null). `evaluateBoundRemedyCites` with `coveredIds: ['P1']` and those cites returns `{ok: true}`. `mapCarriesAssertedPainCoverage` is true. The lean is successor-lean-shaped. Live issue-body SHA-256 is `0147494d1a5910342559eba8063be5876fb665cc961d8f7fa17fb573515ec689`, matching the lean `Target-digest`.\n\n## Existing mechanisms\n\nHarvest lands on the #19 Lab 2 doctor lock: Module 2 §4, Lab 2 Task 2, `solutions/lab-02-disposable-initialization.md`, and `scripts/verify-modules-2-3.mjs`. `EXPECTED_WARNING_IDS` stays the signpost. Module 7 lines 129–131 already record the help/Task `vBRIEF` note.\n\n## Findings\n\n### 1. Bound-remedy covers Stop 1 P1\n\nclass: footnote\n\nP1 is the Module 1 old-name rule colliding with the live Pre-cutover none-line while Lab 2 teaches only the signpost. Bound-remedy harvest quotes both live opening status strings in Lab 2 Task 2, Module 2 §4, and the Lab 2 solution as expected healthy output, in a separate sentence from `canonical-vendored-npm-signpost`; states that this banner's `vBRIEF` means post-pre-cutover document-model state while learner-facing files and new writes stay xBRIEF 0.8; leaves `EXPECTED_WARNING_IDS` as the signpost; keeps the Module 7 help/Task sentence on Module 7; and adds the taught-string assert on `verify-modules-2-3.mjs`. That harvest covers the named collision. Fixture `evaluateBoundRemedyCites` with `coveredIds: ['P1']` returns `{ok: true}`.\n\n### 2. Lean body is well-formed for scanPainCites\n\nclass: footnote\n\nOne operative cite: `relieves: P1`. Take-map headings and Bound-remedy prose do not match `PAIN_CITE_RE`. Summary `P1 holds` and the `audit:pain-P1` token are non-cite P1 mentions. `scanPainCites` therefore emits a single `relieves` disposition for `P1`.\n\n",
+          "id": 5769245172,
+          "html_url": "https://github.com/deftai/directive-training/issues/51#issuecomment-5769245172",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:54:40Z",
+          "updated_at": "2026-09-21T23:54:40Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5769245172 is footnote-only. Bind remains successor lean 5769132351. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5769245172\nsupersedes: 5769132351\n\n",
+          "id": 5769294282,
+          "html_url": "https://github.com/deftai/directive-training/issues/51#issuecomment-5769294282",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:00:58Z",
+          "updated_at": "2026-09-22T00:00:58Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Module 1 forbids old names and never mentions vBRIEF | verified | `curriculum/modules/01-what-directive-is.md:258`; `git grep vBRIEF` on Module 1 empty |\n| Live 0.119.5 doctor prints the Pre-cutover vBRIEF banner then xBrief migration none | verified | `renderPrecutoverLine` / `renderXbriefMigrationLine`; live `directive doctor --full` |\n| Lab 2 / Module 2 / Lab 2 solution quote only `canonical-vendored-npm-signpost` | verified | `git grep` zero `vBRIEF` / `Pre-cutover` on those three files |\n| Lean `relieves: P1` is well-formed and Bound-remedy covers P1 | verified | `scanPainCites`; `evaluateBoundRemedyCites`; Target-digest matches live body; pain-audit 5769245172 footnote-only |\n\n",
+          "id": 5769294608,
+          "html_url": "https://github.com/deftai/directive-training/issues/51#issuecomment-5769294608",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:01Z",
+          "updated_at": "2026-09-22T00:01:01Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nLab 2 quotes both healthy doctor opening banners as expected status, beside the classified warning. The Module 7 help/Task vBRIEF note stays on Module 7. The Modules 2-3 content contract locks those two banner strings.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5769132351\nverified-claims table 5769294608\npain-audit 5769245172\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5769294903,
+          "html_url": "https://github.com/deftai/directive-training/issues/51#issuecomment-5769294903",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:03Z",
+          "updated_at": "2026-09-22T00:01:03Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5532696596,
+        "origin": "deftai/directive-training#51",
+        "id": "github.issue.5532696596"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "0147494d1a5910342559eba8063be5876fb665cc961d8f7fa17fb573515ec689"
+      }
+    },
+    "id": "github.issue.5532696596",
+    "updated": "2026-09-22T01:03:22Z"
+  }
+}

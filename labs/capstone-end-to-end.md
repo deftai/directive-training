@@ -88,7 +88,7 @@ git -C "$CAPSTONE_ROOT" status --short --branch
 ### Windows PowerShell 7.4+
 
 Before pasting the block, set the process environment variable
-`DIRECTIVE_TRAINING_ROOT` to the absolute path of your private curriculum clone.
+`DIRECTIVE_TRAINING_ROOT` to the absolute path of your curriculum clone.
 The block fails clearly if that learner input is absent or not absolute.
 
 ```powershell
@@ -191,10 +191,20 @@ the helper verifies the exact installed Directive CLI/core/content/types graph.
 
 ### Task 1 — Orient, authorize, and prove readiness (`CAP.1`)
 
-Run these verbs in order from the launcher directory:
+Run this verb from the launcher directory:
 
 ```sh
 node "$COURSE_ROOT/labs/fixtures/capstone-end-to-end/capstone-lab.mjs" orient "$CAPSTONE_ROOT"
+```
+
+Pause. Write the command-free `CAP-DC-01` checkpoint row into
+`$CAPSTONE_ASSESSMENT_NOTE` on macOS/Linux or `$CapstoneAssessmentNote` on Windows — those
+paths were set in the environment block above. Compare with curriculum CAP.1 or assessment
+Task 1. Do not paste a filled assessment row into this lab. The checkpoint is command-free.
+
+Then continue:
+
+```sh
 node "$COURSE_ROOT/labs/fixtures/capstone-end-to-end/capstone-lab.mjs" activate "$CAPSTONE_ROOT"
 node "$COURSE_ROOT/labs/fixtures/capstone-end-to-end/capstone-lab.mjs" ready "$CAPSTONE_ROOT"
 ```
@@ -202,8 +212,9 @@ node "$COURSE_ROOT/labs/fixtures/capstone-end-to-end/capstone-lab.mjs" ready "$C
 PowerShell uses the same verbs with
 `node (Join-Path $CourseRoot "labs/fixtures/capstone-end-to-end/capstone-lab.mjs")`.
 
-Expected results are `PASS`, `PASS`, then `READY`. Keep `orientation.json`,
-`scope.json`, and `readiness.json`. Confirm the active contract is
+Expected helper results are `PASS` on orient, `PASS` on activate, then `READY`. Helper green
+is the fixture transition. The private `CAP-DC-01` row is the CAP.1 routing evidence. Keep
+`orientation.json`, `scope.json`, and `readiness.json`. Confirm the active contract is
 `xbrief/active/2026-01-15-fictional-work-items.xbrief.json` and its only product path is
 `src/work-items.mjs`.
 
@@ -295,6 +306,7 @@ demonstrated until the fresh root and both recoverable archives are recorded.
 | `create` | `CREATED` | Absolute repository root | Sibling `lab-state.json`; `evidence/README.md` |
 | `install` | `CHECKPOINT` | `OK: installed Directive 0.119.5` | Clean checkpoint commit; no separate install JSON |
 | `orient` | `ORIENTED` | `"PASS"` | `orientation.json` (`CAP.1`) |
+| — | — | command-free | private `CAP-DC-01` row in `$CAPSTONE_ASSESSMENT_NOTE` / `$CapstoneAssessmentNote` (`CAP.1`) |
 | `activate` | `SCOPED` | `"PASS"` | `scope.json` (`CAP.1`) |
 | `ready` | `READY` | `"READY"` | `readiness.json` (`CAP.1`) |
 | `red` | `RED` | `"EXPECTED_FAILURE"` | `red.json`; nested focused exit `1` (`CAP.2`) |
@@ -323,6 +335,27 @@ The `literal` helper invokes the pinned
 `verify:ac` runner for those commands. The subsequent aggregate `task check` is
 separate and broader; literal acceptance must precede it.
 
+Inspect `literal.json.literalAcceptance.stdout` and, at close, `closeout.json.gate.currentHeadGate.stdout`.
+This is quoted evidence, not a step to type:
+
+```text
+verify:ac passed (#3284) (0 verified, 1 unverifiable) [rung=derived]
+verify:ac clause walk (#3323): 0 verified, 1 unverifiable, 0 failed
+  [unverifiable] clause 1 @ (no path): The supplied focused tests and work-items CLI pass for add, complete, summary, invalid-input, and empty-collection cases without mutating input collections. — no artifact path bound
+Literal acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim
+AC-pass bank checkpoint required (finalize-on-green) (#3285)
+unbounded budget — dual-stop still applies; bank is optional discipline
+```
+
+Classify that fragment:
+
+- The two stored npm commands ran verbatim and exited 0. That is the literal-acceptance proof.
+- `unverifiable` here means an acceptance sentence has no bound artifact path, not that a
+  focused test failed. The clause text is the capstone work-items Acceptance sentence.
+- `[rung=derived]` and the AC-pass-bank dual-stop line are upstream 0.119.5 diagnostics, not
+  capstone closeout axes.
+
+
 | Check | Required result | Proves |
 | --- | --- | --- |
 | `npm run test:focused` | Exit `0` after meaningful red | Supplied behavior contract passes |
@@ -338,7 +371,8 @@ Retain these files in the attempt parent's `evidence` directory:
 `focused.json`, `literal.json`, `aggregate-failure.json`, `pre-pr.json`,
 `review-resolution.json`, and `closeout.json`. Also keep a private note at
 `$CAPSTONE_ASSESSMENT_NOTE` on macOS/Linux or `$CapstoneAssessmentNote` on
-Windows. This is the dedicated OS-temporary notes directory created above,
+Windows. Write the private `CAP-DC-01` row into that note between `orient` and
+`activate`. This is the dedicated OS-temporary notes directory created above,
 outside both attempt parents, both the original and reset launcher directories,
 the curriculum checkout, and every business repository. Record the note's
 absolute path, both attempts'

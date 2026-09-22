@@ -528,6 +528,71 @@ assert.match(
   /LF will be replaced by CRLF[\s\S]{0,300}core\.autocrlf=true[\s\S]{0,500}(?:exit code|checkpoint)/i,
   "Lab 2 recovery must explain non-failing autocrlf checkpoint warnings",
 );
+const labsReadme = read("labs/README.md");
+assert.doesNotMatch(
+  lab2,
+  /private curriculum (?:clone|repository)/,
+  "Lab 2 must not call the public course a private curriculum clone or repository",
+);
+assert.doesNotMatch(
+  labsReadme,
+  /private curriculum (?:clone|repository)/,
+  "labs/README.md must not call the public course a private curriculum clone or repository",
+);
+assert.match(
+  lab2,
+  /public `deftai\/directive-training` checkout is a valid\s+`DIRECTIVE_TRAINING_ROOT`/,
+  "Lab 2 must say the public checkout is a valid DIRECTIVE_TRAINING_ROOT",
+);
+assert.match(
+  lab2,
+  /Do not point `LAB_ROOT` at the curriculum\s+checkout/,
+  "Lab 2 must keep DIRECTIVE_TRAINING_ROOT apart from LAB_ROOT",
+);
+assert.match(
+  lab2,
+  /`accept` prints `module_02_accept=PASS` only after every row below holds/,
+  "Lab 2 must keep the helper-PASS claim",
+);
+const helperPassSection = lab2.slice(
+  lab2.indexOf("`accept` prints `module_02_accept=PASS`"),
+  lab2.indexOf("## Evidence bundle"),
+);
+assert.ok(helperPassSection.includes("directive --version"), "helper-PASS command list must include version");
+assert.ok(helperPassSection.includes("doctor --full --project-root ."), "helper-PASS command list must include doctor");
+assert.ok(helperPassSection.includes("toolchain:check --consumer --project-root ."), "helper-PASS command list must include toolchain");
+assert.ok(helperPassSection.includes("git diff --quiet"), "helper-PASS command list must include Git cleanliness");
+assert.ok(helperPassSection.includes("git remote"), "helper-PASS command list must include empty remote");
+assert.doesNotMatch(helperPassSection, /Written chooser/, "helper-PASS table must not list written chooser rows");
+assert.doesNotMatch(helperPassSection, /Recovery decision drill/, "helper-PASS table must not list the recovery drill");
+assert.match(
+  lab2,
+  /Module 2's inspection path for O2\.1, O2\.3, and O2\.4/,
+  "written chooser/anatomy/recovery must stay on the Module 2 inspection path",
+);
+assert.match(
+  lab2,
+  /helper PASS does not attest them/,
+  "Hint 3 must not attest written rows from helper PASS",
+);
+assert.match(
+  lab2,
+  /passed as `module_02_accept=PASS`/,
+  "Done statement must treat helper PASS as the executable re-read",
+);
+const acceptAttempt = initHelper.match(/export function acceptAttempt[\s\S]*?\nexport function archiveAttempt/)?.[0] ?? "";
+assert.ok(acceptAttempt.includes('return "PASS"'), "acceptAttempt must remain the executable PASS re-read");
+assert.doesNotMatch(acceptAttempt, /evidence\.md/, "acceptAttempt must not become a token-presence gate on evidence.md");
+const bannerPre = "Pre-cutover: none -- project is on the current vBRIEF document model.";
+const bannerMig = "xBrief migration: none -- xbrief active, vbrief removed.";
+for (const [label, content] of [
+  ["Lab 2", lab2],
+  ["Module 2", module2],
+  ["Lab 2 solution", lab2Solution],
+]) {
+  assert.ok(content.includes(bannerPre), label + " must quote the pre-cutover banner");
+  assert.ok(content.includes(bannerMig), label + " must quote the xBrief migration banner");
+}
 assert.match(lab2, /registry=https:\/\/registry\.npmjs\.org\//, "Lab 2 must show the public-registry npm config it writes");
 assert.match(
   lab2,

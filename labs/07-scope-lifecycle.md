@@ -166,6 +166,24 @@ Open `../evidence/proposed-preflight.json` relative to `lab_root`. Confirm:
 - both command outputs name the proposed/active boundary; and
 - the file was written before the recorded promotion.
 
+The pinned 0.119.5 proposed-preflight stderr is:
+
+```text
+xBRIEF is in xbrief/proposed/ -- only xbrief/active/ (or legacy vbrief/active/) is eligible for implementation.
+  Expected: `task xbrief:preflight -- xbrief/active/<story>.xbrief.json` (legacy: `task vbrief:preflight -- <path>`).
+  Run `task scope:activate -- xbrief/proposed/2026-01-15-fictional-delivery.xbrief.json` (or legacy `task vbrief:activate -- {path}`) before spawning an implementation agent.
+```
+
+Classify that output:
+
+- The eligibility clause is correct: proposed work is not active.
+- The next-command line is `ACTIVATE_HINT`. It substitutes the rejected proposed path into a
+  pending-only verb, so it is inapplicable from `proposed/`.
+
+Keep the lab's next move as `task deft:scope:promote` on the proposed file, then
+`task deft:scope:activate` on the pending file. Do not follow the printed activate-on-proposed
+hint.
+
 This is **O7.1**. Do not reduce the result to “a command failed”; explain the authorization
 fact it detected.
 
@@ -339,7 +357,7 @@ versions, lifecycle filenames, statuses, and diagnostics intact.
 
 | Symptom | Interpretation | Recovery |
 | --- | --- | --- |
-| Proposed engine preflight exits `1` | Expected O7.1 behavior | Preserve it; the run continues through governed transitions. |
+| Proposed engine preflight exits `1` | Expected O7.1 behavior. The eligibility clause is correct (proposed is not active). The next-command line is `ACTIVATE_HINT` substituting the rejected proposed path into a pending-only verb, so it is inapplicable from `proposed/`. | Preserve the failure. Promote the proposed file, then activate the pending file. Do not run activate on the proposed path. |
 | Task failure exit differs from `201` | Task version or platform may wrap the child differently | Require nonzero and retain the Task version; keep engine exit `1` as the pinned contract. |
 | Guard reports changed fixture or pin | Supplied boundary drifted | Preserve the attempt; reset from the original course helper. |
 | Guard reports a remote | The no-remote boundary is broken | Do not let the helper repair it. Preserve the config and use a fresh attempt. |

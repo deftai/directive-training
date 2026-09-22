@@ -1,0 +1,325 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #56",
+    "updated": "2026-09-22T01:03:24Z"
+  },
+  "plan": {
+    "title": "Passing verify:ac still prints 0 verified, 1 unverifiable with no course explanation",
+    "status": "running",
+    "narratives": {
+      "Description": "Passing verify:ac still prints 0 verified, 1 unverifiable with no course explanation",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/56",
+      "Overview": "## Situation\n\nOn a passing Lab 11 literal run and a passing capstone `close`, `verify:ac` printed:\n\n```text\nverify:ac passed (#3284) (0 verified, 1 unverifiable) [rung=derived]\nverify:ac clause walk (#3323): 0 verified, 1 unverifiable, 0 failed\n  [unverifiable] clause 1 @ (no path): The supplied focused tests and work-items CLI pass for add, complete, summary, invalid-input, and empty-collection cases without mutating input collections. — no artifact path bound\nLiteral acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim\n```\n\nModule 11 and the capstone teach that literal acceptance is the stored commands running verbatim and that a PASS is the required signal. They never define `verified` vs `unverifiable` clauses, `#3284`, `#3323`, or “no artifact path bound.”\n\nThe same closeout also prints `AC-pass bank checkpoint required (finalize-on-green)` and `unbounded budget — dual-stop still applies`. Dual-stop was taught in Module 9 for design-critique, not for acceptance-command banking.\n\n## Pain\n\nI finished the capstone with `closeout.json` `gate.status: local_pass` and still could not tell whether “0 verified, 1 unverifiable” meant a leftover defect. A mid-level engineer is being trained to treat command output as evidence. Unexplained “unverifiable” on a required passing gate makes the evidence look incomplete.\n\nThis is the same class of first-live-output surprise as Lab 2’s `vBRIEF document model` line: the course just taught a clean model, then the CLI emits a different vocabulary.\n\n## Proposed fix\n\nIn Lab 11 and the capstone, quote this PASS fragment and classify it:\n\n- the two stored npm commands ran and exited 0; that is the literal-acceptance proof\n- `unverifiable` here means an acceptance sentence has no bound artifact path, not that the focused tests failed\n- AC-pass banking and dual-stop lines are upstream 0.119.5 diagnostics; they are not capstone closeout axes\n\nAlternatively, bind a path on the fixture acceptance clause so a passing learner run reports `1 verified, 0 unverifiable`.\n\nOS: macOS Darwin 25.6.0 arm64  \nShell: zsh 5.9  \nDirective: 0.119.5  \nSurfaces: Lab 11 `literal.json`, capstone `closeout.json` currentHeadGate stdout\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "Quote Lab 11 `verify:ac` PASS stdout beside Task 3 / Literal acceptance commands, using Lab 11 clause 1 text. Quote capstone PASS stdout beside literal/close, using the capstone work-items clause 1 text. Share the classification bullets. Keep the two stored npm commands as the literal-acceptance proof.",
+        "status": "proposed",
+        "id": "clause:1"
+      },
+      {
+        "title": "Classify `unverifiable` here as an acceptance sentence with no bound artifact path, not as a failed focused test. Point learners at `literal.json.literalAcceptance.stdout` and `closeout.json.gate.currentHeadGate.stdout`.",
+        "status": "proposed",
+        "id": "clause:2"
+      },
+      {
+        "title": "Classify `[rung=derived]` and the AC-pass-bank dual-stop line as upstream 0.119.5 diagnostics, not capstone closeout axes.",
+        "status": "proposed",
+        "id": "clause:3"
+      },
+      {
+        "title": "Delete the bind-a-path alternative from this next-build contract.",
+        "status": "proposed",
+        "id": "clause:4"
+      },
+      {
+        "title": "After the per-surface quotes land, lock them in `scripts/verify-module-11.mjs` and `scripts/verify-capstone.mjs`, and classify the same fragment in `solutions/lab-11-testing-gates-and-evidence.md` and `solutions/capstone-end-to-end.md`. Reuse Lab 2's quoted-evidence fence language.",
+        "status": "proposed",
+        "id": "clause:5"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/56",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #56: Passing verify:ac still prints 0 verified, 1 unverifiable with no course explanation"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 5 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Quote Lab 11 `verify:ac` PASS stdout beside Task 3 / Literal acceptance commands, using Lab 11 clause 1 text. Quote capstone PASS stdout beside literal/close, using the capstone work-items clause 1 text. Share the classification bullets. Keep the two stored npm commands as the literal-acceptance proof.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Classify `unverifiable` here as an acceptance sentence with no bound artifact path, not as a failed focused test. Point learners at `literal.json.literalAcceptance.stdout` and `closeout.json.gate.currentHeadGate.stdout`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Classify `[rung=derived]` and the AC-pass-bank dual-stop line as upstream 0.119.5 diagnostics, not capstone closeout axes.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Delete the bind-a-path alternative from this next-build contract.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "After the per-surface quotes land, lock them in `scripts/verify-module-11.mjs` and `scripts/verify-capstone.mjs`, and classify the same fragment in `solutions/lab-11-testing-gates-and-evidence.md` and `solutions/capstone-end-to-end.md`. Reuse Lab 2's quoted-evidence fence language.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because a passing verify:ac still prints 0 verified, 1 unverifiable with no course explanation.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the ambiguous n=1/n=3 ask with N=1 on each of 49-56; this is a closed identity recut of quoting the PASS fragment in Lab 11 and the capstone\npain: P1\nP1: 0.119.5 verify-ac/clauses.js marks empty artifact_path unverifiable with detail no artifact path bound; Lab 11, Module 11, capstone lab, curriculum capstone, and assessments/capstone-end-to-end.md never define unverifiable, clause walk, #3284, #3323, or AC-pass bank\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5768903433,
+          "html_url": "https://github.com/deftai/directive-training/issues/56#issuecomment-5768903433",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:23:41Z",
+          "updated_at": "2026-09-21T23:23:41Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh critic, open critique, spend N=1. Ceiling 5768903433. Reads pinned to 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23. Process-only; dest tree unmutated.\n\n## Verdict\n\nQuoting the live `verify:ac` PASS stdout in Lab 11 and the capstone can bind. The body still needs two recuts of that identity: one quote per surface, and deletion of the bind-a-path alternative. The alternative's success criterion is false on 0.119.5.\n\nFinding census: **0 `blocks-the-design`**, **3 `sharpens-framing`**, **2 `footnote`**.\n\n## Re-verification of the triage anchors\n\nStop 1 P1 holds. Learner grep over `curriculum/`, `labs/`, `assessments/`, `solutions/`, and `references/GLOSSARY.md` has no `unverifiable`, `clause walk`, `#3284`, `#3323`, or `AC-pass bank`. The only dest hit for advisory/unverifiable is maintainer `references/SOURCE-NOTES.md` (inherited-scope clause walk on this training repo, not Lab 11).\n\n`@deftai/directive-core@0.119.5` `dist/verify-ac/clauses.js` `walkOne`: empty `artifact_path` returns `outcome: \"unverifiable\"`, `detail: \"no artifact path bound\"`, `adjudicable: false`. `walkAcceptanceClauses.ok` is still true when `failed === 0` and no adjudicable row is unverified. `relabelVerifyAcPassLead` then prints `verify:ac passed (#3284) (0 verified, 1 unverifiable) [rung=derived]`. `maybeAttachAcPassBank` appends `AC-pass bank checkpoint required (finalize-on-green) (#3285)` and `unbounded budget — dual-stop still applies; bank is optional discipline`.\n\nThrowaway `/tmp` probe of `walkAcceptanceClauses` against the fixture Acceptance sentences:\n\n| case | verified | unverifiable | failed | ok | detail |\n| --- | --- | --- | --- | --- | --- |\n| Lab 11 unbound | 0 | 1 | 0 | true | no artifact path bound |\n| capstone unbound | 0 | 1 | 0 | true | no artifact path bound |\n| Lab 11 bound behavioral | 0 | 1 | 0 | true | cannot evaluate behavioral claim against shipped artifact |\n| capstone bound behavioral | 0 | 1 | 0 | true | cannot evaluate behavioral claim against shipped artifact |\n| existence claim bound | 1 | 0 | 0 | true | shipped artifact exists |\n\nLab 11 clause 1 text: `The focused test and numeric-summary CLI pass for an ordinary sample and an empty sample.` Capstone clause 1 text: `The supplied focused tests and work-items CLI pass for add, complete, summary, invalid-input, and empty-collection cases without mutating input collections.` Both fixtures stamp `plan.acceptance.source_rung: \"derived\"` with stated commands and `none_stated: false`. Neither fixture declares `plan.metadata.swarm.file_scope` (they use `plan.metadata.file_scope`).\n\nHelpers print only `\"PASS\"` to the console; the fragment lives in `literal.json.literalAcceptance.stdout` (Lab 11) and `closeout.json.gate.currentHeadGate.stdout` (capstone `task check` → `literal` → `verify:ac`).\n\n## Findings\n\n### F1 — sharpens-framing: quote each surface's clause 1 text\n\n**Evidence.** The issue body gives one fenced PASS fragment whose `[unverifiable] clause 1` line is the capstone work-items Acceptance sentence. Lab 11's `story()` uses a different sentence (probe table). Lab 2 already locks live quoted evidence to what a pin-matched run prints (`scripts/verify-modules-2-3.mjs` `canonical-vendored-npm-signpost`).\n\n**Failure mode.** Pasting that one fence into Lab 11 teaches a clause 1 line the Lab 11 runner cannot emit. Learners are trained to treat command output as evidence; a mismatched quote is false evidence.\n\n**Disposition.** Quote Lab 11 stdout beside Task 3 / Literal acceptance commands, and capstone stdout beside literal/close. Share the classification bullets. Keep the two npm commands as the literal-acceptance proof.\n\n### F2 — sharpens-framing: drop the bind-a-path alternative\n\n**Evidence.** The body's alternative promises `1 verified, 0 unverifiable` after binding a path. The probe's bound-behavioral rows stay `0 verified, 1 unverifiable` because these Acceptance sentences are behavioral (#4240 in `walkOne`). `1 verified` in the probe required rewriting the clause into an existence claim. Binding also reads `plan.metadata.swarm.file_scope` (`readDeclaredArtifactScope` / `#4008`); the fixtures have no such field. `clauseWalkBlocks` already treats a green executable run as the oracle for an all-unverifiable set (#3497 / #3826).\n\n**Failure mode.** Harvest that implements the alternative will still print `unverifiable`, or will recut the Acceptance sentence into a file-existence claim and teach the wrong oracle. Adding `swarm.file_scope` would also mint a second declared-scope identity beside the course `file_scope` the helpers fingerprint.\n\n**Disposition.** Delete the alternative from the next-build contract. The quoting identity is the one that matches the engine.\n\n### F3 — sharpens-framing: lock the quotes the way Lab 2 locked the doctor signpost\n\n**Evidence.** Lab 2's first-live-output recut quotes the pin-matched warning and fails the content contract if the three learner files drift (`verify-modules-2-3.mjs`). `verify-module-11.mjs` and `verify-capstone.mjs` currently lock helper verbs, evidence filenames, and `verify:ac` as a phrase; they do not lock `unverifiable`, `no artifact path bound`, or the two clause 1 sentences. Explained solutions (`solutions/lab-11-testing-gates-and-evidence.md`, `solutions/capstone-end-to-end.md`) also omit the fragment.\n\n**Failure mode.** A later pin or Acceptance-sentence edit leaves a stale quote in the lab while the helper still prints `PASS`. That is the #19 rot shape: documented live output that the pinned engine no longer emits, or emits differently.\n\n**Disposition.** After the per-surface quotes land, lock them in `verify-module-11.mjs` and `verify-capstone.mjs`, and classify the same fragment in the two explained solutions. Reuse Lab 2's \"quoted evidence, not a step to type\" fence language.\n\n### F4 — footnote: inspect retained JSON stdout\n\nLab 11 `gates-lab.mjs` `main` for `literal` returns `JSON.stringify(finalStatus)` (`\"PASS\"`). Capstone `close` does the same. Point the quote at `literal.json` / `closeout.json` fields the issue already names, so learners do not hunt the console.\n\n### F5 — footnote: classify `rung=derived` and the banking dual-stop line with the same bullets\n\n`[rung=derived]` is the fixture-stamped `source_rung`, printed by `annotate` / `relabelVerifyAcPassLead`. The banking line's \"dual-stop\" is `evaluateAcPassBanking` note text (#3285), a different object from Module 9's design-critique dual stop. The body's third classify bullet already covers banking; fold `rung=derived` into that classification so it is not a leftover vocabulary surprise.\n\n## Existing mechanisms\n\n- Lab 2 quoted-evidence fences plus `verify-modules-2-3.mjs` lock (first-live-output class).\n- Module 11: \"A safety refusal is not a product failure and must not be relabeled as one\" (classify CLI vocabulary; keep the gate).\n- Lab 11 / capstone \"Literal acceptance commands\" sections already quote the two stored npm commands.\n- GLOSSARY **literal acceptance**: stored commands ran verbatim.\n- Engine: `clauseWalkBlocks` / `#3497` — green command run is the product-first oracle; unbound clauses stay advisory.\n\n## Road not taken\n\nQuoting versus binding a path. Binding would silence the count line only after the Acceptance sentence became an existence or quoted-token claim, and after `plan.metadata.swarm.file_scope` appeared on the fixture. That recuts the taught contract and the declared-scope identity. What would flip: a `walkOne` change that marks a bound behavioral clause `verified` (reverses #4240), or an operator choice to rewrite Acceptance as existence. Neither is this recut.\n\n## Injection / swarm lens\n\nN/A on quoting. It fires on F2's dropped alternative: `swarm.file_scope` is the only path `walkOne` will read (#3835). Putting that field on a training fixture that already fingerprints `plan.metadata.file_scope` changes declared-scope identity. Quoting leaves that surface untouched.\n\n",
+          "id": 5769062742,
+          "html_url": "https://github.com/deftai/directive-training/issues/56#issuecomment-5769062742",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:37:01Z",
+          "updated_at": "2026-09-21T23:37:01Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nA passing verify:ac still prints 0 verified, 1 unverifiable with no course explanation. Confirming this map would quote each surface's live PASS stdout beside Lab 11 Task 3 and capstone literal/close, classify unverifiable as no bound artifact path, drop the bind-a-path alternative, lock those quotes on the existing Module 11 and capstone verifiers, and classify the same fragment in the two explained solutions.\n\nParent forward verdict: P1 holds; the recut binds once each surface quotes the fragment its runner emits.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5768903433 and these takes; the evidence is critic 5769062742.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5769062742\nsupersedes: 5768903433\nTarget-digest: sha256:bd4a5adb3478878d156df9b279891596e28245f3df9f4643799056092604b211\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### quote each surface's clause 1 text\ntake: accept-into-contract\ncritic: 5769062742\nheading: quote each surface's clause 1 text\n\n### drop the bind-a-path alternative\ntake: accept-into-contract\ncritic: 5769062742\nheading: drop the bind-a-path alternative\n\n### lock the quotes the way Lab 2 locked the doctor signpost\ntake: accept-into-contract\ncritic: 5769062742\nheading: lock the quotes the way Lab 2 locked the doctor signpost\n\n### footnote — inspect retained JSON stdout\ntake: accept-into-contract\ncritic: 5769062742\nheading: inspect retained JSON stdout\n\n### footnote — classify `rung=derived` and the banking dual-stop line with the same bullets\ntake: accept-into-contract\ncritic: 5769062742\nheading: classify `rung=derived` and the banking dual-stop line with the same bullets\n\nrelieves: P1\naudit:pain-P1 sha=19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23 pointer=comment:5769062742 reading=asserted\n\n## Bound remedy\n\n- Quote Lab 11 `verify:ac` PASS stdout beside Task 3 / Literal acceptance commands, using Lab 11 clause 1 text. Quote capstone PASS stdout beside literal/close, using the capstone work-items clause 1 text. Share the classification bullets. Keep the two stored npm commands as the literal-acceptance proof.\n- Classify `unverifiable` here as an acceptance sentence with no bound artifact path, not as a failed focused test. Point learners at `literal.json.literalAcceptance.stdout` and `closeout.json.gate.currentHeadGate.stdout`.\n- Classify `[rung=derived]` and the AC-pass-bank dual-stop line as upstream 0.119.5 diagnostics, not capstone closeout axes.\n- Delete the bind-a-path alternative from this next-build contract.\n- After the per-surface quotes land, lock them in `scripts/verify-module-11.mjs` and `scripts/verify-capstone.mjs`, and classify the same fragment in `solutions/lab-11-testing-gates-and-evidence.md` and `solutions/capstone-end-to-end.md`. Reuse Lab 2's quoted-evidence fence language.\n\n",
+          "id": 5769137865,
+          "html_url": "https://github.com/deftai/directive-training/issues/56#issuecomment-5769137865",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:43:40Z",
+          "updated_at": "2026-09-21T23:43:40Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 fresh critic. Pain-audit of successor lean 5769137865. Ceiling 5769137865 inclusive. Dispatch SHA `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`. Process-only. File reads via `git show` at that SHA. Throwaway `/tmp` probes only.\n\n## Verdict\n\nSuccessor lean 5769137865's `relieves: P1` holds. Bound-remedy covers P1 as Stop 1 named the harm. 0.119.5 marks an empty `artifact_path` `unverifiable` with detail `no artifact path bound`, and the course leaves that PASS fragment unexplained. The harvest quotes each surface's live PASS stdout at Lab 11 Task 3 and capstone literal/close, classifies `unverifiable` as an unbound acceptance sentence, classifies the AC-pass-bank dual-stop line as an upstream 0.119.5 diagnostic, deletes the bind-a-path alternative, and locks the quotes on the Lab 2 path.\n\n`scanPainCites` emits one `relieves` disposition for `P1`. `classifyPosition` on that line is prose. The rejected set is empty.\n\nFinding census: **0 `blocks-the-design`**, **0 `sharpens-framing`**, **1 `footnote`**.\n\n## Re-verification\n\nChecks at dispatch SHA `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`. In-envelope input is the issue body plus comments `5768903433`, `5769062742`, and `5769137865`. Tables on 5769062742 were re-run.\n\n| Anchor | Result | Check |\n|---|---|---|\n| Stop 1 `pain: P1` | holds | `scanPainList` on write-back 5768903433 → present, ids P1, no duplicates, not malformed |\n| Engine unbound clause | holds | `@deftai/directive-core@0.119.5` `walkAcceptanceClauses` on the Lab 11 and capstone fixture sentences with empty `artifact_path`: verified 0, unverifiable 1, failed 0, `ok` true, detail `no artifact path bound` |\n| Bind-a-path still unverifiable | holds | the same sentences with a declared shipped path stay unverifiable, detail `cannot evaluate behavioral claim against shipped artifact …`; `1 verified` required an existence-claim rewrite |\n| Course vocabulary gap | holds | `git grep` at SHA over `curriculum/`, `labs/`, `assessments/`, `solutions/`, `references/GLOSSARY.md`, `scripts/` for `unverifiable`, `clause walk`, `AC-pass bank`, `no artifact path bound` is empty on learner-facing files |\n| PASS lead | holds | `relabelVerifyAcPassLead` + `formatClauseWalkMessage`: `verify:ac passed (#3284) (0 verified, 1 unverifiable) [rung=derived]` and `verify:ac clause walk (#3323): 0 verified, 1 unverifiable, 0 failed` |\n| Banking notes | holds | `ac-pass-banking.js` notes `AC-pass bank checkpoint required (finalize-on-green) (#3285)` and `unbounded budget — dual-stop still applies; bank is optional discipline` |\n| Bound-remedy harvest | 5 items | `parseListItems` on `## Bound remedy` |\n| `scanPainCites` | well-formed | one cite `{painId: P1, disposition: relieves}`; one disposition; `evaluateBoundRemedyCites` ok when `coveredIds` is P1 |\n| Fixtures | `plan.metadata.file_scope` only | `git grep swarm.file_scope` on both lab fixtures is empty |\n\n## Findings\n\n### F1 — footnote: three Stop 1 surfaces stay silent after this harvest\n\nStop 1 listed Lab 11, Module 11, capstone lab, curriculum capstone, and `assessments/capstone-end-to-end.md` as the never-define set. The Bound-remedy names Lab 11 Task 3, capstone literal/close, `scripts/verify-module-11.mjs`, `scripts/verify-capstone.mjs`, and the two explained solutions. Module 11 lesson, curriculum capstone, and the assessment remain without those tokens at this SHA. The learner meets the fragment at the two quoted live-output sites. This footnote leaves the harvested list unchanged.\n\n## Existing mechanisms\n\nLab 2 already fences live CLI output as quoted evidence and locks it in `scripts/verify-modules-2-3.mjs`. Bound-remedy item 5 reuses that path.\n\n",
+          "id": 5769267538,
+          "html_url": "https://github.com/deftai/directive-training/issues/56#issuecomment-5769267538",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:57:27Z",
+          "updated_at": "2026-09-21T23:57:27Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5769267538 is footnote-only. Bind remains successor lean 5769137865. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5769267538\nsupersedes: 5769137865\n\n",
+          "id": 5769302511,
+          "html_url": "https://github.com/deftai/directive-training/issues/56#issuecomment-5769302511",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:58Z",
+          "updated_at": "2026-09-22T00:01:58Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Empty `artifact_path` is `unverifiable` / `no artifact path bound` and `ok` is still true | verified | `@deftai/directive-core@0.119.5` `walkAcceptanceClauses` on Lab 11 and capstone fixture sentences |\n| Binding a path on those behavioral sentences still prints unverifiable | verified | throwaway `/tmp` probe; `1 verified` required an existence-claim rewrite |\n| Learner-facing course files never define unverifiable / clause walk / AC-pass bank | verified | `git grep` over curriculum, labs, assessments, solutions, GLOSSARY |\n| Bound-remedy quotes each surface's PASS fragment and drops the bind-a-path alternative | verified | harvest; pain-audit 5769267538 footnote-only |\n\n",
+          "id": 5769302773,
+          "html_url": "https://github.com/deftai/directive-training/issues/56#issuecomment-5769302773",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:02:00Z",
+          "updated_at": "2026-09-22T00:02:00Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nLab 11 and the capstone each quote the verify:ac PASS fragment their runner emits. Unverifiable means no bound artifact path. The bind-a-path alternative is dropped. The existing Module 11 and capstone verifiers lock those quotes.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5769137865\nverified-claims table 5769302773\npain-audit 5769267538\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5769303078,
+          "html_url": "https://github.com/deftai/directive-training/issues/56#issuecomment-5769303078",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:02:03Z",
+          "updated_at": "2026-09-22T00:02:03Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5532819215,
+        "origin": "deftai/directive-training#56",
+        "id": "github.issue.5532819215"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "bd4a5adb3478878d156df9b279891596e28245f3df9f4643799056092604b211"
+      }
+    },
+    "id": "github.issue.5532819215",
+    "updated": "2026-09-22T01:03:24Z"
+  }
+}

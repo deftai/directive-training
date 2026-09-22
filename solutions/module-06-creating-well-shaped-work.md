@@ -210,7 +210,7 @@ Lab 7 Task 5 checks this exact artifact. Retain all four fields:
 
 | Field | Worked value |
 | --- | --- |
-| Artifact path | `<lab root>/xbrief/proposed/2026-01-15-northstar-delayed-route-preview.xbrief.json` |
+| Artifact path | `<lab root>/xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json` |
 | Command | `directive xbrief:verify -- --format json --out <artifact path> --style scope --project-root <lab root>` |
 | Exit code | `0` |
 | Result | `OK xbrief:verify format=json`, naming the checked path and noting that verify is not a lifecycle move |
