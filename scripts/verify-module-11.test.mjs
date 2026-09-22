@@ -158,7 +158,34 @@ test("verifier rejects a lab page that omits quality-record completed tokens", (
     "quality-record.json only",
     "the quality file",
   ));
-  assert.throws(() => verifyModule11(root), /quality-record token/);
+  assert.throws(() => verifyModule11(root), /Task 4 field table completed column drifted|Task 4 completed quality-record example drifted/);
+});
+
+test("verifier rejects Task 4 table drift that still has tokens in the JSON example", () => {
+  const root = changedCopy("labs/11-testing-gates-and-evidence.md", (body) => {
+    const after = body.replace(
+      "| `status` | `INCOMPLETE` | `COMPLETE` |",
+      "| `status` | `INCOMPLETE` | `DONE` |",
+    );
+    assert.ok(after.includes('"status": "COMPLETE"'), "JSON example must still contain COMPLETE");
+    return after;
+  });
+  assert.throws(() => verifyModule11(root), /Task 4 field table completed column drifted/);
+});
+
+test("verifier rejects Task 4 JSON example drift that still has tokens in the field table", () => {
+  const root = changedCopy("labs/11-testing-gates-and-evidence.md", (body) => {
+    const after = body.replace(
+      '  "status": "COMPLETE",',
+      '  "status": "DONE",',
+    );
+    assert.ok(
+      after.includes("| `status` | `INCOMPLETE` | `COMPLETE` |"),
+      "field table must still contain COMPLETE",
+    );
+    return after;
+  });
+  assert.throws(() => verifyModule11(root), /Task 4 completed quality-record example drifted/);
 });
 
 test("verifier rejects a missing Module 11 outcome mapping", () => {

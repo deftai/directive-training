@@ -75,6 +75,88 @@ function requireModule11Link(content, label) {
   assert.match(content, /\]\([^)]*11-testing-gates-and-evidence\.md(?:#[^)]*)?\)/, `${label} is missing Module 11 navigation`);
 }
 
+const expectedQualityRecord = Object.freeze({
+  schema: "3ci.training.module11.quality-record.v1",
+  status: "COMPLETE",
+  evidence: Object.freeze({
+    red: "EXPECTED_FAILURE",
+    green: "PASS",
+    refactor: "PASS",
+    literalAcceptance: "PASS",
+    forwardCoverage: "PASS",
+    firstFailingSubcheck: "quality:record",
+    repair: "quality-record.json only",
+    gateDefinitionsUnchanged: true,
+  }),
+});
+const expectedQualityRecordStarter = Object.freeze({
+  status: "INCOMPLETE",
+  evidence: Object.freeze({
+    red: "",
+    green: "",
+    refactor: "",
+    literalAcceptance: "",
+    forwardCoverage: "",
+    firstFailingSubcheck: "",
+    repair: "",
+    gateDefinitionsUnchanged: false,
+  }),
+});
+
+function backtickCell(cell) {
+  const match = cell.trim().match(/^`([^`]*)`$/);
+  assert.ok(match, `Task 4 field table cell must be one backtick token: ${cell}`);
+  return match[1];
+}
+
+function tableCellValue(cell) {
+  const inner = backtickCell(cell);
+  if (inner === '""') return "";
+  if (inner === "true") return true;
+  if (inner === "false") return false;
+  return inner;
+}
+
+function assignQualityRecordField(record, field, value) {
+  if (field === "status") {
+    record.status = value;
+    return;
+  }
+  const prefix = "evidence.";
+  assert.ok(field.startsWith(prefix), `Task 4 field table has an unexpected field: ${field}`);
+  record.evidence[field.slice(prefix.length)] = value;
+}
+
+function parseTask4QualityRecordTable(page) {
+  const header = "| Field | Starter | Required completed value |";
+  const headerIndex = page.indexOf(header);
+  assert.ok(headerIndex >= 0, `${lab11} is missing the Task 4 quality-record field table header`);
+  const lines = page.slice(headerIndex).split("\n");
+  assert.match(lines[1] ?? "", /^\| --- \| --- \| --- \|$/, `${lab11} Task 4 field table is missing its separator row`);
+  const starter = { evidence: {} };
+  const completed = { evidence: {} };
+  let rowCount = 0;
+  for (const line of lines.slice(2)) {
+    if (!line.startsWith("|")) break;
+    const cells = line.split("|").slice(1, -1);
+    assert.equal(cells.length, 3, `${lab11} Task 4 field table row must have three cells: ${line}`);
+    const field = backtickCell(cells[0]);
+    assignQualityRecordField(starter, field, tableCellValue(cells[1]));
+    assignQualityRecordField(completed, field, tableCellValue(cells[2]));
+    rowCount += 1;
+  }
+  assert.equal(rowCount, 9, `${lab11} Task 4 field table must publish nine closed field rows`);
+  return { starter, completed };
+}
+
+function parseTask4QualityRecordExample(page) {
+  const task4 = page.match(/### Task 4 —[\s\S]*?(?=\n## Checkpoints\n)/)?.[0] ?? "";
+  assert.ok(task4, `${lab11} is missing the Task 4 stage`);
+  const fence = task4.match(/```json\n([\s\S]*?)\n```/)?.[1];
+  assert.ok(fence, `${lab11} is missing the Task 4 completed quality-record example`);
+  return JSON.parse(fence);
+}
+
 /** Read-only Module 11 lesson, fixture, gate-integrity, evidence, and future-module verifier. */
 export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.url))) {
   assert.equal(typeof root, "string", "repository root must be a path string");
@@ -129,19 +211,22 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
     assert.ok(labProse.includes(path), `${lab11} is missing evidence artifact: ${path}`);
   }
   const labPage = content.get(lab11);
-  for (const phrase of [
-    "INCOMPLETE",
-    "COMPLETE",
-    "EXPECTED_FAILURE",
-    "literalAcceptance",
-    "forwardCoverage",
-    "firstFailingSubcheck",
-    "quality:record",
-    "quality-record.json only",
-    "gateDefinitionsUnchanged",
-  ]) {
-    assert.ok(labPage.includes(phrase), `${lab11} is missing quality-record token: ${phrase}`);
-  }
+  const tableRecords = parseTask4QualityRecordTable(labPage);
+  assert.deepEqual(
+    tableRecords.starter,
+    expectedQualityRecordStarter,
+    `${lab11} Task 4 field table starter column drifted`,
+  );
+  assert.deepEqual(
+    tableRecords.completed,
+    { status: expectedQualityRecord.status, evidence: { ...expectedQualityRecord.evidence } },
+    `${lab11} Task 4 field table completed column drifted`,
+  );
+  assert.deepEqual(
+    parseTask4QualityRecordExample(labPage),
+    expectedQualityRecord,
+    `${lab11} Task 4 completed quality-record example drifted`,
+  );
   assert.ok(
     labPage.includes("The focused test and numeric-summary CLI pass for an ordinary sample and an empty sample."),
     `${lab11} must quote Lab 11 verify:ac clause 1 text`,
