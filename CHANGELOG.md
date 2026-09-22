@@ -37,7 +37,7 @@
   literals / `firstFailingSubcheck: quality:record` / `repair:
   quality-record.json only` / `gateDefinitionsUnchanged: true`). Hint 4 and the
   final-mismatch recovery point at that table. `scripts/verify-module-11.mjs`
-  requires the Task 4 field table and completed JSON example as one exact contract (#54).
+  requires the Task 4 field table and completed JSON example as one exact CRLF-safe contract (#54).
 - Capstone lab Task 1 now pauses after `orient` for the command-free
   `CAP-DC-01` row in `$CAPSTONE_ASSESSMENT_NOTE` / `$CapstoneAssessmentNote`
   before `activate`. Helper PASS remains the fixture transition; the private

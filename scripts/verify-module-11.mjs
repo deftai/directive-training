@@ -103,6 +103,10 @@ const expectedQualityRecordStarter = Object.freeze({
   }),
 });
 
+function normalizeNewlines(text) {
+  return text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+}
+
 function backtickCell(cell) {
   const match = cell.trim().match(/^`([^`]*)`$/);
   assert.ok(match, `Task 4 field table cell must be one backtick token: ${cell}`);
@@ -128,6 +132,7 @@ function assignQualityRecordField(record, field, value) {
 }
 
 function parseTask4QualityRecordTable(page) {
+  page = normalizeNewlines(page);
   const header = "| Field | Starter | Required completed value |";
   const headerIndex = page.indexOf(header);
   assert.ok(headerIndex >= 0, `${lab11} is missing the Task 4 quality-record field table header`);
@@ -150,6 +155,7 @@ function parseTask4QualityRecordTable(page) {
 }
 
 function parseTask4QualityRecordExample(page) {
+  page = normalizeNewlines(page);
   const task4 = page.match(/### Task 4 —[\s\S]*?(?=\n## Checkpoints\n)/)?.[0] ?? "";
   assert.ok(task4, `${lab11} is missing the Task 4 stage`);
   const fence = task4.match(/```json\n([\s\S]*?)\n```/)?.[1];

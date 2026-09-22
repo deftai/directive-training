@@ -188,6 +188,11 @@ test("verifier rejects Task 4 JSON example drift that still has tokens in the fi
   assert.throws(() => verifyModule11(root), /Task 4 completed quality-record example drifted/);
 });
 
+test("verifier accepts CRLF Lab 11 Task 4 markup", () => {
+  const root = changedCopy("labs/11-testing-gates-and-evidence.md", (body) => body.replaceAll("\n", "\r\n"));
+  assert.ok(verifyModule11(root).artifactCount > 25);
+});
+
 test("verifier rejects a missing Module 11 outcome mapping", () => {
   const root = changedCopy("curriculum/modules/11-testing-gates-and-evidence.md", (body) => body.replaceAll("O11.8", "O11.X"));
   assert.throws(() => verifyModule11(root), /missing O11\.8/);
