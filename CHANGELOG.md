@@ -4,6 +4,52 @@
 
 ### Fixed
 
+- Lab 2 helper PASS now matches `acceptAttempt`: the PASS table keeps version,
+  doctor, toolchain, Git cleanliness, ignore, branch, and empty-remote rows, and
+  written chooser, anatomy, and five-field recovery move onto Module 2's
+  inspection path. Goal, Hint 3, and Done attest those written rows by
+  comparison with the explained solution and the evidence bundle.
+  `scripts/verify-modules-2-3.mjs` locks the split (#49).
+- Learner-facing Lab 2, labs README, and capstone Windows setup no longer call
+  the public course a private curriculum clone or repository. Lab 2 names the
+  public `deftai/directive-training` checkout as a valid
+  `DIRECTIVE_TRAINING_ROOT` used only to read the fixture and run the helper,
+  and keeps `LAB_ROOT` as the printed attempt (#50).
+- Lab 2 Task 2, Module 2 §4, and the Lab 2 explained solution quote the live
+  healthy doctor banners `Pre-cutover: none -- project is on the current vBRIEF
+  document model.` and `xBrief migration: none -- xbrief active, vbrief
+  removed.` as expected output, separate from
+  `canonical-vendored-npm-signpost`. The banner's "vBRIEF" is post-pre-cutover
+  document-model state; learner-facing files stay xBRIEF 0.8 (#51).
+- The Module 6 solution Artifact path now uses
+  `2026-01-15-your-proposed-scope.xbrief.json`, matching Lab 7 Task 5 and the
+  Lab 7 explained solution. Walkthrough `plan.id`
+  `northstar.delayed-route-preview` stays. `scripts/verify-module-6.mjs` requires
+  that basename at all four learner sites, including PowerShell `$Authored`
+  (#52).
+- Lab 7 Task 1 quotes the 0.119.5 proposed-preflight stderr, classifies the
+  eligibility clause as correct, classifies the next-command line as
+  `ACTIVATE_HINT` inapplicable from `proposed/`, and keeps promote-then-activate
+  as the next move. The same classification is on the expected-failures recovery
+  cell and one SOURCE-NOTES Module 7 disagreement row (#53).
+- Lab 11 Task 4 publishes the closed `expectedQualityRecord` field table
+  (starter `INCOMPLETE` plus required `COMPLETE` / `EXPECTED_FAILURE` / `PASS`
+  literals / `firstFailingSubcheck: quality:record` / `repair:
+  quality-record.json only` / `gateDefinitionsUnchanged: true`). Hint 4 and the
+  final-mismatch recovery point at that table. `scripts/verify-module-11.mjs`
+  requires the tokens on the lab page (#54).
+- Capstone lab Task 1 now pauses after `orient` for the command-free
+  `CAP-DC-01` row in `$CAPSTONE_ASSESSMENT_NOTE` / `$CapstoneAssessmentNote`
+  before `activate`. Helper PASS remains the fixture transition; the private
+  row is CAP.1 evidence. `scripts/verify-capstone.mjs` fails a single fence of
+  orient then activate under that heading (#55).
+- Lab 11 and the capstone quote their live `verify:ac` PASS stdout, using each
+  surface's clause 1 text, and classify `unverifiable` as no bound artifact
+  path, `[rung=derived]` and the AC-pass-bank dual-stop line as upstream 0.119.5
+  diagnostics. The two stored npm commands remain the literal-acceptance proof.
+  Explained solutions and the Module 11 / capstone verifiers lock the fragments
+  (#56).
+
 - The capstone work-item identifier namespace is now bounded and stated. Both
   worked `addWorkItem` listings in `solutions/capstone-end-to-end.md` and the
   derived CI rehearsal implementation in `scripts/capstone-lab.test.mjs` refuse

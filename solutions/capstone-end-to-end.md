@@ -115,6 +115,22 @@ Expected outer outputs:
 | `green` | `"PASS"` |
 | `focused` | `"PASS"` |
 | `literal` | `"PASS"` |
+
+`literal.json.literalAcceptance.stdout` and `closeout.json.gate.currentHeadGate.stdout` carry
+this quoted PASS fragment. It is quoted evidence, not a step to type:
+
+```text
+verify:ac passed (#3284) (0 verified, 1 unverifiable) [rung=derived]
+verify:ac clause walk (#3323): 0 verified, 1 unverifiable, 0 failed
+  [unverifiable] clause 1 @ (no path): The supplied focused tests and work-items CLI pass for add, complete, summary, invalid-input, and empty-collection cases without mutating input collections. — no artifact path bound
+Literal acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim
+AC-pass bank checkpoint required (finalize-on-green) (#3285)
+unbounded budget — dual-stop still applies; bank is optional discipline
+```
+
+The two stored npm commands are the literal-acceptance proof. `unverifiable` means clause 1
+has no bound artifact path, not a failed focused test. `[rung=derived]` and the AC-pass-bank
+dual-stop line are upstream 0.119.5 diagnostics.
 | `aggregate` | `"EXPECTED_FAILURE"` |
 | `pre-pr` | `"FINDING_RECORDED"` |
 | `review` | `"PASS"` |

@@ -153,6 +153,14 @@ test("verifier rejects Module 12 becoming unavailable under another label", () =
   assert.throws(() => verifyModule11(root), /Module 12 must remain learner-ready/);
 });
 
+test("verifier rejects a lab page that omits quality-record completed tokens", () => {
+  const root = changedCopy("labs/11-testing-gates-and-evidence.md", (body) => body.replaceAll(
+    "quality-record.json only",
+    "the quality file",
+  ));
+  assert.throws(() => verifyModule11(root), /quality-record token/);
+});
+
 test("verifier rejects a missing Module 11 outcome mapping", () => {
   const root = changedCopy("curriculum/modules/11-testing-gates-and-evidence.md", (body) => body.replaceAll("O11.8", "O11.X"));
   assert.throws(() => verifyModule11(root), /missing O11\.8/);

@@ -1,0 +1,325 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #53",
+    "updated": "2026-09-22T01:03:22Z"
+  },
+  "plan": {
+    "title": "Lab 7 proposed preflight tells learners to activate a proposed file, skipping promotion",
+    "status": "running",
+    "narratives": {
+      "Description": "Lab 7 proposed preflight tells learners to activate a proposed file, skipping promotion",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/53",
+      "Overview": "## Situation\n\nModule 7 teaches two separate lifecycle moves:\n\n```text\ntask deft:scope:promote -- xbrief/proposed/<scope>.xbrief.json\ntask deft:scope:activate -- xbrief/pending/<scope>.xbrief.json\n```\n\nLab 7 Task 1 then shows a live proposed preflight failure. On 0.119.5 the pinned engine exit is 1 and the Task wrapper is 201, as documented. The stderr I retained is:\n\n```text\nxBRIEF is in xbrief/proposed/ -- only xbrief/active/ (or legacy vbrief/active/) is eligible for implementation.\n  Expected: `task xbrief:preflight -- xbrief/active/<story>.xbrief.json` (legacy: `task vbrief:preflight -- <path>`).\n  Run `task scope:activate -- xbrief/proposed/2026-01-15-fictional-delivery.xbrief.json` (or legacy `task vbrief:activate -- {path}`) before spawning an implementation agent.\n```\n\nThe command that produced it used `--vbrief-path` against an xBRIEF file:\n\n`xbrief:preflight --vbrief-path xbrief/proposed/2026-01-15-fictional-delivery.xbrief.json`\n\nModule 7 already notes that 0.119.5 help and Task descriptions retain some `vBRIEF` wording. It does not record that the live next-action line tells the learner to **activate a proposed file**, skipping promotion.\n\n## Pain\n\nI am being trained to treat command output as the next safe action. The first fail-closed diagnostic in Lab 7 names a recovery that contradicts the lesson I just read:\n\n- course: promote proposed → pending, then activate pending → running\n- live stderr: activate the proposed path\n\nA mid-level engineer who follows the printed remediation would skip the promotion evidence Lab 7 exists to show. The lab helper continues through promote then activate, so the taught sequence works, but only if the learner ignores the engine’s own next command.\n\nThe `--vbrief-path` flag and `legacy vbrief/active/` text compound the Module 1/2 naming rule that new work uses xBRIEF 0.8.\n\n## Proposed fix\n\nIn Lab 7 Task 1 / Module 7 expected-failures, quote this exact stderr and classify it:\n\n- the eligibility fact is correct (proposed is not active)\n- the printed `scope:activate` on a proposed path is retained 0.119.5 wording, not the consumer route\n- the lab’s next move is still `deft:scope:promote` on the proposed file\n\nOptionally ask the product to print promote-then-activate for proposed preflight. Until that changes, the course has to teach the disagreement at the first sighting, not only as a generic vBRIEF footnote.\n\nOS: macOS Darwin 25.6.0 arm64  \nShell: zsh 5.9  \ngo-task: 3.50.0  \nDirective: 0.119.5  \nEvidence: `proposed-preflight.json` pinnedDirectiveExit=1, taskExit=201\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "Drop the issue-body identity that printed `scope:activate` on a proposed path is retained 0.119.5 wording already covered by Module 7 vBRIEF disagreement rows.",
+        "status": "proposed",
+        "id": "clause:1"
+      },
+      {
+        "title": "Quote the exact 0.119.5 proposed-preflight stderr at Lab 7 Task 1. Classify the eligibility clause as correct (proposed is not active). Classify the next-command line as `ACTIVATE_HINT` substituting the rejected proposed path into a pending-only verb, inapplicable from proposed/.",
+        "status": "proposed",
+        "id": "clause:2"
+      },
+      {
+        "title": "Keep the lab's next move as `deft:scope:promote` on the proposed file, then activate on pending.",
+        "status": "proposed",
+        "id": "clause:3"
+      },
+      {
+        "title": "Put that first-sighting classification on the Task 1 confirm list, the expected-failures recovery cell, and one SOURCE-NOTES Module 7 disagreement row. Do not add a fourth classification surface.",
+        "status": "proposed",
+        "id": "clause:4"
+      },
+      {
+        "title": "Leave `--vbrief-path` on the existing SOURCE-NOTES / SOURCE-BASELINE disagreement. Leave the optional product remainder (preflight defaulting to `formatActivateHint` on folder-ineligible) off this recut.",
+        "status": "proposed",
+        "id": "clause:5"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/53",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #53: Lab 7 proposed preflight tells learners to activate a proposed file, skipping promotion"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 5 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Drop the issue-body identity that printed `scope:activate` on a proposed path is retained 0.119.5 wording already covered by Module 7 vBRIEF disagreement rows.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Quote the exact 0.119.5 proposed-preflight stderr at Lab 7 Task 1. Classify the eligibility clause as correct (proposed is not active). Classify the next-command line as `ACTIVATE_HINT` substituting the rejected proposed path into a pending-only verb, inapplicable from proposed/.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Keep the lab's next move as `deft:scope:promote` on the proposed file, then activate on pending.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Put that first-sighting classification on the Task 1 confirm list, the expected-failures recovery cell, and one SOURCE-NOTES Module 7 disagreement row. Do not add a fourth classification surface.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Leave `--vbrief-path` on the existing SOURCE-NOTES / SOURCE-BASELINE disagreement. Leave the optional product remainder (preflight defaulting to `formatActivateHint` on folder-ineligible) off this recut.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because live proposed preflight tells the learner to activate a proposed path, and Lab 7 Task 1 never classifies that skip-promote hint.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the ambiguous n=1/n=3 ask with N=1 on each of 49-56; this is a closed identity recut of the first-sighting classification of 0.119.5 proposed-preflight stderr\npain: P1\nP1: 0.119.5 ACTIVATE_HINT substitutes the rejected path; labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs:327 runs xbrief:preflight --vbrief-path on the proposed delivery file; curriculum/modules/07-scope-lifecycle.md:125-126 teach promote then activate; Lab 7 recovery does not classify the printed next command\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5768899728,
+          "html_url": "https://github.com/deftai/directive-training/issues/53#issuecomment-5768899728",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:23:16Z",
+          "updated_at": "2026-09-21T23:23:16Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh open critique of issue 53. Dispatch SHA `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`. Id ceiling 5768899728 honored. Process-only. Throwaway `/tmp` probes against `@deftai/directive@0.119.5` / `@deftai/directive-core@0.119.5`. Dest unread for product edits.\n\n## Re-verification\n\nLive 0.119.5 `evaluate()` and `directive xbrief:preflight --vbrief-path xbrief/proposed/2026-01-15-fictional-delivery.xbrief.json` both exit 1 with this message:\n\n```text\nxBRIEF is in xbrief/proposed/ -- only xbrief/active/ (or legacy vbrief/active/) is eligible for implementation.\n  Expected: `task xbrief:preflight -- xbrief/active/<story>.xbrief.json` (legacy: `task vbrief:preflight -- <path>`).\n  Run `task scope:activate -- xbrief/proposed/2026-01-15-fictional-delivery.xbrief.json` (or legacy `task vbrief:activate -- {path}`) before spawning an implementation agent.\n```\n\nThat matches the issue body. `formatActivateHint` substitutes the rejected path into `ACTIVATE_HINT`. The vbrief:activate parenthetical keeps a literal `{path}` because only the first placeholder is replaced.\n\n`TRANSITIONS.activate.allowedSources` is `pending` only. `runTransition(\"activate\", proposedPath)` returns `ok: false`: `Invalid transition: 'activate' requires file in pending/. File is in proposed/.` plus `formatUnreachableTransitionHint`: `deft scope:promote -- xbrief/proposed/2026-01-15-fictional-delivery.xbrief.json` then `deft scope:activate -- xbrief/pending/2026-01-15-fictional-delivery.xbrief.json` (`auto-promote from proposed/ is refused`). `xbrief:activate` `SOURCE_FOLDERS` is the same pending-only set.\n\nPinned dest SHA:\n\n- `labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs:327` runs `xbrief:preflight --vbrief-path` on the proposed delivery file, writes `proposed-preflight.json`, then `deft:scope:promote` on that proposed path and `deft:scope:activate` on the pending path.\n- `curriculum/modules/07-scope-lifecycle.md:125-126` teach those consumer spellings. Lines 129-131 already record vBRIEF help/Task-description spelling as a documentation disagreement.\n- Lab 7 Task 1 asks that both outputs name the proposed/active boundary and that evidence land before promotion.\n- Lab 7, Module 7, and the Lab 7 solution expected-failures tables preserve the exit and continue through governed transitions. None classify the printed next command.\n- SOURCE-NOTES Module 7 and SOURCE-BASELINE already record `--vbrief-path` as a legacy option name, vBRIEF help-card spelling, unprefixed `task` vs consumer `deft:` namespacing, and engine exit `1` / Task `201`. None record the activate-on-proposed next-action line.\n\n## 1. Identity sentence “retained 0.119.5 wording” — `blocks-the-design`\n\nEvidence: issue proposed-fix bullet 2 calls the printed `scope:activate` on a proposed path “retained 0.119.5 wording.” Module 7:129-131 and the SOURCE-NOTES Module 7 disagreement table already record vBRIEF help-card spelling, `--vbrief-path`, and unprefixed `task` forms. The live next-action line is `ACTIVATE_HINT` (`evaluate.js` default `buildReject` hint) substituting the rejected proposed path into a pending-only verb. Origin-freshness already special-cases that same hint once active+running have passed, because activate cannot apply there.\n\nFailure mode: a bound recut is absorbed as another vBRIEF-spelling row. Task 1 still only checks the proposed/active eligibility clause. The unclassified next-command line stays in the retained JSON.\n\nDisposition: the identity sentence that can bind is: 0.119.5 proposed-preflight stderr appends `ACTIVATE_HINT` with the rejected path, naming `scope:activate` on a proposed file. The eligibility clause in that same stderr is correct. The lab’s next move remains `deft:scope:promote` on the proposed file. Those two surviving bullets are the first-sighting classification.\n\n## 2. Pain “skip the promotion evidence” — `sharpens-framing`\n\nEvidence: issue Pain says a mid-level engineer who follows the printed remediation would skip the promotion evidence Lab 7 exists to show. The 0.119.5 activate path from proposed/ fails closed and then prints promote-then-activate. The helper already promotes after writing the JSON.\n\nFailure mode: later measurement against activate-from-proposed makes the warrant look false, and the first-sighting recut is dropped with it. The remaining gap is silence: Task 1 and the recovery tables never classify the printed next command in `proposed-preflight.json`.\n\nDisposition: recut Pain to that silence. The learner is trained to treat fail-closed output as the next safe action; the retained stderr names a command that cannot apply from proposed/; the lab still promotes. Quote the exact stderr at Task 1 and classify the next-command line there.\n\n## 3. First-sighting vehicle — `sharpens-framing`\n\nEvidence: Lab 7 Task 1 already inspects `proposed-preflight.json`. Expected-failures tables already classify the proposed-preflight exit. SOURCE-NOTES Module 7 already has a recorded-disagreement table. SOURCE-BASELINE already records the proposed-preflight command and the eligibility fact.\n\nFailure mode: a new classification surface would duplicate those vehicles and miss the verifier that already walks Task 1, the helper, and SOURCE-NOTES (`scripts/verify-module-7.mjs`).\n\nDisposition: put the first-sighting classification on the Task 1 confirm list, the expected-failures recovery cell, and one SOURCE-NOTES Module 7 disagreement row. Inventory stops there.\n\n## 4. `--vbrief-path` compounding — `footnote`\n\nHelper `:327` and SOURCE-BASELINE already record the legacy option name. It sits in the same command that prints the next-action line. It is a separate recorded disagreement. Folding it into this identity recut would again land on an existing SOURCE-NOTES row.\n\n## 5. Optional product remainder — `footnote`\n\n`buildReject` default-appends `formatActivateHint` on the folder-ineligible path. Origin-freshness already supplies a different hint. `formatUnreachableTransitionHint` already prints promote-then-activate when activate is requested from proposed/. The optional product remainder is that preflight folder-ineligible default. The two-step printer already exists on the activate surface.\n\n## Injection / swarm lens\n\nApplies: the recut splits authority inside one engine diagnostic. The eligibility clause is O7.1 evidence. The next-command line is an inapplicable redirect. A retained-wording identity would teach learners to discount the whole stderr, including the eligibility fact the outcome requires. The bindable split keeps the eligibility clause as the authorization fact and classifies only the next-command line as inapplicable from proposed/.\n\n## Road-not-taken\n\nConsidered holding the curriculum recut until preflight itself prints promote-then-activate. Rejected: the helper already promotes; the course already records engine/course disagreements; activate-from-proposed already names the two-step. That remainder stays optional. Flip: if activate-from-proposed moved the file, or if Task 1 already classified the next-command line.\n\nSteelman of “retained wording”: the stderr also carries vBRIEF and unprefixed `task` strings, and SOURCE-NOTES already knows how to record those. Smallest recut looks like one more wording row. Flip: `formatActivateHint` substituting the rejected proposed path into a pending-only verb, which is a different class than help-card spelling.\n\n",
+          "id": 5769009222,
+          "html_url": "https://github.com/deftai/directive-training/issues/53#issuecomment-5769009222",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:32:29Z",
+          "updated_at": "2026-09-21T23:32:29Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLive proposed preflight tells the learner to activate a proposed path, and Lab 7 Task 1 never classifies that next-command line. Confirming this map would drop the \"retained 0.119.5 wording\" identity, quote the exact stderr at Task 1, classify ACTIVATE_HINT substituting the rejected proposed path as inapplicable, keep the eligibility clause as the authorization fact, keep the lab's next move as promote on the proposed file, and record that classification on Task 1, the recovery cell, and one SOURCE-NOTES Module 7 disagreement row.\n\nParent forward verdict: P1 holds once the identity is the activate-on-proposed hint, not another vBRIEF-spelling row.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5768899728 and these takes; the evidence is critic 5769009222.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5769009222\nsupersedes: 5768899728\nTarget-digest: sha256:ae05fa0b8cba5b739618dc5355c9a84b06e9c6a5b1a6cde35c65d81954c61a4d\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Identity sentence \"retained 0.119.5 wording\"\ntake: accept-into-contract\ncritic: 5769009222\nheading: Identity sentence \"retained 0.119.5 wording\"\n\n### Pain \"skip the promotion evidence\"\ntake: accept-into-contract\ncritic: 5769009222\nheading: Pain \"skip the promotion evidence\"\n\n### First-sighting vehicle\ntake: accept-into-contract\ncritic: 5769009222\nheading: First-sighting vehicle\n\n### footnote — `--vbrief-path` compounding\ntake: accept-into-contract\ncritic: 5769009222\nheading: `--vbrief-path` compounding\n\n### footnote — Optional product remainder\ntake: accept-into-contract\ncritic: 5769009222\nheading: Optional product remainder\n\nrelieves: P1\naudit:pain-P1 sha=19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23 pointer=comment:5769009222 reading=asserted\n\n## Bound remedy\n\n- Drop the issue-body identity that printed `scope:activate` on a proposed path is retained 0.119.5 wording already covered by Module 7 vBRIEF disagreement rows.\n- Quote the exact 0.119.5 proposed-preflight stderr at Lab 7 Task 1. Classify the eligibility clause as correct (proposed is not active). Classify the next-command line as `ACTIVATE_HINT` substituting the rejected proposed path into a pending-only verb, inapplicable from proposed/.\n- Keep the lab's next move as `deft:scope:promote` on the proposed file, then activate on pending.\n- Put that first-sighting classification on the Task 1 confirm list, the expected-failures recovery cell, and one SOURCE-NOTES Module 7 disagreement row. Do not add a fourth classification surface.\n- Leave `--vbrief-path` on the existing SOURCE-NOTES / SOURCE-BASELINE disagreement. Leave the optional product remainder (preflight defaulting to `formatActivateHint` on folder-ineligible) off this recut.\n\n",
+          "id": 5769134538,
+          "html_url": "https://github.com/deftai/directive-training/issues/53#issuecomment-5769134538",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:43:21Z",
+          "updated_at": "2026-09-21T23:43:21Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 pain-audit of successor lean 5769134538, marker pain-P1. Dispatch SHA `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`. Id ceiling 5769134538 honored. Process-only. Throwaway `/tmp` probes against `@deftai/directive-core@0.119.5`. Dest unread for product edits.\n\n## Re-verification\n\nStop 1 `5768899728` `scanPainList`: present, ids `[P1]`, no duplicates, not malformed. Stop 1 P1 names four clauses: 0.119.5 `ACTIVATE_HINT` substitutes the rejected path; `labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs:327` runs `xbrief:preflight --vbrief-path` on the proposed delivery file; `curriculum/modules/07-scope-lifecycle.md:125-126` teach promote then activate; Lab 7 recovery does not classify the printed next command.\n\n0.119.5 `evaluate()` on a throwaway `xbrief/proposed/2026-01-15-fictional-delivery.xbrief.json` exits 1 with the eligibility clause, `PREFLIGHT_USAGE_HINT`, and `formatActivateHint` substituting that path. `formatActivateHint(\"xbrief/proposed/2026-01-15-fictional-delivery.xbrief.json\")` is the issue-body next-command line; the vbrief parenthetical keeps a literal `{path}`. `TRANSITIONS.activate.allowedSources` is `pending` only. `formatUnreachableTransitionHint(\"activate\", \"proposed\", …)` prints promote-then-activate with auto-promote refused.\n\nPinned dest SHA: helper `:327` is that preflight; `:342-344` then promote the proposed path and activate pending. Module 7:125-126 are those consumer spellings. Lab 7 Task 1 confirms exits, `proposed/proposed`, and that both outputs name the proposed/active boundary; it does not classify the next-command line. Lab 7 Expected failures recovery for proposed engine preflight is \"Preserve it; the run continues through governed transitions.\" SOURCE-NOTES `### Module 7 source disagreements` has vBRIEF / `--vbrief-path` / help / exit-wrapper rows and no activate-on-proposed row.\n\nLean `scanPainCites`: one operative cite `{painId: \"P1\", disposition: \"relieves\", deferredIssueNumber: null}`, `rejected: []`. The only disposition keyword is that cite line. Heading `### Pain \"skip the promotion evidence\"` does not match the cite grammar. Prose \"P1 holds\" has no disposition keyword.\n\nBound-remedy harvest: drop the retained-wording identity; quote the stderr at Task 1; classify the eligibility clause as correct; classify the next-command line as `ACTIVATE_HINT` substituting the rejected proposed path, inapplicable from proposed/; keep promote then activate; put that classification on Task 1, the expected-failures recovery cell, and one SOURCE-NOTES Module 7 disagreement row; leave `--vbrief-path` and the product remainder off this recut.\n\n`evaluateBoundRemedyCites` with `coveredIds: [\"P1\"]` returns `{ok: true}`; with `coveredIds: []` returns `{ok: false}`. Covered-ids is this re-verification; the engine does not grade Bound-remedy English.\n\n## 1. Bound-remedy covers Stop 1 P1 — `footnote`\n\nEvidence: the four Stop 1 clauses are the producing command, the taught sequence, the hint substitution, and the unclassified recovery. Harvest classifies the hint, keeps the taught sequence as the lab next move, and puts the classification on Task 1, Lab 7 recovery, and one Module 7 SOURCE-NOTES disagreement row. Helper `:327` stays the Task 1 JSON producer; `--vbrief-path` stays the existing SOURCE-NOTES row.\n\nNo bind-blocking failure mode: the lean's `relieves` cite for P1 matches Bound-remedy coverage of P1 as Stop 1 named it.\n\n## 2. Lean is well-formed for `scanPainCites` — `footnote`\n\nEvidence: one `relieves` cite for P1, no rejected-position cites, no second disposition. `evaluatePainCitePlacement` kind bind allows it with `operativeCiteCount: 1`.\n\nUnfenced prose \"P1 holds\" does not emit a cite. It is a placement miss under the inline-code rule for non-cite mentions, not `malformed-pain`.\n\n## Injection / swarm lens\n\nThe harvest still splits one engine diagnostic: eligibility remains the authorization fact; the next-command line is an inapplicable redirect. The `relieves` cite stays honest because that split is in Bound-remedy. Dropping \"classify eligibility as correct\" would teach learners to discount the whole stderr, including the O7.1 fact.\n\n## Road-not-taken\n\nConsidered blocking because Bound-remedy never restates helper `:327` or Module 7:125-126 as harvest bullets. Rejected: those clauses are the producing command and the taught sequence the harvest keeps and classifies against. Flip: harvest dropped the recovery-cell classification, or kept the retained-wording identity.\n\nSteelman of \"does not cover\": Stop 1 is a four-clause compound and harvest names only the Task 1 / recovery / SOURCE-NOTES vehicles. Flip: clause 2 is the command Task 1 already inspects, and leaving `--vbrief-path` off this recut was an accepted heading.\n\n",
+          "id": 5769242771,
+          "html_url": "https://github.com/deftai/directive-training/issues/53#issuecomment-5769242771",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:54:23Z",
+          "updated_at": "2026-09-21T23:54:23Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5769242771 is footnote-only. Bind remains successor lean 5769134538. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5769242771\nsupersedes: 5769134538\n\n",
+          "id": 5769297569,
+          "html_url": "https://github.com/deftai/directive-training/issues/53#issuecomment-5769297569",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:23Z",
+          "updated_at": "2026-09-22T00:01:23Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| 0.119.5 proposed preflight prints `ACTIVATE_HINT` with the rejected proposed path | verified | live `evaluate()` / `formatActivateHint` on `xbrief/proposed/2026-01-15-fictional-delivery.xbrief.json` |\n| Activate from proposed is pending-only and prints promote-then-activate | verified | `TRANSITIONS.activate.allowedSources`; `formatUnreachableTransitionHint` |\n| Lab 7 Task 1 and recovery do not classify the printed next command | verified | `git show` Lab 7 Task 1 and Expected failures; SOURCE-NOTES Module 7 has no activate-on-proposed row |\n| Bound-remedy classifies the hint, keeps promote then activate, and records Task 1 / recovery / SOURCE-NOTES | verified | harvest; `evaluateBoundRemedyCites` ok; pain-audit 5769242771 footnote-only |\n\n",
+          "id": 5769297944,
+          "html_url": "https://github.com/deftai/directive-training/issues/53#issuecomment-5769297944",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:25Z",
+          "updated_at": "2026-09-22T00:01:25Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nLab 7 quotes the live proposed-preflight stderr and classifies ACTIVATE_HINT on a proposed path as inapplicable. The eligibility clause stays the authorization fact. The lab next move stays promote then activate. That classification lands on Task 1, the recovery cell, and one SOURCE-NOTES Module 7 row.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5769134538\nverified-claims table 5769297944\npain-audit 5769242771\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5769298319,
+          "html_url": "https://github.com/deftai/directive-training/issues/53#issuecomment-5769298319",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:28Z",
+          "updated_at": "2026-09-22T00:01:28Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5532750210,
+        "origin": "deftai/directive-training#53",
+        "id": "github.issue.5532750210"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "ae05fa0b8cba5b739618dc5355c9a84b06e9c6a5b1a6cde35c65d81954c61a4d"
+      }
+    },
+    "id": "github.issue.5532750210",
+    "updated": "2026-09-22T01:03:22Z"
+  }
+}

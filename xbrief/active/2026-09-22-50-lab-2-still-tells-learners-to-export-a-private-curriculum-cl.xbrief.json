@@ -1,0 +1,337 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #50",
+    "updated": "2026-09-22T01:03:21Z"
+  },
+  "plan": {
+    "title": "Lab 2 still tells learners to export a private curriculum clone after the public deftai move",
+    "status": "running",
+    "narratives": {
+      "Description": "Lab 2 still tells learners to export a private curriculum clone after the public deftai move",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/50",
+      "Overview": "## Situation\n\nI am taking the public `deftai/directive-training` course as a mid-level engineer. The root README correctly identifies this as the public `deftai/directive-training` repository.\n\nLab 2, the shared lab environment guide, and the capstone lab still tell the learner to export `DIRECTIVE_TRAINING_ROOT` as the absolute path of their **private curriculum clone**:\n\n- `labs/02-disposable-initialization.md` (required environment, value table, macOS and Windows setup)\n- `labs/README.md` (fixture copy instruction)\n- `labs/capstone-end-to-end.md` (Windows setup)\n\nClosed issue #2 was “Correct repo identity after the public deftai clone.” That identity recut did not reach these learner-facing lab strings.\n\n## Pain\n\nI paused before Lab 2 `create` to check whether I was in the wrong clone. The lab treats `DIRECTIVE_TRAINING_ROOT` as a safety input: if it is wrong, later blocks print `Paste refusal`. Calling the public course a “private curriculum clone” makes a first-time learner second-guess the one path the helper must receive.\n\nIt also conflicts with the issue-filing instruction in the root README. A learner who is told the clone is private cannot tell whether filing a public GitHub issue is allowed.\n\n## Proposed fix\n\nReplace “private curriculum clone/repository” with “this curriculum clone” or “the `deftai/directive-training` checkout” in learner-facing lab text. Keep “private” only where it still describes fictional lab data or `package.json` `private: true`.\n\nAdd a one-line Lab 2 starting check: the clone may be the public GitHub repository; the helper only needs its absolute path.\n\nOS: macOS Darwin 25.6.0 arm64  \nShell: zsh 5.9  \nDirective: `@deftai/directive@0.119.5` (Lab 2 project-local)\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "Recut the two leftover phrases `private curriculum clone` and `private curriculum repository` at these six cites: `labs/02-disposable-initialization.md:38`, `:64`, `:87`, `:149`; `labs/README.md:57`; `labs/capstone-end-to-end.md:91`.",
+        "status": "proposed",
+        "id": "clause:1"
+      },
+      {
+        "title": "Leave `this curriculum clone` / `this curriculum repository` on those lines, matching Lab 2 paste-refusal `curriculum clone path`.",
+        "status": "proposed",
+        "id": "clause:2"
+      },
+      {
+        "title": "Keep already-pinned `private` strings: Lab 7 fixture-must-remain-private, capstone private notes, fixture `package.json` `\"private\": true`, `labs/README.md` private chat.",
+        "status": "proposed",
+        "id": "clause:3"
+      },
+      {
+        "title": "On Lab 2 required-environment bullet `:38`, say the public `deftai/directive-training` checkout is a valid `DIRECTIVE_TRAINING_ROOT`, used only to read the fixture and run the helper. Do not collapse `DIRECTIVE_TRAINING_ROOT` with `LAB_ROOT`.",
+        "status": "proposed",
+        "id": "clause:4"
+      },
+      {
+        "title": "Capstone Windows takes the phrase recut at `:91`. Lab 2 carries the first-lab identity sentence.",
+        "status": "proposed",
+        "id": "clause:5"
+      },
+      {
+        "title": "Leave `COST-ESTIMATE.md` outside this recut.",
+        "status": "proposed",
+        "id": "clause:6"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/50",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #50: Lab 2 still tells learners to export a private curriculum clone after the public deftai move"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 6 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Recut the two leftover phrases `private curriculum clone` and `private curriculum repository` at these six cites: `labs/02-disposable-initialization.md:38`, `:64`, `:87`, `:149`; `labs/README.md:57`; `labs/capstone-end-to-end.md:91`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Leave `this curriculum clone` / `this curriculum repository` on those lines, matching Lab 2 paste-refusal `curriculum clone path`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Keep already-pinned `private` strings: Lab 7 fixture-must-remain-private, capstone private notes, fixture `package.json` `\"private\": true`, `labs/README.md` private chat.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "On Lab 2 required-environment bullet `:38`, say the public `deftai/directive-training` checkout is a valid `DIRECTIVE_TRAINING_ROOT`, used only to read the fixture and run the helper. Do not collapse `DIRECTIVE_TRAINING_ROOT` with `LAB_ROOT`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Capstone Windows takes the phrase recut at `:91`. Lab 2 carries the first-lab identity sentence.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "Leave `COST-ESTIMATE.md` outside this recut.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because learner-facing lab strings still say private curriculum clone after the public deftai identity recut.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the ambiguous n=1/n=3 ask with N=1 on each of 49-56; this is a closed identity recut of leftover private-clone wording on lab pages\npain: P1\nP1: labs/02-disposable-initialization.md:38, :64, :87, :149, labs/README.md:57, and labs/capstone-end-to-end.md:91 still say private curriculum clone while README.md:18-19 names the public deftai/directive-training repository\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5768895526,
+          "html_url": "https://github.com/deftai/directive-training/issues/50#issuecomment-5768895526",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:22:56Z",
+          "updated_at": "2026-09-21T23:22:56Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\naudit-targets: none\n\nRound 1 fresh open critique of work issue 50 at SHA `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`, input ceiling 5768895526.\n\n## Re-verification\n\n`git grep` at that SHA for `private curriculum clone` and `private curriculum repository` under `labs/` returns six hits, matching P1's cites:\n\n- `labs/02-disposable-initialization.md:38` (`private curriculum repository`)\n- `labs/02-disposable-initialization.md:64`, `:87`, `:149` (`private curriculum clone`)\n- `labs/README.md:57`\n- `labs/capstone-end-to-end.md:91`\n\n`git show` `README.md:18-19` names the public `deftai/directive-training` repository. Lab 2 paste-refusal fences and `labs/fixtures/02-disposable-initialization/init-lab.mjs` already say `absolute curriculum clone path` and `Stop: the lab is inside the curriculum clone.` with no `private curriculum` string. `node scripts/verify-modules-2-3.mjs` exits 0: it pins Lab 2 heading `Environment and starting-state check` and root/fixture `\"private\": true`, and it does not pin the stale clone phrase. `scripts/verify-capstone.mjs` pins Windows `DIRECTIVE_TRAINING_ROOT` resolution and private-note paths; it does not pin `private curriculum clone`.\n\n## 1. Recut set is the two leftover phrases at the six cites\n\nclass: sharpens-framing\n\nEvidence: P1's sentence describes those cites as still saying `private curriculum clone`. Line 38 says `private curriculum repository`. A search for only the clone form misses it. The proposed fix already writes `clone/repository`. Other `private` strings in labs are already pinned: Lab 7 `The fixture must remain private`; capstone private notes (`verify-capstone.mjs` matches `private[\\s\\S]{0,80}capstone-assessment-note.md` and `separate private notes directory`); fixture helpers `assert.equal(manifest.private, true)`; `labs/README.md:126` `private chat`; root `package.json` `\"private\": true` (`verify-modules-2-3.mjs` line 689).\n\nFailure mode: a clone-only grep leaves Lab 2:38. A sweep of every `private` in `labs/` breaks the capstone verifier and the fixture-private assertions.\n\nDisposition: bind the recut to those two phrases at the six P1 cites. Keep the other `private` strings. Widen the issue's keep-list (fictional lab data and `package.json` `private: true`) to include those already-pinned surfaces.\n\n## 2. One replacement phrase\n\nclass: sharpens-framing\n\nEvidence: the proposed fix offers `this curriculum clone` or `the deftai/directive-training checkout`. Lab 2 paste-refusal and recovery already say `curriculum clone path`. Later labs already ship a different identity-neutral phrase: `labs/05-projection-drift-recovery.md:41-44` (`this curriculum repository's root`, `curriculum checkout`); `labs/10-implementation-golden-path.md:40-42, :61` (`this curriculum checkout`); capstone macOS `:51` (`curriculum checkout root`).\n\nFailure mode: mixing the two proposed replacements across the six cites splits learner identity the same way the #2 file-list recut left these lab strings.\n\nDisposition: the closed recut deletes `private` and leaves `this curriculum clone` / `this curriculum repository` on those lines, matching Lab 2's own paste-refusal. Unifying Lab 2 onto later-lab `curriculum checkout` is a wider vocabulary recut; record that widening on the parent take only if it is taken.\n\n## 3. Starting check names DIRECTIVE_TRAINING_ROOT identity\n\nclass: sharpens-framing\n\nEvidence: the proposed one-liner is `the clone may be the public GitHub repository; the helper only needs its absolute path.` Lab 2:62-70 already splits `DIRECTIVE_TRAINING_ROOT` (helper location) from `LAB_ROOT` (printed attempt). Every paste block re-derives the helper from `DIRECTIVE_TRAINING_ROOT`; every verb after `create` takes `LAB_ROOT`. `init-lab.mjs:348` stops when the lab is inside the curriculum clone. Lab 2:189 requires work in the printed `LAB_ROOT`. Lab 2:70 names coding-agent hosts that start a fresh shell per block. README:73-76 requires disposable-lab work outside this repository. README:90-94 already sends defects to this repository's issue tracker.\n\nFailure mode: `the helper only needs its absolute path` collapses the two values. A coding-agent host can point both at the public checkout and run `create` inside the curriculum tree until the helper Stop fires. The pause-before-create pain is real; the one-liner over-claims the helper contract.\n\nDisposition: keep a Lab 2 identity sentence on the existing required-environment bullet (the :38 cite): the public `deftai/directive-training` checkout is a valid `DIRECTIVE_TRAINING_ROOT`, used only to read the fixture and run the helper. Capstone Windows takes the phrase recut at :91; Lab 2 carries the first-lab identity sentence.\n\nInjection / swarm lens: this finding changes identity of the two exported paths and shared state (attempt root versus curriculum checkout). Existing control is the helper Stop plus Lab 2 safety. The one-liner stays a learner identity sentence for `DIRECTIVE_TRAINING_ROOT`. Dest and occupancy for the attempt remain the printed `LAB_ROOT`.\n\n## 4. COST-ESTIMATE.md still says private curriculum repository\n\nclass: footnote\n\n`COST-ESTIMATE.md` contains 14 `private curriculum repository` lines at this SHA. Closed issue #2 left that file out of its identity recut. Issue 50's P1 and proposed fix name lab pages. Same phrase class, outside this closed recut unless a later issue expands it.\n\n## Road not taken\n\nExisting mechanism: issue #2's identity recut, later labs' `curriculum checkout` wording, and Lab 2 paste-refusal already without `private`. The closed recut extends that coverage to the six leftover lines.\n\nA new labs-wide grep gate was considered. `verify-modules-2-3.mjs` already `doesNotMatch` stale phrases on markdown and already reads `labs/02-disposable-initialization.md` and `labs/README.md`. A `doesNotMatch` there would prevent a third leftover. It is optional prevention; this recut can bind without it.\n\nSteelman of writing `the deftai/directive-training checkout` on every cite: it matches README:18-19 and makes public identity unmistakable on the export sentence, which could carry the pause-before-create fix without a separate starting check. What would flip that: the Lab 2 value table and paste-refusal already say `curriculum clone path`, so that page would then disagree with itself. Deleting `private` and keeping clone on Lab 2 keeps that page internally consistent.\n\n",
+          "id": 5769026642,
+          "html_url": "https://github.com/deftai/directive-training/issues/50#issuecomment-5769026642",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:33:57Z",
+          "updated_at": "2026-09-21T23:33:57Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLearner-facing lab strings still say private curriculum clone after the public deftai identity recut. Confirming this map would delete those two leftover phrases at the six P1 cites, keep Lab 2's own curriculum-clone wording, add a first-lab identity sentence that the public checkout is a valid DIRECTIVE_TRAINING_ROOT, and leave COST-ESTIMATE.md outside this recut.\n\nParent forward verdict: P1 holds; the recut binds once the six lab cites drop private without collapsing helper path and attempt root.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5768895526 and these takes; the evidence is critic 5769026642.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5769026642\nsupersedes: 5768895526\nTarget-digest: sha256:4cffb9d8269456e8660e289aeeff70067c4cecd635cd92434ae5e4835fd650fb\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Recut set is the two leftover phrases at the six cites\ntake: accept-into-contract\ncritic: 5769026642\nheading: Recut set is the two leftover phrases at the six cites\n\n### One replacement phrase\ntake: accept-into-contract\ncritic: 5769026642\nheading: One replacement phrase\n\n### Starting check names DIRECTIVE_TRAINING_ROOT identity\ntake: accept-into-contract\ncritic: 5769026642\nheading: Starting check names DIRECTIVE_TRAINING_ROOT identity\n\n### footnote — COST-ESTIMATE.md still says private curriculum repository\ntake: accept-into-contract\ncritic: 5769026642\nheading: COST-ESTIMATE.md still says private curriculum repository\n\nrelieves: P1\naudit:pain-P1 sha=19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23 pointer=comment:5769026642 reading=asserted\n\n## Bound remedy\n\n- Recut the two leftover phrases `private curriculum clone` and `private curriculum repository` at these six cites: `labs/02-disposable-initialization.md:38`, `:64`, `:87`, `:149`; `labs/README.md:57`; `labs/capstone-end-to-end.md:91`.\n- Leave `this curriculum clone` / `this curriculum repository` on those lines, matching Lab 2 paste-refusal `curriculum clone path`.\n- Keep already-pinned `private` strings: Lab 7 fixture-must-remain-private, capstone private notes, fixture `package.json` `\"private\": true`, `labs/README.md` private chat.\n- On Lab 2 required-environment bullet `:38`, say the public `deftai/directive-training` checkout is a valid `DIRECTIVE_TRAINING_ROOT`, used only to read the fixture and run the helper. Do not collapse `DIRECTIVE_TRAINING_ROOT` with `LAB_ROOT`.\n- Capstone Windows takes the phrase recut at `:91`. Lab 2 carries the first-lab identity sentence.\n- Leave `COST-ESTIMATE.md` outside this recut.\n\n",
+          "id": 5769131206,
+          "html_url": "https://github.com/deftai/directive-training/issues/50#issuecomment-5769131206",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:43:01Z",
+          "updated_at": "2026-09-21T23:43:01Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5769131206. Stop 1 write-back 5768895526. Input ceiling 5769131206. Dispatch SHA `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`. Process-only.\n\n## Verdict\n\n`relieves: P1` is independently supported. Bound-remedy recuts both leftover phrases at the six Stop 1 cites, writes the public-checkout identity sentence on Lab 2 `:38`, and keeps `DIRECTIVE_TRAINING_ROOT` apart from `LAB_ROOT`. That is P1 as Stop 1 named it.\n\n`scanPainCites` on the lean as posted returns one cite: `P1` / `relieves` / `deferredIssueNumber: null`, `rejected: []`. `classifyPosition` on the `relieves: P1` line (offset 1717) is `null`. Headings and the plain-English `P1 holds` / `six P1 cites` lines do not match `PAIN_CITE_RE`. A heading `### relieves: P1` would dedupe on the same-disposition key. An added operative `does-not-relieve: P1` would set `dispositions.size > 1` (`malformed-pain`). This lean has one `relieves` row.\n\n## Re-verification at dispatch SHA `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`\n\nChecks were run here. Line cites on the lean were treated as claims.\n\n| Anchor | Result | Check |\n| --- | --- | --- |\n| Stop 1 denominator is `P1` | holds | `scanPainList` on 5768895526 → `{\"present\":true,\"ids\":[\"P1\"],\"duplicates\":[],\"malformed\":false}` |\n| Lean cite well-formed | holds | `scanPainCites` → one `relieves` `P1`, `rejected: []` |\n| Six leftover lab hits | holds | `git grep` of `private curriculum clone` and `private curriculum repository` under `labs/` is exactly `:38`, `:64`, `:87`, `:149`, `labs/README.md:57`, capstone `:91` |\n| `:38` wording | holds | `git show` `:38` is `private curriculum repository`; the other five cites are `private curriculum clone` |\n| README public identity | holds | `README.md:18-19` names the public `deftai/directive-training` repository |\n| Bound-remedy covers those cites | holds | harvest items 1, 4, and 5 name the six cites, both leftover phrases, the `:38` public-checkout identity sentence, and the capstone `:91` phrase recut |\n| `evaluateBoundRemedyCites` | holds | `{ok:true}` with `coveredIds:[\"P1\"]`; `{ok:false}` with `coveredIds:[]` |\n| Bind placement | holds | `evaluatePainCitePlacement` `{kind:\"bind\"}` → `{allowed:true, operativeCiteCount:1}` |\n| Asserted marker | holds | `assertedPainIdsFromCites` → `[\"P1\"]`; `mapCarriesAssertedPainCoverage` true; `audit:pain-P1 sha=19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23 pointer=comment:5769026642 reading=asserted` parses |\n| Handoff print | holds | `evaluateHandoffPrint` `{print:false, unrelievedPain:false, recutConjunct:true, harvestRelievesOverlap:false}` |\n| Paste-refusal / helper | holds | Lab 2 `:77` and paste fences say `curriculum clone path`; `init-lab.mjs:348` `Stop: the lab is inside the curriculum clone.` with no `private curriculum` string |\n| Verifiers | holds | `node scripts/verify-modules-2-3.mjs` exit 0; pins heading `Environment and starting-state check` and `\"private\": true`; leftover clone phrase unpinned. Capstone verifier pins Windows `DIRECTIVE_TRAINING_ROOT` resolution and private notes |\n| COST-ESTIMATE leftover | holds | 14 `private curriculum repository` lines; harvest item 6 leaves that file outside this recut |\n\n## 1. Phrase-replace of leftover tokens lands doubled determiners\n\nclass: footnote\n\nEvidence: harvest item 2 says leave `this curriculum clone` / `this curriculum repository` on those lines. A find-and-replace of `private curriculum clone` with `this curriculum clone` on the live lines yields `this this curriculum clone` at `labs/README.md:57` and `your this curriculum clone` at Lab 2 `:64`, `:87`, `:149` and capstone `:91`. Item 4 rewrites `:38`. The accepted round-1 take on heading `One replacement phrase` deletes the word `private` and keeps the existing determiner.\n\nFailure mode: an implementer applying item 2 as a token swap writes ungrammatical lab sentences. P1 coverage is the leftover drop at the six cites, which item 1 already names.\n\nDisposition: census only. Bind stays on lean 5769131206. Harvest stays the six bullets as posted.\n\nInjection / swarm lens: the recut names identity of `DIRECTIVE_TRAINING_ROOT`. Harvest item 4 keeps that value as the public `deftai/directive-training` checkout used only to read the fixture and run the helper, and keeps `LAB_ROOT` as the printed attempt. Existing control is `init-lab.mjs:348` Stop plus Lab 2 paste-refusal.\n\n## Road not taken\n\nClassifying the determiner collision as `sharpens-framing` that rewrites harvest item 2 was considered. Item 1 already names the six cites and both leftover phrases; item 4 already rewrites `:38`. Coverage of P1 holds on that harvest. Steelman of rewriting item 2: literal `parseListItems` capture of leave-`this curriculum clone` is what an implementer pastes. What would flip the footnote: harvest item 1 dropping the six-cite list, so item 2 became the only recut instruction.\n\n",
+          "id": 5769248855,
+          "html_url": "https://github.com/deftai/directive-training/issues/50#issuecomment-5769248855",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:55:07Z",
+          "updated_at": "2026-09-21T23:55:07Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5769248855 is footnote-only. Bind remains successor lean 5769131206. Pain-audit footnote: delete the word `private` and keep the existing determiner. Do not find-replace `private curriculum clone` with `this curriculum clone`. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5769248855\nsupersedes: 5769131206\n\n",
+          "id": 5769292796,
+          "html_url": "https://github.com/deftai/directive-training/issues/50#issuecomment-5769292796",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:00:46Z",
+          "updated_at": "2026-09-22T00:00:46Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Six leftover `private curriculum clone/repository` lab cites remain | verified | `git grep` at SHA under `labs/` is `:38,:64,:87,:149`, `labs/README.md:57`, capstone `:91` |\n| README already names the public `deftai/directive-training` repository | verified | `README.md:18-19` |\n| Lab 2 paste-refusal already says `curriculum clone path` without `private curriculum` | verified | lab paste fences; `init-lab.mjs:348` |\n| Bound-remedy recuts those six cites and keeps `DIRECTIVE_TRAINING_ROOT` apart from `LAB_ROOT` | verified | harvest items 1, 4, 5; pain-audit 5769248855 |\n| Lean `relieves: P1` is well-formed | verified | `scanPainCites` one relieves; `evaluateBoundRemedyCites` ok |\n\n",
+          "id": 5769293097,
+          "html_url": "https://github.com/deftai/directive-training/issues/50#issuecomment-5769293097",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:00:49Z",
+          "updated_at": "2026-09-22T00:00:49Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nThe six leftover private-curriculum lab phrases recut to Lab 2's own curriculum-clone wording. The public deftai checkout is a valid DIRECTIVE_TRAINING_ROOT. LAB_ROOT stays the printed attempt. COST-ESTIMATE.md stays outside this recut.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5769131206\nverified-claims table 5769293097\npain-audit 5769248855\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5769293393,
+          "html_url": "https://github.com/deftai/directive-training/issues/50#issuecomment-5769293393",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:00:51Z",
+          "updated_at": "2026-09-22T00:00:51Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5532696597,
+        "origin": "deftai/directive-training#50",
+        "id": "github.issue.5532696597"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "4cffb9d8269456e8660e289aeeff70067c4cecd635cd92434ae5e4835fd650fb"
+      }
+    },
+    "id": "github.issue.5532696597",
+    "updated": "2026-09-22T01:03:21Z"
+  }
+}

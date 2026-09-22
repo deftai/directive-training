@@ -45,7 +45,18 @@ recommendation; it does not redefine success as “no output,” and it does not
 result by counting warnings. That check recommends a host-global
 `npm i -g @deftai/directive@latest` followed by `directive migrate`. Module 2 records and
 classifies that recommendation and refuses it: it is outside the disposable boundary because
-`npm i -g` mutates host-global state and `@latest` would leave the course pin. The provided
+`npm i -g` mutates host-global state and `@latest` would leave the course pin.
+
+The same healthy doctor report also prints these two banner lines as expected output, in a
+separate sentence from that classified warning:
+
+```text
+Pre-cutover: none -- project is on the current vBRIEF document model.
+xBrief migration: none -- xbrief active, vbrief removed.
+```
+
+This banner's "vBRIEF" names post-pre-cutover document-model state. Learner-facing files stay
+xBRIEF 0.8, and new course writes stay `xbrief/` schema 0.8. The provided
 fictional `E401` record supplies a deterministic recovery decision without requiring a
 learner to manufacture a live failure.
 

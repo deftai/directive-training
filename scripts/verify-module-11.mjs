@@ -128,12 +128,45 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   for (const path of ["red.json", "green.json", "refactor.json", "literal.json", "aggregate-failure.json", "final.json"]) {
     assert.ok(labProse.includes(path), `${lab11} is missing evidence artifact: ${path}`);
   }
+  const labPage = content.get(lab11);
+  for (const phrase of [
+    "INCOMPLETE",
+    "COMPLETE",
+    "EXPECTED_FAILURE",
+    "literalAcceptance",
+    "forwardCoverage",
+    "firstFailingSubcheck",
+    "quality:record",
+    "quality-record.json only",
+    "gateDefinitionsUnchanged",
+  ]) {
+    assert.ok(labPage.includes(phrase), `${lab11} is missing quality-record token: ${phrase}`);
+  }
+  assert.ok(
+    labPage.includes("The focused test and numeric-summary CLI pass for an ordinary sample and an empty sample."),
+    `${lab11} must quote Lab 11 verify:ac clause 1 text`,
+  );
+  for (const phrase of [
+    "0 verified, 1 unverifiable",
+    "no artifact path bound",
+    "quoted evidence, not a step to type",
+    "literal.json.literalAcceptance.stdout",
+    "[rung=derived]",
+  ]) {
+    assert.ok(labPage.includes(phrase), `${lab11} must lock the verify:ac PASS fragment: ${phrase}`);
+  }
 
   const solutionProse = parsed.get(solution11).prose;
   requireOutcomes(solution11, solutionProse, ["Outcome map", "Acceptance evidence"]);
   for (const phrase of ["EXPECTED_FAILURE", "quality:record", "quality-record.json only", "gateDefinitionsUnchanged", "average: 4"]) {
     assert.ok(solutionProse.includes(phrase), `${solution11} is missing explained evidence: ${phrase}`);
   }
+  const solutionPage = content.get(solution11);
+  assert.ok(
+    solutionPage.includes("The focused test and numeric-summary CLI pass for an ordinary sample and an empty sample."),
+    `${solution11} must classify the Lab 11 verify:ac clause 1 fragment`,
+  );
+  assert.ok(solutionPage.includes("no artifact path bound"), `${solution11} must classify unverifiable as no bound artifact path`);
 
   const course = content.get("curriculum/README.md");
   const module11Row = courseModuleRow(course, 11);

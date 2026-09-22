@@ -21,7 +21,7 @@ paths. These bounds do not prove pnpm, other images, or coding-host integration.
 
 ## Goal and done condition
 
-You are done when the project-local CLI reports Directive 0.119.5; init, doctor, and the consumer toolchain check return the expected exits; the repository remains no-remote; the anatomy and five-field recovery evidence pass; and cleanup archives the exact lab parent.
+You are done when the project-local CLI reports Directive 0.119.5; init, doctor, and the consumer toolchain check return the expected exits; the repository remains no-remote; `module_02_accept=PASS` re-reads those executable checks; the written chooser, anatomy, and five-field recovery rows match the explained solution and the evidence bundle; and cleanup archives the exact lab parent.
 
 This demonstrates O2.1–O2.4 without creating application code, a remote, pull request, deployment, or published artifact.
 
@@ -35,8 +35,10 @@ Northstar Route Checker is a fictional future JavaScript route-validation tool; 
 
 - Node.js 20 or newer; the verified local 0.119.5 run used 24.20.0.
 - npm, Git, GitHub CLI, and either zsh, bash, or PowerShell 7.4 or newer.
-- A local clone of this private curriculum repository, used only to read the fixture and run
-  the lab helper.
+- A local clone of this curriculum repository, used only to read the fixture and run
+  the lab helper. The public `deftai/directive-training` checkout is a valid
+  `DIRECTIVE_TRAINING_ROOT` for that purpose. Do not point `LAB_ROOT` at the curriculum
+  checkout; `LAB_ROOT` is the printed disposable attempt.
 - Access to the public npm registry for `@deftai/directive@0.119.5`. The normal
   path uses a project-local public-registry `.npmrc`; if organizational policy requires a
   different approved route, stop and use the recovery boundary instead.
@@ -61,7 +63,7 @@ two values you supply and one course helper that re-reads its own state from dis
 
 | Value | What it is | Where it comes from |
 | --- | --- | --- |
-| `DIRECTIVE_TRAINING_ROOT` | Absolute path of your private curriculum clone | You export it once, in a separate command |
+| `DIRECTIVE_TRAINING_ROOT` | Absolute path of your curriculum clone | You export it once, in a separate command |
 | `LAB_ROOT` | The single absolute attempt root | Printed by the first block; you export it once, in a separate command |
 
 The helper lives at `labs/fixtures/02-disposable-initialization/init-lab.mjs` inside the
@@ -84,7 +86,7 @@ Only `Stop:` is a boundary failure. A missing paste is never a boundary failure.
 ### macOS/zsh — verified locally; Linux/bash — candidate
 
 In a separate command, export `DIRECTIVE_TRAINING_ROOT` with the absolute path of your
-private curriculum clone. The block below reads and validates that learner-supplied value; it
+curriculum clone. The block below reads and validates that learner-supplied value; it
 does not replace it with an authoring placeholder.
 
 ```sh
@@ -146,7 +148,7 @@ configuration: nothing about the shell that created the attempt is replayed into
 ### Windows/PowerShell 7.4+ — candidate pending native evidence
 
 Before pasting the block, set the process environment variable
-`DIRECTIVE_TRAINING_ROOT` to the absolute path of your private curriculum clone.
+`DIRECTIVE_TRAINING_ROOT` to the absolute path of your curriculum clone.
 The block fails clearly if that learner input is absent.
 
 ```powershell
@@ -368,6 +370,17 @@ directive toolchain:check --consumer --project-root .
 them exactly enough to identify the classification and recommendation, without copying
 unrelated environment data. Read them from the printed `doctor_report` path.
 
+The healthy doctor banner also prints these two lines as expected output, not as classified
+warnings:
+
+```text
+Pre-cutover: none -- project is on the current vBRIEF document model.
+xBrief migration: none -- xbrief active, vbrief removed.
+```
+
+This banner's "vBRIEF" names post-pre-cutover document-model state. Learner-facing files stay
+xBRIEF 0.8, and new course writes stay `xbrief/` schema 0.8.
+
 The pin-matched 0.119.5 replay prints one named warning, the provenance check
 `canonical-vendored-npm-signpost`:
 
@@ -542,8 +555,11 @@ git remote
 | Consumer toolchain check | 0 | `All required tools available` | O2.2, O2.4 |
 | Git boundary checks | 0 | Clean tracked index, `.deft/core` ignored, no remote names | O2.2, O2.3 |
 | Project-local runtime election | 0 | `deft` resolves inside `$lab_root/node_modules/.bin`, never host-global | O2.2 |
-| Written chooser/boundary/anatomy inspections | All required rows present | State-based choices, consumer/maintainer boundary, and evidence-backed classifications | O2.1, O2.3 |
-| Recovery decision drill | All five fields present | Provided failure traced to preserved evidence, approved support, a fresh guarded attempt, and an observable retry gate | O2.4 |
+
+`module_02_accept=PASS` is that executable re-read only. Score the written chooser,
+mixed-ownership anatomy table, and five-field recovery decision by comparing your
+`evidence.md` with the [explained Lab 2 solution](../solutions/lab-02-disposable-initialization.md)
+and the evidence bundle, using Module 2's inspection path for O2.1, O2.3, and O2.4.
 
 If a required command differs, retain its command, exit, and relevant output; do not substitute a global CLI, omit a warning, or weaken a check.
 
@@ -585,7 +601,9 @@ section.
 The successful order is: `create` → export `LAB_ROOT` → `guard` → `install` (which installs
 the exact pin, proves the local CLI, verifies help, initializes, proves ignored paths,
 inspects allowed files, stages the exact file list, and commits) → `diagnose` → classify →
-recovery decision drill → `accept` → `archive`.
+write the chooser, anatomy table, and five-field recovery decision → `accept` (executable
+re-read) → `archive`. Compare the written rows with the explained solution and the evidence
+bundle; helper PASS does not attest them.
 
 After Hint 3, use the recovery table or the explained solution. No instructor unlock is
 required.
@@ -759,10 +777,11 @@ required.
 Fill this in only after acceptance and cleanup:
 
 > I completed `lab-02-disposable-initialization` against Directive 0.119.5 on my recorded
-> operating system and shell. The explicit local version, doctor, consumer toolchain, Git
-> boundary, chooser, anatomy, and recovery-decision checks passed and cover O2.1–O2.4. The
-> exact disposable parent is archived at my recorded temporary archive path. Every attempt
-> has no remote and contains no credential or sensitive data. Every block ran in its own
-> shell against the one printed attempt root.
+> operating system and shell. The explicit local version, doctor, consumer toolchain, and Git
+> boundary checks passed as `module_02_accept=PASS`. The written chooser, anatomy, and
+> five-field recovery rows match the explained solution and the evidence bundle and cover
+> O2.1–O2.4. The exact disposable parent is archived at my recorded temporary archive path.
+> Every attempt has no remote and contains no credential or sensitive data. Every block ran
+> in its own shell against the one printed attempt root.
 
 If any sentence is false, record the gap and retry only the corresponding outcome.

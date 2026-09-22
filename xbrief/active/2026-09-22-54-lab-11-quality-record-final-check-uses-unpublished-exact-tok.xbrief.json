@@ -1,0 +1,325 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #54",
+    "updated": "2026-09-22T01:03:23Z"
+  },
+  "plan": {
+    "title": "Lab 11 quality-record final check uses unpublished exact tokens the lab page never names",
+    "status": "running",
+    "narratives": {
+      "Description": "Lab 11 quality-record final check uses unpublished exact tokens the lab page never names",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/54",
+      "Overview": "## Situation\n\nLab 11 Task 4 says: update only `quality-record.json` to match the observed red, green, refactor, literal, forward-coverage, diagnosis, repair, and integrity evidence, then run `final`.\n\nThe starter file is:\n\n```json\n{\n  \"schema\": \"3ci.training.module11.quality-record.v1\",\n  \"status\": \"INCOMPLETE\",\n  \"evidence\": {\n    \"red\": \"\",\n    \"green\": \"\",\n    \"refactor\": \"\",\n    \"literalAcceptance\": \"\",\n    \"forwardCoverage\": \"\",\n    \"firstFailingSubcheck\": \"\",\n    \"repair\": \"\",\n    \"gateDefinitionsUnchanged\": false\n  }\n}\n```\n\nThe lab does not publish the required token values. The fixture verifier `labs/fixtures/11-testing-gates-and-evidence/scripts/verify-quality-record.mjs` deep-equals the whole object against:\n\n- `status`: `COMPLETE`\n- `red`: `EXPECTED_FAILURE`\n- `green` / `refactor` / `literalAcceptance` / `forwardCoverage`: `PASS`\n- `firstFailingSubcheck`: `quality:record`\n- `repair`: `quality-record.json only`\n- `gateDefinitionsUnchanged`: `true`\n\nI completed the ordered stages on macOS/zsh against 0.119.5. Aggregate failed first at `quality:record` with `quality record is incomplete`. I then had to guess whether `red` should be the helper’s `EXPECTED_FAILURE` string, a prose description, or the focused-test exit `1`.\n\n## Pain\n\nA mid-level engineer following only the lab page will write evidence in their own words (`focused test exit 1`, `repaired the quality record`). `final` then fails with `quality record does not match the observed Module 11 evidence` even though the learner observed the right events.\n\nThe recovery table says “Compare the record with the six retained files.” Those files use mixed keys (`finalStatus`, `firstFailingSubcheck`, command output). They do not show the exact `repair` sentence `quality-record.json only`. That token exists in the explained solution and in the hidden verifier, not in the lab.\n\nThis turns a gate-integrity lesson into a secret-string exercise unless the learner opens the solution or reads the fixture script.\n\n## Proposed fix\n\nPrint the required field tokens on the Lab 11 Task 4 page, next to the starter JSON. Example: copy `finalStatus` from each evidence file into the matching key; set `repair` to the literal `quality-record.json only`; set `firstFailingSubcheck` to `quality:record`.\n\nAlternatively, have `final` compare semantically (status COMPLETE, first failing subcheck equals the retained aggregate field, gate hashes unchanged) instead of deep-equal against unpublished strings.\n\nOS: macOS Darwin 25.6.0 arm64  \nShell: zsh 5.9  \nDirective: 0.119.5  \nHelper signal: aggregate `EXPECTED_FAILURE`, final `PASS` after using the solution tokens\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "On Lab 11 Task 4, publish the closed `expectedQualityRecord` field table: starter `INCOMPLETE` object plus required completed tokens `status: COMPLETE`, `red: EXPECTED_FAILURE`, `green` / `refactor` / `literalAcceptance` / `forwardCoverage: PASS`, `firstFailingSubcheck: quality:record`, `repair: quality-record.json only`, `gateDefinitionsUnchanged: true`.",
+        "status": "proposed",
+        "id": "clause:1"
+      },
+      {
+        "title": "Recut hint 4 and the final-mismatch recovery row to that table. Do not teach copy-`finalStatus`-from-the-six-files as the fill procedure.",
+        "status": "proposed",
+        "id": "clause:2"
+      },
+      {
+        "title": "Keep `labs/fixtures/11-testing-gates-and-evidence/scripts/verify-quality-record.mjs` frozen. Drop the semantic-compare alternative from this next-build contract.",
+        "status": "proposed",
+        "id": "clause:3"
+      },
+      {
+        "title": "Reuse `solutions/lab-11-testing-gates-and-evidence.md` Step 6 as the existing printed object. Do not add a second record format.",
+        "status": "proposed",
+        "id": "clause:4"
+      },
+      {
+        "title": "Extend the existing `scripts/verify-module-11.mjs` lab-page phrase loop, and one negative mutation on `labs/11-testing-gates-and-evidence.md`, to require the closed token set on the lab page.",
+        "status": "proposed",
+        "id": "clause:5"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/54",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #54: Lab 11 quality-record final check uses unpublished exact tokens the lab page never names"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 5 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "On Lab 11 Task 4, publish the closed `expectedQualityRecord` field table: starter `INCOMPLETE` object plus required completed tokens `status: COMPLETE`, `red: EXPECTED_FAILURE`, `green` / `refactor` / `literalAcceptance` / `forwardCoverage: PASS`, `firstFailingSubcheck: quality:record`, `repair: quality-record.json only`, `gateDefinitionsUnchanged: true`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Recut hint 4 and the final-mismatch recovery row to that table. Do not teach copy-`finalStatus`-from-the-six-files as the fill procedure.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Keep `labs/fixtures/11-testing-gates-and-evidence/scripts/verify-quality-record.mjs` frozen. Drop the semantic-compare alternative from this next-build contract.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Reuse `solutions/lab-11-testing-gates-and-evidence.md` Step 6 as the existing printed object. Do not add a second record format.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Extend the existing `scripts/verify-module-11.mjs` lab-page phrase loop, and one negative mutation on `labs/11-testing-gates-and-evidence.md`, to require the closed token set on the lab page.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because Lab 11 final deep-equals unpublished quality-record tokens the lab page never names.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the ambiguous n=1/n=3 ask with N=1 on each of 49-56; this is a closed identity recut of publishing the required Lab 11 quality-record tokens on the lab page\npain: P1\nP1: labs/fixtures/11-testing-gates-and-evidence/scripts/verify-quality-record.mjs requires status COMPLETE, red EXPECTED_FAILURE, green/refactor/literalAcceptance/forwardCoverage PASS, firstFailingSubcheck quality:record, repair quality-record.json only, gateDefinitionsUnchanged true; labs/11-testing-gates-and-evidence.md Task 4 never prints those tokens\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5768900840,
+          "html_url": "https://github.com/deftai/directive-training/issues/54#issuecomment-5768900840",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:23:26Z",
+          "updated_at": "2026-09-21T23:23:26Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nround: 1\ncritic-role: fresh\nissue: 54\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\nid-ceiling: 5768900840\n\nThe recut can bind as a Lab 11 page publication of the closed quality-record field tokens. It cannot bind as a copy-from-evidence-files procedure, and it cannot bind as a verifier rewrite.\n\n## 1. Publish the closed field table, not a retained-file mapping\n\nclass: sharpens-framing\n\nEvidence, re-run at `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`:\n\n- `labs/fixtures/11-testing-gates-and-evidence/scripts/verify-quality-record.mjs` `expectedQualityRecord` deep-equals `status: COMPLETE`, `red: EXPECTED_FAILURE`, `green` / `refactor` / `literalAcceptance` / `forwardCoverage: PASS`, `firstFailingSubcheck: quality:record`, `repair: quality-record.json only`, `gateDefinitionsUnchanged: true`.\n- Token inventory of `labs/11-testing-gates-and-evidence.md`: `COMPLETE` 0, `quality-record.json only` 0, `literalAcceptance` 0, `forwardCoverage` 0, `firstFailingSubcheck` 0, `finalStatus` 0, `INCOMPLETE` 0. Task 4 names the file and the events, not those field values. The page does not print the starter JSON.\n- `gates-lab.mjs` evidence writers use a different schema. `red.json` / `green.json` / `refactor.json` store `finalStatus`. `literal.json` stores `literalAcceptance` and `forwardCoverage` as command-result objects plus one `finalStatus: PASS`. `repair: quality-record.json only` is not written by any `writeEvidence` call. `lab-state.json` stage `COMPLETE` is set only inside `verifyFinal` after the aggregate already passed. At Task 4 fill time `final.json` does not exist.\n- Hint 4 says \"Copy evidence values, not gate commands.\" The recovery row for final quality mismatch says \"Compare the record with the six retained files.\"\n- Imported `verifyQualityRecord`: starter fails with `quality record is incomplete: expected status COMPLETE`. A `COMPLETE` record whose `repair` is `repaired the quality record` fails deep-equal on that one string.\n\nFailure mode: an implementer who harvests the issue-body example (\"copy `finalStatus` from each evidence file into the matching key\") ships a procedure that cannot produce `repair` or split `literalAcceptance` / `forwardCoverage`, and leaves hint 4 plus the six-file recovery row teaching the same false mapping. Learners still fail `final` after doing what the page says.\n\nDisposition: successor lean states the remaining work as Task 4 publishing the closed `expectedQualityRecord` field table (starter `INCOMPLETE` object plus required completed tokens). Same page slice recuts hint 4 and the final-mismatch recovery row to that table. Keep `scripts/verify-quality-record.mjs` frozen.\n\nExisting mechanism: `solutions/lab-11-testing-gates-and-evidence.md` Step 6 already prints that object. Do not add a second record format.\n\n## 2. Lock the lab page with the existing Module 11 content contract\n\nclass: sharpens-framing\n\nEvidence: `scripts/verify-module-11.mjs` already requires `EXPECTED_FAILURE`, `quality:record`, `quality-record.json only`, and `gateDefinitionsUnchanged` on the explained solution. Lab-page checks are helper verbs, evidence filenames, no-remote, and platform boundary. `node scripts/verify-module-11.mjs` exits 0 on this SHA while the lab page omits `COMPLETE` and `quality-record.json only`. Negative coverage lives in `scripts/verify-module-11.test.mjs`.\n\nFailure mode: a one-line Task 4 edit can land and later drift; the current contract still reports ok.\n\nDisposition: extend the existing lab-page phrase loop (and one negative mutation on `labs/11-testing-gates-and-evidence.md`) to require the closed token set on the lab page. Do not add a new verifier.\n\n## 3. Page publication is the only remaining identity\n\nclass: sharpens-framing\n\nEvidence: `gates-lab.mjs` `immutableGateFiles` includes `scripts/verify-quality-record.mjs`. Helper copy is fingerprint-checked. Module 11 lesson: repair the work, not the gate. Issue body still offers a second identity: have `final` compare semantically instead of deep-equal.\n\nFailure mode: harvest keeps both identities. An implementer edits the frozen quality verifier, which is the gate-weakening move this lab exists to forbid.\n\nDisposition: drop the semantic-compare alternative from the next-build contract. Inventory already has the page, the solution blob, and the frozen `expectedQualityRecord`.\n\nRoad-not-taken: make the record a projection of retained evidence files. That would match \"assemble from observed evidence\" only after those files grew a shared schema and a `repair` field. What would flip this: take `verify-quality-record.mjs` out of `immutableGateFiles` under separate approved gate-maintenance scope. That is not this recut.\n\n## 4. Seeded aggregate output names COMPLETE only\n\nclass: footnote\n\nCLI `node scripts/verify-quality-record.mjs` on the starter prints `quality record is incomplete: expected status COMPLETE` and does not print `quality-record.json only`. A later wrong-but-COMPLETE record does print the full expected object in `error.message`. `runAggregate` stops on the seeded status failure, so `aggregate-failure.json` cannot carry the closed table. Do not treat a failed-`final` dump as the lab-page contract. `labs/README.md` still requires a lab not to depend on an unpublished file.\n\n## 5. Stage prose already uses some helper strings\n\nclass: footnote\n\nThe lab page already prints `EXPECTED_FAILURE`, `PASS`, `quality:record`, and one `gateDefinitionsUnchanged: true` on `final.json`. Those are stage observations, not quality-record key bindings. Republishing them as if absent is noise; the missing work is the field table plus `COMPLETE` and `quality-record.json only`.\n\n## Injection / swarm lens\n\nN/A. The recut publishes documentation tokens on the Lab 11 page and extends an existing content-contract check. It does not change authority, untrusted input, prompts or envelopes, agent identity, concurrency, worktrees, or shared state.\n\n",
+          "id": 5769002691,
+          "html_url": "https://github.com/deftai/directive-training/issues/54#issuecomment-5769002691",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:31:57Z",
+          "updated_at": "2026-09-21T23:31:57Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLab 11 final deep-equals unpublished quality-record tokens the lab page never names. Confirming this map would publish the closed expectedQualityRecord field table on Task 4, recut hint 4 and the final-mismatch recovery row to that table, freeze the quality-record verifier, drop a semantic-compare alternative, and lock those tokens on the existing Module 11 lab-page contract.\n\nParent forward verdict: P1 holds; the recut binds once the lab page names the closed tokens the verifier already requires.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5768900840 and these takes; the evidence is critic 5769002691.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5769002691\nsupersedes: 5768900840\nTarget-digest: sha256:cfefcdf970a3159f21fd58d26f0f6eae7e59873913a4d80cb3237df8c63a1254\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Publish the closed field table, not a retained-file mapping\ntake: accept-into-contract\ncritic: 5769002691\nheading: Publish the closed field table, not a retained-file mapping\n\n### Lock the lab page with the existing Module 11 content contract\ntake: accept-into-contract\ncritic: 5769002691\nheading: Lock the lab page with the existing Module 11 content contract\n\n### Page publication is the only remaining identity\ntake: accept-into-contract\ncritic: 5769002691\nheading: Page publication is the only remaining identity\n\n### footnote — Seeded aggregate output names COMPLETE only\ntake: accept-into-contract\ncritic: 5769002691\nheading: Seeded aggregate output names COMPLETE only\n\n### footnote — Stage prose already uses some helper strings\ntake: accept-into-contract\ncritic: 5769002691\nheading: Stage prose already uses some helper strings\n\nrelieves: P1\naudit:pain-P1 sha=19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23 pointer=comment:5769002691 reading=asserted\n\n## Bound remedy\n\n- On Lab 11 Task 4, publish the closed `expectedQualityRecord` field table: starter `INCOMPLETE` object plus required completed tokens `status: COMPLETE`, `red: EXPECTED_FAILURE`, `green` / `refactor` / `literalAcceptance` / `forwardCoverage: PASS`, `firstFailingSubcheck: quality:record`, `repair: quality-record.json only`, `gateDefinitionsUnchanged: true`.\n- Recut hint 4 and the final-mismatch recovery row to that table. Do not teach copy-`finalStatus`-from-the-six-files as the fill procedure.\n- Keep `labs/fixtures/11-testing-gates-and-evidence/scripts/verify-quality-record.mjs` frozen. Drop the semantic-compare alternative from this next-build contract.\n- Reuse `solutions/lab-11-testing-gates-and-evidence.md` Step 6 as the existing printed object. Do not add a second record format.\n- Extend the existing `scripts/verify-module-11.mjs` lab-page phrase loop, and one negative mutation on `labs/11-testing-gates-and-evidence.md`, to require the closed token set on the lab page.\n\n",
+          "id": 5769135492,
+          "html_url": "https://github.com/deftai/directive-training/issues/54#issuecomment-5769135492",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:43:27Z",
+          "updated_at": "2026-09-21T23:43:27Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nround: 2\ncritic-role: fresh\nissue: 54\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\nid-ceiling: 5769135492\nlean: 5769135492\n\nSuccessor lean 5769135492 `relieves: P1` matches Stop 1 P1. Bound-remedy harvest covers the named gap. `scanPainCites` emits one operative disposition for that id.\n\n## 1. Bound-remedy covers Stop 1 P1 as named\n\nclass: footnote\n\nEvidence, re-run at `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`:\n\n- Stop 1 write-back 5768900840 `pain: P1` names `labs/fixtures/11-testing-gates-and-evidence/scripts/verify-quality-record.mjs` requiring `status: COMPLETE`, `red: EXPECTED_FAILURE`, `green` / `refactor` / `literalAcceptance` / `forwardCoverage: PASS`, `firstFailingSubcheck: quality:record`, `repair: quality-record.json only`, `gateDefinitionsUnchanged: true`, and that Task 4 never prints those tokens.\n- `expectedQualityRecord` in that verifier is that object.\n- Task 4 slice of `labs/11-testing-gates-and-evidence.md`: `COMPLETE` 0, `INCOMPLETE` 0, `quality-record.json only` 0, `literalAcceptance` 0, `forwardCoverage` 0, `firstFailingSubcheck` 0. Stage strings `EXPECTED_FAILURE`, `quality:record`, and `PASS` appear as helper expectations, not as quality-record field bindings.\n- Imported `verifyQualityRecord`: starter fails `quality record is incomplete: expected status COMPLETE`. A `COMPLETE` record with `repair: repaired the quality record` fails deep-equal on `quality-record.json only`. The expected object passes.\n- `node scripts/verify-module-11.mjs` exits 0 (29 artifacts) while the lab page omits `COMPLETE` and `quality-record.json only`. Solution Step 6 already prints the object. Helper `immutableGateFiles` includes `scripts/verify-quality-record.mjs`.\n- Bound-remedy item 1 publishes that closed table on Task 4. Item 3 keeps the verifier frozen. Item 4 reuses the Step 6 object. `evaluateBoundRemedyCites` with `coveredIds: [\"P1\"]` and this lean's cites returns `{ ok: true }`.\n\nFailure mode: none on this marker. Harvesting Bound-remedy as written supplies the unpublished tokens Stop 1 named.\n\nDisposition: leave `relieves: P1` on lean 5769135492.\n\n## 2. Lean body is well-formed for scanPainCites\n\nclass: footnote\n\nEvidence: `scanPainCites` on lean 5769135492 returns one cite `{ painId: \"P1\", disposition: \"relieves\", deferredIssueNumber: null }`, `rejected: []`. `classifyPosition` at the `relieves: P1` line-start is null (operative). The body has no `does-not-relieve` and no `operator-deferred` token. Unique P1 dispositions: `relieves`. `scanPainList` on Stop 1 is `{ present: true, ids: [\"P1\"], duplicates: [], malformed: false }`. `evaluatePainCitePlacement` bind: `{ allowed: true, operativeCiteCount: 1 }`. Prose `P1 holds` in the plain-English block is not a closed cite form and did not emit a second disposition.\n\nFailure mode: none. A second disposition for P1 would be `malformed-pain`; this body does not produce one.\n\nDisposition: the lean stays well-formed for pain coverage.\n\n",
+          "id": 5769234547,
+          "html_url": "https://github.com/deftai/directive-training/issues/54#issuecomment-5769234547",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:53:18Z",
+          "updated_at": "2026-09-21T23:53:18Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5769234547 is footnote-only. Bind remains successor lean 5769135492. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5769234547\nsupersedes: 5769135492\n\n",
+          "id": 5769299211,
+          "html_url": "https://github.com/deftai/directive-training/issues/54#issuecomment-5769299211",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:35Z",
+          "updated_at": "2026-09-22T00:01:35Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| `expectedQualityRecord` deep-equals unpublished COMPLETE / PASS / `quality-record.json only` tokens | verified | `labs/fixtures/11-testing-gates-and-evidence/scripts/verify-quality-record.mjs` |\n| Lab 11 Task 4 page omits those field tokens | verified | token inventory of `labs/11-testing-gates-and-evidence.md` |\n| Module 11 content contract is green while the lab page omits `COMPLETE` and `quality-record.json only` | verified | `node scripts/verify-module-11.mjs` exit 0 |\n| Solution Step 6 already prints the closed object; verifier is an immutable gate file | verified | `solutions/lab-11-testing-gates-and-evidence.md`; `immutableGateFiles` |\n| Lean `relieves: P1` is well-formed | verified | `scanPainCites`; `evaluateBoundRemedyCites`; pain-audit footnote-only |\n\n",
+          "id": 5769299508,
+          "html_url": "https://github.com/deftai/directive-training/issues/54#issuecomment-5769299508",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:37Z",
+          "updated_at": "2026-09-22T00:01:37Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nLab 11 Task 4 publishes the closed quality-record field table. Hint 4 and the final-mismatch recovery row point at that table. The quality-record verifier stays frozen. The Module 11 lab-page contract locks those tokens.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5769135492\nverified-claims table 5769299508\npain-audit 5769234547\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5769299863,
+          "html_url": "https://github.com/deftai/directive-training/issues/54#issuecomment-5769299863",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:39Z",
+          "updated_at": "2026-09-22T00:01:39Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5532787004,
+        "origin": "deftai/directive-training#54",
+        "id": "github.issue.5532787004"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "cfefcdf970a3159f21fd58d26f0f6eae7e59873913a4d80cb3237df8c63a1254"
+      }
+    },
+    "id": "github.issue.5532787004",
+    "updated": "2026-09-22T01:03:23Z"
+  }
+}

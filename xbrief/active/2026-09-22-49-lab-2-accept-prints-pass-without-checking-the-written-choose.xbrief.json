@@ -1,0 +1,337 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #49",
+    "updated": "2026-09-22T01:03:21Z"
+  },
+  "plan": {
+    "title": "Lab 2 accept prints PASS without checking the written chooser, anatomy, or recovery evidence",
+    "status": "running",
+    "narratives": {
+      "Description": "Lab 2 accept prints PASS without checking the written chooser, anatomy, or recovery evidence",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/49",
+      "Overview": "## Situation\n\nLab 2’s literal acceptance table (`labs/02-disposable-initialization.md`) lists written inspections as required pass conditions:\n\n- “Written chooser/boundary/anatomy inspections | All required rows present” for O2.1 and O2.3\n- “Recovery decision drill | All five fields present” for O2.4\n\nThe documented `accept` helper is the command a learner runs to prove those rows. I completed Lab 2 on macOS/zsh against 0.119.5. After writing `evidence.md`, `node \"$helper\" accept \"$lab_root\"` printed `module_02_accept=PASS`.\n\nI then compared that result with what `accept` actually checks. It re-runs version, doctor, toolchain, Git cleanliness, ignore, branch, and no-remote proofs. It does not read `evidence.md` and does not assert the chooser, anatomy table, or five-field recovery decision.\n\n## Pain\n\nThe lab presents `module_02_accept=PASS` as the gate for O2.1–O2.4. A mid-level engineer following the helper as the source of truth can skip the written work that actually teaches command choice, anatomy ownership, and recovery, and still receive PASS.\n\nThat splits the module: the lesson and exercise say the written rows are required; the only executable acceptance signal says they are optional. I would have treated the written tasks as optional notes if I had run `accept` before filling `evidence.md`.\n\n## Proposed fix\n\nEither:\n\n1. Teach `accept` as a Git/CLI boundary gate only, and add an explicit self-check that O2.1 / O2.3 / O2.4 written rows are scored from `evidence.md` and the explained solution, not from `module_02_accept=PASS`; or\n2. Make `accept` fail closed unless `evidence.md` contains the required chooser states (`init` / `update` / `doctor`), mixed-ownership `AGENTS.md` rows, reconstitutable vs runtime ignore classes, and the five recovery fields.\n\nOption 1 is enough if the course wants written work to stay human-scored. The current page should not list those rows in the same table as commands the helper actually runs.\n\nOS: macOS Darwin 25.6.0 arm64  \nShell: zsh 5.9  \nDirective: `@deftai/directive-core@0.119.5` (Lab 2 project-local)  \nHelper signal: `module_02_accept=PASS`\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "In `labs/02-disposable-initialization.md`, keep the helper-PASS table rows that match `acceptAttempt` at `labs/fixtures/02-disposable-initialization/init-lab.mjs:481-496` and the command list at lab lines 526-536 (version, doctor, toolchain, Git cleanliness, ignore, branch, empty remote).",
+        "status": "proposed",
+        "id": "clause:1"
+      },
+      {
+        "title": "Move the written chooser/anatomy and five-field recovery rows off that helper-PASS table onto the existing Module 2 inspection path: compare with `solutions/lab-02-disposable-initialization.md` and the evidence bundle.",
+        "status": "proposed",
+        "id": "clause:2"
+      },
+      {
+        "title": "Teach `module_02_accept=PASS` as that executable re-read only.",
+        "status": "proposed",
+        "id": "clause:3"
+      },
+      {
+        "title": "Recut Goal, Hint 3, and the Done statement in the same pass so written rows are attested by comparison with the explained solution and the evidence bundle, not by helper PASS.",
+        "status": "proposed",
+        "id": "clause:4"
+      },
+      {
+        "title": "Drop issue-body option 2 (fail-closed token presence in `evidence.md`) from this next-build contract.",
+        "status": "proposed",
+        "id": "clause:5"
+      },
+      {
+        "title": "Extend `scripts/verify-modules-2-3.mjs` so the helper-PASS claim's rows stay aligned with `acceptAttempt`, and written chooser/anatomy/recovery stay on the module inspection path.",
+        "status": "proposed",
+        "id": "clause:6"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/49",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #49: Lab 2 accept prints PASS without checking the written chooser, anatomy, or recovery evidence"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 6 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "In `labs/02-disposable-initialization.md`, keep the helper-PASS table rows that match `acceptAttempt` at `labs/fixtures/02-disposable-initialization/init-lab.mjs:481-496` and the command list at lab lines 526-536 (version, doctor, toolchain, Git cleanliness, ignore, branch, empty remote).",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Move the written chooser/anatomy and five-field recovery rows off that helper-PASS table onto the existing Module 2 inspection path: compare with `solutions/lab-02-disposable-initialization.md` and the evidence bundle.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Teach `module_02_accept=PASS` as that executable re-read only.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Recut Goal, Hint 3, and the Done statement in the same pass so written rows are attested by comparison with the explained solution and the evidence bundle, not by helper PASS.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Drop issue-body option 2 (fail-closed token presence in `evidence.md`) from this next-build contract.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "Extend `scripts/verify-modules-2-3.mjs` so the helper-PASS claim's rows stay aligned with `acceptAttempt`, and written chooser/anatomy/recovery stay on the module inspection path.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because Lab 2 lists written chooser, anatomy, and five-field recovery as required PASS rows, and acceptAttempt never reads evidence.md.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the ambiguous n=1/n=3 ask with N=1 on each of 49-56; this is a closed identity recut of the Lab 2 acceptance table versus the helper gate\npain: P1\nP1: labs/02-disposable-initialization.md:523-546 includes written chooser/anatomy and five-field recovery in the PASS table; labs/fixtures/02-disposable-initialization/init-lab.mjs acceptAttempt:481-496 returns PASS without reading evidence.md content\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5768894124,
+          "html_url": "https://github.com/deftai/directive-training/issues/49#issuecomment-5768894124",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:22:49Z",
+          "updated_at": "2026-09-21T23:22:49Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\naudit-targets: none\n\nround: 1\ncharter: open critique\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\nid-ceiling: 5768894124\n\nRe-verified P1 at that SHA. `labs/02-disposable-initialization.md:523-524` states that `accept` prints `module_02_accept=PASS` only after every following row holds. Rows at 545-546 are written chooser/anatomy and the five-field recovery drill. `acceptAttempt` at `labs/fixtures/02-disposable-initialization/init-lab.mjs:481-496` re-runs version, doctor, toolchain, hook path, Git cleanliness, ignore, branch, and empty remote, then returns `PASS`. That function body has no `evidence.md` read. `createAttempt:311` writes a stub note (`Write the chooser, anatomy table, and five-field recovery decision here.`) that does not contain the chooser states `init` / `update` / `doctor`. A live `createAttempt` on this dest reproduced that stub; `archiveAttempt` then accepted it by `existsSync` (`init-lab.mjs:509`). `scripts/init-lab.test.mjs:198` and `:230` call `acceptAttempt(root)` after install/diagnose with that stub still in place.\n\n## F1. Surviving identity is the module split plus the helper's command list\n\n`sharpens-framing`\n\nEvidence: Module 2 already splits scoring at `curriculum/modules/02-installation-and-anatomy.md:287-294`. O2.2 is inspected with the lab's literal acceptance commands. O2.1 is compared with the walkthrough and solution. O2.3 is compared with Git inspection and the source baseline. O2.4 is inspected in the evidence bundle and archive state. Lab 5 already records the same split (`labs/05-projection-drift-recovery.md:409-412`): helper output remains required evidence for what the helper proves, and ownership/recovery explanations remain required evidence beside it. Lab 2's own command list at 526-536 already names the executable re-read `acceptAttempt` runs, including doctor and toolchain, which are the executable slice of O2.4.\n\nFailure mode: binding the issue as an either/or leaves two identities. Option 1's phrase \"Git/CLI boundary gate only\" drops doctor, toolchain, and version from the helper's actual re-read. Adding a new lab-page self-check would duplicate the module exercise-acceptance table.\n\nDisposition: Bound-remedy is one identity. Keep rows that match `acceptAttempt:481-496` / lab 526-536 in the helper-PASS table. Move the written chooser/anatomy and five-field recovery rows to the existing module inspection path (compare with `solutions/lab-02-disposable-initialization.md` and the evidence bundle). Teach `module_02_accept=PASS` as that executable re-read. Reuse the module table as the written scoring pointer.\n\nRoad-not-taken: a closed evidence schema in the helper, in the Lab 7 style of helper-written JSON plus `test -f` (`labs/07-scope-lifecycle.md:292-309`). That still leaves learner prediction/explanation as human-scored, and it is a new Lab 2 mechanism. Steelman: a helper fail-closed on written work would stop a learner who runs `accept` before filling the note. Flip: grepping freeform markdown still passes a pasted solution table, and Lab 7 already keeps explanations beside file-presence checks.\n\n## F2. Option 2 recuts `accept` into a token-presence gate on untrusted markdown\n\n`sharpens-framing`\n\nEvidence: Option 2 asks `accept` to fail closed unless `evidence.md` contains chooser states, mixed-ownership `AGENTS.md` rows, reconstitutable vs runtime ignore classes, and the five recovery fields. No current Lab 2 helper verb reads `evidence.md` content. `archiveAttempt:509` checks presence only. The create stub already names chooser/anatomy/recovery and still lacks `init`/`update`/`doctor`. `init-lab.test.mjs:173-230` treats helper `PASS` as the installed Git/CLI/doctor/toolchain path.\n\nFailure mode: shipping option 2 would make token presence in learner markdown the written-work gate. A pasted copy of the explained-solution tables would satisfy it. The current accept test would have to be recut around that parser. Injection/swarm lens: `evidence.md` is learner-authored freeform text outside the attempt Git tree; folding it into fail-closed `accept` takes untrusted input into the helper. Lab 7's existing check is presence of helper-written JSON, which is a different input class.\n\nDisposition: drop option 2 from Bound-remedy. Keep written O2.1 / O2.3 / O2.4 on the module inspection path.\n\n## F3. Goal, Hint 3, and the Done statement still treat written rows as passing checks\n\n`sharpens-framing`\n\nEvidence: After the PASS table, three learner-facing sentences still name chooser/anatomy/recovery as checks that pass with acceptance:\n\n- Goal (`labs/02-disposable-initialization.md:24`): anatomy and five-field recovery evidence pass.\n- Hint 3 (`:588`): recovery decision drill → `accept` → `archive`.\n- Done statement (`:763`): chooser, anatomy, and recovery-decision checks passed and cover O2.1–O2.4.\n\nFailure mode: recutting only 523-546 leaves the Done statement as the attestation that those written rows passed. A learner who ran `accept` first can still sign that statement from `module_02_accept=PASS`.\n\nDisposition: recut those three sentences in the same identity pass so written rows are attested by comparison with the explained solution and the evidence bundle.\n\n## F4. `verify-modules-2-3.mjs` does not lock table-versus-helper identity\n\n`sharpens-framing`\n\nEvidence: `scripts/verify-modules-2-3.mjs` already string-locks Lab 2 helper verbs, refusal classes, pin, and `#18` environment rules. It does not lock the 523-524 PASS sentence, and it does not require the helper-PASS table to match `acceptAttempt`. The false identity survived that verifier.\n\nFailure mode: a docs-only recut can drift back to listing written rows under `module_02_accept=PASS`.\n\nDisposition: extend `verify-modules-2-3.mjs` so the helper-PASS claim's rows stay aligned with `acceptAttempt`, and written chooser/anatomy/recovery stay on the module inspection path.\n\n## F5. Archive presence check accepts the create stub\n\n`footnote`\n\n`archiveAttempt:509` requires `evidence.md` to exist after the move. The create stub satisfies that check with no learner writing. This is adjacent to P1; the skip-path the issue names is `accept`, which returns `PASS` before archive runs.\n\n",
+          "id": 5768995803,
+          "html_url": "https://github.com/deftai/directive-training/issues/49#issuecomment-5768995803",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:31:23Z",
+          "updated_at": "2026-09-21T23:31:23Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLab 2's PASS table lists written chooser, anatomy, and recovery as helper checks, and acceptAttempt never reads evidence.md. Confirming this map would keep the helper-PASS table aligned with the executable re-read, move written O2.1 / O2.3 / O2.4 onto the existing module inspection path, recut Goal / Hint 3 / Done so those rows are not attested by module_02_accept=PASS, drop a token-presence gate on learner markdown, and lock that split on verify-modules-2-3.mjs.\n\nParent forward verdict: P1 holds; the recut binds once helper PASS and written scoring are one identity.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5768894124 and these takes; the evidence is critic 5768995803.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5768995803\nsupersedes: 5768894124\nTarget-digest: sha256:f641b3df47c9ee049197b24e2a2490a76cb722df0ffa02ba4eabf3b36f78d327\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Surviving identity is the module split plus the helper's command list\ntake: accept-into-contract\ncritic: 5768995803\nheading: Surviving identity is the module split plus the helper's command list\n\n### Option 2 recuts `accept` into a token-presence gate on untrusted markdown\ntake: accept-into-contract\ncritic: 5768995803\nheading: Option 2 recuts `accept` into a token-presence gate on untrusted markdown\n\n### Goal, Hint 3, and the Done statement still treat written rows as passing checks\ntake: accept-into-contract\ncritic: 5768995803\nheading: Goal, Hint 3, and the Done statement still treat written rows as passing checks\n\n### `verify-modules-2-3.mjs` does not lock table-versus-helper identity\ntake: accept-into-contract\ncritic: 5768995803\nheading: `verify-modules-2-3.mjs` does not lock table-versus-helper identity\n\n### footnote — Archive presence check accepts the create stub\ntake: accept-into-contract\ncritic: 5768995803\nheading: Archive presence check accepts the create stub\n\nrelieves: P1\naudit:pain-P1 sha=19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23 pointer=comment:5768995803 reading=asserted\n\n## Bound remedy\n\n- In `labs/02-disposable-initialization.md`, keep the helper-PASS table rows that match `acceptAttempt` at `labs/fixtures/02-disposable-initialization/init-lab.mjs:481-496` and the command list at lab lines 526-536 (version, doctor, toolchain, Git cleanliness, ignore, branch, empty remote).\n- Move the written chooser/anatomy and five-field recovery rows off that helper-PASS table onto the existing Module 2 inspection path: compare with `solutions/lab-02-disposable-initialization.md` and the evidence bundle.\n- Teach `module_02_accept=PASS` as that executable re-read only.\n- Recut Goal, Hint 3, and the Done statement in the same pass so written rows are attested by comparison with the explained solution and the evidence bundle, not by helper PASS.\n- Drop issue-body option 2 (fail-closed token presence in `evidence.md`) from this next-build contract.\n- Extend `scripts/verify-modules-2-3.mjs` so the helper-PASS claim's rows stay aligned with `acceptAttempt`, and written chooser/anatomy/recovery stay on the module inspection path.\n\n",
+          "id": 5769130009,
+          "html_url": "https://github.com/deftai/directive-training/issues/49#issuecomment-5769130009",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:42:55Z",
+          "updated_at": "2026-09-21T23:42:55Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\naudit-targets: pain-P1\n\nround: 2\ncritic-role: fresh\ncharter: open critique\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\nid-ceiling: 5769130009\ntarget: successor lean 5769130009\n\n## Verdict\n\nSuccessor lean 5769130009's `relieves: P1` holds. Bound-remedy covers P1 as Stop 1 named it. `scanPainCites` emits one `relieves` disposition for `P1`.\n\n## Re-verification\n\nChecks at dispatch SHA `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`. In-envelope input is the issue body plus comments `5768894124`, `5768995803`, and `5769130009`.\n\n| Anchor | Result | Check |\n|---|---|---|\n| Stop 1 `pain: P1` | holds | `scanPainList` on 5768894124 → present, ids P1, duplicates empty, malformed false |\n| PASS table lists written rows as helper checks | holds | `labs/02-disposable-initialization.md:523-524` states `accept` prints `module_02_accept=PASS` only after every following row holds. Rows 545-546 are written chooser/boundary/anatomy and the five-field recovery drill |\n| `acceptAttempt` returns PASS without reading `evidence.md` | holds | `init-lab.mjs:481-496` contains no `evidence` substring and returns `\"PASS\"`. Live `createAttempt` wrote the stub \"Write the chooser, anatomy table, and five-field recovery decision here.\" with zero `init` / `update` / `doctor` tokens. `scripts/init-lab.test.mjs:198` and `:230` call `acceptAttempt(root)` after install/diagnose with that stub still in place |\n| Module 2 inspection path already scores the written outcomes | holds | `curriculum/modules/02-installation-and-anatomy.md:291-294`: O2.1 compare with walkthrough and solution; O2.3 Git inspection and source baseline; O2.4 evidence bundle and archive state. `solutions/lab-02-disposable-initialization.md` carries the three-row chooser, anatomy table, and five-field recovery |\n| Goal, Hint 3, and Done still attest written rows with acceptance | holds | Goal `:24`; Hint 3 `:588` sequences recovery decision drill → `accept` → `archive`; Done `:763` |\n| Verifier lock on table-versus-helper identity | absent | `scripts/verify-modules-2-3.mjs` has zero matches for `module_02_accept=PASS`, `every row below holds`, and `Written chooser` |\n| `scanPainCites` on 5769130009 | well-formed | one cite `{ painId: \"P1\", disposition: \"relieves\", deferredIssueNumber: null }`; rejected empty |\n| `evaluateBoundRemedyCites` with coveredIds P1 | ok | `{ ok: true }`; treating P1 as unmet returns `{ ok: false }` |\n| Bound-remedy harvest | six items | `extractBoundRemedyHarvest` returns 6 proposed list items under `## Bound remedy` |\n\n## F1. Bound-remedy covers P1 as Stop 1 named it\n\n`footnote`\n\nEvidence: Stop 1 P1 is the PASS table at 523-546 including written chooser/anatomy and five-field recovery, together with `acceptAttempt:481-496` returning PASS with no `evidence.md` read. Bound-remedy item 1 keeps helper-PASS rows that match that function and the command list at 526-536. Item 2 moves the written chooser/anatomy and five-field recovery rows onto the Module 2 inspection path. Item 3 teaches `module_02_accept=PASS` as that executable re-read. Item 4 recuts Goal, Hint 3, and Done so written rows are attested by comparison with the explained solution and the evidence bundle. Item 5 drops fail-closed token presence in `evidence.md`. Item 6 extends `scripts/verify-modules-2-3.mjs` so the helper-PASS claim's rows stay aligned with `acceptAttempt` and the written rows stay on the module inspection path. Lab 5 already records helper output and ownership/recovery explanations as separate evidence (`labs/05-projection-drift-recovery.md:409-412`).\n\nFailure mode: leaving 523-524 plus rows 545-546, or leaving Goal / Hint 3 / Done as helper-PASS attestations of the written rows, would keep the identity Stop 1 named.\n\nDisposition: the asserted `relieves: P1` is supported. The harvested Bound-remedy stays.\n\n## F2. scanPainCites emits one relieves for P1\n\n`footnote`\n\nEvidence: `scanPainCites` on the posted lean body returned one cite and an empty rejected list. The sole `PAIN_CITE_RE` hit is the operative line `relieves: P1` at index 2145 with `classifyPosition` null. Take headings and Bound-remedy bullets produced zero additional hits. `Parent forward verdict: P1 holds` produced zero hits. `audit:pain-P1 sha=19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23 pointer=comment:5768995803 reading=asserted` parses as the substantiation token.\n\nFailure mode: a second operative disposition for `P1` on this lean would be `malformed-pain`.\n\nDisposition: the lean is well-formed for `scanPainCites`. The harvested Bound-remedy stays.\n\n## Road not taken\n\nIssue-body option 2: make `accept` fail closed unless `evidence.md` contains chooser states, mixed-ownership `AGENTS.md` rows, reconstitutable vs runtime ignore classes, and the five recovery fields.\n\nSteelman: after this recut, `acceptAttempt` still returns PASS on the create stub, so a learner who runs `accept` before filling the note still sees `module_02_accept=PASS`. The live stub confirmed that.\n\nFlip: I would take option 2 if Stop 1 required `acceptAttempt` to read `evidence.md` content, or if Bound-remedy left Goal / Hint 3 / Done attesting written rows from helper PASS. Stop 1 named the table-versus-helper identity. Items 1-4 recut that identity. Item 5 drops option 2. Option 2 would take learner-authored freeform markdown into fail-closed `accept`. Lab 7's existing presence check is helper-written JSON.\n\nNo new mechanism.\n\n",
+          "id": 5769255903,
+          "html_url": "https://github.com/deftai/directive-training/issues/49#issuecomment-5769255903",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:55:58Z",
+          "updated_at": "2026-09-21T23:55:58Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5769255903 is footnote-only. Bind remains successor lean 5769130009. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5769255903\nsupersedes: 5769130009\n\n",
+          "id": 5769291297,
+          "html_url": "https://github.com/deftai/directive-training/issues/49#issuecomment-5769291297",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:00:35Z",
+          "updated_at": "2026-09-22T00:00:35Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Lab 2 PASS table includes written chooser/anatomy and five-field recovery | verified | `git show 19f2b3dd:labs/02-disposable-initialization.md` lines 523-546 |\n| `acceptAttempt` returns PASS without reading `evidence.md` | verified | `init-lab.mjs:481-496`; live `createAttempt` stub; `scripts/init-lab.test.mjs:198,:230` |\n| Module 2 already scores written outcomes on the inspection path | verified | `curriculum/modules/02-installation-and-anatomy.md:291-294`; `solutions/lab-02-disposable-initialization.md` |\n| Goal, Hint 3, and Done still attest written rows with helper PASS | verified | lab `:24`, `:588`, `:763` |\n| `verify-modules-2-3.mjs` does not lock table-versus-helper identity | verified | zero matches for `module_02_accept=PASS` / `Written chooser` |\n| Lean `relieves: P1` is well-formed and Bound-remedy covers P1 | verified | `scanPainCites` one relieves; `evaluateBoundRemedyCites` ok; pain-audit 5769255903 footnote-only |\n\n",
+          "id": 5769291598,
+          "html_url": "https://github.com/deftai/directive-training/issues/49#issuecomment-5769291598",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:00:37Z",
+          "updated_at": "2026-09-22T00:00:37Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nLab 2 helper PASS and written scoring are one identity. The helper-PASS table stays aligned with acceptAttempt. Written chooser, anatomy, and recovery move onto the existing Module 2 inspection path. Goal, Hint 3, and Done attest those rows by comparison with the explained solution.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5769130009\nverified-claims table 5769291598\npain-audit 5769255903\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5769291876,
+          "html_url": "https://github.com/deftai/directive-training/issues/49#issuecomment-5769291876",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:00:39Z",
+          "updated_at": "2026-09-22T00:00:39Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5532696537,
+        "origin": "deftai/directive-training#49",
+        "id": "github.issue.5532696537"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "f641b3df47c9ee049197b24e2a2490a76cb722df0ffa02ba4eabf3b36f78d327"
+      }
+    },
+    "id": "github.issue.5532696537",
+    "updated": "2026-09-22T01:03:21Z"
+  }
+}

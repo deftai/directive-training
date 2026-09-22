@@ -1,0 +1,313 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #52",
+    "updated": "2026-09-22T01:03:22Z"
+  },
+  "plan": {
+    "title": "Module 6 solution and Lab 7 Task 5 disagree on the proposed-scope filename",
+    "status": "running",
+    "narratives": {
+      "Description": "Module 6 solution and Lab 7 Task 5 disagree on the proposed-scope filename",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/52",
+      "Overview": "## Situation\n\nModule 6 O6.2 tells the learner to keep the proposed-scope artifact for Lab 7 Task 5. The explained Module 6 solution records this worked path:\n\n`<lab root>/xbrief/proposed/2026-01-15-northstar-delayed-route-preview.xbrief.json`\n\nLab 7 Task 5 hard-codes a different path and fails closed if that file is missing:\n\n```sh\nauthored=\"$first_root/xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json\"\n...\ntest -f \"$authored\"\n```\n\nThe Windows Lab 7 route uses the same `2026-01-15-your-proposed-scope.xbrief.json` name.\n\nI completed Module 6 from the worksheet, compared with the explained solution, then followed Lab 7 Task 5. The two pages disagree on the only filename the helper checks.\n\n## Pain\n\nA mid-level engineer using the explained solution as the comparison surface will write the artifact under the solution’s filename. Lab 7 then fails at `test -f \"$authored\"` even though the JSON is valid. The recovery table talks about invalid JSON and Acceptance types; it does not mention a filename mismatch with the Module 6 solution.\n\nI had to ignore the solution’s “worked value” and use the lab’s placeholder name. That undercuts the Module 6 instruction to keep “this exact file.”\n\n## Proposed fix\n\nPick one filename and use it in all four places:\n\n- Module 6 solution structural-record path\n- Lab 7 Task 5 `authored=` assignment\n- Lab 7 Windows route `$Authored`\n- Lab 7 explained solution, if it names a path\n\n`2026-01-15-northstar-delayed-route-preview.xbrief.json` matches the story ID. If the lab keeps the placeholder name, the Module 6 solution should say Task 5 requires that exact filename.\n\nOS: macOS Darwin 25.6.0 arm64  \nShell: zsh 5.9  \nDirective: 0.119.5 (Lab 7 project-local)\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "Keep `2026-01-15-your-proposed-scope.xbrief.json` as the Lab 7 drop-in basename at `labs/07-scope-lifecycle.md:236`, `:415`, and `solutions/lab-07-scope-lifecycle.md:186`.",
+        "status": "proposed",
+        "id": "clause:1"
+      },
+      {
+        "title": "Recut `solutions/module-06-creating-well-shaped-work.md:213` Artifact path to that same basename so the sentence that Lab 7 Task 5 checks this exact artifact is true.",
+        "status": "proposed",
+        "id": "clause:2"
+      },
+      {
+        "title": "Keep walkthrough `plan.id` `northstar.delayed-route-preview` in the JSON example. Filename and `plan.id` may differ; Task 5 remains a copy-into-a-fixed-path step.",
+        "status": "proposed",
+        "id": "clause:3"
+      },
+      {
+        "title": "Extend `scripts/verify-module-6.mjs` `requireStructuralEvidenceContract` so one basename appears in all four learner sites, including the PowerShell `$Authored` line read from the lab file. Update `scripts/verify-module-6.test.mjs` only as needed. The fake-lab fixture at test line 188 is not a fifth learner path.",
+        "status": "proposed",
+        "id": "clause:4"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/52",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #52: Module 6 solution and Lab 7 Task 5 disagree on the proposed-scope filename"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Keep `2026-01-15-your-proposed-scope.xbrief.json` as the Lab 7 drop-in basename at `labs/07-scope-lifecycle.md:236`, `:415`, and `solutions/lab-07-scope-lifecycle.md:186`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Recut `solutions/module-06-creating-well-shaped-work.md:213` Artifact path to that same basename so the sentence that Lab 7 Task 5 checks this exact artifact is true.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Keep walkthrough `plan.id` `northstar.delayed-route-preview` in the JSON example. Filename and `plan.id` may differ; Task 5 remains a copy-into-a-fixed-path step.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Extend `scripts/verify-module-6.mjs` `requireStructuralEvidenceContract` so one basename appears in all four learner sites, including the PowerShell `$Authored` line read from the lab file. Update `scripts/verify-module-6.test.mjs` only as needed. The fake-lab fixture at test line 188 is not a fifth learner path.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the Module 6 explained solution and Lab 7 Task 5 disagree on the only filename Task 5 checks.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the ambiguous n=1/n=3 ask with N=1 on each of 49-56; this is a closed identity recut of one proposed-scope filename across Module 6 solution and Lab 7 Task 5\npain: P1\nP1: solutions/module-06-creating-well-shaped-work.md:213 names 2026-01-15-northstar-delayed-route-preview.xbrief.json; labs/07-scope-lifecycle.md:236 and :415 hard-code 2026-01-15-your-proposed-scope.xbrief.json with test -f\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5768898228,
+          "html_url": "https://github.com/deftai/directive-training/issues/52#issuecomment-5768898228",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:23:09Z",
+          "updated_at": "2026-09-21T23:23:09Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh open critique of issue 52. Dispatch SHA `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`. Id ceiling 5768898228 (Stop 1 write-back, inclusive).\n\nRe-verified P1 at that SHA with `git show` / `git grep` / `node scripts/verify-module-6.mjs` (exit 0). Learner-facing hardcodes of the two basenames are exactly four sites:\n\n- `solutions/module-06-creating-well-shaped-work.md:213` — `2026-01-15-northstar-delayed-route-preview.xbrief.json`\n- `labs/07-scope-lifecycle.md:236` — `authored=` `2026-01-15-your-proposed-scope.xbrief.json` then `test -f`\n- `labs/07-scope-lifecycle.md:415` — PowerShell `$Authored` same placeholder basename\n- `solutions/lab-07-scope-lifecycle.md:186` — Lab 7 explained-solution Artifact path, same placeholder basename\n\nThe only other hit is `scripts/verify-module-6.test.mjs:188`, a fake-lab fixture, not a fifth learner path.\n\n## 1. sharpens-framing — Name the Lab 7 drop-in winner on the recut\n\nEvidence. Three of the four learner sites already share `2026-01-15-your-proposed-scope.xbrief.json`. The Module 6 solution structural-record cell is the outlier, and it sits next to the sentence “Lab 7 Task 5 checks this exact artifact.” Lab 7 Task 5 is titled “your own proposed scope” and already treats the file as a third record beside `2026-01-15-fictional-delivery.xbrief.json` and `2026-01-15-fictional-cancel.xbrief.json`. The same solution page’s JSON example keeps `plan.id` `northstar.delayed-route-preview`; Module 6 walkthrough action 3 uses that id (`curriculum/modules/06-creating-well-shaped-work.md:322-323`); Module 4 teaches `YYYY-MM-DD-descriptive-slug.xbrief.json` (`curriculum/modules/04-xbrief-as-durable-state.md:111`). `xbrief:verify` is invoked with `--out` of a caller-chosen path, so filename and `plan.id` are allowed to differ; Task 5 is already a copy-into-a-fixed-path step.\n\nFailure mode. “Pick one filename” leaves the implementer with two recuts of different size. Recutting the Module 6 solution cell to the placeholder makes the structural-record sentence true and leaves the fail-closed helper, Windows route, and Lab 7 solution already aligned. Recutting the Lab 7 family to the northstar slug also aligns P1, and it moves the unix assignment, the Windows `$Authored` line, and the Lab 7 solution path together. Part B still asks for “one story ID and title,” so a hardcoded drop-in path remains a rename-at-copy for any learner whose scratch name differs.\n\nDisposition. Bind with an explicit winner. Keep `2026-01-15-your-proposed-scope.xbrief.json` as the Lab 7 drop-in basename and recut `solutions/module-06-creating-well-shaped-work.md:213` to that same basename so the “checks this exact artifact” sentence is true. Recutting the Lab 7 unix, Windows, and explained-solution paths to the northstar slug also binds; that is the larger move, and it is the one that follows the Module 4 slug convention plus the walkthrough id.\n\nRoad-not-taken. A glob of `xbrief/proposed/*.xbrief.json` minus the two supplied fixtures would be a new selection mechanism. The existing `test -f` / `Test-Path` check is the control; unify the string it already uses.\n\nSteelman. The northstar slug is the filename a walkthrough-follower would derive from Module 4 plus `northstar.delayed-route-preview`. Recutting the solution cell to the placeholder makes that structural-record path differ from the JSON `plan.id` on the same page. The verdict would flip if the drop-in filename were required to match `plan.id`.\n\n## 2. sharpens-framing — Lock the shared basename in `requireStructuralEvidenceContract`\n\nEvidence. `scripts/verify-module-6.mjs` `requireStructuralEvidenceContract` already receives Module 6 solution prose, Lab 7 prose, and `labCommands`. It asserts Task 5 command shape against `\"$authored\"` and keeps the two supplied fixture names. It does not compare the Module 6 solution Artifact-path basename with Lab 7 `authored=`, Windows `$Authored`, or the Lab 7 solution path. `labCommands` is joined from fences whose language is `sh|bash|zsh|console` (`scripts/verify-module-6.mjs:405-408`); the PowerShell fence is outside that string. `node scripts/verify-module-6.mjs` exits 0 on this SHA while the four learner sites disagree.\n\nFailure mode. A four-file prose recut can land and later split again with a green Module 6 contract. The Windows path can drift from the unix path with the current extractor.\n\nDisposition. Extend that existing function so one basename appears in all four learner sites, including the PowerShell `$Authored` line read from the lab file. Update `scripts/verify-module-6.test.mjs` only as needed for the new assertion. The fixture at line 188 is not a fifth learner-facing path.\n\n## 3. footnote — Lab 7 explained solution already names the path\n\n`solutions/lab-07-scope-lifecycle.md:186` already publishes `2026-01-15-your-proposed-scope.xbrief.json`. The fourth recut site is required.\n\n## 4. footnote — Missing-file recovery is leftover after the identity recut\n\nLab 7 recovery names `invalid JSON`, Acceptance-type, and missing top-level key (`labs/07-scope-lifecycle.md:350-352`). Unix Task 5 uses `test -f \"$authored\"` with no diagnostic. Windows already throws `Write your Module 6 proposed scope to $Authored first.` (`:416`). After the four-site identity recut, solution-followers are relieved. A later wrong-basename miss is still visible in the Task 5 assignment line.\n\n",
+          "id": 5769003613,
+          "html_url": "https://github.com/deftai/directive-training/issues/52#issuecomment-5769003613",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:32:01Z",
+          "updated_at": "2026-09-21T23:32:01Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe Module 6 explained solution and Lab 7 Task 5 disagree on the only filename Task 5 checks. Confirming this map would keep `2026-01-15-your-proposed-scope.xbrief.json` as the Lab 7 drop-in basename, recut the Module 6 solution Artifact-path cell to that same basename, and lock that shared basename in the existing Module 6 structural-evidence contract, including the PowerShell `$Authored` line.\n\nParent forward verdict: P1 holds; the recut binds once one basename appears at all four learner sites.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5768898228 and these takes; the evidence is critic 5769003613.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5769003613\nsupersedes: 5768898228\nTarget-digest: sha256:25076c31e867a728e638a8c5f8ea24cd0d04d91fbfb8a5a5314f73308da0e6a3\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Name the Lab 7 drop-in winner on the recut\ntake: accept-into-contract\ncritic: 5769003613\nheading: Name the Lab 7 drop-in winner on the recut\n\n### Lock the shared basename in `requireStructuralEvidenceContract`\ntake: accept-into-contract\ncritic: 5769003613\nheading: Lock the shared basename in `requireStructuralEvidenceContract`\n\n### footnote — Lab 7 explained solution already names the path\ntake: accept-into-contract\ncritic: 5769003613\nheading: Lab 7 explained solution already names the path\n\n### footnote — Missing-file recovery is leftover after the identity recut\ntake: accept-into-contract\ncritic: 5769003613\nheading: Missing-file recovery is leftover after the identity recut\n\nrelieves: P1\naudit:pain-P1 sha=19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23 pointer=comment:5769003613 reading=asserted\n\n## Bound remedy\n\n- Keep `2026-01-15-your-proposed-scope.xbrief.json` as the Lab 7 drop-in basename at `labs/07-scope-lifecycle.md:236`, `:415`, and `solutions/lab-07-scope-lifecycle.md:186`.\n- Recut `solutions/module-06-creating-well-shaped-work.md:213` Artifact path to that same basename so the sentence that Lab 7 Task 5 checks this exact artifact is true.\n- Keep walkthrough `plan.id` `northstar.delayed-route-preview` in the JSON example. Filename and `plan.id` may differ; Task 5 remains a copy-into-a-fixed-path step.\n- Extend `scripts/verify-module-6.mjs` `requireStructuralEvidenceContract` so one basename appears in all four learner sites, including the PowerShell `$Authored` line read from the lab file. Update `scripts/verify-module-6.test.mjs` only as needed. The fake-lab fixture at test line 188 is not a fifth learner path.\n\n",
+          "id": 5769133569,
+          "html_url": "https://github.com/deftai/directive-training/issues/52#issuecomment-5769133569",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:43:15Z",
+          "updated_at": "2026-09-21T23:43:15Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5769133569 against Stop 1 write-back 5768898228. Ceiling 5769133569 inclusive. Dispatch SHA `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`. Process-only. File reads via `git show <sha>:`. Round-1 critic 5769003613 was re-run, not accepted.\n\n## Verdict\n\n`relieves: P1` is independently supported. Bound-remedy covers P1 as Stop 1 named it. Lean 5769133569 is well-formed for `scanPainCites`: one `relieves` for `P1`, and no heading or prose emits a second disposition for that id.\n\n## Re-verification\n\nChecks at dispatch SHA `19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23`. In-envelope input is the issue body plus comments `5768898228`, `5769003613`, and `5769133569`. Scanner is `@deftai/directive-core@0.119.5`.\n\n| Anchor | Result | Check |\n|---|---|---|\n| Stop 1 `pain: P1` | holds | `scanPainList` on 5768898228 → present, ids `[P1]`, duplicates `[]`, malformed false |\n| Lean cite | one `relieves` for `P1` | `scanPainCites` on 5769133569 → `{painId:P1, disposition:relieves, deferredIssueNumber:null}`; `rejected: []` |\n| Second disposition for `P1` | none | `PAIN_CITE_RE` matches lean line 42 only (`relieves: P1`). Forward-verdict `P1 holds` and `audit:pain-P1` do not match. Conflicting-disposition set empty |\n| Cite honesty fixture | ok | `evaluateBoundRemedyCites` with coveredIds `[P1]`, unmetIds `[]`, issueNumber 52 |\n| Four learner basenames | disagree | `git grep` of both `.xbrief.json` names at SHA: `solutions/module-06-creating-well-shaped-work.md:213` northstar; `labs/07-scope-lifecycle.md:236` and `:415` plus `solutions/lab-07-scope-lifecycle.md:186` placeholder. Only extra hit: `scripts/verify-module-6.test.mjs:188` fake-lab fixture |\n| Module 6 verifier | green on the split | `node scripts/verify-module-6.mjs` at dest SHA → exit 0, `ok (16 artifacts, 0 missing)` |\n| Existing contract | no basename lock | `requireStructuralEvidenceContract` at `scripts/verify-module-6.mjs:128`; `labCommands` from `sh\\|bash\\|zsh\\|console` only; Windows fence language is `powershell` at lab `:399` |\n| Bound-remedy vs Stop 1 P1 | covers | harvest recuts `:213` to `2026-01-15-your-proposed-scope.xbrief.json`, keeps `:236` / `:415` / `:186`, and extends that contract to the four learner sites including `$Authored` |\n\n## 1. footnote — Bound-remedy covers P1 as Stop 1 named it\n\nEvidence. Stop 1 names the split: module-06 solution `:213` uses `2026-01-15-northstar-delayed-route-preview.xbrief.json`; Lab 7 Task 5 `:236` and `:415` hard-code `2026-01-15-your-proposed-scope.xbrief.json`. Bound-remedy keeps the Lab 7 drop-in basename and recuts the Module 6 Artifact-path cell so “Lab 7 Task 5 checks this exact artifact” is true. The fourth harvest bullet locks that shared basename in the existing verifier, including the PowerShell `$Authored` line the current extractor drops.\n\nFailure mode if `:213` stayed northstar. A solution-follower still writes the northstar file; unix `test -f \"$authored\"` at `:241` and Windows `Test-Path` at `:416` still fail.\n\nDisposition. No harvest change. The asserted `relieves: P1` holds.\n\n## 2. footnote — lean 5769133569 is well-formed for `scanPainCites`\n\nEvidence. One operative cite line, one parser row, empty rejected set. Headings (`Name the Lab 7 drop-in winner on the recut`, `Lock the shared basename…`, the two footnote takes) carry no `relieves` / `does-not-relieve` / `operator-deferred` token.\n\nFailure mode if a heading or uncoded cite form emitted a second disposition for `P1`. The pain conjunct would see conflicting rows for that id.\n\nDisposition. No recut of the cite lines.\n\n",
+          "id": 5769229103,
+          "html_url": "https://github.com/deftai/directive-training/issues/52#issuecomment-5769229103",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-21T23:52:36Z",
+          "updated_at": "2026-09-21T23:52:36Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5769229103 is footnote-only. Bind remains successor lean 5769133569. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5769229103\nsupersedes: 5769133569\n\n",
+          "id": 5769295867,
+          "html_url": "https://github.com/deftai/directive-training/issues/52#issuecomment-5769295867",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:10Z",
+          "updated_at": "2026-09-22T00:01:10Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Four learner sites disagree on the proposed-scope basename | verified | `git grep` northstar at module-06 solution `:213`; placeholder at Lab 7 `:236,:415` and lab-07 solution `:186` |\n| Module 6 verifier is green on that split | verified | `node scripts/verify-module-6.mjs` exit 0 at dest SHA |\n| `requireStructuralEvidenceContract` does not lock the shared basename or PowerShell `$Authored` | verified | `scripts/verify-module-6.mjs:128`; `labCommands` from sh/bash/zsh/console only |\n| Bound-remedy recuts `:213` to the Lab 7 drop-in basename and extends the existing contract | verified | harvest; pain-audit 5769229103 footnote-only |\n\n",
+          "id": 5769296230,
+          "html_url": "https://github.com/deftai/directive-training/issues/52#issuecomment-5769296230",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:13Z",
+          "updated_at": "2026-09-22T00:01:13Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nThe Lab 7 drop-in basename 2026-01-15-your-proposed-scope.xbrief.json is the shared name. The Module 6 solution Artifact-path cell recuts to that basename. The existing Module 6 structural-evidence contract locks all four learner sites, including PowerShell $Authored.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5769133569\nverified-claims table 5769296230\npain-audit 5769229103\ndispatch-sha: 19f2b3dd829d089519a22cfeaba8d0bbd7fb9e23\n\n",
+          "id": 5769296630,
+          "html_url": "https://github.com/deftai/directive-training/issues/52#issuecomment-5769296630",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T00:01:16Z",
+          "updated_at": "2026-09-22T00:01:16Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5532750191,
+        "origin": "deftai/directive-training#52",
+        "id": "github.issue.5532750191"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "25076c31e867a728e638a8c5f8ea24cd0d04d91fbfb8a5a5314f73308da0e6a3"
+      }
+    },
+    "id": "github.issue.5532750191",
+    "updated": "2026-09-22T01:03:22Z"
+  }
+}

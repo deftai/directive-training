@@ -118,6 +118,26 @@ node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs literal "$LAB11_R
 
 Expected: `PASS`. The helper runs the pinned `verify:ac` behavior and forward-coverage command separately and retains both results in `literal.json`.
 
+The helper prints `PASS`. Inspect `literal.json.literalAcceptance.stdout` for the pinned
+`verify:ac` PASS fragment. This is quoted evidence, not a step to type:
+
+```text
+verify:ac passed (#3284) (0 verified, 1 unverifiable) [rung=derived]
+verify:ac clause walk (#3323): 0 verified, 1 unverifiable, 0 failed
+  [unverifiable] clause 1 @ (no path): The focused test and numeric-summary CLI pass for an ordinary sample and an empty sample. — no artifact path bound
+Literal acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim
+AC-pass bank checkpoint required (finalize-on-green) (#3285)
+unbounded budget — dual-stop still applies; bank is optional discipline
+```
+
+Classify that fragment:
+
+- The two stored npm commands ran verbatim and exited 0. That is the literal-acceptance proof.
+- `unverifiable` here means an acceptance sentence has no bound artifact path, not that a
+  focused test failed. The clause text is Lab 11's stored Acceptance sentence.
+- `[rung=derived]` and the AC-pass-bank dual-stop line are upstream 0.119.5 diagnostics, not
+  Lab 11 closeout axes.
+
 ### Task 4 — Diagnose the seeded aggregate failure
 
 ```sh
@@ -126,7 +146,41 @@ node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs aggregate "$LAB11
 
 Expected: `EXPECTED_FAILURE`, with `quality:record` as the first failing subcheck and `quality record is incomplete` in the retained output. Do not change a gate.
 
-Update only `$LAB11_ROOT/quality-record.json` to match the observed red, green, refactor, literal, forward-coverage, diagnosis, repair, and integrity evidence. Then run:
+The starter record is incomplete. Fill it from this closed field table, then run `final`.
+Do not copy a helper `finalStatus` object as the fill procedure.
+
+| Field | Starter | Required completed value |
+| --- | --- | --- |
+| `status` | `INCOMPLETE` | `COMPLETE` |
+| `evidence.red` | `""` | `EXPECTED_FAILURE` |
+| `evidence.green` | `""` | `PASS` |
+| `evidence.refactor` | `""` | `PASS` |
+| `evidence.literalAcceptance` | `""` | `PASS` |
+| `evidence.forwardCoverage` | `""` | `PASS` |
+| `evidence.firstFailingSubcheck` | `""` | `quality:record` |
+| `evidence.repair` | `""` | `quality-record.json only` |
+| `evidence.gateDefinitionsUnchanged` | `false` | `true` |
+
+The completed object matches the explained Lab 11 solution Step 6 record:
+
+```json
+{
+  "schema": "3ci.training.module11.quality-record.v1",
+  "status": "COMPLETE",
+  "evidence": {
+    "red": "EXPECTED_FAILURE",
+    "green": "PASS",
+    "refactor": "PASS",
+    "literalAcceptance": "PASS",
+    "forwardCoverage": "PASS",
+    "firstFailingSubcheck": "quality:record",
+    "repair": "quality-record.json only",
+    "gateDefinitionsUnchanged": true
+  }
+}
+```
+
+Update only `$LAB11_ROOT/quality-record.json` to those required completed tokens. Then run:
 
 ```sh
 node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs final "$LAB11_ROOT"
@@ -156,6 +210,11 @@ npm run check:behavior
 
 The pinned `verify:ac` runner executes these safe commands verbatim. The lab's helper invokes it through the project-local 0.119.5 binary. The aggregate `task check` is deliberately separate and broader.
 
+The same PASS fragment lives in `literal.json.literalAcceptance.stdout`. Reuse the Task 3
+quoted-evidence classification: the two npm commands are the literal-acceptance proof;
+`unverifiable` means no bound artifact path on clause 1; `[rung=derived]` and the AC-pass-bank
+dual-stop line are upstream 0.119.5 diagnostics.
+
 ## Evidence bundle
 
 Evidence is outside the repository in the attempt's sibling `evidence` directory:
@@ -174,7 +233,7 @@ Review the smallest relevant fields; do not publish full environment output.
 1. Red needs one assertion about the missing average behavior, not a syntax failure.
 2. Green changes the source; the test digest must match `red.json`.
 3. Refactor names intermediate values but must not change the returned object.
-4. The aggregate failure tells you which governed artifact is incomplete. Copy evidence values, not gate commands.
+4. Fill `quality-record.json` from the Task 4 field table. The starter object is `INCOMPLETE`; the completed tokens are `COMPLETE`, `EXPECTED_FAILURE`, `PASS`, `quality:record`, `quality-record.json only`, and `gateDefinitionsUnchanged: true`.
 
 ## Expected failures and recovery
 
@@ -185,7 +244,7 @@ Review the smallest relevant fields; do not publish full environment output.
 | Literal safety refusal | The active command is not from the allowed test/check family | Use the untouched supplied active contract; do not alter the allowlist |
 | Aggregate fails before `quality:record` | Focused, literal, or forward evidence regressed | Repair that work and rerun its stage before aggregate |
 | `gate definition changed` | A comparison file or pinned gate changed | Preserve the attempt and start fresh; never copy the altered gate |
-| Final quality mismatch | The record does not exactly describe observed evidence | Compare the record with the six retained files and change only the incorrect field |
+| Final quality mismatch | The record does not match the Task 4 field table | Repair `quality-record.json` only, using the published completed tokens; do not copy `finalStatus` from the six files |
 
 ## Reset to start
 

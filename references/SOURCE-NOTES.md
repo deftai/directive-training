@@ -634,6 +634,7 @@ marker or learner-facing status may become verified.
 | --- | --- |
 | Scope help cards and Task descriptions say `vBRIEF` and show `vbrief/` paths. | Teach schema-0.8 `xbrief/` paths from the current lifecycle sources and observed behavior. |
 | `xbrief:preflight` retains `--vbrief-path` internally. | Learner-facing Task examples use positional `xbrief/` paths; runtime evidence records the released engine option exactly. |
+| Proposed-preflight stderr prints `ACTIVATE_HINT` with `task scope:activate --` on the rejected proposed path. | The eligibility clause is correct (proposed is not active). Classify the next-command line as `ACTIVATE_HINT` substituting a pending-only verb, inapplicable from `proposed/`. Lab 7 Task 1 keeps the next move as `deft:scope:promote` on the proposed file, then activate on pending. |
 | `session:start --help` and `verify:session-ritual --help` exit `2` as unrecognized help requests. | Use `directive commands`, pinned source, and the exercised consumer Task forms; do not invent per-verb flags. |
 | The pinned engine returns `1`, while go-task returned `201` for the same proposed preflight failure. | Treat `1` as the engine contract and preserve the nonzero wrapper exit with Task version/environment attribution. |
 | A newer global Directive can shadow the course pin through the deposited Task engine. | The fixture constructs a bounded PATH whose `deft` and `directive` resolve to the attempt's 0.112.0 launchers. |
