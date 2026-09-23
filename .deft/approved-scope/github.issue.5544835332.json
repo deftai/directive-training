@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-23-65-lab-10-windows-route-cannot-pause-for-the-required-greeting.xbrief.json",
+  "planId": "github.issue.5544835332",
+  "approvedAt": "2026-09-23T17:49:08Z",
+  "fileScope": [
+    "labs/10-implementation-golden-path.md",
+    "scripts/verify-module-10.mjs",
+    "scripts/verify-module-10.test.mjs",
+    "xbrief/active/2026-09-23-65-lab-10-windows-route-cannot-pause-for-the-required-greeting.xbrief.json"
+  ],
+  "fileScopeDigest": "5ab1e0ae34feb3c4236453559571555f472bc8953ab8a3746a2973a108ce682e",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "Flynn",
+    "mintedAt": "2026-09-23T17:49:08Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "e6fc88c5c3d2ed7d9154aaedc00add682466b2ad0c43fa3cabc4d18e088b23f4",
+  "digestAlgo": "intent-extract-v1"
+}

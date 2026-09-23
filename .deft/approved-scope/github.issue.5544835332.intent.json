@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "algo": "intent-extract-v1",
+  "plan": {
+    "title": "Lab 10 Windows route cannot pause for the required greeting edit",
+    "narratives": {
+      "Description": "The Lab 10 Native Windows route reaches READY and then treats a comment as though it returned control for the required greeting edit, so verification runs against the intentionally incomplete source. The accepted remedy splits the route at that manual boundary and adds an executable content lock for the fence ordering.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/65",
+      "Overview": "## Situation\n\nIn `labs/10-implementation-golden-path.md`, the **Native Windows PowerShell 7.4+ route** is presented as one code block to run. It creates and installs the attempt, reaches `READY`, then contains only this comment:\n\n```powershell\n# Edit only (Join-Path $LabRoot \"src/greeting.mjs\") as specified in the implementation step.\n```\n\nThe next statement immediately runs `implementation-lab.mjs verify`. A pasted PowerShell block does not pause at a comment, so the required manual edit cannot occur before verification.\n\n## Pain\n\nFollowing the documented Windows block literally caused verification to fail because `src/greeting.mjs` still had the intentionally incomplete implementation. I could complete the lab only by splitting the supplied route into undocumented segments, preserving `$LabRoot` myself, making the one-file edit, and then resuming verification.\n\nThis makes a correct learner run look like a product failure and requires the learner to redesign the control flow of the platform-specific route.\n\n## Proposed fix\n\nSplit the Windows route into explicit phases:\n\n- **Phase A:** create, guard, install, and run readiness through the `READY` checkpoint; print and retain `$LabRoot`.\n- **Edit pause:** instruct the learner to edit only `src/greeting.mjs`, then run the documented one-file status/diff checkpoint.\n- **Phase B:** verify, inspect evidence, reset, and archive using the retained root.\n\nAlternatively, provide a deliberate interactive prompt/helper handoff that returns control after `READY` and explains exactly how to resume. A comment inside a monolithic pasted block is not a control-flow pause.\n\n## Related but distinct\n\n- #60 concerns the zsh-only starting-state check despite a later Windows route; it does not address the impossible manual-edit ordering inside this block.\n- #64 reports the analogous generated-path pause in Lab 7 Task 5; this issue covers Lab 10's separate required product edit and verification failure.\n\nNo Directive source or framework internals were consulted.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready",
+      "UserStory": "As a Windows learner completing Lab 10, I want the route to return control after readiness, so that I can make and inspect the one allowed greeting edit before verification.",
+      "ImplementationPlan": "1. Split the Native Windows route so Phase A ends after `readiness` and its READY guard, prints `$LabRoot`, and closes its PowerShell fence.\n2. Add an out-of-fence instruction naming `Join-Path $LabRoot \"src/greeting.mjs\"` and the Task 2 one-file status/diff checkpoint before Phase B begins.\n3. Keep Phase B limited to verification, evidence checks, reset, and archive, without adding an interactive prompt or helper wait verb.\n4. Extend the Module 10 verifier and negative tests to parse the Native Windows fences and prove `readiness` occurs in an earlier fence than `verify`.",
+      "Traces": "Accepted bound remedy on deftai/directive-training#65, comment 5786104450, independently audited in comment 5787660882 and confirmed by parent synthesis 5787730226; approved allocation is xbrief/.triage-cache/decompositions/59-69-allocation.md."
+    },
+    "items": [
+      {
+        "id": "clause:1",
+        "title": "Split `labs/10-implementation-golden-path.md` Native Windows route into two or more powershell fences: Phase A through `readiness` and the READY throw; then an out-of-fence greeting edit plus the Task 2 `git -C $LabRoot` checkpoint; then Phase B `verify` through archive.",
+        "narrative": {
+          "Acceptance": "The Native Windows route contains at least two PowerShell fences: Phase A ends after `readiness` and its READY guard, prose then requires the greeting edit and one-file checkpoint, and Phase B begins with `verify` and continues through archive.",
+          "Traces": "Issue #65 accepted bound remedy comment 5786104450, clause 1."
+        }
+      },
+      {
+        "id": "clause:2",
+        "title": "Phase A prints `$LabRoot`. The pause names `Join-Path $LabRoot \"src/greeting.mjs\"`. Leave in-fence prompts and a new helper wait verb out of the harvest.",
+        "narrative": {
+          "Acceptance": "Phase A prints `$LabRoot`, the prose pause names `Join-Path $LabRoot \"src/greeting.mjs\"`, and neither a `Read-Host`-style in-fence prompt nor a new helper pause/wait verb is introduced.",
+          "Traces": "Issue #65 accepted bound remedy comment 5786104450, clause 2."
+        }
+      },
+      {
+        "id": "clause:3",
+        "title": "Extend `scripts/verify-module-10.mjs` and `scripts/verify-module-10.test.mjs` so the Native Windows section has at least two powershell fences, `readiness` in an earlier fence than `verify`, and a comment is not the separator.",
+        "narrative": {
+          "Acceptance": "The Module 10 verifier inspects actual Native Windows PowerShell fences, fails when `readiness` and `verify` share a fence or only a comment separates them, and its negative tests demonstrate both failures.",
+          "Traces": "Issue #65 accepted bound remedy comment 5786104450, clause 3, with audit confirmation 5787660882."
+        }
+      }
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/65",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #65: Lab 10 Windows route cannot pause for the required greeting edit"
+      }
+    ],
+    "metadata": {
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "git -C $LabRoot",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L5"
+        }
+      ],
+      "kind": "story",
+      "swarm": {
+        "file_scope": [
+          "labs/10-implementation-golden-path.md",
+          "scripts/verify-module-10.mjs",
+          "scripts/verify-module-10.test.mjs",
+          "xbrief/active/2026-09-23-65-lab-10-windows-route-cannot-pause-for-the-required-greeting.xbrief.json"
+        ]
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the Lab 10 Windows route is one pasted block that comments the greeting edit then immediately runs verify\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the missing-token spend ask with option 2 mixed spend; this is a closed identity recut of the Lab 10 Windows pasted block versus the required greeting-edit pause\npain: P1\nP1: labs/10-implementation-golden-path.md:282-295 one pasted block comments the greeting edit at line 294 then immediately runs implementation-lab.mjs verify\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\n\n",
+          "id": 5785828929,
+          "html_url": "https://github.com/deftai/directive-training/issues/65#issuecomment-5785828929",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:11:31Z",
+          "updated_at": "2026-09-22T23:11:31Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh open critique of issue 65 at dispatch-sha `a484f30613f16d1da3c8f7a01edb5d67e562a12e`. Input ceiling 5785828929.\n\n## 1. Split the Windows fences; keep the greeting edit out of the paste (sharpens-framing)\n\n**Evidence.** `git show a484f30613f16d1da3c8f7a01edb5d67e562a12e:labs/10-implementation-golden-path.md` has one `powershell` fence at lines 282–306. Line 294 is `# Edit only (Join-Path $LabRoot \"src/greeting.mjs\") as specified in the implementation step.` Line 295 is `& node $Helper verify $LabRoot`. A pwsh probe that printed BEFORE, then that comment, then AFTER returned `BEFORE|AFTER` in one invocation. Piping `Read-Host` then `Write-Output \"VERIFY-RAN\"` into `pwsh -NoProfile -File -` made Read-Host consume the next line as the prompt answer (`Edit greeting then press Enter: Write-Output \"VERIFY-RAN\"`). `implementation-lab.mjs` `main()` dispatches only create, guard, install, readiness, verify, reset, archive. `node --test labs/fixtures/10-implementation-golden-path/test/greeting.test.mjs` failed 4/4 with actual `Hello!` versus `Hello, Ada!`. Existing pauses already in this tree: zsh Task 1 / Task 2 / Task 3 in the same lab; capstone Task 1 splits orient and activate across two fences with command-free prose between them (`scripts/verify-capstone.mjs` 638–651); Lab 2 Windows start prints `lab_root=` then sets `$env:LAB_ROOT` in a later command (`labs/02-disposable-initialization.md` 167–177).\n\n**Failure mode.** A Bound-remedy that keeps one fence and inserts `Read-Host`, `pause`, or a new helper wait still reads the rest of a paste on stdin. A comment stays a no-op, so `verify` runs against `return \"Hello!\"`. Read-Host can swallow the verify line while reset and archive still run. A new helper verb also recuts the closed `main()` set.\n\n**Disposition.** Bound-remedy is two or more PowerShell fences: Phase A through `readiness` and the READY throw; then an out-of-fence greeting edit plus the Task 2 `git -C $LabRoot` checkpoint; then Phase B `verify` through archive. Leave in-fence prompts and a new helper verb out of the harvest.\n\n## 2. Name `$LabRoot` on the edit pause, because Phase A leaves cwd at `$Launcher` (sharpens-framing)\n\n**Evidence.** Lines 286–288 create `$Launcher` under `[IO.Path]::GetTempPath()` and run `Set-Location -LiteralPath $Launcher` before `create`. `$LabRoot` is the helper OS-temp `repo`. The proposed edit line is \"edit only `src/greeting.mjs`\". zsh Task 2 already opens `$lab_root/src/greeting.mjs`. `verifyImplementation` requires `statusFiles` equal `[\"src/greeting.mjs\"]` (`implementation-lab.mjs` 399–401).\n\n**Failure mode.** After Phase A the working directory is the empty launcher. A relative `src/greeting.mjs` edit misses `$LabRoot`, so status stays empty and named CLI stays `Hello!`. Verification fails the same way the current paste fails.\n\n**Disposition.** Phase A prints `$LabRoot`. The pause names `Join-Path $LabRoot \"src/greeting.mjs\"`. The one-file checkpoint uses `git -C $LabRoot`.\n\n## 3. Lock the split on `scripts/verify-module-10.mjs` (sharpens-framing)\n\n**Evidence.** `verifyModule10()` at this SHA returned `{ artifactCount: 27 }` while the one-fence defect exists. `markdownParts` strips fences, so `# Edit only` and `Helper verify` are absent from lab prose. `labHeadings` in `scripts/verify-module-10.mjs` 39–44 omits `Native Windows PowerShell 7.4+ route`. The capstone verifier already refuses one fence that contains both `orient` and `activate`. Lab 2's verifier already extracts `windowsStartBlock` from the PowerShell fence (`scripts/verify-modules-2-3.mjs` 518–525).\n\n**Failure mode.** The markdown recut lands and a later edit merges the fences again; `npm run check:module-10` stays green.\n\n**Disposition.** Extend `scripts/verify-module-10.mjs` and `scripts/verify-module-10.test.mjs` so the Native Windows section has at least two powershell fences, `readiness` in an earlier fence than `verify`, and a comment is not the separator. Reuse those existing fence-split checks.\n\n## 4. P1 line range and candidate platform (footnote)\n\nP1's 282–295 is the comment-then-verify locus; the fence continues through evidence, reset, and archive at 306. Phase B keeps that tail. The lab record and `verify-module-10.test.mjs` still treat Windows as a candidate; this recut leaves `windows-pwsh7` as candidate.\n\n## Road not taken\n\nFence-split versus in-fence `Read-Host` versus a helper wait verb. Strongest rejected position: one paste with `Read-Host` keeps `$LabRoot` without a second session. That flips if a probe shows interactive pwsh running the whole fence as one script and blocking `Read-Host` on the console device without reading later script lines. Piped `pwsh -File -` filled the prompt from the next line. A helper wait would recut `main()` and the Module 10 verb list; the identity is the pasted block.\n\n",
+          "id": 5785978128,
+          "html_url": "https://github.com/deftai/directive-training/issues/65#issuecomment-5785978128",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:22:28Z",
+          "updated_at": "2026-09-22T23:22:28Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe Lab 10 Windows paste comments the greeting edit and then verifies in the same fence. Confirming this map would split that paste so the edit sits between fences, name `$LabRoot` on the pause, and lock the split on `verify-module-10.mjs`.\n\nParent forward verdict: P1 holds as a comment that is not a pause.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5785828929 and these takes; the evidence is critic 5785978128.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5785978128\nsupersedes: 5785828929\nTarget-digest: sha256:06361a7c1729b9c2710ff71e672a340116d091bb58ae1986ab5674d5ff5e8b80\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Split the Windows fences; keep the greeting edit out of the paste\ntake: accept-into-contract\ncritic: 5785978128\nheading: Split the Windows fences; keep the greeting edit out of the paste\n\n### Name $LabRoot on the edit pause, because Phase A leaves cwd at $Launcher\ntake: accept-into-contract\ncritic: 5785978128\nheading: Name $LabRoot on the edit pause, because Phase A leaves cwd at $Launcher\n\n### Lock the split on scripts/verify-module-10.mjs\ntake: accept-into-contract\ncritic: 5785978128\nheading: Lock the split on scripts/verify-module-10.mjs\n\nrelieves: P1\naudit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5785978128 reading=asserted\n\n## Bound remedy\n\n- Split `labs/10-implementation-golden-path.md` Native Windows route into two or more powershell fences: Phase A through `readiness` and the READY throw; then an out-of-fence greeting edit plus the Task 2 `git -C $LabRoot` checkpoint; then Phase B `verify` through archive.\n- Phase A prints `$LabRoot`. The pause names `Join-Path $LabRoot \"src/greeting.mjs\"`. Leave in-fence prompts and a new helper wait verb out of the harvest.\n- Extend `scripts/verify-module-10.mjs` and `scripts/verify-module-10.test.mjs` so the Native Windows section has at least two powershell fences, `readiness` in an earlier fence than `verify`, and a comment is not the separator.\n\n",
+          "id": 5786104450,
+          "html_url": "https://github.com/deftai/directive-training/issues/65#issuecomment-5786104450",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:31:48Z",
+          "updated_at": "2026-09-22T23:31:48Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5786104450. Stop 1 write-back 5785828929. Round-1 critic 5785978128. Input ceiling 5786104450. Dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`. Process-only.\n\n## Verdict\n\n`relieves: P1` is independently supported. Bound-remedy splits the Native Windows paste so the greeting edit sits between fences, names `$LabRoot` on that pause, and locks the split on `verify-module-10.mjs`. That is P1 as Stop 1 named it: `labs/10-implementation-golden-path.md:282-295` one pasted block comments the greeting edit at line 294 then immediately runs `implementation-lab.mjs verify`.\n\n`scanPainCites` on the lean as posted returns one cite: `P1` / `relieves` / `deferredIssueNumber: null`, `rejected: []`. `classifyPosition` on the `relieves: P1` line (offset 1443, line 37) is `null`. Headings and the plain-English `P1 holds` line sit outside `PAIN_CITE_RE`. The `audit:pain-P1` token is the substantiation token; `scanPainCites` left it out of `cites`. A heading `### relieves: P1` would dedupe on the same-disposition key. An added operative `does-not-relieve: P1` would set `dispositions.size > 1` (`malformed-pain`). This lean has one `relieves` row.\n\n## Re-verification at dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`\n\nChecks were run here. Line cites on the lean were treated as claims.\n\n| Anchor | Result | Check |\n| --- | --- | --- |\n| Stop 1 denominator is `P1` | holds | `scanPainList` on 5785828929 → `{\"present\":true,\"ids\":[\"P1\"],\"duplicates\":[],\"malformed\":false}` |\n| Lean cite well-formed | holds | `scanPainCites` → one `relieves` `P1`, `rejected: []`; one `PAIN_CITE_RE` match at offset 1443 |\n| One Windows powershell fence | holds | `git show` `labs/10-implementation-golden-path.md` has one powershell fence opener at 282 and closer at 306 |\n| Comment then verify | holds | line 294 is `# Edit only (Join-Path $LabRoot \"src/greeting.mjs\") as specified in the implementation step.`; line 295 is `& node $Helper verify $LabRoot` |\n| Comment is a no-op in pwsh | holds | `pwsh -NoProfile -File` script printed `BEFORE`, then that comment, then `AFTER` in one invocation |\n| Closed helper verbs | holds | `implementation-lab.mjs` `main()` dispatches create, guard, install, readiness, verify, reset, archive |\n| Unedited greeting fails verify | holds | `src/greeting.mjs` returns `Hello!`; `node --test` greeting tests 4/4 fail, named case actual `Hello!` expected `Hello, Ada!` |\n| Module 10 verifier green on the defect | holds | `node scripts/verify-module-10.mjs` → `ok (27 artifacts, 0 missing)`; `labHeadings` omits `Native Windows PowerShell 7.4+ route`; `markdownParts` strips `# Edit only` and `& node $Helper verify` from prose |\n| Task 2 checkpoint exists | holds | lab 150–151 `git -C \"$lab_root\" status --short` and `git -C \"$lab_root\" diff --name-only`; `verifyImplementation` requires `statusFiles` equal `[\"src/greeting.mjs\"]` |\n| Bound-remedy covers P1 | holds | harvest item 1 splits Phase A through `readiness` and the READY throw, out-of-fence greeting edit plus that Task 2 `git -C $LabRoot` checkpoint, Phase B `verify` through archive; item 2 prints `$LabRoot` and names `Join-Path $LabRoot \"src/greeting.mjs\"`; item 3 locks two-or-more powershell fences with `readiness` earlier than `verify` and a comment not the separator |\n| `evaluateBoundRemedyCites` | holds | `{ok:true}` with `coveredIds:[\"P1\"]`; `{ok:false}` with `coveredIds:[]` |\n| Bind placement | holds | `evaluatePainCitePlacement` `{kind:\"bind\"}` → `{allowed:true, operativeCiteCount:1}` |\n| Asserted marker | holds | `assertedPainIdsFromCites` → `[\"P1\"]`; `mapCarriesAssertedPainCoverage` true; `audit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5785978128 reading=asserted` parses |\n| Handoff print | holds | `evaluateHandoffPrint` `{print:false, unrelievedPain:false, recutConjunct:true, harvestRelievesOverlap:false}` |\n| Target-digest | holds | live issue body SHA-256 `06361a7c1729b9c2710ff71e672a340116d091bb58ae1986ab5674d5ff5e8b80` matches the lean pin |\n\n## 1. Fence-split lock on stripped prose would stay green\n\nclass: footnote\n\nEvidence: harvest item 3 extends `scripts/verify-module-10.mjs` so the Native Windows section has at least two powershell fences, `readiness` in an earlier fence than `verify`, and a comment is not the separator. `markdownParts` strips fences, so `# Edit only` and `& node $Helper verify` are absent from lab prose while `implementation-lab.mjs verify` remains in the Native Windows intro and in Task 3. `labHeadings` omits `Native Windows PowerShell 7.4+ route`. `verifyModule10()` at this SHA returned `{ artifactCount: 27 }` with the one-fence defect present.\n\nFailure mode: an implementer pins `implementation-lab.mjs verify` on stripped prose. `npm run check:module-10` stays green on the current paste.\n\nDisposition: census only. Bind stays on lean 5786104450. Harvest stays the three bullets as posted. Item 3 already names fences.\n\n## Road not taken\n\nClassifying the prose-vs-fence lock as `sharpens-framing` that rewrites harvest item 3 was considered. Item 3 already names two-or-more powershell fences, `readiness` earlier than `verify`, and a comment not the separator. Coverage of P1 holds on harvest item 1. Steelman of rewriting item 3: literal `parseListItems` capture is what an implementer pastes, and `markdownParts` is the current Module 10 scan. What would flip the footnote: harvest item 3 dropping the fence nouns so a prose substring became the only lock.\n\n",
+          "id": 5787660882,
+          "html_url": "https://github.com/deftai/directive-training/issues/65#issuecomment-5787660882",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T01:59:29Z",
+          "updated_at": "2026-09-23T01:59:29Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\n\nBound contract: successor lean 5786104450.\n\n",
+          "id": 5787730226,
+          "html_url": "https://github.com/deftai/directive-training/issues/65#issuecomment-5787730226",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:08:10Z",
+          "updated_at": "2026-09-23T02:08:10Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5544835332,
+        "origin": "deftai/directive-training#65",
+        "id": "github.issue.5544835332"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "06361a7c1729b9c2710ff71e672a340116d091bb58ae1986ab5674d5ff5e8b80"
+      }
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 3 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Split `labs/10-implementation-golden-path.md` Native Windows route into two or more powershell fences: Phase A through `readiness` and the READY throw; then an out-of-fence greeting edit plus the Task 2 `git -C $LabRoot` checkpoint; then Phase B `verify` through archive.",
+          "artifact_path": "labs/10-implementation-golden-path.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Phase A prints `$LabRoot`. The pause names `Join-Path $LabRoot \"src/greeting.mjs\"`. Leave in-fence prompts and a new helper wait verb out of the harvest.",
+          "artifact_path": "labs/10-implementation-golden-path.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Extend `scripts/verify-module-10.mjs` and `scripts/verify-module-10.test.mjs` so the Native Windows section has at least two powershell fences, `readiness` in an earlier fence than `verify`, and a comment is not the separator.",
+          "artifact_path": "scripts/verify-module-10.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5544835332"
+  },
+  "approvedRepos": [
+    "deftai/directive-training"
+  ],
+  "unknownPaths": [
+    "metadata.intended_placement",
+    "metadata.issueCommentThread",
+    "metadata.kind",
+    "metadata.literal_acceptance_commands",
+    "metadata.literal_acceptance_rejected",
+    "metadata.x-directive/admitted-target-digest",
+    "metadata.x-directive/plan-id"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-23-67-lab-11-quotes-clause-walk-evidence-absent-from-a-passing-win.xbrief.json",
+  "planId": "github.issue.5544902927",
+  "approvedAt": "2026-09-23T17:49:12Z",
+  "fileScope": [
+    "labs/11-testing-gates-and-evidence.md",
+    "scripts/gates-lab.test.mjs",
+    "scripts/verify-module-11.mjs",
+    "scripts/verify-module-11.test.mjs",
+    "solutions/lab-11-testing-gates-and-evidence.md",
+    "xbrief/active/2026-09-23-67-lab-11-quotes-clause-walk-evidence-absent-from-a-passing-win.xbrief.json"
+  ],
+  "fileScopeDigest": "a3bb576588ca703a7735d9febceb1fe165c80142c0af145f21457f42d86f473f",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "Flynn",
+    "mintedAt": "2026-09-23T17:49:12Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "e253778be5c93fe5478b7da7c7620be72e3da012a352e309f3a61a364ef878c7",
+  "digestAlgo": "intent-extract-v1"
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-23-62-capstone-windows-python-prerequisite-has-no-supported-versio.xbrief.json",
+  "planId": "github.issue.5544446677",
+  "approvedAt": "2026-09-23T17:49:02Z",
+  "fileScope": [
+    "curriculum/README.md",
+    "labs/07-scope-lifecycle.md",
+    "labs/capstone-end-to-end.md",
+    "labs/fixtures/capstone-end-to-end/capstone-lab.mjs",
+    "scripts/capstone-lab.test.mjs",
+    "scripts/verify-capstone.mjs",
+    "scripts/verify-capstone.test.mjs",
+    "scripts/verify-module-7.mjs",
+    "scripts/verify-module-7.test.mjs",
+    "xbrief/active/2026-09-23-62-capstone-windows-python-prerequisite-has-no-supported-versio.xbrief.json"
+  ],
+  "fileScopeDigest": "8b8e6927600c3bf829b5cb5258d290f0c9ccc2455c258ae2cfccbf4b24c0cdd3",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "Flynn",
+    "mintedAt": "2026-09-23T17:49:02Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "d135895b8c34ceb23468cb5d78d6a255725d27acdb52fbdba306949356b6c31d",
+  "digestAlgo": "intent-extract-v1"
+}

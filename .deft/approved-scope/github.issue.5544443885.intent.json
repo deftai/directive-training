@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "algo": "intent-extract-v1",
+  "plan": {
+    "title": "Labs 7 and 10 start with zsh-only preflight despite later Windows routes",
+    "narratives": {
+      "Description": "Labs 7 and 10 currently present a zsh-only Environment gate even though each page later offers a Native Windows PowerShell route, forcing Windows learners to scan past ordered tasks before they can validate their starting state. This story adds platform branches at both gates and locks their structure with focused verifiers while preserving the later routes as candidate whole-lab paths and the course's environment-blocked stop.",
+      "ImplementationPlan": "1. Update `labs/07-scope-lifecycle.md` and `labs/10-implementation-golden-path.md` so each Environment section branches before state creation and the Windows branch covers tool checks, helper path, `create`, and guard behavior.\n2. Clarify in both lab pages how the compressed Native Windows route relates to the ordered tasks without promoting that route to a verified platform path.\n3. Extend `scripts/verify-module-7.mjs`, `scripts/verify-module-10.mjs`, and their focused test files so a zsh-only regression, missing Windows starting-state operation, or lost route-status wording fails deterministically.",
+      "UserStory": "As a Windows learner, I want Labs 7 and 10 to present a PowerShell starting-state branch at the environment gate, so that I can validate my platform before following the ordered lab.",
+      "Traces": "Accepted bound remedy on https://github.com/deftai/directive-training/issues/60#issuecomment-5786102665, independently audited in comment 5787642826 and confirmed by synthesis comment 5787726505; relieves recorded pain P1.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/60",
+      "Overview": "## Learner context\n\nIndependent Windows/PowerShell pilot of the required 0.119.5 course path.\n\n## Problem\n\nBoth required labs later provide a native Windows/PowerShell route, but their primary **Environment and starting-state check** instructs every learner to use a dedicated zsh terminal:\n\n- `labs/07-scope-lifecycle.md`: “Use a dedicated zsh terminal...”\n- `labs/10-implementation-golden-path.md`: “Use a dedicated zsh terminal...”\n\nThe Windows routes do not appear until much later in each page. This contradicts the course prerequisite that Windows with PowerShell 7.4+ is a candidate learner platform.\n\n## Pain experienced\n\nAt the gate where I must decide whether I have a valid environment, the page tells me to switch to a shell that is not the selected platform. I have to scan ahead past the ordered lab tasks to discover whether Windows is supported and which checks replace the zsh block. That undermines the starting-state gate and makes “complete every step in order” ambiguous.\n\n## Proposed fix\n\nAt the start of each environment section, branch explicitly:\n\n- macOS/zsh and Linux/bash: link to the existing shell block;\n- Windows/PowerShell 7.4+: link to or place the full native preflight block there.\n\nKeep platform status clear, but do not make a Windows learner pass through a zsh-only instruction before reaching the documented Windows route.\n\nNo Directive source or framework internals were consulted.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "id": "clause:1",
+        "title": "At each Lab 7 and Lab 10 Environment and starting-state check, add a Windows starting-state branch for tools, helper path, create, and guard, reusing Lab 2/5/capstone environment-section branching and Lab 2 candidate heading text.",
+        "narrative": {
+          "Acceptance": "Both Lab 7 and Lab 10 Environment sections branch between POSIX and Windows before state creation, and each Windows branch visibly covers required tools, helper path, `create`, and a guard using the existing candidate-platform framing."
+        }
+      },
+      {
+        "id": "clause:2",
+        "title": "Keep the existing `## Native Windows PowerShell 7.4+ route` as a candidate whole-lab path, not as the starting-state check.",
+        "narrative": {
+          "Acceptance": "Each existing `Native Windows PowerShell 7.4+ route` remains a candidate whole-lab path later on its page and is not relabeled as the verified starting-state check."
+        }
+      },
+      {
+        "id": "clause:3",
+        "title": "For each lab, state whether that compressed route replaces Tasks 1-N or the learner still walks the ordered tasks.",
+        "narrative": {
+          "Acceptance": "Each lab states unambiguously whether its compressed Windows route replaces Tasks 1-N or whether the learner must still follow the ordered tasks, and the focused verifier rejects removal of that relationship statement."
+        }
+      },
+      {
+        "id": "clause:4",
+        "title": "Keep `curriculum/README.md:176-179` as an allowed environment-blocked stop. Do not promote the compressed route to verified preflight.",
+        "narrative": {
+          "Acceptance": "The existing course allowance for an environment-blocked stop remains valid, and neither lab describes the compressed Windows route as verified practical-outcome coverage."
+        }
+      }
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/60",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #60: Labs 7 and 10 start with zsh-only preflight despite later Windows routes"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "At each Lab 7 and Lab 10 Environment and starting-state check, add a Windows starting-state branch for tools, helper path, create, and guard, reusing Lab 2/5/capstone environment-section branching and Lab 2 candidate heading text.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Keep the existing `## Native Windows PowerShell 7.4+ route` as a candidate whole-lab path, not as the starting-state check.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "For each lab, state whether that compressed route replaces Tasks 1-N or the learner still walks the ordered tasks.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Keep `curriculum/README.md:176-179` as an allowed environment-blocked stop. Do not promote the compressed route to verified preflight.",
+          "artifact_path": "labs/07-scope-lifecycle.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "file_scope": [
+          "labs/07-scope-lifecycle.md",
+          "labs/10-implementation-golden-path.md",
+          "scripts/verify-module-7.mjs",
+          "scripts/verify-module-7.test.mjs",
+          "scripts/verify-module-10.mjs",
+          "scripts/verify-module-10.test.mjs",
+          "xbrief/active/2026-09-23-60-labs-7-and-10-start-with-zsh-only-preflight-despite-later-wi.xbrief.json"
+        ]
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because Labs 7 and 10 starting-state instruct a dedicated zsh terminal while later Native Windows PowerShell 7.4+ routes exist on the same pages\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the missing-token spend ask with option 2 mixed spend; this is a closed identity recut of Labs 7 and 10 starting-state shell versus later Windows routes on the same pages\npain: P1\nP1: labs/07-scope-lifecycle.md:49-51 Use a dedicated zsh terminal at the root of this curriculum repository; labs/10-implementation-golden-path.md:38-40 Use a dedicated zsh terminal at the root of this curriculum checkout; Windows routes at labs/07-scope-lifecycle.md:412 and labs/10-implementation-golden-path.md:277\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\n\n",
+          "id": 5785826854,
+          "html_url": "https://github.com/deftai/directive-training/issues/60#issuecomment-5785826854",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:11:22Z",
+          "updated_at": "2026-09-22T23:11:22Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nround: 1\ncharter: open critique\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\nid-ceiling: 5785826854\n\nOpen critique of the Labs 7 and 10 starting-state recut. Re-verified at dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e` with `git show <sha>:path` (no `origin/master` fetch). Stop 1 line cites matched. Helpers already accept `win32`; the page-level starting-state identity is the defect.\n\n## 1. The late Windows sections are whole-lab scripts, not a starting-state preflight\n\nblocks-the-design\n\nEvidence. Both environment headings instruct a dedicated zsh terminal, then a `sh` create/guard/install block (`labs/07-scope-lifecycle.md:49-87`, `labs/10-implementation-golden-path.md:38-71`). The only Windows blocks are late headings `## Native Windows PowerShell 7.4+ route` (`labs/07-scope-lifecycle.md:412`, `labs/10-implementation-golden-path.md:277`). Lab 7's route \"covers starting state, execution, acceptance, fresh reset, and recoverable archive\" and runs `create`, `guard`, `install`, `run --intent=implement`, authored verify, `reset`, and `archive` in one script (`labs/07-scope-lifecycle.md:414-457`). Lab 10's route runs `create` through `archive` and tells the learner to edit `src/greeting.mjs` \"as specified in the implementation step\" (`labs/10-implementation-golden-path.md:279-305`, comment at `:294`). That implementation spec lives in Task 2 (`labs/10-implementation-golden-path.md:134-145`). Lab 7's `run --intent=implement` is the helper's automated lifecycle (`lifecycle-lab.mjs` `runLifecycle`), which is Tasks 1-4 compressed, not the environment create/guard/install gate.\n\nFailure mode. Binding \"link to or place the full native preflight block\" at each environment section treats those late headings as the Windows starting-state check. A link sends a Windows learner into a whole-lab script before Tasks 1-N. Placing that script at the starting-state gate double-runs `create` if the learner then follows the ordered tasks. The two labs are not the same substitute: Lab 7's script replaces the observation tasks; Lab 10's script still needs Task 2 in the zsh-ordered body. \"Complete every step in order\" stays undefined.\n\nDisposition. The recut cannot bind that proposed fix as written. Split two artifacts per lab: (1) Windows starting-state checks at the environment heading (tools, helper path, create, guard, and Lab 7/10's `.bin` vs `dist/bin.js` launcher note at `labs/07-scope-lifecycle.md:461`); (2) the existing compressed route as a candidate whole-lab path. For each lab, state whether (2) replaces the ordered tasks or the learner still walks Tasks 1-N. Until that split exists, the environment-section branch has no safe Windows target.\n\n## 2. Reuse the course's starting-state branch and the environment-blocked stop\n\nsharpens-framing\n\nEvidence. Lab 2 already branches inside Environment and starting-state check: `### macOS/zsh — verified locally; Linux/bash — candidate` and `### Windows/PowerShell 7.4+ — candidate pending native evidence` (`labs/02-disposable-initialization.md:86`, `:148`). Lab 5 names both shells at the environment heading, then gives a Windows block beside the first create (`labs/05-projection-drift-recovery.md:41-87`). Capstone uses `### macOS and Linux` then `### Windows PowerShell 7.4+` under the same heading (`labs/capstone-end-to-end.md:59-120`). `labs/README.md:64-65` and `:128` require the exact block for the learner's shell and separate commands when PowerShell syntax differs. Course map already allows an unverified Lab 7/10/11 environment to stop as environment-blocked rather than treat a candidate platform as verified (`curriculum/README.md:176-179`). Both lab records already mark Windows as unverified (`labs/07-scope-lifecycle.md:9,14,18-19`; `labs/10-implementation-golden-path.md:9,14,18-19`). Helpers record `nativeClaim: candidate` off Darwin (`lifecycle-lab.mjs:360`).\n\nFailure mode. A new jump-link to the late route, or an early Windows branch that only \"keeps platform status clear,\" invites executing the unverified compressed script as the 0.119.5 complete lab. That collides with the course-map stop and with Lab 2's candidate heading, which is the existing authoring pattern.\n\nDisposition. The lean can bind as a starting-state discoverability recut if it reuses Lab 2/5/capstone environment-section branching, keeps the Lab 2 candidate heading text, and keeps `curriculum/README.md:176-179` as an allowed stop. Do not add a third pattern. Do not promote the compressed route to verified preflight.\n\n## 3. Adjacent zsh-only starts stay on Lab 11 and Module 10\n\nfootnote\n\nLab 11 uses a `sh` create at Environment and starting-state check and the same late Native Windows heading (`labs/11-testing-gates-and-evidence.md:28-40`, `:270`). Module 10's prerequisite table still requires \"a dedicated zsh terminal\" (`curriculum/modules/10-implementation-golden-path.md:12`); Module 7's table says \"a dedicated terminal\" (`curriculum/modules/07-scope-lifecycle.md:12`). Out of this issue's Labs 7 and 10 identity; leftover if the bound recut is lab pages only.\n\n## Road-not-taken\n\nConsidered moving the Native Windows headings to sit under each environment section with no other change. Rejected because those scripts still run the whole lab, and Lab 10 still depends on Task 2. What would flip that: split each Windows section into a starting-state PowerShell create/guard/install block plus a later task-body route, matching Lab 5.\n\n## Steelman\n\nStrongest rejected reading: a top-of-section link is enough discoverability, and Windows learners never needed the ordered zsh tasks. That holds only if the recut states that the compressed route replaces Tasks 1-N for Windows, and if Lab 10 duplicates or fragment-links the Task 2 greeting spec. The issue text still treats the late block as preflight and still names ordered-step ambiguity, so that reading does not bind as written.\n\n",
+          "id": 5785966340,
+          "html_url": "https://github.com/deftai/directive-training/issues/60#issuecomment-5785966340",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:21:39Z",
+          "updated_at": "2026-09-22T23:21:39Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLabs 7 and 10 tell every learner to open zsh, while the only Windows blocks are late whole-lab scripts. Confirming this map would put a real Windows starting-state check at the environment heading, keep the compressed route as a separate candidate path, and reuse Lab 2/5/capstone branching plus the course-map environment-blocked stop.\n\nParent forward verdict: P1 holds; the proposed \"link the late block\" fix cannot bind as written.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5785826854 and these takes; the evidence is critic 5785966340.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5785966340\nsupersedes: 5785826854\nTarget-digest: sha256:145b072e4d9f238d5100653969242a0dd38f9314adb785d72efa56c421079269\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### The late Windows sections are whole-lab scripts, not a starting-state preflight\ntake: accept-into-contract\ncritic: 5785966340\nheading: The late Windows sections are whole-lab scripts, not a starting-state preflight\n\n### Reuse the course's starting-state branch and the environment-blocked stop\ntake: accept-into-contract\ncritic: 5785966340\nheading: Reuse the course's starting-state branch and the environment-blocked stop\n\nrelieves: P1\naudit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5785966340 reading=asserted\n\n## Bound remedy\n\n- At each Lab 7 and Lab 10 Environment and starting-state check, add a Windows starting-state branch for tools, helper path, create, and guard, reusing Lab 2/5/capstone environment-section branching and Lab 2 candidate heading text.\n- Keep the existing `## Native Windows PowerShell 7.4+ route` as a candidate whole-lab path, not as the starting-state check.\n- For each lab, state whether that compressed route replaces Tasks 1-N or the learner still walks the ordered tasks.\n- Keep `curriculum/README.md:176-179` as an allowed environment-blocked stop. Do not promote the compressed route to verified preflight.\n\n",
+          "id": 5786102665,
+          "html_url": "https://github.com/deftai/directive-training/issues/60#issuecomment-5786102665",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:31:41Z",
+          "updated_at": "2026-09-22T23:31:41Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5786102665. Stop 1 write-back 5785826854. Round-1 critic 5785966340. Input ceiling 5786102665. Dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`. Process-only. Reads via `git show a484f30613f16d1da3c8f7a01edb5d67e562a12e:` on this dest. Parsers from installed `@deftai/directive` 0.119.5.\n\n## Verdict\n\n`relieves: P1` is independently supported. Stop 1 P1 names the zsh-only Environment and starting-state check on Labs 7 and 10, and the late Native Windows headings on those same pages. Bound-remedy item 1 puts a Windows starting-state branch at each of those environment headings, reusing Lab 2/5/capstone branching and Lab 2 candidate heading text. Item 2 keeps those late headings as a candidate whole-lab path. That is P1 as Stop 1 named it.\n\n`scanPainCites` on the lean as posted returns one cite: `P1` / `relieves` / `deferredIssueNumber: null`, `rejected: []`. `classifyPosition` on the `relieves: P1` line (offset 1445) is `null`. The only `PAIN_CITE_RE` match in the body is that line. Headings, the plain-English `P1 holds` sentence, and `audit:pain-P1` stay outside the cite grammar. A second operative disposition on the same id would fail closed as `malformed-pain`.\n\n## Re-verification at dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`\n\nChecks were run here. Line cites on Stop 1 were treated as claims.\n\n| Anchor | Result | Check |\n| --- | --- | --- |\n| Stop 1 denominator is `P1` | holds | `scanPainList` on 5785826854 → `{\"present\":true,\"ids\":[\"P1\"],\"duplicates\":[],\"malformed\":false}` |\n| Lean cite well-formed | holds | `scanPainCites` → one `relieves` `P1`, `rejected: []`; one `PAIN_CITE_RE` match at offset 1445 |\n| Zsh-only starting-state sentences | holds | `git grep` of `Use a dedicated zsh terminal` under the pin is exactly `labs/07-scope-lifecycle.md:51` and `labs/10-implementation-golden-path.md:40` |\n| Environment headings | holds | `git show` `labs/07-scope-lifecycle.md:49` and `labs/10-implementation-golden-path.md:38` are `## Environment and starting-state check`; Stop 1 ranges `49-51` / `38-40` cover heading plus the zsh sentence |\n| Late Windows headings | holds | `git show` `labs/07-scope-lifecycle.md:412` and `labs/10-implementation-golden-path.md:277` are `## Native Windows PowerShell 7.4+ route` |\n| Lab 2 candidate heading | holds | `git show` `labs/02-disposable-initialization.md:148` is `### Windows/PowerShell 7.4+ — candidate pending native evidence`; Lab 2 environment heading is `:32`, macOS/zsh branch `:86` |\n| Course-map stop | holds | `git show` `curriculum/README.md:177-179` is the environment-blocked practical outcome; harvest item 4 cites `:176-179` |\n| Bound-remedy covers those cites | holds | `extractBoundRemedyHarvest` returns 4 items: Windows starting-state branch at each Lab 7/10 environment heading; keep the Native Windows heading as candidate whole-lab path; state whether that path replaces Tasks 1-N; keep the course-map stop |\n| `evaluateBoundRemedyCites` | holds | `{ok:true}` with `coveredIds:[\"P1\"]`; `{ok:false}` with `coveredIds:[]` |\n| Bind placement | holds | `evaluatePainCitePlacement` `{kind:\"bind\"}` → `{allowed:true, operativeCiteCount:1}` |\n| Asserted marker | holds | `assertedPainIdsFromCites` → `[\"P1\"]`; `mapCarriesAssertedPainCoverage` true; `audit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5785966340 reading=asserted` parses |\n| Handoff print | holds | `evaluateHandoffPrint` `{print:false, unrelievedPain:false, recutConjunct:true, harvestRelievesOverlap:false}` |\n\n## 1. Reading harvest item 1 as an addendum after the zsh lead\n\nfootnote\n\nEvidence. Harvest item 1 begins \"add a Windows starting-state branch\" and continues \"reusing Lab 2/5/capstone environment-section branching and Lab 2 candidate heading text.\" Lab 2 places `### macOS/zsh — verified locally; Linux/bash — candidate` at `:86` and `### Windows/PowerShell 7.4+ — candidate pending native evidence` at `:148` under `## Environment and starting-state check` at `:32`. Lab 5 names both shells in the first environment sentence (`:41`). Capstone uses sibling `### macOS and Linux` / `### Windows PowerShell 7.4+` headings (`:59`, `:88`). The live zsh-only sentences sit immediately under the Lab 7 and Lab 10 environment headings (`:51`, `:40`).\n\nFailure mode. An implementer who reads only \"add\" can leave \"Use a dedicated zsh terminal\" as the unbranched first instruction and append a Windows subsection after the `sh` block. Windows learners would still hit the zsh gate. P1 coverage is already the Lab 2/5/capstone reuse in item 1, which makes Windows a sibling branch at that heading.\n\nDisposition. Census only. Bind stays on lean 5786102665. Harvest stays the four bullets as posted.\n\n## Road not taken\n\nClassifying that addendum reading as `sharpens-framing` that rewrites harvest item 1 was considered. Item 1 already names Lab 2/5/capstone branching and the Lab 2 candidate heading. Coverage of P1 holds on that harvest. Steelman of rewriting item 1: literal `parseListItems` capture of \"add a Windows starting-state branch\" is what an implementer pastes. What would flip the footnote: harvest item 1 dropping the Lab 2/5/capstone reuse, so the unbranched zsh lead would remain the starting-state gate.\n\n",
+          "id": 5787642826,
+          "html_url": "https://github.com/deftai/directive-training/issues/60#issuecomment-5787642826",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T01:57:20Z",
+          "updated_at": "2026-09-23T01:57:20Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\n\nBound contract: successor lean 5786102665.\n\n",
+          "id": 5787726505,
+          "html_url": "https://github.com/deftai/directive-training/issues/60#issuecomment-5787726505",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:07:43Z",
+          "updated_at": "2026-09-23T02:07:43Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5544443885,
+        "origin": "deftai/directive-training#60",
+        "id": "github.issue.5544443885"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "145b072e4d9f238d5100653969242a0dd38f9314adb785d72efa56c421079269"
+      }
+    },
+    "id": "github.issue.5544443885"
+  },
+  "approvedRepos": [
+    "deftai/directive-training"
+  ],
+  "unknownPaths": [
+    "metadata.intended_placement",
+    "metadata.issueCommentThread",
+    "metadata.kind",
+    "metadata.x-directive/admitted-target-digest",
+    "metadata.x-directive/plan-id"
+  ]
+}

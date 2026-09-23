@@ -1,0 +1,383 @@
+{
+  "schemaVersion": 1,
+  "algo": "intent-extract-v1",
+  "plan": {
+    "title": "Capstone Windows Python prerequisite has no supported version contract",
+    "narratives": {
+      "Description": "The course records Python 3.13.13 as verified Windows candidate evidence, while the lab helpers actually require only a resolvable interpreter and use inconsistent command-name orders across platforms. This story publishes one presence-based prerequisite for Labs 7, 10, 11, and the capstone, aligns the capstone helper with the established command-name set, and adds content and isolated-PATH evidence without inventing an exact or minimum Python version.",
+      "ImplementationPlan": "1. Update `curriculum/README.md`, `labs/07-scope-lifecycle.md`, and `labs/capstone-end-to-end.md` to state the resolvable-interpreter requirement across all four labs and all supported operating systems, while retaining 3.13.13 only as verified candidate parity.\n2. Update `labs/fixtures/capstone-end-to-end/capstone-lab.mjs` so its Python lookup uses the established Windows `[python, python3, py]` and POSIX `[python3, python]` orders and keeps failure at the isolated-PATH boundary.\n3. Extend `scripts/capstone-lab.test.mjs`, the Module 7 verifier and tests, and the capstone verifier and tests to prove both platform orders, the Lab 7 isolated-tools prose, the course-entry verdict, and rejection of missing presence language without asserting a version floor.",
+      "UserStory": "As a course learner, I want one resolvable-Python prerequisite across Labs 7, 10, 11, and the capstone, so that I can determine setup readiness without guessing a version floor.",
+      "Traces": "Accepted bound remedy on https://github.com/deftai/directive-training/issues/62#issuecomment-5786103537, independently audited in comment 5787642993 and confirmed by synthesis comment 5787728286; relieves recorded pain P1.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/62",
+      "Overview": "## Learner context\n\nIndependent Windows/PowerShell pilot preparing the required tool-access pre-check.\n\n## Problem\n\nThe course says Python is required on Windows for Directive verification. The capstone runs `python --version`, then says to confirm that Python is available and notes `3.13.13` only as the verified native environment. It never states whether any Python 3 release is supported, a minimum is required, or exact 3.13.13 parity is necessary.\n\nMy available Python is 3.12.10. The written material does not let me decide before Module 1 whether this is a pass, a setup task, or an environment-blocked outcome.\n\n## Pain experienced\n\nThe required pre-check cannot produce a deterministic verdict. I can prove “some Python” exists, but I cannot know whether later verification failures are course defects or an unsupported interpreter version.\n\n## Proposed fix\n\nPublish an explicit Windows Python contract in the course map and capstone lab:\n\n- minimum/supported range if multiple versions work; or\n- exact 3.13.13 if matrix parity is required.\n\nExplain which Directive verification requires Python and add an executable version assertion with recovery guidance.\n\nNo Directive source or framework internals were consulted.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "id": "clause:1",
+        "title": "Publish presence of a resolvable Python interpreter as the fail-closed learner requirement for Labs 7, 10, 11, and the capstone on macOS, Linux, and Windows. Keep `3.13.13` as verified candidate parity, not a learner exact or minimum.",
+        "narrative": {
+          "Acceptance": "The course-entry and lab prerequisite text makes a resolvable Python interpreter the pass/fail requirement for Labs 7, 10, 11, and the capstone on macOS, Linux, and Windows, while 3.13.13 is labeled verified candidate evidence rather than an exact or minimum requirement."
+        }
+      },
+      {
+        "id": "clause:2",
+        "title": "Name the fail-closed sites as helper isolated PATH at Lab 7/10/11 install and capstone `isolatedEnv`. Recut `labs/07-scope-lifecycle.md:120-121` so the isolated-tools list includes python. Replace \"for Directive verification\" with that helper PATH requirement unless a deposited 0.119.5 consumer command is shown.",
+        "narrative": {
+          "Acceptance": "Lab 7's isolated-tools prose includes Python, and the course text names the actual fail-closed sites as the Labs 7, 10, and 11 helper isolated PATH during install plus capstone `isolatedEnv`, replacing the unsupported generic `for Directive verification` rationale."
+        }
+      },
+      {
+        "id": "clause:3",
+        "title": "Close one command name-set across the course-wide contract and both helper families before writing an assertion.",
+        "narrative": {
+          "Acceptance": "Documentation, the existing lab-helper policy, and the capstone helper agree on Windows lookup order `[python, python3, py]` and POSIX lookup order `[python3, python]`; focused tests prove both orders and failure when no candidate resolves on isolated PATH."
+        }
+      },
+      {
+        "id": "clause:4",
+        "title": "Put the explicit verdict in the course-entry prerequisite, not only in the capstone fence. Keep Windows practical outcomes candidate.",
+        "narrative": {
+          "Acceptance": "A learner can determine the presence requirement from the course-entry prerequisite before Module 1, and the course continues to describe Windows practical outcomes as candidate rather than verified."
+        }
+      },
+      {
+        "id": "clause:5",
+        "title": "Extend the existing capstone content check so a missing learner presence verdict fails. Do not bind a version equality or min the helpers do not enforce.",
+        "narrative": {
+          "Acceptance": "The capstone content check fails when the learner-facing presence verdict is absent, all focused Python-contract tests pass, and no check parses or enforces Python version equality or a minimum."
+        }
+      }
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/62",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #62: Capstone Windows Python prerequisite has no supported version contract"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 5 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Publish presence of a resolvable Python interpreter as the fail-closed learner requirement for Labs 7, 10, 11, and the capstone on macOS, Linux, and Windows. Keep `3.13.13` as verified candidate parity, not a learner exact or minimum.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Name the fail-closed sites as helper isolated PATH at Lab 7/10/11 install and capstone `isolatedEnv`. Recut `labs/07-scope-lifecycle.md:120-121` so the isolated-tools list includes python. Replace \"for Directive verification\" with that helper PATH requirement unless a deposited 0.119.5 consumer command is shown.",
+          "artifact_path": "labs/07-scope-lifecycle.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Close one command name-set across the course-wide contract and both helper families before writing an assertion.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Put the explicit verdict in the course-entry prerequisite, not only in the capstone fence. Keep Windows practical outcomes candidate.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Extend the existing capstone content check so a missing learner presence verdict fails. Do not bind a version equality or min the helpers do not enforce.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "file_scope": [
+          "curriculum/README.md",
+          "labs/07-scope-lifecycle.md",
+          "labs/capstone-end-to-end.md",
+          "labs/fixtures/capstone-end-to-end/capstone-lab.mjs",
+          "scripts/capstone-lab.test.mjs",
+          "scripts/verify-module-7.mjs",
+          "scripts/verify-module-7.test.mjs",
+          "scripts/verify-capstone.mjs",
+          "scripts/verify-capstone.test.mjs",
+          "xbrief/active/2026-09-23-62-capstone-windows-python-prerequisite-has-no-supported-versio.xbrief.json"
+        ]
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the course map names Python 3.13.13 as the capstone matrix while the lab only runs python --version and says confirm Python is available\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N≥3\nspend-ask: asked\nstop-2: charter=open critique; spend=N≥3 because the operator answered the missing-token spend ask with option 2 mixed spend; Windows Python min-versus-exact 3.13.13 is an open course-wide contract\npain: P1\nP1: curriculum/README.md:29-30 names Python on Windows and the capstone matrix uses Python 3.13.13; labs/capstone-end-to-end.md:115 runs python --version; labs/capstone-end-to-end.md:134-136 says confirm Python is available (3.13.13 in the verified native environment) with no executable min/exact assertion\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\n\n",
+          "id": 5785827452,
+          "html_url": "https://github.com/deftai/directive-training/issues/62#issuecomment-5785827452",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:11:25Z",
+          "updated_at": "2026-09-22T23:11:25Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\npanel-deposit\nround: 1\nsiblings: 3\ninput-ceiling: 5785862619\nfamilies: grok, claude, codex\nseat: grok launcher: spawn_subagent\nseat: claude launcher: claude\nseat: codex launcher: codex\n\n",
+          "id": 5785862619,
+          "html_url": "https://github.com/deftai/directive-training/issues/62#issuecomment-5785862619",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:14:02Z",
+          "updated_at": "2026-09-22T23:14:04Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: claude-opus-5-5\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1, fresh critic, claude family. Reads pinned to `a484f30613f16d1da3c8f7a01edb5d67e562a12e`. Input: issue body plus comments up to and including 5785862619. I also checked the pinned Directive 0.119.5 packages (`npm pack` into `/tmp` only).\n\n### Anchor re-verification\n\nI ran each triage anchor against the tree. All three hold as cited: `curriculum/README.md:29-30`, `labs/capstone-end-to-end.md:115`, and `labs/capstone-end-to-end.md:134-136`. They do not cover the whole Python surface. See finding 1.\n\n### Findings\n\n**1. `blocks-the-design`: Python is required on every OS, not just Windows, and not just in the capstone.**\n- Evidence: `labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs:119-136` calls `findPythonExecutable()` inside `createIsolatedTools`, and `installAttempt` calls it at line 300 on every platform. On darwin or linux it looks for `python3` or `python` and throws when neither is found. Labs 10 (`implementation-lab.mjs:146-163`) and 11 (`gates-lab.mjs:161-178`) do the same. Both workflows pin `python-version: \"3.13.13\"` on macOS-15, Ubuntu 24.04, and Windows 2022 (`labs-7-10-11-platform-validation.yml:65-68`, `capstone-platform-validation.yml:49-53`). Two course documents contradict this: `curriculum/README.md:29` says \"Python on Windows\", and `labs/07-scope-lifecycle.md:120-121` lists the resolved tools without `python`.\n- Failure mode: the issue's fix adds a Windows-only contract to the course map and capstone. A macOS or Linux learner with no Python still hits `Required executable not found: python3 or python` at Lab 7 install. No document names that requirement, which is the same kind of undecidable pre-check the issue reports, only earlier. The course-wide charter is right, but the fix as written has the wrong platform and lab scope.\n- Disposition: the contract cannot bind as \"Windows, capstone\". It must cover Labs 7, 10, 11, and the capstone on all three OSes. If the Windows-only wording is kept on purpose, the fixtures must drop the non-Windows Python lookup. Either way, fix the Lab 7 tool list at lines 120-121.\n\n**2. `sharpens-framing`: \"minimum or exact\" is a false binary, and neither answer has evidence yet.**\n- Evidence: 3.13.13 is the only version any workflow runs. `scripts/verify-capstone.mjs:816` asserts that exact token. The pinned engine has no version floor: `verify-env/verify-tools.js:66-68` in `@deftai/directive-core@0.119.5` only checks that `python3` or `python` exists. It is also maintainer-only unless `includeTask` is set (lines 115-127).\n- Failure mode: stating a minimum (say, ≥3.12) promises versions no matrix leg has run, which conflicts with the deterministic release baseline in `xbrief/PROJECT-DEFINITION.xbrief.json`. Stating exact 3.13.13 parity claims a need that nothing shows, and turns the reporter's 3.12.10 into a stop that may be false.\n- Disposition: the lean should state the learner's three outcomes and the evidence for each: (a) 3.13.13 is verified; (b) another 3.x is a named outcome, either a stop or proceed-and-record; (c) no runnable Python is a setup task. If it publishes a floor, it must add a CI leg at that floor.\n- Steelman for exact 3.13.13: parity is the only evidenced state, so any wider claim is untested. Adding a passing CI leg at the proposed floor, in both workflows, flips this to a minimum.\n\n**3. `sharpens-framing`: the lab helpers resolve different Python commands.**\n- Evidence: Labs 7, 10, and 11 accept `python`, `python3`, or `py` on win32 (`lifecycle-lab.mjs:120`). The capstone helper only calls `findExecutable(\"python\")` (`capstone-lab.mjs:234`), and the capstone pre-check only runs `python --version` (line 115).\n- Failure mode: a Windows learner who has only the `py` launcher passes Labs 7, 10, and 11, then fails the capstone helper with `Required executable not found: python`. A version-only contract does not cover this.\n- Disposition: the contract must name the accepted command set as well as the version, and every helper must use that same set.\n\n**4. `sharpens-framing`: model the assertion on the existing Node check, not a new mechanism.**\n- Evidence: `labs/capstone-end-to-end.md:109-110` already asserts Node's major version with `node -e … process.exit(1)`, then `if ($LASTEXITCODE -ne 0) { throw … }`.\n- Failure mode: a new helper or verifier adds another place to keep versions in sync. `verify-capstone.mjs` already checks the matrix tokens.\n- Disposition: add a Python version-check line in that same form to each pre-check (for example, `python -c \"import sys; sys.exit(0 if sys.version_info[:2] >= (3, N) else 1)\"`, or an exact-match variant). Add the version rule to the pass criteria at `assessments/capstone-end-to-end.md:149` and `solutions/capstone-end-to-end.md:410`, which today only record the observed version.\n\n**5. `sharpens-framing`: the same ambiguity applies to Task and uv.**\n- Evidence: `labs/capstone-end-to-end.md:134-139` says to \"confirm Task and uv against the verified … context\", then \"If any required value differs, stop\". Nothing says which values are \"required\". Node gets a floor (\"22 or newer\"). Task, uv, and Python only get a \"verified\" note.\n- Failure mode: fix only Python, and the next learner on Task 3.49 or uv 0.11.x hits the same undecidable verdict.\n- Disposition: the contract should define the \"required value\" set for every tool in the pre-check, even if Python is the only rule that changes now.\n\n**6. `sharpens-framing`: the claim that Python is \"for Directive verification\" names no consumer.**\n- Evidence: `curriculum/README.md:29`. In the pinned 0.119.5 core, the only direct Python consumers I found were the `verify:tools` presence probe (include-task set) and `triage/smoketest` (`uv run python`). Neither is a step the learner runs in the labs, as far as I can tell from the lab text. Probe scope: I searched `dist/` and `tasks/*.yml` for `python`, `python3`, and `py`. I did not trace the Task shells at run time.\n- Failure mode: the issue asks which Directive verification needs Python. A version contract tied to an unnamed dependency cannot explain the failures it is supposed to classify.\n- Disposition: the lean should cite the consuming verb from the pinned source, or replace \"for Directive verification\" with the lab-helper PATH requirement, which is what the fixtures actually enforce.\n\n**7. `footnote`: a presence check is not a runnable check on Windows.** `findExecutable` only checks `existsSync` along PATH. The Windows Store alias `%LOCALAPPDATA%\\Microsoft\\WindowsApps\\python.exe` passes that check but may not run a real interpreter. The exit-code check in finding 4 would catch it. I did not verify this on a Windows host here.\n\n",
+          "id": 5785924846,
+          "html_url": "https://github.com/deftai/directive-training/issues/62#issuecomment-5785924846",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:18:44Z",
+          "updated_at": "2026-09-22T23:18:44Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: gpt-6\n```quarantined\nrole: critic\n```\naudit-targets: none\n\nRound 1 fresh critique at dispatch SHA a484f30613f16d1da3c8f7a01edb5d67e562a12e; input ceiling 5785862619.\n\nInventory and recheck: The [course map](https://github.com/deftai/directive-training/blob/a484f30613f16d1da3c8f7a01edb5d67e562a12e/curriculum/README.md#L18-L31) names Windows Python and the 3.13.13 matrix value. The [capstone pre-check](https://github.com/deftai/directive-training/blob/a484f30613f16d1da3c8f7a01edb5d67e562a12e/labs/capstone-end-to-end.md#L107-L139) runs only a version print. Existing fixture helpers resolve Python for isolated execution; CI pins 3.13.13. I ran npm run check:capstone and npm run check:module-7 at this SHA; both passed despite the absent Python version assertion.\n\n1. **blocks-the-design — Separate a reproducibility pin from a supported range.** Evidence: the [current 0.119.5 baseline](https://github.com/deftai/directive-training/blob/a484f30613f16d1da3c8f7a01edb5d67e562a12e/references/SOURCE-BASELINE.md#L44-L52) marks Windows/PowerShell candidate, with native evidence not run; its [capstone boundary](https://github.com/deftai/directive-training/blob/a484f30613f16d1da3c8f7a01edb5d67e562a12e/references/SOURCE-BASELINE.md#L378-L390) says the same. The [CI job](https://github.com/deftai/directive-training/blob/a484f30613f16d1da3c8f7a01edb5d67e562a12e/.github/workflows/capstone-platform-validation.yml#L43-L62) selects one Python version, and its [path filter](https://github.com/deftai/directive-training/blob/a484f30613f16d1da3c8f7a01edb5d67e562a12e/.github/workflows/capstone-platform-validation.yml#L3-L9) omits the course-map and capstone-lab Markdown. Failure mode: calling 3.13.13 “supported” on the current release overstates evidence; calling a minimum “supported” admits interpreters that this matrix never exercised. Disposition: state 3.13.13 as the exact candidate parity environment now, keep Windows practical outcomes candidate, and require a native 0.119.5 run before promoting exact support. Require bounded multi-version Windows evidence before choosing a minimum or range.\n\n2. **blocks-the-design — A capstone-only assertion arrives too late for the course-wide prerequisite.** Evidence: the [course map](https://github.com/deftai/directive-training/blob/a484f30613f16d1da3c8f7a01edb5d67e562a12e/curriculum/README.md#L18-L31) puts Python in prerequisites, while the [Lab 7 helper](https://github.com/deftai/directive-training/blob/a484f30613f16d1da3c8f7a01edb5d67e562a12e/labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs#L119-L149), [Lab 10 helper](https://github.com/deftai/directive-training/blob/a484f30613f16d1da3c8f7a01edb5d67e562a12e/labs/fixtures/10-implementation-golden-path/implementation-lab.mjs#L146-L168), and [Lab 11 helper](https://github.com/deftai/directive-training/blob/a484f30613f16d1da3c8f7a01edb5d67e562a12e/labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs#L161-L183) resolve Python before the capstone. Failure mode: even if the map gives an early written verdict, a learner with 3.12.10 can still start Labs 7/10/11 and receive unrelated failures before a capstone-only guard refuses them. Disposition: put the explicit verdict and recovery in the course-entry prerequisite and enforce the same predicate before the existing helpers install or verify; keep unverified Windows paths labeled candidate.\n\n3. **sharpens-framing — Check the interpreter the helper actually selects.** Evidence: Labs 7/10/11 search python, python3, then py, while the [capstone helper](https://github.com/deftai/directive-training/blob/a484f30613f16d1da3c8f7a01edb5d67e562a12e/labs/fixtures/capstone-end-to-end/capstone-lab.mjs#L208-L239) requires a PATH-resolved python executable. Failure mode: a PowerShell version print, a launcher default, and the isolated helper can name different interpreters; file existence alone does not prove a runnable version. Disposition: bind the assertion and diagnostic to the helper-selected executable, and explain the different selection rules if they remain.\n\n4. **sharpens-framing — Extend the existing check instead of relying on prose.** Evidence: the [capstone content verifier](https://github.com/deftai/directive-training/blob/a484f30613f16d1da3c8f7a01edb5d67e562a12e/scripts/verify-capstone.mjs#L796-L825) requires the CI YAML pin but has no learner Python assertion; the current capstone check passed. Failure mode: a later edit can remove or weaken the learner verdict while the content gate stays green. Disposition: add a focused negative case to the existing content/helper tests so a wrong or absent version guard fails.\n\nRoad not taken: a minimum is easier for learners than an exact patch pin. I would change that verdict after pin-matched native Windows runs exercise the selected interpreter at the proposed lower bound and representative newer versions across the affected labs.\n\n",
+          "id": 5785953905,
+          "html_url": "https://github.com/deftai/directive-training/issues/62#issuecomment-5785953905",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:20:39Z",
+          "updated_at": "2026-09-22T23:20:39Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh open critique of issue 62 at dispatch-sha `a484f30613f16d1da3c8f7a01edb5d67e562a12e`, input-ceiling 5785862619. Stop 1 P1 line cites re-checked on that tree. `node scripts/verify-capstone.mjs` prints `Capstone content contract: ok (36 artifacts, 0 missing)`. Helper reads are `git show` of that SHA. No native win32 run on this dest.\n\n## Re-verification of the triage anchors\n\n| Probe | Result |\n| --- | --- |\n| `curriculum/README.md:29-30` | Reproduces: \"Python on Windows for Directive verification; the capstone matrix uses Python 3.13.13.\" |\n| `labs/capstone-end-to-end.md:115` | Windows fence runs `python --version`. Unix fence (`:71-72`) runs `task`/`uv` only. |\n| `labs/capstone-end-to-end.md:134-136` | \"confirm Python is available (`3.13.13` in the verified native environment)\". No min/exact predicate. |\n| Node contrast in the same lab | `:39-41` says Node `24.20.0` \"describes bounded evidence, not the Node.js learner requirement.\" `:109-110` asserts major `>= 22` and throws. `scripts/verify-capstone.mjs:752` locks that assertion. |\n| Python lock in the same verifier | `:816` locks GHA token `python-version: \"3.13.13\"`. No learner version regex. |\n\n## Findings\n\n### 1. An executable version assertion would fail interpreters the helpers accept\n\nblocks-the-design\n\n**Evidence.** Capstone `installAttempt` builds `isolatedEnv` before the bootstrap PATH restore (`capstone-lab.mjs:230-235`, `:276-281`). On win32 that calls `findExecutable(\"python\")` and throws `Required executable not found: python`. Labs 7/10/11 `installAttempt` calls `createIsolatedTools` (`lifecycle-lab.mjs:300`, same shape at implementation-lab.mjs:337 and gates-lab.mjs:397), which requires `python`, `python3`, or `py` and does not parse a version. No later helper, deposited `verify:encoding` (TS `engine:invoke` in `.deft/core/tasks/verify.yml:261-276`), or consumer task cmd fails closed on 3.12.10 versus 3.13.13. The setup encoding probe (`.deft/core/Taskfile.yml:689-717`) skips when no interpreter exists. The issue's proposed fix adds \"an executable version assertion\" on top of min-or-exact.\n\n**Failure mode.** A Windows learner on 3.12.10, with `python` on PATH, passes every helper that the course actually runs and fails a new fence that asserts 3.13.13 (or an unmeasured min). Two verdicts for one interpreter: the pre-check says environment-blocked; Lab 7 install says PASS. That is the same non-deterministic pre-check the issue reports, moved one layer up.\n\n**Disposition.** Bind presence (resolvable interpreter) as the fail-closed assertion, matching the helpers. Do not bind a version equality or min that those helpers do not enforce. A version assertion is a new mechanism; inventory the existing `findExecutable` / `findPythonExecutable` throws first.\n\n### 2. `3.13.13` is the verified-environment pin; the Node split is already in this lab\n\nsharpens-framing\n\n**Evidence.** Course map `:29-30` and lab `:134-136` already use the Task/uv sentence shape: matrix / verified native environment, `--version` print, no assertion (`:113-114` and `:134-135` for Task `3.50.0` and uv `0.11.10`). The GHA pin is the same number: `.github/workflows/capstone-platform-validation.yml:49-53` (`if: runner.os == 'Windows'`) and `.github/workflows/labs-7-10-11-platform-validation.yml:65-68`. Node in this lab is the other in-tree pattern: capability min (globSync / 22+) plus a separate evidence pin (24.20.0) plus a contracted wrapper assertion. Python has no globSync-equivalent floor in this tree.\n\n**Failure mode.** Binding the \"exact 3.13.13\" horn of the proposed OR promotes the matrix pin to learner law. The same file already refuses that move for Node 24.20.0. An ingest reader then cannot tell whether 3.13.13 is the requirement or the verified environment, which is the pain as written.\n\n**Disposition.** Keep `3.13.13` as verified native environment (the sentence already in lab `:135-136`). State the learner requirement as presence, or as a min only after a measured floor exists. Reuse the Node split already printed at lab `:39-41`; do not invent a fourth version style beside Node min, Task/uv verified-context, and this matrix pin.\n\n### 3. The fail-closed site is helper PATH at Lab 7/10/11 install and capstone isolatedEnv\n\nsharpens-framing\n\n**Evidence.** Course map names \"Python on Windows for Directive verification\" and \"the capstone matrix.\" P1 cites the course map and the capstone lab. Labs 7/10/11 starting-state fences never run `python --version` (`labs/07-scope-lifecycle.md:59-63`, `labs/10-implementation-golden-path.md:49-53`, `labs/11-testing-gates-and-evidence.md:30`). Lab 7 isolated-tools prose (`:120-121`) lists `node`, `task`, `npm`, `git`, `uv`, optional `gh` — not python — while `createIsolatedTools` still shims python. Lab 2 and Lab 5 fixtures contain no python lookup. Module 2 starting-state (`curriculum/modules/02-installation-and-anatomy.md:50-58`) checks node/npm/git/gh. Relocate's `uv run python` coupling is unwired (`.deft/core/Taskfile.yml:312-320`). GHA still titles the pin \"Select Python 3.13.13 for Directive verification.\"\n\n**Failure mode.** A lean that recuts only the course map plus the capstone fence, and explains Python as a `verify:*` verb, leaves the first throw at Lab 7 `install` undocumented and teaches a reason the 0.119.5 consumer surface does not fail closed on. A learner who recorded 3.12.10 against a capstone-only sentence still cannot classify a Lab 7 helper throw.\n\n**Disposition.** Name the fail-closed sites on the course-map sentence: Windows helper isolated PATH at Lab 7/10/11 install and capstone `isolatedEnv`. Recut Lab 7 `:120-121` so the isolated-tools list includes python. Keep \"Directive verification\" only if a deposited 0.119.5 consumer command is shown to require the interpreter; this dest does not show that.\n\n### 4. The fence name `python` is not the helper name-set\n\nsharpens-framing\n\n**Evidence.** Capstone Windows fence and capstone `isolatedEnv` use the single name `python`. Labs 7/10/11 `findPythonExecutable` accepts `python`, `python3`, or `py` on win32 (`lifecycle-lab.mjs:119-120` and the copies in labs 10 and 11).\n\n**Failure mode.** A presence or version assertion written as `python --version` fails a learner whose working interpreter is `py` or `python3`, while Lab 7 install would accept that same machine. Capstone install would still throw. The pre-check and the first lifecycle lab disagree about the same host.\n\n**Disposition.** Close one name-set for the course-wide contract and both helper families before writing an assertion. Inventory `findPythonExecutable` rather than adding a second lookup.\n\n## Footnotes\n\n- `footnote` — `assessments/capstone-end-to-end.md:149` and `solutions/capstone-end-to-end.md:410` record Windows Python with no version predicate. `Blocked by environment` (`assessments/capstone-end-to-end.md:248`) already exists for an unavailable documented runtime.\n- `footnote` — Labs 7/10/11 `createIsolatedTools` also resolves `python3`/`python` on darwin/linux at install. The course-map Windows-only sentence is already narrower than those shims. Capstone `isolatedEnv` remains win32-only.\n- `footnote` — No injection/swarm lens: the target is a learner version contract. It does not change authority, untrusted input, prompts or envelopes, identity, concurrency, worktrees, or shared state.\n- `footnote` — Issue body and the two in-envelope comments (5785827452, 5785862619) carry no embedded instructions that change this critique.\n\n## Road not taken\n\nThe strongest rejected position is exact 3.13.13 parity as the learner requirement, because the only Windows matrix evidence is `windows-2022` plus that pin, and Windows remains a candidate platform. That would make 3.12.10 a documented environment block instead of an untested interpreter on an already-candidate OS.\n\nRejected because finding 1 still holds: the helpers accept any resolvable `python` (or `python3`/`py` in labs 7/10/11), and this lab already refuses to promote a matrix patch to a requirement for Node. Exact 3.13.13 as verified environment is already written; that horn does not need a new assertion.\n\nWhat would flip finding 1: a measured native Windows run where 3.12.10 fails a deposited 0.119.5 consumer command or a helper verb that 3.13.13 passes, or a helper change that parses and enforces a version. Until then presence is the fail-closed contract, and 3.13.13 stays the verified pin.\n\n",
+          "id": 5786022075,
+          "html_url": "https://github.com/deftai/directive-training/issues/62#issuecomment-5786022075",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:25:39Z",
+          "updated_at": "2026-09-22T23:25:39Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe course names Python 3.13.13 on Windows and only prints `python --version`. Confirming this map would treat presence of a resolvable interpreter as the fail-closed learner requirement, keep 3.13.13 as verified candidate parity, cover Labs 7/10/11 and the capstone on every OS, and align helper command names.\n\nParent forward verdict: P1 holds as an undecidable pre-check; a min-or-exact assertion would invent a floor the helpers do not enforce.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5785827452 and these takes; the evidence is critics 5785924846, 5785953905, and 5786022075.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 3\ncritics: 5785924846, 5785953905, 5786022075\nsupersedes: 5785827452\nTarget-digest: sha256:a7fade820cf60a69d910aad35d7c0b8ed699b388a2ed0ec7e77986c71535a698\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Python is required on every OS, not just Windows, and not just in the capstone\ntake: accept-into-contract\ncritic: 5785924846\nheading: Python is required on every OS, not just Windows, and not just in the capstone\n\n### minimum or exact is a false binary\ntake: accept-into-contract\ncritic: 5785924846\nheading: minimum or exact is a false binary\n\n### the lab helpers resolve different Python commands\ntake: accept-into-contract\ncritic: 5785924846\nheading: the lab helpers resolve different Python commands\n\n### model the assertion on the existing Node check\ntake: accept-into-contract\ncritic: 5785924846\nheading: model the assertion on the existing Node check\n\n### the same ambiguity applies to Task and uv\ntake: accept-into-contract\ncritic: 5785924846\nheading: the same ambiguity applies to Task and uv\n\n### the claim that Python is for Directive verification names no consumer\ntake: accept-into-contract\ncritic: 5785924846\nheading: the claim that Python is for Directive verification names no consumer\n\n### Separate a reproducibility pin from a supported range\ntake: accept-into-contract\ncritic: 5785953905\nheading: Separate a reproducibility pin from a supported range\n\n### A capstone-only assertion arrives too late for the course-wide prerequisite\ntake: accept-into-contract\ncritic: 5785953905\nheading: A capstone-only assertion arrives too late for the course-wide prerequisite\n\n### Check the interpreter the helper actually selects\ntake: accept-into-contract\ncritic: 5785953905\nheading: Check the interpreter the helper actually selects\n\n### Extend the existing check instead of relying on prose\ntake: accept-into-contract\ncritic: 5785953905\nheading: Extend the existing check instead of relying on prose\n\n### An executable version assertion would fail interpreters the helpers accept\ntake: accept-into-contract\ncritic: 5786022075\nheading: An executable version assertion would fail interpreters the helpers accept\n\n### 3.13.13 is the verified-environment pin\ntake: accept-into-contract\ncritic: 5786022075\nheading: 3.13.13 is the verified-environment pin\n\n### The fail-closed site is helper PATH at Lab 7/10/11 install and capstone isolatedEnv\ntake: accept-into-contract\ncritic: 5786022075\nheading: The fail-closed site is helper PATH at Lab 7/10/11 install and capstone isolatedEnv\n\n### The fence name python is not the helper name-set\ntake: accept-into-contract\ncritic: 5786022075\nheading: The fence name python is not the helper name-set\n\nrelieves: P1\naudit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5786022075 reading=asserted\n\n## Bound remedy\n\n- Publish presence of a resolvable Python interpreter as the fail-closed learner requirement for Labs 7, 10, 11, and the capstone on macOS, Linux, and Windows. Keep `3.13.13` as verified candidate parity, not a learner exact or minimum.\n- Name the fail-closed sites as helper isolated PATH at Lab 7/10/11 install and capstone `isolatedEnv`. Recut `labs/07-scope-lifecycle.md:120-121` so the isolated-tools list includes python. Replace \"for Directive verification\" with that helper PATH requirement unless a deposited 0.119.5 consumer command is shown.\n- Close one command name-set across the course-wide contract and both helper families before writing an assertion.\n- Put the explicit verdict in the course-entry prerequisite, not only in the capstone fence. Keep Windows practical outcomes candidate.\n- Extend the existing capstone content check so a missing learner presence verdict fails. Do not bind a version equality or min the helpers do not enforce.\n\n",
+          "id": 5786103537,
+          "html_url": "https://github.com/deftai/directive-training/issues/62#issuecomment-5786103537",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:31:44Z",
+          "updated_at": "2026-09-22T23:31:44Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 pain-audit of successor lean 5786103537. Fresh grok seat. Reads pinned to `a484f30613f16d1da3c8f7a01edb5d67e562a12e`. Input: issue body plus comments through 5786103537. Marker `pain-P1` only. Engine: `@deftai/directive-core@0.119.5` `scanPainList`, `scanPainCites`, `classifyPosition`, `assertedPainIdsFromCites`, `evaluateBoundRemedyCites`.\n\n### Re-verification\n\nStop 1 comment 5785827452 `scanPainList` returns `{ present: true, ids: [\"P1\"], duplicates: [], malformed: false }`.\n\nP1 anchors at the pin SHA:\n\n- `curriculum/README.md:29-30` names Python on Windows for Directive verification and the capstone matrix Python 3.13.13.\n- `labs/capstone-end-to-end.md:115` is `python --version`.\n- `labs/capstone-end-to-end.md:134-136` tells the learner to confirm Python is available (`3.13.13` in the verified native environment).\n\nHelper and check surfaces at the same SHA: `labs/07-scope-lifecycle.md:120-121` lists isolated tools without python. `lifecycle-lab.mjs:119-136` `findPythonExecutable` resolves a PATH entry and does not parse a version. `capstone-lab.mjs:231-236` `isolatedEnv` on win32 uses `findExecutable(\"python\")` the same way. `scripts/verify-capstone.mjs:816` locks the workflow token `python-version: \"3.13.13\"` and does not assert a learner min or exact. `@deftai/directive-core@0.119.5` `verify-tools.js:66-68` probes `python3` / `python` presence in the include-task set.\n\nLean 5786103537 `scanPainCites` returns one cite `{ painId: \"P1\", disposition: \"relieves\", deferredIssueNumber: null }` and `rejected: []`. `classifyPosition` at `relieves: P1` is null (operative). One raw disposition match in the body. Sixteen headings; none match a closed cite form. `assertedPainIdsFromCites` returns `[\"P1\"]`. `evaluateBoundRemedyCites` with `coveredIds: [\"P1\"]` returns `{ ok: true }`. `isSuccessorLeanBody` is true.\n\n### Findings\n\n**1. `footnote`: the lean emits one disposition for P1**\n\nEvidence: `scanPainCites` on 5786103537 yields a single operative `relieves: P1`. Take-map headings use `take:` / `critic:` / `heading:` and do not carry `relieves`, `does-not-relieve`, or `operator-deferred` plus `P1`. `Parent forward verdict: P1 holds as an undecidable pre-check` and `audit:pain-P1` mention the id and do not form a second closed cite.\n\nFailure mode: a second operative disposition for the same id is `malformed-pain` (`dispositions.size > 1`). This body does not emit that.\n\nDisposition: the lean is well-formed for `scanPainCites`. The asserted cite stays a single `relieves: P1`.\n\n**2. `footnote`: Bound-remedy covers P1 as Stop 1 named it**\n\nEvidence: Stop 1 P1 is the undecidable pre-check at those three anchors. Harvest item 1 publishes presence of a resolvable interpreter as the fail-closed learner requirement for Labs 7, 10, 11, and the capstone, and keeps `3.13.13` as verified candidate parity. Item 4 puts that verdict in the course-entry prerequisite (`curriculum/README.md:29-30`). Item 5 extends the capstone content check so a missing learner presence verdict fails, which is the lever on `labs/capstone-end-to-end.md:115` and `:134-136` (`verify-capstone.mjs` today locks only the workflow pin). Item 2 recuts `labs/07-scope-lifecycle.md:120-121` and replaces \"for Directive verification\" with the helper PATH requirement the fixtures already enforce.\n\nFailure mode: `relieves: P1` on an uncovered id returns `evaluateBoundRemedyCites` `{ ok: false }`. Measuring `coveredIds: [\"P1\"]` returns `{ ok: true }`.\n\nDisposition: the asserted cite matches the harvest. The bind map can keep `relieves: P1`.\n\n### Road not taken\n\nThe rejected reading is `does-not-relieve: P1`, on the ground that Stop 1 names a missing min/exact assertion and harvest item 5 refuses a version equality or min. Presence at the three named sites is a deterministic pre-check verdict: a resolvable interpreter passes; a missing interpreter fails; `3.13.13` remains the verified pin. `findPythonExecutable` and `verify-tools` 0.119.5 enforce presence. That reading would flip if a deposited 0.119.5 consumer command or helper parsed a version and failed 3.12.10 while passing 3.13.13.\n\n",
+          "id": 5787642993,
+          "html_url": "https://github.com/deftai/directive-training/issues/62#issuecomment-5787642993",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T01:57:22Z",
+          "updated_at": "2026-09-23T01:57:22Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\n\nBound contract: successor lean 5786103537.\n\n",
+          "id": 5787728286,
+          "html_url": "https://github.com/deftai/directive-training/issues/62#issuecomment-5787728286",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:07:56Z",
+          "updated_at": "2026-09-23T02:07:56Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5544446677,
+        "origin": "deftai/directive-training#62",
+        "id": "github.issue.5544446677"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "a7fade820cf60a69d910aad35d7c0b8ed699b388a2ed0ec7e77986c71535a698"
+      }
+    },
+    "id": "github.issue.5544446677"
+  },
+  "approvedRepos": [
+    "deftai/directive-training"
+  ],
+  "unknownPaths": [
+    "metadata.intended_placement",
+    "metadata.issueCommentThread",
+    "metadata.kind",
+    "metadata.x-directive/admitted-target-digest",
+    "metadata.x-directive/plan-id"
+  ]
+}

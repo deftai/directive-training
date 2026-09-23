@@ -1,0 +1,265 @@
+{
+  "schemaVersion": 1,
+  "algo": "intent-extract-v1",
+  "plan": {
+    "title": "Lab 7 Windows route cannot complete Task 5 as one pasted block",
+    "narratives": {
+      "Description": "The Lab 7 Native Windows route creates a unique attempt and immediately checks for the learner-authored Task 5 record inside the same pasted fence, so the learner cannot write the record before the check runs. The accepted remedy introduces a real editor handoff while preserving the guarded-root, structural-only, no-lifecycle-authority boundary.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/64",
+      "Overview": "## Situation\n\nIn `labs/07-scope-lifecycle.md`, the `## Native Windows PowerShell 7.4+ route` section presents lines 417–457 as one block to run. That block:\n\n1. creates a unique `$LabRoot`;\n2. installs and runs the lifecycle exercise; then\n3. immediately requires the learner-authored Task 5 file at `$LabRoot/xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json`.\n\nThe requirement is enforced by:\n\n```powershell\n$Authored = Join-Path $LabRoot \"xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json\"\nif (-not (Test-Path -LiteralPath $Authored -PathType Leaf)) { throw \"Write your Module 6 proposed scope to $Authored first.\" }\n```\n\nThe learner cannot know the unique destination before this same block creates `$LabRoot`, and the block provides no pause in which to author or copy the required file.\n\n## Pain\n\nFollowing the literal Windows route reaches the missing-file exception even when the learner already has a valid Module 6 proposed scope. Re-running the whole block creates another unique root and repeats the problem.\n\nI completed the route only by splitting the documented block into undocumented segments: run through lifecycle creation, retain the generated paths, write the Task 5 artifact, then resume at structural verification. A mid-level engineer should not need to redesign the control flow of the supplied platform route to complete a required step.\n\n## Proposed fix\n\nSplit the Windows route into explicit phases:\n\n- **Phase A:** create, guard, install, and run lifecycle; print and retain `$LabRoot` and the exact `$Authored` destination.\n- **Task 5 pause:** tell the learner to author or copy the Module 6 proposed scope to that printed path. Preserve the existing boundary that this file receives structural verification only and gains no lifecycle authority.\n- **Phase B:** verify the authored file, then reset and archive using the retained roots.\n\nAlternatively, let the helper accept an explicit retained source path and safely copy it into the generated guarded root before structural verification. The helper should validate both paths and must not promote or activate the learner-authored scope.\n\n## Related but distinct\n\n- #52 aligned the Task 5 filename across learner surfaces; it does not provide a usable pause after the Windows route generates its unique root.\n- #53 classifies a misleading proposed-preflight remediation; it does not address this PowerShell block's impossible ordering.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready",
+      "UserStory": "As a Windows learner completing Lab 7, I want the generated attempt paths printed before an explicit Task 5 pause, so that I can author and structurally verify my scope without granting it lifecycle authority.",
+      "ImplementationPlan": "1. Recut the Native Windows route into Phase A, a prose/editor pause, and Phase B while retaining the same PowerShell session variables.\n2. End Phase A after create, guard, install, and run; compute and print absolute `$LabRoot` and `$Authored` paths before returning control.\n3. Put the Task 5 write instruction and all four authority/evidence boundary clauses outside executable fences, then start Phase B with retained-path checks before structural verification, reset, and archive.\n4. Extend the Module 7 verifier and negative tests to reject a one-fence paste-through regression without adding a helper copy-in verb.",
+      "Traces": "Accepted bound remedy on deftai/directive-training#64, comment 5786104106, independently audited in comment 5787649680 and confirmed by parent synthesis 5787729246; approved allocation is xbrief/.triage-cache/decompositions/59-69-allocation.md."
+    },
+    "items": [
+      {
+        "id": "clause:1",
+        "title": "Drop the helper-copy alternative from this next-build contract.",
+        "narrative": {
+          "Acceptance": "No fixture helper or path guard gains a copy-in verb or support for an external operator-selected source path; the learner writes the Task 5 record directly at the printed destination inside the guarded first root.",
+          "Traces": "Issue #64 accepted bound remedy comment 5786104106, clause 1."
+        }
+      },
+      {
+        "id": "clause:2",
+        "title": "Recut `labs/07-scope-lifecycle.md` 414-457. Phase A ends after create / guard / install / run and `Write-Host` of absolute `$LabRoot` and `$Authored`. Prose then carries the Task 5 write instruction. Phase B starts with `Test-Path` / `guard`, then verify / reset / archive using retained variables.",
+        "narrative": {
+          "Acceptance": "The Windows route has distinct Phase A and Phase B PowerShell fences separated by prose; Phase A prints absolute `$LabRoot` and `$Authored`, and Phase B begins with `Test-Path` and guard checks before verify, reset, and archive reuse the retained variables.",
+          "Traces": "Issue #64 accepted bound remedy comment 5786104106, clause 2."
+        }
+      },
+      {
+        "id": "clause:3",
+        "title": "Copy the four Task 5 boundary clauses onto the Windows pause. Keep `$Authored` and the CLI under the installed first root. Do not promote or activate the authored record. Keep Windows as a candidate platform.",
+        "narrative": {
+          "Acceptance": "The pause states that the authored record is untrusted input, keeps the record, CLI, and `--out` under the installed first root, retains path/command/exit/result evidence, grants no promotion, activation, or implementation authority, and leaves Windows labeled as a candidate platform.",
+          "Traces": "Issue #64 accepted bound remedy comment 5786104106, clause 3, and critic comment 5785979518."
+        }
+      }
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/64",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #64: Lab 7 Windows route cannot complete Task 5 as one pasted block"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 3 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Drop the helper-copy alternative from this next-build contract.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Recut `labs/07-scope-lifecycle.md` 414-457. Phase A ends after create / guard / install / run and `Write-Host` of absolute `$LabRoot` and `$Authored`. Prose then carries the Task 5 write instruction. Phase B starts with `Test-Path` / `guard`, then verify / reset / archive using retained variables.",
+          "artifact_path": "labs/07-scope-lifecycle.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Copy the four Task 5 boundary clauses onto the Windows pause. Keep `$Authored` and the CLI under the installed first root. Do not promote or activate the authored record. Keep Windows as a candidate platform.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "file_scope": [
+          "labs/07-scope-lifecycle.md",
+          "scripts/verify-module-7.mjs",
+          "scripts/verify-module-7.test.mjs",
+          "xbrief/active/2026-09-23-64-lab-7-windows-route-cannot-complete-task-5-as-one-pasted-blo.xbrief.json"
+        ]
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the Lab 7 Windows route is one pasted block that creates a unique $LabRoot then immediately requires the learner-authored Task 5 file at that generated path\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the missing-token spend ask with option 2 mixed spend; this is a closed identity recut of the Lab 7 Windows pasted block versus the Task 5 authored-file pause\npain: P1\nP1: labs/07-scope-lifecycle.md:417-434 one pasted block creates unique $LabRoot then immediately requires $LabRoot/xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\n\n",
+          "id": 5785828491,
+          "html_url": "https://github.com/deftai/directive-training/issues/64#issuecomment-5785828491",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:11:30Z",
+          "updated_at": "2026-09-22T23:11:30Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh open critique of issue 64 at dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`. Input ceiling 5785828491.\n\n## Anchors re-verified\n\nAt that SHA, `labs/07-scope-lifecycle.md` lines 417–457 are one PowerShell fence. Line 424 assigns a unique `$LabRoot` from `create`. Lines 433–434 build `$Authored` under that root and `throw` if the leaf is missing. The fence never prints `$LabRoot` or `$Authored` before the throw. Re-running the fence allocates another launcher GUID (421) and another `mkdtemp` root. Stop 1 P1 (`417-434`) is the throw prefix of that fence.\n\nzsh Task 5 is a different control-flow identity: heading at 243, prose “Write your Module 6 artifact into the installed first attempt with your editor, then check it” at 250–251, then a later fence that sets `authored` and runs `test -f` (252–257). Helper verbs stay `create | guard | install | run | reset | archive` (`lifecycle-lab.mjs` 397–405). `copyFileSync` copies fixture files only (225–226). `safety.mjs` `safePath` refuses absolute paths, backslashes, drive letters, and `..`.\n\n## 1. Helper-copy alternative cannot bind as the Task 5 identity — blocks-the-design\n\nEvidence. The issue’s second remedy is a helper that “accept[s] an explicit retained source path and safely cop[ies] it into the generated guarded root.” Module 6 Part B never mints that path: the artifact lives in a command-free scratch note (`curriculum/modules/06-creating-well-shaped-work.md` 372–385, 433–437). Lab 7 Task 5 identity is the learner writing that note into the unique first-attempt path (`07-scope-lifecycle.md` 250–251, 110–113). The helper has no copy-in verb. `safePath` is built to refuse the outside path a copy-in would need.\n\nFailure mode. Binding the alternative recuts Task 5 from “author into the printed unique root” into “helper ingests an operator-chosen path the course does not create.” That is a new untrusted-input surface into `xbrief/proposed/`, beside two supplied stories, with no existing guard that the source is the Module 6 artifact or that the destination stays `proposed/`.\n\nDisposition. Drop the helper-copy alternative from the next-build contract. Bind only a Windows recut of the existing Task 5 write-then-verify pause.\n\n## 2. The pause is a fence break with printed paths — sharpens-framing\n\nEvidence. Lab 10’s Windows route keeps one fence and a comment at `labs/10-implementation-golden-path.md:294` (`# Edit only ... then continue`). Lab 11 does the same with comments between helper verbs (`labs/11-testing-gates-and-evidence.md:285-293`). Comments do not stop a paste. Capstone Task 1 is the existing real pause: prose “Pause. Write …” between two fences (`labs/capstone-end-to-end.md:200-210`). zsh Task 5 is that same shape. Lab 7’s Windows lead-in currently says the one fence “covers starting state, execution, acceptance, fresh reset, and recoverable archive” (414–415). `$LabRoot = ((& node $Helper create) | Out-String).Trim()` swallows create stdout, so the unique destination is not displayed.\n\nFailure mode. Copying the Lab 10/11 comment into Lab 7, or leaving `Test-Path` at the end of Phase A, or leaving 414–415 as one covering block, restores paste-through: the throw still fires before the learner can write, and a full re-paste mints a new root. A throw message that names `$Authored` is after the failure, not a pause.\n\nDisposition. Recut 414–415 with the fence. Phase A ends after create / guard / install / run and `Write-Host` of the absolute `$LabRoot` and `$Authored`. Prose then carries the Task 5 write instruction. Phase B starts with `Test-Path` / `guard`, matching zsh `test -f` after the write instruction (257), then verify / reset / archive in the same session’s retained variables.\n\n## 3. Windows pause must be the Task 5 boundary, on the installed first root — sharpens-framing\n\nEvidence. zsh Task 5 is not only `test -f`. After the write instruction it states: verify is not a lifecycle move; a green result grants no promotion, activation, or implementation authority; `--out` stays inside the guarded root; the artifact is untrusted input; retain path, command, exit, and result (110–113, 267–284). Verify runs against `$first_root` after reset has already printed a distinct uninstalled second root (232–237, 243). The Windows fence verifies with `$LabRoot/node_modules/@deftai/directive/dist/bin.js` (435–441) and only then resets (448). Reset’s new root is uninstalled (`07-scope-lifecycle.md:243`).\n\nFailure mode. A Windows “pause” that is only a missing-leaf check recuts Task 5 into a file-presence gate and drops the authority boundary the done statement still claims (477–479). Pointing `$Authored` or `$Cli` at the reset root fails on a missing pin. Promoting or activating the third record would cross the lab’s own safety lines.\n\nDisposition. Copy the four Task 5 boundary clauses onto the Windows pause. Keep `$Authored` and the CLI under the installed first root. Do not promote or activate the authored record. Do not claim the Windows route is pin-verified; the lab record still lists Windows as a candidate (9, 14).\n\n## Injection / swarm lens\n\nThe target changes identity (unique `3ci-directive-lab07-*` root versus the Task 5 filename), untrusted input (learner-authored JSON; the helper-copy alternative would add an external path), and authority (structural verify versus lifecycle). Phase-split recut stays inside the existing helper verb set and inside lines 110–113: write the third record inside the guarded root, keep `--out` there, treat it as untrusted fictional content, and do not promote or activate it. Do not add a copy-in verb. Do not widen `safePath` to accept absolute operator paths.\n\n## Road-not-taken\n\nRejected: keep one fence and insert `Read-Host` / a comment at 434. Steelman: the unique root already exists, a prompt could wait, Lab 10 already comments inside a paste. Flip: a documented Windows-route pattern of interactive prompts inside one covering script. The course’s real pauses are fence breaks with retained variables (zsh Task 5, capstone Task 1). Lab 7’s own lead-in currently forbids reading the fence as a stepped script.\n\nRejected: helper copy-in, as Finding 1. Flip: Module 6 mints a retained file path and the helper already has a bounded copy verb. Neither is true at this SHA.\n\n## 4. Fence range versus P1 prefix — footnote\n\nP1 cites `417-434`. The identity to recut is the whole paste, 417–457, plus lead-in 414–415. Filename `2026-01-15-your-proposed-scope.xbrief.json` already matches zsh 254, Windows 433, and `solutions/lab-07-scope-lifecycle.md:186`. Related issues 52 and 53 do not supply this pause.\n\n",
+          "id": 5785979518,
+          "html_url": "https://github.com/deftai/directive-training/issues/64#issuecomment-5785979518",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:22:33Z",
+          "updated_at": "2026-09-22T23:22:33Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe Lab 7 Windows paste creates a unique root and immediately demands the Task 5 file there. Confirming this map would drop the helper-copy alternative, split the fence with printed `$LabRoot` and `$Authored`, and copy the zsh Task 5 authority boundary onto that pause.\n\nParent forward verdict: P1 holds as an impossible paste-through; helper copy-in cannot bind as Task 5.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5785828491 and these takes; the evidence is critic 5785979518.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5785979518\nsupersedes: 5785828491\nTarget-digest: sha256:a64bfd6d2061d8dffa5104ccb7fec5aee5fc771247c54940b593a8d89f178cfd\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Helper-copy alternative cannot bind as the Task 5 identity\ntake: accept-into-contract\ncritic: 5785979518\nheading: Helper-copy alternative cannot bind as the Task 5 identity\n\n### The pause is a fence break with printed paths\ntake: accept-into-contract\ncritic: 5785979518\nheading: The pause is a fence break with printed paths\n\n### Windows pause must be the Task 5 boundary, on the installed first root\ntake: accept-into-contract\ncritic: 5785979518\nheading: Windows pause must be the Task 5 boundary, on the installed first root\n\nrelieves: P1\naudit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5785979518 reading=asserted\n\n## Bound remedy\n\n- Drop the helper-copy alternative from this next-build contract.\n- Recut `labs/07-scope-lifecycle.md` 414-457. Phase A ends after create / guard / install / run and `Write-Host` of absolute `$LabRoot` and `$Authored`. Prose then carries the Task 5 write instruction. Phase B starts with `Test-Path` / `guard`, then verify / reset / archive using retained variables.\n- Copy the four Task 5 boundary clauses onto the Windows pause. Keep `$Authored` and the CLI under the installed first root. Do not promote or activate the authored record. Keep Windows as a candidate platform.\n\n",
+          "id": 5786104106,
+          "html_url": "https://github.com/deftai/directive-training/issues/64#issuecomment-5786104106",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:31:47Z",
+          "updated_at": "2026-09-22T23:31:47Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 pain-audit of successor lean 5786104106 at dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`. Input ceiling 5786104106.\n\n## Anchors re-verified\n\n`scanPainList` on Stop 1 write-back 5785828491 returns `{ present: true, ids: [\"P1\"], duplicates: [], malformed: false }`. Named P1 is `labs/07-scope-lifecycle.md:417-434` one pasted block creating unique `$LabRoot` then requiring `$LabRoot/xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json`.\n\nAt that SHA, lines 417–457 are one PowerShell fence. Line 424 assigns unique `$LabRoot` from `create` with stdout swallowed. Lines 433–434 assign `$Authored` and throw if the leaf is missing. Lead-in 414–415 presents that fence as one covering block. zsh Task 5 is a fence break: prose write at 250–251, then `test -f` at 257. Capstone Task 1 is that shape at 200–210. Lab 10 Windows keeps a comment inside one fence at 294. Helper verbs stay `create | guard | install | run | reset | archive` (`lifecycle-lab.mjs` 397–405). `copyFileSync` copies fixture files only (225–226). `safePath` refuses absolute paths, backslashes, drive letters, and `..`.\n\n`scanPainCites` on lean 5786104106 returns one cite `{ painId: \"P1\", disposition: \"relieves\", deferredIssueNumber: null }` and `rejected: []`. `PAIN_CITE_RE` matchAll returns one hit, the line-start `relieves: P1`. Bind placement `operativeCiteCount` is 1.\n\n## 1. Bound-remedy covers Stop 1 P1 — footnote\n\nEvidence. Bound-remedy item 2 recuts `labs/07-scope-lifecycle.md` 414–457. Phase A ends after create / guard / install / run and `Write-Host` of absolute `$LabRoot` and `$Authored`. Prose carries the Task 5 write instruction. Phase B starts with `Test-Path` / `guard`, then verify / reset / archive on retained variables. That prints the unique destination before the write and moves the 434 require out of the 424 create paste, matching zsh 250–257. `evaluateBoundRemedyCites` with `coveredIds: [\"P1\"]` returns `{ ok: true }` on this lean's cites. Evidence foreach 429–432 sits inside the P1 prefix and does not require the Task 5 file; leaving it in Phase A keeps P1 covered.\n\nFailure mode. A Phase A that still `Test-Path`s `$Authored` would restore paste-through. This harvest places that check in Phase B after the prose write.\n\nDisposition. The `relieves: P1` cite matches the Bound-remedy recut Stop 1 named. Harvest is unchanged.\n\n## 2. Lean body emits one P1 disposition — footnote\n\nEvidence. The three take headings, the Spec-path line, and the Bound-remedy list contain no `relieves` / `does-not-relieve` / `operator-deferred` tokens. Prose `P1 holds` and the `audit:pain-P1` token do not match the closed cite form. The conflicting-disposition set size for P1 is 1.\n\nFailure mode. A second operative disposition on P1 fails closed as `malformed-pain`. This body does not emit one.\n\nDisposition. The lean is well-formed for `scanPainCites`.\n\n## Injection / swarm lens\n\nThe recut still changes identity (unique `3ci-directive-lab07-*` root versus the Task 5 filename), untrusted input (learner-authored JSON), and authority (structural verify versus lifecycle). Harvest stays inside the existing helper verb set and lines 110–113 / 278–284: write the third record inside the guarded root, keep `--out` there, treat it as untrusted fictional content, and do not promote or activate it. No copy-in verb. `safePath` stays refusing operator-absolute paths.\n\n## Road-not-taken\n\nRejected: treat harvest range 414–457 as failing to cover P1's 417–434. Steelman: Stop 1 named the throw prefix, and a wider recut could be a different identity. Flip: harvest recuts 414–457 while leaving the 434 throw in Phase A. The 414–415 lead-in is what currently licenses pasting 417–434 as one block; recutting that lead-in with a fence break covers the named mechanism.\n\n",
+          "id": 5787649680,
+          "html_url": "https://github.com/deftai/directive-training/issues/64#issuecomment-5787649680",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T01:58:07Z",
+          "updated_at": "2026-09-23T01:58:07Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\n\nBound contract: successor lean 5786104106.\n\n",
+          "id": 5787729246,
+          "html_url": "https://github.com/deftai/directive-training/issues/64#issuecomment-5787729246",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:08:03Z",
+          "updated_at": "2026-09-23T02:08:03Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5544784351,
+        "origin": "deftai/directive-training#64",
+        "id": "github.issue.5544784351"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "a64bfd6d2061d8dffa5104ccb7fec5aee5fc771247c54940b593a8d89f178cfd"
+      }
+    },
+    "id": "github.issue.5544784351"
+  },
+  "approvedRepos": [
+    "deftai/directive-training"
+  ],
+  "unknownPaths": [
+    "metadata.intended_placement",
+    "metadata.issueCommentThread",
+    "metadata.kind",
+    "metadata.x-directive/admitted-target-digest",
+    "metadata.x-directive/plan-id"
+  ]
+}

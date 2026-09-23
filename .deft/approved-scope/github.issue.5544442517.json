@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-23-59-lab-11-starting-state-check-does-not-verify-its-required-too.xbrief.json",
+  "planId": "github.issue.5544442517",
+  "approvedAt": "2026-09-23T17:41:36Z",
+  "fileScope": [
+    "labs/11-testing-gates-and-evidence.md",
+    "scripts/verify-module-11.mjs",
+    "scripts/verify-module-11.test.mjs",
+    "xbrief/active/2026-09-23-59-lab-11-starting-state-check-does-not-verify-its-required-too.xbrief.json"
+  ],
+  "fileScopeDigest": "f4ace6dff8e2a998a71c9dbc9f2e0f3a9961ada0bd36bc623905a452a25f948a",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "Flynn",
+    "mintedAt": "2026-09-23T17:41:36Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "bcc8abf9ffdaeec9a9b27d58cf24710f726e99657e1f9d3fa3fee8c2cc4d3ad4",
+  "digestAlgo": "intent-extract-v1"
+}

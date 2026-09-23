@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-23-66-lab-11-windows-route-cannot-pause-for-its-three-required-edi.xbrief.json",
+  "planId": "github.issue.5544890483",
+  "approvedAt": "2026-09-23T17:49:11Z",
+  "fileScope": [
+    "labs/11-testing-gates-and-evidence.md",
+    "scripts/verify-module-11.mjs",
+    "scripts/verify-module-11.test.mjs",
+    "xbrief/active/2026-09-23-66-lab-11-windows-route-cannot-pause-for-its-three-required-edi.xbrief.json"
+  ],
+  "fileScopeDigest": "da34989f574db5df2ef635b9b210e0f53de22682847b1951126b6d03a029d30c",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "Flynn",
+    "mintedAt": "2026-09-23T17:49:11Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "f5cba48ce9fe93ab0a1276a2a52cf80fe5f77dfa59fbbaf6ef13522c1195100c",
+  "digestAlgo": "intent-extract-v1"
+}

@@ -1,0 +1,291 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #61",
+    "updated": "2026-09-23T16:45:08Z"
+  },
+  "plan": {
+    "title": "Capstone PowerShell 7.4+ block does not enforce the shell version",
+    "status": "pending",
+    "narratives": {
+      "Description": "The capstone labels its Windows starting-state fence as PowerShell 7.4+ but does not inspect `$PSVersionTable`, so an unsupported shell can begin the final evidence workflow before failing on later behavior. This story copies the established Labs 2 and 5 version guard into the wrapper's first statement and adds focused content regression coverage without changing the Node helper or any other PowerShell route.",
+      "ImplementationPlan": "1. Update the Windows Environment fence in `labs/capstone-end-to-end.md` so the PowerShell 7.4 guard is its first statement, before `$ErrorActionPreference` or any stateful operation.\n2. Add a focused `labEnvironment` assertion in `scripts/verify-capstone.mjs` for the established Labs 2 and 5 guard expression.\n3. Extend `scripts/verify-capstone.test.mjs` with a negative fixture that removes the guard and proves the content check fails, while keeping the helper and unrelated routes outside the diff.",
+      "UserStory": "As a Windows capstone learner, I want the PowerShell 7.4 minimum enforced before any setup runs, so that I cannot begin the final evidence workflow in an unsupported shell.",
+      "Traces": "Accepted bound remedy on https://github.com/deftai/directive-training/issues/61#issuecomment-5786103216 and confirmed by synthesis comment 5787727332; relieves recorded pain P1.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/61",
+      "Overview": "## Learner context\n\nIndependent Windows/PowerShell pilot preparing to complete the full course and capstone.\n\n## Problem\n\n`labs/capstone-end-to-end.md` labels its Windows block **Windows PowerShell 7.4+**, but the block does not test `$PSVersionTable.PSVersion`. It validates Node 22+, paths, and several tool versions, while relying on the heading alone for the shell minimum.\n\nLabs 2 and 5 already demonstrate the stronger pattern:\n\n```powershell\nif ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }\n```\n\n## Pain experienced\n\nThe capstone is the final evidence gate. A learner on Windows PowerShell 5.1 or an older PowerShell 7 can begin creating temporary directories before discovering syntax/runtime differences. A heading is guidance, not the deterministic preflight the course teaches.\n\n## Proposed fix\n\nAdd the same explicit PowerShell version assertion as the first statement in the capstone Windows block, before any state is created.\n\nNo Directive source or framework internals were consulted.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "In `labs/capstone-end-to-end.md` Environment and starting-state check, put the Labs 2/5 `$PSVersionTable.PSVersion -lt [version]'7.4'` throw as the first statement of the powershell fence that opens at line 94, before `$ErrorActionPreference`.",
+        "status": "proposed",
+        "id": "clause:1",
+        "narrative": {
+          "Acceptance": "The first executable statement in the capstone Windows PowerShell Environment fence throws when `$PSVersionTable.PSVersion` is below 7.4, before `$ErrorActionPreference`, temporary-path creation, or any other setup statement."
+        }
+      },
+      {
+        "title": "Add one `assert.match` on the existing `labEnvironment` slice in `scripts/verify-capstone.mjs` with Lab 2's regex `/\\$PSVersionTable\\.PSVersion -lt \\[version\\]'7\\.4'/`, and extend the existing Windows-start negative test in `scripts/verify-capstone.test.mjs`.",
+        "status": "proposed",
+        "id": "clause:2",
+        "narrative": {
+          "Acceptance": "The existing `labEnvironment` verifier slice requires the Labs 2 and 5 PowerShell-version expression, and the focused negative test fails when that first-statement guard is removed or moved behind setup."
+        }
+      },
+      {
+        "title": "Keep the check in the wrapper; the helper remains Node. Other PowerShell 7.4+ headed routes stay outside this recut.",
+        "status": "proposed",
+        "id": "clause:3",
+        "narrative": {
+          "Acceptance": "The capstone helper remains Node-based, no helper-side shell check is introduced, and no other PowerShell 7.4-headed route changes in this story."
+        }
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/61",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #61: Capstone PowerShell 7.4+ block does not enforce the shell version"
+      }
+    ],
+    "metadata": {
+      "kind": "story",
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "/\\$PSVersionTable\\.PSVersion -lt \\[version\\]'7\\.4'/",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L6"
+        }
+      ],
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "labs/capstone-end-to-end.md",
+          "scripts/verify-capstone.mjs",
+          "scripts/verify-capstone.test.mjs",
+          "xbrief/active/2026-09-23-61-capstone-powershell-74-block-does-not-enforce-the-shell-vers.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:capstone",
+          "node --test scripts/verify-capstone.test.mjs",
+          "git diff --check"
+        ],
+        "expected_outputs": [
+          "The first PowerShell statement rejects versions below 7.4 before any state is created",
+          "The capstone verifier locks the guard inside `labEnvironment` and a negative test covers a missing or displaced guard",
+          "No helper-side check or duplication in later PowerShell routes is introduced"
+        ],
+        "depends_on": [
+          "github.issue.5544446677"
+        ],
+        "conflict_group": "capstone-windows-starting-state",
+        "size": "small",
+        "file_scope_confidence": "high",
+        "model_tier": "medium"
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the capstone Windows block is headed PowerShell 7.4+ and never tests $PSVersionTable.PSVersion, while Labs 2 and 5 already assert that minimum before creating state\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the missing-token spend ask with option 2 mixed spend; this is a closed identity recut copying the Labs 2/5 PowerShell version assertion into the capstone Windows block\npain: P1\nP1: labs/capstone-end-to-end.md:88-115 Windows PowerShell 7.4+ block asserts Node 22+, paths, npm/git/task/uv/python with no $PSVersionTable; labs/02-disposable-initialization.md:155 and labs/05-projection-drift-recovery.md:67 assert $PSVersionTable.PSVersion -lt [version]'7.4'\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\n\n",
+          "id": 5785827098,
+          "html_url": "https://github.com/deftai/directive-training/issues/61#issuecomment-5785827098",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:11:23Z",
+          "updated_at": "2026-09-22T23:11:23Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nround: 1\ncritic-role: fresh\nissue: 61\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\nid-ceiling: 5785827098\n\nCensus: 0 `blocks-the-design`, 1 `sharpens-framing`, 2 `footnote`. Copying the Labs 2/5 throw into the capstone starting-state fence is the right existing mechanism. Bind it on that fence and on the Windows-start lock that already owns the block.\n\n## 1. Name the starting-state fence and extend the existing Windows-start lock — sharpens-framing\n\nEvidence, measured at `a484f30613f16d1da3c8f7a01edb5d67e562a12e`:\n\n- `labs/capstone-end-to-end.md` uses the heading `### Windows PowerShell 7.4+` at lines 88 and 175. Four `powershell` fences exist (open at 94, 177, 432, 459). Only fence 1 (`Environment and starting-state check`, lines 94–129) calls `New-Item` (117, 119). Its first statement is `$ErrorActionPreference = \"Stop\"`. None of the four fences contain `$PSVersionTable`.\n- Stop 1 P1 cites 88–115. That slice is the preflight through `python --version` (115), still before `New-Item`. Labs 2/5 first-statement throws re-read as written: `labs/02-disposable-initialization.md:155` and `labs/05-projection-drift-recovery.md:67` are `if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }`.\n- `node scripts/verify-capstone.mjs` exits 0 (`Capstone content contract: ok (36 artifacts, 0 missing)`) with that hole still present. `scripts/verify-capstone.mjs` already locks the same `labEnvironment` slice for missing `DIRECTIVE_TRAINING_ROOT`, `$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT)`, and a fake clone path (lines 714–736), and already locks the Node 22 wrapper assertion on the lab (750–753). `scripts/verify-capstone.test.mjs` 109–116 is the sibling negative mutation for that Windows-start lock.\n- Lab 2 already fail-closes the same throw: `scripts/verify-modules-2-3.mjs:321` on the lab and `:989` on `.github/workflows/modules-2-3-platform-validation.yml` (workflow line 176 places the throw before `$ErrorActionPreference`). `scripts/verify-modules-4-5.mjs` does not lock Lab 5’s throw. `labs/fixtures/capstone-end-to-end/capstone-lab.mjs` has no `$PSVersionTable`. The lab already assigns runtime floors to the wrapper (`labs/capstone-end-to-end.md:55–57`: helper does not assert `process.version`; wrappers check Node before `create`).\n\nFailure mode: the phrase “the capstone Windows block” can harvest the install fence at 177, which runs after `create`. Fence 1 would still mint temp directories on older PowerShell 7. A markdown-only recut of fence 1 also stays green in `verify-capstone.mjs`, so the heading-only hole this issue files can return on the next edit of the same block.\n\nDisposition: Bound-remedy names the first statement of the `Environment and starting-state check` `powershell` fence (opens at line 94), using the Lab 2/5 throw before `$ErrorActionPreference`. Add one `assert.match` on the existing `labEnvironment` slice in `scripts/verify-capstone.mjs` with Lab 2’s regex `/\\$PSVersionTable\\.PSVersion -lt \\[version\\]'7\\.4'/`, and extend the existing Windows-start negative test in `scripts/verify-capstone.test.mjs`. Keep the check in the wrapper; the helper remains Node.\n\nRoad not taken: a `create()` check inside `capstone-lab.mjs` (the lab already puts runtime floors on the wrapper). Repeating the throw on fences 2–4 (Lab 2’s every-fence habit; Lab 5 and this starting-state pain are first-fence).\n\nSteelmanning markdown-only: Lab 5 already publishes this throw with no modules-4-5 lock, and the issue names Labs 2/5 as the pattern. Flip this heading off the verifier if the successor map records markdown-only identity and leaves the `labEnvironment` lock out of harvest, matching Lab 5.\n\n## 2. Windows PowerShell 5.1 directory-creation claim is unverified here — footnote\n\nIssue-body pain says a 5.1 or older PowerShell 7 learner can begin creating temporary directories. At this SHA, fence 1 calls `[IO.Path]::IsPathFullyQualified` at line 100 and first `New-Item` at 117. This seat did not execute Windows PowerShell 5.1. If that host’s `Path` surface lacks `IsPathFullyQualified`, 5.1 stops before `New-Item` with a method error. PowerShell 7 includes that member; `$PSNativeCommandUseErrorActionPreference = $true` on 7.0/7.1 is an ordinary assignment, then version prints, then `New-Item`. The older-7 half of the pain holds. The recut still earns the Labs 2/5 throw message. Treat 5.1 directory creation as unverified on the successor map.\n\n## 3. Other 7.4+ headed routes stay outside this recut — footnote\n\nLab 7 (`labs/07-scope-lifecycle.md:412`), Lab 10, Lab 11, and `labs/README.md:93–107` head native Windows routes `PowerShell 7.4+` and also omit `$PSVersionTable`. Capstone fences 2–4 omit it as well and do not create the starting-state directories. Lab 2 repeats the throw on seven fences; Lab 5 only on the first. This issue’s closed identity is the capstone starting-state fence. Those other surfaces are leftover catalog, not this Bound-remedy.\n\nInjection / swarm lens: not triggered. The target is a taught wrapper assertion plus an existing content-contract regex.\n\n",
+          "id": 5785963268,
+          "html_url": "https://github.com/deftai/directive-training/issues/61#issuecomment-5785963268",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:21:26Z",
+          "updated_at": "2026-09-22T23:21:26Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe capstone Windows starting fence is headed PowerShell 7.4+ and never tests `$PSVersionTable`. Confirming this map would copy the Labs 2/5 throw into the first statement of that starting-state fence and lock it on the existing capstone Windows-start content check.\n\nParent forward verdict: P1 holds on the starting-state fence that creates directories.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5785827098 and these takes; the evidence is critic 5785963268.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5785963268\nsupersedes: 5785827098\nTarget-digest: sha256:4d120aac8f4f0aada266e139db54842127a48ec8b54b1456b90f9128b7367b1f\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Name the starting-state fence and extend the existing Windows-start lock\ntake: accept-into-contract\ncritic: 5785963268\nheading: Name the starting-state fence and extend the existing Windows-start lock\n\nrelieves: P1\naudit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5785963268 reading=asserted\n\n## Bound remedy\n\n- In `labs/capstone-end-to-end.md` Environment and starting-state check, put the Labs 2/5 `$PSVersionTable.PSVersion -lt [version]'7.4'` throw as the first statement of the powershell fence that opens at line 94, before `$ErrorActionPreference`.\n- Add one `assert.match` on the existing `labEnvironment` slice in `scripts/verify-capstone.mjs` with Lab 2's regex `/\\$PSVersionTable\\.PSVersion -lt \\[version\\]'7\\.4'/`, and extend the existing Windows-start negative test in `scripts/verify-capstone.test.mjs`.\n- Keep the check in the wrapper; the helper remains Node. Other PowerShell 7.4+ headed routes stay outside this recut.\n\n",
+          "id": 5786103216,
+          "html_url": "https://github.com/deftai/directive-training/issues/61#issuecomment-5786103216",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:31:43Z",
+          "updated_at": "2026-09-22T23:31:43Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nround: 2\ncritic-role: fresh\nissue: 61\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\nid-ceiling: 5786103216\n\nCensus: 0 `blocks-the-design`, 0 `sharpens-framing`, 1 `footnote`. Bound-remedy on lean 5786103216 covers Stop 1 `P1`. `scanPainCites` emits one operative cite, `relieves: P1`.\n\n## 1. Asserted relieves:P1 covers Stop 1 P1; lean cite is well-formed — footnote\n\nEvidence, measured at `a484f30613f16d1da3c8f7a01edb5d67e562a12e` against Stop 1 5785827098 and lean 5786103216:\n\n- `scanPainList` on Stop 1: present, ids `[P1]`, duplicates empty, malformed false. Stop 1 names `labs/capstone-end-to-end.md:88-115` (Windows PowerShell 7.4+ block asserts Node 22+, paths, npm/git/task/uv/python with no `$PSVersionTable`) and the Labs 2/5 throws at `labs/02-disposable-initialization.md:155` and `labs/05-projection-drift-recovery.md:67`.\n- Capstone heading `### Windows PowerShell 7.4+` at line 88; fence opens at 94; first statement is `$ErrorActionPreference = \"Stop\"` (95); Node 22 / npm / git / task / uv / python at 107-115; that fence has no `$PSVersionTable`; `New-Item` at 117 and 119. Labs 2:155 and 5:67 are `if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }`. `node scripts/verify-capstone.mjs` exits 0 (`Capstone content contract: ok (36 artifacts, 0 missing)`). `scripts/verify-capstone.mjs:714` already slices `labEnvironment` from `Environment and starting-state check`. Lab 2's regex at `scripts/verify-modules-2-3.mjs:321` is `/\\$PSVersionTable\\.PSVersion -lt \\[version\\]'7\\.4'/`. The existing Windows-start negative test is `verifier rejects a fake Windows course root instead of learner input` in `scripts/verify-capstone.test.mjs`.\n- `extractBoundRemedyHarvest` on the lean returns 3 items. Item 1 puts that Labs 2/5 throw as the first statement of the powershell fence that opens at line 94, before `$ErrorActionPreference`, inside the 88-115 slice and before `New-Item`. Item 2 adds `assert.match` on that `labEnvironment` slice with Lab 2's regex and extends that Windows-start negative test. Item 3 keeps the check in the wrapper.\n- `scanPainCites` on the lean: `cites=[{painId:P1, disposition:relieves, deferredIssueNumber:null}]`, `rejected=[]`. Raw closed-form matches: 1, line `relieves: P1`, `classifyPosition` null. Disposition-token mentions: 1 (`relieves`). Pain-id mentions: plain-English `P1 holds`, closed form `relieves: P1`, token `audit:pain-P1`. Conflicting dispositions for `P1`: empty. `evaluateBoundRemedyCites` with `coveredIds: [\"P1\"]` and these cites returns `{ok:true}`.\n\nFailure mode: a second operative disposition for `P1` is `malformed-pain`. A Bound-remedy that left fence 1 without the throw would make `relieves: P1` dishonest. This lean has one `relieves: P1` and Bound-remedy item 1 places the throw on that fence.\n\nDisposition: footnote-only. Bind map stays bindable. Harvest unchanged.\n\n",
+          "id": 5787664275,
+          "html_url": "https://github.com/deftai/directive-training/issues/61#issuecomment-5787664275",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T01:59:56Z",
+          "updated_at": "2026-09-23T01:59:56Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\n\nBound contract: successor lean 5786103216.\n\n",
+          "id": 5787727332,
+          "html_url": "https://github.com/deftai/directive-training/issues/61#issuecomment-5787727332",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:07:49Z",
+          "updated_at": "2026-09-23T02:07:49Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5544445396,
+        "origin": "deftai/directive-training#61",
+        "id": "github.issue.5544445396"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "4d120aac8f4f0aada266e139db54842127a48ec8b54b1456b90f9128b7367b1f"
+      }
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 3 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "In `labs/capstone-end-to-end.md` Environment and starting-state check, put the Labs 2/5 `$PSVersionTable.PSVersion -lt [version]'7.4'` throw as the first statement of the powershell fence that opens at line 94, before `$ErrorActionPreference`.",
+          "artifact_path": "labs/capstone-end-to-end.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Add one `assert.match` on the existing `labEnvironment` slice in `scripts/verify-capstone.mjs` with Lab 2's regex `/\\$PSVersionTable\\.PSVersion -lt \\[version\\]'7\\.4'/`, and extend the existing Windows-start negative test in `scripts/verify-capstone.test.mjs`.",
+          "artifact_path": "scripts/verify-capstone.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Keep the check in the wrapper; the helper remains Node. Other PowerShell 7.4+ headed routes stay outside this recut.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5544445396",
+    "updated": "2026-09-23T16:45:08Z"
+  }
+}

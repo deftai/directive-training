@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-23-61-capstone-powershell-74-block-does-not-enforce-the-shell-vers.xbrief.json",
+  "planId": "github.issue.5544445396",
+  "approvedAt": "2026-09-23T17:49:00Z",
+  "fileScope": [
+    "labs/capstone-end-to-end.md",
+    "scripts/verify-capstone.mjs",
+    "scripts/verify-capstone.test.mjs",
+    "xbrief/active/2026-09-23-61-capstone-powershell-74-block-does-not-enforce-the-shell-vers.xbrief.json"
+  ],
+  "fileScopeDigest": "a826eb3b477d2c3dbb76c2eacce0ed52f937b0d45a59ae86ed50d3d986180b78",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "Flynn",
+    "mintedAt": "2026-09-23T17:49:00Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "3f8893d531fdad5595b4b37e28726bc5804ab39550ac5f37a1352f9fd618dd26",
+  "digestAlgo": "intent-extract-v1"
+}
