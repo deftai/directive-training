@@ -17,6 +17,15 @@ const historicalLineage = Object.freeze({
   parentScope: "xbrief/proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json",
 });
 const { scopeFilename, projectScopeId } = historicalLineage;
+const lab11Path = "labs/11-testing-gates-and-evidence.md";
+const createCommand = "node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs create";
+const requiredVersionCommands = [
+  "node --version",
+  "npm --version",
+  "git --version",
+  "task --version",
+  "uv --version",
+];
 
 function copiedRepository() {
   const root = mkdtempSync(join(tmpdir(), "module11-contract-test-"));
@@ -32,6 +41,21 @@ function changedCopy(path, transform) {
   assert.notEqual(after, before, `negative mutation must change ${path}`);
   writeFileSync(target, after);
   return root;
+}
+
+function replaceLab11StartingStateFence(body, lines) {
+  const heading = "## Environment and starting-state check";
+  const sectionStart = body.indexOf(heading);
+  assert.ok(sectionStart >= 0, "Lab 11 must retain its Environment and starting-state check");
+  const nextHeading = body.indexOf("\n## ", sectionStart + heading.length);
+  const sectionEnd = nextHeading >= 0 ? nextHeading : body.length;
+  const before = body.slice(sectionStart, sectionEnd);
+  const after = before.replace(
+    /```sh\r?\n[\s\S]*?node labs\/fixtures\/11-testing-gates-and-evidence\/gates-lab\.mjs create\r?\n```/,
+    `\`\`\`sh\n${lines.join("\n")}\n\`\`\``,
+  );
+  assert.notEqual(after, before, "Lab 11 starting-state fence must be replaceable in the test fixture");
+  return `${body.slice(0, sectionStart)}${after}${body.slice(sectionEnd)}`;
 }
 
 function completedLifecycleCopy() {
@@ -80,6 +104,74 @@ test("verifier rejects loss of the disposable no-remote boundary", () => {
   ));
   assert.throws(() => verifyModule11(root), /temporary no-remote boundary/);
 });
+
+for (const command of requiredVersionCommands) {
+  test(`verifier rejects a starting-state fence missing ${command}`, () => {
+    const root = changedCopy(lab11Path, (body) => replaceLab11StartingStateFence(
+      body,
+      ["set -eu", ...requiredVersionCommands.filter((candidate) => candidate !== command), createCommand],
+    ));
+    assert.throws(() => verifyModule11(root), /starting-state gate/);
+  });
+}
+
+test("verifier rejects a starting-state fence that is not fail-closed", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11StartingStateFence(
+    body,
+    [...requiredVersionCommands, createCommand],
+  ));
+  assert.throws(() => verifyModule11(root), /fail-closed/);
+});
+
+test("verifier rejects disabling errexit after the fail-closed line", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11StartingStateFence(
+    body,
+    ["set -eu", "set +e", ...requiredVersionCommands, createCommand],
+  ));
+  assert.throws(() => verifyModule11(root), /exact fail-closed command prefix/);
+});
+
+test("verifier rejects create running before the required tool checks", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11StartingStateFence(
+    body,
+    ["set -eu", createCommand, ...requiredVersionCommands],
+  ));
+  assert.throws(() => verifyModule11(root), /before create/);
+});
+
+test("verifier rejects capturing create before the learner can copy its printed path", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11StartingStateFence(
+    body,
+    ["set -eu", ...requiredVersionCommands, `LAB11_ROOT="$(${createCommand})"`],
+  ));
+  assert.throws(() => verifyModule11(root), /print the create path/);
+});
+
+test("verifier rejects losing the separate LAB11_ROOT export fence", () => {
+  const root = changedCopy(lab11Path, (body) => body.replace(
+    'export LAB11_ROOT="/absolute/path/printed/by/the/helper"',
+    'LAB11_ROOT="/absolute/path/printed/by/the/helper"',
+  ));
+  assert.throws(() => verifyModule11(root), /separate LAB11_ROOT export fence/);
+});
+
+test("verifier rejects Task or uv pins in the Lab 11 starting-state contract", () => {
+  const root = changedCopy(lab11Path, (body) => body.replace(
+    "Use Node.js 20 or later, npm, Git, Task, and `uv`.",
+    "Use Node.js 20 or later, npm, Git, `Task` 3.50.0, and `uv` 0.11.10.",
+  ));
+  assert.throws(() => verifyModule11(root), /resolution checks only/);
+});
+
+for (const pinnedTool of ["Task version 3.50.0", "uv version 0.11.10"]) {
+  test(`verifier rejects the natural-language pin ${pinnedTool}`, () => {
+    const root = changedCopy(lab11Path, (body) => body.replace(
+      "Use Node.js 20 or later, npm, Git, Task, and `uv`.",
+      `Use Node.js 20 or later, npm, Git, Task, and \`uv\`; require ${pinnedTool}.`,
+    ));
+    assert.throws(() => verifyModule11(root), /resolution checks only/);
+  });
+}
 
 test("verifier rejects a broken red-green-refactor sequence", () => {
   const root = changedCopy("curriculum/modules/11-testing-gates-and-evidence.md", (body) => body.replaceAll(
