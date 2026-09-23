@@ -107,6 +107,42 @@ function normalizeNewlines(text) {
   return text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
 }
 
+function requireStartingStateGate(page) {
+  const normalized = normalizeNewlines(page);
+  const environment = normalized.match(/^## Environment and starting-state check\n[\s\S]*?(?=^## )/m)?.[0] ?? "";
+  assert.ok(environment, `${lab11} is missing its Environment and starting-state check`);
+
+  const fences = [...environment.matchAll(/```sh\n([\s\S]*?)\n```/g)];
+  assert.ok(fences.length >= 2, `${lab11} must keep separate create and LAB11_ROOT export fences`);
+  const gateLines = fences[0][1].split("\n").map((line) => line.trim()).filter(Boolean);
+  assert.equal(gateLines[0], "set -eu", `${lab11} starting-state gate must be fail-closed with set -eu`);
+
+  const createCommand = "node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs create";
+  const createIndex = gateLines.indexOf(createCommand);
+  assert.ok(createIndex >= 0, `${lab11} starting-state gate must print the create path with the bare helper command`);
+  let previousIndex = 0;
+  for (const command of ["node --version", "npm --version", "git --version", "task --version", "uv --version"]) {
+    const index = gateLines.indexOf(command);
+    assert.ok(index > previousIndex && index < createIndex, `${lab11} starting-state gate must run ${command} in order before create`);
+    previousIndex = index;
+  }
+  assert.deepEqual(
+    gateLines.slice(0, 7),
+    ["set -eu", "node --version", "npm --version", "git --version", "task --version", "uv --version", createCommand],
+    `${lab11} starting-state gate must keep the exact fail-closed command prefix through create`,
+  );
+  assert.doesNotMatch(fences[0][1], /LAB11_ROOT\s*=/, `${lab11} create must print its path before the separate LAB11_ROOT copy step`);
+  assert.ok(
+    fences.slice(1).some((match) => match[1].includes('export LAB11_ROOT="/absolute/path/printed/by/the/helper"')),
+    `${lab11} must keep the separate LAB11_ROOT export fence after create`,
+  );
+  assert.doesNotMatch(
+    environment,
+    /\b(?:Task|uv)\b`?\s+(?:(?:version\s*:\s*)|(?:version\s+)|(?:[~^<>=]+\s*))?v?\d+\.\d+(?:\.\d+)?|\b(?:supported\s+)?variance\b|^\|[^\n]*(?:Task|uv)[^\n]*\|$/im,
+    `${lab11} starting-state commands are resolution checks only; do not add Task or uv pins or a variance table`,
+  );
+}
+
 function backtickCell(cell) {
   const match = cell.trim().match(/^`([^`]*)`$/);
   assert.ok(match, `Task 4 field table cell must be one backtick token: ${cell}`);
@@ -217,6 +253,7 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
     assert.ok(labProse.includes(path), `${lab11} is missing evidence artifact: ${path}`);
   }
   const labPage = content.get(lab11);
+  requireStartingStateGate(labPage);
   const tableRecords = parseTask4QualityRecordTable(labPage);
   assert.deepEqual(
     tableRecords.starter,

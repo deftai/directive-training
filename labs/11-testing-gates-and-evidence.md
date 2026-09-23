@@ -36,6 +36,12 @@ The guarded interface is `gates-lab.mjs create`, `gates-lab.mjs install`,
 shown below when invoking those verbs.
 
 ```sh
+set -eu
+node --version
+npm --version
+git --version
+task --version
+uv --version
 node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs create
 ```
 

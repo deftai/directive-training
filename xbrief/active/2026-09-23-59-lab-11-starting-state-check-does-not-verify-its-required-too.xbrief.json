@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #59",
-    "updated": "2026-09-23T16:37:56Z"
+    "updated": "2026-09-23T20:58:36Z"
   },
   "plan": {
     "title": "Lab 11 starting-state check does not verify its required tools",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "Lab 11 lists Node.js, npm, Git, Task, and uv as required tools but enters fixture creation without proving that each command resolves, so an absent tool can leave disposable state before the learner sees the setup failure. This story adds the established Labs 7 and 10 fail-closed version prefix and focused regression coverage while preserving the printed-path handoff, candidate-platform statement, and absence of Task or uv version pins.",
       "ImplementationPlan": "1. Update `labs/11-testing-gates-and-evidence.md` so its Environment and starting-state shell fence enables fail-closed behavior and runs all five version commands before `create`, while leaving the `LAB11_ROOT` copy step after the visible create output.\n2. Extend `scripts/verify-module-11.mjs` to require the ordered fail-closed prefix and preserve the candidate-platform and no-pin boundaries.\n3. Add positive and negative fixtures in `scripts/verify-module-11.test.mjs` that prove a missing command, missing fail-closed option, or reordered `create` is rejected by the focused check.",
@@ -126,8 +126,7 @@
         ],
         "verify_commands": [
           "npm run check:module-11",
-          "node --test scripts/verify-module-11.test.mjs",
-          "git diff --check"
+          "npm run test:module-11"
         ],
         "expected_outputs": [
           "All five required tool-version checks run fail-closed before `create`",
@@ -306,6 +305,6 @@
       }
     },
     "id": "github.issue.5544442517",
-    "updated": "2026-09-23T16:37:56Z"
+    "updated": "2026-09-23T20:58:36Z"
   }
 }
