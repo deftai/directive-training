@@ -163,7 +163,13 @@ test("verifier rejects Task or uv pins in the Lab 11 starting-state contract", (
   assert.throws(() => verifyModule11(root), /resolution checks only/);
 });
 
-for (const pinnedTool of ["Task version 3.50.0", "uv version 0.11.10"]) {
+for (const pinnedTool of [
+  "Task version 3.50.0",
+  "uv version 0.11.10",
+  "Task >= 3.50.0",
+  "uv ~0.11.10",
+  "Task version: 3.50.0",
+]) {
   test(`verifier rejects the natural-language pin ${pinnedTool}`, () => {
     const root = changedCopy(lab11Path, (body) => body.replace(
       "Use Node.js 20 or later, npm, Git, Task, and `uv`.",

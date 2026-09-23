@@ -138,7 +138,7 @@ function requireStartingStateGate(page) {
   );
   assert.doesNotMatch(
     environment,
-    /\b(?:Task|uv)\b`?\s+(?:version\s+)?v?\d+\.\d+(?:\.\d+)?|\b(?:supported\s+)?variance\b|^\|[^\n]*(?:Task|uv)[^\n]*\|$/im,
+    /\b(?:Task|uv)\b`?\s+(?:(?:version\s*:\s*)|(?:version\s+)|(?:[~^<>=]+\s*))?v?\d+\.\d+(?:\.\d+)?|\b(?:supported\s+)?variance\b|^\|[^\n]*(?:Task|uv)[^\n]*\|$/im,
     `${lab11} starting-state commands are resolution checks only; do not add Task or uv pins or a variance table`,
   );
 }
