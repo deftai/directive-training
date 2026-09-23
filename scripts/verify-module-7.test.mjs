@@ -120,6 +120,20 @@ test("verifier rejects a missing O6.4 prerequisite", () => {
   assert.throws(() => verifyModule7(root), /passing O6\.4 routing matrix/);
 });
 
+test("verifier rejects a Lab 7 isolated-tools contract without Python", () => {
+  const root = splicedCopy("labs/07-scope-lifecycle.md", "`git`, `python`, `uv`", "`git`, `uv`");
+  assert.throws(() => verifyModule7(root), /isolated tools must include Python/);
+});
+
+test("verifier rejects a generic Directive rationale for the Python prerequisite", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "Do not treat Python as a generic\nprerequisite for Directive verification.",
+    "Python is a generic prerequisite for Directive verification.",
+  );
+  assert.throws(() => verifyModule7(root), /distinguish helper-isolated PATH requirements/);
+});
+
 test("verifier rejects presence-only O6.4 admission", () => {
   const root = changedCopy("curriculum/modules/07-scope-lifecycle.md", (body) => body.replace(
     "presence-only, keyword-only, or incomplete",

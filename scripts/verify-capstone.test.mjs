@@ -88,6 +88,14 @@ test("capstone content contract accepts active and completed lifecycle states", 
   assert.equal(verifyCapstone(alternate.root).lifecycle, alternate.lifecycle);
 });
 
+test("capstone content contract accepts CRLF-authored Markdown", () => {
+  const root = copiedRepository();
+  const target = join(root, "labs", "capstone-end-to-end.md");
+  const body = readFileSync(target, "utf8").replace(/\r?\n/g, "\r\n");
+  writeFileSync(target, body);
+  assert.ok(verifyCapstone(root).artifactCount >= 30);
+});
+
 test("verifier rejects one Task 1 fence of orient then activate", () => {
   const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
     body,
@@ -104,6 +112,89 @@ test("verifier rejects a missing assessment artifact", () => {
     join(root, "assessments", "capstone-missing.md"),
   );
   assert.throws(() => verifyCapstone(root), /missing required artifact/);
+});
+
+test("verifier rejects a course-entry prerequisite without a Python presence verdict", () => {
+  const root = changedCopy("curriculum/README.md", (body) => body.replace(
+    /- a resolvable Python[\s\S]*?;\n/,
+    "- Python is optional;\n",
+  ));
+  assert.throws(() => verifyCapstone(root), /course entry must require a resolvable Python interpreter/);
+});
+
+for (const [lab, replacement] of [
+  ["10", "Labs 7, 11, and the capstone require it"],
+  ["11", "Labs 7, 10, and the capstone require it"],
+]) {
+  test(`verifier rejects a course-entry Python prerequisite that omits Lab ${lab}`, () => {
+    const root = changedCopy("curriculum/README.md", (body) => body.replace(
+      "Labs 7, 10, 11, and the capstone require it",
+      replacement,
+    ));
+    assert.throws(
+      () => verifyCapstone(root),
+      /Python prerequisite must cover Labs 7, 10, 11, and the capstone/,
+    );
+  });
+}
+
+test("verifier rejects turning verified Python evidence into a learner version floor", () => {
+  const root = changedCopy("curriculum/README.md", (body) =>
+    body + "\nPython 3.13.13 or newer is required for every learner.\n");
+  assert.throws(() => verifyCapstone(root), /must not impose a Python version floor or equality/);
+});
+
+test("verifier rejects a course-entry prerequisite without the isolated-PATH rationale", () => {
+  const root = changedCopy("curriculum/README.md", (body) => body.replace(
+    "because their helpers\n  construct an isolated `PATH`",
+    "as a general setup convention",
+  ));
+  assert.throws(() => verifyCapstone(root), /helper-isolated PATH requirement/);
+});
+
+test("verifier rejects a changed capstone Windows Python lookup order", () => {
+  const root = changedCopy("labs/fixtures/capstone-end-to-end/capstone-lab.mjs", (body) => replaceFirst(
+    body,
+    '["python", "python3", "py"]',
+    '["py", "python3", "python"]',
+  ));
+  assert.throws(() => verifyCapstone(root), /Windows Python lookup order changed/);
+});
+
+test("verifier rejects a changed capstone POSIX Python lookup order", () => {
+  const root = changedCopy("labs/fixtures/capstone-end-to-end/capstone-lab.mjs", (body) => replaceFirst(
+    body,
+    '["python3", "python"]',
+    '["python", "python3"]',
+  ));
+  assert.throws(() => verifyCapstone(root), /POSIX Python lookup order changed/);
+});
+
+test("verifier rejects a changed documented Windows Python lookup order", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    '@("python", "python3", "py")',
+    '@("py", "python3", "python")',
+  ));
+  assert.throws(() => verifyCapstone(root), /Windows start must resolve python, python3, then py/);
+});
+
+test("verifier rejects a documented POSIX lookup that does not start with python3", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    "command -v python3",
+    "command -v python2",
+  ));
+  assert.throws(() => verifyCapstone(root), /POSIX start must resolve python3 before python/);
+});
+
+test("verifier rejects an isolatedEnv that no longer resolves Python", () => {
+  const root = changedCopy("labs/fixtures/capstone-end-to-end/capstone-lab.mjs", (body) => replaceFirst(
+    body,
+    "const pythonDirectory = dirname(findPythonExecutable());",
+    'const pythonDirectory = dirname(findExecutable("git"));',
+  ));
+  assert.throws(() => verifyCapstone(root), /isolatedEnv must resolve Python/);
 });
 
 test("verifier rejects a fake Windows course root instead of learner input", () => {
@@ -228,7 +319,7 @@ test("verifier rejects an omitted evidence artifact", () => {
 
 test("verifier rejects a missing reset and archive disposition note", () => {
   const root = changedCopy("labs/capstone-end-to-end.md", (body) =>
-    body.replace("Reset and archive\ndo not emit JSON.", "No additional helper record is emitted."));
+    body.replace(/Reset and\s+archive do not emit JSON\./, "No additional helper record is emitted."));
   assert.throws(() => verifyCapstone(root), /private disposition note/);
 });
 

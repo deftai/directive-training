@@ -70,6 +70,15 @@ npm --version
 git --version
 task --version
 uv --version
+if command -v python3 >/dev/null 2>&1; then
+  export CAPSTONE_PYTHON=python3
+elif command -v python >/dev/null 2>&1; then
+  export CAPSTONE_PYTHON=python
+else
+  printf '%s\n' "Python is required for the capstone isolated PATH." >&2
+  exit 1
+fi
+"$CAPSTONE_PYTHON" --version
 export CAPSTONE_LAUNCHER="$(mktemp -d "${TMPDIR:-/tmp}/3ci-capstone-launch-XXXXXX")"
 cd "$CAPSTONE_LAUNCHER"
 export CAPSTONE_LAUNCHER="$(pwd -P)"
@@ -112,7 +121,11 @@ npm --version
 git --version
 task --version
 uv --version
-python --version
+$CapstonePython = @("python", "python3", "py") | ForEach-Object {
+  Get-Command $_ -CommandType Application -ErrorAction SilentlyContinue
+} | Select-Object -First 1
+if ($null -eq $CapstonePython) { throw "Python is required for the capstone isolated PATH." }
+& $CapstonePython.Source --version
 $CapstoneLauncher = Join-Path ([IO.Path]::GetTempPath()) ("3ci-capstone-launch-" + [guid]::NewGuid().ToString("N"))
 [void](New-Item -ItemType Directory -Path $CapstoneLauncher)
 $CapstoneNotesDir = Join-Path ([IO.Path]::GetTempPath()) ("3ci-capstone-notes-" + [guid]::NewGuid().ToString("N"))
@@ -130,14 +143,15 @@ git -C $CapstoneRoot status --short --branch
 ```
 
 Expected: the Node major-version assertion passes. Record the printed Node value,
-successful assertion, operating system and shell, and observed npm, Git, Task, uv, and—on
-Windows—Python versions in the private assessment note. Confirm Task and uv
-against the verified `3.50.0` and `0.11.10` context; on Windows, confirm Python
-is available (`3.13.13` in the verified native environment). Guard prints the exact root;
-the branch is `training/capstone`; the remote command prints no names; status
-contains no product change. If any required value differs, stop and use the
-matching documented environment. Do not repair the current directory into the
-expected shape.
+successful assertion, operating system and shell, and observed npm, Git, Task, uv, and
+Python command and version in the private assessment note. Confirm Task and uv against the
+verified `3.50.0` and `0.11.10` context. Python is a presence-only requirement: the helper
+resolves `python3` then `python` on macOS/Linux and `python`, `python3`, then `py` on Windows
+before constructing `isolatedEnv`. Python 3.13.13 is Windows candidate-environment evidence,
+not a minimum or exact learner version. Guard prints the exact root; the branch is
+`training/capstone`; the remote command prints no names; status contains no product change.
+If any required value is absent, stop and use the matching documented environment. Do not
+repair the current directory into the expected shape.
 
 ## Safety boundary
 
@@ -379,8 +393,8 @@ absolute path, both attempts'
 `lab-state.json.launcherRoot` values, both old and newly printed roots, and
 each archive destination. Also record `CAPSTONE_NODE_VERSION` or
 `$CapstoneNodeVersion`, the successful exact-version assertion, OS/shell, and
-the observed npm, Git, Task, uv, and Windows Python versions. Reset and archive
-do not emit JSON.
+the observed npm, Git, Task, uv, and Python command and version. Reset and
+archive do not emit JSON.
 
 Keep only relevant fields and your short reasoning. Do not capture environment
 dumps, tokens, credential output, unrelated repositories, or proprietary data.

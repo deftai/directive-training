@@ -1,12 +1,13 @@
 import assert from "node:assert/strict";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import { delimiter, dirname, join, resolve } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import {
   archiveAttempt,
   createAttempt,
+  findPythonExecutable,
   guardAttempt,
   main,
   verifyPin,
@@ -25,6 +26,50 @@ const readEvidence = (root, name) => JSON.parse(read(join(dirname(root), "eviden
 function makeLauncher(prefix = "3ci-capstone-launch-") {
   return mkdtempSync(join(tmpdir(), prefix));
 }
+
+test("Python lookup follows the documented platform order and fails when none resolve", () => {
+  const windowsEarlyDirectory = makeLauncher("3ci-capstone-python-windows-early-");
+  const windowsPreferredDirectory = makeLauncher("3ci-capstone-python-windows-preferred-");
+  writeFileSync(join(windowsEarlyDirectory, "python3.cmd"), "@echo off\r\n");
+  writeFileSync(join(windowsPreferredDirectory, "python.cmd"), "@echo off\r\n");
+  assert.equal(
+    findPythonExecutable({
+      platform: "win32",
+      pathValue: [windowsEarlyDirectory, windowsPreferredDirectory].join(delimiter),
+      pathExt: ".CMD",
+    }),
+    realpathSync(join(windowsPreferredDirectory, "python.cmd")),
+  );
+
+  const windowsFallback = makeLauncher("3ci-capstone-python-windows-fallback-");
+  writeFileSync(join(windowsFallback, "py.cmd"), "@echo off\r\n");
+  assert.equal(
+    findPythonExecutable({ platform: "win32", pathValue: windowsFallback, pathExt: ".CMD" }),
+    realpathSync(join(windowsFallback, "py.cmd")),
+  );
+
+  const posixEarlyDirectory = makeLauncher("3ci-capstone-python-posix-early-");
+  const posixPreferredDirectory = makeLauncher("3ci-capstone-python-posix-preferred-");
+  writeFileSync(join(posixEarlyDirectory, "python"), "");
+  writeFileSync(join(posixPreferredDirectory, "python3"), "");
+  assert.equal(
+    findPythonExecutable({
+      platform: "linux",
+      pathValue: [posixEarlyDirectory, posixPreferredDirectory].join(delimiter),
+    }),
+    realpathSync(join(posixPreferredDirectory, "python3")),
+  );
+
+  const missing = makeLauncher("3ci-capstone-python-missing-");
+  assert.throws(
+    () => findPythonExecutable({ platform: "win32", pathValue: missing, pathExt: ".CMD" }),
+    /Required executable not found: python or python3 or py/,
+  );
+  assert.throws(
+    () => findPythonExecutable({ platform: "linux", pathValue: missing }),
+    /Required executable not found: python3 or python/,
+  );
+});
 
 test("CLI direct-entry detection uses a filesystem-safe file URL", () => {
   const entryPath = join(makeLauncher(), "work-items # direct.mjs");

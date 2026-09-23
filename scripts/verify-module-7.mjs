@@ -142,6 +142,18 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
     `${solution7} Continue must link the shipped Module 8 lesson with the solutions-relative href`,
   );
 
+  const labSafety = section(parsed.get(lab7).prose, "Safety boundary");
+  const isolatedTools = labSafety.match(/The local Task environment[\s\S]*?No GitHub\s+operation is performed\./)?.[0] ?? "";
+  assert.match(isolatedTools, /individually\s+resolved[^.]*`git`, `python`, `uv`/, "Lab 7 isolated tools must include Python");
+  assert.match(isolatedTools, /`python3` then `python` on macOS\/Linux/, "Lab 7 must document the POSIX Python lookup order");
+  assert.match(isolatedTools, /`python`, `python3`, then\s+`py` on Windows/, "Lab 7 must document the Windows Python lookup order");
+  assert.match(isolatedTools, /presence only[\s\S]*does not compare a Python version/, "Lab 7 must keep Python presence-only");
+  assert.match(
+    isolatedTools,
+    /Do not treat Python as a generic\s+prerequisite for Directive verification[\s\S]*Labs 7, 10, and 11 helpers\s+construct isolated `PATH`s[\s\S]*capstone\s+constructs `isolatedEnv`/,
+    "Lab 7 must distinguish helper-isolated PATH requirements from a generic Directive prerequisite",
+  );
+
   const labBlocks = parsed.get(lab7).blocks.filter(({ language }) => /^(?:sh|bash|zsh|console)$/.test(language)).map(({ content: block }) => block).join("\n");
   assert.match(labBlocks, /helper="[^"\n]*lifecycle-lab\.mjs"/, `${lab7} must bind the supplied lifecycle helper`);
   for (const command of ["create", "install", "run", "reset", "archive"]) assert.match(labBlocks, new RegExp(`node\\s+"\\$helper"\\s+${command}\\b`), `${lab7} must include the ${command} helper command`);

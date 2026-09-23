@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #62",
-    "updated": "2026-09-23T16:45:09Z"
+    "updated": "2026-09-23T22:40:18Z"
   },
   "plan": {
     "title": "Capstone Windows Python prerequisite has no supported version contract",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "The course records Python 3.13.13 as verified Windows candidate evidence, while the lab helpers actually require only a resolvable interpreter and use inconsistent command-name orders across platforms. This story publishes one presence-based prerequisite for Labs 7, 10, 11, and the capstone, aligns the capstone helper with the established command-name set, and adds content and isolated-PATH evidence without inventing an exact or minimum Python version.",
       "ImplementationPlan": "1. Update `curriculum/README.md`, `labs/07-scope-lifecycle.md`, and `labs/capstone-end-to-end.md` to state the resolvable-interpreter requirement across all four labs and all supported operating systems, while retaining 3.13.13 only as verified candidate parity.\n2. Update `labs/fixtures/capstone-end-to-end/capstone-lab.mjs` so its Python lookup uses the established Windows `[python, python3, py]` and POSIX `[python3, python]` orders and keeps failure at the isolated-PATH boundary.\n3. Extend `scripts/capstone-lab.test.mjs`, the Module 7 verifier and tests, and the capstone verifier and tests to prove both platform orders, the Lab 7 isolated-tools prose, the course-entry verdict, and rejection of missing presence language without asserting a version floor.",
@@ -132,9 +132,8 @@
         ],
         "verify_commands": [
           "npm run check:module-7",
-          "node --test scripts/verify-module-7.test.mjs",
+          "npm run test:module-7",
           "npm run check:capstone",
-          "node --test scripts/capstone-lab.test.mjs",
           "npm run test:capstone"
         ],
         "expected_outputs": [
@@ -401,6 +400,6 @@
       }
     },
     "id": "github.issue.5544446677",
-    "updated": "2026-09-23T16:45:09Z"
+    "updated": "2026-09-23T22:40:18Z"
   }
 }

@@ -26,11 +26,17 @@ For command-based modules you will need:
   they matter;
 - Task and uv for executable lifecycle labs; the capstone matrix uses Task
   3.50.0 and uv 0.11.10;
-- Python on Windows for Directive verification; the capstone matrix uses
-  Python 3.13.13;
+- a resolvable Python interpreter on every supported operating system before
+  Module 1. Labs 7, 10, 11, and the capstone require it because their helpers
+  construct an isolated `PATH`. Windows resolves `python`, `python3`, then
+  `py`; macOS and Linux resolve `python3`, then `python`;
 - macOS or Linux with zsh or Bash, or Windows with PowerShell 7.4 or newer; and
 - Codex, Claude Code, or Cursor for host-specific notes. The core instruction is
   host-neutral.
+
+This course-entry Python check is presence-only. It sets no minimum or exact
+learner version. Python 3.13.13 is verified Windows candidate-environment
+evidence, not a learner requirement.
 
 Do not install or initialize lab tooling in this training
 repository. Each lab that changes files supplies a disposable starting

@@ -205,16 +205,28 @@ function requireSuccess(name, result) {
   return result;
 }
 
-function findExecutable(name) {
-  const suffixes = process.platform === "win32" ? (process.env.PATHEXT ?? ".EXE;.CMD;.BAT").split(";") : [""];
-  for (const directory of (process.env.PATH ?? "").split(delimiter).filter(Boolean)) {
-    for (const suffix of suffixes) {
-      for (const candidate of [join(directory, name + suffix.toLowerCase()), join(directory, name + suffix.toUpperCase())]) {
-        if (existsSync(candidate)) return realpathSync(candidate);
+function findExecutable(nameOrNames, options = {}) {
+  const names = Array.isArray(nameOrNames) ? nameOrNames : [nameOrNames];
+  const platform = options.platform ?? process.platform;
+  const pathValue = options.pathValue ?? process.env.PATH ?? "";
+  const pathExt = options.pathExt ?? process.env.PATHEXT ?? ".EXE;.CMD;.BAT";
+  const suffixes = platform === "win32" ? pathExt.split(";") : [""];
+  for (const name of names) {
+    for (const directory of pathValue.split(delimiter).filter(Boolean)) {
+      for (const suffix of suffixes) {
+        for (const candidate of [join(directory, name + suffix.toLowerCase()), join(directory, name + suffix.toUpperCase())]) {
+          if (existsSync(candidate)) return realpathSync(candidate);
+        }
       }
     }
   }
-  throw new Error(`Required executable not found: ${name}`);
+  throw new Error(`Required executable not found: ${names.join(" or ")}`);
+}
+
+/** Resolve the first supported Python command for the selected platform. */
+export function findPythonExecutable(options = {}) {
+  const platform = options.platform ?? process.platform;
+  return findExecutable(platform === "win32" ? ["python", "python3", "py"] : ["python3", "python"], options);
 }
 
 function withoutHostOverrides(overrides = {}) {
@@ -228,13 +240,14 @@ function withoutHostOverrides(overrides = {}) {
 }
 
 function isolatedEnv(root, sessionId = "capstone-lab-session") {
+  const pythonDirectory = dirname(findPythonExecutable());
   const systemTools = process.platform === "win32"
     ? [
         dirname(findExecutable("git")),
-        dirname(findExecutable("python")),
+        pythonDirectory,
         dirname(process.env.ComSpec ?? join(process.env.SystemRoot ?? "C:\\Windows", "System32", "cmd.exe")),
       ]
-    : ["/usr/bin", "/bin"];
+    : [pythonDirectory, "/usr/bin", "/bin"];
   return withoutHostOverrides({
     PATH: [join(root, "node_modules/.bin"), join(root, ".lab-tools"), ...systemTools].join(delimiter),
     DEFT_SESSION_ID: sessionId,
@@ -295,6 +308,7 @@ function createLocalDirectiveShims(root) {
     ["task", findExecutable("task")],
     ["npm", findExecutable("npm")],
     ["git", findExecutable("git")],
+    ["python", findPythonExecutable()],
   ]);
   for (const optional of ["uv", "gh"]) {
     try {
