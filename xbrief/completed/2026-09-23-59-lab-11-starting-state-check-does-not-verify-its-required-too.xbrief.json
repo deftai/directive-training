@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #59",
-    "updated": "2026-09-23T20:58:36Z"
+    "updated": "2026-09-23T22:10:36Z"
   },
   "plan": {
     "title": "Lab 11 starting-state check does not verify its required tools",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Lab 11 lists Node.js, npm, Git, Task, and uv as required tools but enters fixture creation without proving that each command resolves, so an absent tool can leave disposable state before the learner sees the setup failure. This story adds the established Labs 7 and 10 fail-closed version prefix and focused regression coverage while preserving the printed-path handoff, candidate-platform statement, and absence of Task or uv version pins.",
       "ImplementationPlan": "1. Update `labs/11-testing-gates-and-evidence.md` so its Environment and starting-state shell fence enables fail-closed behavior and runs all five version commands before `create`, while leaving the `LAB11_ROOT` copy step after the visible create output.\n2. Extend `scripts/verify-module-11.mjs` to require the ordered fail-closed prefix and preserve the candidate-platform and no-pin boundaries.\n3. Add positive and negative fixtures in `scripts/verify-module-11.test.mjs` that prove a missing command, missing fail-closed option, or reordered `create` is rejected by the focused check.",
@@ -19,40 +19,70 @@
     "items": [
       {
         "title": "In `labs/11-testing-gates-and-evidence.md` Environment and starting-state check, insert `node --version`, `npm --version`, `git --version`, `task --version`, and `uv --version` in a fail-closed fence with `create`, matching `labs/07-scope-lifecycle.md:54-64` and `labs/10-implementation-golden-path.md:44-54`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #71 head e3e79f4c5e0ce3c5b95e7d1bf061c8152cf02c5d: npm run check:module-11 and npm run test:module-11 (40/40) verified set -eu and the exact node/npm/git/task/uv command order before create; required CI run 35925409780 passed linux-node24, macos-node24, and windows-node24",
+          "recorded_at": "2026-09-23T22:09:42Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "The Lab 11 Environment fence enables fail-closed behavior, runs `node --version`, `npm --version`, `git --version`, `task --version`, and `uv --version` before `create`, and the focused verifier fails when any command, the fail-closed option, or that ordering is removed."
         }
       },
       {
         "title": "Keep Lab 11's printed-path `LAB11_ROOT` copy step after that fence.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #71 head e3e79f4c5e0ce3c5b95e7d1bf061c8152cf02c5d: Module 11 focused regression tests verified that create remains a bare printed-path command and LAB11_ROOT stays in a separate later export fence",
+          "recorded_at": "2026-09-23T22:09:42Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "The learner-facing `LAB11_ROOT` copy step remains outside and after the fence that prints the created root, so the visible path can still be copied from `create` output."
         }
       },
       {
         "title": "Leave exact Task/uv pins and a variance table out of this recut.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #71 head e3e79f4c5e0ce3c5b95e7d1bf061c8152cf02c5d: focused verifier tests passed 34/34 and reject Task/uv pins, including Task >= 3.50.0, uv ~0.11.10, and Task version: 3.50.0, plus variance-table wording",
+          "recorded_at": "2026-09-23T22:09:42Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "The recut introduces neither an exact Task or uv version requirement nor a supported-variance table; the new commands prove resolution only."
         }
       },
       {
         "title": "Optional same-page `--version` lines on the existing Native Windows route stay consistency under the existing Stop preference.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:4",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "PR #71 final diff at e3e79f4c5e0ce3c5b95e7d1bf061c8152cf02c5d left the Native Windows route unchanged; Greptile reviewed the same head at 5/5 with no findings and SLizard reported 0 findings",
+          "recorded_at": "2026-09-23T22:09:42Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "The existing Native Windows route remains a consistency-only surface: it is unchanged, or any added version lines execute under its existing stop-on-error preference without broadening the platform claim."
         }
       },
       {
         "title": "Keep the candidate-platform sentence.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:5",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #71 head e3e79f4c5e0ce3c5b95e7d1bf061c8152cf02c5d: npm run check:module-11 and the focused mutation suite verified the candidate-platform sentence remains present",
+          "recorded_at": "2026-09-23T22:09:42Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "The Lab 11 candidate-platform sentence remains present and the focused Module 11 content check passes with that wording intact."
         }
@@ -302,9 +332,33 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "851a5a83fa8cb16ca59b7e836d0affb7f9b1b2da7749ed0df3e90a3bc3dc2545"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 71,
+        "prBase": null,
+        "mergeCommit": "5f8363f8c892e71affb76b29cefbeb11e4bd729d",
+        "deliveryBranch": "master",
+        "deliveryCommit": "5f8363f8c892e71affb76b29cefbeb11e4bd729d",
+        "verifiedAt": "2026-09-23T22:10:36Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "01a0ceab-b517-7181-bc43-5c64f0a11d58"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-23T22:10:36Z",
+      "completedSessionId": "01a0ceab-b517-7181-bc43-5c64f0a11d58",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-23T22:10:36Z"
       }
     },
     "id": "github.issue.5544442517",
-    "updated": "2026-09-23T20:58:36Z"
+    "updated": "2026-09-23T22:10:36Z"
   }
 }
