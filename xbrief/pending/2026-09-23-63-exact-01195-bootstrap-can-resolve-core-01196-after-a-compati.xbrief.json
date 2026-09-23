@@ -1,0 +1,536 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #63",
+    "updated": "2026-09-23T16:45:11Z"
+  },
+  "plan": {
+    "title": "Exact 0.119.5 bootstrap can resolve core 0.119.6 after a compatible release",
+    "status": "pending",
+    "narratives": {
+      "Description": "The cold-start ladder promises the committed teaching pin but leaves its canonical npm and pnpm commands unversioned, so a learner can select a different CLI release before Module 1. The accepted remedy is deliberately limited to literal-command alignment and verifier coverage; issue #69 retains the separate exact four-package graph remainder.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/63",
+      "Overview": "## Learner context\n\nIndependent pre-course tool check on 2026-09-22. Course baseline: `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`.\n\n## Problem\n\nThe root cold-start guidance says the version is always the project pin, but its canonical global command is unversioned (`npm i -g @deftai/directive`). The current npm `latest` tag is 0.119.6. Even explicitly requesting the CLI package at 0.119.5 did not reproduce the declared engine baseline:\n\n```text\n> npx --yes --package=@deftai/directive@0.119.5 directive --version\n@deftai/directive (engine: @deftai/directive-core@0.119.6)\n```\n\n`npm view @deftai/directive@0.119.5 dependencies` shows caret ranges for core/content. This is a recurrence of the transitive-resolution mechanism discussed in closed issue #3, now observable at the 0.119.5 teaching baseline.\n\nThe Lab 2 fixture avoids the problem by locking the exact CLI/core/content/types graph, and its project-local run correctly reported core 0.119.5. The root bootstrap path does not make that distinction clear.\n\n## Pain experienced\n\nA learner can follow the visible bootstrap guidance before Module 1 and end up on either CLI 0.119.6 or CLI 0.119.5 with core 0.119.6, while every module record claims exact core 0.119.5. That makes baseline failures look like learner mistakes and can make the course's exact-version acceptance impossible outside the locked lab fixture.\n\n## Proposed fix\n\n- Make the root canonical command use the literal project pin.\n- Document that the CLI package pin alone is insufficient when its transitive ranges have advanced.\n- Provide a reproducible exact-graph bootstrap (lockfile/overrides or a course helper) and a command that asserts CLI, core, content, and types versions before Module 1.\n- Add a test that installs from a clean cache after a newer compatible release exists.\n\n## Sanitized environment\n\n- Windows / PowerShell 7.6.5\n- Node 26.8.1, npm 11.19.0\n- Public npm registry\n\nNo Directive source or framework internals were consulted.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready",
+      "UserStory": "As a learner bootstrapping the course repository, I want the canonical npm and pnpm commands to carry the exact teaching pin, so that I do not silently select a different CLI release.",
+      "ImplementationPlan": "1. Update README cold-start rung 3 so the npm and pnpm global-install commands both carry the literal 0.119.5 package pin without changing Module 1 or adding a root lockfile.\n2. Extend scripts/verify-cold-start-readme.mjs to derive the committed package pin and reject either an unpinned or mismatched rung-3 command.\n3. Extend scripts/verify-text-portability.test.mjs so the command assertions are exercised with both LF and CRLF content.\n4. Run the focused cold-start, teaching-baseline, and portability checks and confirm the change makes no exact-transitive-graph claim reserved for issue #69.",
+      "Traces": "Accepted bound remedy on deftai/directive-training#63, comment 5787806106, independently audited in comment 5787897830 and confirmed by parent synthesis 5787908392; approved allocation is xbrief/.triage-cache/decompositions/59-69-allocation.md."
+    },
+    "items": [
+      {
+        "title": "Put the literal package.json pin on README cold-start rung 3 and the pnpm sibling command.",
+        "status": "proposed",
+        "id": "clause:1",
+        "narrative": {
+          "Acceptance": "README cold-start rung 3 contains `npm i -g @deftai/directive@0.119.5` and `pnpm add -g @deftai/directive@0.119.5`, with neither command left unversioned or expressed through a placeholder.",
+          "Traces": "Issue #63 accepted bound remedy comment 5787806106, clause 1."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Extend scripts/verify-cold-start-readme.mjs so those commands carry the literal pin.",
+        "status": "proposed",
+        "id": "clause:2",
+        "narrative": {
+          "Acceptance": "The cold-start verifier fails when either rung-3 command is unpinned or differs from the committed package pin, and the portability test proves the same rule under LF and CRLF content.",
+          "Traces": "Issue #63 accepted bound remedy comment 5787806106, clause 2; approved allocation verifier scope."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Keep Module 1 command-free. Do not add a sixth helper. Do not add a root lockfile.",
+        "status": "proposed",
+        "id": "clause:3",
+        "narrative": {
+          "Acceptance": "The implementation diff is limited to README.md, the cold-start verifier, the portability test, and this lifecycle record; Module 1, fixture helpers, and lockfiles remain unchanged.",
+          "Traces": "Issue #63 accepted bound remedy comment 5787806106, clause 3."
+        },
+        "effort": "S"
+      },
+      {
+        "title": "Record this as alignment. Exact four-package graph remainder is leftover issue 69.",
+        "status": "proposed",
+        "id": "clause:4",
+        "narrative": {
+          "Acceptance": "The changed guidance describes the literal command pin as alignment only, makes no claim that a global CLI pin fixes transitive resolution, and retains issue #69 as the exact-graph remainder.",
+          "Traces": "Issue #63 accepted bound remedy comment 5787806106 and pain audit 5787897830, which preserve operator-deferred P1 on issue #69."
+        },
+        "effort": "S"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/63",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #63: Exact 0.119.5 bootstrap can resolve core 0.119.6 after a compatible release"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Put the literal package.json pin on README cold-start rung 3 and the pnpm sibling command.",
+          "artifact_path": "README.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Extend scripts/verify-cold-start-readme.mjs so those commands carry the literal pin.",
+          "artifact_path": "scripts/verify-cold-start-readme.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Keep Module 1 command-free. Do not add a sixth helper. Do not add a root lockfile.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Record this as alignment. Exact four-package graph remainder is leftover issue 69.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "README.md",
+          "scripts/verify-cold-start-readme.mjs",
+          "scripts/verify-text-portability.test.mjs",
+          "xbrief/active/2026-09-23-63-exact-01195-bootstrap-can-resolve-core-01196-after-a-compati.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:cold-start-readme",
+          "npm run test:teaching-baseline",
+          "npm run test:portability"
+        ],
+        "expected_outputs": [
+          "npm and pnpm rung 3 commands use literal @deftai/directive@0.119.5",
+          "the cold-start verifier rejects unpinned or mismatched commands under LF and CRLF",
+          "no Module 1 command, helper, root lockfile, or exact-graph claim is added"
+        ],
+        "depends_on": [],
+        "conflict_group": "directive-bootstrap-alignment",
+        "size": "small",
+        "file_scope_confidence": "high",
+        "model_tier": "high"
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because cold-start says install the package.json pin while the canonical command is unversioned npm i -g @deftai/directive\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N≥3\nspend-ask: asked\nstop-2: charter=open critique; spend=N≥3 because the operator answered the missing-token spend ask with option 2 mixed spend; exact-graph bootstrap after a compatible 0.119.6 release is high-blast recurrence of the issue 3 transitive pin hole\npain: P1\nP1: README.md:3-8 says the version to install is the package.json pin and the canonical command is unversioned npm i -g @deftai/directive; package.json:40 pins @deftai/directive 0.119.5; labs/fixtures/02-disposable-initialization/package.json:9-16 locks CLI 0.119.5 plus core/content/types overrides\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\n\n",
+          "id": 5785827790,
+          "html_url": "https://github.com/deftai/directive-training/issues/63#issuecomment-5785827790",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:11:27Z",
+          "updated_at": "2026-09-22T23:11:27Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\npanel-deposit\nround: 1\nsiblings: 3\ninput-ceiling: 5785865814\nfamilies: grok, claude, codex\nseat: grok launcher: spawn_subagent\nseat: claude launcher: claude\nseat: codex launcher: codex\n\n",
+          "id": 5785865814,
+          "html_url": "https://github.com/deftai/directive-training/issues/63#issuecomment-5785865814",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:14:21Z",
+          "updated_at": "2026-09-22T23:14:22Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: claude-opus-5-5\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1, fresh critic, seat family claude. Charter: open critique. Reads pinned to `a484f30613f16d1da3c8f7a01edb5d67e562a12e`; in envelope: issue body plus comments up to 5785865814.\n\n### Anchor re-verification (measured)\n\n- `README.md:4` says the version to install is always the `package.json` pin. `README.md:8` (rung 3) is the unversioned `npm i -g @deftai/directive`. Confirmed.\n- `package.json:40` pins `@deftai/directive` `0.119.5`, with no `overrides` and no lockfile at the root. `references/SOURCE-BASELINE.md:33` says the repo intentionally has no project-local install or lockfile. Confirmed.\n- `labs/fixtures/02-disposable-initialization/package.json:9-16` pins the CLI and overrides core, content, and types to `0.119.5`. Confirmed.\n- `npm view @deftai/directive@0.119.5 dependencies` gives `directive-core ^0.119.5` and `directive-content ^0.119.5`. Core 0.119.5 gives `directive-types ^0.119.5`. The `latest` dist-tag is now **0.119.7**, not 0.119.6.\n\n/tmp probe: clean caches, isolated npm config, public registry, today.\n\n| Install shape | CLI | core | content | types |\n| --- | --- | --- | --- | --- |\n| `npm install --prefix <dir> @deftai/directive@0.119.5` (rung 4 shape) | 0.119.5 | 0.119.7 | 0.119.7 | 0.119.7 |\n| `npm install -g --prefix <dir> @deftai/directive@0.119.5` (rung 3 with the literal pin), run from a directory whose `package.json` has the fixture overrides | 0.119.5 | 0.119.7 | 0.119.7 | 0.119.7 |\n| `npm install` inside a copy of the Lab 2 fixture manifest | 0.119.5 | 0.119.5 | 0.119.5 | 0.119.5 |\n\n### Findings\n\n**F1. blocks-the-design: a literal pin on the global ladder cannot produce the exact graph.**\nEvidence: the probe table. A global install ignores project `overrides`, and a pinned CLI still floats its caret dependencies. Rung 4 (`README.md:9`) already uses `@<pinned>` and still floats. The triage P1 cite does not name it.\nFailure mode: proposed-fix bullet 1 ships and every visible command shows `0.119.5`. A learner who follows it still gets core, content, and types at 0.119.7, the same as before, and the pain stays unrelieved.\nDisposition: the lean cannot bind on \"use the literal pin\" as the fix. It must choose where exactness lives. Either (a) exactness is a property of an overrides-bearing project install only, and the host/global CLI is outside the baseline claim, or (b) the course ships a manifest-based bootstrap (a prefix dir with a committed manifest plus overrides) that the pre-Module-1 check runs. A bare `npm i -g …@pin` satisfies neither. Bullet 1 can stay as an alignment fix, but it must not be credited as pain relief.\n\n**F2. sharpens-framing: the exact-graph mechanism already exists. Reuse it; do not invent a second one.**\nEvidence: the overrides manifest plus four-package version asserts are already present in `labs/fixtures/02-disposable-initialization/init-lab.mjs:292-298,404`, `05-projection-drift-recovery/projection-lab.mjs:120-121`, `07-scope-lifecycle/lifecycle-lab.mjs:69-70,277`, `10-implementation-golden-path/implementation-lab.mjs:98-99,314`, and `11-testing-gates-and-evidence/gates-lab.mjs:112-113`. `scripts/teaching-baseline.mjs` couples the README marker to the root pin. `scripts/verify-cold-start-readme.mjs` (`npm run check:cold-start-readme`) already asserts the cold-start block and calls `assertTeachingBaselinePin`.\nFailure mode: a new \"course helper\" plus a new assert command creates a sixth copy of the graph check, and the copies drift on the next baseline bump.\nDisposition: scope the pre-Module-1 check as a reuse of the fixture manifest and its asserts (or a shared extraction). Scope any README-text change as an extension of `check:cold-start-readme`, for example \"rung 3 and rung 4 carry the literal pin\". Neither needs a new gate.\n\n**F3. sharpens-framing: the proposed regression test can pass vacuously.**\nEvidence: bullet 4 depends on registry state (\"after a newer compatible release exists\"). That is true today (0.119.7) only by accident. The authoring host's global install reports exact 0.119.5 for all four packages because it was installed before 0.119.6 shipped. The measured host therefore masks the defect through stale state.\nFailure mode: after the next baseline bump to `latest`, no newer release exists. A floating install and an exact install then resolve the same graph, and the test goes green without exercising the hole. A test on a warm-cache authoring host passes for the same reason.\nDisposition: state the test as two parts. First, assert the precondition: `npm view` shows a release newer than the pin in the same caret range, or the test reports \"not exercised\" and does not pass. Then assert that the course's bootstrap path yields the exact four-package graph from a clean cache. Do not frame the test around 0.119.6.\n\n**F4. sharpens-framing: the cold-start block is the sanctioned upstream #2273 v1 text. Record local divergence or an upstream report as a choice.**\nEvidence: `README.md:1` and `README.md:14` carry `deft:cold-start-bootstrap v1 (#2273)` markers. Completed scope issue 2 added the block as \"the sanctioned … global-first ladder\". The 0.119.5 engine's own ladder already prints the pinned form: `npm i -g @deftai/directive@${pin}` (`directive-core/dist/resolution/engine-ladder.js:76`). I found no writer that rewrites the README block in the 0.119.5 engine, so a local edit is not known to be overwritten.\nFailure mode: a local edit fixes rung 3 here, while upstream text and caret ranges stay the root cause. The next sanctioned-block refresh or baseline bump reintroduces the drift, and closed issue 3's recurrence repeats.\nDisposition: the lean should say what it changes locally (training-owned text plus the check) and what it reports upstream (caret ranges on an exact-version teaching dependency, and the unversioned rung 3). It must not claim the local edit fixes the transitive mechanism.\n\n**F5. footnote:** `@deftai/directive-types` is not a direct CLI dependency. It arrives through core's `^0.119.5`. The probe shows content and types float with core, not only core. The issue's pain text mentions core only.\n\n**F6. footnote:** the issue title and bullet 4 name 0.119.6. The measured `latest` is 0.119.7. Titles tied to a version go stale. The mechanism is \"any newer compatible release\".\n\n### Road not taken and steelman\n\nThe strongest rejected position: declare the host/global CLI outside the baseline claim (option F1a) and change only the prose. Labs already prove the project-local binary (`curriculum/modules/02-installation-and-anatomy.md:357`), and Module 2 already refuses `@latest` as out of boundary. This is the cheapest and most consistent option.\n\nI rejected it as the whole fix because every module header cites \"engine `@deftai/directive-core@0.119.5`\" with no scope qualifier. The pre-course tool check in the issue is exactly where a learner reads that claim against a global CLI.\n\nWhat would flip my verdict: if the lean scopes each module header to \"project-local fixture engine\" and the pre-course check runs the fixture's binary instead of the global one, then option F1a relieves the pain on its own, and F2's reuse is the whole implementation.\n\nThe injection / swarm lens does not fire. The target changes install guidance and a test, not authority, prompts, identity, concurrency, worktrees, or shared state.\n\n",
+          "id": 5785930193,
+          "html_url": "https://github.com/deftai/directive-training/issues/63#issuecomment-5785930193",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:19:05Z",
+          "updated_at": "2026-09-22T23:19:05Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: gpt-6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1, fresh open critique. I read issue 63's body and only comments through 5785865814. I rechecked the Stop 1 anchors with `git show a484f30613f16d1da3c8f7a01edb5d67e562a12e:<path>`: `README.md:4-9`, `package.json:40`, and `labs/fixtures/02-disposable-initialization/package.json:9-16`. I copied the root and Lab 2 manifests into separate `/tmp` directories and ran `npm install` with separate empty npm configs, fresh per-install caches, and `--ignore-scripts --no-audit --no-fund`. The root resolved CLI 0.119.5 with core/content/types 0.119.7; Lab 2 resolved all four at 0.119.5.\n\n### 1. A pinned global command does not make the bootstrap exact (`blocks-the-design`)\n\nEvidence: `README.md:4-9` stops at a working `directive doctor` on rung 1, accepts an engine *at or above* the pin on rung 2, uses the unpinned global command on rung 3, and pins only the CLI package on rung 4. The published 0.119.5 CLI/core dependency ranges are `^0.119.5` (`npm view`); the clean-cache root probe above resolved the newer transitive graph. The root package has no lockfile (`references/SOURCE-BASELINE.md:31-34`). npm applies `overrides` only in the install root, so adding them solely to this repository's package does not govern `npm i -g` or `npx` ([npm package.json docs](https://docs.npmjs.com/cli/v11/configuring-npm/package-json/#overrides)).\n\nFailure mode: changing rung 3 to `npm i -g @deftai/directive@0.119.5` leaves three other accepted paths and transitive resolution able to report “bootstrapped” with a nonbaseline graph. `doctor` success and a CLI pin are not exact-graph evidence.\n\nDisposition: decide whether this ladder is an operational agent bootstrap or the learner's exact teaching path. If it promises the latter, every accepted rung needs an installed four-package assertion and a reproducible install root with overrides or an equivalent lock. Keep the version check attached to the executable selected, not only to `package.json`.\n\n### 2. A required pre-Module 1 install crosses the learner boundary (`blocks-the-design`)\n\nEvidence: Module 1's starting check explicitly requires no installation or command recovery (`curriculum/modules/01-what-directive-is.md:28-40`). The course map forbids installing lab tooling in this checkout (`curriculum/README.md:35-37`), and Module 2 calls a host-global `npm i -g` outside its disposable boundary (`curriculum/modules/02-installation-and-anatomy.md:210-222`). The README cold-start block is also agent-followed authority, while a global npm install changes shared host state.\n\nFailure mode: a mandatory four-package assertion before Module 1 makes a learner with no CLI install one before the course teaches or guards the disposable path; an agent could treat the root bootstrap as that learner exercise and mutate the host or authored checkout.\n\nDisposition: identify the audience for the root cold-start guidance. Preserve Module 1 as conceptual. Put the learner's exact install and assertion in the guarded Lab 2 path, or make a pre-course probe explicitly optional and read-only. Give an authoring agent's operational bootstrap its own clearly stated success condition.\n\n### 3. The regression gap is the root path, not Lab 2 (`sharpens-framing`)\n\nEvidence: `init-lab.mjs:288-304,384-404` already verifies all four *installed* packages after a fresh local install, and `scripts/init-lab.test.mjs:173-198` exercises it. Its focused install test passed in this pass with 0.119.7 available. By contrast, `scripts/verify-cold-start-readme.mjs` checks the README block's structure, and `scripts/teaching-baseline.mjs` compares the README declaration to the top-level package pin; both checks passed while the root clean-cache probe resolved 0.119.7 transitives.\n\nFailure mode: adding another Lab 2 install test can stay green while the cold-start command still produces the wrong graph.\n\nDisposition: exercise the proposed root/bootstrap route as the regression subject, with a clean cache and four installed-version checks. Reuse Lab 2's installed-graph guard rather than designing a second version rule; include a newer-compatible dependency case so a CLI-only pin fails visibly.\n\nRoad not taken: pinning only the global CLI command is a small, appealing edit. It would become sufficient if the published CLI itself fixed its transitive graph and every accepted bootstrap route verified that graph. The current caret ranges and fresh install falsify those conditions.\n\n",
+          "id": 5785961516,
+          "html_url": "https://github.com/deftai/directive-training/issues/63#issuecomment-5785961516",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:21:18Z",
+          "updated_at": "2026-09-22T23:21:18Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound-1 fresh open critique of issue 63. In-envelope: issue body, Stop 1 comment 5785827790, panel-deposit 5785865814. Dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e` (dest HEAD detached there). Tree reads from that SHA. Live npm and two isolated `/tmp` installs re-checked the version claims.\n\n## 1. Canonical global install cannot carry the existing exact-graph lock\nclass: blocks-the-design\n\nEvidence. `npm view @deftai/directive@0.119.5 dependencies` returns `\"@deftai/directive-core\": \"^0.119.5\"` and `\"@deftai/directive-content\": \"^0.119.5\"`. An isolated `npm install` of root-shaped `\"@deftai/directive\": \"0.119.5\"` with no `overrides` resolved CLI 0.119.5 and core/content/types 0.119.7; `./node_modules/.bin/directive --version` printed `engine: @deftai/directive-core@0.119.7`. The same manifest plus the Lab 2 `overrides` block resolved all four packages to 0.119.5 and printed engine 0.119.5. Those `overrides` live on a project `package.json`. README.md:8 canonical command is `npm i -g @deftai/directive` into the host-global prefix. A registry-package global install does not apply this repository's `overrides`. All six `labs/fixtures/*/package.json` files already carry that field. `labs/fixtures/02-disposable-initialization/init-lab.mjs` `verifyManifestPin` / `verifyInstalledGraph` fail closed unless the four installed versions match. `scripts/verify-cold-start-readme.mjs` and `scripts/teaching-baseline.test.mjs` both passed on this SHA with the unversioned command still in place and root `package.json` still CLI-pin-only (`assertTeachingBaselinePin` couples the README teaching-baseline marker to `devDependencies[\"@deftai/directive\"]` only).\n\nFailure mode. Binding proposed-fix bullet 1 (put the CLI pin on the canonical command) leaves caret resolution in place. Those two gates stay green after a CLI-only README edit. The engine-baseline half of Stop 1 P1 remains: a learner or agent who follows the visible bootstrap still runs core 0.119.7 while every module record claims exact core 0.119.5.\n\nDisposition. Bind hole B (exact graph) to a project-local manifest that uses the existing fixture `overrides` pattern. Bind hole A (unversioned latest CLI) as a separate README/agent-recovery edit. Keep the #2273 global-first ladder as payload-independent recovery of a running binary.\n\n## 2. Cold-start rungs 1–2 accept an above-pin engine before rung 3 runs\nclass: sharpens-framing\n\nEvidence. README.md:6 rung 1: if `directive doctor` runs, skip the rest. README.md:7 rung 2: use `.deft/.cli/<platform>` when it is \"at or above\" the `package.json` pin. Live `npm view @deftai/directive version` is 0.119.7 (core/content/types match). A host that already has 0.119.6 or 0.119.7 never reaches a rewritten rung 3. Module 1 is command-free. `curriculum/README.md` prerequisites name Node/Git/gh/npm/Task/uv and do not require a global Directive install before Module 1. Lab 2 already asserts the four-package graph on the disposable path.\n\nFailure mode. A Bound-remedy that only edits the canonical command still lets the first working newer binary satisfy cold-start, while module records keep claiming exact core 0.119.5.\n\nDisposition. Treat #2273 as \"get a running `directive`\". Put the four-package assert on a project-local path that still runs when a newer binary is already on PATH. If pre-Module-1 proof is in scope, name that assert as its own surface.\n\n## 3. New helper, root lockfile, and a \"newer release exists\" test fight current machinery\nclass: sharpens-framing\n\nEvidence. `references/SOURCE-BASELINE.md:33` records a pin and says the training repository intentionally contains no project-local install or lockfile. Root `package.json` has the CLI pin and no `overrides`. Fixture helpers already install from the public registry in disposable directories and assert CLI/core/content/types. `.github/workflows/content-contract.yml` runs content verifiers with no `@deftai/directive` install. `scripts/verify-modules-2-3.mjs` rejects host-global `npm i -g @deftai/directive` inside learner-executable fences. Module 2 and Lab 2 quote `npm i -g @deftai/directive@latest` as out-of-boundary doctor advice.\n\nFailure mode. Binding \"lockfile/overrides or a course helper\" as an OR lets an implementer add a root lockfile (silent recut of SOURCE-BASELINE) or a seventh helper that duplicates `verify-pin` / `verifyInstalledGraph`. A test that is green only while a newer compatible release exists goes silent the next time `latest` equals the pin.\n\nDisposition. If the training repo must lock a graph, add the existing `overrides` field to the root pin and recut the SOURCE-BASELINE sentence as a deliberate policy change. Reuse the fixture install assertions for mixed-graph coverage. Leave `content-contract.yml` as a content lane unless that workflow is explicitly expanded to install.\n\n## Injection / swarm lens\n\nThe target changes version authority, untrusted registry input, the first agent instruction on clone, and host-shared npm state.\n\n- Authority. package.json CLI pin, resolved core/content/types, and `directive --version` can disagree. The teaching-baseline gate couples only the README marker and the CLI pin.\n- Untrusted input. Caret ranges let the public registry choose the engine. The existing control is exact `overrides` plus helper asserts.\n- Shared state. `npm i -g` writes the host-global prefix. Module 2 and Lab 2 already classify that mutation as outside the disposable boundary.\n- Agent envelope. The cold-start block is the sanctioned #2273 ladder. Managed `AGENTS.md` still contains `npm i -g @deftai/directive@latest` on the session-ritual card. A course-local README pin does not override that managed recovery.\n\nDeterministic control for the graph is the fixture `overrides` + `verifyInstalledGraph` pattern already in tree.\n\n## Road not taken\n\nRejected: close the issue with proposed-fix bullets 1–2 (pinned CLI command plus a caret-range sentence) because labs already lock the graph. That closes hole A and leaves hole B on the authoring/cold-start path, which is the P1 engine-baseline claim. Flip if the operator recuts P1 to unversioned-latest-CLI only and parks the graph lock on a later issue.\n\nAlso rejected: exact core/content/types dependencies inside the published `@deftai/directive` tarball. That would make a versioned global install sufficient. This repository cannot ship that change. The local control is already the fixture overrides.\n\n## 4. Live latest has moved past the issue body's 0.119.6 instance\nclass: footnote\n\n`npm view` on this host: `@deftai/directive`, `-core`, `-content`, and `-types` latest are all 0.119.7. The issue body's 0.119.6 `npx` line is the same failure class one compatible release earlier. The pnpm sibling command on README.md:8 is unversioned as well.\n\n",
+          "id": 5785975244,
+          "html_url": "https://github.com/deftai/directive-training/issues/63#issuecomment-5785975244",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:22:15Z",
+          "updated_at": "2026-09-22T23:22:15Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nA learner can follow the visible bootstrap and still get CLI 0.119.5 with core 0.119.7. Confirming this map would treat a pinned global command as alignment only, put exact-graph proof on the existing Lab 2 overrides install, and keep Module 1 command-free.\n\nParent forward verdict: P1 holds as a transitive graph hole; the proposed literal pin on `npm i -g` cannot relieve it.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5785827790 and these takes; the evidence is critics 5785930193, 5785961516, and 5785975244.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 3\ncritics: 5785930193, 5785961516, 5785975244\nsupersedes: 5785827790\nTarget-digest: sha256:e8c473daee926dc3f8010bab8664c327d60d79ed1e4e04dd37d11c90139b5db9\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### a literal pin on the global ladder cannot produce the exact graph\ntake: accept-into-contract\ncritic: 5785930193\nheading: a literal pin on the global ladder cannot produce the exact graph\n\n### the exact-graph mechanism already exists\ntake: accept-into-contract\ncritic: 5785930193\nheading: the exact-graph mechanism already exists\n\n### the proposed regression test can pass vacuously\ntake: accept-into-contract\ncritic: 5785930193\nheading: the proposed regression test can pass vacuously\n\n### the cold-start block is the sanctioned upstream #2273 v1 text\ntake: accept-into-contract\ncritic: 5785930193\nheading: the cold-start block is the sanctioned upstream #2273 v1 text\n\n### A pinned global command does not make the bootstrap exact\ntake: accept-into-contract\ncritic: 5785961516\nheading: A pinned global command does not make the bootstrap exact\n\n### A required pre-Module 1 install crosses the learner boundary\ntake: accept-into-contract\ncritic: 5785961516\nheading: A required pre-Module 1 install crosses the learner boundary\n\n### The regression gap is the root path, not Lab 2\ntake: accept-into-contract\ncritic: 5785961516\nheading: The regression gap is the root path, not Lab 2\n\n### Canonical global install cannot carry the existing exact-graph lock\ntake: accept-into-contract\ncritic: 5785975244\nheading: Canonical global install cannot carry the existing exact-graph lock\n\n### Cold-start rungs 1-2 accept an above-pin engine before rung 3 runs\ntake: accept-into-contract\ncritic: 5785975244\nheading: Cold-start rungs 1-2 accept an above-pin engine before rung 3 runs\n\n### New helper, root lockfile, and a newer-release test fight current machinery\ntake: accept-into-contract\ncritic: 5785975244\nheading: New helper, root lockfile, and a newer-release test fight current machinery\n\nrelieves: P1\naudit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5785975244 reading=asserted\n\n## Bound remedy\n\n- Treat hole A (unversioned latest CLI) as a README/agent-recovery alignment edit. A literal `@0.119.5` on rung 3 is not pain relief.\n- Treat hole B (exact four-package graph) as a project-local install that reuses the Lab 2 fixture `overrides` plus `verifyInstalledGraph`. Do not invent a sixth helper. Do not add a root lockfile unless `references/SOURCE-BASELINE.md` is recut as a deliberate policy change.\n- Keep Module 1 command-free. Put the learner exact install and assertion on the guarded Lab 2 path, or make a pre-course probe optional and read-only.\n- Exercise the course bootstrap route from a clean cache with four installed-version checks. First assert that a newer compatible release exists in the caret range, or report not-exercised. Do not frame the test around 0.119.6.\n- Record what changes locally and what is reported upstream (caret ranges on an exact-version teaching dependency, and unversioned rung 3).\n\n",
+          "id": 5786103780,
+          "html_url": "https://github.com/deftai/directive-training/issues/63#issuecomment-5786103780",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:31:45Z",
+          "updated_at": "2026-09-22T23:31:45Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound-2 pain-audit of successor lean 5786103780. In-envelope: issue 63 body and comments through 5786103780. Tree reads at dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`. `scanPainList` / `scanPainCites` / `evaluateBoundRemedyCites` run on those bodies. Isolated `/tmp` installs re-checked the graph.\n\n## 1. Bound-remedy leaves P1 on the visible bootstrap\nclass: blocks-the-design\n\nEvidence. Stop 1 comment 5785827790 names P1 as README.md:3-8 (the version to install is the package.json pin, and the canonical command is unversioned `npm i -g @deftai/directive`), package.json:40 (`@deftai/directive` 0.119.5), and `labs/fixtures/02-disposable-initialization/package.json:9-16` (CLI pin plus core/content/types overrides). At `a484f306`, README.md:4 still says the version to install is always the committed pin; README.md:8 is still the unversioned global command; package.json:40 is still the CLI-only pin; Lab 2 lines 9-16 still carry the four-package overrides. `npm view @deftai/directive@0.119.5 dependencies` is still `^0.119.5` for core and content. Live `latest` tags are 0.119.7. Isolated installs today: a root-shaped CLI pin resolved CLI 0.119.5 with core/content/types 0.119.7, and `directive --version` printed engine 0.119.7; the Lab 2 overrides manifest resolved all four to 0.119.5 and printed engine 0.119.5. All twelve module records still declare baseline or engine 0.119.5. Module 1 still requires no installation. `node scripts/verify-cold-start-readme.mjs` and `scripts/teaching-baseline.test.mjs` passed on this SHA while that graph remains.\n\nLean 5786103780 `## Bound remedy` harvest, five list items: hole A is a README/agent-recovery alignment edit, and a literal `@0.119.5` on rung 3 \"is not pain relief\"; hole B reuses the Lab 2 `overrides` plus `verifyInstalledGraph` (already `init-lab.mjs:288-297,401,483` at this SHA); Module 1 stays command-free, and a pre-course probe is optional and read-only; a four-package test runs on \"the course bootstrap route\" after a newer-release precondition. `scanPainCites` on this lean returns one operative cite, disposition `relieves` for P1. `evaluateBoundRemedyCites` with `coveredIds: []` returns `ok: false`. Harvest item 4 asks for four installed-version checks on the course bootstrap route while item 2 keeps exactness on Lab 2 and forbids a root lockfile unless `references/SOURCE-BASELINE.md` is recut.\n\nFailure mode. Path-1 auto-stamp would treat that `relieves` cite as asserted coverage. After this harvest a learner can still follow README.md:3-8 plus the CLI-only pin, run engine 0.119.7, and read every module record as exact core 0.119.5. Lab 2 reuse restates the lock that already exists. The optional read-only probe does not install the exact graph. Module-record exact-core claims are outside the harvest.\n\nDisposition. Lean 5786103780 cannot bind with that `relieves` cite. The honest cite on this harvest is `does-not-relieve: P1`, or `operator-deferred: P1` plus a different issue number for the remainder. A later bind lean covers P1 when the harvest recuts README.md:4 and the module-record exact-core claims onto the Lab 2 / project-local binary, or when it adds a required exact-graph path on the visible bootstrap.\n\n## 2. scanPainCites emits one P1 disposition\nclass: footnote\n\n`scanPainList` on Stop 1 5785827790: present, ids `[P1]`, no duplicates, not malformed. `scanPainCites` on lean 5786103780: one cite `{painId: P1, disposition: relieves}`, rejected empty. Take-map headings emit no second disposition. The summary sentence \"P1 holds as a transitive graph hole; the proposed literal pin on `npm i -g` cannot relieve it\" does not match a closed cite form. Bare `P1` on that line is a placement miss with no parser effect.\n\n## Injection / swarm lens\n\nThe target still changes version authority, untrusted registry input, the agent-followed cold-start envelope, and host-global npm state. The disposable control already in tree is Lab 2 `overrides` plus `verifyInstalledGraph`. The `relieves` cite asserts coverage while the visible bootstrap still lacks that control.\n\n## Road not taken\n\nRejected: treat Lab 2 reuse as coverage of P1. Stop 1 named the README/root contrast, and Lab 2 already locked the graph at this SHA. Flip when a later harvest recuts README.md:4 and every module-record engine 0.119.5 line onto the project-local fixture binary, and the cite remains `relieves` for that claim-recut.\n\n",
+          "id": 5787663362,
+          "html_url": "https://github.com/deftai/directive-training/issues/63#issuecomment-5787663362",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T01:59:49Z",
+          "updated_at": "2026-09-23T01:59:49Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe bind map claimed P1 relief while the harvest still lets a learner follow the visible README bootstrap and get core 0.119.7. Confirming this retraction would drop that relief cite, leave P1 unrelieved on this harvest, and keep Lab 2 overrides as the existing exact-graph lock.\n\nParent forward verdict: lean 5786103780 does not bind.\nDisposition: accept the pain-audit blocking finding; P1 stays unrelieved on this harvest.\nNon-self-arbitration: this parent authored Stop 1, the retracted bind map, and these takes; the evidence is critic 5787663362.\nThis arc does not ingest.\n\nround: 2\nsiblings: 1\ncritic: 5787663362\nsupersedes: 5786103780\nTarget-digest: sha256:e8c473daee926dc3f8010bab8664c327d60d79ed1e4e04dd37d11c90139b5db9\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Bound-remedy leaves P1 on the visible bootstrap\ntake: accept-into-contract\ncritic: 5787663362\nheading: Bound-remedy leaves P1 on the visible bootstrap\n\ndoes-not-relieve: P1\naudit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5787663362 reading=independent\n\n## Bound remedy\n\nUnchanged from 5786103780: hole A remains a README alignment edit and is not pain relief; hole B reuses Lab 2 overrides plus verifyInstalledGraph; Module 1 stays command-free; a clean-cache four-package check on the course bootstrap route needs a newer-release precondition; local versus upstream caret reporting stays recorded.\n\nThat harvest does not recut README.md:4 or the module-record exact-core claims onto the project-local fixture binary, and it does not add a required exact-graph path on the visible bootstrap. P1 stays unmet on this map.\n\nYolo leftover-pain: file a leftover issue for the visible-bootstrap exact-graph remainder, or halt this arc.\n\n",
+          "id": 5787734385,
+          "html_url": "https://github.com/deftai/directive-training/issues/63#issuecomment-5787734385",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:08:39Z",
+          "updated_at": "2026-09-23T02:08:39Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nPain-audit 5787663362 blocked the bind map's P1 relief. The harvest still leaves the visible cold-start ladder able to resolve a newer core while module records claim exact 0.119.5. This parent does not dest-place and does not ingest.\n\nopen-question: File a leftover issue for the visible-bootstrap exact-graph remainder, or halt this arc?\n\nResume after halt is a new operator verb.\n\n",
+          "id": 5787734604,
+          "html_url": "https://github.com/deftai/directive-training/issues/63#issuecomment-5787734604",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:08:41Z",
+          "updated_at": "2026-09-23T02:08:41Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nOperator confirmed the leftover split. Exact-graph remainder is issue 69. Confirming this map would put the literal 0.119.5 pin on cold-start rung 3 as alignment, keep Module 1 command-free, and defer P1 to leftover 69.\n\nParent forward verdict: P1 is deferred to leftover 69; this harvest is the alignment pin only.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy remainder.\nNon-self-arbitration: this parent authored Stop 1, the retracted bind map, leftover create 69, and these takes; the evidence is critics 5785930193, 5785961516, 5785975244, and 5787663362.\nThis arc does not ingest and does not dest-place.\n\nround: 3\nsiblings: 1\ncritics: 5785930193, 5785961516, 5785975244, 5787663362\nsupersedes: 5787734385\nleftover: 69\nTarget-digest: sha256:e8c473daee926dc3f8010bab8664c327d60d79ed1e4e04dd37d11c90139b5db9\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### a literal pin on the global ladder cannot produce the exact graph\ntake: accept-into-contract\ncritic: 5785930193\nheading: a literal pin on the global ladder cannot produce the exact graph\n\n### the exact-graph mechanism already exists\ntake: accept-into-contract\ncritic: 5785930193\nheading: the exact-graph mechanism already exists\n\n### the proposed regression test can pass vacuously\ntake: accept-into-contract\ncritic: 5785930193\nheading: the proposed regression test can pass vacuously\n\n### the cold-start block is the sanctioned upstream #2273 v1 text\ntake: accept-into-contract\ncritic: 5785930193\nheading: the cold-start block is the sanctioned upstream #2273 v1 text\n\n### A pinned global command does not make the bootstrap exact\ntake: accept-into-contract\ncritic: 5785961516\nheading: A pinned global command does not make the bootstrap exact\n\n### A required pre-Module 1 install crosses the learner boundary\ntake: accept-into-contract\ncritic: 5785961516\nheading: A required pre-Module 1 install crosses the learner boundary\n\n### The regression gap is the root path, not Lab 2\ntake: accept-into-contract\ncritic: 5785961516\nheading: The regression gap is the root path, not Lab 2\n\n### Canonical global install cannot carry the existing exact-graph lock\ntake: accept-into-contract\ncritic: 5785975244\nheading: Canonical global install cannot carry the existing exact-graph lock\n\n### Cold-start rungs 1-2 accept an above-pin engine before rung 3 runs\ntake: accept-into-contract\ncritic: 5785975244\nheading: Cold-start rungs 1-2 accept an above-pin engine before rung 3 runs\n\n### New helper, root lockfile, and a newer-release test fight current machinery\ntake: accept-into-contract\ncritic: 5785975244\nheading: New helper, root lockfile, and a newer-release test fight current machinery\n\n### Bound-remedy leaves P1 on the visible bootstrap\ntake: accept-into-contract\ncritic: 5787663362\nheading: Bound-remedy leaves P1 on the visible bootstrap\n\noperator-deferred: P1 #69\naudit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5787663362 reading=independent\n\n## Bound remedy\n\n- Put the literal package.json pin on README cold-start rung 3 and the pnpm sibling command.\n- Extend scripts/verify-cold-start-readme.mjs so those commands carry the literal pin.\n- Keep Module 1 command-free. Do not add a sixth helper. Do not add a root lockfile.\n- Record this as alignment. Exact four-package graph remainder is leftover issue 69.\n\n",
+          "id": 5787806106,
+          "html_url": "https://github.com/deftai/directive-training/issues/63#issuecomment-5787806106",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:17:46Z",
+          "updated_at": "2026-09-23T02:17:46Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ncap-raise\nissue: 63\nspend: N≥3\ncritic-posts-used: 4\nraise: +1 extra critic post\nnew-critic-post-cap: 5\nreason: remainder pain-audit of operator-deferred P1 on leftover 69 after operator option 1\n\n",
+          "id": 5787806285,
+          "html_url": "https://github.com/deftai/directive-training/issues/63#issuecomment-5787806285",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:17:47Z",
+          "updated_at": "2026-09-23T02:17:47Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound-3 pain-audit of remainder lean 5787806106. In-envelope: issue 63 through comment 5787806106, leftover issue 69, dest SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`. Host engine `@deftai/directive-core@0.119.5` `scanPainList` / `scanPainCites` / `evaluateBoundRemedyCites` / `classifyPosition` / `parseAuditToken`. Isolated `/tmp` installs re-checked the graph.\n\n### Measured\n\n- Stop 1 5785827790 `scanPainList`: present, ids `[P1]`, no duplicates, not malformed.\n- Lean 5787806106 `scanPainCites`: one cite `{painId: P1, disposition: operator-deferred, deferredIssueNumber: 69}`, rejected empty. `classifyPosition` on `operator-deferred: P1 #69` is null (operative). Raw closed-form matches: one. Keyword counts on this body: `relieves` 0, `does-not-relieve` 0, `operator-deferred` 1. Headings `Bound-remedy leaves P1 on the visible bootstrap` and prose `defer P1 to leftover 69` do not match a closed cite form.\n- `evaluateBoundRemedyCites` with `unmetIds: [P1]`, `coveredIds: []`, `issueNumber: 63`: `{ok: true}`. Same cites with `coveredIds: [P1]`: `{ok: false}`. Same cites with `issueNumber: 69`: `{ok: false}`.\n- Tree at `a484f306`: `README.md:4` still says the version to install is the `package.json` pin; `README.md:8` rung 3 is still unversioned `npm i -g @deftai/directive` (pnpm sibling too); `package.json:40` is CLI-only `0.119.5`; Lab 2 `package.json:9-16` still locks CLI/core/content/types at `0.119.5`; Module 1 still requires no installation; `scripts/verify-cold-start-readme.mjs` still does not assert a literal pin on rung 3. `npm view @deftai/directive@0.119.5 dependencies` is still `^0.119.5` for core and content. Live `latest` is 0.119.7.\n- Isolated installs today: CLI-only pin resolved CLI 0.119.5 with core/content/types 0.119.7 and printed `engine: @deftai/directive-core@0.119.7`. Lab 2 overrides resolved all four at 0.119.5 and printed engine 0.119.5.\n- Leftover issue 69 is open and a different number from 63. Its unmet list is the exact-graph remainder Stop 1 named (recut `README.md:4` and the module-record exact-core claims onto the Lab 2 / project-local binary, or a required exact four-package path on the visible bootstrap). It parks the literal rung-3 pin on 63 as alignment.\n\n## 1. Bound-remedy covers the alignment remainder; P1 stays unmet on leftover 69\nclass: footnote\n\nEvidence. Lean 5787806106 `## Bound remedy` has four list items: put the literal pin on rung 3 and the pnpm sibling; extend `scripts/verify-cold-start-readme.mjs` so those commands carry the pin; keep Module 1 command-free, no sixth helper, no root lockfile; record this as alignment, with the exact four-package graph remainder on leftover 69. That harvest does not recut `README.md:4` or the module-record exact-core claims onto the Lab 2 binary, and it does not add a required exact-graph path on the visible bootstrap. The CLI-only install still resolves engine 0.119.7. Issue 69 holds that unmet remainder.\n\nFailure mode. A `relieves: P1` cite on this harvest would assert coverage the visible bootstrap still lacks. `operator-deferred: P1 #69` is the closed form for that split, and 69 is not issue 63.\n\nDisposition. Keep the cite. This harvest can bind with it.\n\n## 2. scanPainCites emits one P1 disposition\nclass: footnote\n\nEvidence. One operative cite, one disposition, rejected empty. Take-map headings emit no second disposition. `parseAuditToken` on `audit:pain-P1 … reading=independent` returns null; the same pointer with `reading=asserted` parses. Bare `P1` in the summary is a placement miss with no parser effect.\n\n## Injection / swarm lens\n\nThe remainder harvest still edits the agent-followed cold-start command and a host-global npm install path. The disposable exact-graph control remains Lab 2 `overrides` plus `verifyInstalledGraph`, now on leftover 69. The deferred cite does not assert that control on the visible bootstrap.\n\n## Road not taken\n\nRejected: treat the alignment pin as `relieves: P1`. `evaluateBoundRemedyCites` with `coveredIds: [P1]` is `{ok: false}`, and the CLI-only install still prints engine 0.119.7. Flip if a later harvest recuts `README.md:4` and the module-record exact-core claims onto the project-local fixture binary, or adds a required exact-graph path on the visible bootstrap, while this cite remains `operator-deferred`.\n\n",
+          "id": 5787897830,
+          "html_url": "https://github.com/deftai/directive-training/issues/63#issuecomment-5787897830",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:27:59Z",
+          "updated_at": "2026-09-23T02:27:59Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\n\nBound contract: successor lean 5787806106.\n\n",
+          "id": 5787908392,
+          "html_url": "https://github.com/deftai/directive-training/issues/63#issuecomment-5787908392",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:29:09Z",
+          "updated_at": "2026-09-23T02:29:09Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5544448158,
+        "origin": "deftai/directive-training#63",
+        "id": "github.issue.5544448158"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "e8c473daee926dc3f8010bab8664c327d60d79ed1e4e04dd37d11c90139b5db9"
+      }
+    },
+    "id": "github.issue.5544448158",
+    "updated": "2026-09-23T16:45:11Z"
+  }
+}

@@ -1,0 +1,313 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #67",
+    "updated": "2026-09-23T16:45:17Z"
+  },
+  "plan": {
+    "title": "Lab 11 quotes clause-walk evidence absent from a passing Windows 0.119.5 run",
+    "status": "pending",
+    "narratives": {
+      "Description": "Align Lab 11 Task 3 and its explained solution with the retained literal-acceptance stdout that the fixture's Directive 0.119.5 runner actually emits. This independently buildable story is limited to the Task 3 inspect fragment and classification, their Module 11 content contracts, and the existing runtime observer; it does not promote Windows platform proof or recut the capstone.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/67",
+      "Overview": "## Situation\n\n`labs/11-testing-gates-and-evidence.md` Task 3 tells the learner to inspect\n`literal.json.literalAcceptance.stdout` and quotes this required evidence:\n\n```text\nverify:ac passed (#3284) (0 verified, 1 unverifiable) [rung=derived]\nverify:ac clause walk (#3323): 0 verified, 1 unverifiable, 0 failed\n  [unverifiable] clause 1 @ (no path): The focused test and numeric-summary CLI pass for an ordinary sample and an empty sample. — no artifact path bound\nLiteral acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim\nAC-pass bank checkpoint required (finalize-on-green) (#3285)\nunbounded budget — dual-stop still applies; bank is optional discipline\n```\n\nOn the documented Windows PowerShell route with the exact local 0.119.5 package graph, the helper's `literal` stage passed, `literalAcceptance.exitCode` and `forwardCoverage.exitCode` were both `0`, and `finalStatus` was `PASS`. The retained stdout was instead:\n\n```text\nverify:ac passed (#3284) [rung=derived]\nLiteral acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim\n  ✓ npm run test:focused — exit 0 (expected 0)\n  ✓ npm run check:behavior — exit 0 (expected 0)\nAC-pass bank checkpoint required (finalize-on-green) (#3285)\nunbounded budget — dual-stop still applies; bank is optional discipline\n[deft ac-pass-banking] banked scope=northstar.testing.summary-average next=finalize_and_deepen had_surplus=true (#3285)\n```\n\nIt contained no verified/unverifiable counts, clause-walk summary, or `[unverifiable] clause 1` line for the learner to inspect and classify.\n\nThe installed graph was verified with `npm ls`: CLI, core, content, and types all resolved to `0.119.5`.\n\n## Learner pain\n\nThe lab asks me to inspect and classify evidence that does not exist in my retained artifact. Because the helper and every relevant exit signal are green, the page gives me no way to decide whether my run is valid, whether Windows is unsupported for this step, or whether I should keep debugging a passing gate. This undermines the module's central lesson that retained evidence should make a result independently auditable.\n\n## Proposed fix\n\nRevalidate the Task 3 stdout on the documented platforms using the exact course graph, then do one of the following:\n\n- update the quoted output to the invariant 0.119.5 form actually produced across platforms; or\n- teach both observed variants explicitly and state that the count/clause-walk lines may be absent, with acceptance based on `finalStatus: PASS`, both exit codes being `0`, and the two literal command-success lines.\n\nIf platform or runtime conditions control the variant, name those conditions and add explicit acceptance criteria so a learner does not treat a missing clause walk as a failed run. Lock the documented variants in the existing course content check so the quote cannot drift again.\n\n## Environment\n\n- Windows / PowerShell 7.6.5\n- Node 26.8.1, npm 11.19.0\n- `@deftai/directive`, core, content, and types: exact `0.119.5`\n- disposable no-remote Lab 11 repository\n\n## Dedupe\n\n- #56 is directly related but distinct. It reported that a macOS 0.119.5 run *did* print the count and clause-walk lines without explanation; PR #57 added the current quote. This report shows that the resulting required quote is absent from a passing Windows run.\n- #54 concerns unpublished `quality-record.json` tokens, not Task 3 stdout.\n- #59 concerns missing tool-version prechecks, not retained literal evidence.\n\nNo Directive source or framework internals were consulted.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready",
+      "UserStory": "As a Lab 11 learner, I want the Task 3 evidence quote and classification to match the retained Directive 0.119.5 stdout, so that I can audit a passing run without searching for clause-walk evidence the fixture never emits.",
+      "ImplementationPlan": "1. Replace the Task 3 and matching solution fences with the retained 0.119.5 fragment: the simple derived-pass lead, literal command gate, two successful command lines, AC-pass-bank notes, and banked line. 2. Recut the nearby classification onto those observed lines and remove the teach-both-variants and platform-controlled-variant framing. 3. Narrow the Module 11 verifier and negative tests to lock the observed fragment and reject the obsolete walk/no-path phrases only inside the Task 3 and matching solution inspect surfaces. 4. Extend the existing full-lab runtime observation to prove the retained stdout and authored content stay aligned.",
+      "Acceptance": "1. Given the Lab 11 Task 3 page and its explained solution, when a learner compares either quote with a passing 0.119.5 fixture artifact, then both show the retained simple pass lead, literal gate, two successful npm command lines, AC-pass-bank notes, and banked line. 2. Given the Task 3 classification, when the learner classifies the retained evidence, then the two stored commands are identified as literal-acceptance proof while the derived rung and bank lines are identified as upstream diagnostics. 3. Given a mutation that removes a retained token or restores clause-walk/no-artifact-path text in the targeted Task 3 or solution inspect fragment, when the Module 11 verifier tests run, then they fail without imposing a course-wide vocabulary ban. 4. Given the existing full Lab 11 fixture observation, when its 0.119.5 literal stage passes, then the retained stdout carries the same locked tokens and the final lab result remains PASS.",
+      "Traces": "Bound GitHub issue https://github.com/deftai/directive-training/issues/67, accepted contract comments https://github.com/deftai/directive-training/issues/67#issuecomment-5786105063 and https://github.com/deftai/directive-training/issues/67#issuecomment-5787732238, the preserved admitted-target digest, the operator-approved 59-69 allocation, and PROJECT-DEFINITION LearningGoals, DirectiveBaseline, LabModel, and SourceOfTruth."
+    },
+    "items": [
+      {
+        "title": "Replace the Task 3 fence in `labs/11-testing-gates-and-evidence.md` and the matching explained-solution fence with the retained `literal.json.literalAcceptance.stdout` from this fixture's 0.119.5 runner.",
+        "status": "proposed",
+        "id": "clause:1",
+        "narrative": {
+          "Acceptance": "Given the Task 3 lab and matching solution fences, when they are compared with a passing fixture artifact, then both contain the retained 0.119.5 simple pass lead, literal gate, two successful npm command lines, AC-pass-bank notes, and banked line.",
+          "Traces": "Issue #67 bound remedy clause 1"
+        }
+      },
+      {
+        "title": "Drop the teach-both-variants arm and the platform-controls-the-variant arm for this fixture.",
+        "status": "proposed",
+        "id": "clause:2",
+        "narrative": {
+          "Acceptance": "Given either targeted inspect surface, when a learner reads the 0.119.5 evidence guidance, then it presents one retained fixture fragment and does not teach a Windows/macOS dual variant or a platform-controlled variant.",
+          "Traces": "Issue #67 bound remedy clause 2"
+        }
+      },
+      {
+        "title": "Recut Task 3 classification bullets onto lines that stdout actually carries: the two stored npm commands as the literal-acceptance proof; `[rung=derived]` and the AC-pass-bank dual-stop lines as upstream 0.119.5 diagnostics.",
+        "status": "proposed",
+        "id": "clause:3",
+        "narrative": {
+          "Acceptance": "Given the retained fragment, when the Task 3 classification is applied, then the two stored npm commands are classified as literal-acceptance proof and the derived-rung and AC-pass-bank lines are classified as upstream diagnostics.",
+          "Traces": "Issue #67 bound remedy clause 3"
+        }
+      },
+      {
+        "title": "Recut `scripts/verify-module-11.mjs` so the lab page and explained solution lock tokens from that retained fragment. Drop the walk-phrase and `no artifact path bound` fragment locks on Lab 11.",
+        "status": "proposed",
+        "id": "clause:4",
+        "narrative": {
+          "Acceptance": "Given a mutation that removes a retained token or restores clause-walk/no-artifact-path evidence in the Task 3 or matching solution inspect fragment, when the Module 11 verifier tests and full-lab observer run, then the mutation fails and the runtime/content token sets remain aligned.",
+          "Traces": "Issue #67 bound remedy clause 4 and approved allocation expected result"
+        }
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/67",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #67: Lab 11 quotes clause-walk evidence absent from a passing Windows 0.119.5 run"
+      }
+    ],
+    "metadata": {
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "no artifact path bound",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L8"
+        }
+      ],
+      "kind": "story",
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "labs/11-testing-gates-and-evidence.md",
+          "solutions/lab-11-testing-gates-and-evidence.md",
+          "scripts/verify-module-11.mjs",
+          "scripts/verify-module-11.test.mjs",
+          "scripts/gates-lab.test.mjs",
+          "xbrief/active/2026-09-23-67-lab-11-quotes-clause-walk-evidence-absent-from-a-passing-win.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:module-11",
+          "node --test scripts/verify-module-11.test.mjs",
+          "npm run test:module-11"
+        ],
+        "expected_outputs": [
+          "Lab 11 and its solution quote the retained Directive 0.119.5 literal-acceptance stdout and classify only evidence present in that fragment",
+          "Module 11 verifier tests reject missing retained tokens and targeted reintroduction of obsolete clause-walk/no-path evidence",
+          "The full Lab 11 runtime observer confirms the authored quote and retained fixture stdout stay aligned"
+        ],
+        "depends_on": [
+          "github.issue.5544890483"
+        ],
+        "conflict_group": "module11-verifier",
+        "size": "medium",
+        "file_scope_confidence": "high",
+        "model_tier": "high"
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because Lab 11 Task 3 quotes clause-walk counts as required inspect evidence, and the content check locks those phrases\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the missing-token spend ask with option 2 mixed spend; this is a closed identity recut of the Lab 11 Task 3 quoted evidence versus the locked 0.119.5 inspect fragment\npain: P1\nP1: labs/11-testing-gates-and-evidence.md:121-131 quotes clause-walk counts and [unverifiable] clause 1 as required inspect evidence; scripts/verify-module-11.mjs:240-247 locks 0 verified, 1 unverifiable and no artifact path bound in the lab page\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\n\n",
+          "id": 5785829571,
+          "html_url": "https://github.com/deftai/directive-training/issues/67#issuecomment-5785829571",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:11:34Z",
+          "updated_at": "2026-09-22T23:11:34Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nround: 1\ncritic-role: fresh\nissue: 67\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\nid-ceiling: 5785829571\n\nThe recut binds as one quote of the helper-retained `literal.json.literalAcceptance.stdout` this fixture's 0.119.5 runner already emits. It cannot bind as a Windows/macOS dual quote, and it cannot keep the #56 walk-phrase locks or unverifiable classification as required inspect evidence.\n\nFinding census: **0 `blocks-the-design`**, **2 `sharpens-framing`**, **2 `footnote`**.\n\n## Re-verification of the triage anchors\n\nStop 1 P1 holds as a page description. At `a484f30613f16d1da3c8f7a01edb5d67e562a12e`:\n\n- `labs/11-testing-gates-and-evidence.md` Task 3 (lines 121-131) quotes clause-walk counts and `[unverifiable] clause 1` as the inspect fragment.\n- `scripts/verify-module-11.mjs` (lines 240-247) locks `0 verified, 1 unverifiable` and `no artifact path bound` on that page. `node scripts/verify-module-11.mjs` exits 0 (29 artifacts).\n\nThe helper-authored story stamps `plan.acceptance` as `{ commands: [\"npm run test:focused\", \"npm run check:behavior\"], none_stated: false, source_rung: \"derived\" }` with no `clauses` array (`gates-lab.mjs` `story()`). `verifyActiveStory` freezes that object's digest.\n\nPublished `@deftai/directive-core@0.119.5` `applyClauseWalk` returns the pre-walk result when `acceptance.clauses` is empty. `relabelVerifyAcPassLead` keeps the simple pass lead when `clauseOutcomes` is empty. `literal-acceptance/run.js` always adds the two `✓` command lines on pass. `maybeAttachAcPassBank` appends the AC-pass-bank notes after a `verified-pass` (successful runs classify as that).\n\nThrowaway helper run this session, Node v24.20.0, exact CLI/core/content/types `0.119.5`, macOS, `finalStatus: PASS`, `literalAcceptance.exitCode: 0`, live `plan.acceptance` still `{commands, none_stated, source_rung}`:\n\n```text\nverify:ac passed (#3284) [rung=derived]\nLiteral acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim\n  ✓ npm run test:focused — exit 0 (expected 0)\n  ✓ npm run check:behavior — exit 0 (expected 0)\nAC-pass bank checkpoint required (finalize-on-green) (#3285)\nunbounded budget — dual-stop still applies; bank is optional discipline\n[deft ac-pass-banking] banked scope=northstar.testing.summary-average next=finalize_and_deepen had_surplus=true (#3285)\n```\n\nThat string is the issue's Windows paste. A prior complete helper attempt on this host (2026-09-21) retained the same stdout.\n\nCalling `walkAcceptanceClauses` on a hand-built clause 1 with `artifact_path: null` produces the Task 3 walk lines (`0 verified, 1 unverifiable` / `[unverifiable] clause 1 @ (no path): … — no artifact path bound`). The helper never puts that clause array on the active brief, so `verify:ac` never prepends those lines.\n\n## Findings\n\n### 1. Quote the retained helper stdout as the single 0.119.5 inspect fragment\n\nclass: sharpens-framing\n\nEvidence: the live helper stdout above; empty `plan.acceptance.clauses` on the live brief; `applyClauseWalk` early-return; the issue paste matching this macOS capture byte-for-byte on the pass lead, the two `✓` lines, the two checkpoint lines, and the banked line. The current Task 3 fence also omits those `✓` lines, which the 0.119.5 pass path always emits, so no engine path emits the current fence verbatim.\n\nFailure mode: a dual-variant recut would teach a Windows form and a macOS form for one runner output. A learner on either documented path would still fail to find the walk lines the page calls required inspect evidence. An implementer who kept the current fence as \"the macOS form\" would ship the #56 miss again.\n\nDisposition: after the revalidation the body already asks for, bind option 1 as the whole recut: replace the Task 3 fence (and the matching explained-solution fence) with the retained stdout. Drop the \"teach both observed variants\" arm and the \"if platform or runtime conditions control the variant\" arm for this fixture. Recut the Task 3 classification bullets onto lines that stdout actually carries: the two stored npm commands as the literal-acceptance proof; `[rung=derived]` and the AC-pass-bank dual-stop lines as upstream 0.119.5 diagnostics.\n\nRoad-not-taken: hand-stamp `plan.acceptance.clauses` on the helper story so `applyClauseWalk` would emit the #56 walk lines. That is a new fixture contract. This lab never runs `scope:activate` / `scope:promote` (the 0.119.5 stamper that fills clauses while commands exist). O11.6 already asks for passing `verify:ac` results in `literal.json`. Flip that verdict if the lab starts teaching #3323 activate as a required step whose purpose is the walk vocabulary.\n\n### 2. Recut the Module 11 fragment locks onto the retained stdout\n\nclass: sharpens-framing\n\nEvidence: `scripts/verify-module-11.mjs` lines 240-247 require the lab page to include `0 verified, 1 unverifiable` and `no artifact path bound`. Lines 256-260 require the explained solution to include Lab 11 clause 1 text and `no artifact path bound`. `scripts/gates-lab.test.mjs` \"full lab retains ordered red-green-refactor and aggregate diagnosis evidence\" already runs this helper through `literal` on the `labs-7-10-11-platform-validation` matrix (`macos-node24`, `linux-node24`, `windows-node24`) and asserts `finalStatus: PASS` only. It never reads `literal.json.literalAcceptance.stdout`.\n\nFailure mode: replacing the fenced quote while leaving those locks in place either fails `check:module-11` or keeps forcing the page to name walk phrases the runner does not retain. A page-only include check is also how the current fence shipped: it locks whatever phrases the markdown contains, with no observer of retained stdout.\n\nDisposition: recut the existing Module 11 content check so the lab page (and the explained solution) lock tokens from the retained fragment: `verify:ac passed (#3284) [rung=derived]`, `Literal acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim`, and the two `✓` command lines. Drop the walk-phrase and `no artifact path bound` fragment locks on Lab 11. The existing full-lab test is the in-repo observer of retained stdout; asserting those same tokens there is what makes \"the quote cannot drift again\" true against the runner.\n\n### 3. Capstone currently locks the same walk phrases on the same acceptance shape\n\nclass: footnote\n\n`labs/fixtures/capstone-end-to-end/capstone-lab.mjs` stamps the same `commands` / `none_stated: false` / `source_rung: \"derived\"` acceptance with no `clauses`. `scripts/verify-capstone.mjs` lines 549-557 lock `0 verified, 1 unverifiable` and `no artifact path bound` on the capstone lab page. That is the same inspect identity on another surface. This envelope's target is Lab 11 Task 3.\n\n### 4. Inspect-identity recut leaves the Windows platform-proof at candidate\n\nclass: footnote\n\n`references/SOURCE-BASELINE.md` still records `teaching-platform-proof:windows-pwsh7 status=candidate`. `scripts/verify-module-11.mjs` already refuses promoting that row to `verified`. Lab 11 still names Windows/PowerShell as a candidate. Quoting the retained stdout does not by itself complete a native Windows 0.119.5 platform proof.\n\n",
+          "id": 5786046876,
+          "html_url": "https://github.com/deftai/directive-training/issues/67#issuecomment-5786046876",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:27:30Z",
+          "updated_at": "2026-09-22T23:27:30Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLab 11 Task 3 quotes clause-walk lines that this fixture's 0.119.5 helper does not retain. Confirming this map would replace that quote with the retained stdout and recut the Module 11 fragment locks onto those tokens.\n\nParent forward verdict: P1 holds as a quote the runner never emits; a dual Windows/macOS quote cannot bind.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5785829571 and these takes; the evidence is critic 5786046876.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5786046876\nsupersedes: 5785829571\nTarget-digest: sha256:b40751c24c0fa614664211af075908cbef0d38e9b5627a9ef12869ba384d178a\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Quote the retained helper stdout as the single 0.119.5 inspect fragment\ntake: accept-into-contract\ncritic: 5786046876\nheading: Quote the retained helper stdout as the single 0.119.5 inspect fragment\n\n### Recut the Module 11 fragment locks onto the retained stdout\ntake: accept-into-contract\ncritic: 5786046876\nheading: Recut the Module 11 fragment locks onto the retained stdout\n\nrelieves: P1\naudit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5786046876 reading=asserted\n\n## Bound remedy\n\n- Replace the Task 3 fence in `labs/11-testing-gates-and-evidence.md` and the matching explained-solution fence with the retained `literal.json.literalAcceptance.stdout` from this fixture's 0.119.5 runner.\n- Drop the teach-both-variants arm and the platform-controls-the-variant arm for this fixture.\n- Recut Task 3 classification bullets onto lines that stdout actually carries: the two stored npm commands as the literal-acceptance proof; `[rung=derived]` and the AC-pass-bank dual-stop lines as upstream 0.119.5 diagnostics.\n- Recut `scripts/verify-module-11.mjs` so the lab page and explained solution lock tokens from that retained fragment. Drop the walk-phrase and `no artifact path bound` fragment locks on Lab 11.\n\n",
+          "id": 5786105063,
+          "html_url": "https://github.com/deftai/directive-training/issues/67#issuecomment-5786105063",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:31:50Z",
+          "updated_at": "2026-09-22T23:31:50Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nround: 2\ncritic-role: fresh\nissue: 67\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\nid-ceiling: 5786105063\n\n## Verdict\n\nSuccessor lean 5786105063's `relieves: P1` holds. Bound-remedy covers P1 as Stop 1 write-back 5785829571 named it. `scanPainCites` on this lean body emits one disposition for `P1`: `relieves`.\n\nFinding census: **0 `blocks-the-design`**, **0 `sharpens-framing`**, **0 `footnote`**.\n\n## Re-verification\n\nChecks at dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`. In-envelope input is the issue body plus comments 5785829571, 5786046876, and 5786105063. Parsers from `@deftai/directive-core@0.119.5`. Throwaway `/tmp` helper run this session.\n\n| Anchor | Result | Check |\n|---|---|---|\n| Stop 1 `pain: P1` | holds | `scanPainList` → present, ids `[P1]`, duplicates `[]`, malformed `false` |\n| Lab 11 Task 3 fence | holds | `git show` `labs/11-testing-gates-and-evidence.md:121-131` quotes walk counts and `[unverifiable] clause 1` as required inspect evidence |\n| Module 11 fragment locks | holds | `scripts/verify-module-11.mjs:240-247` requires `0 verified, 1 unverifiable` and `no artifact path bound` on the lab page; `node scripts/verify-module-11.mjs` exits 0 (29 artifacts) |\n| Helper-retained stdout | holds | this-session 0.119.5 helper, Node v24.20.0, pin `0.119.5`: `finalStatus: PASS`, both exit codes `0`; live `plan.acceptance` is `{commands, none_stated, source_rung}`; stdout is the simple pass lead, two `✓` command lines, and the AC-pass-bank notes |\n| Empty-clause engine path | holds | `applyClauseWalk` returns the pre-walk result when `clauses.length === 0`; `relabelVerifyAcPassLead` keeps the simple pass lead when `clauseOutcomes` is empty; `literal-acceptance/run.js` adds the two `✓` lines on pass |\n| Walk lines from a clause array | holds | `walkAcceptanceClauses` on a hand-built clause 1 with `artifact_path: null` emits the Task 3 walk lines |\n| `scanPainCites` on lean 5786105063 | well-formed | one cite `{painId: \"P1\", disposition: \"relieves\"}`; `rejected: []`; `classifyPosition` on the `relieves: P1` line-start is null (operative); dispositions for `P1` are `{relieves}` |\n\nRetained stdout this session:\n\n```text\nverify:ac passed (#3284) [rung=derived]\nLiteral acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim\n  ✓ npm run test:focused — exit 0 (expected 0)\n  ✓ npm run check:behavior — exit 0 (expected 0)\nAC-pass bank checkpoint required (finalize-on-green) (#3285)\nunbounded budget — dual-stop still applies; bank is optional discipline\n[deft ac-pass-banking] banked scope=northstar.testing.summary-average next=finalize_and_deepen had_surplus=true (#3285)\n```\n\nThat string matches the issue body's Windows paste on the pass lead, the two `✓` lines, the two checkpoint lines, and the banked line.\n\n## Coverage\n\nStop 1 named P1 as two conjuncts: the Task 3 inspect fence, and the 240-247 fragment locks.\n\nBound-remedy covers both. It replaces the Task 3 fence and the matching explained-solution fence with that retained stdout, recuts the Task 3 classification bullets onto the two stored npm commands, `[rung=derived]`, and the AC-pass-bank dual-stop lines, and recuts `scripts/verify-module-11.mjs` so the lab page and explained solution lock tokens from that fragment while dropping the walk-phrase and `no artifact path bound` locks.\n\nThe explained-solution fence at `solutions/lab-11-testing-gates-and-evidence.md:100-107` currently quotes the same walk lines. Replacing it retires the inspect identity on that page. The clause-1 sentence `The focused test and numeric-summary CLI pass for an ordinary sample and an empty sample.` currently lives only inside those two fences; recutting the lab-page and explained-solution fragment locks onto retained-fragment tokens leaves that sentence outside the lock set.\n\n## Parser\n\n`evaluatePainCitePlacement` for a bind lean reports `operativeCiteCount: 1`. `PAIN_CITE_RE` matches the `relieves: P1` line-start. The prose line `Parent forward verdict: P1 holds as a quote the runner never emits` is ordinary P1 mention. The two take headings carry no disposition keyword.\n\n",
+          "id": 5787684238,
+          "html_url": "https://github.com/deftai/directive-training/issues/67#issuecomment-5787684238",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:02:27Z",
+          "updated_at": "2026-09-23T02:02:27Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\n\nBound contract: successor lean 5786105063.\n\n",
+          "id": 5787732238,
+          "html_url": "https://github.com/deftai/directive-training/issues/67#issuecomment-5787732238",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:08:24Z",
+          "updated_at": "2026-09-23T02:08:24Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5544902927,
+        "origin": "deftai/directive-training#67",
+        "id": "github.issue.5544902927"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "b40751c24c0fa614664211af075908cbef0d38e9b5627a9ef12869ba384d178a"
+      }
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Replace the Task 3 fence in `labs/11-testing-gates-and-evidence.md` and the matching explained-solution fence with the retained `literal.json.literalAcceptance.stdout` from this fixture's 0.119.5 runner.",
+          "artifact_path": "labs/11-testing-gates-and-evidence.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Drop the teach-both-variants arm and the platform-controls-the-variant arm for this fixture.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Recut Task 3 classification bullets onto lines that stdout actually carries: the two stored npm commands as the literal-acceptance proof; `[rung=derived]` and the AC-pass-bank dual-stop lines as upstream 0.119.5 diagnostics.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Recut `scripts/verify-module-11.mjs` so the lab page and explained solution lock tokens from that retained fragment. Drop the walk-phrase and `no artifact path bound` fragment locks on Lab 11.",
+          "artifact_path": "scripts/verify-module-11.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5544902927",
+    "updated": "2026-09-23T16:45:17Z"
+  }
+}

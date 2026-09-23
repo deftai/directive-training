@@ -1,0 +1,265 @@
+{
+  "schemaVersion": 1,
+  "algo": "intent-extract-v1",
+  "plan": {
+    "title": "Lab 11 Windows route cannot pause for its three required edits",
+    "narratives": {
+      "Description": "The Lab 11 Native Windows route places comments before `red`, `green`, `refactor`, and `final` inside one pasted fence, so none of the mandatory learner edits can occur before the corresponding helper transition. The accepted remedy creates real Task-stage handoffs, including a distinct post-green source change before refactor, and locks those boundaries in the Module 11 content verifier.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/66",
+      "Overview": "## Situation\n\nIn `labs/11-testing-gates-and-evidence.md`, the **Native Windows PowerShell 7.4+ route** is presented as one code block to run. It creates and installs a unique attempt, but then relies on comments as if they paused execution for three mandatory learner edits:\n\n1. add the specified focused test before `red`;\n2. implement the specified source behavior before `green` and `refactor`; and\n3. repair only `quality-record.json` before `final`.\n\nEach comment is immediately followed by the helper verb that requires the edit. A pasted PowerShell block does not pause at a comment, so the helper runs against the previous state.\n\n## Pain\n\nFollowing the Windows route literally cannot produce the required red/green/refactor/final sequence: `red` runs before the test can be added, `green` runs before the source can be implemented, and `final` runs before the diagnosed quality record can be repaired.\n\nI completed the lab only by splitting the supplied route into undocumented stages, preserving `$LabRoot`, making each bounded edit, and resuming at the correct helper verb. This forces a learner to redesign the platform route before they can learn the testing and evidence workflow it is meant to teach.\n\n## Proposed fix\n\nSplit the route into executable phases with explicit handoff checkpoints:\n\n- **Phase A:** create, guard, and install; print and retain `$LabRoot`.\n- **Test pause:** make and inspect the one allowed test edit, then run `red`.\n- **Source pause:** make and inspect the one allowed source edit, then run `green`, `refactor`, `literal`, and `aggregate`.\n- **Quality-record pause:** repair only `quality-record.json` from the retained evidence, then run `final`, evidence checks, reset, and archive.\n\nAlternatively, provide an intentional interactive/helper handoff that returns control at each edit boundary and gives an explicit resume command. Comments inside one pasted block are not control-flow checkpoints.\n\n## Related but distinct\n\n- #59 concerns Lab 11's missing executable tool pre-check.\n- #54 concerns previously unpublished exact quality-record tokens.\n- #60 concerns zsh-only preflight in Labs 7 and 10.\n- #64 and #65 report analogous pause failures in Labs 7 and 10; neither covers Lab 11's three ordered manual edits and evidence sequence.\n\nNo Directive source or framework internals were consulted.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready",
+      "UserStory": "As a Windows learner completing Lab 11, I want each required test, source, refactor, and quality-record edit to have an explicit handoff, so that the evidence sequence runs against the intended state at every gate.",
+      "ImplementationPlan": "1. Split the Native Windows route at the Task 1 test edit, Task 2 implementation edit, Task 2 post-green refactor edit, and Task 4 quality-record edit while retaining `$LabRoot` across phases.\n2. Keep `green` between the two source edits so `refactor` observes a new source digest, then preserve the existing literal, aggregate, final, evidence, reset, and archive order.\n3. Leave the helper verb surface unchanged and keep all manual edits in prose between PowerShell fences rather than comments or interactive prompts inside a paste.\n4. Extend the Module 11 verifier and negative tests using the established fence-extraction pattern so comments and same-fence ordering cannot satisfy the pause contract.",
+      "Traces": "Accepted bound remedy on deftai/directive-training#66, comment 5786104752, independently audited in comment 5787674566 and confirmed by parent synthesis 5787731229; approved allocation is xbrief/.triage-cache/decompositions/59-69-allocation.md."
+    },
+    "items": [
+      {
+        "id": "clause:1",
+        "title": "Split the Lab 11 Native Windows powershell fence at the Task 1, Task 2 implement, Task 2 refactor, and Task 4 boundaries. Keep `$LabRoot` across those phases.",
+        "narrative": {
+          "Acceptance": "The Native Windows route has separate executable phases around the Task 1 test edit, Task 2 implementation edit, Task 2 refactor edit, and Task 4 quality-record edit, and every phase reuses the retained `$LabRoot` rather than creating a new attempt.",
+          "Traces": "Issue #66 accepted bound remedy comment 5786104752, clause 1."
+        }
+      },
+      {
+        "id": "clause:2",
+        "title": "Give the post-green source digest change its own checkpoint before `refactor`, matching Task 2 and `recordRefactor`.",
+        "narrative": {
+          "Acceptance": "The route instructs the learner to implement and run `green`, then returns control for a second source-only refactor edit before `refactor`; no fence invokes `green` and `refactor` against identical source bytes.",
+          "Traces": "Issue #66 accepted bound remedy comment 5786104752, clause 2, and digest failure evidence in critic comment 5785979892."
+        }
+      },
+      {
+        "id": "clause:3",
+        "title": "Lock the split with the Lab 2 fence-extract pattern. Do not add a helper pause verb.",
+        "narrative": {
+          "Acceptance": "The Module 11 verifier parses the Native Windows PowerShell fences and fails when comments or same-fence text stand in for any required handoff, while the helper verb list remains unchanged and gains no pause/resume verb.",
+          "Traces": "Issue #66 accepted bound remedy comment 5786104752, clause 3, confirmed by audit comment 5787674566."
+        }
+      }
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/66",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #66: Lab 11 Windows route cannot pause for its three required edits"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 3 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Split the Lab 11 Native Windows powershell fence at the Task 1, Task 2 implement, Task 2 refactor, and Task 4 boundaries. Keep `$LabRoot` across those phases.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Give the post-green source digest change its own checkpoint before `refactor`, matching Task 2 and `recordRefactor`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Lock the split with the Lab 2 fence-extract pattern. Do not add a helper pause verb.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "file_scope": [
+          "labs/11-testing-gates-and-evidence.md",
+          "scripts/verify-module-11.mjs",
+          "scripts/verify-module-11.test.mjs",
+          "xbrief/active/2026-09-23-66-lab-11-windows-route-cannot-pause-for-its-three-required-edi.xbrief.json"
+        ]
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the Lab 11 Windows route is one pasted block that comments the test, source, and quality-record edits then immediately runs red, green, and final\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the missing-token spend ask with option 2 mixed spend; this is a closed identity recut of the Lab 11 Windows pasted block versus the three required edit pauses\npain: P1\nP1: labs/11-testing-gates-and-evidence.md:275-294 one pasted block comments the test/source/quality-record edits then immediately runs red, green, and final\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\n\n",
+          "id": 5785829241,
+          "html_url": "https://github.com/deftai/directive-training/issues/66#issuecomment-5785829241",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:11:33Z",
+          "updated_at": "2026-09-22T23:11:33Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh critic of issue 66 at dispatch-sha `a484f30613f16d1da3c8f7a01edb5d67e562a12e`, id ceiling 5785829241. Target: the Lab 11 Windows pasted block versus the three required edit pauses.\n\n## 1. Source pause still runs refactor on the green digest\n\nblocks-the-design\n\nEvidence. The issue's Source pause is one source edit, then `green`, `refactor`, `literal`, and `aggregate`. The Windows fence at `labs/11-testing-gates-and-evidence.md:287-289` is the same shape: one comment, then `green` then `refactor`. Task 2 (`:97-109`) already splits that work: implement average, run `green`, change `src/summary.mjs` again so `count` and `average` are named locals, then run `refactor`. `gates-lab.mjs:485` asserts `sourceDigest !== marker.greenSourceDigest` with `Stop: refactor requires an observable source-only change after green.` `scripts/gates-lab.test.mjs:109-116` is the same four-step sequence (`addAverageTest` → `recordRed` → `implementAverage` → `recordGreen` → `refactorAverage` → `recordRefactor`). Throwaway helper probe at this SHA: after implement and `green`, `recordRefactor` without a second source edit returns `Stop: refactor requires an observable source-only change after green.` Combining implement and the named-locals change into one edit before `green` still yields `green` PASS and the same refactor stop.\n\nFailure mode. A learner who follows the three-pause recut as written changes `src/summary.mjs` once, then runs `green` and `refactor`. Green stores `greenSourceDigest`. Refactor hashes the same bytes and stops. `refactor.json` is never retained, so the ordered six-file evidence bundle cannot form.\n\nDisposition. The recut can bind only when the Windows route gives the post-green source digest change its own checkpoint before `refactor`, matching Task 2 and `recordRefactor`.\n\n## 2. Split the existing fence along Task stages and lock it with the Lab 2 extract\n\nsharpens-framing\n\nEvidence. Unix Tasks 1, 2, and 4 already sequence the helper-gated mutations, and Task 2 already splits implement/`green` from refactor. `gates-lab.mjs:600-612` `main()` dispatches `create | guard | install | red | green | refactor | literal | aggregate | final | reset | archive`. There is no pause or resume verb. The capstone lab already uses a written Pause between install/orient and activate. `scripts/verify-module-11.mjs:214-216` only requires `gates-lab.mjs ${verb}` in lab prose (the guarded-interface sentence). It does not parse the PowerShell fence. `scripts/verify-module-11.test.mjs` has no PowerShell fence assertion. `node scripts/verify-module-11.mjs` at this SHA prints `Module 11 content contract: ok (29 artifacts, 0 missing)` while the single paste remains. `scripts/verify-modules-2-3.mjs:519-524` already extracts a ```powershell fence and asserts on its body.\n\nFailure mode. A Bound-remedy that adds a helper handoff verb grows the guarded interface and the verifier verb loop. A markdown-only split with no fence assertion can be concatenated again and still pass `check:module-11`.\n\nDisposition. Split the existing PowerShell fence at the Task 1, Task 2 implement, Task 2 refactor, and Task 4 boundaries; keep `$LabRoot` across those phases; lock the split with the Lab 2 fence-extract pattern.\n\nRoad-not-taken. A `Read-Host` or new helper pause verb inside one paste. That still leaves `green` adjacent to `refactor` unless the source work is also split, and the stage verbs plus Unix tasks already are the checkpoints. Steelman of the three-pause Source pause as Task 2's whole source session, including a second edit after green: that reading works only when the posted recut names the green-between-edits checkpoint. The current Source-pause sentence does not.\n\n## 3. P1 comment-then-verb sites\n\nfootnote\n\nMeasured at this SHA in `labs/11-testing-gates-and-evidence.md`: fence `275-305`; comment `285` then `red` `286`; comment `287` then `green` `288` and `refactor` `289`; comment `293` then `final` `294`. Stop 1 P1 range `275-294` covers those three sites. Probe of create, local checkpoint, then `red` with no test edit: `Stop: red has an unexpected mutable path.`\n\n",
+          "id": 5785979892,
+          "html_url": "https://github.com/deftai/directive-training/issues/66#issuecomment-5785979892",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:22:35Z",
+          "updated_at": "2026-09-22T23:22:35Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe Lab 11 Windows paste comments three edits and then runs red, green, and final in one fence. Confirming this map would split that fence on Task stages, give the post-green source digest change its own checkpoint before refactor, and lock the split with the Lab 2 fence-extract pattern.\n\nParent forward verdict: P1 holds; the three-pause recut as written still fails refactor.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5785829241 and these takes; the evidence is critic 5785979892.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5785979892\nsupersedes: 5785829241\nTarget-digest: sha256:1308cf90ae1b58d8d4e728d3ff773e90d5d97e5a34249ca1afa331be9ba06618\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Source pause still runs refactor on the green digest\ntake: accept-into-contract\ncritic: 5785979892\nheading: Source pause still runs refactor on the green digest\n\n### Split the existing fence along Task stages and lock it with the Lab 2 extract\ntake: accept-into-contract\ncritic: 5785979892\nheading: Split the existing fence along Task stages and lock it with the Lab 2 extract\n\nrelieves: P1\naudit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5785979892 reading=asserted\n\n## Bound remedy\n\n- Split the Lab 11 Native Windows powershell fence at the Task 1, Task 2 implement, Task 2 refactor, and Task 4 boundaries. Keep `$LabRoot` across those phases.\n- Give the post-green source digest change its own checkpoint before `refactor`, matching Task 2 and `recordRefactor`.\n- Lock the split with the Lab 2 fence-extract pattern. Do not add a helper pause verb.\n\n",
+          "id": 5786104752,
+          "html_url": "https://github.com/deftai/directive-training/issues/66#issuecomment-5786104752",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:31:49Z",
+          "updated_at": "2026-09-22T23:31:49Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 pain-audit of comment 5786104752 at dispatch-sha `a484f30613f16d1da3c8f7a01edb5d67e562a12e`, id ceiling 5786104752. Marker `pain-P1`. In envelope: issue body, Stop 1 comment 5785829241, round-1 critic 5785979892, map 5786104752.\n\n## 1. scanPainCites on comment 5786104752 returns one operative `relieves: P1`\n\nfootnote\n\nEvidence. `scanPainList` on Stop 1 comment 5785829241 returns `present: true`, ids `[P1]`, empty `duplicates`, `malformed: false`. `scanPainCites` on comment 5786104752 returns `cites: [{ painId: \"P1\", disposition: \"relieves\", deferredIssueNumber: null }]` and `rejected: []`. `PAIN_CITE_RE` matches once: line 32 `relieves: P1`, `classifyPosition` null. Two other `P1` strings sit on that map: the summary line that says P1 holds, and `audit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5785979892 reading=asserted`. `parseAuditToken` accepts that token (`markerId` `pain-P1`). `evaluatePainCitePlacement` for a bind map returns `allowed: true`, `operativeCiteCount: 1`. `assertedPainIdsFromCites` returns `[P1]`. `applyPainCoverage` puts an id in `malformed-pain` when `dispositions.size > 1`; P1 has one row.\n\nFailure mode. A heading or prose match that added a second disposition for P1 would take the `malformed-pain` path. That second match is absent.\n\nDisposition. Comment 5786104752 is well-formed for `scanPainCites` on `pain-P1`.\n\n## 2. Bound-remedy harvest covers Stop 1 P1\n\nfootnote\n\nEvidence. Stop 1 P1 names `labs/11-testing-gates-and-evidence.md:275-294` as one pasted block that comments the test, source, and quality-record edits then immediately runs red, green, and final. At `a484f30613f16d1da3c8f7a01edb5d67e562a12e` that file has one `powershell` fence at `275-305`. Comment-then-verb sites inside the P1 range: `285` then `red` `286`; `287` then `green` `288` and `refactor` `289`; `293` then `final` `294`. Throwaway helper probe at this SHA: `recordRed` with the test file unchanged throws `Stop: red has an unexpected mutable path.` (actual `[]`, expected `test/summary.test.mjs`); after the specified test edit, red is `EXPECTED_FAILURE`; after implement, green is `PASS`; `recordRefactor` with the green source bytes unchanged throws `Stop: refactor requires an observable source-only change after green.` Unix Task 1 (`:78-93`) is the test edit then a `red` fence; Task 2 (`:97-109`) is implement then `green`, then a named-locals edit then `refactor`; Task 4 (`:183-186`) is the quality-record edit then `final`. `gates-lab.mjs:600-612` `main()` dispatches `create | guard | install | red | green | refactor | literal | aggregate | final | reset | archive`. `node scripts/verify-module-11.mjs` at this SHA prints `Module 11 content contract: ok (29 artifacts, 0 missing)` with that single paste still on the page; the matcher is lab prose `gates-lab.mjs ${verb}` (`verify-module-11.mjs:213-215`). The three list items after the Bound-remedy heading on comment 5786104752: split that fence at the Task 1, Task 2 implement, Task 2 refactor, and Task 4 boundaries and keep `$LabRoot`; give the post-green source digest change its own checkpoint before `refactor`, matching Task 2 and `recordRefactor`; lock the split with the Lab 2 fence-extract pattern (`verify-modules-2-3.mjs:518-524`) and omit a helper pause verb. Those four boundaries isolate the three P1 sites and the post-green digest change `recordRefactor` requires. `evaluateBoundRemedyCites` with `coveredIds: [\"P1\"]` and this map's cites returns `{ ok: true }`. Live issue-body SHA-256 equals the map digest pin `sha256:1308cf90ae1b58d8d4e728d3ff773e90d5d97e5a34249ca1afa331be9ba06618`.\n\nFailure mode. Shipping red, green, and final in one paste keeps the helper running against the prior state at those three sites. The harvest's task-boundary splits are the stages that isolate those runs.\n\nDisposition. `relieves: P1` on comment 5786104752 matches the harvest for Stop 1 P1.\n\nRoad-not-taken. Reading the harvest as four smaller pastes that still keep comment-then-verb inside each fence. Task 1, Task 2, and Task 4 at this SHA already keep the edit in markdown and the helper verb in its own fence; the harvest names those boundaries. A `Read-Host` or new helper pause verb sits outside harvest item 3.\n\n",
+          "id": 5787674566,
+          "html_url": "https://github.com/deftai/directive-training/issues/66#issuecomment-5787674566",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:01:13Z",
+          "updated_at": "2026-09-23T02:01:13Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\n\nBound contract: successor lean 5786104752.\n\n",
+          "id": 5787731229,
+          "html_url": "https://github.com/deftai/directive-training/issues/66#issuecomment-5787731229",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:08:17Z",
+          "updated_at": "2026-09-23T02:08:17Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5544890483,
+        "origin": "deftai/directive-training#66",
+        "id": "github.issue.5544890483"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "1308cf90ae1b58d8d4e728d3ff773e90d5d97e5a34249ca1afa331be9ba06618"
+      }
+    },
+    "id": "github.issue.5544890483"
+  },
+  "approvedRepos": [
+    "deftai/directive-training"
+  ],
+  "unknownPaths": [
+    "metadata.intended_placement",
+    "metadata.issueCommentThread",
+    "metadata.kind",
+    "metadata.x-directive/admitted-target-digest",
+    "metadata.x-directive/plan-id"
+  ]
+}

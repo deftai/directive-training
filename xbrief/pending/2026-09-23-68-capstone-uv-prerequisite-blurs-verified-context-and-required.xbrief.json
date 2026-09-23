@@ -1,0 +1,409 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #68",
+    "updated": "2026-09-23T16:45:19Z"
+  },
+  "plan": {
+    "title": "Capstone uv prerequisite blurs verified context and required version",
+    "status": "pending",
+    "narratives": {
+      "Description": "Make the course map and capstone starting-state guidance distinguish required tools from the versions used by the verified platform matrix. This independently buildable story keeps Node 22 or newer and uv availability as requirements, treats Task 3.50.0, uv 0.11.10, and Python 3.13.13 as evidence, and makes a different uv patch recordable rather than disqualifying.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/68",
+      "Overview": "## Course location\n\n- `curriculum/README.md` — Audience and prerequisites\n- `labs/capstone-end-to-end.md` — Environment and starting-state check\n\n## What happened\n\nThe course map says the capstone matrix uses Task 3.50.0 and uv 0.11.10. The lab then tells the learner to “Confirm Task and uv against the verified 3.50.0 and 0.11.10 context” and later says, “If any required value differs, stop and use the matching documented environment.”\n\nHowever, the actual prerequisite names Task and uv without an exact or minimum version contract. My Windows pre-check had Task 3.50.0 and uv 0.11.14. That left me unable to tell whether a newer uv patch required additional setup or a downgrade before `create`.\n\nI retained the mismatch as candidate-platform evidence and completed the entire exact Directive 0.119.5 capstone successfully with uv 0.11.14. That result suggests 0.11.10 is a verified context rather than an exact prerequisite, but the learner should not have to infer that at a fail-closed starting gate.\n\n## Learner pain\n\nThe ambiguity occurs before the guarded attempt begins, precisely where the course tells the learner to stop on a required-value difference. A learner can either stop unnecessarily and hunt for an undocumented uv selection procedure, or proceed while wondering whether they have violated the assessment conditions.\n\n## Proposed fix\n\nPublish one explicit uv contract in the course-wide prerequisite matrix and the capstone block:\n\n- if uv 0.11.10 is exact, assert it and document how learners select that version; or\n- if it is verified context only, say so directly, define any real minimum/compatibility rule, and state how a different installed version should be recorded on a candidate platform.\n\nThe same wording should distinguish “required value” from “verified context” so the stop condition is deterministic.\n\n## Sanitized environment\n\n- Windows 11 ARM64\n- PowerShell 7.6.5\n- Node v26.8.1 (Node-major assertion passed)\n- Task 3.50.0\n- uv 0.11.14\n- Exact local Directive CLI/core/content/types 0.119.5\n- Full no-remote capstone result: PASS through closeout, reset, and both archives\n\n",
+      "Labels": "documentation, design-critique:ingest-ready",
+      "UserStory": "As a capstone learner, I want required prerequisites separated from verified environment versions, so that I know whether to stop or record a harmless uv patch difference before creating the disposable lab.",
+      "ImplementationPlan": "1. Reword the course-map matrix bullet and capstone Expected paragraph so Node 22 or newer remains required while Task 3.50.0, uv 0.11.10, and Python 3.13.13 remain verified evidence. 2. Add the same pre-create stop-or-record predicate to the zsh and PowerShell routes, retaining required uv discovery and routing version observations through the existing capstone recording and Blocked-by-environment assessment fields. 3. Extend the focused capstone verifier and mutation tests to lock both shell routes and prove that a different observed uv patch is recorded, not rejected, while leaving CI pins unchanged as evidence provenance.",
+      "Acceptance": "1. Given the course prerequisite matrix and capstone Expected paragraph, when a learner reads them, then Node 22 or newer is identified as required and Task 3.50.0, uv 0.11.10, and Python 3.13.13 are identified as verified matrix evidence rather than exact prerequisites. 2. Given either documented shell route, when the learner reaches the point immediately before `create`, then the route states the same stop-or-record predicate and a different observed uv patch is recorded rather than treated as a stop. 3. Given Labs 7, 10, and 11 and the capstone, when uv availability is checked, then the three labs retain their required executable discovery and the capstone records the observed version without asserting exact 0.11.10 equality. 4. Given a mutation that removes the pre-create guidance from either shell route or turns a uv patch mismatch into an exact-version failure, when the focused capstone verifier tests run, then they fail while the existing assessment recording procedure and CI provenance remain intact.",
+      "Traces": "Bound GitHub issue https://github.com/deftai/directive-training/issues/68, accepted contract comments https://github.com/deftai/directive-training/issues/68#issuecomment-5786105400 and https://github.com/deftai/directive-training/issues/68#issuecomment-5787733229, assessments/capstone-end-to-end.md recording and Blocked-by-environment rows, the preserved admitted-target digest, the operator-approved 59-69 allocation, and PROJECT-DEFINITION SupportedEnvironments, LabModel, CourseShape, and SourceOfTruth."
+    },
+    "items": [
+      {
+        "title": "Classify required versus verified across the course-map matrix bullet and the capstone Expected paragraph. Node stays 22 or newer required. Task 3.50.0, uv 0.11.10, and Python 3.13.13 stay verified matrix evidence.",
+        "status": "proposed",
+        "id": "clause:1",
+        "narrative": {
+          "Acceptance": "Given the course-map matrix bullet and capstone Expected paragraph, when a learner reads them, then Node 22 or newer is required while Task 3.50.0, uv 0.11.10, and Python 3.13.13 are labeled verified matrix evidence.",
+          "Traces": "Issue #68 bound remedy clause 1"
+        }
+      },
+      {
+        "title": "Labs 7, 10, and 11 keep required `findExecutable(\"uv\")`. The capstone records an observed uv version when present and does not make 0.11.10 exact.",
+        "status": "proposed",
+        "id": "clause:2",
+        "narrative": {
+          "Acceptance": "Given Labs 7, 10, and 11 plus the capstone, when uv is checked, then the three labs still require a resolvable uv executable and the capstone records its observed version without requiring exact 0.11.10 equality.",
+          "Traces": "Issue #68 bound remedy clause 2"
+        }
+      },
+      {
+        "title": "State the stop-or-record predicate before each `create` call in both shell paths. A different observed uv patch is recorded and is not by itself a stop.",
+        "status": "proposed",
+        "id": "clause:3",
+        "narrative": {
+          "Acceptance": "Given either capstone shell route, when the learner reaches the point immediately before `create`, then the route states the same stop-or-record predicate and a different observed uv patch is recorded rather than rejected.",
+          "Traces": "Issue #68 bound remedy clause 3"
+        }
+      },
+      {
+        "title": "Cite `assessments/capstone-end-to-end.md:149` and `:248` for recording and Blocked-by-environment. Do not add a new recording procedure.",
+        "status": "proposed",
+        "id": "clause:4",
+        "narrative": {
+          "Acceptance": "Given a prerequisite observation that differs from verified evidence, when the learner records or blocks the attempt, then the existing capstone assessment recording and Blocked-by-environment rows are used without introducing another procedure.",
+          "Traces": "Issue #68 bound remedy clause 4; assessments/capstone-end-to-end.md recording rows"
+        }
+      },
+      {
+        "title": "Add one focused content assertion over that pre-create guidance in both shell paths. Leave CI uv 0.11.10 pins as evidence provenance.",
+        "status": "proposed",
+        "id": "clause:5",
+        "narrative": {
+          "Acceptance": "Given a mutation that removes the pre-create guidance from either shell route or makes uv 0.11.10 exact, when the focused capstone verifier tests run, then they fail while the CI uv pin remains evidence provenance.",
+          "Traces": "Issue #68 bound remedy clause 5 and approved allocation expected result"
+        }
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/68",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #68: Capstone uv prerequisite blurs verified context and required version"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 5 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Classify required versus verified across the course-map matrix bullet and the capstone Expected paragraph. Node stays 22 or newer required. Task 3.50.0, uv 0.11.10, and Python 3.13.13 stay verified matrix evidence.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Labs 7, 10, and 11 keep required `findExecutable(\"uv\")`. The capstone records an observed uv version when present and does not make 0.11.10 exact.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "State the stop-or-record predicate before each `create` call in both shell paths. A different observed uv patch is recorded and is not by itself a stop.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Cite `assessments/capstone-end-to-end.md:149` and `:248` for recording and Blocked-by-environment. Do not add a new recording procedure.",
+          "artifact_path": "labs/capstone-end-to-end.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Add one focused content assertion over that pre-create guidance in both shell paths. Leave CI uv 0.11.10 pins as evidence provenance.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "curriculum/README.md",
+          "labs/capstone-end-to-end.md",
+          "scripts/verify-capstone.mjs",
+          "scripts/verify-capstone.test.mjs",
+          "xbrief/active/2026-09-23-68-capstone-uv-prerequisite-blurs-verified-context-and-required.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:capstone",
+          "node --test scripts/verify-capstone.test.mjs",
+          "npm run test:capstone",
+          "npm run test:portability"
+        ],
+        "expected_outputs": [
+          "Course and capstone guidance distinguish required Node/uv availability from the verified Task, uv, and Python versions",
+          "Both shell routes state the pre-create stop-or-record predicate and treat a different uv patch as recorded evidence rather than failure",
+          "Focused capstone checks and portability coverage pass while CI uv pins remain evidence provenance"
+        ],
+        "depends_on": [
+          "github.issue.5544446677",
+          "github.issue.5544445396"
+        ],
+        "conflict_group": "capstone-prereq",
+        "size": "medium",
+        "file_scope_confidence": "high",
+        "model_tier": "high"
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the course map and capstone mix verified uv 0.11.10 context with a stop if any required value differs\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N≥3\nspend-ask: asked\nstop-2: charter=open critique; spend=N≥3 because the operator answered the missing-token spend ask with option 2 mixed spend; uv exact-pin versus verified-context at the fail-closed starting gate is an open course-wide contract\npain: P1\nP1: curriculum/README.md:27-28 the capstone matrix uses Task 3.50.0 and uv 0.11.10; labs/capstone-end-to-end.md:134-138 confirm Task and uv against the verified 3.50.0 and 0.11.10 context then If any required value differs, stop and use the matching documented environment\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\n\n",
+          "id": 5785829922,
+          "html_url": "https://github.com/deftai/directive-training/issues/68#issuecomment-5785829922",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:11:35Z",
+          "updated_at": "2026-09-22T23:11:35Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\npanel-deposit\nround: 1\nsiblings: 3\ninput-ceiling: 5785866205\nfamilies: grok, claude, codex\nseat: grok launcher: spawn_subagent\nseat: claude launcher: claude\nseat: codex launcher: codex\n\n",
+          "id": 5785866205,
+          "html_url": "https://github.com/deftai/directive-training/issues/68#issuecomment-5785866205",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:14:23Z",
+          "updated_at": "2026-09-22T23:14:24Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: claude-opus-5-5\n```quarantined\nrole: critic\n```\naudit-targets: none\n\nRound 1 fresh critic, seat family claude. Every read is pinned to `a484f30613f16d1da3c8f7a01edb5d67e562a12e`. Input stops at comment 5785866205.\n\n## Anchors re-verified\n\n- `curriculum/README.md:27-28` and `labs/capstone-end-to-end.md:134-140`: the text is as the triage P1 quotes it.\n- `labs/capstone-end-to-end.md` lines 68/109: the only executable version check is Node major ≥22. The Task, uv, and Python lines (71-72, 113-115) only print versions.\n- Both wrappers run `create` (line 80 / 124), `guard`, branch, remote, and status checks in the same block before the learner reads the \"If any required value differs, stop\" sentence (line 138).\n\n## Findings\n\n### F1 — blocks-the-design: the course does not have one uv contract to publish\n\nEvidence:\n- `labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs:137`, `labs/fixtures/10-implementation-golden-path/implementation-lab.mjs:164`, and `labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs:179` call `findExecutable(\"uv\")`. That call throws when uv is absent, so these labs require uv to be installed.\n- `labs/fixtures/capstone-end-to-end/capstone-lab.mjs:299-305` puts `uv` in an optional loop and ignores the throw (\"Optional tools do not widen this local, no-remote fixture\").\n- The capstone `Taskfile.yml` calls `node` directly for `literal`, `forward-coverage`, and `review:evidence`. It never calls uv.\n- None of the four helpers checks the uv version.\n\nFailure mode: the proposed fix asks for \"one explicit uv contract in the course-wide prerequisite matrix and the capstone block.\" One line cannot be correct for both cases:\n- If it says uv is required, the capstone requires a tool its helper treats as optional.\n- If it says uv is optional, a learner without uv reaches Lab 7 and `create` throws.\n- Neither choice can honestly make 0.11.10 exact, because no helper checks the version.\n\nConsequence: the contract must be per lab. Labs 7, 10, and 11 require uv to be present, with 0.11.10 as verified context. The capstone treats uv as optional, and the learner records the version if uv is present. `curriculum/README.md:27-28` then separates \"needed for Labs 7/10/11\" from \"the capstone matrix used\". Choosing between exact and verified context for all labs is not the right question.\n\n### F2 — sharpens-framing: the ambiguity is in \"any required value\", not only in uv\n\nEvidence: line 138 does not say which values are \"required values\". The block contains several kinds of value:\n- An asserted minimum: Node ≥22.\n- Tools that must be present: npm, git, task, and python on Windows. `findExecutable(\"python\")` at `capstone-lab.mjs:234` throws when Python is absent.\n- Verified-context patch versions: Task 3.50.0, uv 0.11.10, Python 3.13.13.\n- Structural checks: guard root, branch, empty remote, clean status.\n\nPython has the same problem as uv. The completed #67 brief records a Windows PASS on Python 3.12.10 with uv 0.11.14. That is a second divergence from the matrix, and nothing flagged it.\n\nConsequence: widen the fix from \"uv wording\" to \"list the required values next to the stop sentence\". Every version outside that list becomes an observation to record, not a stop condition. If the fix stays uv-only, the same issue returns for Python.\n\n### F3 — sharpens-framing: the stop is not \"before `create`\", so version checks written only in prose fail open\n\nEvidence: `create` runs inside the starting block (lines 80 / 124). The issue says the learner cannot decide \"before `create`\", but at the point where the learner reads line 138, the attempt root already exists. Lines 55-57 already show the existing mechanism for a real prerequisite: \"the wrapper commands below must perform the Node major version check before `create`\", and lines 68 and 109 do that check.\n\nFailure mode: suppose the fix declares a Task or uv version required in prose only. A learner running a different version already has a created root. \"Stop and use the matching documented environment\" then gives no preserve/discard rule for that root. Compare the safety-boundary recovery at lines 154-157.\n\nConsequence: any value that the fix makes truly required must become an in-script assertion before `create`, following the Node pattern. Every other value stays a recorded observation. This makes the stop condition deterministic without new prose rules.\n\n- Road not taken: pin uv exactly at 0.11.10 and document how to select it.\n- Steelman: 0.11.10 is the only value with CI evidence (`capstone-platform-validation.yml:43-46`).\n- What would flip my verdict: evidence that the pinned 0.119.5 engine calls uv on the capstone task path. See F6.\n\n### F4 — sharpens-framing: the recording and scoring mechanisms already exist; line 138 conflicts with them\n\nEvidence:\n- `assessments/capstone-end-to-end.md:149` already requires \"observed npm, Git, Task, and uv versions are recorded; Windows evidence also records Python\".\n- `curriculum/README.md:176-179` already defines the candidate-platform and environment-blocked rule.\n- `assessments/capstone-end-to-end.md:248` gives `Blocked by environment` only when \"the exact runtime or registry prerequisite remains unavailable after documented recovery\". Line 256 says that outcome \"is not a pass\".\n\nFailure mode: a learner on uv 0.11.14 reads line 138 as a required-value mismatch, stops, and takes a non-pass `Blocked by environment` outcome. The rubric at line 248 would not grant that outcome for a patch-version difference. The lab text and the rubric give different verdicts.\n\nConsequence: the second branch of the proposed fix (\"state how a different installed version should be recorded\") needs no new procedure. It should cite `assessments:149` and use the same \"exact runtime or registry prerequisite\" wording as `assessments:248`. Inventory first; do not add a recording rule.\n\n### F5 — footnote: leave the CI and verifier pins alone\n\n`scripts/verify-capstone.mjs:815` asserts `version: \"0.11.10\"` in the workflow, and both platform workflows select 0.11.10. These pins record where the evidence came from, not what learners must install. A docs-only fix does not need to change them. Loosening them to match new learner wording would be a gate-integrity change, not part of this fix.\n\n### F6 — footnote: the claim that the pinned engine never calls uv is asserted, not measured\n\n`npm pack @deftai/directive@0.119.5` returned 404 from this host, so I could not inspect the pinned engine. In the local deposit (0.119.2), uv appears in `.deft/core/Taskfile.yml` only in comments and in the relocate include, which is not wired. The learner's full PASS on 0.11.14 supports the claim, but that is one run. F1 does not depend on this; it rests on the helper code. F3's flip condition does depend on it.\n\n### F7 — footnote: the Stop 1 write-back has no refutation-target\n\nComment 5785829922 has no `refutation-target:` line. No Handoff was posted before it, so the Stop 1 MUST applies. This does not change the disposition, because the charter is open critique.\n\n## Scope note\n\nThis target is learner-facing curriculum text. It does not change authority, untrusted input handling, envelopes, identity, concurrency, worktrees, or shared state, so the injection / swarm lens does not apply.\n\n",
+          "id": 5785921373,
+          "html_url": "https://github.com/deftai/directive-training/issues/68#issuecomment-5785921373",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:18:31Z",
+          "updated_at": "2026-09-22T23:18:31Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: gpt-6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\nround: 1\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\n\nVerdict: the ambiguity is real, but a wording-only fix can leave the stop gate on the wrong side of `create`.\n\n### F1 — blocks-the-design: decide the version rule before `create`\n\nEvidence: `labs/capstone-end-to-end.md:66-80` and `:107-124` print `uv --version`, then call `create` without a comparison or pause. The instruction to confirm uv against 0.11.10 and stop on a differing required value appears afterward at `:132-140`. `curriculum/capstone-end-to-end.md:39-59` says to stop before `create`. I re-read both shell paths at the dispatch SHA and ran `node scripts/verify-capstone.mjs` (pass: 36 artifacts, 0 missing).\n\nFailure mode: a learner who pastes either complete starting block creates an attempt before reaching the prose that tells them whether their uv version was acceptable. Merely relabeling 0.11.10 as exact or verified context in the post-block text leaves that sequence intact.\n\nDisposition consequence: do not bind a fix that leaves the decision after `create`. State the actual stop predicate before each `create` call in both shell paths. If 0.11.10 is verified context only, the pre-create instruction should explicitly say that a different observed uv patch is recorded and is not by itself a stop. If an exact version is required, enforce or compare it there and provide the selection path.\n\n### F2 — sharpens-framing: separate tool availability from a version pin\n\nEvidence: `labs/fixtures/capstone-end-to-end/capstone-lab.mjs:293-305` puts `uv` in an optional shim loop, while the capstone guide calls `uv --version` unconditionally (`labs/capstone-end-to-end.md:72,114`) and its assessment requires the observed version (`assessments/capstone-end-to-end.md:147-150`). The Lab 7, 10, and 11 helpers instead call `findExecutable(\"uv\")` as a required tool (`labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs:131-138`, `labs/fixtures/10-implementation-golden-path/implementation-lab.mjs:155-165`, `labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs:170-180`).\n\nFailure mode: one course-wide scalar rule such as “uv 0.11.10 required” can turn a matrix pin into a learner gate without evidence; making uv optional everywhere would conflict with those other lab helpers. The reported capstone pass on 0.11.14 establishes a candidate environment observation, not a course-wide compatibility floor.\n\nDisposition consequence: express executable availability and version evidence separately, with the path each applies to. Keep 0.11.10 as the workflow's tested context (`.github/workflows/capstone-platform-validation.yml:43-47`) unless a measured version-sensitive behavior supports an exact or minimum rule. Resolve the capstone guide/helper availability mismatch as part of the wording decision; keep Windows platform status bounded as in `curriculum/README.md:7-10`.\n\n### F3 — sharpens-framing: protect the pre-create distinction in the content check\n\nEvidence: `scripts/verify-capstone.mjs:749-753` checks that the assessment mentions uv and that the lab enforces the Node 22 major boundary. It does not check an operative uv distinction or that guidance appears before `create`; the current content check passes despite F1.\n\nFailure mode: a later wording edit can restore the same misleading sequence while the content contract stays green.\n\nDisposition consequence: add one focused content assertion over the pre-create guidance in both shell paths and the matching assessment wording when the contract is settled. Keep the check on the learner-facing decision, not on the presence of the string `0.11.10`.\n\nRoad not taken: an exact 0.11.10 learner pin would make replay match the three-OS workflow, which is a coherent reproducibility goal. I would choose it if the capstone or Directive readiness path demonstrably depended on that uv version (or a different patch failed) and the course supplied a cross-platform selection route. The pinned helper and assessment currently show observation and tool setup, not that dependency.\n\n",
+          "id": 5785938367,
+          "html_url": "https://github.com/deftai/directive-training/issues/68#issuecomment-5785938367",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:19:37Z",
+          "updated_at": "2026-09-22T23:19:37Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh open critique of issue 68 at dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`, ceiling 5785866205.\n\nThe starting-gate collision is real. The dest tree already has the version-language mechanism to resolve it. A uv-only exact pin, or a uv-only footnote under an unclassified stop sentence, would miss that mechanism.\n\nRe-verified by reading the cited files and running a `/tmp` probe against this dest: Stop 1 line cites hold (`curriculum/README.md:27-28`, `labs/capstone-end-to-end.md:134-138`); the start blocks print `uv --version` and never compare it to `0.11.10`; Node `major < 22` is the only version assertion; labs 7/10/11 require `findExecutable(\"uv\")`; the capstone helper treats uv as optional (`capstone-lab.mjs:299-304`); fixtures never spawn uv; `scripts/verify-capstone.mjs` locks workflow `version: \"0.11.10\"` and forbids requiring Node `24.20.0`, and it does not lock a learner uv exact pin; consumer `toolchain:check --consumer` omits uv; Windows remains `candidate` on SOURCE-BASELINE.\n\n## 1. Classify the whole starting-gate stop\n\nsharpens-framing\n\nEvidence: `curriculum/README.md:27-30` names Task `3.50.0`, uv `0.11.10`, and Python `3.13.13` as what \"the capstone matrix uses\". `labs/capstone-end-to-end.md:132-139` then confirms Task and uv against that verified context, says Python is available with `3.13.13` in the verified native environment, and applies one stop: if any required value differs, stop and use the matching documented environment. \"Required value\" is undefined. That stop sentence is unique to this lab.\n\nFailure mode: Recutting only uv leaves a learner on Task `3.51.x` or Python `3.12.10` under the same unclassified stop. The issue's own success criterion is a deterministic stop. A uv footnote cannot deliver that.\n\nDisposition: Bind required-versus-verified labels across that whole matrix bullet and that whole Expected paragraph. uv is one row. Node is already classified at `labs/capstone-end-to-end.md:39-41` (22 or newer required; `24.20.0` bounded evidence).\n\n## 2. Reuse the Node bounded-evidence wording for uv\n\nsharpens-framing\n\nEvidence: The lab already splits learner requirement from matrix patch for Node. `scripts/verify-capstone.mjs:778` refuses a learner exact Node patch. The same verifier at line 815 locks CI uv `0.11.10` beside Node `24.20.0` and Task `3.50.0`. Lab 7 already labels go-task `3.50.0` exit `201` as Task runner evidence, not a Directive engine promise (`labs/07-scope-lifecycle.md:136-142`). Assessment already requires recording observed Task and uv versions (`assessments/capstone-end-to-end.md:149`). The issue body reports a full 0.119.5 capstone PASS with uv `0.11.14`.\n\nFailure mode: Binding the exact-pin fork (assert `0.11.10` and publish a selection procedure) would make uv stricter than Node, the only tool the start block actually asserts. Learners would hunt a downgrade before `create`. That is the pain this issue files.\n\nDisposition: Bound remedy states `0.11.10` as verified matrix evidence, keeps the workflow pin, and uses the existing assessment-note recording row. A uv version-equality command in the start paste would be a new mechanism. A learner selection procedure waits on a measurement that a taught command's result depends on that patch.\n\n## 3. Keep lab-family presence rules separate from the version label\n\nsharpens-framing\n\nEvidence: Labs 7, 10, and 11 throw on missing uv. The capstone helper swallows a missing uv. The capstone start paste still runs `uv --version` under `set -eu` / `$PSNativeCommandUseErrorActionPreference = $true`, so a missing binary stops the paste. The assessment recording row expects an observed uv version. Course map requires Task and uv for executable lifecycle labs, then names matrix versions in the same bullet.\n\nFailure mode: A course-wide \"uv 0.11.10 is the learner pin\" flattens presence and version. A course-wide \"uv is optional\" breaks labs 7/10/11 isolated-tool setup and the assessment recording row.\n\nDisposition: Learner-facing presence stays \"uv is on PATH; record `uv --version`\". Version stays matrix evidence. Lifecycle helpers keep required `findExecutable(\"uv\")`. The capstone helper's optional catch stays a fixture detail unless the start paste is recut in the same change.\n\n## 4. Treat the 0.11.14 PASS as candidate evidence\n\nfootnote\n\nSOURCE-BASELINE still records `teaching-platform-proof:windows-pwsh7 status=candidate`. The lab record still labels Linux and Windows as candidates pending a native 0.119.5 replay. The issue's Windows ARM64 PASS with uv `0.11.14` is candidate-platform evidence that the matrix patch is not an observed capstone blocker. It does not restamp Windows verified and it does not publish `0.11.14` as a minimum.\n\n## Road not taken\n\nExact learner pin to uv `0.11.10` with a selection procedure matching `astral-sh/setup-uv` in `.github/workflows/capstone-platform-validation.yml`.\n\nSteelman: Directive core Taskfiles can invoke `uv run` with `--project` (ancestor-walk class in `.deft/core/coding/toolchain.md`). Pin-matched native evidence is a course-map phrase. A newer uv could change isolated-PATH Python resolution.\n\nFlip: a taught lab command whose observed exit, printed contract, or helper throw differs between `0.11.10` and `0.11.14`. Dest-tree fixtures never spawn uv; they only resolve it onto `.lab-tools`. The issue's `0.11.14` capstone PASS is the available measurement.\n\n## Strengths\n\nThe issue names both learner-facing sites, locates the pain before `create`, and asks the stop sentence to become deterministic. Stop 1 pain P1 line cites re-verified true.\n\n",
+          "id": 5785991980,
+          "html_url": "https://github.com/deftai/directive-training/issues/68#issuecomment-5785991980",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:23:28Z",
+          "updated_at": "2026-09-22T23:23:28Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe capstone tells learners to confirm uv 0.11.10 and stop if any required value differs, after `create` has already run. Confirming this map would classify required versus verified across that whole stop sentence, keep 0.11.10 as matrix evidence, state the stop before `create`, and keep Labs 7/10/11 uv-required while the capstone records an observed version.\n\nParent forward verdict: P1 holds as an unclassified stop; a uv-only exact pin cannot bind.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5785829922 and these takes; the evidence is critics 5785921373, 5785938367, and 5785991980.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 3\ncritics: 5785921373, 5785938367, 5785991980\nsupersedes: 5785829922\nTarget-digest: sha256:e31986133f480d5f7ea35ee55022a5f36eb2e8cce8d9991a0a1a39febc876d52\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### the course does not have one uv contract to publish\ntake: accept-into-contract\ncritic: 5785921373\nheading: the course does not have one uv contract to publish\n\n### the ambiguity is in any required value, not only in uv\ntake: accept-into-contract\ncritic: 5785921373\nheading: the ambiguity is in any required value, not only in uv\n\n### the stop is not before create\ntake: accept-into-contract\ncritic: 5785921373\nheading: the stop is not before create\n\n### the recording and scoring mechanisms already exist\ntake: accept-into-contract\ncritic: 5785921373\nheading: the recording and scoring mechanisms already exist\n\n### decide the version rule before create\ntake: accept-into-contract\ncritic: 5785938367\nheading: decide the version rule before create\n\n### separate tool availability from a version pin\ntake: accept-into-contract\ncritic: 5785938367\nheading: separate tool availability from a version pin\n\n### protect the pre-create distinction in the content check\ntake: accept-into-contract\ncritic: 5785938367\nheading: protect the pre-create distinction in the content check\n\n### Classify the whole starting-gate stop\ntake: accept-into-contract\ncritic: 5785991980\nheading: Classify the whole starting-gate stop\n\n### Reuse the Node bounded-evidence wording for uv\ntake: accept-into-contract\ncritic: 5785991980\nheading: Reuse the Node bounded-evidence wording for uv\n\n### Keep lab-family presence rules separate from the version label\ntake: accept-into-contract\ncritic: 5785991980\nheading: Keep lab-family presence rules separate from the version label\n\nrelieves: P1\naudit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5785991980 reading=asserted\n\n## Bound remedy\n\n- Classify required versus verified across the course-map matrix bullet and the capstone Expected paragraph. Node stays 22 or newer required. Task 3.50.0, uv 0.11.10, and Python 3.13.13 stay verified matrix evidence.\n- Labs 7, 10, and 11 keep required `findExecutable(\"uv\")`. The capstone records an observed uv version when present and does not make 0.11.10 exact.\n- State the stop-or-record predicate before each `create` call in both shell paths. A different observed uv patch is recorded and is not by itself a stop.\n- Cite `assessments/capstone-end-to-end.md:149` and `:248` for recording and Blocked-by-environment. Do not add a new recording procedure.\n- Add one focused content assertion over that pre-create guidance in both shell paths. Leave CI uv 0.11.10 pins as evidence provenance.\n\n",
+          "id": 5786105400,
+          "html_url": "https://github.com/deftai/directive-training/issues/68#issuecomment-5786105400",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:31:51Z",
+          "updated_at": "2026-09-22T23:31:51Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\naudit-targets: pain-P1\n\nRound 2 pain-audit of successor lean 5786105400 at dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`.\n\nRe-read Stop 1 P1 sites at that SHA. `curriculum/README.md:27-28` names Task 3.50.0 and uv 0.11.10 as the capstone matrix. `labs/capstone-end-to-end.md:134-138` confirms those values, then stops if any required value differs. `create` is at lines 80 and 124. `node scripts/verify-capstone.mjs` exited 0 (36 artifacts).\n\n`scanPainList` on 5785829922 returned ids `[P1]`, duplicates empty, malformed false. `scanPainCites` on 5786105400 returned one cite `{painId: P1, disposition: relieves}` with `rejected` empty; `classifyPosition` on that match is null. `extractBoundRemedyHarvest` returned five list items under `## Bound remedy`.\n\n### F1 — footnote: scanPainCites emits one P1 disposition\n\nThe closed-form match is the operative line `` relieves: P1 ``. Take headings and the summary sentence `` P1 holds as an unclassified stop `` produced no additional `relieves` / `does-not-relieve` / `operator-deferred` plus pain-id match. Conflicting-disposition set size for P1 is 1.\n\n### F2 — footnote: Bound-remedy covers the Stop 1 P1 sites\n\nHarvest item 1 recuts the course-map matrix bullet and the capstone Expected paragraph, keeps Node 22 or newer required, and keeps Task 3.50.0, uv 0.11.10, and Python 3.13.13 as verified matrix evidence. Item 3 places the stop-or-record predicate before each `create` and records a different observed uv patch as a recorded observation. Item 4 pointers `assessments/capstone-end-to-end.md:149` and `:248` match the dest file (observed Task and uv versions; Blocked-by-environment is an exact runtime or registry prerequisite). That harvest covers the mix Stop 1 named.\n\nRoad not taken: treat item 3's uv-only recorded-observation sentence as a Task-coverage hole. Steelman: a later edit could implement the uv sentence and leave Task 3.50.0 as a required-value stop. Flip: harvest item 1 dropping Task from verified matrix evidence. Item 1 already keeps Task as verified evidence.\n\n",
+          "id": 5787664109,
+          "html_url": "https://github.com/deftai/directive-training/issues/68#issuecomment-5787664109",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T01:59:54Z",
+          "updated_at": "2026-09-23T01:59:54Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\n\nBound contract: successor lean 5786105400.\n\n",
+          "id": 5787733229,
+          "html_url": "https://github.com/deftai/directive-training/issues/68#issuecomment-5787733229",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:08:31Z",
+          "updated_at": "2026-09-23T02:08:31Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5545125499,
+        "origin": "deftai/directive-training#68",
+        "id": "github.issue.5545125499"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "e31986133f480d5f7ea35ee55022a5f36eb2e8cce8d9991a0a1a39febc876d52"
+      }
+    },
+    "id": "github.issue.5545125499",
+    "updated": "2026-09-23T16:45:19Z"
+  }
+}

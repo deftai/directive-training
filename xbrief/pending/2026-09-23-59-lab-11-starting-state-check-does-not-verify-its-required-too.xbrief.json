@@ -1,0 +1,311 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #59",
+    "updated": "2026-09-23T16:37:56Z"
+  },
+  "plan": {
+    "title": "Lab 11 starting-state check does not verify its required tools",
+    "status": "pending",
+    "narratives": {
+      "Description": "Lab 11 lists Node.js, npm, Git, Task, and uv as required tools but enters fixture creation without proving that each command resolves, so an absent tool can leave disposable state before the learner sees the setup failure. This story adds the established Labs 7 and 10 fail-closed version prefix and focused regression coverage while preserving the printed-path handoff, candidate-platform statement, and absence of Task or uv version pins.",
+      "ImplementationPlan": "1. Update `labs/11-testing-gates-and-evidence.md` so its Environment and starting-state shell fence enables fail-closed behavior and runs all five version commands before `create`, while leaving the `LAB11_ROOT` copy step after the visible create output.\n2. Extend `scripts/verify-module-11.mjs` to require the ordered fail-closed prefix and preserve the candidate-platform and no-pin boundaries.\n3. Add positive and negative fixtures in `scripts/verify-module-11.test.mjs` that prove a missing command, missing fail-closed option, or reordered `create` is rejected by the focused check.",
+      "UserStory": "As a Lab 11 learner, I want required tools checked before fixture creation, so that I can classify setup failures without mutating an attempt.",
+      "Traces": "Accepted bound remedy on https://github.com/deftai/directive-training/issues/59#issuecomment-5786102328, independently audited in comment 5787643424 and confirmed by synthesis comment 5787725610; relieves recorded pain P1.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/59",
+      "Overview": "## Learner context\n\nIndependent Windows/PowerShell pilot of the required 0.119.5 course path, following the course in order as a mid/senior engineer.\n\n## Problem\n\n`labs/11-testing-gates-and-evidence.md` lists Node.js 20+, npm, Git, Task, and uv under **Environment and starting-state check**, but the first executable block immediately runs the fixture's `create` verb. It provides no literal `node --version`, `npm --version`, `git --version`, `task --version`, or `uv --version` checks and no pass criteria for those tools.\n\nThe other executable labs teach that a starting-state check is a gate. Here a learner can mutate a disposable attempt before discovering that Task or uv is missing or incompatible.\n\n## Pain experienced\n\nThe mandatory course-wide pre-check had to be reconstructed by searching several later lab pages. Lab 11 cannot independently prove its own stated environment, which makes a failure after `create` harder to classify as tooling versus exercise behavior.\n\n## Proposed fix\n\nAdd a platform-neutral version block before `create`, plus PowerShell syntax where needed, and state the acceptance criteria. At minimum check Node, npm, Git, Task, and uv; either require the verified Task/uv versions or explicitly state the supported variance.\n\n## Reproduction\n\n1. Open `labs/11-testing-gates-and-evidence.md`.\n2. Read **Environment and starting-state check**.\n3. Observe the required-tool list followed directly by `node .../gates-lab.mjs create`.\n\nNo Directive source or framework internals were consulted.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "In `labs/11-testing-gates-and-evidence.md` Environment and starting-state check, insert `node --version`, `npm --version`, `git --version`, `task --version`, and `uv --version` in a fail-closed fence with `create`, matching `labs/07-scope-lifecycle.md:54-64` and `labs/10-implementation-golden-path.md:44-54`.",
+        "status": "proposed",
+        "id": "clause:1",
+        "narrative": {
+          "Acceptance": "The Lab 11 Environment fence enables fail-closed behavior, runs `node --version`, `npm --version`, `git --version`, `task --version`, and `uv --version` before `create`, and the focused verifier fails when any command, the fail-closed option, or that ordering is removed."
+        }
+      },
+      {
+        "title": "Keep Lab 11's printed-path `LAB11_ROOT` copy step after that fence.",
+        "status": "proposed",
+        "id": "clause:2",
+        "narrative": {
+          "Acceptance": "The learner-facing `LAB11_ROOT` copy step remains outside and after the fence that prints the created root, so the visible path can still be copied from `create` output."
+        }
+      },
+      {
+        "title": "Leave exact Task/uv pins and a variance table out of this recut.",
+        "status": "proposed",
+        "id": "clause:3",
+        "narrative": {
+          "Acceptance": "The recut introduces neither an exact Task or uv version requirement nor a supported-variance table; the new commands prove resolution only."
+        }
+      },
+      {
+        "title": "Optional same-page `--version` lines on the existing Native Windows route stay consistency under the existing Stop preference.",
+        "status": "proposed",
+        "id": "clause:4",
+        "narrative": {
+          "Acceptance": "The existing Native Windows route remains a consistency-only surface: it is unchanged, or any added version lines execute under its existing stop-on-error preference without broadening the platform claim."
+        }
+      },
+      {
+        "title": "Keep the candidate-platform sentence.",
+        "status": "proposed",
+        "id": "clause:5",
+        "narrative": {
+          "Acceptance": "The Lab 11 candidate-platform sentence remains present and the focused Module 11 content check passes with that wording intact."
+        }
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/59",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #59: Lab 11 starting-state check does not verify its required tools"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 5 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "In `labs/11-testing-gates-and-evidence.md` Environment and starting-state check, insert `node --version`, `npm --version`, `git --version`, `task --version`, and `uv --version` in a fail-closed fence with `create`, matching `labs/07-scope-lifecycle.md:54-64` and `labs/10-implementation-golden-path.md:44-54`.",
+          "artifact_path": "labs/11-testing-gates-and-evidence.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Keep Lab 11's printed-path `LAB11_ROOT` copy step after that fence.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Leave exact Task/uv pins and a variance table out of this recut.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Optional same-page `--version` lines on the existing Native Windows route stay consistency under the existing Stop preference.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Keep the candidate-platform sentence.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "labs/11-testing-gates-and-evidence.md",
+          "scripts/verify-module-11.mjs",
+          "scripts/verify-module-11.test.mjs",
+          "xbrief/active/2026-09-23-59-lab-11-starting-state-check-does-not-verify-its-required-too.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:module-11",
+          "node --test scripts/verify-module-11.test.mjs",
+          "git diff --check"
+        ],
+        "expected_outputs": [
+          "All five required tool-version checks run fail-closed before `create`",
+          "The manual `LAB11_ROOT` copy step remains after the fence and the candidate-platform sentence remains present",
+          "Negative tests reject a missing required tool check, loss of fail-closed behavior, or `create` moving ahead of the checks"
+        ],
+        "depends_on": [],
+        "conflict_group": "lab11-starting-state",
+        "size": "small",
+        "file_scope_confidence": "high",
+        "model_tier": "medium"
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because Lab 11 lists Node.js 20+, npm, Git, Task, and uv under Environment and starting-state check, then the first executable block is create with no version commands\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: asked\nstop-2: charter=open critique; spend=N=1 because the operator answered the missing-token spend ask with option 2 mixed spend; this is a closed identity recut of Lab 11 starting-state versus the version gates in Labs 7 and 10\npain: P1\nP1: labs/11-testing-gates-and-evidence.md:28-40 lists Node.js 20+, npm, Git, Task, and uv then immediately runs node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs create; labs/07-scope-lifecycle.md:59-63 and labs/10-implementation-golden-path.md:49-53 run node/npm/git/task/uv --version before create\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\n\n",
+          "id": 5785826613,
+          "html_url": "https://github.com/deftai/directive-training/issues/59#issuecomment-5785826613",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:11:21Z",
+          "updated_at": "2026-09-22T23:11:21Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nissue: 59\nround: 1\ncharter: open critique\nspend: N=1\ndispatch-sha: a484f30613f16d1da3c8f7a01edb5d67e562a12e\nid-ceiling: 5785826613\n\n## 1. Bind Labs 7 and 10's version prefix\nclass: sharpens-framing\n\nEvidence. At dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`, `labs/11-testing-gates-and-evidence.md:28-40` lists Node.js 20+, npm, Git, Task, and uv, then the first fence is `node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs create` with no `--version` lines. `labs/07-scope-lifecycle.md:54-64` and `labs/10-implementation-golden-path.md:44-54` run `set -eu`, then `node` / `npm` / `git` / `task` / `uv --version`, then `create` in one fence. Those Environment sections contain no `3.50.0` or `0.11.10`. Capstone starting-state is the page that names those versions. `node scripts/verify-module-11.mjs` exits 0 and does not lock version-command presence. Lab 11's lab record names no Task or uv version.\n\nFailure mode. Following the issue body's \"require the verified Task/uv versions or state the supported variance\" adds a Lab 11-only pin or an unmeasured variance table. Labs 7 and 10 already treat presence as the gate: the commands must run, and a missing executable stops the fence. Lab 7's later `201` note is expected-failures attribution, not a starting-state pin.\n\nDisposition. Insert the five `--version` commands so a missing tool stops before `create`. Keep Lab 11's printed-path `LAB11_ROOT` copy step. Exact Task/uv pins and a variance table stay out of this recut.\n\n## 2. Fail-closed is the shell option with those lines\nclass: sharpens-framing\n\nEvidence. Lab 11's first fence (`:38-40`) has no `set -eu`. A `/tmp` probe of `missingcmd --version` then `echo REACHED_NEXT_LINE` printed `REACHED_NEXT_LINE` under bash and zsh without `-e` (exit 0) and stopped under `bash -e` / `zsh -e` (exit 127). Labs 7 and 10 keep the version lines inside `set -eu` before `create`.\n\nFailure mode. Five `--version` lines pasted into Lab 11's current fence still reach `create` when `task` or `uv` is absent. The named pain stays open.\n\nDisposition. Place the version commands in a fail-closed fence with `create`, matching Labs 7 and 10. Keep Lab 11's two-step printed-path export.\n\n## 3. The Windows condensed route is a second surface\nclass: sharpens-framing\n\nEvidence. Labs 7 and 10 open Environment with a dedicated zsh terminal; that section has no PowerShell fence. Each lab's Native Windows PowerShell 7.4+ route starts at `create` with no `--version` prefix and already sets `$ErrorActionPreference = \"Stop\"` (Lab 7 after `:412`, Lab 10 after `:277`, Lab 11 after `:270`; Lab 11 first `create` at `:282`). `verify-module-11.mjs` requires the lab prose to keep Windows as a candidate.\n\nFailure mode. A new Environment PowerShell starting-state on Lab 11 only is a platform-claim change, outside the Labs 7/10 identity. Patching only the sh fence leaves the Windows condensed route as Labs 7 and 10 already leave it.\n\nDisposition. Bind the Environment sh fence to Labs 7 and 10. Same-page `--version` lines on Lab 11's existing Native Windows route are optional consistency under the existing Stop preference. Keep the candidate-platform sentence.\n\n## 4. Tool resolution already lives on install\nclass: footnote\n\n`createAttempt()` in `labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs` writes the OS-temp fixture and runs `git`; it does not call `findExecutable` or `createIsolatedTools`. Those run in `installAttempt`. A missing `task` or `uv` already fails there with `Required executable not found`. Page-level versions matching Labs 7 and 10 are the existing mechanism for stopping before that leftover attempt.\n\n## 5. Neighbor surfaces stay on their pages\nclass: footnote\n\n`createIsolatedTools` also requires Python; Labs 7 and 10 omit `python --version`. Course-map prerequisites and Lab 2's Confirm-the-tools Pass are other pages. Lab 11's expected-failures table, like Labs 7 and 10, has no missing-tool row.\n\n## Road not taken\n\nPage-level versions (Labs 7 and 10) versus adding `findExecutable` to `createAttempt`. Install already names a missing executable. The helper-side check would fire even if a learner skipped the page block. Flip if Labs 7 and 10 resolved tools inside `create`; they do not.\n\nSteelmanning an exact Task/uv pin: capstone already confirms `3.50.0` / `0.11.10`, and Lab 7 attributes a `201` wrapper to that Task version. Flip if Lab 11's aggregate evidence depended on that wrapper exit. The helper invokes `task --silent` and retains JSON; it does not teach the `201` contract in starting-state.\n\n",
+          "id": 5786020338,
+          "html_url": "https://github.com/deftai/directive-training/issues/59#issuecomment-5786020338",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:25:32Z",
+          "updated_at": "2026-09-22T23:25:32Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLab 11 lists Node, npm, Git, Task, and uv, then runs create with no version commands. Confirming this map would add the Labs 7 and 10 fail-closed `--version` prefix before create, keep the printed-path copy step, and leave Task/uv pins on the capstone page.\n\nParent forward verdict: P1 holds as a missing version prefix, not a Lab 11-only pin.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5785826613 and these takes; the evidence is critic 5786020338.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5786020338\nsupersedes: 5785826613\nTarget-digest: sha256:851a5a83fa8cb16ca59b7e836d0affb7f9b1b2da7749ed0df3e90a3bc3dc2545\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Bind Labs 7 and 10's version prefix\ntake: accept-into-contract\ncritic: 5786020338\nheading: Bind Labs 7 and 10's version prefix\n\n### Fail-closed is the shell option with those lines\ntake: accept-into-contract\ncritic: 5786020338\nheading: Fail-closed is the shell option with those lines\n\n### The Windows condensed route is a second surface\ntake: accept-into-contract\ncritic: 5786020338\nheading: The Windows condensed route is a second surface\n\nrelieves: P1\naudit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5786020338 reading=asserted\n\n## Bound remedy\n\n- In `labs/11-testing-gates-and-evidence.md` Environment and starting-state check, insert `node --version`, `npm --version`, `git --version`, `task --version`, and `uv --version` in a fail-closed fence with `create`, matching `labs/07-scope-lifecycle.md:54-64` and `labs/10-implementation-golden-path.md:44-54`.\n- Keep Lab 11's printed-path `LAB11_ROOT` copy step after that fence.\n- Leave exact Task/uv pins and a variance table out of this recut.\n- Optional same-page `--version` lines on the existing Native Windows route stay consistency under the existing Stop preference.\n- Keep the candidate-platform sentence.\n\n",
+          "id": 5786102328,
+          "html_url": "https://github.com/deftai/directive-training/issues/59#issuecomment-5786102328",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-22T23:31:39Z",
+          "updated_at": "2026-09-22T23:31:39Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5786102328. Stop 1 write-back 5785826613. Input ceiling 5786102328. Dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`. Process-only.\n\n## Verdict\n\n`relieves: P1` is independently supported. Bound-remedy harvest item 1 inserts `node --version`, `npm --version`, `git --version`, `task --version`, and `uv --version` in a fail-closed fence with `create` on Lab 11 Environment, matching the Labs 7 and 10 version-before-create identity Stop 1 named. That is P1 as Stop 1 named it.\n\n`scanPainCites` on the lean as posted returns one cite: `P1` / `relieves` / `deferredIssueNumber: null`, `rejected: []`. `classifyPosition` on `relieves: P1` (offset 1372) is `null`. The plain-English `P1 holds` run stays outside `PAIN_CITE_RE`. Headings on this lean are take-map titles. A heading `### relieves: P1` would dedupe on the same-disposition key. An added operative `does-not-relieve: P1` would emit a second disposition (`assertedPainIdsFromCites` → `[]`, `malformed-pain`). This lean has one `relieves` row.\n\n## Re-verification at dispatch SHA `a484f30613f16d1da3c8f7a01edb5d67e562a12e`\n\nChecks were run here. Line cites on the lean were treated as claims.\n\n| Anchor | Result | Check |\n| --- | --- | --- |\n| Stop 1 denominator is `P1` | holds | `scanPainList` on 5785826613 → `{\"present\":true,\"ids\":[\"P1\"],\"duplicates\":[],\"malformed\":false}` |\n| Lean cite well-formed | holds | `scanPainCites` → one `relieves` `P1`, `rejected: []`; one `PAIN_CITE_RE` match at offset 1372 |\n| Lab 11 `:28-40` | holds | lists Node.js 20+, npm, Git, Task, and uv; first fence is `node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs create`; zero `--version` or `set -eu` lines in that span |\n| Labs 7 `:59-63` and 10 `:49-53` | holds | `git show` of those spans is the five `--version` commands immediately before create |\n| Fail-closed shell | holds | `missingcmd --version` then `echo REACHED_NEXT_LINE` printed `REACHED_NEXT_LINE` under bash and zsh (exit 0) and stopped under `bash -e` / `zsh -e` / `set -eu` (exit 127) |\n| Bound-remedy covers those cites | holds | `extractBoundRemedyHarvest` returns 5 items; item 1 names the five `--version` commands in a fail-closed fence with `create` on Lab 11 Environment |\n| `evaluateBoundRemedyCites` | holds | `{ok:true}` with `coveredIds:[\"P1\"]`; `{ok:false}` with `coveredIds:[]` |\n| Bind placement | holds | `evaluatePainCitePlacement` `{kind:\"bind\"}` → `{allowed:true, operativeCiteCount:1}` |\n| Asserted marker | holds | `assertedPainIdsFromCites` → `[\"P1\"]`; `mapCarriesAssertedPainCoverage` true; `audit:pain-P1 sha=a484f30613f16d1da3c8f7a01edb5d67e562a12e pointer=comment:5786020338 reading=asserted` |\n| Handoff print | holds | `evaluateHandoffPrint` `{print:false, unrelievedPain:false, recutConjunct:true, harvestRelievesOverlap:false}` |\n| Predecessor | holds | `bindLeanPredecessorValid` true; Stop 1 5785826613 carries zero pain cites |\n| Target digest | holds | lean field `sha256:851a5a83fa8cb16ca59b7e836d0affb7f9b1b2da7749ed0df3e90a3bc3dc2545` matches SHA-256 of the live REST issue body |\n| Helper create vs install | holds | `createAttempt()` copies the OS-temp fixture and runs `git`; it does not call `findExecutable` or `createIsolatedTools`. Those run in `installAttempt` |\n| Verifier | holds | `node scripts/verify-module-11.mjs` exit 0; pins heading `Environment and starting-state check`; `--version` unpinned |\n\n## 1. Matching through create-capture collides with the printed-path keep\n\nclass: footnote\n\nEvidence. Harvest item 1 matches `labs/07-scope-lifecycle.md:54-64` and `labs/10-implementation-golden-path.md:44-54`. Those ranges include `lab_root=\"$(node \"$helper\" create)\"` at Lab 7 `:64` and Lab 10 `:54`. Item 2 keeps Lab 11's printed-path `LAB11_ROOT` copy step after that fence. Lab 11 Environment today prints create on `:39` for that copy.\n\nFailure mode. An implementer copying the matched range through the capture line swallows create stdout, so the copy step has no printed path. P1 coverage is the five `--version` commands in a fail-closed fence before create, which item 1 already names.\n\nDisposition. Census only. Bind stays on lean 5786102328. Harvest stays the five bullets as posted.\n\n## Road not taken\n\nClassifying the capture-line collision as `sharpens-framing` that rewrites item 1's matching range to `:55-63` / `:45-53` was considered. Item 1 already names the five version commands in a fail-closed fence with `create`; item 2 already keeps the printed-path copy. Coverage of P1 holds on that harvest. Steelman of rewriting the range: literal `parseListItems` capture of the 54-64 cite is what an implementer pastes. Flip if item 1 dropped the five named commands and kept only the line-range match.\n\n",
+          "id": 5787643424,
+          "html_url": "https://github.com/deftai/directive-training/issues/59#issuecomment-5787643424",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T01:57:25Z",
+          "updated_at": "2026-09-23T01:57:25Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\n\nBound contract: successor lean 5786102328.\n\n",
+          "id": 5787725610,
+          "html_url": "https://github.com/deftai/directive-training/issues/59#issuecomment-5787725610",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-23T02:07:35Z",
+          "updated_at": "2026-09-23T02:07:35Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5544442517,
+        "origin": "deftai/directive-training#59",
+        "id": "github.issue.5544442517"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "851a5a83fa8cb16ca59b7e836d0affb7f9b1b2da7749ed0df3e90a3bc3dc2545"
+      }
+    },
+    "id": "github.issue.5544442517",
+    "updated": "2026-09-23T16:37:56Z"
+  }
+}

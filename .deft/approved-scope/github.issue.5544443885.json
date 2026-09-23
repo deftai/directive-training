@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "xbriefRelPath": "xbrief/active/2026-09-23-60-labs-7-and-10-start-with-zsh-only-preflight-despite-later-wi.xbrief.json",
+  "planId": "github.issue.5544443885",
+  "approvedAt": "2026-09-23T17:48:37Z",
+  "fileScope": [
+    "labs/07-scope-lifecycle.md",
+    "labs/10-implementation-golden-path.md",
+    "scripts/verify-module-10.mjs",
+    "scripts/verify-module-10.test.mjs",
+    "scripts/verify-module-7.mjs",
+    "scripts/verify-module-7.test.mjs",
+    "xbrief/active/2026-09-23-60-labs-7-and-10-start-with-zsh-only-preflight-despite-later-wi.xbrief.json"
+  ],
+  "fileScopeDigest": "de01f71d30db7374b090c3023cf05bea7d0d61b920a2b38473abbab7de65f538",
+  "humanApproval": {
+    "kind": "operator",
+    "actor": "Flynn",
+    "mintedAt": "2026-09-23T17:48:37Z",
+    "mintedVia": "scope:record-approved-scope"
+  },
+  "intentDigest": "c6c2f1e4ead5c052cf416116fa5f7b922a45b0c46b341a52f0fee8b9b10e0f90",
+  "digestAlgo": "intent-extract-v1"
+}
