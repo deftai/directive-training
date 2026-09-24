@@ -48,6 +48,16 @@ function normalizeNewlines(text) {
   return text.replace(/\r\n?/g, "\n");
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function firstOccurrence(body, snippet) {
+  const match = new RegExp(escapeRegExp(snippet).replace(/\r?\n/g, "\\r?\\n")).exec(body);
+  assert.ok(match, "mutation snippet must exist in the copied artifact");
+  return match;
+}
+
 function changedCopy(path, transform) {
   const root = copiedRepository();
   const target = join(root, path);
@@ -59,19 +69,16 @@ function changedCopy(path, transform) {
 }
 
 function withoutFirst(body, snippet) {
-  const normalizedBody = normalizeNewlines(body);
-  const normalizedSnippet = normalizeNewlines(snippet);
-  const index = normalizedBody.indexOf(normalizedSnippet);
-  assert.ok(index >= 0, "mutation snippet must exist in the copied artifact");
-  return normalizedBody.slice(0, index) + normalizedBody.slice(index + normalizedSnippet.length);
+  const match = firstOccurrence(body, snippet);
+  return body.slice(0, match.index) + body.slice(match.index + match[0].length);
 }
 
 function replaceFirst(body, snippet, replacement) {
-  const normalizedBody = normalizeNewlines(body);
-  const normalizedSnippet = normalizeNewlines(snippet);
-  const index = normalizedBody.indexOf(normalizedSnippet);
-  assert.ok(index >= 0, "mutation snippet must exist in the copied artifact");
-  return normalizedBody.slice(0, index) + normalizeNewlines(replacement) + normalizedBody.slice(index + normalizedSnippet.length);
+  const match = firstOccurrence(body, snippet);
+  const newline = body.includes("\r\n") ? "\r\n" : "\n";
+  return body.slice(0, match.index)
+    + replacement.replace(/\r?\n/g, newline)
+    + body.slice(match.index + match[0].length);
 }
 
 function alternateLifecycleCopy() {
@@ -285,7 +292,7 @@ test("verifier rejects POSIX shims that omit the selected python3 alias", () => 
 const windowsPowerShellVersionGuard =
   "if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }\n";
 const fakeCourseRoot = "/absolute/path/to/directive-training";
-const fakeWindowsCourseRoot = win32.join("C:", "absolute", "path", "to", "directive-training");
+const fakeWindowsCourseRoot = win32.join("C:" + win32.sep, "absolute", "path", "to", "directive-training");
 
 for (const [title, transform, expected] of [
   [
@@ -346,20 +353,32 @@ for (const [title, transform, expected] of [
   });
 }
 
+test("Windows-native fake course root is a win32 absolute path", () => {
+  assert.ok(win32.isAbsolute(fakeWindowsCourseRoot));
+  assert.equal(fakeWindowsCourseRoot.slice(0, 3), "C:" + win32.sep);
+  assert.notEqual(
+    fakeWindowsCourseRoot,
+    "C:" + ["absolute", "path", "to", "directive-training"].join(win32.sep),
+  );
+});
+
 test("PowerShell 7.4 guard mutations match a CRLF-authored Windows start", () => {
   const root = copiedRepository();
   const target = join(root, "labs", "capstone-end-to-end.md");
   const crlfBody = readFileSync(target, "utf8").replace(/\r?\n/g, "\r\n");
-  writeFileSync(target, withoutFirst(crlfBody, windowsPowerShellVersionGuard));
+  const missingGuard = withoutFirst(crlfBody, windowsPowerShellVersionGuard);
+  assert.match(missingGuard, /\r\n/);
+  writeFileSync(target, missingGuard);
+  assert.match(readFileSync(target, "utf8"), /\r\n/);
   assert.throws(() => verifyCapstone(root), /must throw on PowerShell below 7\.4/);
-  writeFileSync(
-    target,
-    replaceFirst(
-      withoutFirst(crlfBody, windowsPowerShellVersionGuard),
-      '$ErrorActionPreference = "Stop"\n',
-      '$ErrorActionPreference = "Stop"\n' + windowsPowerShellVersionGuard,
-    ),
+  const movedGuard = replaceFirst(
+    withoutFirst(crlfBody, windowsPowerShellVersionGuard),
+    '$ErrorActionPreference = "Stop"\n',
+    '$ErrorActionPreference = "Stop"\n' + windowsPowerShellVersionGuard,
   );
+  assert.match(movedGuard, /\r\n/);
+  writeFileSync(target, movedGuard);
+  assert.match(readFileSync(target, "utf8"), /\r\n/);
   assert.throws(() => verifyCapstone(root), /first statement/);
 });
 
