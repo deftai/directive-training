@@ -303,3 +303,181 @@ test("verifier rejects an altered exact fixture pin", () => {
   const root = changedCopy("labs/fixtures/11-testing-gates-and-evidence/package.json", (body) => body.replaceAll("0.119.5", "^0.119.5"));
   assert.throws(() => verifyModule11(root), /exact Directive pin/);
 });
+
+function lab11Lf(body) {
+  return body.replaceAll("\r\n", "\n").replaceAll("\r", "\n");
+}
+
+function spliceOnce(haystack, needle, replacement) {
+  const index = haystack.indexOf(needle);
+  assert.ok(index >= 0, "Lab 11 Native Windows mutation must match the authored pause text");
+  return `${haystack.slice(0, index)}${replacement}${haystack.slice(index + needle.length)}`;
+}
+
+function replaceLab11Windows(body, from, to) {
+  const lf = lab11Lf(body);
+  const after = spliceOnce(lf, from, to);
+  assert.notEqual(after, lf, "Lab 11 Native Windows mutation must match the authored pause text");
+  return after;
+}
+
+const lab11PauseTask1 = `Stay in this PowerShell session so \`$LabRoot\` remains set. Make only the Task 1
+focused-test edit at \`Join-Path $LabRoot "test/summary.test.mjs"\`. Then paste
+Phase B.
+
+**Phase B.** Retain the meaningful red failure.
+
+\`\`\`powershell
+`;
+
+const lab11PauseTask2 = `Stay in this PowerShell session so \`$LabRoot\` remains set. Change only
+\`Join-Path $LabRoot "src/summary.mjs"\` as specified in Task 2: add average to
+the returned object. Then paste Phase C.
+
+**Phase C.** Retain green.
+
+\`\`\`powershell
+`;
+
+const lab11PauseRefactor = `Stay in this PowerShell session so \`$LabRoot\` remains set. Change only
+\`Join-Path $LabRoot "src/summary.mjs"\` again so \`count\` and \`average\` are named
+locals, as specified in Task 2. Then paste Phase D. Do not run \`refactor\` on
+the same source bytes that just passed \`green\`.
+
+**Phase D.** Refactor, then run literal acceptance and the seeded aggregate
+diagnosis.
+
+\`\`\`powershell
+`;
+
+const lab11PauseTask4 = `Stay in this PowerShell session so \`$LabRoot\` remains set. Repair only
+\`Join-Path $LabRoot "quality-record.json"\` from the Task 4 field table. Then
+paste Phase E.
+
+**Phase E.** Verify the unchanged aggregate, inspect evidence, reset, and
+archive.
+
+\`\`\`powershell
+`;
+
+const lab11WindowsPauses = [
+  {
+    name: "create and red",
+    pause: lab11PauseTask1,
+    comment: "<!-- Add only the specified average test, then retain the meaningful failure. -->\n\n```powershell\n",
+  },
+  {
+    name: "red and green",
+    pause: lab11PauseTask2,
+    comment: "<!-- Implement the specified source behavior, then retain green. -->\n\n```powershell\n",
+  },
+  {
+    name: "green and refactor",
+    pause: lab11PauseRefactor,
+    comment: "<!-- Source-only refactor after green. -->\n\n```powershell\n",
+  },
+  {
+    name: "aggregate and final",
+    pause: lab11PauseTask4,
+    comment: "<!-- Repair only quality-record.json from retained evidence, then verify the unchanged aggregate. -->\n\n```powershell\n",
+  },
+];
+
+test("verifier rejects a Lab 11 Native Windows route that keeps the required edits in one fence", () => {
+  const root = changedCopy(lab11Path, (body) => {
+    let after = lab11Lf(body);
+    after = spliceOnce(
+      after,
+      `Write-Output $LabRoot\n\`\`\`\n\n${lab11PauseTask1}`,
+      "Write-Output $LabRoot\n# Add only the specified average test, then retain the meaningful failure.\n",
+    );
+    after = spliceOnce(
+      after,
+      `& node $Helper red $LabRoot\n\`\`\`\n\n${lab11PauseTask2}`,
+      "& node $Helper red $LabRoot\n# Implement the specified source behavior, then retain green.\n",
+    );
+    after = spliceOnce(
+      after,
+      `& node $Helper green $LabRoot\n\`\`\`\n\n${lab11PauseRefactor}`,
+      "& node $Helper green $LabRoot\n# Source-only refactor after green.\n",
+    );
+    after = spliceOnce(
+      after,
+      `if ($LASTEXITCODE -ne 0 -or $Aggregate -notmatch "EXPECTED_FAILURE") { throw "The seeded quality-record diagnosis was not retained." }\n\`\`\`\n\n${lab11PauseTask4}`,
+      "if ($LASTEXITCODE -ne 0 -or $Aggregate -notmatch \"EXPECTED_FAILURE\") { throw \"The seeded quality-record diagnosis was not retained.\" }\n# Repair only quality-record.json from retained evidence, then verify the unchanged aggregate.\n",
+    );
+    assert.notEqual(after, lab11Lf(body), "one-fence mutation must collapse the four Windows pauses");
+    return after;
+  });
+  assert.throws(() => verifyModule11(root), /must not share a PowerShell fence/);
+});
+
+test("verifier rejects a Lab 11 Native Windows route that comments out the red invocation", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    "& node $Helper red $LabRoot\n",
+    "# & node $Helper red $LabRoot\n",
+  ));
+  assert.throws(() => verifyModule11(root), /missing red/);
+});
+
+for (const { name, pause, comment } of lab11WindowsPauses) {
+  test(`verifier rejects a Lab 11 Native Windows route that separates ${name} with only a comment`, () => {
+    const root = changedCopy(lab11Path, (body) => replaceLab11Windows(body, pause, comment));
+    assert.throws(() => verifyModule11(root), /only a comment/);
+  });
+}
+
+test("verifier rejects Lab 11 pause instructions hidden in an HTML comment", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    lab11PauseTask1,
+    `<!-- Make only the Task 1 focused-test edit at \`Join-Path $LabRoot "test/summary.test.mjs"\`. -->
+
+\`\`\`powershell
+`,
+  ));
+  assert.throws(() => verifyModule11(root), /only a comment|missing required handoff text/);
+});
+
+test("verifier rejects a Lab 11 Native Windows Read-Host pause inside a fence", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    "Write-Output $LabRoot\n",
+    "Write-Output $LabRoot\n[void](Read-Host 'Press Enter after the Task 1 test edit')\n",
+  ));
+  assert.throws(() => verifyModule11(root), /must not use an in-fence prompt/);
+});
+
+test("verifier rejects a Lab 11 Native Windows helper pause verb", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    "Write-Output $LabRoot\n",
+    "Write-Output $LabRoot\n& node $Helper pause $LabRoot\n",
+  ));
+  assert.throws(() => verifyModule11(root), /must not add a helper pause, resume, or wait verb/);
+});
+
+test("verifier rejects a later Lab 11 Windows phase that creates a new attempt", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    "& node $Helper refactor $LabRoot\n",
+    "$LabRoot = ((& node $Helper create) | Out-String).Trim()\n& node $Helper refactor $LabRoot\n",
+  ));
+  assert.throws(() => verifyModule11(root), /reuse \$LabRoot rather than create a new attempt/);
+});
+
+test("verifier rejects dropping the post-green source-only handoff text", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    lab11PauseRefactor,
+    `Stay in this PowerShell session so \`$LabRoot\` remains set. Continue when ready.
+
+**Phase D.** Refactor, then run literal acceptance and the seeded aggregate
+diagnosis.
+
+\`\`\`powershell
+`,
+  ));
+  assert.throws(() => verifyModule11(root), /missing required handoff text/);
+});
