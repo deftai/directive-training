@@ -152,10 +152,67 @@ function assertWindowsStartingState(labPath, body, options) {
   const routeCode = powershellText(route);
   assert.match(routeCode, /node \$Helper create\b/, `${labPath} Native Windows route must remain a whole-lab script`);
   assert.match(routeCode, /\barchive\b/, `${labPath} Native Windows route must remain a whole-lab script`);
-  const pause = routeCode.search(/Read-Host/);
-  const authoredCheck = routeCode.search(/Test-Path -LiteralPath \$Authored/);
-  assert.ok(pause >= 0, `${labPath} compressed Windows route must pause for the required learner edit`);
-  assert.ok(authoredCheck >= 0 && pause < authoredCheck, `${labPath} compressed Windows route must pause before the authored-scope check`);
+  const routeBlocks = markdownParts(route).blocks.filter(({ language }) => language === "powershell" || language === "pwsh");
+  assert.equal(
+    routeBlocks.length,
+    2,
+    `${labPath} Native Windows route must split Phase A and Phase B into distinct PowerShell fences`,
+  );
+  const [phaseA, phaseB] = routeBlocks.map(({ content: block }) => block);
+  const phaseACreate = phaseA.search(/node \$Helper create\b/);
+  const phaseAGuard = phaseA.search(/node \$Helper guard \$LabRoot/);
+  const phaseAInstall = phaseA.search(/node \$Helper install \$LabRoot/);
+  const phaseARun = phaseA.search(/node \$Helper run \$LabRoot --intent=implement/);
+  const phaseAAuthored = phaseA.search(/\$Authored = Join-Path \$LabRoot/);
+  const phaseAHostLab = phaseA.search(/Write-Host \$LabRoot/);
+  const phaseAHostAuthored = phaseA.search(/Write-Host \$Authored/);
+  assert.ok(phaseACreate >= 0, `${labPath} Phase A must create the unique first root`);
+  assert.ok(phaseAGuard >= 0, `${labPath} Phase A must guard the unique first root`);
+  assert.ok(phaseAInstall >= 0, `${labPath} Phase A must install the unique first root`);
+  assert.ok(phaseARun >= 0, `${labPath} Phase A must run the lifecycle`);
+  assert.ok(phaseAAuthored >= 0, `${labPath} Phase A must compute $Authored under the first root`);
+  assert.ok(phaseAHostLab >= 0, `${labPath} Phase A must Write-Host the absolute $LabRoot`);
+  assert.ok(phaseAHostAuthored >= 0, `${labPath} Phase A must Write-Host the absolute $Authored`);
+  assert.ok(
+    phaseACreate < phaseAGuard && phaseAGuard < phaseAInstall && phaseAInstall < phaseARun
+      && phaseARun < phaseAAuthored && phaseAAuthored < phaseAHostLab && phaseAHostLab < phaseAHostAuthored,
+    `${labPath} Phase A must end after create, guard, install, run, and Write-Host of $LabRoot and $Authored`,
+  );
+  assert.doesNotMatch(phaseA, /Test-Path -LiteralPath \$Authored/, `${labPath} Phase A must not Test-Path $Authored before the pause`);
+  assert.doesNotMatch(phaseA, /xbrief:verify/, `${labPath} Phase A must not verify the authored record`);
+  assert.doesNotMatch(phaseA, /\b(?:reset|archive)\b/, `${labPath} Phase A must not reset or archive`);
+  assert.doesNotMatch(routeCode, /\bRead-Host\b/, `${labPath} Native Windows route must pause in prose, not Read-Host`);
+  assert.doesNotMatch(routeCode, /\bCopy-Item\b/, `${labPath} Native Windows route must not add a helper copy-in verb`);
+  const phaseBLines = phaseB.split("\n").filter((line) => line.trim() && !/^\s*#/.test(line));
+  assert.match(phaseBLines[0] ?? "", /Test-Path -LiteralPath \$Authored/, `${labPath} Phase B must start with Test-Path of $Authored`);
+  const phaseBGuard = phaseB.search(/node \$Helper guard \$LabRoot/);
+  const phaseBGuardExit = phaseB.search(/if \(\$LASTEXITCODE -ne 0\) \{ throw "Lab 7 retained-root guard failed\." \}/);
+  // `$AuthoredCommand` also contains xbrief:verify; require the executable invocation.
+  const phaseBVerify = phaseB.search(/^\s*& node \$Cli xbrief:verify\b/m);
+  const phaseBReset = phaseB.search(/node \$Helper reset \$LabRoot/);
+  const phaseBArchive = phaseB.search(/node \$Helper archive \$LabRoot/);
+  assert.ok(phaseBGuard >= 0, `${labPath} Phase B must guard the retained first root`);
+  assert.ok(phaseBGuardExit >= 0, `${labPath} Phase B must stop on a failed first-root guard`);
+  assert.ok(phaseBVerify >= 0, `${labPath} Phase B must structurally verify the authored record`);
+  assert.ok(phaseBReset >= 0, `${labPath} Phase B must reset using the retained first root`);
+  assert.ok(phaseBArchive >= 0, `${labPath} Phase B must archive using the retained first root`);
+  assert.ok(
+    phaseBGuard < phaseBGuardExit && phaseBGuardExit < phaseBVerify
+      && phaseBVerify < phaseBReset && phaseBReset < phaseBArchive,
+    `${labPath} Phase B must guard, then verify, reset, and archive on retained variables`,
+  );
+  assert.match(phaseB, /Join-Path \$LabRoot ['"]node_modules\/@deftai\/directive\/dist\/bin\.js['"]/, `${labPath} Phase B must keep the CLI under the installed first root`);
+  assert.match(phaseB, /--out \$Authored --style scope --project-root \$LabRoot/, `${labPath} Phase B must keep --out under the installed first root`);
+  const routeProse = markdownParts(route).prose;
+  assert.match(routeProse, /Write your Module 6 proposed-scope artifact/, `${labPath} pause must carry the Task 5 write instruction`);
+  assert.match(routeProse, /with your editor/, `${labPath} pause must tell the learner to write with an editor`);
+  assert.match(routeProse, /untrusted input/, `${labPath} pause must state that the authored record is untrusted input`);
+  assert.match(routeProse, /Keep `\$Authored`, the CLI, and `--out` under the installed first root/, `${labPath} pause must keep the record, CLI, and --out under the installed first root`);
+  assert.match(routeProse, /\*\*path\*\*[\s\S]{0,80}\*\*command\*\*[\s\S]{0,80}\*\*exit code\*\*[\s\S]{0,40}\*\*result\*\*/, `${labPath} pause must retain path, command, exit, and result evidence`);
+  assert.match(routeProse, /grants no promotion,\s+no activation, and no implementation authority/, `${labPath} pause must grant no promotion, activation, or implementation authority`);
+  assert.match(routeProse, /Do not promote or activate the authored\s+record/, `${labPath} pause must not promote or activate the authored record`);
+  assert.match(routeProse, /Windows route remains a candidate platform/, `${labPath} pause must keep Windows labeled as a candidate platform`);
+  assert.match(routeProse, /no copy-in verb/, `${labPath} pause must drop the helper-copy alternative`);
 }
 
 /** Read-only Module 7 contract verifier. It never executes lesson commands or fixture code. */

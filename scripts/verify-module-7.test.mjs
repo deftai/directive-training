@@ -389,14 +389,96 @@ test("verifier rejects a Lab 7 Windows starting-state that guards after install"
   assert.throws(() => verifyModule7(root), /create, then guard, then install/);
 });
 
-test("verifier rejects a Lab 7 compressed Windows route that drops the edit pause", () => {
+test("verifier rejects a Lab 7 Native Windows Read-Host pause inside a fence", () => {
   const root = splicedCopy(
     "labs/07-scope-lifecycle.md",
-    "Write-Host \"Write the Module 6 proposed-scope file to $Authored.\"\n[void](Read-Host 'Press Enter after the Module 6 proposed-scope write')\n",
+    "Write-Host $LabRoot\nWrite-Host $Authored\n",
+    "Write-Host $LabRoot\nWrite-Host $Authored\n[void](Read-Host 'Press Enter after the Module 6 proposed-scope write')\n",
+  );
+  assert.throws(() => verifyModule7(root), /prose, not Read-Host/);
+});
+
+test("verifier rejects a Lab 7 Native Windows route that keeps Task 5 in one PowerShell fence", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "Write-Host $LabRoot\nWrite-Host $Authored\n```\n\nPause after Phase A.",
+    "Write-Host $LabRoot\nWrite-Host $Authored\nPause after Phase A.",
+  );
+  assert.throws(() => verifyModule7(root), /distinct PowerShell fences/);
+});
+
+test("verifier rejects a Lab 7 Phase A that Test-Path $Authored before the pause", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "$Authored = Join-Path $LabRoot \"xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json\"\nWrite-Host $LabRoot\nWrite-Host $Authored\n```",
+    "$Authored = Join-Path $LabRoot \"xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json\"\nif (-not (Test-Path -LiteralPath $Authored -PathType Leaf)) { throw \"Write your Module 6 proposed scope to $Authored first.\" }\nWrite-Host $LabRoot\nWrite-Host $Authored\n```",
+  );
+  assert.throws(() => verifyModule7(root), /must not Test-Path \$Authored before the pause/);
+});
+
+test("verifier rejects a Lab 7 Phase A that drops Write-Host of the retained paths", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "Write-Host $LabRoot\nWrite-Host $Authored\n",
     "",
   );
-  assert.throws(() => verifyModule7(root), /must pause for the required learner edit/);
+  assert.throws(() => verifyModule7(root), /Write-Host the absolute \$LabRoot/);
 });
+
+test("verifier rejects a Lab 7 pause that drops the Task 5 write instruction", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "Write your Module 6 proposed-scope artifact\ndirectly to the printed `$Authored` path with your editor.",
+    "Continue when ready.",
+  );
+  assert.throws(() => verifyModule7(root), /Task 5 write instruction/);
+});
+
+test("verifier rejects a Lab 7 pause that drops the untrusted-input boundary", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "The authored record is untrusted input to the CLI: fictional content only, no client\n  data, credentials, or paths outside the guarded first attempt.",
+    "The authored record may be copied from any retained path.",
+  );
+  assert.throws(() => verifyModule7(root), /untrusted input/);
+});
+
+test("verifier rejects a Lab 7 Windows route that adds a helper copy-in verb", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "Write-Host $LabRoot\nWrite-Host $Authored\n",
+    "Write-Host $LabRoot\nWrite-Host $Authored\nCopy-Item $Source $Authored\n",
+  );
+  assert.throws(() => verifyModule7(root), /copy-in verb/);
+});
+
+test("verifier rejects a Lab 7 Phase B that verifies before Test-Path and guard", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "if (-not (Test-Path -LiteralPath $Authored -PathType Leaf)) { throw \"Write your Module 6 proposed scope to $Authored first.\" }\n& node $Helper guard $LabRoot\nif ($LASTEXITCODE -ne 0) { throw \"Lab 7 retained-root guard failed.\" }\n$Cli = Join-Path $LabRoot \"node_modules/@deftai/directive/dist/bin.js\"\n$AuthoredRecord = Join-Path $EvidenceRoot \"authored-verify.txt\"\n$AuthoredCommand = \"node $Cli xbrief:verify -- --format json --out $Authored --style scope --project-root $LabRoot\"\n$Lab07ExpectedFailurePreference = $PSNativeCommandUseErrorActionPreference\ntry {\n  $PSNativeCommandUseErrorActionPreference = $false\n  & node $Cli xbrief:verify -- --format json --out $Authored --style scope --project-root $LabRoot *> $AuthoredRecord\n",
+    "if (-not (Test-Path -LiteralPath $Authored -PathType Leaf)) { throw \"Write your Module 6 proposed scope to $Authored first.\" }\n  & node $Cli xbrief:verify -- --format json --out $Authored --style scope --project-root $LabRoot *> $AuthoredRecord\n& node $Helper guard $LabRoot\nif ($LASTEXITCODE -ne 0) { throw \"Lab 7 retained-root guard failed.\" }\n$Cli = Join-Path $LabRoot \"node_modules/@deftai/directive/dist/bin.js\"\n$AuthoredRecord = Join-Path $EvidenceRoot \"authored-verify.txt\"\n$AuthoredCommand = \"node $Cli xbrief:verify -- --format json --out $Authored --style scope --project-root $LabRoot\"\n$Lab07ExpectedFailurePreference = $PSNativeCommandUseErrorActionPreference\ntry {\n  $PSNativeCommandUseErrorActionPreference = $false\n",
+  );
+  assert.throws(() => verifyModule7(root), /Phase B must guard, then verify, reset, and archive/);
+});
+
+test("verifier rejects a Lab 7 Phase B that ignores a failed first-root guard", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "& node $Helper guard $LabRoot\nif ($LASTEXITCODE -ne 0) { throw \"Lab 7 retained-root guard failed.\" }\n",
+    "& node $Helper guard $LabRoot\n",
+  );
+  assert.throws(() => verifyModule7(root), /must stop on a failed first-root guard/);
+});
+
+test("verifier rejects a Lab 7 Phase B that keeps xbrief:verify only as command text", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "  & node $Cli xbrief:verify -- --format json --out $Authored --style scope --project-root $LabRoot *> $AuthoredRecord\n",
+    "",
+  );
+  assert.throws(() => verifyModule7(root), /must structurally verify the authored record/);
+});
+
 
 test("verifier rejects a Lab 7 route that treats starting-state and whole-lab as a sequence", () => {
   const root = splicedCopy(

@@ -510,9 +510,11 @@ check, and it is not verified preflight.
 
 This compressed candidate route replaces the ordered helper commands in Tasks 1-4 and the
 Task 5 verify command. Do not walk those shell blocks after it. `run --intent=implement`
-already performs the lifecycle Tasks 1-3 observe, and this script then resets and archives.
-You still write the Module 6 proposed-scope file before this script reaches `xbrief:verify`,
-and you still read the retained evidence to meet the done statement.
+already performs the lifecycle Tasks 1-3 observe. Phase A prints the unique first-root
+paths, then you still write the Module 6 proposed-scope file at the printed destination
+before Phase B reaches `xbrief:verify`. Phase B then verifies, resets, and archives in the
+same PowerShell session, and you still read the retained evidence to meet the done
+statement.
 
 The Environment starting-state attempt and this Native Windows whole-lab route are
 alternative paths, not a sequence. Do not run both.
@@ -521,8 +523,13 @@ A learner without the verified macOS/zsh environment may stop as environment-blo
 instead of treating this unexecuted candidate platform as verified practical-outcome
 coverage.
 
-Run this from the curriculum repository. It covers starting state, execution,
-acceptance, fresh reset, and recoverable archive without spoofing the platform:
+Run this from the curriculum repository. Keep one PowerShell session so `$LabRoot` and
+`$Authored` remain set. Phase A creates, guards, installs, and runs the lifecycle, then
+prints the absolute first-root paths. Pause after Phase A and write Task 5 with your
+editor. Phase B then verifies, resets, and archives. Do not paste Phase A and Phase B as
+one block. This candidate route does not spoof the platform.
+
+### Phase A — create, guard, install, and run
 
 ```powershell
 $ErrorActionPreference = "Stop"
@@ -541,9 +548,39 @@ foreach ($Name in "proposed-preflight.json", "lifecycle-run.json") {
   if (-not (Test-Path -LiteralPath (Join-Path $EvidenceRoot $Name) -PathType Leaf)) { throw "Missing $Name" }
 }
 $Authored = Join-Path $LabRoot "xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json"
-Write-Host "Write the Module 6 proposed-scope file to $Authored."
-[void](Read-Host 'Press Enter after the Module 6 proposed-scope write')
+Write-Host $LabRoot
+Write-Host $Authored
+```
+
+Pause after Phase A. Keep this PowerShell session so `$LabRoot`, `$Authored`, `$Helper`,
+`$CourseRoot`, and `$EvidenceRoot` stay set. Write your Module 6 proposed-scope artifact
+directly to the printed `$Authored` path with your editor. Do not paste Phase B until that
+leaf exists. The helper has no copy-in verb; write the record at the printed destination
+inside the guarded first root.
+
+This is the Task 5 boundary, not a file-presence gate:
+
+- The authored record is untrusted input to the CLI: fictional content only, no client
+  data, credentials, or paths outside the guarded first attempt.
+- Keep `$Authored`, the CLI, and `--out` under the installed first root (`$LabRoot`). Do
+  not point them at the later reset root.
+- Retain four things from the verification record: the artifact **path**, the exact
+  **command**, the **exit code**, and the **result**.
+- `xbrief:verify` is not a lifecycle move. A green structural result grants no promotion,
+  no activation, and no implementation authority. Do not promote or activate the authored
+  record.
+
+This Windows route remains a candidate platform. It is not pin-verified practical-outcome
+coverage.
+
+### Phase B — verify, reset, and archive
+
+Start Phase B in the same session after the authored leaf exists:
+
+```powershell
 if (-not (Test-Path -LiteralPath $Authored -PathType Leaf)) { throw "Write your Module 6 proposed scope to $Authored first." }
+& node $Helper guard $LabRoot
+if ($LASTEXITCODE -ne 0) { throw "Lab 7 retained-root guard failed." }
 $Cli = Join-Path $LabRoot "node_modules/@deftai/directive/dist/bin.js"
 $AuthoredRecord = Join-Path $EvidenceRoot "authored-verify.txt"
 $AuthoredCommand = "node $Cli xbrief:verify -- --format json --out $Authored --style scope --project-root $LabRoot"
