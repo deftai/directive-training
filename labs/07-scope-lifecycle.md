@@ -48,8 +48,16 @@ software feature was delivered.
 
 ## Environment and starting-state check
 
-Use a dedicated zsh terminal at the root of this curriculum repository. Complete Modules
-1–6 first. Confirm the course checkout is only the source of the helper:
+Complete Modules 1–6 first. Confirm the course checkout is only the source of the helper.
+Choose the branch for your shell before any state is created. macOS/zsh is verified
+locally; Linux/bash and Windows/PowerShell 7.4+ remain candidates pending native evidence.
+This starting-state check is not verified preflight for a candidate platform. A learner
+without the verified environment may stop as environment-blocked instead of treating an
+unexecuted candidate platform as verified. See the [course map](../curriculum/README.md).
+
+### macOS/zsh — verified locally; Linux/bash — candidate
+
+Use a dedicated zsh terminal at the root of this curriculum repository.
 
 ```sh
 set -eu
@@ -121,6 +129,58 @@ configuration.
 If install is partial, preserve its sanitized output and use the reset section. Do not use a
 global Directive as a substitute; another version on `PATH` is exactly the ambiguity this
 fixture excludes.
+
+### Windows/PowerShell 7.4+ — candidate pending native evidence
+
+Use PowerShell 7.4+ at the root of this curriculum repository. This branch checks tools,
+the helper path, `create`, and `guard` before any later task. It is the candidate
+starting-state check, not the later Native Windows whole-lab route, and it is not
+verified preflight. On Windows, a later install invokes
+`node_modules/@deftai/directive/dist/bin.js` because the `.bin` launcher differs by
+platform.
+
+```powershell
+if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
+$Lab07OriginalErrorActionPreference = $ErrorActionPreference
+$Lab07OriginalNativePreference = $PSNativeCommandUseErrorActionPreference
+$ErrorActionPreference = 'Stop'
+$PSNativeCommandUseErrorActionPreference = $true
+try {
+  node --version
+  npm.cmd --version
+  git --version
+  task --version
+  uv --version
+  $PythonCommand = @('python', 'python3', 'py') | ForEach-Object {
+    Get-Command $_ -CommandType Application -ErrorAction SilentlyContinue
+  } | Select-Object -First 1
+  if ($null -eq $PythonCommand) { throw 'Python is required for the Lab 7 isolated PATH.' }
+  & $PythonCommand.Source --version
+  $CourseRoot = (Resolve-Path -LiteralPath '.').Path
+  $Helper = Join-Path $CourseRoot 'labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs'
+  if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Lab 7 starting-state helper not found: $Helper" }
+  $LabRoot = ((& node $Helper create) | Out-String).Trim()
+  if ($LASTEXITCODE -ne 0) { throw 'Lab 7 starting-state create failed.' }
+  & node $Helper guard $LabRoot
+  if ($LASTEXITCODE -ne 0) { throw 'Lab 7 starting-state guard failed.' }
+  if ((git -C $LabRoot branch --show-current | Out-String).Trim() -ne 'training/module-07') { throw 'expected training/module-07' }
+  if ((git -C $LabRoot remote | Out-String).Trim()) { throw 'lab must have no remote' }
+  & node $Helper install $LabRoot
+  $Cli = Join-Path $LabRoot 'node_modules/@deftai/directive/dist/bin.js'
+  & node $Cli --version
+  foreach ($Name in 'Taskfile.yml', '.deft/core/VERSION') {
+    if (-not (Test-Path -LiteralPath (Join-Path $LabRoot $Name) -PathType Leaf)) { throw "Missing $Name" }
+  }
+} finally {
+  $ErrorActionPreference = $Lab07OriginalErrorActionPreference
+  $PSNativeCommandUseErrorActionPreference = $Lab07OriginalNativePreference
+}
+```
+
+**Pass:** `$LabRoot` is an absolute canonical path ending in a unique
+`3ci-directive-lab07-<id>/repo` under the operating-system temporary directory. The branch
+is `training/module-07` and the remote list is empty. Install reports Directive 0.119.5
+through `dist/bin.js`. This candidate branch is not verified practical-outcome coverage.
 
 ## Safety boundary
 
@@ -443,6 +503,19 @@ paths. The archive remains recoverable until an operator applies their normal re
 policy outside this course.
 
 ## Native Windows PowerShell 7.4+ route
+
+This remains a candidate whole-lab path. It is not the Environment and starting-state
+check, and it is not verified preflight.
+
+This compressed candidate route replaces the ordered helper commands in Tasks 1-4 and the
+Task 5 verify command. Do not walk those shell blocks after it. `run --intent=implement`
+already performs the lifecycle Tasks 1-3 observe, and this script then resets and archives.
+You still write the Module 6 proposed-scope file before this script reaches `xbrief:verify`,
+and you still read the retained evidence to meet the done statement.
+
+A learner without the verified macOS/zsh environment may stop as environment-blocked
+instead of treating this unexecuted candidate platform as verified practical-outcome
+coverage.
 
 Run this from the curriculum repository. It covers starting state, execution,
 acceptance, fresh reset, and recoverable archive without spoofing the platform:

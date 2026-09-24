@@ -53,6 +53,95 @@ function requireModule7Link(content, label) {
   assert.match(content, /\]\([^)]*07-scope-lifecycle\.md(?:#[^)]*)?\)/, `${label} is missing Module 7 navigation`);
 }
 
+const EM_DASH = "\u2014";
+const POSIX_STARTING_BRANCH = `macOS/zsh ${EM_DASH} verified locally; Linux/bash ${EM_DASH} candidate`;
+const WINDOWS_STARTING_BRANCH = `Windows/PowerShell 7.4+ ${EM_DASH} candidate pending native evidence`;
+
+function exactHeadingSlice(body, heading, level) {
+  const marker = `${"#".repeat(level)} ${heading}`;
+  const lines = body.split(/\r?\n/);
+  const start = lines.indexOf(marker);
+  assert.ok(start >= 0, `missing heading: ${heading}`);
+  let end = lines.length;
+  let fence = null;
+  for (let index = start + 1; index < lines.length; index += 1) {
+    const fenceMark = lines[index].match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+    if (!fence && fenceMark) {
+      fence = fenceMark[1];
+      continue;
+    }
+    if (fence && fenceMark && fenceMark[1][0] === fence[0] && fenceMark[1].length >= fence.length && !fenceMark[2].trim()) {
+      fence = null;
+      continue;
+    }
+    if (fence) continue;
+    const match = /^(#{1,6}) /.exec(lines[index]);
+    if (match && match[1].length <= level) {
+      end = index;
+      break;
+    }
+  }
+  return lines.slice(start, end).join("\n");
+}
+
+function powershellText(markdown) {
+  return markdownParts(markdown).blocks
+    .filter(({ language }) => language === "powershell" || language === "pwsh")
+    .map(({ content: block }) => block)
+    .join("\n");
+}
+
+function escapeHeading(heading) {
+  return heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/** Labs 7 and 10 share this starting-state shape; Module 7 passes its own relationship. */
+function assertWindowsStartingState(labPath, body, options) {
+  const environment = exactHeadingSlice(body, "Environment and starting-state check", 2);
+  const beforeBranch = environment.split(/^### /m)[0];
+  assert.doesNotMatch(
+    beforeBranch,
+    /Use a dedicated zsh terminal/,
+    `${labPath} must not leave "Use a dedicated zsh terminal" as the unbranched first instruction`,
+  );
+  assert.match(
+    environment,
+    new RegExp(`^### ${escapeHeading(POSIX_STARTING_BRANCH)}$`, "m"),
+    `${labPath} Environment section must keep the macOS/zsh and Linux/bash sibling branch`,
+  );
+  assert.match(
+    environment,
+    new RegExp(`^### ${escapeHeading(WINDOWS_STARTING_BRANCH)}$`, "m"),
+    `${labPath} Environment section is missing the Windows starting-state branch`,
+  );
+  assert.match(beforeBranch, /not verified preflight/, `${labPath} starting-state check must not promote a candidate platform to verified preflight`);
+  assert.match(beforeBranch, /environment-blocked/, `${labPath} starting-state check must keep the environment-blocked stop`);
+  const windows = exactHeadingSlice(environment, WINDOWS_STARTING_BRANCH, 3);
+  const code = powershellText(windows);
+  assert.ok(code.trim(), `${labPath} Windows starting-state branch is missing a PowerShell block`);
+  for (const tool of ["node --version", "git --version", "task --version", "uv --version"]) {
+    assert.ok(code.includes(tool), `${labPath} Windows starting-state branch is missing tool check: ${tool}`);
+  }
+  assert.match(code, /npm(?:\.cmd)? --version/, `${labPath} Windows starting-state branch is missing tool check: npm`);
+  assert.ok(code.includes(options.helperPath), `${labPath} Windows starting-state branch is missing the helper path`);
+  assert.match(code, /node \$Helper create\b/, `${labPath} Windows starting-state branch is missing create`);
+  assert.match(code, /node \$Helper guard\b/, `${labPath} Windows starting-state branch is missing guard`);
+  assert.doesNotMatch(code, /\barchive\b/, `${labPath} must not move the whole-lab route into the starting-state check`);
+  if (options.pythonOrder) {
+    assert.match(code, /@\('python', 'python3', 'py'\)/, `${labPath} Windows starting-state branch must check Python as python, python3, then py`);
+  }
+  const route = exactHeadingSlice(body, "Native Windows PowerShell 7.4+ route", 2);
+  assert.match(route, /^## Native Windows PowerShell 7\.4\+ route$/m, `${labPath} must keep the Native Windows heading as the candidate whole-lab path`);
+  assert.doesNotMatch(route, /verified starting-state/i, `${labPath} must not relabel the Native Windows route as the verified starting-state check`);
+  assert.match(route, /candidate whole-lab path/, `${labPath} must keep the Native Windows route as a candidate whole-lab path`);
+  assert.match(route, /not verified preflight/, `${labPath} must not promote the compressed route to verified preflight`);
+  assert.match(route, /environment-blocked/, `${labPath} compressed route must keep the environment-blocked stop`);
+  assert.match(route, options.relationship, `${labPath} must state how the compressed route relates to the ordered tasks`);
+  const routeCode = powershellText(route);
+  assert.match(routeCode, /node \$Helper create\b/, `${labPath} Native Windows route must remain a whole-lab script`);
+  assert.match(routeCode, /\barchive\b/, `${labPath} Native Windows route must remain a whole-lab script`);
+}
+
 /** Read-only Module 7 contract verifier. It never executes lesson commands or fixture code. */
 export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.url))) {
   assert.equal(typeof root, "string", "repository root must be a path string");
@@ -267,6 +356,11 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   assert.equal(projectPackage.scripts?.["check:module-7"], "node scripts/verify-module-7.mjs", "package scripts must expose check:module-7");
   assert.equal(projectPackage.scripts?.["test:module-7"], "node --test scripts/lifecycle-lab.test.mjs scripts/verify-module-7.test.mjs", "package scripts must expose test:module-7");
   assertTeachingBaselinePin(projectPackage, content.get("README.md"));
+  assertWindowsStartingState(lab7, content.get(lab7), {
+    helperPath: "labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs",
+    pythonOrder: true,
+    relationship: /replaces the ordered helper commands in Tasks 1-4[\s\S]*still write the Module 6 proposed-scope file/,
+  });
   return { artifactCount: content.size };
 }
 

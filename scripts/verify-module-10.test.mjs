@@ -170,3 +170,62 @@ test("verifier rejects a missing Module 10 outcome mapping", () => {
   const root = changedCopy("curriculum/modules/10-implementation-golden-path.md", (body) => body.replaceAll("O10.9", "O10.X"));
   assert.throws(() => verifyModule10(root), /missing O10\.9/);
 });
+
+const lab10WindowsHeading = `### Windows/PowerShell 7.4+ ${"\u2014"} candidate pending native evidence`;
+
+test("verifier rejects a zsh-only Lab 10 Environment section", () => {
+  const root = changedCopy("labs/10-implementation-golden-path.md", (body) => body.replace(lab10WindowsHeading, "### Notes"));
+  assert.throws(() => verifyModule10(root), /missing the Windows starting-state branch/);
+});
+
+test("verifier rejects an unbranched zsh lead on Lab 10", () => {
+  const root = changedCopy("labs/10-implementation-golden-path.md", (body) => body.replace(
+    "### macOS/zsh",
+    "Use a dedicated zsh terminal\n\n### macOS/zsh",
+  ));
+  assert.throws(() => verifyModule10(root), /unbranched first instruction/);
+});
+
+test("verifier rejects a Lab 10 Windows starting-state branch that drops a tool check", () => {
+  const root = changedCopy("labs/10-implementation-golden-path.md", (body) => body.replace("npm.cmd --version", "Write-Output 'npm skipped'"));
+  assert.throws(() => verifyModule10(root), /missing tool check: npm/);
+});
+
+test("verifier rejects a Lab 10 Windows starting-state branch that drops the helper path", () => {
+  const root = changedCopy(
+    "labs/10-implementation-golden-path.md",
+    (body) => body.replace(
+      "Join-Path $CourseRoot 'labs/fixtures/10-implementation-golden-path/implementation-lab.mjs'",
+      "Join-Path $CourseRoot 'labs/fixtures/10-implementation-golden-path/missing-helper.mjs'",
+    ),
+  );
+  assert.throws(() => verifyModule10(root), /missing the helper path/);
+});
+
+test("verifier rejects a Lab 10 Windows starting-state branch that drops create", () => {
+  const root = changedCopy("labs/10-implementation-golden-path.md", (body) => body.replace("node $Helper create", "node $Helper make"));
+  assert.throws(() => verifyModule10(root), /missing create/);
+});
+
+test("verifier rejects a Lab 10 Windows starting-state branch that drops guard", () => {
+  const root = changedCopy("labs/10-implementation-golden-path.md", (body) => {
+    const start = body.indexOf(lab10WindowsHeading);
+    const end = body.indexOf("## Safety boundary", start);
+    const windows = body.slice(start, end).replaceAll("& node $Helper guard $LabRoot", "& node $Helper status $LabRoot");
+    return body.slice(0, start) + windows + body.slice(end);
+  });
+  assert.throws(() => verifyModule10(root), /missing guard/);
+});
+
+test("verifier rejects a Lab 10 route that drops the ordered-task relationship", () => {
+  const root = changedCopy(
+    "labs/10-implementation-golden-path.md",
+    (body) => body.replace("does not replace Tasks 1-3", "covers some commands"),
+  );
+  assert.throws(() => verifyModule10(root), /relates to the ordered tasks/);
+});
+
+test("verifier rejects relabeling the Lab 10 Native Windows route as the starting-state check", () => {
+  const root = changedCopy("labs/10-implementation-golden-path.md", (body) => body.replace("candidate whole-lab path", "verified starting-state check"));
+  assert.throws(() => verifyModule10(root), /must not relabel the Native Windows route/);
+});

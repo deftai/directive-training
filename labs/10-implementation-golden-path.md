@@ -37,9 +37,17 @@ not design novelty.
 
 ## Environment and starting-state check
 
-Use a dedicated zsh terminal at the root of this curriculum checkout. The helper creates a
-unique OS-temporary repository with no remote. It does not initialize or mutate this course
-repository.
+The helper creates a unique OS-temporary repository with no remote. It does not initialize
+or mutate this course repository. Choose the branch for your shell before any state is
+created. macOS/zsh is verified locally; Linux/bash and Windows/PowerShell 7.4+ remain
+candidates pending native evidence. This starting-state check is not verified preflight
+for a candidate platform. A learner without the verified environment may stop as
+environment-blocked instead of treating an unexecuted candidate platform as verified. See
+the [course map](../curriculum/README.md).
+
+### macOS/zsh — verified locally; Linux/bash — candidate
+
+Use a dedicated zsh terminal at the root of this curriculum checkout.
 
 ```sh
 set -eu
@@ -75,6 +83,53 @@ git -C "$lab_root" status --short
 
 The deposited Task surface belongs to that exact local install.
 Do not substitute a newer global executable.
+
+### Windows/PowerShell 7.4+ — candidate pending native evidence
+
+Use PowerShell 7.4+ at the root of this curriculum checkout. This branch checks tools, the
+helper path, `create`, and `guard` before any later task. It is the candidate
+starting-state check, not the later Native Windows whole-lab route, and it is not
+verified preflight. On Windows, a later install invokes
+`node_modules/@deftai/directive/dist/bin.js` because the `.bin` launcher differs by
+platform.
+
+```powershell
+if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
+$Lab10OriginalErrorActionPreference = $ErrorActionPreference
+$Lab10OriginalNativePreference = $PSNativeCommandUseErrorActionPreference
+$ErrorActionPreference = 'Stop'
+$PSNativeCommandUseErrorActionPreference = $true
+try {
+  node --version
+  npm.cmd --version
+  git --version
+  task --version
+  uv --version
+  $CourseRoot = (Resolve-Path -LiteralPath '.').Path
+  $Helper = Join-Path $CourseRoot 'labs/fixtures/10-implementation-golden-path/implementation-lab.mjs'
+  if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Lab 10 starting-state helper not found: $Helper" }
+  $LabRoot = ((& node $Helper create) | Out-String).Trim()
+  if ($LASTEXITCODE -ne 0) { throw 'Lab 10 starting-state create failed.' }
+  & node $Helper guard $LabRoot
+  if ($LASTEXITCODE -ne 0) { throw 'Lab 10 starting-state guard failed.' }
+  if ((git -C $LabRoot branch --show-current | Out-String).Trim() -ne 'training/module-10') { throw 'expected training/module-10' }
+  if ((git -C $LabRoot remote | Out-String).Trim()) { throw 'lab must have no remote' }
+  & node $Helper install $LabRoot
+  & node $Helper guard $LabRoot
+  $Cli = Join-Path $LabRoot 'node_modules/@deftai/directive/dist/bin.js'
+  & node $Cli --version
+  if ((git -C $LabRoot status --short | Out-String).Trim()) { throw 'expected an empty status after install' }
+} finally {
+  $ErrorActionPreference = $Lab10OriginalErrorActionPreference
+  $PSNativeCommandUseErrorActionPreference = $Lab10OriginalNativePreference
+}
+```
+
+**Pass:** the printed root is canonical and looks like
+`<OS temp>/3ci-directive-lab10-<unique>/repo`. The branch is `training/module-10`, the
+remote list is empty, and status is empty after install. The explicit local CLI reports
+engine 0.119.5 through `dist/bin.js`. This candidate branch is not verified
+practical-outcome coverage.
 
 ## Safety boundary
 
@@ -275,6 +330,18 @@ This is the recoverable `implementation-lab.mjs archive` operation. Repeat separ
 each root you intentionally want to archive. Nothing is recursively deleted.
 
 ## Native Windows PowerShell 7.4+ route
+
+This remains a candidate whole-lab path. It is not the Environment and starting-state
+check, and it is not verified preflight.
+
+This compressed candidate route does not replace Tasks 1-3. The script runs create,
+guard, install, and readiness, then you still walk Task 2: the only `src/greeting.mjs`
+edit specified in that task. After that edit, the script continues with verify, reset,
+and archive. Do not skip that ordered edit.
+
+A learner without the verified macOS/zsh environment may stop as environment-blocked
+instead of treating this unexecuted candidate platform as verified practical-outcome
+coverage.
 
 Run this from the curriculum repository. After `readiness` reports `READY`, make
 only the `src/greeting.mjs` edit described above, then continue with `verify`:
