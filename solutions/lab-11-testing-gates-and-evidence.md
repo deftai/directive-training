@@ -98,17 +98,17 @@ The pinned literal gate accepted `npm run test:focused` and `npm run check:behav
 evidence, not a step to type:
 
 ```text
-verify:ac passed (#3284) (0 verified, 1 unverifiable) [rung=derived]
-verify:ac clause walk (#3323): 0 verified, 1 unverifiable, 0 failed
-  [unverifiable] clause 1 @ (no path): The focused test and numeric-summary CLI pass for an ordinary sample and an empty sample. — no artifact path bound
+verify:ac passed (#3284) [rung=derived]
 Literal acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim
+  ✓ npm run test:focused — exit 0 (expected 0)
+  ✓ npm run check:behavior — exit 0 (expected 0)
 AC-pass bank checkpoint required (finalize-on-green) (#3285)
 unbounded budget — dual-stop still applies; bank is optional discipline
+[deft ac-pass-banking] banked scope=northstar.testing.summary-average next=finalize_and_deepen had_surplus=true (#3285)
 ```
 
-The two stored npm commands are the literal-acceptance proof. `unverifiable` means clause 1
-has no bound artifact path, not a failed focused test. `[rung=derived]` and the AC-pass-bank
-dual-stop line are upstream 0.119.5 diagnostics.
+The two stored npm commands are the literal-acceptance proof. `[rung=derived]` and the AC-pass-bank
+dual-stop lines are upstream 0.119.5 diagnostics.
 
 ### Step 6 — Diagnose and repair the aggregate
 

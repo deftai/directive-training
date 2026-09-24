@@ -19,6 +19,7 @@ import {
   verifyPin,
 } from "../labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs";
 import { git } from "../labs/fixtures/11-testing-gates-and-evidence/safety.mjs";
+import { lab11RetainedLiteralStdoutTokens } from "./verify-module-11.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(path, "utf8");
@@ -113,7 +114,14 @@ test("full lab retains ordered red-green-refactor and aggregate diagnosis eviden
 
   refactorAverage(root);
   assert.equal(recordRefactor(root).finalStatus, "PASS");
-  assert.equal(runLiteralAcceptance(root).finalStatus, "PASS");
+  const literal = runLiteralAcceptance(root);
+  assert.equal(literal.finalStatus, "PASS");
+  const retained = JSON.parse(read(join(root, "..", "evidence", "literal.json")));
+  assert.equal(retained.literalAcceptance.exitCode, 0);
+  const stdout = retained.literalAcceptance.stdout;
+  for (const token of lab11RetainedLiteralStdoutTokens) {
+    assert.ok(stdout.includes(token), `literal.json.literalAcceptance.stdout missing ${token}`);
+  }
 
   const failed = runAggregate(root);
   assert.equal(failed.finalStatus, "EXPECTED_FAILURE");
