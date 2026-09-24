@@ -274,15 +274,40 @@ test("verifier rejects POSIX shims that omit the selected python3 alias", () => 
   assert.throws(() => verifyCapstone(root), /bind python3 to the selected interpreter/);
 });
 
-test("verifier rejects a fake Windows course root instead of learner input", () => {
-  const root = changedCopy("labs/capstone-end-to-end.md", (body) => body
-    .replace(/if \(\[string\]::IsNullOrWhiteSpace\(\$env:DIRECTIVE_TRAINING_ROOT\)\) \{[\s\S]*?\}\r?\n/, "")
-    .replace(
-      "$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)",
-      '$CourseRoot = (Resolve-Path "C:\\absolute\\path\\to\\directive-training").Path',
-    ));
-  assert.throws(() => verifyCapstone(root), /DIRECTIVE_TRAINING_ROOT|fake absolute clone path/);
-});
+const windowsPowerShellVersionGuard =
+  "if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }\n";
+
+for (const [title, transform, expected] of [
+  [
+    "a fake Windows course root instead of learner input",
+    (body) => body
+      .replace(/if \(\[string\]::IsNullOrWhiteSpace\(\$env:DIRECTIVE_TRAINING_ROOT\)\) \{[\s\S]*?\}\r?\n/, "")
+      .replace(
+        "$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)",
+        '$CourseRoot = (Resolve-Path "C:\\absolute\\path\\to\\directive-training").Path',
+      ),
+    /DIRECTIVE_TRAINING_ROOT|fake absolute clone path/,
+  ],
+  [
+    "a missing PowerShell 7.4 first-statement guard on the Windows start",
+    (body) => withoutFirst(body, windowsPowerShellVersionGuard),
+    /must throw on PowerShell below 7\.4/,
+  ],
+  [
+    "a PowerShell 7.4 guard moved behind Windows start setup",
+    (body) => replaceFirst(
+      withoutFirst(body, windowsPowerShellVersionGuard),
+      '$ErrorActionPreference = "Stop"\n',
+      '$ErrorActionPreference = "Stop"\n' + windowsPowerShellVersionGuard,
+    ),
+    /first statement/,
+  ],
+]) {
+  test("verifier rejects " + title, () => {
+    const root = changedCopy("labs/capstone-end-to-end.md", transform);
+    assert.throws(() => verifyCapstone(root), expected);
+  });
+}
 
 test("verifier rejects a missing outcome mapping", () => {
   const root = changedCopy("assessments/capstone-end-to-end.md", (body) =>

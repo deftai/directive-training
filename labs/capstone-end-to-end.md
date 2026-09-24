@@ -105,6 +105,7 @@ Before pasting the block, set the process environment variable
 The block fails clearly if that learner input is absent or not absolute.
 
 ```powershell
+if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $true
 if ([string]::IsNullOrWhiteSpace($env:DIRECTIVE_TRAINING_ROOT)) {

@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #61",
-    "updated": "2026-09-23T16:45:08Z"
+    "updated": "2026-09-24T15:56:08Z"
   },
   "plan": {
     "title": "Capstone PowerShell 7.4+ block does not enforce the shell version",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "The capstone labels its Windows starting-state fence as PowerShell 7.4+ but does not inspect `$PSVersionTable`, so an unsupported shell can begin the final evidence workflow before failing on later behavior. This story copies the established Labs 2 and 5 version guard into the wrapper's first statement and adds focused content regression coverage without changing the Node helper or any other PowerShell route.",
       "ImplementationPlan": "1. Update the Windows Environment fence in `labs/capstone-end-to-end.md` so the PowerShell 7.4 guard is its first statement, before `$ErrorActionPreference` or any stateful operation.\n2. Add a focused `labEnvironment` assertion in `scripts/verify-capstone.mjs` for the established Labs 2 and 5 guard expression.\n3. Extend `scripts/verify-capstone.test.mjs` with a negative fixture that removes the guard and proves the content check fails, while keeping the helper and unrelated routes outside the diff.",
@@ -74,8 +74,7 @@
         ],
         "verify_commands": [
           "npm run check:capstone",
-          "node --test scripts/verify-capstone.test.mjs",
-          "git diff --check"
+          "npm run test:capstone"
         ],
         "expected_outputs": [
           "The first PowerShell statement rejects versions below 7.4 before any state is created",
@@ -286,6 +285,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5544445396",
-    "updated": "2026-09-23T16:45:08Z"
+    "updated": "2026-09-24T15:56:08Z"
   }
 }

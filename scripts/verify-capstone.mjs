@@ -772,6 +772,16 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   }
   assert.match(
     labEnvironment,
+    /\$PSVersionTable\.PSVersion -lt \[version\]'7\.4'/,
+    "capstone Windows start must throw on PowerShell below 7.4",
+  );
+  const windowsStartFence = labEnvironment.match(/```powershell\r?\n([\s\S]*?)```/)?.[1] ?? "";
+  assert.ok(
+    windowsStartFence.startsWith("if ($PSVersionTable.PSVersion -lt [version]'7.4')"),
+    "capstone Windows start must throw on PowerShell below 7.4 as the first statement",
+  );
+  assert.match(
+    labEnvironment,
     /\[string\]::IsNullOrWhiteSpace\(\$env:DIRECTIVE_TRAINING_ROOT\)/,
     "capstone Windows start must reject a missing DIRECTIVE_TRAINING_ROOT",
   );
