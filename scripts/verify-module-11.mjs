@@ -143,6 +143,219 @@ function requireStartingStateGate(page) {
   );
 }
 
+function exactHeadingSlice(body, heading, level) {
+  const marker = `${"#".repeat(level)} ${heading}`;
+  const lines = body.split(/\r?\n/);
+  const start = lines.indexOf(marker);
+  assert.ok(start >= 0, `missing heading: ${heading}`);
+  let end = lines.length;
+  let fence = null;
+  for (let index = start + 1; index < lines.length; index += 1) {
+    const fenceMark = lines[index].match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+    if (!fence && fenceMark) {
+      fence = fenceMark[1];
+      continue;
+    }
+    if (fence && fenceMark && fenceMark[1][0] === fence[0] && fenceMark[1].length >= fence.length && !fenceMark[2].trim()) {
+      fence = null;
+      continue;
+    }
+    if (fence) continue;
+    const match = /^(#{1,6}) /.exec(lines[index]);
+    if (match && match[1].length <= level) {
+      end = index;
+      break;
+    }
+  }
+  return lines.slice(start, end).join("\n");
+}
+
+function powershellText(markdown) {
+  return markdownParts(markdown).blocks
+    .filter(({ language }) => language === "powershell" || language === "pwsh")
+    .map(({ content: block }) => block)
+    .join("\n");
+}
+
+function powershellFenceSpans(markdown) {
+  const lines = markdown.split(/\r?\n/);
+  const spans = [];
+  let fence = null;
+  let start = -1;
+  const body = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    const marker = lines[index].match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+    if (!fence && marker) {
+      fence = { marker: marker[1], language: marker[2].trim().toLowerCase() };
+      start = index;
+      body.length = 0;
+      continue;
+    }
+    if (fence && marker && marker[1][0] === fence.marker[0] && marker[1].length >= fence.marker.length && !marker[2].trim()) {
+      if (fence.language === "powershell" || fence.language === "pwsh") {
+        spans.push({ start, end: index, content: body.join("\n") });
+      }
+      fence = null;
+      continue;
+    }
+    if (fence) body.push(lines[index]);
+  }
+  assert.ok(!fence, "unclosed Markdown code fence");
+  return { lines, spans };
+}
+
+function stripHtmlComments(text) {
+  let stripped = text;
+  for (;;) {
+    const start = stripped.indexOf("<!--");
+    if (start === -1) {
+      return stripped;
+    }
+    const end = stripped.indexOf("-->", start + 4);
+    if (end === -1) {
+      return stripped.slice(0, start);
+    }
+    stripped = `${stripped.slice(0, start)}${stripped.slice(end + 3)}`;
+  }
+}
+
+function interFenceWithoutComments(text) {
+  return stripHtmlComments(text).replace(/^\s*#.*$/gm, "").trim();
+}
+
+function helperCall(content, verb) {
+  return new RegExp(`node \\$Helper ${verb}\\b`).test(content);
+}
+
+function fenceIndex(spans, verb) {
+  return spans.findIndex((span) => helperCall(span.content, verb));
+}
+
+function forbidSharedFence(spans, left, right, message) {
+  assert.ok(
+    !spans.some((span) => helperCall(span.content, left) && helperCall(span.content, right)),
+    message,
+  );
+}
+
+function requireVisiblePause(routeLines, spans, fromVerb, toVerb, labPath, patterns) {
+  const fromFence = fenceIndex(spans, fromVerb);
+  const toFence = fenceIndex(spans, toVerb);
+  assert.ok(fromFence >= 0, `${labPath} Native Windows route is missing ${fromVerb}`);
+  assert.ok(toFence >= 0, `${labPath} Native Windows route is missing ${toVerb}`);
+  assert.ok(
+    fromFence < toFence,
+    `${labPath} Native Windows ${fromVerb} must occur in an earlier fence than ${toVerb}`,
+  );
+  const between = routeLines.slice(spans[fromFence].end + 1, spans[toFence].start).join("\n");
+  const visiblePause = interFenceWithoutComments(between);
+  assert.ok(
+    visiblePause,
+    `${labPath} Native Windows route must not separate ${fromVerb} and ${toVerb} with only a comment`,
+  );
+  for (const pattern of patterns) {
+    assert.match(
+      visiblePause,
+      pattern,
+      `${labPath} pause between ${fromVerb} and ${toVerb} is missing required handoff text`,
+    );
+  }
+}
+
+/** Lab 11 Native Windows route must pause at Task 1, implement, refactor, and Task 4. */
+function assertWindowsRoutePauses(labPath, body) {
+  const route = exactHeadingSlice(body, "Native Windows PowerShell 7.4+ route", 2);
+  const routeCode = powershellText(route);
+  assert.match(routeCode, /node \$Helper create\b/, `${labPath} Native Windows route must remain a whole-lab script`);
+  assert.match(routeCode, /\barchive\b/, `${labPath} Native Windows route must remain a whole-lab script`);
+  assert.doesNotMatch(routeCode, /\bRead-Host\b/, `${labPath} Native Windows route must not use an in-fence prompt`);
+  assert.doesNotMatch(
+    routeCode,
+    /node \$Helper (?:wait|pause|resume)\b/,
+    `${labPath} Native Windows route must not add a helper pause, resume, or wait verb`,
+  );
+  const { lines: routeLines, spans: routeFences } = powershellFenceSpans(route);
+  forbidSharedFence(
+    routeFences,
+    "create",
+    "red",
+    `${labPath} Native Windows create and red must not share a PowerShell fence`,
+  );
+  forbidSharedFence(
+    routeFences,
+    "red",
+    "green",
+    `${labPath} Native Windows red and green must not share a PowerShell fence`,
+  );
+  forbidSharedFence(
+    routeFences,
+    "green",
+    "refactor",
+    `${labPath} Native Windows green and refactor must not share a PowerShell fence`,
+  );
+  forbidSharedFence(
+    routeFences,
+    "aggregate",
+    "final",
+    `${labPath} Native Windows aggregate and final must not share a PowerShell fence`,
+  );
+  assert.ok(routeFences.length >= 5, `${labPath} Native Windows route must use at least five PowerShell fences`);
+  const createFence = fenceIndex(routeFences, "create");
+  const redFence = fenceIndex(routeFences, "red");
+  const greenFence = fenceIndex(routeFences, "green");
+  const refactorFence = fenceIndex(routeFences, "refactor");
+  const literalFence = fenceIndex(routeFences, "literal");
+  const aggregateFence = fenceIndex(routeFences, "aggregate");
+  const finalFence = fenceIndex(routeFences, "final");
+  const resetFence = fenceIndex(routeFences, "reset");
+  const archiveFence = fenceIndex(routeFences, "archive");
+  assert.ok(createFence >= 0, `${labPath} Native Windows route is missing create`);
+  assert.ok(redFence > createFence, `${labPath} Native Windows red must occur in a later fence than create`);
+  assert.ok(greenFence > redFence, `${labPath} Native Windows green must occur in a later fence than red`);
+  assert.ok(refactorFence > greenFence, `${labPath} Native Windows refactor must occur in a later fence than green`);
+  assert.ok(literalFence >= refactorFence, `${labPath} Native Windows literal must not precede refactor`);
+  assert.ok(aggregateFence >= literalFence, `${labPath} Native Windows aggregate must not precede literal`);
+  assert.ok(finalFence > aggregateFence, `${labPath} Native Windows final must occur in a later fence than aggregate`);
+  assert.ok(resetFence >= finalFence, `${labPath} Native Windows reset must not precede final`);
+  assert.ok(archiveFence >= resetFence, `${labPath} Native Windows archive must not precede reset`);
+  const phaseA = routeFences[createFence].content;
+  const install = phaseA.search(/node \$Helper install \$LabRoot/);
+  const printedRoot = phaseA.search(/Write-Output \$LabRoot\b/);
+  assert.ok(install >= 0, `${labPath} Phase A must install the unique first root`);
+  assert.ok(printedRoot > install, `${labPath} Phase A must print $LabRoot after install`);
+  assert.doesNotMatch(
+    phaseA,
+    /node \$Helper (?:red|green|refactor|literal|aggregate|final|reset|archive)\b/,
+    `${labPath} Phase A must end before red`,
+  );
+  for (const [index, span] of routeFences.entries()) {
+    if (index === createFence) continue;
+    assert.doesNotMatch(
+      span.content,
+      /node \$Helper create\b/,
+      `${labPath} later Native Windows phases must reuse $LabRoot rather than create a new attempt`,
+    );
+    assert.match(span.content, /\$LabRoot\b/, `${labPath} later Native Windows phases must reuse $LabRoot`);
+  }
+  requireVisiblePause(routeLines, routeFences, "create", "red", labPath, [
+    /Join-Path \$LabRoot ["']test\/summary\.test\.mjs["']/,
+    /Task 1/,
+  ]);
+  requireVisiblePause(routeLines, routeFences, "red", "green", labPath, [
+    /Join-Path \$LabRoot ["']src\/summary\.mjs["']/,
+    /Task 2/,
+  ]);
+  requireVisiblePause(routeLines, routeFences, "green", "refactor", labPath, [
+    /Join-Path \$LabRoot ["']src\/summary\.mjs["']/,
+    /named\s+locals?/,
+    /source bytes/,
+  ]);
+  requireVisiblePause(routeLines, routeFences, "aggregate", "final", labPath, [
+    /Join-Path \$LabRoot ["']quality-record\.json["']/,
+    /Task 4/,
+  ]);
+}
+
 function backtickCell(cell) {
   const match = cell.trim().match(/^`([^`]*)`$/);
   assert.ok(match, `Task 4 field table cell must be one backtick token: ${cell}`);
@@ -249,6 +462,11 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   for (const verb of ["create", "install", "red", "green", "refactor", "literal", "aggregate", "final", "reset", "archive"]) {
     assert.match(labProse, new RegExp(`gates-lab\\.mjs ${verb}`), `${lab11} is missing helper verb: ${verb}`);
   }
+  assert.doesNotMatch(
+    labProse,
+    /gates-lab\.mjs (?:wait|pause|resume)\b/,
+    `${lab11} must not add a helper pause, resume, or wait verb`,
+  );
   for (const path of ["red.json", "green.json", "refactor.json", "literal.json", "aggregate-failure.json", "final.json"]) {
     assert.ok(labProse.includes(path), `${lab11} is missing evidence artifact: ${path}`);
   }
@@ -283,6 +501,7 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   ]) {
     assert.ok(labPage.includes(phrase), `${lab11} must lock the verify:ac PASS fragment: ${phrase}`);
   }
+  assertWindowsRoutePauses(lab11, labPage);
 
   const solutionProse = parsed.get(solution11).prose;
   requireOutcomes(solution11, solutionProse, ["Outcome map", "Acceptance evidence"]);

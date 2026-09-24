@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #66",
-    "updated": "2026-09-23T16:45:16Z"
+    "updated": "2026-09-24T21:48:57Z"
   },
   "plan": {
     "title": "Lab 11 Windows route cannot pause for its three required edits",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "The Lab 11 Native Windows route places comments before `red`, `green`, `refactor`, and `final` inside one pasted fence, so none of the mandatory learner edits can occur before the corresponding helper transition. The accepted remedy creates real Task-stage handoffs, including a distinct post-green source change before refactor, and locks those boundaries in the Module 11 content verifier.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/66",
@@ -283,6 +283,6 @@
       }
     },
     "id": "github.issue.5544890483",
-    "updated": "2026-09-23T16:45:16Z"
+    "updated": "2026-09-24T21:48:57Z"
   }
 }

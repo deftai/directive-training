@@ -275,8 +275,13 @@ The helper moves the named attempt under the operating-system temporary `3ci-dir
 
 ## Native Windows PowerShell 7.4+ route
 
-Run this from the curriculum repository. Make only the test, source, and quality-
-record edits described by the corresponding steps above:
+Run this from the curriculum repository. Keep one PowerShell session so `$LabRoot`
+remains set. Do not paste these phases as one block. Make only the test, source,
+and quality-record edits described by the corresponding tasks above. Every later
+phase reuses the retained `$LabRoot`; do not create a new attempt.
+
+**Phase A.** Create, guard, and install. The block prints `$LabRoot` and then
+stops.
 
 ```powershell
 $ErrorActionPreference = "Stop"
@@ -288,15 +293,52 @@ Set-Location -LiteralPath $Launcher
 $LabRoot = ((& node $Helper create) | Out-String).Trim()
 & node $Helper guard $LabRoot
 & node $Helper install $LabRoot
-# Add only the specified average test, then retain the meaningful failure.
+Write-Output $LabRoot
+```
+
+Stay in this PowerShell session so `$LabRoot` remains set. Make only the Task 1
+focused-test edit at `Join-Path $LabRoot "test/summary.test.mjs"`. Then paste
+Phase B.
+
+**Phase B.** Retain the meaningful red failure.
+
+```powershell
 & node $Helper red $LabRoot
-# Implement the specified source behavior, then retain green and the source-only refactor.
+```
+
+Stay in this PowerShell session so `$LabRoot` remains set. Change only
+`Join-Path $LabRoot "src/summary.mjs"` as specified in Task 2: add average to
+the returned object. Then paste Phase C.
+
+**Phase C.** Retain green.
+
+```powershell
 & node $Helper green $LabRoot
+```
+
+Stay in this PowerShell session so `$LabRoot` remains set. Change only
+`Join-Path $LabRoot "src/summary.mjs"` again so `count` and `average` are named
+locals, as specified in Task 2. Then paste Phase D. Do not run `refactor` on
+the same source bytes that just passed `green`.
+
+**Phase D.** Refactor, then run literal acceptance and the seeded aggregate
+diagnosis.
+
+```powershell
 & node $Helper refactor $LabRoot
 & node $Helper literal $LabRoot
 $Aggregate = ((& node $Helper aggregate $LabRoot) | Out-String).Trim()
 if ($LASTEXITCODE -ne 0 -or $Aggregate -notmatch "EXPECTED_FAILURE") { throw "The seeded quality-record diagnosis was not retained." }
-# Repair only quality-record.json from retained evidence, then verify the unchanged aggregate.
+```
+
+Stay in this PowerShell session so `$LabRoot` remains set. Repair only
+`Join-Path $LabRoot "quality-record.json"` from the Task 4 field table. Then
+paste Phase E.
+
+**Phase E.** Verify the unchanged aggregate, inspect evidence, reset, and
+archive.
+
+```powershell
 & node $Helper final $LabRoot
 if ($LASTEXITCODE -ne 0) { throw "Lab 11 final verification failed." }
 $EvidenceRoot = Join-Path (Split-Path -Parent $LabRoot) "evidence"
