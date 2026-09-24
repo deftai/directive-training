@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
-import { cpSync, mkdtempSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { cpSync, mkdtempSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { test } from "node:test";
+import { afterEach, test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { verifyModule7 } from "./verify-module-7.mjs";
 
@@ -13,9 +13,16 @@ const copyPaths = [
 ];
 const scopeFilename = "2026-09-08-module-7-scope-lifecycle-and-implementation-authorization.xbrief.json";
 const projectScopeId = "2026-09-08-module-7-scope-lifecycle-and-implementation-authorization";
+const copiedRoots = new Set();
+
+afterEach(() => {
+  for (const root of copiedRoots) rmSync(root, { force: true, recursive: true });
+  copiedRoots.clear();
+});
 
 function copiedRepository() {
   const root = mkdtempSync(join(tmpdir(), "module7-contract-test-"));
+  copiedRoots.add(root);
   for (const source of copyPaths) cpSync(join(repositoryRoot, source), join(root, source), { recursive: true });
   return root;
 }
@@ -132,6 +139,33 @@ test("verifier rejects a generic Directive rationale for the Python prerequisite
     "Python is a generic prerequisite for Directive verification.",
   );
   assert.throws(() => verifyModule7(root), /distinguish helper-isolated PATH requirements/);
+});
+
+test("verifier rejects a Lab 7 Python preflight that does not mirror the helper PATH scan", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    'if [ -e "$python_candidate" ]; then',
+    'if command -v "$python_name" >/dev/null 2>&1; then',
+  );
+  assert.throws(() => verifyModule7(root), /mirror the helper PATH scan and selected candidate/);
+});
+
+test("verifier rejects a Lab 7 preflight that changes the selected candidate", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    'python_command="$python_candidate"',
+    "python_command=python",
+  );
+  assert.throws(() => verifyModule7(root), /mirror the helper PATH scan and selected candidate/);
+});
+
+test("verifier rejects a Lab 7 PATH scan that is not portable to zsh", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    'python_search=${python_search#*:}',
+    "python_search=",
+  );
+  assert.throws(() => verifyModule7(root), /mirror the helper PATH scan and selected candidate/);
 });
 
 test("verifier rejects presence-only O6.4 admission", () => {

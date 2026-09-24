@@ -70,14 +70,18 @@ npm --version
 git --version
 task --version
 uv --version
-if command -v python3 >/dev/null 2>&1; then
-  export CAPSTONE_PYTHON=python3
-elif command -v python >/dev/null 2>&1; then
-  export CAPSTONE_PYTHON=python
+python_probe='import os, sys; print(os.path.realpath(sys.executable))'
+if CAPSTONE_PYTHON="$(env python3 -c "$python_probe")" \
+  && [ -f "$CAPSTONE_PYTHON" ] && [ -x "$CAPSTONE_PYTHON" ]; then
+  :
+elif CAPSTONE_PYTHON="$(env python -c "$python_probe")" \
+  && [ -f "$CAPSTONE_PYTHON" ] && [ -x "$CAPSTONE_PYTHON" ]; then
+  :
 else
   printf '%s\n' "Python is required for the capstone isolated PATH." >&2
   exit 1
 fi
+export CAPSTONE_PYTHON
 "$CAPSTONE_PYTHON" --version
 export CAPSTONE_LAUNCHER="$(mktemp -d "${TMPDIR:-/tmp}/3ci-capstone-launch-XXXXXX")"
 cd "$CAPSTONE_LAUNCHER"

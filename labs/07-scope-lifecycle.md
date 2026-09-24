@@ -61,11 +61,29 @@ npm --version
 git --version
 task --version
 uv --version
-if command -v python3 >/dev/null 2>&1; then
-  python_command=python3
-elif command -v python >/dev/null 2>&1; then
-  python_command=python
-else
+python_command=
+for python_name in python3 python; do
+  python_search=$PATH
+  while [ -n "$python_search" ]; do
+    case "$python_search" in
+      *:*)
+        python_directory=${python_search%%:*}
+        python_search=${python_search#*:}
+        ;;
+      *)
+        python_directory=$python_search
+        python_search=
+        ;;
+    esac
+    [ -n "$python_directory" ] || continue
+    python_candidate="$python_directory/$python_name"
+    if [ -e "$python_candidate" ]; then
+      python_command="$python_candidate"
+      break 2
+    fi
+  done
+done
+if [ -z "$python_command" ]; then
   printf '%s\n' "Python is required for the Lab 7 isolated PATH." >&2
   exit 1
 fi

@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { createHash, randomUUID } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import {
+  accessSync,
+  constants,
   copyFileSync,
   existsSync,
   lstatSync,
@@ -12,6 +14,7 @@ import {
   readdirSync,
   realpathSync,
   renameSync,
+  statSync,
   symlinkSync,
   writeFileSync,
 } from "node:fs";
@@ -215,7 +218,13 @@ function findExecutable(nameOrNames, options = {}) {
     for (const directory of pathValue.split(delimiter).filter(Boolean)) {
       for (const suffix of suffixes) {
         for (const candidate of [join(directory, name + suffix.toLowerCase()), join(directory, name + suffix.toUpperCase())]) {
-          if (existsSync(candidate)) return realpathSync(candidate);
+          try {
+            if (!statSync(candidate).isFile()) continue;
+            if (platform !== "win32") accessSync(candidate, constants.X_OK);
+            return realpathSync(candidate);
+          } catch {
+            // Keep searching when a PATH entry is absent, not a regular file, or not executable.
+          }
         }
       }
     }
@@ -226,7 +235,47 @@ function findExecutable(nameOrNames, options = {}) {
 /** Resolve the first supported Python command for the selected platform. */
 export function findPythonExecutable(options = {}) {
   const platform = options.platform ?? process.platform;
-  return findExecutable(platform === "win32" ? ["python", "python3", "py"] : ["python3", "python"], options);
+  const names = platform === "win32" ? ["python", "python3", "py"] : ["python3", "python"];
+  if (platform === "win32") return findExecutable(names, options);
+  const probe = options.probe ?? ((candidate) => {
+    const result = spawnSync(candidate, ["-c", "import os, sys; print(os.path.realpath(sys.executable))"], {
+      encoding: "utf8",
+      env: { ...process.env, PATH: options.pathValue ?? process.env.PATH ?? "" },
+      timeout: 10_000,
+    });
+    const reported = result.stdout?.trim() ?? "";
+    if (result.error || result.signal !== null || result.status !== 0 || !isAbsolute(reported)) return false;
+    try {
+      if (!statSync(reported).isFile()) return false;
+      accessSync(reported, constants.X_OK);
+      return realpathSync(reported);
+    } catch {
+      return false;
+    }
+  });
+  const selected = options.command ?? (options.platform === undefined ? process.env.CAPSTONE_PYTHON : undefined);
+  if (selected) {
+    if (!isAbsolute(selected)) throw new Error("CAPSTONE_PYTHON must be an absolute executable path");
+    try {
+      if (!statSync(selected).isFile()) throw new Error("not a regular file");
+      accessSync(selected, constants.X_OK);
+    } catch {
+      throw new Error("CAPSTONE_PYTHON must be an absolute executable path");
+    }
+    const probed = probe(realpathSync(selected));
+    if (!probed) throw new Error("CAPSTONE_PYTHON did not resolve a concrete Python interpreter");
+    return typeof probed === "string" ? probed : realpathSync(selected);
+  }
+  for (const name of names) {
+    try {
+      const candidate = findExecutable(name, options);
+      const probed = probe(candidate);
+      if (probed) return typeof probed === "string" ? probed : candidate;
+    } catch {
+      // Try the next supported command name when this name cannot resolve and run.
+    }
+  }
+  throw new Error(`Required executable not found: ${names.join(" or ")}`);
 }
 
 function withoutHostOverrides(overrides = {}) {
@@ -239,15 +288,15 @@ function withoutHostOverrides(overrides = {}) {
   return { ...environment, ...overrides };
 }
 
-function isolatedEnv(root, sessionId = "capstone-lab-session") {
-  const pythonDirectory = dirname(findPythonExecutable());
+export function isolatedEnv(root, sessionId = "capstone-lab-session") {
+  const pythonExecutable = findPythonExecutable();
   const systemTools = process.platform === "win32"
     ? [
         dirname(findExecutable("git")),
-        pythonDirectory,
+        dirname(pythonExecutable),
         dirname(process.env.ComSpec ?? join(process.env.SystemRoot ?? "C:\\Windows", "System32", "cmd.exe")),
       ]
-    : [pythonDirectory, "/usr/bin", "/bin"];
+    : ["/usr/bin", "/bin"];
   return withoutHostOverrides({
     PATH: [join(root, "node_modules/.bin"), join(root, ".lab-tools"), ...systemTools].join(delimiter),
     DEFT_SESSION_ID: sessionId,
@@ -299,17 +348,19 @@ function runNpm(root, args, options = {}) {
   });
 }
 
-function createLocalDirectiveShims(root) {
+export function createLocalDirectiveShims(root) {
   const directory = safePath(root, ".lab-tools");
   mkdirSync(directory, { recursive: true });
   const entry = realpathSync(safePath(root, "node_modules/@deftai/directive/dist/bin.js"));
+  const pythonExecutable = findPythonExecutable();
   const tools = new Map([
     ["node", realpathSync(process.execPath)],
     ["task", findExecutable("task")],
     ["npm", findExecutable("npm")],
     ["git", findExecutable("git")],
-    ["python", findPythonExecutable()],
+    ["python", pythonExecutable],
   ]);
+  if (process.platform !== "win32") tools.set("python3", pythonExecutable);
   for (const optional of ["uv", "gh"]) {
     try {
       tools.set(optional, findExecutable(optional));
