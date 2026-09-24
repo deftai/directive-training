@@ -223,8 +223,28 @@ function interFenceWithoutComments(text) {
   return stripHtmlComments(text).replace(/^\s*#.*$/gm, "").trim();
 }
 
+function executableCommandLines(content) {
+  return content.split(/\r?\n/).flatMap((line) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) {
+      return [];
+    }
+    const comment = trimmed.indexOf(" #");
+    const executable = comment === -1 ? trimmed : trimmed.slice(0, comment).trimEnd();
+    return executable ? [executable] : [];
+  });
+}
+
 function helperCall(content, verb) {
-  return new RegExp(`node \\$Helper ${verb}\\b`).test(content);
+  const token = `node $Helper ${verb}`;
+  return executableCommandLines(content).some((line) => {
+    const index = line.indexOf(token);
+    if (index === -1) {
+      return false;
+    }
+    const after = index + token.length;
+    return after === line.length || /[^A-Za-z0-9_]/.test(line[after]);
+  });
 }
 
 function fenceIndex(spans, verb) {
@@ -310,6 +330,7 @@ function assertWindowsRoutePauses(labPath, body) {
   const resetFence = fenceIndex(routeFences, "reset");
   const archiveFence = fenceIndex(routeFences, "archive");
   assert.ok(createFence >= 0, `${labPath} Native Windows route is missing create`);
+  assert.ok(redFence >= 0, `${labPath} Native Windows route is missing red`);
   assert.ok(redFence > createFence, `${labPath} Native Windows red must occur in a later fence than create`);
   assert.ok(greenFence > redFence, `${labPath} Native Windows green must occur in a later fence than red`);
   assert.ok(refactorFence > greenFence, `${labPath} Native Windows refactor must occur in a later fence than green`);

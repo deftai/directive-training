@@ -308,9 +308,15 @@ function lab11Lf(body) {
   return body.replaceAll("\r\n", "\n").replaceAll("\r", "\n");
 }
 
+function spliceOnce(haystack, needle, replacement) {
+  const index = haystack.indexOf(needle);
+  assert.ok(index >= 0, "Lab 11 Native Windows mutation must match the authored pause text");
+  return `${haystack.slice(0, index)}${replacement}${haystack.slice(index + needle.length)}`;
+}
+
 function replaceLab11Windows(body, from, to) {
   const lf = lab11Lf(body);
-  const after = lf.replace(from, to);
+  const after = spliceOnce(lf, from, to);
   assert.notEqual(after, lf, "Lab 11 Native Windows mutation must match the authored pause text");
   return after;
 }
@@ -380,19 +386,23 @@ const lab11WindowsPauses = [
 test("verifier rejects a Lab 11 Native Windows route that keeps the required edits in one fence", () => {
   const root = changedCopy(lab11Path, (body) => {
     let after = lab11Lf(body);
-    after = after.replace(
+    after = spliceOnce(
+      after,
       `Write-Output $LabRoot\n\`\`\`\n\n${lab11PauseTask1}`,
       "Write-Output $LabRoot\n# Add only the specified average test, then retain the meaningful failure.\n",
     );
-    after = after.replace(
+    after = spliceOnce(
+      after,
       `& node $Helper red $LabRoot\n\`\`\`\n\n${lab11PauseTask2}`,
       "& node $Helper red $LabRoot\n# Implement the specified source behavior, then retain green.\n",
     );
-    after = after.replace(
+    after = spliceOnce(
+      after,
       `& node $Helper green $LabRoot\n\`\`\`\n\n${lab11PauseRefactor}`,
       "& node $Helper green $LabRoot\n# Source-only refactor after green.\n",
     );
-    after = after.replace(
+    after = spliceOnce(
+      after,
       `if ($LASTEXITCODE -ne 0 -or $Aggregate -notmatch "EXPECTED_FAILURE") { throw "The seeded quality-record diagnosis was not retained." }\n\`\`\`\n\n${lab11PauseTask4}`,
       "if ($LASTEXITCODE -ne 0 -or $Aggregate -notmatch \"EXPECTED_FAILURE\") { throw \"The seeded quality-record diagnosis was not retained.\" }\n# Repair only quality-record.json from retained evidence, then verify the unchanged aggregate.\n",
     );
@@ -400,6 +410,15 @@ test("verifier rejects a Lab 11 Native Windows route that keeps the required edi
     return after;
   });
   assert.throws(() => verifyModule11(root), /must not share a PowerShell fence/);
+});
+
+test("verifier rejects a Lab 11 Native Windows route that comments out the red invocation", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    "& node $Helper red $LabRoot\n",
+    "# & node $Helper red $LabRoot\n",
+  ));
+  assert.throws(() => verifyModule11(root), /missing red/);
 });
 
 for (const { name, pause, comment } of lab11WindowsPauses) {
