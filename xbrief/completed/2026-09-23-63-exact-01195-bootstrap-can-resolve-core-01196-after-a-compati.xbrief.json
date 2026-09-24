@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #63",
-    "updated": "2026-09-24T02:26:44Z"
+    "updated": "2026-09-24T03:13:00Z"
   },
   "plan": {
     "title": "Exact 0.119.5 bootstrap can resolve core 0.119.6 after a compatible release",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "The cold-start ladder promises the committed teaching pin but leaves its canonical npm and pnpm commands unversioned, so a learner can select a different CLI release before Module 1. The accepted remedy is deliberately limited to literal-command alignment and verifier coverage; issue #69 retains the separate exact four-package graph remainder.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/63",
@@ -19,8 +19,14 @@
     "items": [
       {
         "title": "Put the literal package.json pin on README cold-start rung 3 and the pnpm sibling command.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #75 head ff5f2e38191670700059f65b1f6ca5547ed8bc3e, merged as f4be3446e9f1af212ff848bbff38313bc9d9d36d: npm run check:cold-start-readme passed and npm run test:teaching-baseline passed 6/6, verifying the literal npm and pnpm @deftai/directive@0.119.5 rung-3 commands; all seven CI/security checks completed green",
+          "recorded_at": "2026-09-24T03:12:25Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "README cold-start rung 3 contains `npm i -g @deftai/directive@0.119.5` and `pnpm add -g @deftai/directive@0.119.5`, with neither command left unversioned or expressed through a placeholder.",
           "Traces": "Issue #63 accepted bound remedy comment 5787806106, clause 1."
@@ -29,8 +35,14 @@
       },
       {
         "title": "Extend scripts/verify-cold-start-readme.mjs so those commands carry the literal pin.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #75 head ff5f2e38191670700059f65b1f6ca5547ed8bc3e, merged as f4be3446e9f1af212ff848bbff38313bc9d9d36d: the focused portability suite passed 28/28 and npm run test:portability passed 67/67, including LF and CRLF negative cases for unpinned and mismatched npm and pnpm commands; the LF-normalized full content lane passed 452 with 0 failures and 1 expected POSIX skip, and the authoritative deft check passed",
+          "recorded_at": "2026-09-24T03:12:25Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "The cold-start verifier fails when either rung-3 command is unpinned or differs from the committed package pin, and the portability test proves the same rule under LF and CRLF content.",
           "Traces": "Issue #63 accepted bound remedy comment 5787806106, clause 2; approved allocation verifier scope."
@@ -39,8 +51,14 @@
       },
       {
         "title": "Keep Module 1 command-free. Do not add a sixth helper. Do not add a root lockfile.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #75 head ff5f2e38191670700059f65b1f6ca5547ed8bc3e, merged as f4be3446e9f1af212ff848bbff38313bc9d9d36d: the final diff contained only README.md, scripts/verify-cold-start-readme.mjs, scripts/verify-text-portability.test.mjs, and the #63 lifecycle record; scope-provenance and diff checks passed, leaving Module 1, fixture helpers, root lockfiles, and overrides unchanged; all seven CI/security checks completed green",
+          "recorded_at": "2026-09-24T03:12:25Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "The implementation diff is limited to README.md, the cold-start verifier, the portability test, and this lifecycle record; Module 1, fixture helpers, and lockfiles remain unchanged.",
           "Traces": "Issue #63 accepted bound remedy comment 5787806106, clause 3."
@@ -49,8 +67,14 @@
       },
       {
         "title": "Record this as alignment. Exact four-package graph remainder is leftover issue 69.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:4",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #75 head ff5f2e38191670700059f65b1f6ca5547ed8bc3e, merged as f4be3446e9f1af212ff848bbff38313bc9d9d36d: npm run check:cold-start-readme and the 67/67 portability suite passed with guidance that names the literal CLI pin as alignment only and does not claim to lock the transitive graph; issue #69 remains the exact four-package graph remainder, and all seven CI/security checks completed green",
+          "recorded_at": "2026-09-24T03:12:25Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "The changed guidance describes the literal command pin as alignment only, makes no claim that a global CLI pin fixes transitive resolution, and retains issue #69 as the exact-graph remainder.",
           "Traces": "Issue #63 accepted bound remedy comment 5787806106 and pain audit 5787897830, which preserve operator-deferred P1 on issue #69."
@@ -528,9 +552,33 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "e8c473daee926dc3f8010bab8664c327d60d79ed1e4e04dd37d11c90139b5db9"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 75,
+        "prBase": null,
+        "mergeCommit": "f4be3446e9f1af212ff848bbff38313bc9d9d36d",
+        "deliveryBranch": "master",
+        "deliveryCommit": "f4be3446e9f1af212ff848bbff38313bc9d9d36d",
+        "verifiedAt": "2026-09-24T03:13:00Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "01a0ceab-b517-7181-bc43-5c64f0a11d58"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-24T03:13:00Z",
+      "completedSessionId": "01a0ceab-b517-7181-bc43-5c64f0a11d58",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-24T03:13:00Z"
       }
     },
     "id": "github.issue.5544448158",
-    "updated": "2026-09-24T02:26:44Z"
+    "updated": "2026-09-24T03:13:00Z"
   }
 }
