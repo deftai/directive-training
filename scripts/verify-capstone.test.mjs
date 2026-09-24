@@ -302,6 +302,15 @@ for (const [title, transform, expected] of [
     ),
     /first statement/,
   ],
+  [
+    "a non-throwing PowerShell 7.4 first-statement guard on the Windows start",
+    (body) => replaceFirst(
+      body,
+      windowsPowerShellVersionGuard,
+      "if ($PSVersionTable.PSVersion -lt [version]'7.4') { Write-Host 'unsupported' }\n",
+    ),
+    /must throw on PowerShell below 7\.4/,
+  ],
 ]) {
   test("verifier rejects " + title, () => {
     const root = changedCopy("labs/capstone-end-to-end.md", transform);
