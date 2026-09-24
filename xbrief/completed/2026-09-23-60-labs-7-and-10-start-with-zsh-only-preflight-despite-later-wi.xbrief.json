@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #60",
-    "updated": "2026-09-24T14:10:00Z"
+    "updated": "2026-09-24T15:33:28Z"
   },
   "plan": {
     "title": "Labs 7 and 10 start with zsh-only preflight despite later Windows routes",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Labs 7 and 10 currently present a zsh-only Environment gate even though each page later offers a Native Windows PowerShell route, forcing Windows learners to scan past ordered tasks before they can validate their starting state. This story adds platform branches at both gates and locks their structure with focused verifiers while preserving the later routes as candidate whole-lab paths and the course's environment-blocked stop.",
       "ImplementationPlan": "1. Update `labs/07-scope-lifecycle.md` and `labs/10-implementation-golden-path.md` so each Environment section branches before state creation and the Windows branch covers tool checks, helper path, `create`, and guard behavior.\n2. Clarify in both lab pages how the compressed Native Windows route relates to the ordered tasks without promoting that route to a verified platform path.\n3. Extend `scripts/verify-module-7.mjs`, `scripts/verify-module-10.mjs`, and their focused test files so a zsh-only regression, missing Windows starting-state operation, or lost route-status wording fails deterministically.",
@@ -19,32 +19,56 @@
     "items": [
       {
         "title": "At each Lab 7 and Lab 10 Environment and starting-state check, add a Windows starting-state branch for tools, helper path, create, and guard, reusing Lab 2/5/capstone environment-section branching and Lab 2 candidate heading text.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #77 head f0f596b0a3357c9ce7fa306d12dd4da6195b9dc9, merged as c8538d2e5c225692632b133826e4f53e4fc18d53: npm run check:module-7 (21 artifacts, 0 missing) and npm run check:module-10 (27 artifacts, 0 missing) passed; npm run test:module-7 passed 54/54 and npm run test:module-10 passed 34/34 on linux-node24 job 107674047628, including negative tests that reject a zsh-only Environment section, an unbranched zsh lead, and a Windows starting-state branch missing tools, helper path, create, or guard; labs CI run 36011780099 passed linux-node24, macos-node24, and windows-node24",
+          "recorded_at": "2026-09-24T15:27:30Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Both Lab 7 and Lab 10 Environment sections branch between POSIX and Windows before state creation, and each Windows branch visibly covers required tools, helper path, `create`, and a guard using the existing candidate-platform framing."
         }
       },
       {
         "title": "Keep the existing `## Native Windows PowerShell 7.4+ route` as a candidate whole-lab path, not as the starting-state check.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #77 head f0f596b0a3357c9ce7fa306d12dd4da6195b9dc9, merged as c8538d2e5c225692632b133826e4f53e4fc18d53: focused verifiers keep `## Native Windows PowerShell 7.4+ route` as a candidate whole-lab path and reject relabeling it as the starting-state check; npm run test:module-7 passed 54/54 and npm run test:module-10 passed 34/34 on linux-node24 job 107674047628; labs CI run 36011780099 passed linux-node24, macos-node24, and windows-node24",
+          "recorded_at": "2026-09-24T15:27:30Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Each existing `Native Windows PowerShell 7.4+ route` remains a candidate whole-lab path later on its page and is not relabeled as the verified starting-state check."
         }
       },
       {
         "title": "For each lab, state whether that compressed route replaces Tasks 1-N or the learner still walks the ordered tasks.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #77 head f0f596b0a3357c9ce7fa306d12dd4da6195b9dc9, merged as c8538d2e5c225692632b133826e4f53e4fc18d53: focused tests reject dropping the ordered-task relationship and treating starting-state plus the compressed Native Windows route as a sequence; npm run test:module-7 passed 54/54 and npm run test:module-10 passed 34/34 on linux-node24 job 107674047628; labs CI run 36011780099 passed linux-node24, macos-node24, and windows-node24",
+          "recorded_at": "2026-09-24T15:27:30Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Each lab states unambiguously whether its compressed Windows route replaces Tasks 1-N or whether the learner must still follow the ordered tasks, and the focused verifier rejects removal of that relationship statement."
         }
       },
       {
         "title": "Keep `curriculum/README.md:176-179` as an allowed environment-blocked stop. Do not promote the compressed route to verified preflight.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:4",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #77 head f0f596b0a3357c9ce7fa306d12dd4da6195b9dc9, merged as c8538d2e5c225692632b133826e4f53e4fc18d53: focused verifiers keep the environment-blocked stop on both starting-state and compressed-route sections and reject promoting the compressed Windows route to verified preflight; npm run check:module-7 (21 artifacts, 0 missing), npm run check:module-10 (27 artifacts, 0 missing), npm run test:module-7 54/54, and npm run test:module-10 34/34 passed on linux-node24 job 107674047628; labs CI run 36011780099 passed linux-node24, macos-node24, and windows-node24",
+          "recorded_at": "2026-09-24T15:27:30Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "The existing course allowance for an environment-blocked stop remains valid, and neither lab describes the compressed Windows route as verified practical-outcome coverage."
         }
@@ -294,9 +318,33 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "145b072e4d9f238d5100653969242a0dd38f9314adb785d72efa56c421079269"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 77,
+        "prBase": null,
+        "mergeCommit": "c8538d2e5c225692632b133826e4f53e4fc18d53",
+        "deliveryBranch": "master",
+        "deliveryCommit": "c8538d2e5c225692632b133826e4f53e4fc18d53",
+        "verifiedAt": "2026-09-24T15:33:28Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:grok:v1:MDFhMGQ0MDAtODE2Ny03YzUyLTgzNTctNGVhZjFjNjFhNGRk"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-24T15:33:28Z",
+      "completedSessionId": "host:grok:v1:MDFhMGQ0MDAtODE2Ny03YzUyLTgzNTctNGVhZjFjNjFhNGRk",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-24T15:33:28Z"
       }
     },
     "id": "github.issue.5544443885",
-    "updated": "2026-09-24T12:52:24Z"
+    "updated": "2026-09-24T15:33:28Z"
   }
 }
