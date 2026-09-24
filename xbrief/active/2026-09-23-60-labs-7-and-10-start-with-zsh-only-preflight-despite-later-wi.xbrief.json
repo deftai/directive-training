@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #60",
-    "updated": "2026-09-23T16:45:06Z"
+    "updated": "2026-09-24T14:10:00Z"
   },
   "plan": {
     "title": "Labs 7 and 10 start with zsh-only preflight despite later Windows routes",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "Labs 7 and 10 currently present a zsh-only Environment gate even though each page later offers a Native Windows PowerShell route, forcing Windows learners to scan past ordered tasks before they can validate their starting state. This story adds platform branches at both gates and locks their structure with focused verifiers while preserving the later routes as candidate whole-lab paths and the course's environment-blocked stop.",
       "ImplementationPlan": "1. Update `labs/07-scope-lifecycle.md` and `labs/10-implementation-golden-path.md` so each Environment section branches before state creation and the Windows branch covers tool checks, helper path, `create`, and guard behavior.\n2. Clarify in both lab pages how the compressed Native Windows route relates to the ordered tasks without promoting that route to a verified platform path.\n3. Extend `scripts/verify-module-7.mjs`, `scripts/verify-module-10.mjs`, and their focused test files so a zsh-only regression, missing Windows starting-state operation, or lost route-status wording fails deterministically.",
@@ -114,10 +114,9 @@
         ],
         "verify_commands": [
           "npm run check:module-7",
-          "node --test scripts/verify-module-7.test.mjs",
+          "npm run test:module-7",
           "npm run check:module-10",
-          "node --test scripts/verify-module-10.test.mjs",
-          "git diff --check"
+          "npm run test:module-10"
         ],
         "expected_outputs": [
           "Both labs branch before state creation and the Windows branch covers tools, helper path, `create`, and guard behavior",
@@ -298,6 +297,6 @@
       }
     },
     "id": "github.issue.5544443885",
-    "updated": "2026-09-23T16:45:06Z"
+    "updated": "2026-09-24T12:52:24Z"
   }
 }

@@ -318,6 +318,95 @@ test("verifier rejects the Module 7 Navigation href copied into the solution", (
   assert.throws(() => verifyModule7(root), /broken local link/);
 });
 
+const lab7WindowsHeading = `### Windows/PowerShell 7.4+ ${"\u2014"} candidate pending native evidence`;
+
+test("verifier rejects a zsh-only Lab 7 Environment section", () => {
+  const root = splicedCopy("labs/07-scope-lifecycle.md", lab7WindowsHeading, "### Notes");
+  assert.throws(() => verifyModule7(root), /missing the Windows starting-state branch/);
+});
+
+test("verifier rejects an unbranched zsh lead on Lab 7", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "### macOS/zsh",
+    "Use a dedicated zsh terminal\n\n### macOS/zsh",
+  );
+  assert.throws(() => verifyModule7(root), /unbranched first instruction/);
+});
+
+test("verifier rejects a Lab 7 Windows starting-state branch that drops a tool check", () => {
+  const root = splicedCopy("labs/07-scope-lifecycle.md", "npm.cmd --version", "Write-Output 'npm skipped'");
+  assert.throws(() => verifyModule7(root), /missing tool check: npm/);
+});
+
+test("verifier rejects a Lab 7 Windows starting-state branch that drops the helper path", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "Join-Path $CourseRoot 'labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs'",
+    "Join-Path $CourseRoot 'labs/fixtures/07-scope-lifecycle/missing-helper.mjs'",
+  );
+  assert.throws(() => verifyModule7(root), /missing the helper path/);
+});
+
+test("verifier rejects a Lab 7 Windows starting-state branch that drops create", () => {
+  const root = splicedCopy("labs/07-scope-lifecycle.md", "node $Helper create", "node $Helper make");
+  assert.throws(() => verifyModule7(root), /missing create/);
+});
+
+test("verifier rejects a Lab 7 Windows starting-state branch that drops guard", () => {
+  const root = splicedCopy("labs/07-scope-lifecycle.md", "& node $Helper guard $LabRoot", "& node $Helper status $LabRoot");
+  assert.throws(() => verifyModule7(root), /missing guard/);
+});
+
+test("verifier rejects a Lab 7 route that drops the ordered-task relationship", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "replaces the ordered helper commands in Tasks 1-4",
+    "covers some commands",
+  );
+  assert.throws(() => verifyModule7(root), /relates to the ordered tasks/);
+});
+
+test("verifier rejects relabeling the Lab 7 Native Windows route as the starting-state check", () => {
+  const root = splicedCopy("labs/07-scope-lifecycle.md", "candidate whole-lab path", "verified starting-state check");
+  assert.throws(() => verifyModule7(root), /must not relabel the Native Windows route/);
+});
+
+test("verifier rejects a Lab 7 Windows starting-state that guards after install", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    `& node $Helper guard $LabRoot
+  if ($LASTEXITCODE -ne 0) { throw 'Lab 7 starting-state guard failed.' }
+  if ((git -C $LabRoot branch --show-current | Out-String).Trim() -ne 'training/module-07') { throw 'expected training/module-07' }
+  if ((git -C $LabRoot remote | Out-String).Trim()) { throw 'lab must have no remote' }
+  & node $Helper install $LabRoot`,
+    `if ((git -C $LabRoot branch --show-current | Out-String).Trim() -ne 'training/module-07') { throw 'expected training/module-07' }
+  if ((git -C $LabRoot remote | Out-String).Trim()) { throw 'lab must have no remote' }
+  & node $Helper install $LabRoot
+  & node $Helper guard $LabRoot
+  if ($LASTEXITCODE -ne 0) { throw 'Lab 7 starting-state guard failed.' }`,
+  );
+  assert.throws(() => verifyModule7(root), /create, then guard, then install/);
+});
+
+test("verifier rejects a Lab 7 compressed Windows route that drops the edit pause", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "Write-Host \"Write the Module 6 proposed-scope file to $Authored.\"\n[void](Read-Host 'Press Enter after the Module 6 proposed-scope write')\n",
+    "",
+  );
+  assert.throws(() => verifyModule7(root), /must pause for the required learner edit/);
+});
+
+test("verifier rejects a Lab 7 route that treats starting-state and whole-lab as a sequence", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "The Environment starting-state attempt and this Native Windows whole-lab route are\nalternative paths, not a sequence. Do not run both.",
+    "After the Environment starting-state attempt, continue into this Native Windows whole-lab route.",
+  );
+  assert.throws(() => verifyModule7(root), /alternative paths/);
+});
+
 test("verifier rejects a Lab 7 solution that drops the Module 7 self-assessment return", () => {
   const root = splicedCopy(
     "solutions/lab-07-scope-lifecycle.md",
