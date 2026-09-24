@@ -142,7 +142,24 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
     `${solution7} Continue must link the shipped Module 8 lesson with the solutions-relative href`,
   );
 
+  const labSafety = section(parsed.get(lab7).prose, "Safety boundary");
+  const isolatedTools = labSafety.match(/The local Task environment[\s\S]*?No GitHub\s+operation is performed\./)?.[0] ?? "";
+  assert.match(isolatedTools, /individually\s+resolved[^.]*`git`, `python`, `uv`/, "Lab 7 isolated tools must include Python");
+  assert.match(isolatedTools, /`python3` then `python` on macOS\/Linux/, "Lab 7 must document the POSIX Python lookup order");
+  assert.match(isolatedTools, /`python`, `python3`, then\s+`py` on Windows/, "Lab 7 must document the Windows Python lookup order");
+  assert.match(isolatedTools, /presence only[\s\S]*does not compare a Python version/, "Lab 7 must keep Python presence-only");
+  assert.match(
+    isolatedTools,
+    /Do not treat Python as a generic\s+prerequisite for Directive verification[\s\S]*Labs 7, 10, and 11 helpers\s+construct isolated `PATH`s[\s\S]*capstone\s+constructs `isolatedEnv`/,
+    "Lab 7 must distinguish helper-isolated PATH requirements from a generic Directive prerequisite",
+  );
+
   const labBlocks = parsed.get(lab7).blocks.filter(({ language }) => /^(?:sh|bash|zsh|console)$/.test(language)).map(({ content: block }) => block).join("\n");
+  const pythonPreflightMessage = "Lab 7 Python preflight must mirror the helper PATH scan and selected candidate";
+  assert.match(labBlocks, /for python_name in python3 python; do\s+python_search=\$PATH\s+while \[ -n "\$python_search" \]; do/, pythonPreflightMessage);
+  assert.match(labBlocks, /case "\$python_search" in\s+\*:\*\)\s+python_directory=\$\{python_search%%:\*\}\s+python_search=\$\{python_search#\*:\}\s+;;\s+\*\)\s+python_directory=\$python_search\s+python_search=\s+;;\s+esac/, pythonPreflightMessage);
+  assert.match(labBlocks, /\[ -n "\$python_directory" \] \|\| continue\s+python_candidate="\$python_directory\/\$python_name"\s+if \[ -e "\$python_candidate" \]; then\s+python_command="\$python_candidate"\s+break 2[\s\S]*"\$python_command" --version/, pythonPreflightMessage);
+  assert.doesNotMatch(labBlocks, /command -v python(?:3)?/, "Lab 7 Python preflight must not use shell-only resolution");
   assert.match(labBlocks, /helper="[^"\n]*lifecycle-lab\.mjs"/, `${lab7} must bind the supplied lifecycle helper`);
   for (const command of ["create", "install", "run", "reset", "archive"]) assert.match(labBlocks, new RegExp(`node\\s+"\\$helper"\\s+${command}\\b`), `${lab7} must include the ${command} helper command`);
   assert.match(labBlocks, /run[^\n]*--intent=implement/, `${lab7} run must carry explicit live implementation intent`);

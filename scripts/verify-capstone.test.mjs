@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { chmodSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join } from "node:path";
-import { test } from "node:test";
+import { delimiter, dirname, join } from "node:path";
+import { spawnSync } from "node:child_process";
+import { afterEach, test } from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { verifyCapstone } from "./verify-capstone.mjs";
 
@@ -25,9 +26,16 @@ const copyPaths = [
 ];
 const learningScope = "2026-09-11-capstone-solo-lifecycle-learning-experience.xbrief.json";
 const parentScope = "xbrief/proposed/2026-09-05-disposable-end-to-end-capstone.xbrief.json";
+const copiedRoots = new Set();
+
+afterEach(() => {
+  for (const root of copiedRoots) rmSync(root, { force: true, recursive: true });
+  copiedRoots.clear();
+});
 
 function copiedRepository() {
   const root = mkdtempSync(join(tmpdir(), "capstone-content-contract-"));
+  copiedRoots.add(root);
   for (const source of copyPaths) {
     const destination = join(root, source);
     mkdirSync(dirname(destination), { recursive: true });
@@ -88,6 +96,14 @@ test("capstone content contract accepts active and completed lifecycle states", 
   assert.equal(verifyCapstone(alternate.root).lifecycle, alternate.lifecycle);
 });
 
+test("capstone content contract accepts CRLF-authored Markdown", () => {
+  const root = copiedRepository();
+  const target = join(root, "labs", "capstone-end-to-end.md");
+  const body = readFileSync(target, "utf8").replace(/\r?\n/g, "\r\n");
+  writeFileSync(target, body);
+  assert.ok(verifyCapstone(root).artifactCount >= 30);
+});
+
 test("verifier rejects one Task 1 fence of orient then activate", () => {
   const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
     body,
@@ -104,6 +120,158 @@ test("verifier rejects a missing assessment artifact", () => {
     join(root, "assessments", "capstone-missing.md"),
   );
   assert.throws(() => verifyCapstone(root), /missing required artifact/);
+});
+
+test("verifier rejects a course-entry prerequisite without a Python presence verdict", () => {
+  const root = changedCopy("curriculum/README.md", (body) => body.replace(
+    /- a resolvable Python[\s\S]*?;\n/,
+    "- Python is optional;\n",
+  ));
+  assert.throws(() => verifyCapstone(root), /course entry must require a resolvable Python interpreter/);
+});
+
+for (const [lab, replacement] of [
+  ["10", "Labs 7, 11, and the capstone require it"],
+  ["11", "Labs 7, 10, and the capstone require it"],
+]) {
+  test(`verifier rejects a course-entry Python prerequisite that omits Lab ${lab}`, () => {
+    const root = changedCopy("curriculum/README.md", (body) => body.replace(
+      "Labs 7, 10, 11, and the capstone require it",
+      replacement,
+    ));
+    assert.throws(
+      () => verifyCapstone(root),
+      /Python prerequisite must cover Labs 7, 10, 11, and the capstone/,
+    );
+  });
+}
+
+test("verifier rejects turning verified Python evidence into a learner version floor", () => {
+  const root = changedCopy("curriculum/README.md", (body) =>
+    body + "\nPython 3.13.13 or newer is required for every learner.\n");
+  assert.throws(() => verifyCapstone(root), /must not impose a Python version floor or equality/);
+});
+
+test("verifier rejects a course-entry prerequisite without the isolated-PATH rationale", () => {
+  const root = changedCopy("curriculum/README.md", (body) => body.replace(
+    "because their helpers\n  construct an isolated `PATH`",
+    "as a general setup convention",
+  ));
+  assert.throws(() => verifyCapstone(root), /helper-isolated PATH requirement/);
+});
+
+test("verifier rejects a changed capstone Windows Python lookup order", () => {
+  const root = changedCopy("labs/fixtures/capstone-end-to-end/capstone-lab.mjs", (body) => replaceFirst(
+    body,
+    '["python", "python3", "py"]',
+    '["py", "python3", "python"]',
+  ));
+  assert.throws(() => verifyCapstone(root), /Windows Python lookup order changed/);
+});
+
+test("verifier rejects a changed capstone POSIX Python lookup order", () => {
+  const root = changedCopy("labs/fixtures/capstone-end-to-end/capstone-lab.mjs", (body) => replaceFirst(
+    body,
+    '["python3", "python"]',
+    '["python", "python3"]',
+  ));
+  assert.throws(() => verifyCapstone(root), /POSIX Python lookup order changed/);
+});
+
+test("verifier rejects a helper that drops the concrete preflight path", () => {
+  const root = changedCopy("labs/fixtures/capstone-end-to-end/capstone-lab.mjs", (body) => replaceFirst(
+    body,
+    "process.env.CAPSTONE_PYTHON",
+    "undefined",
+  ));
+  assert.throws(() => verifyCapstone(root), /retain the preflight's concrete interpreter path/);
+});
+
+test("verifier rejects a changed documented Windows Python lookup order", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    '@("python", "python3", "py")',
+    '@("py", "python3", "python")',
+  ));
+  assert.throws(() => verifyCapstone(root), /Windows start must resolve python, python3, then py/);
+});
+
+test("verifier rejects a documented POSIX lookup that does not start with python3", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    "env python3 -c",
+    "env python2 -c",
+  ));
+  assert.throws(() => verifyCapstone(root), /resolve one concrete interpreter in python3, python order/);
+});
+
+test("verifier rejects a capstone Python preflight that admits shell functions", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    "env python3 -c",
+    "python3 -c",
+  ));
+  assert.throws(() => verifyCapstone(root), /resolve one concrete interpreter in python3, python order/);
+});
+
+test("verifier rejects a capstone preflight that changes the selected Python command", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    'CAPSTONE_PYTHON="$(env python3 -c',
+    'CAPSTONE_PYTHON="$(env python -c',
+  ));
+  assert.throws(() => verifyCapstone(root), /resolve one concrete interpreter in python3, python order/);
+});
+
+test("POSIX env Python probing bypasses functions and unusable PATH entries", { skip: process.platform === "win32" }, (t) => {
+  const root = mkdtempSync(join(tmpdir(), "capstone-python-probe-"));
+  t.after(() => rmSync(root, { force: true, recursive: true }));
+  const blockedFileDirectory = join(root, "blocked-file");
+  const blockedDirectory = join(root, "blocked-directory");
+  const executableDirectory = join(root, "executable");
+  for (const directory of [blockedFileDirectory, blockedDirectory, executableDirectory]) mkdirSync(directory);
+  writeFileSync(join(blockedFileDirectory, "python3"), "not executable\n");
+  chmodSync(join(blockedFileDirectory, "python3"), 0o644);
+  mkdirSync(join(blockedDirectory, "python3"));
+  const hostLookup = spawnSync("sh", ["-c", "command -v python3 || command -v python"], { encoding: "utf8" });
+  assert.equal(hostLookup.status, 0, "the regression requires a host Python interpreter");
+  symlinkSync(realpathSync(hostLookup.stdout.trim()), join(executableDirectory, "python3"));
+  const env = {
+    ...process.env,
+    PATH: [blockedFileDirectory, blockedDirectory, executableDirectory, process.env.PATH ?? ""].join(delimiter),
+  };
+  const masked = spawnSync("sh", ["-c", "python3() { return 91; }; python3 --version"], { env });
+  assert.equal(masked.status, 91, "the control must prove a shell function masks direct lookup");
+  const external = spawnSync("sh", ["-c", "python3() { return 91; }; env python3 -c 'import os, sys; print(os.path.realpath(sys.executable))'"], { encoding: "utf8", env });
+  assert.equal(external.status, 0, "env must bypass the function and skip unusable PATH candidates");
+  assert.equal(realpathSync(external.stdout.trim()), realpathSync(hostLookup.stdout.trim()), "the probe must emit the concrete interpreter path");
+});
+
+test("verifier rejects a POSIX isolatedEnv that exposes the host Python directory", () => {
+  const root = changedCopy("labs/fixtures/capstone-end-to-end/capstone-lab.mjs", (body) => replaceFirst(
+    body,
+    ': ["/usr/bin", "/bin"];',
+    ': [dirname(findPythonExecutable()), "/usr/bin", "/bin"];',
+  ));
+  assert.throws(() => verifyCapstone(root), /keep the host Python directory out of POSIX PATH/);
+});
+
+test("verifier rejects an isolatedEnv that does not resolve Python before install", () => {
+  const root = changedCopy("labs/fixtures/capstone-end-to-end/capstone-lab.mjs", (body) => replaceFirst(
+    body,
+    "const pythonExecutable = findPythonExecutable();",
+    "const pythonExecutable = process.execPath;",
+  ));
+  assert.throws(() => verifyCapstone(root), /resolve Python before constructing PATH/);
+});
+
+test("verifier rejects POSIX shims that omit the selected python3 alias", () => {
+  const root = changedCopy("labs/fixtures/capstone-end-to-end/capstone-lab.mjs", (body) => replaceFirst(
+    body,
+    'tools.set("python3", pythonExecutable)',
+    'tools.set("python2", pythonExecutable)',
+  ));
+  assert.throws(() => verifyCapstone(root), /bind python3 to the selected interpreter/);
 });
 
 test("verifier rejects a fake Windows course root instead of learner input", () => {
@@ -228,7 +396,7 @@ test("verifier rejects an omitted evidence artifact", () => {
 
 test("verifier rejects a missing reset and archive disposition note", () => {
   const root = changedCopy("labs/capstone-end-to-end.md", (body) =>
-    body.replace("Reset and archive\ndo not emit JSON.", "No additional helper record is emitted."));
+    body.replace(/Reset and\s+archive do not emit JSON\./, "No additional helper record is emitted."));
   assert.throws(() => verifyCapstone(root), /private disposition note/);
 });
 

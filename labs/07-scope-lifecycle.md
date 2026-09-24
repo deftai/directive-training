@@ -61,6 +61,33 @@ npm --version
 git --version
 task --version
 uv --version
+python_command=
+for python_name in python3 python; do
+  python_search=$PATH
+  while [ -n "$python_search" ]; do
+    case "$python_search" in
+      *:*)
+        python_directory=${python_search%%:*}
+        python_search=${python_search#*:}
+        ;;
+      *)
+        python_directory=$python_search
+        python_search=
+        ;;
+    esac
+    [ -n "$python_directory" ] || continue
+    python_candidate="$python_directory/$python_name"
+    if [ -e "$python_candidate" ]; then
+      python_command="$python_candidate"
+      break 2
+    fi
+  done
+done
+if [ -z "$python_command" ]; then
+  printf '%s\n' "Python is required for the Lab 7 isolated PATH." >&2
+  exit 1
+fi
+"$python_command" --version
 lab_root="$(node "$helper" create)"
 node "$helper" guard "$lab_root"
 test "$(git -C "$lab_root" branch --show-current)" = "training/module-07"
@@ -118,7 +145,13 @@ changed pin or helper, the wrong branch, and any remote. It reads Git override n
 never prints their values.
 
 The local Task environment admits only this attempt's package launchers plus individually
-resolved `node`, `task`, `npm`, `git`, `uv`, and optional `gh` tools. This prevents a newer
+resolved `node`, `task`, `npm`, `git`, `python`, `uv`, and optional `gh` tools. The helper
+resolves Python as `python3` then `python` on macOS/Linux and as `python`, `python3`, then
+`py` on Windows before it constructs the isolated `PATH`. It requires presence only and
+does not compare a Python version. Do not treat Python as a generic
+prerequisite for Directive verification. The course requires it specifically
+because the Labs 7, 10, and 11 helpers construct isolated `PATH`s and the capstone
+constructs `isolatedEnv`. This prevents a newer
 global Directive in the same shell from silently replacing the pinned engine. No GitHub
 operation is performed.
 

@@ -246,7 +246,7 @@ function readRequiredFiles(root, paths) {
   for (const path of paths) {
     const absolute = resolve(root, path);
     assert.ok(existsSync(absolute) && statSync(absolute).isFile(), "missing required artifact: " + path);
-    const body = readFileSync(absolute, "utf8");
+    const body = readFileSync(absolute, "utf8").replace(/\r\n?/g, "\n");
     assert.ok(body.trim(), "required artifact is empty: " + path);
     values.set(path, body);
   }
@@ -416,6 +416,27 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   const curriculum = content.get(curriculumPath);
   const assessment = content.get(assessmentPath);
   const solution = content.get(solutionPath);
+  const courseMap = content.get("curriculum/README.md");
+  const courseEntry = section(markdownParts(courseMap).prose, "Audience and prerequisites");
+  assert.match(
+    courseEntry,
+    /resolvable Python interpreter[\s\S]{0,120}every supported operating system[\s\S]{0,80}before\s+Module 1/i,
+    "course entry must require a resolvable Python interpreter on every supported operating system",
+  );
+  assert.match(
+    courseEntry,
+    /Labs 7, 10, 11, and the capstone require it/i,
+    "course entry Python prerequisite must cover Labs 7, 10, 11, and the capstone",
+  );
+  assert.match(courseEntry, /helpers[\s\S]{0,80}construct an isolated `PATH`/, "course entry must explain the helper-isolated PATH requirement");
+  assert.match(courseEntry, /Windows resolves `python`, `python3`, then\s+`py`/, "course entry must document the Windows Python lookup order");
+  assert.match(courseEntry, /macOS and Linux resolve `python3`, then `python`/, "course entry must document the POSIX Python lookup order");
+  assert.match(courseEntry, /presence-only[\s\S]{0,100}no minimum or exact[\s\S]{0,120}3\.13\.13[\s\S]{0,120}evidence, not a learner requirement/i, "course entry must separate Python presence from candidate evidence");
+  assert.doesNotMatch(
+    courseMap,
+    /Python 3\.13\.13 or newer|(?:minimum|exact(?:ly)?|at least|required to use|must use)\s+Python(?:\s+version)?\s*3\.13\.13/i,
+    "course entry must not impose a Python version floor or equality",
+  );
   for (const path of [curriculumPath, assessmentPath, solutionPath]) {
     assert.doesNotMatch(content.get(path), /\bsynthesis\s+chip\b/i, path + " must use ingest-ready catalog chip vocabulary");
   }
@@ -487,6 +508,26 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.match(labSafety, /reset`? only while identity[\s\S]{0,120}new[\s\S]{0,40}safe launcher/i, "lab must use identity-sensitive reset recovery");
 
   const helper = content.get(fixtureHelperPath);
+  const pythonResolverStart = helper.indexOf("export function findPythonExecutable(");
+  const pythonResolverEnd = helper.indexOf("\n}", pythonResolverStart);
+  assert.ok(pythonResolverStart >= 0 && pythonResolverEnd > pythonResolverStart, "capstone helper must expose its Python resolver");
+  const pythonResolver = helper.slice(pythonResolverStart, pythonResolverEnd + 2);
+  assert.ok(pythonResolver.includes('["python", "python3", "py"]'), "capstone helper Windows Python lookup order changed");
+  assert.ok(pythonResolver.includes('["python3", "python"]'), "capstone helper POSIX Python lookup order changed");
+  assert.match(pythonResolver, /options\.command[\s\S]*process\.env\.CAPSTONE_PYTHON/, "capstone helper must retain the preflight's concrete interpreter path");
+  const isolatedEnvStart = helper.indexOf("function isolatedEnv(");
+  const isolatedEnvEnd = helper.indexOf("\nfunction runTask", isolatedEnvStart);
+  assert.ok(isolatedEnvStart >= 0 && isolatedEnvEnd > isolatedEnvStart, "capstone helper isolatedEnv contract is missing");
+  const isolatedEnvSource = helper.slice(isolatedEnvStart, isolatedEnvEnd);
+  assert.match(isolatedEnvSource, /const pythonExecutable = findPythonExecutable\(\);/, "capstone isolatedEnv must resolve Python before constructing PATH");
+  assert.match(isolatedEnvSource, /process\.platform === "win32"[\s\S]*dirname\(pythonExecutable\)/, "capstone isolatedEnv must retain resolved Python on Windows");
+  assert.match(isolatedEnvSource, /: \["\/usr\/bin", "\/bin"\];/, "capstone isolatedEnv must keep the host Python directory out of POSIX PATH");
+  const shimStart = helper.indexOf("function createLocalDirectiveShims(");
+  const shimEnd = helper.indexOf("\nfunction updateMarker", shimStart);
+  assert.ok(shimStart >= 0 && shimEnd > shimStart, "capstone isolated-tool shim contract is missing");
+  const shimSource = helper.slice(shimStart, shimEnd);
+  assert.match(shimSource, /\["python", pythonExecutable\]/, "capstone isolated tools must include Python");
+  assert.match(shimSource, /process\.platform !== "win32"[\s\S]*tools\.set\("python3", pythonExecutable\)/, "capstone POSIX isolated tools must bind python3 to the selected interpreter");
   const helperStageBlock = helper.match(/const stageOrder = \[([\s\S]*?)\];/)?.[1];
   assert.ok(helperStageBlock, "fixture helper stage contract is missing");
   const helperStages = [...helperStageBlock.matchAll(/"([A-Z_]+)"/g)].map((match) => match[1]);
@@ -712,6 +753,15 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.match(content.get(labPath), /archive the completed and reset roots separately/i, "lab must archive both explicitly named roots");
   assert.match(solution, /archive[\s\S]{0,80}leaves both launcher directories in place and empty/i, "solution is missing the launcher cleanup disposition");
   const labEnvironment = section(content.get(labPath), "Environment and starting-state check");
+  assert.match(
+    labEnvironment,
+    /python_probe='import os, sys; print\(os\.path\.realpath\(sys\.executable\)\)'[\s\S]*if CAPSTONE_PYTHON="\$\(env python3 -c "\$python_probe"\)"[\s\S]*\[ -f "\$CAPSTONE_PYTHON" \][\s\S]*\[ -x "\$CAPSTONE_PYTHON" \][\s\S]*elif CAPSTONE_PYTHON="\$\(env python -c "\$python_probe"\)"[\s\S]*\[ -f "\$CAPSTONE_PYTHON" \][\s\S]*\[ -x "\$CAPSTONE_PYTHON" \][\s\S]*export CAPSTONE_PYTHON\s+"\$CAPSTONE_PYTHON" --version/,
+    "capstone POSIX start must resolve one concrete interpreter in python3, python order",
+  );
+  assert.doesNotMatch(labEnvironment, /command -v python(?:3)?/, "capstone POSIX start must not admit shell functions");
+  assert.match(labEnvironment, /@\("python", "python3", "py"\)[\s\S]*Get-Command/, "capstone Windows start must resolve python, python3, then py");
+  assert.match(labEnvironment, /presence-only requirement[\s\S]*before constructing `isolatedEnv`/, "capstone lab must explain the isolatedEnv Python requirement");
+  assert.match(labEnvironment, /3\.13\.13[\s\S]{0,100}candidate-environment evidence[\s\S]{0,100}not a minimum or exact learner version/, "capstone lab must keep Python 3.13.13 as candidate evidence only");
   for (const [pattern, label] of [
     [/export CAPSTONE_NOTES_DIR="\$\(mktemp -d /, "CAPSTONE_NOTES_DIR"],
     [/export CAPSTONE_ASSESSMENT_NOTE="\$CAPSTONE_NOTES_DIR\/capstone-assessment-note\.md"/, "CAPSTONE_ASSESSMENT_NOTE"],

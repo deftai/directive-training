@@ -1,13 +1,17 @@
 import assert from "node:assert/strict";
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, symlinkSync, writeFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import { delimiter, dirname, join, resolve } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import {
   archiveAttempt,
+  createLocalDirectiveShims,
   createAttempt,
+  findPythonExecutable,
   guardAttempt,
+  isolatedEnv,
   main,
   verifyPin,
 } from "../labs/fixtures/capstone-end-to-end/capstone-lab.mjs";
@@ -25,6 +29,142 @@ const readEvidence = (root, name) => JSON.parse(read(join(dirname(root), "eviden
 function makeLauncher(prefix = "3ci-capstone-launch-") {
   return mkdtempSync(join(tmpdir(), prefix));
 }
+
+test("Python lookup follows platform order, skips unusable entries, and fails when none resolve", (t) => {
+  const root = makeLauncher("3ci-capstone-python-lookup-");
+  t.after(() => rmSync(root, { force: true, recursive: true }));
+  const directory = (name) => {
+    const path = join(root, name);
+    mkdirSync(path);
+    return path;
+  };
+  const windowsEarlyDirectory = directory("windows-early");
+  const windowsPreferredDirectory = directory("windows-preferred");
+  writeFileSync(join(windowsEarlyDirectory, "python3.cmd"), "@echo off\r\n");
+  writeFileSync(join(windowsPreferredDirectory, "python.cmd"), "@echo off\r\n");
+  assert.equal(
+    findPythonExecutable({
+      platform: "win32",
+      pathValue: [windowsEarlyDirectory, windowsPreferredDirectory].join(delimiter),
+      pathExt: ".CMD",
+    }),
+    realpathSync(join(windowsPreferredDirectory, "python.cmd")),
+  );
+
+  const windowsFallback = directory("windows-fallback");
+  mkdirSync(join(windowsFallback, "python.cmd"));
+  writeFileSync(join(windowsFallback, "py.cmd"), "@echo off\r\n");
+  assert.equal(
+    findPythonExecutable({ platform: "win32", pathValue: windowsFallback, pathExt: ".CMD" }),
+    realpathSync(join(windowsFallback, "py.cmd")),
+  );
+
+  const posixEarlyDirectory = directory("posix-early");
+  const posixPreferredDirectory = directory("posix-preferred");
+  writeFileSync(join(posixEarlyDirectory, "python"), "");
+  writeFileSync(join(posixPreferredDirectory, "python3"), "#!/bin/sh\nexit 0\n");
+  chmodSync(join(posixEarlyDirectory, "python"), 0o755);
+  chmodSync(join(posixPreferredDirectory, "python3"), 0o755);
+  assert.equal(
+    findPythonExecutable({
+      platform: "linux",
+      pathValue: [posixEarlyDirectory, posixPreferredDirectory].join(delimiter),
+      probe: () => true,
+    }),
+    realpathSync(join(posixPreferredDirectory, "python3")),
+  );
+
+  if (process.platform !== "win32") {
+    const blockedDirectory = directory("posix-blocked");
+    const fallbackDirectory = directory("posix-fallback");
+    writeFileSync(join(blockedDirectory, "python3"), "not executable\n", { mode: 0o644 });
+    writeFileSync(join(fallbackDirectory, "python3"), "#!/bin/sh\nexit 0\n", { mode: 0o755 });
+    assert.equal(
+      findPythonExecutable({
+        platform: "linux",
+        pathValue: [blockedDirectory, fallbackDirectory].join(delimiter),
+        probe: () => true,
+      }),
+      realpathSync(join(fallbackDirectory, "python3")),
+    );
+
+    const brokenPython3Directory = directory("posix-broken-python3");
+    const laterPython3Directory = directory("posix-later-python3");
+    const pythonFallbackDirectory = directory("posix-python-fallback");
+    for (const path of [
+      join(brokenPython3Directory, "python3"),
+      join(laterPython3Directory, "python3"),
+      join(pythonFallbackDirectory, "python"),
+    ]) writeFileSync(path, "#!/bin/sh\nexit 0\n", { mode: 0o755 });
+    const probed = [];
+    assert.equal(
+      findPythonExecutable({
+        platform: "linux",
+        pathValue: [brokenPython3Directory, laterPython3Directory, pythonFallbackDirectory].join(delimiter),
+        probe: (candidate) => {
+          probed.push(candidate);
+          return candidate !== realpathSync(join(brokenPython3Directory, "python3"));
+        },
+      }),
+      realpathSync(join(pythonFallbackDirectory, "python")),
+    );
+    assert.deepEqual(probed, [
+      realpathSync(join(brokenPython3Directory, "python3")),
+      realpathSync(join(pythonFallbackDirectory, "python")),
+    ], "a failed first python3 must fall back by command name, not to a later python3");
+
+    const hostPython = findPythonExecutable();
+    const managerDirectory = directory("posix-manager-shim");
+    writeFileSync(join(managerDirectory, "python3"), "#!/bin/sh\nexec python-manager \"$@\"\n", { mode: 0o755 });
+    symlinkSync(hostPython, join(managerDirectory, "python-manager"));
+    assert.equal(
+      findPythonExecutable({ platform: "linux", pathValue: managerDirectory }),
+      hostPython,
+      "a manager shim must resolve to its concrete interpreter",
+    );
+    const concrete = spawnSync(hostPython, ["--version"], {
+      env: { ...process.env, PATH: ["/usr/bin", "/bin"].join(delimiter) },
+    });
+    assert.equal(concrete.status, 0, "the concrete interpreter must run without its manager directory on PATH");
+  }
+
+  const missing = directory("missing");
+  assert.throws(
+    () => findPythonExecutable({ platform: "win32", pathValue: missing, pathExt: ".CMD" }),
+    /Required executable not found: python or python3 or py/,
+  );
+  assert.throws(
+    () => findPythonExecutable({ platform: "linux", pathValue: missing }),
+    /Required executable not found: python3 or python/,
+  );
+});
+
+test("POSIX isolatedEnv exposes only the selected Python shim", { skip: process.platform === "win32" }, (t) => {
+  const root = realpathSync(makeLauncher("3ci-capstone-isolated-path-"));
+  t.after(() => rmSync(root, { force: true, recursive: true }));
+  const entry = join(root, "node_modules/@deftai/directive/dist/bin.js");
+  mkdirSync(dirname(entry), { recursive: true });
+  writeFileSync(entry, "");
+  createLocalDirectiveShims(root);
+  const environment = isolatedEnv(root);
+  assert.deepEqual(environment.PATH.split(delimiter), [
+    join(root, "node_modules/.bin"),
+    join(root, ".lab-tools"),
+    "/usr/bin",
+    "/bin",
+  ]);
+  const lookup = spawnSync("sh", ["-c", "command -v python3; command -v python"], {
+    encoding: "utf8",
+    env: environment,
+  });
+  assert.equal(lookup.status, 0, lookup.stderr);
+  const resolved = lookup.stdout.trim().split(/\r?\n/).map((path) => realpathSync(path));
+  assert.deepEqual(resolved, [findPythonExecutable(), findPythonExecutable()]);
+  for (const name of ["python3", "python"]) {
+    const result = spawnSync(name, ["--version"], { encoding: "utf8", env: environment });
+    assert.equal(result.status, 0, `${name} must run inside isolatedEnv: ${result.stderr}`);
+  }
+});
 
 test("CLI direct-entry detection uses a filesystem-safe file URL", () => {
   const entryPath = join(makeLauncher(), "work-items # direct.mjs");
