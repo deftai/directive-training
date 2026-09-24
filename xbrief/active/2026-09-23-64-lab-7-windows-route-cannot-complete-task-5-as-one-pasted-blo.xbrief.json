@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #64",
-    "updated": "2026-09-23T16:45:12Z"
+    "updated": "2026-09-24T19:22:06Z"
   },
   "plan": {
     "title": "Lab 7 Windows route cannot complete Task 5 as one pasted block",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "The Lab 7 Native Windows route creates a unique attempt and immediately checks for the learner-authored Task 5 record inside the same pasted fence, so the learner cannot write the record before the check runs. The accepted remedy introduces a real editor handoff while preserving the guarded-root, structural-only, no-lifecycle-authority boundary.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/64",
@@ -283,6 +283,6 @@
       }
     },
     "id": "github.issue.5544784351",
-    "updated": "2026-09-23T16:45:12Z"
+    "updated": "2026-09-24T19:22:06Z"
   }
 }
