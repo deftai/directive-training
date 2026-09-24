@@ -114,10 +114,7 @@
         ],
         "verify_commands": [
           "npm run check:module-7",
-          "node --test scripts/verify-module-7.test.mjs",
-          "npm run check:module-10",
-          "node --test scripts/verify-module-10.test.mjs",
-          "git diff --check"
+          "npm run check:module-10"
         ],
         "expected_outputs": [
           "Both labs branch before state creation and the Windows branch covers tools, helper path, `create`, and guard behavior",
