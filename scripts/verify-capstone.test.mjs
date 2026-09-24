@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { chmodSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { delimiter, dirname, join } from "node:path";
+import { delimiter, dirname, join, win32 } from "node:path";
 import { spawnSync } from "node:child_process";
 import { afterEach, test } from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -44,10 +44,24 @@ function copiedRepository() {
   return root;
 }
 
+function normalizeNewlines(text) {
+  return text.replace(/\r\n?/g, "\n");
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function firstOccurrence(body, snippet) {
+  const match = new RegExp(escapeRegExp(snippet).replace(/\r?\n/g, "\\r?\\n")).exec(body);
+  assert.ok(match, "mutation snippet must exist in the copied artifact");
+  return match;
+}
+
 function changedCopy(path, transform) {
   const root = copiedRepository();
   const target = join(root, path);
-  const before = readFileSync(target, "utf8").replace(/\r\n/g, "\n");
+  const before = normalizeNewlines(readFileSync(target, "utf8"));
   const after = transform(before);
   assert.notEqual(after, before, "negative mutation must change " + path);
   writeFileSync(target, after);
@@ -55,15 +69,16 @@ function changedCopy(path, transform) {
 }
 
 function withoutFirst(body, snippet) {
-  const index = body.indexOf(snippet);
-  assert.ok(index >= 0, "mutation snippet must exist in the copied artifact");
-  return body.slice(0, index) + body.slice(index + snippet.length);
+  const match = firstOccurrence(body, snippet);
+  return body.slice(0, match.index) + body.slice(match.index + match[0].length);
 }
 
 function replaceFirst(body, snippet, replacement) {
-  const index = body.indexOf(snippet);
-  assert.ok(index >= 0, "mutation snippet must exist in the copied artifact");
-  return body.slice(0, index) + replacement + body.slice(index + snippet.length);
+  const match = firstOccurrence(body, snippet);
+  const newline = body.includes("\r\n") ? "\r\n" : "\n";
+  return body.slice(0, match.index)
+    + replacement.replace(/\r?\n/g, newline)
+    + body.slice(match.index + match[0].length);
 }
 
 function alternateLifecycleCopy() {
@@ -274,14 +289,97 @@ test("verifier rejects POSIX shims that omit the selected python3 alias", () => 
   assert.throws(() => verifyCapstone(root), /bind python3 to the selected interpreter/);
 });
 
-test("verifier rejects a fake Windows course root instead of learner input", () => {
-  const root = changedCopy("labs/capstone-end-to-end.md", (body) => body
-    .replace(/if \(\[string\]::IsNullOrWhiteSpace\(\$env:DIRECTIVE_TRAINING_ROOT\)\) \{[\s\S]*?\}\r?\n/, "")
-    .replace(
+const windowsPowerShellVersionGuard =
+  "if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }\n";
+const fakeCourseRoot = "/absolute/path/to/directive-training";
+const fakeWindowsCourseRoot = win32.join("C:" + win32.sep, "absolute", "path", "to", "directive-training");
+
+for (const [title, transform, expected] of [
+  [
+    "a fake Windows course root instead of learner input",
+    (body) => body
+      .replace(/if \(\[string\]::IsNullOrWhiteSpace\(\$env:DIRECTIVE_TRAINING_ROOT\)\) \{[\s\S]*?\}\r?\n/, "")
+      .replace(
+        "$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)",
+        '$CourseRoot = (Resolve-Path "' + fakeCourseRoot + '").Path',
+      ),
+    /DIRECTIVE_TRAINING_ROOT|fake absolute clone path/,
+  ],
+  [
+    "a hardcoded fake clone path beside learner input",
+    (body) => replaceFirst(
+      body,
       "$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)",
-      '$CourseRoot = (Resolve-Path "C:\\absolute\\path\\to\\directive-training").Path',
-    ));
-  assert.throws(() => verifyCapstone(root), /DIRECTIVE_TRAINING_ROOT|fake absolute clone path/);
+      '$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)\n$CourseRoot = (Resolve-Path "' + fakeCourseRoot + '").Path',
+    ),
+    /fake absolute clone path/,
+  ],
+  [
+    "a Windows-native fake clone path beside learner input",
+    (body) => replaceFirst(
+      body,
+      "$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)",
+      '$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)\n$CourseRoot = (Resolve-Path "' + fakeWindowsCourseRoot + '").Path',
+    ),
+    /fake absolute clone path/,
+  ],
+  [
+    "a missing PowerShell 7.4 first-statement guard on the Windows start",
+    (body) => withoutFirst(body, windowsPowerShellVersionGuard),
+    /must throw on PowerShell below 7\.4/,
+  ],
+  [
+    "a PowerShell 7.4 guard moved behind Windows start setup",
+    (body) => replaceFirst(
+      withoutFirst(body, windowsPowerShellVersionGuard),
+      '$ErrorActionPreference = "Stop"\n',
+      '$ErrorActionPreference = "Stop"\n' + windowsPowerShellVersionGuard,
+    ),
+    /first statement/,
+  ],
+  [
+    "a non-throwing PowerShell 7.4 first-statement guard on the Windows start",
+    (body) => replaceFirst(
+      body,
+      windowsPowerShellVersionGuard,
+      "if ($PSVersionTable.PSVersion -lt [version]'7.4') { Write-Host 'unsupported' }\n",
+    ),
+    /must throw on PowerShell below 7\.4/,
+  ],
+]) {
+  test("verifier rejects " + title, () => {
+    const root = changedCopy("labs/capstone-end-to-end.md", transform);
+    assert.throws(() => verifyCapstone(root), expected);
+  });
+}
+
+test("Windows-native fake course root is a win32 absolute path", () => {
+  assert.ok(win32.isAbsolute(fakeWindowsCourseRoot));
+  assert.equal(fakeWindowsCourseRoot.slice(0, 3), "C:" + win32.sep);
+  assert.notEqual(
+    fakeWindowsCourseRoot,
+    "C:" + ["absolute", "path", "to", "directive-training"].join(win32.sep),
+  );
+});
+
+test("PowerShell 7.4 guard mutations match a CRLF-authored Windows start", () => {
+  const root = copiedRepository();
+  const target = join(root, "labs", "capstone-end-to-end.md");
+  const crlfBody = readFileSync(target, "utf8").replace(/\r?\n/g, "\r\n");
+  const missingGuard = withoutFirst(crlfBody, windowsPowerShellVersionGuard);
+  assert.match(missingGuard, /\r\n/);
+  writeFileSync(target, missingGuard);
+  assert.match(readFileSync(target, "utf8"), /\r\n/);
+  assert.throws(() => verifyCapstone(root), /must throw on PowerShell below 7\.4/);
+  const movedGuard = replaceFirst(
+    withoutFirst(crlfBody, windowsPowerShellVersionGuard),
+    '$ErrorActionPreference = "Stop"\n',
+    '$ErrorActionPreference = "Stop"\n' + windowsPowerShellVersionGuard,
+  );
+  assert.match(movedGuard, /\r\n/);
+  writeFileSync(target, movedGuard);
+  assert.match(readFileSync(target, "utf8"), /\r\n/);
+  assert.throws(() => verifyCapstone(root), /first statement/);
 });
 
 test("verifier rejects a missing outcome mapping", () => {

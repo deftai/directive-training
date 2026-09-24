@@ -240,6 +240,9 @@ const identifierBoundThrow = 'throw new RangeError("' + identifierBoundMessage +
 // The guard is pinned as condition-plus-throw, so an ineffective condition
 // (`if (false)`) around the right throw statement still fails the contract.
 const identifierBoundGuard = /if \(highest >= 999\)\s*\{?\s*throw new RangeError\("next work-item id would exceed WI-999"\);/;
+// Labs 2/5 first-statement pin: condition plus throw, so Write-Host still fails.
+const windowsPowerShellVersionGuard =
+  "if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }";
 
 function readRequiredFiles(root, paths) {
   const values = new Map();
@@ -772,6 +775,16 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   }
   assert.match(
     labEnvironment,
+    new RegExp(escapeRegExp(windowsPowerShellVersionGuard)),
+    "capstone Windows start must throw on PowerShell below 7.4",
+  );
+  const windowsStartFence = labEnvironment.match(/```powershell\r?\n([\s\S]*?)```/)?.[1] ?? "";
+  assert.ok(
+    windowsStartFence.startsWith(windowsPowerShellVersionGuard),
+    "capstone Windows start must throw on PowerShell below 7.4 as the first statement",
+  );
+  assert.match(
+    labEnvironment,
     /\[string\]::IsNullOrWhiteSpace\(\$env:DIRECTIVE_TRAINING_ROOT\)/,
     "capstone Windows start must reject a missing DIRECTIVE_TRAINING_ROOT",
   );
@@ -782,7 +795,7 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   );
   assert.doesNotMatch(
     labEnvironment,
-    /C:\\absolute\\path\\to\\directive-training/i,
+    /(?:[A-Za-z]:)?[\\/]+absolute[\\/]+path[\\/]+to[\\/]+directive-training/i,
     "capstone Windows start must not contain a fake absolute clone path",
   );
   for (const path of [labPath, assessmentPath, solutionPath]) {
