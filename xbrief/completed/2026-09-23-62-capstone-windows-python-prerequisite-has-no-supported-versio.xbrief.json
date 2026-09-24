@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #62",
-    "updated": "2026-09-23T22:40:18Z"
+    "updated": "2026-09-24T01:47:58Z"
   },
   "plan": {
     "title": "Capstone Windows Python prerequisite has no supported version contract",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "The course records Python 3.13.13 as verified Windows candidate evidence, while the lab helpers actually require only a resolvable interpreter and use inconsistent command-name orders across platforms. This story publishes one presence-based prerequisite for Labs 7, 10, 11, and the capstone, aligns the capstone helper with the established command-name set, and adds content and isolated-PATH evidence without inventing an exact or minimum Python version.",
       "ImplementationPlan": "1. Update `curriculum/README.md`, `labs/07-scope-lifecycle.md`, and `labs/capstone-end-to-end.md` to state the resolvable-interpreter requirement across all four labs and all supported operating systems, while retaining 3.13.13 only as verified candidate parity.\n2. Update `labs/fixtures/capstone-end-to-end/capstone-lab.mjs` so its Python lookup uses the established Windows `[python, python3, py]` and POSIX `[python3, python]` orders and keeps failure at the isolated-PATH boundary.\n3. Extend `scripts/capstone-lab.test.mjs`, the Module 7 verifier and tests, and the capstone verifier and tests to prove both platform orders, the Lab 7 isolated-tools prose, the course-entry verdict, and rejection of missing presence language without asserting a version floor.",
@@ -19,40 +19,70 @@
     "items": [
       {
         "title": "Publish presence of a resolvable Python interpreter as the fail-closed learner requirement for Labs 7, 10, 11, and the capstone on macOS, Linux, and Windows. Keep `3.13.13` as verified candidate parity, not a learner exact or minimum.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #73 head b7f74d32f59e4f62ffda2a27c19071bef86fa37f: course-entry and capstone documentation require resolvable Python across Labs 7/10/11/capstone on macOS, Linux, and Windows while retaining 3.13.13 as evidence only; npm run check:module-7 (21 artifacts, 0 missing), npm run test:module-7 (43/43), npm run check:capstone (36 artifacts, 0 missing), and npm run test:capstone (84 pass, 0 fail, 2 expected POSIX skips on Windows) passed; labs CI run 35943308810 and capstone CI run 35943308814 passed Linux, macOS, and Windows jobs",
+          "recorded_at": "2026-09-24T01:46:59Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "The course-entry and lab prerequisite text makes a resolvable Python interpreter the pass/fail requirement for Labs 7, 10, 11, and the capstone on macOS, Linux, and Windows, while 3.13.13 is labeled verified candidate evidence rather than an exact or minimum requirement."
         }
       },
       {
         "title": "Name the fail-closed sites as helper isolated PATH at Lab 7/10/11 install and capstone `isolatedEnv`. Recut `labs/07-scope-lifecycle.md:120-121` so the isolated-tools list includes python. Replace \"for Directive verification\" with that helper PATH requirement unless a deposited 0.119.5 consumer command is shown.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #73 head b7f74d32f59e4f62ffda2a27c19071bef86fa37f: Lab 7 names Python in its isolated-tools list and the Labs 7/10/11 helper isolated PATH plus capstone isolatedEnv as the fail-closed sites; npm run check:module-7 reported 21 artifacts and 0 missing, npm run test:module-7 passed 43/43 including rejection of a generic Directive rationale, and labs CI run 35943308810 passed jobs 107455747886 (Linux), 107455747899 (macOS), and 107455747852 (Windows)",
+          "recorded_at": "2026-09-24T01:46:59Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "Lab 7's isolated-tools prose includes Python, and the course text names the actual fail-closed sites as the Labs 7, 10, and 11 helper isolated PATH during install plus capstone `isolatedEnv`, replacing the unsupported generic `for Directive verification` rationale."
         }
       },
       {
         "title": "Close one command name-set across the course-wide contract and both helper families before writing an assertion.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #73 head b7f74d32f59e4f62ffda2a27c19071bef86fa37f: capstone lookup and documentation use Windows [python, python3, py] and POSIX [python3, python]; npm run test:capstone passed 84 tests with 0 failures and 2 expected POSIX skips on Windows, covering lookup order, unusable candidates, concrete-command retention, isolated shims, and no-candidate failure; capstone CI run 35943308814 passed jobs 107455747562 (Linux 10/10), 107455747805 (macOS 10/10), and 107455747703 (Windows 9 pass, 0 fail, 1 expected skip)",
+          "recorded_at": "2026-09-24T01:46:59Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "Documentation, the existing lab-helper policy, and the capstone helper agree on Windows lookup order `[python, python3, py]` and POSIX lookup order `[python3, python]`; focused tests prove both orders and failure when no candidate resolves on isolated PATH."
         }
       },
       {
         "title": "Put the explicit verdict in the course-entry prerequisite, not only in the capstone fence. Keep Windows practical outcomes candidate.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:4",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #73 head b7f74d32f59e4f62ffda2a27c19071bef86fa37f: the course-entry prerequisite gives the presence verdict before Module 1, names Labs 7/10/11 and the capstone, and preserves candidate platform markers; npm run check:module-7 (21 artifacts, 0 missing), npm run test:module-7 (43/43), npm run check:capstone (36 artifacts, 0 missing), and npm run test:capstone (84 pass, 0 fail, 2 expected skips) passed, with all-platform labs run 35943308810 and capstone run 35943308814 green",
+          "recorded_at": "2026-09-24T01:46:59Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "A learner can determine the presence requirement from the course-entry prerequisite before Module 1, and the course continues to describe Windows practical outcomes as candidate rather than verified."
         }
       },
       {
         "title": "Extend the existing capstone content check so a missing learner presence verdict fails. Do not bind a version equality or min the helpers do not enforce.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:5",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #73 head b7f74d32f59e4f62ffda2a27c19071bef86fa37f: npm run check:capstone reported 36 artifacts and 0 missing, and npm run test:capstone passed 84 tests with 0 failures and 2 expected POSIX skips on Windows; negative cases reject a missing resolvable-Python verdict, omitted lab coverage, CRLF-sensitive drift, changed platform orders, and any Python version floor or equality; capstone CI run 35943308814 passed Linux job 107455747562, macOS job 107455747805, and Windows job 107455747703",
+          "recorded_at": "2026-09-24T01:46:59Z",
+          "recorded_by": "agent:codex"
+        },
         "narrative": {
           "Acceptance": "The capstone content check fails when the learner-facing presence verdict is absent, all focused Python-contract tests pass, and no check parses or enforces Python version equality or a minimum."
         }
@@ -397,9 +427,33 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "a7fade820cf60a69d910aad35d7c0b8ed699b388a2ed0ec7e77986c71535a698"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 73,
+        "prBase": null,
+        "mergeCommit": "f252aa8d53efff9c6828711993afc50c4ae72b63",
+        "deliveryBranch": "master",
+        "deliveryCommit": "f252aa8d53efff9c6828711993afc50c4ae72b63",
+        "verifiedAt": "2026-09-24T01:47:58Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "01a0ceab-b517-7181-bc43-5c64f0a11d58"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-24T01:47:58Z",
+      "completedSessionId": "01a0ceab-b517-7181-bc43-5c64f0a11d58",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-24T01:47:58Z"
       }
     },
     "id": "github.issue.5544446677",
-    "updated": "2026-09-23T22:40:18Z"
+    "updated": "2026-09-24T01:47:58Z"
   }
 }
