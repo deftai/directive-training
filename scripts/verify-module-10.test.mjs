@@ -27,7 +27,7 @@ function copiedRepository() {
 function changedCopy(path, transform) {
   const root = copiedRepository();
   const target = join(root, path);
-  const before = readFileSync(target, "utf8");
+  const before = readFileSync(target, "utf8").replaceAll("\r\n", "\n");
   const after = transform(before);
   assert.notEqual(after, before, `negative mutation must change ${path}`);
   writeFileSync(target, after);
@@ -324,6 +324,25 @@ test("verifier rejects a Lab 10 Native Windows route that separates readiness an
 `,
   ));
   assert.throws(() => verifyModule10(root), /must not separate readiness and verify with only a comment/);
+});
+
+test("verifier rejects Lab 10 pause instructions hidden in an HTML comment", () => {
+  const root = changedCopy("labs/10-implementation-golden-path.md", (body) => body.replace(
+    lab10WindowsPause,
+    `<!-- Edit only \`Join-Path $LabRoot "src/greeting.mjs"\` as specified in Task 2.
+\`git -C $LabRoot status --short\`
+\`git -C $LabRoot diff --name-only\`
+-->
+
+Then paste Phase B.
+
+**Phase B.** Verify, inspect evidence, reset, and archive using the retained
+root.
+
+\`\`\`powershell
+`,
+  ));
+  assert.throws(() => verifyModule10(root), /pause must name Join-Path \$LabRoot "src\/greeting\.mjs"/);
 });
 
 test("verifier rejects a Lab 10 route that treats starting-state and whole-lab as a sequence", () => {

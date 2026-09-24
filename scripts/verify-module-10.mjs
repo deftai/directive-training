@@ -133,8 +133,23 @@ function powershellFenceSpans(markdown) {
   return { lines, spans };
 }
 
+function stripHtmlComments(text) {
+  let stripped = text;
+  for (;;) {
+    const start = stripped.indexOf("<!--");
+    if (start === -1) {
+      return stripped;
+    }
+    const end = stripped.indexOf("-->", start + 4);
+    if (end === -1) {
+      return stripped.slice(0, start);
+    }
+    stripped = `${stripped.slice(0, start)}${stripped.slice(end + 3)}`;
+  }
+}
+
 function interFenceWithoutComments(text) {
-  return text.replace(/<!--[\s\S]*?-->/g, "").replace(/^\s*#.*$/gm, "").trim();
+  return stripHtmlComments(text).replace(/^\s*#.*$/gm, "").trim();
 }
 
 function escapeHeading(heading) {
@@ -226,17 +241,18 @@ function assertWindowsStartingState(labPath, body) {
   assert.match(phaseB, /^\s*& node \$Helper verify \$LabRoot\b/, `${labPath} Phase B must begin with verify`);
   assert.match(phaseB, /\barchive\b/, `${labPath} Phase B must continue through archive`);
   const between = routeLines.slice(routeFences[readinessFence].end + 1, routeFences[verifyFence].start).join("\n");
+  const visiblePause = interFenceWithoutComments(between);
   assert.ok(
-    interFenceWithoutComments(between),
+    visiblePause,
     `${labPath} Native Windows route must not separate readiness and verify with only a comment`,
   );
   assert.match(
-    between,
+    visiblePause,
     /Join-Path \$LabRoot ["']src\/greeting\.mjs["']/,
     `${labPath} pause must name Join-Path $LabRoot "src/greeting.mjs"`,
   );
-  assert.match(between, /git -C \$LabRoot status --short/, `${labPath} pause must require the Task 2 status checkpoint`);
-  assert.match(between, /git -C \$LabRoot diff --name-only/, `${labPath} pause must require the Task 2 diff checkpoint`);
+  assert.match(visiblePause, /git -C \$LabRoot status --short/, `${labPath} pause must require the Task 2 status checkpoint`);
+  assert.match(visiblePause, /git -C \$LabRoot diff --name-only/, `${labPath} pause must require the Task 2 diff checkpoint`);
 }
 
 /** Read-only implementation lesson, fixture, evidence, and future-module boundary verifier. */
