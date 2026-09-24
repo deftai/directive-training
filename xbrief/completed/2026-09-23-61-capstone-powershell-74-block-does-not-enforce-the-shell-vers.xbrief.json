@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #61",
-    "updated": "2026-09-24T15:56:08Z"
+    "updated": "2026-09-24T19:07:11Z"
   },
   "plan": {
     "title": "Capstone PowerShell 7.4+ block does not enforce the shell version",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "The capstone labels its Windows starting-state fence as PowerShell 7.4+ but does not inspect `$PSVersionTable`, so an unsupported shell can begin the final evidence workflow before failing on later behavior. This story copies the established Labs 2 and 5 version guard into the wrapper's first statement and adds focused content regression coverage without changing the Node helper or any other PowerShell route.",
       "ImplementationPlan": "1. Update the Windows Environment fence in `labs/capstone-end-to-end.md` so the PowerShell 7.4 guard is its first statement, before `$ErrorActionPreference` or any stateful operation.\n2. Add a focused `labEnvironment` assertion in `scripts/verify-capstone.mjs` for the established Labs 2 and 5 guard expression.\n3. Extend `scripts/verify-capstone.test.mjs` with a negative fixture that removes the guard and proves the content check fails, while keeping the helper and unrelated routes outside the diff.",
@@ -19,24 +19,42 @@
     "items": [
       {
         "title": "In `labs/capstone-end-to-end.md` Environment and starting-state check, put the Labs 2/5 `$PSVersionTable.PSVersion -lt [version]'7.4'` throw as the first statement of the powershell fence that opens at line 94, before `$ErrorActionPreference`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #79 head 9527bafe2d4cc22c89a680a2d2952305d4a58db8, merged as a841e3294d9b0efa4cc09968b784467ea9b21653: the Windows Environment fence in labs/capstone-end-to-end.md starts with `if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }` before `$ErrorActionPreference`; npm run check:capstone (36 artifacts, 0 missing) passed; leftover-complete npm run test:capstone passed 91/91 with 0 failures and 2 expected POSIX skips on native Windows, including rejection of a missing, displaced, or non-throwing first-statement guard and CRLF-authored mutations",
+          "recorded_at": "2026-09-24T19:06:09Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "The first executable statement in the capstone Windows PowerShell Environment fence throws when `$PSVersionTable.PSVersion` is below 7.4, before `$ErrorActionPreference`, temporary-path creation, or any other setup statement."
         }
       },
       {
         "title": "Add one `assert.match` on the existing `labEnvironment` slice in `scripts/verify-capstone.mjs` with Lab 2's regex `/\\$PSVersionTable\\.PSVersion -lt \\[version\\]'7\\.4'/`, and extend the existing Windows-start negative test in `scripts/verify-capstone.test.mjs`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #79 head 9527bafe2d4cc22c89a680a2d2952305d4a58db8, merged as a841e3294d9b0efa4cc09968b784467ea9b21653: scripts/verify-capstone.mjs labEnvironment slice requires the Labs 2/5 `$PSVersionTable.PSVersion -lt [version]'7.4'` throw as the first Windows-start statement; leftover-complete npm run test:capstone passed 91/91 with 0 failures and 2 expected POSIX skips on native Windows, including verifier rejects a missing PowerShell 7.4 first-statement guard, a guard moved behind Windows start setup, a non-throwing Write-Host replacement, and CRLF-authored mutations",
+          "recorded_at": "2026-09-24T19:06:09Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "The existing `labEnvironment` verifier slice requires the Labs 2 and 5 PowerShell-version expression, and the focused negative test fails when that first-statement guard is removed or moved behind setup."
         }
       },
       {
         "title": "Keep the check in the wrapper; the helper remains Node. Other PowerShell 7.4+ headed routes stay outside this recut.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #79 head 9527bafe2d4cc22c89a680a2d2952305d4a58db8, merged as a841e3294d9b0efa4cc09968b784467ea9b21653: implementation diff is labs/capstone-end-to-end.md, scripts/verify-capstone.mjs, and scripts/verify-capstone.test.mjs only; labs/fixtures/capstone-end-to-end/capstone-lab.mjs stayed Node with no helper-side shell check; Labs 7/10/11 and labs/README.md PowerShell 7.4+ routes were unchanged; leftover-complete npm run test:capstone passed 91/91 with 0 failures and 2 expected POSIX skips, and node --check labs/fixtures/capstone-end-to-end/capstone-lab.mjs passed",
+          "recorded_at": "2026-09-24T19:06:09Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "The capstone helper remains Node-based, no helper-side shell check is introduced, and no other PowerShell 7.4-headed route changes in this story."
         }
@@ -252,6 +270,30 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "4d120aac8f4f0aada266e139db54842127a48ec8b54b1456b90f9128b7367b1f"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 79,
+        "prBase": null,
+        "mergeCommit": "a841e3294d9b0efa4cc09968b784467ea9b21653",
+        "deliveryBranch": "master",
+        "deliveryCommit": "a841e3294d9b0efa4cc09968b784467ea9b21653",
+        "verifiedAt": "2026-09-24T19:07:11Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:grok:v1:MDFhMGQ0YzYtODg4NC03OWUxLWFmZTktOTA1ZjY3YmNmZDA1"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-24T19:07:11Z",
+      "completedSessionId": "host:grok:v1:MDFhMGQ0YzYtODg4NC03OWUxLWFmZTktOTA1ZjY3YmNmZDA1",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-24T19:07:11Z"
       }
     },
     "acceptance": {
@@ -285,6 +327,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5544445396",
-    "updated": "2026-09-24T15:56:08Z"
+    "updated": "2026-09-24T19:07:11Z"
   }
 }
