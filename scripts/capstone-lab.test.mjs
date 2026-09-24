@@ -140,7 +140,7 @@ test("Python lookup follows platform order, skips unusable entries, and fails wh
 });
 
 test("POSIX isolatedEnv exposes only the selected Python shim", { skip: process.platform === "win32" }, (t) => {
-  const root = makeLauncher("3ci-capstone-isolated-path-");
+  const root = realpathSync(makeLauncher("3ci-capstone-isolated-path-"));
   t.after(() => rmSync(root, { force: true, recursive: true }));
   const entry = join(root, "node_modules/@deftai/directive/dist/bin.js");
   mkdirSync(dirname(entry), { recursive: true });
