@@ -186,15 +186,19 @@ function assertWindowsStartingState(labPath, body, options) {
   const phaseBLines = phaseB.split("\n").filter((line) => line.trim() && !/^\s*#/.test(line));
   assert.match(phaseBLines[0] ?? "", /Test-Path -LiteralPath \$Authored/, `${labPath} Phase B must start with Test-Path of $Authored`);
   const phaseBGuard = phaseB.search(/node \$Helper guard \$LabRoot/);
-  const phaseBVerify = phaseB.search(/xbrief:verify/);
+  const phaseBGuardExit = phaseB.search(/if \(\$LASTEXITCODE -ne 0\) \{ throw "Lab 7 retained-root guard failed\." \}/);
+  // `$AuthoredCommand` also contains xbrief:verify; require the executable invocation.
+  const phaseBVerify = phaseB.search(/^\s*& node \$Cli xbrief:verify\b/m);
   const phaseBReset = phaseB.search(/node \$Helper reset \$LabRoot/);
   const phaseBArchive = phaseB.search(/node \$Helper archive \$LabRoot/);
   assert.ok(phaseBGuard >= 0, `${labPath} Phase B must guard the retained first root`);
+  assert.ok(phaseBGuardExit >= 0, `${labPath} Phase B must stop on a failed first-root guard`);
   assert.ok(phaseBVerify >= 0, `${labPath} Phase B must structurally verify the authored record`);
   assert.ok(phaseBReset >= 0, `${labPath} Phase B must reset using the retained first root`);
   assert.ok(phaseBArchive >= 0, `${labPath} Phase B must archive using the retained first root`);
   assert.ok(
-    phaseBGuard < phaseBVerify && phaseBVerify < phaseBReset && phaseBReset < phaseBArchive,
+    phaseBGuard < phaseBGuardExit && phaseBGuardExit < phaseBVerify
+      && phaseBVerify < phaseBReset && phaseBReset < phaseBArchive,
     `${labPath} Phase B must guard, then verify, reset, and archive on retained variables`,
   );
   assert.match(phaseB, /Join-Path \$LabRoot ['"]node_modules\/@deftai\/directive\/dist\/bin\.js['"]/, `${labPath} Phase B must keep the CLI under the installed first root`);

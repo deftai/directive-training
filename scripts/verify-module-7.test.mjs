@@ -455,10 +455,28 @@ test("verifier rejects a Lab 7 Windows route that adds a helper copy-in verb", (
 test("verifier rejects a Lab 7 Phase B that verifies before Test-Path and guard", () => {
   const root = splicedCopy(
     "labs/07-scope-lifecycle.md",
-    "if (-not (Test-Path -LiteralPath $Authored -PathType Leaf)) { throw \"Write your Module 6 proposed scope to $Authored first.\" }\n& node $Helper guard $LabRoot\n$Cli = Join-Path $LabRoot \"node_modules/@deftai/directive/dist/bin.js\"",
-    "$Cli = Join-Path $LabRoot \"node_modules/@deftai/directive/dist/bin.js\"\nif (-not (Test-Path -LiteralPath $Authored -PathType Leaf)) { throw \"Write your Module 6 proposed scope to $Authored first.\" }\n& node $Helper guard $LabRoot",
+    "if (-not (Test-Path -LiteralPath $Authored -PathType Leaf)) { throw \"Write your Module 6 proposed scope to $Authored first.\" }\n& node $Helper guard $LabRoot\nif ($LASTEXITCODE -ne 0) { throw \"Lab 7 retained-root guard failed.\" }\n$Cli = Join-Path $LabRoot \"node_modules/@deftai/directive/dist/bin.js\"",
+    "$Cli = Join-Path $LabRoot \"node_modules/@deftai/directive/dist/bin.js\"\nif (-not (Test-Path -LiteralPath $Authored -PathType Leaf)) { throw \"Write your Module 6 proposed scope to $Authored first.\" }\n& node $Helper guard $LabRoot\nif ($LASTEXITCODE -ne 0) { throw \"Lab 7 retained-root guard failed.\" }",
   );
   assert.throws(() => verifyModule7(root), /Phase B must start with Test-Path of \$Authored/);
+});
+
+test("verifier rejects a Lab 7 Phase B that ignores a failed first-root guard", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "& node $Helper guard $LabRoot\nif ($LASTEXITCODE -ne 0) { throw \"Lab 7 retained-root guard failed.\" }\n",
+    "& node $Helper guard $LabRoot\n",
+  );
+  assert.throws(() => verifyModule7(root), /must stop on a failed first-root guard/);
+});
+
+test("verifier rejects a Lab 7 Phase B that keeps xbrief:verify only as command text", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "  & node $Cli xbrief:verify -- --format json --out $Authored --style scope --project-root $LabRoot *> $AuthoredRecord\n",
+    "",
+  );
+  assert.throws(() => verifyModule7(root), /must structurally verify the authored record/);
 });
 
 

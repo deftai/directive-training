@@ -580,6 +580,7 @@ Start Phase B in the same session after the authored leaf exists:
 ```powershell
 if (-not (Test-Path -LiteralPath $Authored -PathType Leaf)) { throw "Write your Module 6 proposed scope to $Authored first." }
 & node $Helper guard $LabRoot
+if ($LASTEXITCODE -ne 0) { throw "Lab 7 retained-root guard failed." }
 $Cli = Join-Path $LabRoot "node_modules/@deftai/directive/dist/bin.js"
 $AuthoredRecord = Join-Path $EvidenceRoot "authored-verify.txt"
 $AuthoredCommand = "node $Cli xbrief:verify -- --format json --out $Authored --style scope --project-root $LabRoot"
