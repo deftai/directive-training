@@ -24,6 +24,9 @@ const coldStartFiles = new Map([
   [coldStartVerifier, readSource(coldStartVerifier)],
   [teachingBaseline, readSource(teachingBaseline)],
 ]);
+const directivePin = JSON.parse(coldStartFiles.get("package.json")).devDependencies["@deftai/directive"];
+const expectedNpmGlobalInstall = `npm i -g @deftai/directive@${directivePin}`;
+const expectedPnpmGlobalInstall = `pnpm add -g @deftai/directive@${directivePin}`;
 const modulesFiles = new Map([
   ...coldStartFiles,
   ["LICENSE", readSource("LICENSE")],
@@ -83,11 +86,53 @@ function assertRejected(result, diagnostic) {
   assert.match(result.stderr, diagnostic);
 }
 
+function withPinnedGlobalInstalls(text) {
+  return text
+    .replace(/npm i -g @deftai\/directive(?:@[^\s`]+)?/, expectedNpmGlobalInstall)
+    .replace(/pnpm add -g @deftai\/directive(?:@[^\s`]+)?/, expectedPnpmGlobalInstall);
+}
+
 for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
   test(`cold-start verifier accepts ${label} content`, () => {
     const result = runVerifier(`cold-start-valid-${label}`, coldStartVerifier, coldStartFiles, eol);
     assert.equal(result.status, 0, result.stderr);
     assert.equal(result.stdout, "README cold-start bootstrap: ok\n");
+  });
+
+  test(`cold-start verifier rejects an unpinned npm global install with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", (text) =>
+      withPinnedGlobalInstalls(text).replace(expectedNpmGlobalInstall, "npm i -g @deftai/directive"));
+    assertRejected(
+      runVerifier(`cold-start-npm-unpinned-${label}`, coldStartVerifier, files, eol),
+      /rung 3 global installs must use the committed Directive pin/,
+    );
+  });
+
+  test(`cold-start verifier rejects a mismatched npm global install with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", (text) =>
+      withPinnedGlobalInstalls(text).replace(expectedNpmGlobalInstall, "npm i -g @deftai/directive@0.0.0"));
+    assertRejected(
+      runVerifier(`cold-start-npm-mismatch-${label}`, coldStartVerifier, files, eol),
+      /rung 3 global installs must use the committed Directive pin/,
+    );
+  });
+
+  test(`cold-start verifier rejects an unpinned pnpm global install with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", (text) =>
+      withPinnedGlobalInstalls(text).replace(expectedPnpmGlobalInstall, "pnpm add -g @deftai/directive"));
+    assertRejected(
+      runVerifier(`cold-start-pnpm-unpinned-${label}`, coldStartVerifier, files, eol),
+      /rung 3 global installs must use the committed Directive pin/,
+    );
+  });
+
+  test(`cold-start verifier rejects a mismatched pnpm global install with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", (text) =>
+      withPinnedGlobalInstalls(text).replace(expectedPnpmGlobalInstall, "pnpm add -g @deftai/directive@0.0.0"));
+    assertRejected(
+      runVerifier(`cold-start-pnpm-mismatch-${label}`, coldStartVerifier, files, eol),
+      /rung 3 global installs must use the committed Directive pin/,
+    );
   });
 
   test(`Modules 2-3 verifier accepts ${label} content, workflow, references, and headings`, () => {

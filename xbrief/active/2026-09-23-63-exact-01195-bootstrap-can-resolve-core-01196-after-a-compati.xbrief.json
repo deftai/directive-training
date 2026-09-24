@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #63",
-    "updated": "2026-09-23T16:45:11Z"
+    "updated": "2026-09-24T02:26:44Z"
   },
   "plan": {
     "title": "Exact 0.119.5 bootstrap can resolve core 0.119.6 after a compatible release",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "The cold-start ladder promises the committed teaching pin but leaves its canonical npm and pnpm commands unversioned, so a learner can select a different CLI release before Module 1. The accepted remedy is deliberately limited to literal-command alignment and verifier coverage; issue #69 retains the separate exact four-package graph remainder.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/63",
@@ -531,6 +531,6 @@
       }
     },
     "id": "github.issue.5544448158",
-    "updated": "2026-09-23T16:45:11Z"
+    "updated": "2026-09-24T02:26:44Z"
   }
 }
