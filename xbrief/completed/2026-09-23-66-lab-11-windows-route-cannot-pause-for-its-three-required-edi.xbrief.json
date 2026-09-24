@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #66",
-    "updated": "2026-09-24T21:48:57Z"
+    "updated": "2026-09-24T22:42:33Z"
   },
   "plan": {
     "title": "Lab 11 Windows route cannot pause for its three required edits",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "The Lab 11 Native Windows route places comments before `red`, `green`, `refactor`, and `final` inside one pasted fence, so none of the mandatory learner edits can occur before the corresponding helper transition. The accepted remedy creates real Task-stage handoffs, including a distinct post-green source change before refactor, and locks those boundaries in the Module 11 content verifier.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/66",
@@ -19,8 +19,14 @@
     "items": [
       {
         "title": "Split the Lab 11 Native Windows powershell fence at the Task 1, Task 2 implement, Task 2 refactor, and Task 4 boundaries. Keep `$LabRoot` across those phases.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #85 head f7577f5b9094b4f2a35c3b5d44495dac112da117, merged as f7807a7871c21bbd078dc8c9bf533ca92592df0d: labs/11-testing-gates-and-evidence.md Native Windows route has distinct Phase A create/guard/install, Phase B red, Phase C green, Phase D refactor/literal/aggregate, and Phase E final/evidence/reset/archive PowerShell fences; Task 1 test, Task 2 implement, Task 2 refactor, and Task 4 quality-record edits sit in visible prose between those fences; every later phase reuses retained $LabRoot; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 51/51 with 0 failures, including verifier rejects a later Lab 11 Windows phase that creates a new attempt",
+          "recorded_at": "2026-09-24T22:39:48Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "The Native Windows route has separate executable phases around the Task 1 test edit, Task 2 implementation edit, Task 2 refactor edit, and Task 4 quality-record edit, and every phase reuses the retained `$LabRoot` rather than creating a new attempt.",
           "Traces": "Issue #66 accepted bound remedy comment 5786104752, clause 1."
@@ -29,8 +35,14 @@
       },
       {
         "title": "Give the post-green source digest change its own checkpoint before `refactor`, matching Task 2 and `recordRefactor`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #85 head f7577f5b9094b4f2a35c3b5d44495dac112da117, merged as f7807a7871c21bbd078dc8c9bf533ca92592df0d: Phase C runs only green; visible pause prose then requires a second source-only named-locals edit on Join-Path $LabRoot \"src/summary.mjs\" and says Do not run refactor on the same source bytes that just passed green; Phase D then runs refactor; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 51/51 with 0 failures, including verifier rejects dropping the post-green source-only handoff text and verifier rejects a Lab 11 Native Windows route that separates green and refactor with only a comment",
+          "recorded_at": "2026-09-24T22:39:48Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "The route instructs the learner to implement and run `green`, then returns control for a second source-only refactor edit before `refactor`; no fence invokes `green` and `refactor` against identical source bytes.",
           "Traces": "Issue #66 accepted bound remedy comment 5786104752, clause 2, and digest failure evidence in critic comment 5785979892."
@@ -39,8 +51,14 @@
       },
       {
         "title": "Lock the split with the Lab 2 fence-extract pattern. Do not add a helper pause verb.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #85 head f7577f5b9094b4f2a35c3b5d44495dac112da117, merged as f7807a7871c21bbd078dc8c9bf533ca92592df0d: scripts/verify-module-11.mjs parses Native Windows PowerShell fences and fails when comments or same-fence text stand in for a required handoff; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 51/51 with 0 failures, including verifier rejects a Lab 11 Native Windows route that keeps the required edits in one fence, verifier rejects routes that separate create/red, red/green, green/refactor, or aggregate/final with only a comment, verifier rejects Lab 11 pause instructions hidden in an HTML comment, verifier rejects a Lab 11 Native Windows Read-Host pause inside a fence, and verifier rejects a Lab 11 Native Windows helper pause verb",
+          "recorded_at": "2026-09-24T22:39:48Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "The Module 11 verifier parses the Native Windows PowerShell fences and fails when comments or same-fence text stand in for any required handoff, while the helper verb list remains unchanged and gains no pause/resume verb.",
           "Traces": "Issue #66 accepted bound remedy comment 5786104752, clause 3, confirmed by audit comment 5787674566."
@@ -280,9 +298,33 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "1308cf90ae1b58d8d4e728d3ff773e90d5d97e5a34249ca1afa331be9ba06618"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 85,
+        "prBase": null,
+        "mergeCommit": "f7807a7871c21bbd078dc8c9bf533ca92592df0d",
+        "deliveryBranch": "master",
+        "deliveryCommit": "f7807a7871c21bbd078dc8c9bf533ca92592df0d",
+        "verifiedAt": "2026-09-24T22:42:33Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:grok:v1:MDFhMGQ1OGYtNzMwNC03MjExLThhMzMtMzExMmQzN2U5ZWRj"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-24T22:42:33Z",
+      "completedSessionId": "host:grok:v1:MDFhMGQ1OGYtNzMwNC03MjExLThhMzMtMzExMmQzN2U5ZWRj",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-24T22:42:33Z"
       }
     },
     "id": "github.issue.5544890483",
-    "updated": "2026-09-24T21:48:57Z"
+    "updated": "2026-09-24T22:42:33Z"
   }
 }
