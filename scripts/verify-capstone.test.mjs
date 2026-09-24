@@ -44,10 +44,14 @@ function copiedRepository() {
   return root;
 }
 
+function normalizeNewlines(text) {
+  return text.replace(/\r\n?/g, "\n");
+}
+
 function changedCopy(path, transform) {
   const root = copiedRepository();
   const target = join(root, path);
-  const before = readFileSync(target, "utf8").replace(/\r\n/g, "\n");
+  const before = normalizeNewlines(readFileSync(target, "utf8"));
   const after = transform(before);
   assert.notEqual(after, before, "negative mutation must change " + path);
   writeFileSync(target, after);
@@ -55,15 +59,19 @@ function changedCopy(path, transform) {
 }
 
 function withoutFirst(body, snippet) {
-  const index = body.indexOf(snippet);
+  const normalizedBody = normalizeNewlines(body);
+  const normalizedSnippet = normalizeNewlines(snippet);
+  const index = normalizedBody.indexOf(normalizedSnippet);
   assert.ok(index >= 0, "mutation snippet must exist in the copied artifact");
-  return body.slice(0, index) + body.slice(index + snippet.length);
+  return normalizedBody.slice(0, index) + normalizedBody.slice(index + normalizedSnippet.length);
 }
 
 function replaceFirst(body, snippet, replacement) {
-  const index = body.indexOf(snippet);
+  const normalizedBody = normalizeNewlines(body);
+  const normalizedSnippet = normalizeNewlines(snippet);
+  const index = normalizedBody.indexOf(normalizedSnippet);
   assert.ok(index >= 0, "mutation snippet must exist in the copied artifact");
-  return body.slice(0, index) + replacement + body.slice(index + snippet.length);
+  return normalizedBody.slice(0, index) + normalizeNewlines(replacement) + normalizedBody.slice(index + normalizedSnippet.length);
 }
 
 function alternateLifecycleCopy() {
@@ -337,6 +345,23 @@ for (const [title, transform, expected] of [
     assert.throws(() => verifyCapstone(root), expected);
   });
 }
+
+test("PowerShell 7.4 guard mutations match a CRLF-authored Windows start", () => {
+  const root = copiedRepository();
+  const target = join(root, "labs", "capstone-end-to-end.md");
+  const crlfBody = readFileSync(target, "utf8").replace(/\r?\n/g, "\r\n");
+  writeFileSync(target, withoutFirst(crlfBody, windowsPowerShellVersionGuard));
+  assert.throws(() => verifyCapstone(root), /must throw on PowerShell below 7\.4/);
+  writeFileSync(
+    target,
+    replaceFirst(
+      withoutFirst(crlfBody, windowsPowerShellVersionGuard),
+      '$ErrorActionPreference = "Stop"\n',
+      '$ErrorActionPreference = "Stop"\n' + windowsPowerShellVersionGuard,
+    ),
+  );
+  assert.throws(() => verifyCapstone(root), /first statement/);
+});
 
 test("verifier rejects a missing outcome mapping", () => {
   const root = changedCopy("assessments/capstone-end-to-end.md", (body) =>
