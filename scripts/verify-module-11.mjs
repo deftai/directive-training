@@ -246,14 +246,23 @@ function textFence(section, path, label) {
 }
 
 function requireRetainedLiteralInspectFragment(path, fragment) {
-  for (const token of lab11RetainedLiteralStdoutTokens) {
-    assert.ok(fragment.includes(token), `${path} inspect fragment must lock retained 0.119.5 stdout: ${token}`);
-  }
   for (const phrase of lab11ObsoleteWalkPhrases) {
     assert.ok(
       !fragment.includes(phrase),
       `${path} inspect fragment must not restore obsolete clause-walk evidence: ${phrase}`,
     );
+  }
+  let cursor = 0;
+  for (const token of lab11RetainedLiteralStdoutTokens) {
+    const found = fragment.indexOf(token);
+    assert.ok(found !== -1, `${path} inspect fragment must lock retained 0.119.5 stdout: ${token}`);
+    const ordered = fragment.indexOf(token, cursor);
+    const gap = ordered === -1 ? fragment.slice(cursor) : fragment.slice(cursor, ordered);
+    assert.ok(
+      ordered !== -1 && /^\s*$/.test(gap),
+      `${path} inspect fragment must keep retained 0.119.5 stdout as a contiguous ordered fragment`,
+    );
+    cursor = ordered + token.length;
   }
 }
 

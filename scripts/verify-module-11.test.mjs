@@ -296,6 +296,7 @@ test("verifier accepts CRLF Lab 11 Task 4 markup", () => {
 
 const solution11Path = "solutions/lab-11-testing-gates-and-evidence.md";
 const retainedFocusedCommand = "✓ npm run test:focused — exit 0 (expected 0)";
+const retainedBehaviorCommand = "✓ npm run check:behavior — exit 0 (expected 0)";
 const retainedBankedLine = lab11RetainedLiteralStdoutTokens.at(-1);
 
 test("verifier rejects a Lab 11 Task 3 inspect fragment missing a retained stdout token", () => {
@@ -314,6 +315,15 @@ test("verifier rejects an explained-solution inspect fragment missing a retained
     "",
   ));
   assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.5 stdout/);
+});
+
+test("verifier rejects swapping or inserting between the two retained command lines", () => {
+  const root = changedCopy(lab11Path, (body) => spliceOnce(
+    lab11Lf(body),
+    `  ${retainedFocusedCommand}\n  ${retainedBehaviorCommand}\n`,
+    `  ${retainedBehaviorCommand}\n  extra command line\n  ${retainedFocusedCommand}\n`,
+  ));
+  assert.throws(() => verifyModule11(root), /contiguous ordered fragment/);
 });
 
 test("verifier rejects restoring clause-walk evidence in the Lab 11 Task 3 inspect fragment", () => {
