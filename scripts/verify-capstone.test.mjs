@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { chmodSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { delimiter, dirname, join } from "node:path";
+import { delimiter, dirname, join, win32 } from "node:path";
 import { spawnSync } from "node:child_process";
 import { afterEach, test } from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -277,6 +277,7 @@ test("verifier rejects POSIX shims that omit the selected python3 alias", () => 
 const windowsPowerShellVersionGuard =
   "if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }\n";
 const fakeCourseRoot = "/absolute/path/to/directive-training";
+const fakeWindowsCourseRoot = win32.join("C:", "absolute", "path", "to", "directive-training");
 
 for (const [title, transform, expected] of [
   [
@@ -295,6 +296,15 @@ for (const [title, transform, expected] of [
       body,
       "$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)",
       '$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)\n$CourseRoot = (Resolve-Path "' + fakeCourseRoot + '").Path',
+    ),
+    /fake absolute clone path/,
+  ],
+  [
+    "a Windows-native fake clone path beside learner input",
+    (body) => replaceFirst(
+      body,
+      "$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)",
+      '$CourseRoot = [IO.Path]::GetFullPath($env:DIRECTIVE_TRAINING_ROOT).TrimEnd([IO.Path]::DirectorySeparatorChar)\n$CourseRoot = (Resolve-Path "' + fakeWindowsCourseRoot + '").Path',
     ),
     /fake absolute clone path/,
   ],

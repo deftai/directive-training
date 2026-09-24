@@ -795,7 +795,7 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   );
   assert.doesNotMatch(
     labEnvironment,
-    /\/absolute\/path\/to\/directive-training/i,
+    /(?:[A-Za-z]:)?[\\/]+absolute[\\/]+path[\\/]+to[\\/]+directive-training/i,
     "capstone Windows start must not contain a fake absolute clone path",
   );
   for (const path of [labPath, assessmentPath, solutionPath]) {
