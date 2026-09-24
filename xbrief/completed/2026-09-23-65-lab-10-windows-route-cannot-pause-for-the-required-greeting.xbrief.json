@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #65",
-    "updated": "2026-09-24T20:44:17Z"
+    "updated": "2026-09-24T21:36:12Z"
   },
   "plan": {
     "title": "Lab 10 Windows route cannot pause for the required greeting edit",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "The Lab 10 Native Windows route reaches READY and then treats a comment as though it returned control for the required greeting edit, so verification runs against the intentionally incomplete source. The accepted remedy splits the route at that manual boundary and adds an executable content lock for the fence ordering.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/65",
@@ -19,8 +19,14 @@
     "items": [
       {
         "title": "Split `labs/10-implementation-golden-path.md` Native Windows route into two or more powershell fences: Phase A through `readiness` and the READY throw; then an out-of-fence greeting edit plus the Task 2 `git -C $LabRoot` checkpoint; then Phase B `verify` through archive.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #83 head b800b22b8e85b1d122a6564acafa0d18e083b9e8, merged as e27f499a990803bf3e8c134fb5c787621dd3f6a4: labs/10-implementation-golden-path.md Native Windows route has distinct Phase A and Phase B PowerShell fences; Phase A ends after readiness and the READY throw, then prints $LabRoot; prose then requires the greeting edit and Task 2 git -C $LabRoot status/diff checkpoint; Phase B begins with verify and continues through archive; leftover-complete npm run check:module-10 passed (27 artifacts, 0 missing) and npm run test:module-10 passed 36/36 with 0 failures, including verifier rejects a Lab 10 Native Windows route that keeps readiness and verify in one fence",
+          "recorded_at": "2026-09-24T21:35:15Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "The Native Windows route contains at least two PowerShell fences: Phase A ends after `readiness` and its READY guard, prose then requires the greeting edit and one-file checkpoint, and Phase B begins with `verify` and continues through archive.",
           "Traces": "Issue #65 accepted bound remedy comment 5786104450, clause 1."
@@ -29,8 +35,14 @@
       },
       {
         "title": "Phase A prints `$LabRoot`. The pause names `Join-Path $LabRoot \"src/greeting.mjs\"`. Leave in-fence prompts and a new helper wait verb out of the harvest.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #83 head b800b22b8e85b1d122a6564acafa0d18e083b9e8, merged as e27f499a990803bf3e8c134fb5c787621dd3f6a4: Phase A prints $LabRoot after the READY guard; visible pause prose names Join-Path $LabRoot \"src/greeting.mjs\" and the Task 2 git -C $LabRoot status --short and diff --name-only checkpoints; scripts/verify-module-10.mjs rejects Read-Host and a helper wait/pause verb; leftover-complete npm run check:module-10 passed (27 artifacts, 0 missing) and npm run test:module-10 passed 36/36 with 0 failures, including verifier rejects Lab 10 pause instructions hidden in an HTML comment",
+          "recorded_at": "2026-09-24T21:35:15Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Phase A prints `$LabRoot`, the prose pause names `Join-Path $LabRoot \"src/greeting.mjs\"`, and neither a `Read-Host`-style in-fence prompt nor a new helper pause/wait verb is introduced.",
           "Traces": "Issue #65 accepted bound remedy comment 5786104450, clause 2."
@@ -39,8 +51,14 @@
       },
       {
         "title": "Extend `scripts/verify-module-10.mjs` and `scripts/verify-module-10.test.mjs` so the Native Windows section has at least two powershell fences, `readiness` in an earlier fence than `verify`, and a comment is not the separator.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #83 head b800b22b8e85b1d122a6564acafa0d18e083b9e8, merged as e27f499a990803bf3e8c134fb5c787621dd3f6a4: scripts/verify-module-10.mjs inspects actual Native Windows PowerShell fences, requires at least two fences, readiness earlier than verify, and refuses a comment-only separator; leftover-complete npm run check:module-10 passed (27 artifacts, 0 missing) and npm run test:module-10 passed 36/36 with 0 failures, including verifier rejects a Lab 10 Native Windows route that keeps readiness and verify in one fence and verifier rejects a Lab 10 Native Windows route that separates readiness and verify with only a comment",
+          "recorded_at": "2026-09-24T21:35:15Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "The Module 10 verifier inspects actual Native Windows PowerShell fences, fails when `readiness` and `verify` share a fence or only a comment separates them, and its negative tests demonstrate both failures.",
           "Traces": "Issue #65 accepted bound remedy comment 5786104450, clause 3, with audit confirmation 5787660882."
@@ -258,6 +276,30 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "06361a7c1729b9c2710ff71e672a340116d091bb58ae1986ab5674d5ff5e8b80"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 83,
+        "prBase": null,
+        "mergeCommit": "e27f499a990803bf3e8c134fb5c787621dd3f6a4",
+        "deliveryBranch": "master",
+        "deliveryCommit": "e27f499a990803bf3e8c134fb5c787621dd3f6a4",
+        "verifiedAt": "2026-09-24T21:36:12Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:grok:v1:MDFhMGQ1NTMtM2YyNC03ZDQxLWI5NTQtZmRmMDk4NmVlYTc0"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-24T21:36:12Z",
+      "completedSessionId": "host:grok:v1:MDFhMGQ1NTMtM2YyNC03ZDQxLWI5NTQtZmRmMDk4NmVlYTc0",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-24T21:36:12Z"
       }
     },
     "acceptance": {
@@ -291,6 +333,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5544835332",
-    "updated": "2026-09-24T20:44:17Z"
+    "updated": "2026-09-24T21:36:12Z"
   }
 }
