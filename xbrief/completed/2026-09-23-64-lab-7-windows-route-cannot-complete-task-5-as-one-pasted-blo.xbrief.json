@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #64",
-    "updated": "2026-09-24T19:22:06Z"
+    "updated": "2026-09-24T20:29:54Z"
   },
   "plan": {
     "title": "Lab 7 Windows route cannot complete Task 5 as one pasted block",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "The Lab 7 Native Windows route creates a unique attempt and immediately checks for the learner-authored Task 5 record inside the same pasted fence, so the learner cannot write the record before the check runs. The accepted remedy introduces a real editor handoff while preserving the guarded-root, structural-only, no-lifecycle-authority boundary.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/64",
@@ -19,8 +19,14 @@
     "items": [
       {
         "title": "Drop the helper-copy alternative from this next-build contract.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #81 head 871a6a67ea3243fbe5ecad545ce850f140f66904, merged as c749e086d4589fd3306807120cad43e76461252f: labs/07-scope-lifecycle.md pause tells the learner to write the Task 5 record at the printed destination and states the helper has no copy-in verb; scripts/verify-module-7.mjs rejects Copy-Item on the Native Windows route and requires pause prose `no copy-in verb`; leftover-complete npm run check:module-7 passed (21 artifacts, 0 missing) and npm run test:module-7 passed 63/63 with 0 failures, including verifier rejects a Lab 7 Windows route that adds a helper copy-in verb",
+          "recorded_at": "2026-09-24T20:28:54Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "No fixture helper or path guard gains a copy-in verb or support for an external operator-selected source path; the learner writes the Task 5 record directly at the printed destination inside the guarded first root.",
           "Traces": "Issue #64 accepted bound remedy comment 5786104106, clause 1."
@@ -29,8 +35,14 @@
       },
       {
         "title": "Recut `labs/07-scope-lifecycle.md` 414-457. Phase A ends after create / guard / install / run and `Write-Host` of absolute `$LabRoot` and `$Authored`. Prose then carries the Task 5 write instruction. Phase B starts with `Test-Path` / `guard`, then verify / reset / archive using retained variables.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #81 head 871a6a67ea3243fbe5ecad545ce850f140f66904, merged as c749e086d4589fd3306807120cad43e76461252f: labs/07-scope-lifecycle.md Native Windows route has distinct Phase A and Phase B PowerShell fences; Phase A ends after create, guard, install, run, and Write-Host of absolute $LabRoot and $Authored; prose carries the Task 5 write instruction; Phase B starts with Test-Path of $Authored then guard before verify, reset, and archive on retained variables; leftover-complete npm run check:module-7 passed (21 artifacts, 0 missing) and npm run test:module-7 passed 63/63 with 0 failures, including rejection of a one-fence paste-through, Phase A Test-Path of $Authored, a dropped Write-Host, a Read-Host in-fence pause, and Phase B verify-before-guard",
+          "recorded_at": "2026-09-24T20:28:54Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "The Windows route has distinct Phase A and Phase B PowerShell fences separated by prose; Phase A prints absolute `$LabRoot` and `$Authored`, and Phase B begins with `Test-Path` and guard checks before verify, reset, and archive reuse the retained variables.",
           "Traces": "Issue #64 accepted bound remedy comment 5786104106, clause 2."
@@ -39,8 +51,14 @@
       },
       {
         "title": "Copy the four Task 5 boundary clauses onto the Windows pause. Keep `$Authored` and the CLI under the installed first root. Do not promote or activate the authored record. Keep Windows as a candidate platform.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #81 head 871a6a67ea3243fbe5ecad545ce850f140f66904, merged as c749e086d4589fd3306807120cad43e76461252f: the Windows pause states the authored record is untrusted input, keeps $Authored, the CLI, and --out under the installed first root, retains path, command, exit, and result, and grants no promotion, activation, or implementation authority while Windows stays a candidate platform; leftover-complete npm run check:module-7 passed (21 artifacts, 0 missing) and npm run test:module-7 passed 63/63 with 0 failures, including verifier rejects a Lab 7 pause that drops the untrusted-input boundary",
+          "recorded_at": "2026-09-24T20:28:54Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "The pause states that the authored record is untrusted input, keeps the record, CLI, and `--out` under the installed first root, retains path/command/exit/result evidence, grants no promotion, activation, or implementation authority, and leaves Windows labeled as a candidate platform.",
           "Traces": "Issue #64 accepted bound remedy comment 5786104106, clause 3, and critic comment 5785979518."
@@ -280,9 +298,33 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "a64bfd6d2061d8dffa5104ccb7fec5aee5fc771247c54940b593a8d89f178cfd"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 81,
+        "prBase": null,
+        "mergeCommit": "c749e086d4589fd3306807120cad43e76461252f",
+        "deliveryBranch": "master",
+        "deliveryCommit": "c749e086d4589fd3306807120cad43e76461252f",
+        "verifiedAt": "2026-09-24T20:29:54Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:grok:v1:MDFhMGQ1MTYtM2FiZS03YTMxLWE5OWMtODQ3M2U4NTYzYjBj"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-24T20:29:54Z",
+      "completedSessionId": "host:grok:v1:MDFhMGQ1MTYtM2FiZS03YTMxLWE5OWMtODQ3M2U4NTYzYjBj",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-24T20:29:54Z"
       }
     },
     "id": "github.issue.5544784351",
-    "updated": "2026-09-24T19:22:06Z"
+    "updated": "2026-09-24T20:29:54Z"
   }
 }
