@@ -106,6 +106,52 @@ function powershellText(markdown) {
     .join("\n");
 }
 
+function powershellFenceSpans(markdown) {
+  const lines = markdown.split(/\r?\n/);
+  const spans = [];
+  let fence = null;
+  let start = -1;
+  const body = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    const marker = lines[index].match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+    if (!fence && marker) {
+      fence = { marker: marker[1], language: marker[2].trim().toLowerCase() };
+      start = index;
+      body.length = 0;
+      continue;
+    }
+    if (fence && marker && marker[1][0] === fence.marker[0] && marker[1].length >= fence.marker.length && !marker[2].trim()) {
+      if (fence.language === "powershell" || fence.language === "pwsh") {
+        spans.push({ start, end: index, content: body.join("\n") });
+      }
+      fence = null;
+      continue;
+    }
+    if (fence) body.push(lines[index]);
+  }
+  assert.ok(!fence, "unclosed Markdown code fence");
+  return { lines, spans };
+}
+
+function stripHtmlComments(text) {
+  let stripped = text;
+  for (;;) {
+    const start = stripped.indexOf("<!--");
+    if (start === -1) {
+      return stripped;
+    }
+    const end = stripped.indexOf("-->", start + 4);
+    if (end === -1) {
+      return stripped.slice(0, start);
+    }
+    stripped = `${stripped.slice(0, start)}${stripped.slice(end + 3)}`;
+  }
+}
+
+function interFenceWithoutComments(text) {
+  return stripHtmlComments(text).replace(/^\s*#.*$/gm, "").trim();
+}
+
 function escapeHeading(heading) {
   return heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -169,10 +215,44 @@ function assertWindowsStartingState(labPath, body) {
   const routeCode = powershellText(route);
   assert.match(routeCode, /node \$Helper create\b/, `${labPath} Native Windows route must remain a whole-lab script`);
   assert.match(routeCode, /\barchive\b/, `${labPath} Native Windows route must remain a whole-lab script`);
-  const pause = routeCode.search(/Read-Host/);
-  const verify = routeCode.search(/node \$Helper verify\b/);
-  assert.ok(pause >= 0, `${labPath} compressed Windows route must pause for the required learner edit`);
-  assert.ok(verify >= 0 && pause < verify, `${labPath} compressed Windows route must pause before verify`);
+  assert.doesNotMatch(routeCode, /Read-Host/, `${labPath} Native Windows route must not use an in-fence prompt`);
+  assert.doesNotMatch(routeCode, /node \$Helper (?:wait|pause)\b/, `${labPath} Native Windows route must not add a helper wait verb`);
+  const { lines: routeLines, spans: routeFences } = powershellFenceSpans(route);
+  const readinessFence = routeFences.findIndex((span) => /node \$Helper readiness\b/.test(span.content));
+  const verifyFence = routeFences.findIndex((span) => /node \$Helper verify\b/.test(span.content));
+  assert.ok(readinessFence >= 0, `${labPath} Native Windows route is missing readiness`);
+  assert.ok(verifyFence >= 0, `${labPath} Native Windows route is missing verify`);
+  assert.ok(
+    !routeFences.some((span) => /node \$Helper readiness\b/.test(span.content) && /node \$Helper verify\b/.test(span.content)),
+    `${labPath} Native Windows readiness and verify must not share a PowerShell fence`,
+  );
+  assert.ok(routeFences.length >= 2, `${labPath} Native Windows route must use at least two PowerShell fences`);
+  assert.ok(
+    readinessFence < verifyFence,
+    `${labPath} Native Windows readiness must occur in an earlier fence than verify`,
+  );
+  const phaseA = routeFences[readinessFence].content;
+  const phaseB = routeFences[verifyFence].content;
+  const readyGuard = phaseA.search(/throw "Lab 10 readiness failed; do not edit product code\."/);
+  const printedRoot = phaseA.search(/Write-Output \$LabRoot\b/);
+  assert.ok(readyGuard >= 0, `${labPath} Phase A must keep the READY guard`);
+  assert.ok(printedRoot > readyGuard, `${labPath} Phase A must print $LabRoot after the READY guard`);
+  assert.doesNotMatch(phaseA, /node \$Helper verify\b/, `${labPath} Phase A must end before verify`);
+  assert.match(phaseB, /^\s*& node \$Helper verify \$LabRoot\b/, `${labPath} Phase B must begin with verify`);
+  assert.match(phaseB, /\barchive\b/, `${labPath} Phase B must continue through archive`);
+  const between = routeLines.slice(routeFences[readinessFence].end + 1, routeFences[verifyFence].start).join("\n");
+  const visiblePause = interFenceWithoutComments(between);
+  assert.ok(
+    visiblePause,
+    `${labPath} Native Windows route must not separate readiness and verify with only a comment`,
+  );
+  assert.match(
+    visiblePause,
+    /Join-Path \$LabRoot ["']src\/greeting\.mjs["']/,
+    `${labPath} pause must name Join-Path $LabRoot "src/greeting.mjs"`,
+  );
+  assert.match(visiblePause, /git -C \$LabRoot status --short/, `${labPath} pause must require the Task 2 status checkpoint`);
+  assert.match(visiblePause, /git -C \$LabRoot diff --name-only/, `${labPath} pause must require the Task 2 diff checkpoint`);
 }
 
 /** Read-only implementation lesson, fixture, evidence, and future-module boundary verifier. */

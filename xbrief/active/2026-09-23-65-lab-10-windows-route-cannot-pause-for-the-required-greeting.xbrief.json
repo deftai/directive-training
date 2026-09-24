@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #65",
-    "updated": "2026-09-23T16:45:14Z"
+    "updated": "2026-09-24T20:44:17Z"
   },
   "plan": {
     "title": "Lab 10 Windows route cannot pause for the required greeting edit",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "The Lab 10 Native Windows route reaches READY and then treats a comment as though it returned control for the required greeting edit, so verification runs against the intentionally incomplete source. The accepted remedy splits the route at that manual boundary and adds an executable content lock for the fence ordering.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/65",
@@ -291,6 +291,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5544835332",
-    "updated": "2026-09-23T16:45:14Z"
+    "updated": "2026-09-24T20:44:17Z"
   }
 }

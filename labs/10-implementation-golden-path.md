@@ -340,10 +340,10 @@ each root you intentionally want to archive. Nothing is recursively deleted.
 This remains a candidate whole-lab path. It is not the Environment and starting-state
 check, and it is not verified preflight.
 
-This compressed candidate route does not replace Tasks 1-3. The script runs create,
-guard, install, and readiness, then you still walk Task 2: the only `src/greeting.mjs`
-edit specified in that task. After that edit, the script continues with verify, reset,
-and archive. Do not skip that ordered edit.
+This compressed candidate route does not replace Tasks 1-3. Phase A runs create,
+guard, install, and readiness. You still walk Task 2: the only `src/greeting.mjs`
+edit specified in that task, plus the one-file status/diff checkpoint. Phase B
+then continues with verify, reset, and archive. Do not skip that ordered edit.
 
 The Environment starting-state attempt and this Native Windows whole-lab route are
 alternative paths, not a sequence. Do not run both.
@@ -352,8 +352,12 @@ A learner without the verified macOS/zsh environment may stop as environment-blo
 instead of treating this unexecuted candidate platform as verified practical-outcome
 coverage.
 
-Run this from the curriculum repository. After `readiness` reports `READY`, make
-only the `src/greeting.mjs` edit described above, then continue with `verify`:
+Run Phase A from the curriculum repository. After it reports `READY` and prints
+`$LabRoot`, stay in that PowerShell session, make the Task 2 greeting edit,
+run the one-file checkpoint, then paste Phase B.
+
+**Phase A.** Create, guard, install, and run readiness through the `READY`
+checkpoint. The block prints `$LabRoot` and then stops.
 
 ```powershell
 $ErrorActionPreference = "Stop"
@@ -367,8 +371,23 @@ $LabRoot = ((& node $Helper create) | Out-String).Trim()
 & node $Helper install $LabRoot
 & node $Helper readiness $LabRoot
 if ($LASTEXITCODE -ne 0) { throw "Lab 10 readiness failed; do not edit product code." }
-Write-Host "Edit only $(Join-Path $LabRoot 'src/greeting.mjs') as specified in Task 2."
-[void](Read-Host 'Press Enter after the greeting.mjs edit')
+Write-Output $LabRoot
+```
+
+Stay in this PowerShell session so `$LabRoot` remains set. Edit only
+`Join-Path $LabRoot "src/greeting.mjs"` as specified in Task 2. Then run the
+Task 2 one-file status/diff checkpoint:
+
+`git -C $LabRoot status --short`
+
+`git -C $LabRoot diff --name-only`
+
+Both views must name only `src/greeting.mjs`. Then paste Phase B.
+
+**Phase B.** Verify, inspect evidence, reset, and archive using the retained
+root.
+
+```powershell
 & node $Helper verify $LabRoot
 if ($LASTEXITCODE -ne 0) { throw "Lab 10 behavioral verification failed." }
 $EvidenceRoot = Join-Path (Split-Path -Parent $LabRoot) "evidence"
