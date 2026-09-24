@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #60",
-    "updated": "2026-09-24T12:52:24Z"
+    "updated": "2026-09-24T14:10:00Z"
   },
   "plan": {
     "title": "Labs 7 and 10 start with zsh-only preflight despite later Windows routes",
@@ -114,7 +114,9 @@
         ],
         "verify_commands": [
           "npm run check:module-7",
-          "npm run check:module-10"
+          "npm run test:module-7",
+          "npm run check:module-10",
+          "npm run test:module-10"
         ],
         "expected_outputs": [
           "Both labs branch before state creation and the Windows branch covers tools, helper path, `create`, and guard behavior",

@@ -135,9 +135,10 @@ fixture excludes.
 Use PowerShell 7.4+ at the root of this curriculum repository. This branch checks tools,
 the helper path, `create`, and `guard` before any later task. It is the candidate
 starting-state check, not the later Native Windows whole-lab route, and it is not
-verified preflight. On Windows, a later install invokes
-`node_modules/@deftai/directive/dist/bin.js` because the `.bin` launcher differs by
-platform.
+verified preflight. This starting-state attempt and the later Native Windows whole-lab
+route are alternative paths, not a sequence. Do not run both. On Windows, a later install
+invokes `node_modules/@deftai/directive/dist/bin.js` because the `.bin` launcher differs
+by platform.
 
 ```powershell
 if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
@@ -513,6 +514,9 @@ already performs the lifecycle Tasks 1-3 observe, and this script then resets an
 You still write the Module 6 proposed-scope file before this script reaches `xbrief:verify`,
 and you still read the retained evidence to meet the done statement.
 
+The Environment starting-state attempt and this Native Windows whole-lab route are
+alternative paths, not a sequence. Do not run both.
+
 A learner without the verified macOS/zsh environment may stop as environment-blocked
 instead of treating this unexecuted candidate platform as verified practical-outcome
 coverage.
@@ -537,6 +541,8 @@ foreach ($Name in "proposed-preflight.json", "lifecycle-run.json") {
   if (-not (Test-Path -LiteralPath (Join-Path $EvidenceRoot $Name) -PathType Leaf)) { throw "Missing $Name" }
 }
 $Authored = Join-Path $LabRoot "xbrief/proposed/2026-01-15-your-proposed-scope.xbrief.json"
+Write-Host "Write the Module 6 proposed-scope file to $Authored."
+[void](Read-Host 'Press Enter after the Module 6 proposed-scope write')
 if (-not (Test-Path -LiteralPath $Authored -PathType Leaf)) { throw "Write your Module 6 proposed scope to $Authored first." }
 $Cli = Join-Path $LabRoot "node_modules/@deftai/directive/dist/bin.js"
 $AuthoredRecord = Join-Path $EvidenceRoot "authored-verify.txt"

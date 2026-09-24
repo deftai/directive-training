@@ -89,9 +89,10 @@ Do not substitute a newer global executable.
 Use PowerShell 7.4+ at the root of this curriculum checkout. This branch checks tools, the
 helper path, `create`, and `guard` before any later task. It is the candidate
 starting-state check, not the later Native Windows whole-lab route, and it is not
-verified preflight. On Windows, a later install invokes
-`node_modules/@deftai/directive/dist/bin.js` because the `.bin` launcher differs by
-platform.
+verified preflight. This starting-state attempt and the later Native Windows whole-lab
+route are alternative paths, not a sequence. Do not run both. On Windows, a later install
+invokes `node_modules/@deftai/directive/dist/bin.js` because the `.bin` launcher differs
+by platform.
 
 ```powershell
 if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }
@@ -105,6 +106,11 @@ try {
   git --version
   task --version
   uv --version
+  $PythonCommand = @('python', 'python3', 'py') | ForEach-Object {
+    Get-Command $_ -CommandType Application -ErrorAction SilentlyContinue
+  } | Select-Object -First 1
+  if ($null -eq $PythonCommand) { throw 'Python is required for the Lab 10 isolated PATH.' }
+  & $PythonCommand.Source --version
   $CourseRoot = (Resolve-Path -LiteralPath '.').Path
   $Helper = Join-Path $CourseRoot 'labs/fixtures/10-implementation-golden-path/implementation-lab.mjs'
   if (-not (Test-Path -LiteralPath $Helper -PathType Leaf)) { throw "Lab 10 starting-state helper not found: $Helper" }
@@ -339,6 +345,9 @@ guard, install, and readiness, then you still walk Task 2: the only `src/greetin
 edit specified in that task. After that edit, the script continues with verify, reset,
 and archive. Do not skip that ordered edit.
 
+The Environment starting-state attempt and this Native Windows whole-lab route are
+alternative paths, not a sequence. Do not run both.
+
 A learner without the verified macOS/zsh environment may stop as environment-blocked
 instead of treating this unexecuted candidate platform as verified practical-outcome
 coverage.
@@ -358,7 +367,8 @@ $LabRoot = ((& node $Helper create) | Out-String).Trim()
 & node $Helper install $LabRoot
 & node $Helper readiness $LabRoot
 if ($LASTEXITCODE -ne 0) { throw "Lab 10 readiness failed; do not edit product code." }
-# Edit only (Join-Path $LabRoot "src/greeting.mjs") as specified in the implementation step.
+Write-Host "Edit only $(Join-Path $LabRoot 'src/greeting.mjs') as specified in Task 2."
+[void](Read-Host 'Press Enter after the greeting.mjs edit')
 & node $Helper verify $LabRoot
 if ($LASTEXITCODE -ne 0) { throw "Lab 10 behavioral verification failed." }
 $EvidenceRoot = Join-Path (Split-Path -Parent $LabRoot) "evidence"

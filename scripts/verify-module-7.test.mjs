@@ -372,6 +372,41 @@ test("verifier rejects relabeling the Lab 7 Native Windows route as the starting
   assert.throws(() => verifyModule7(root), /must not relabel the Native Windows route/);
 });
 
+test("verifier rejects a Lab 7 Windows starting-state that guards after install", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    `& node $Helper guard $LabRoot
+  if ($LASTEXITCODE -ne 0) { throw 'Lab 7 starting-state guard failed.' }
+  if ((git -C $LabRoot branch --show-current | Out-String).Trim() -ne 'training/module-07') { throw 'expected training/module-07' }
+  if ((git -C $LabRoot remote | Out-String).Trim()) { throw 'lab must have no remote' }
+  & node $Helper install $LabRoot`,
+    `if ((git -C $LabRoot branch --show-current | Out-String).Trim() -ne 'training/module-07') { throw 'expected training/module-07' }
+  if ((git -C $LabRoot remote | Out-String).Trim()) { throw 'lab must have no remote' }
+  & node $Helper install $LabRoot
+  & node $Helper guard $LabRoot
+  if ($LASTEXITCODE -ne 0) { throw 'Lab 7 starting-state guard failed.' }`,
+  );
+  assert.throws(() => verifyModule7(root), /create, then guard, then install/);
+});
+
+test("verifier rejects a Lab 7 compressed Windows route that drops the edit pause", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "Write-Host \"Write the Module 6 proposed-scope file to $Authored.\"\n[void](Read-Host 'Press Enter after the Module 6 proposed-scope write')\n",
+    "",
+  );
+  assert.throws(() => verifyModule7(root), /must pause for the required learner edit/);
+});
+
+test("verifier rejects a Lab 7 route that treats starting-state and whole-lab as a sequence", () => {
+  const root = splicedCopy(
+    "labs/07-scope-lifecycle.md",
+    "The Environment starting-state attempt and this Native Windows whole-lab route are\nalternative paths, not a sequence. Do not run both.",
+    "After the Environment starting-state attempt, continue into this Native Windows whole-lab route.",
+  );
+  assert.throws(() => verifyModule7(root), /alternative paths/);
+});
+
 test("verifier rejects a Lab 7 solution that drops the Module 7 self-assessment return", () => {
   const root = splicedCopy(
     "solutions/lab-07-scope-lifecycle.md",

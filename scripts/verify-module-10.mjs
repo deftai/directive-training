@@ -139,8 +139,19 @@ function assertWindowsStartingState(labPath, body) {
   }
   assert.match(code, /npm(?:\.cmd)? --version/, `${labPath} Windows starting-state branch is missing tool check: npm`);
   assert.ok(code.includes("labs/fixtures/10-implementation-golden-path/implementation-lab.mjs"), `${labPath} Windows starting-state branch is missing the helper path`);
-  assert.match(code, /node \$Helper create\b/, `${labPath} Windows starting-state branch is missing create`);
-  assert.match(code, /node \$Helper guard\b/, `${labPath} Windows starting-state branch is missing guard`);
+  const create = code.search(/node \$Helper create\b/);
+  const guard = code.search(/node \$Helper guard\b/);
+  const install = code.search(/node \$Helper install\b/);
+  assert.ok(create >= 0, `${labPath} Windows starting-state branch is missing create`);
+  assert.ok(guard >= 0, `${labPath} Windows starting-state branch is missing guard`);
+  assert.ok(install >= 0, `${labPath} Windows starting-state branch is missing install`);
+  assert.ok(
+    create < guard && guard < install,
+    `${labPath} Windows starting-state must run create, then guard, then install`,
+  );
+  const python = code.search(/@\('python', 'python3', 'py'\)/);
+  assert.ok(python >= 0, `${labPath} Windows starting-state branch must check Python as python, python3, then py`);
+  assert.ok(python < create, `${labPath} Windows starting-state must check Python before create`);
   assert.doesNotMatch(code, /\barchive\b/, `${labPath} must not move the whole-lab route into the starting-state check`);
   const route = exactHeadingSlice(body, "Native Windows PowerShell 7.4+ route", 2);
   assert.match(route, /^## Native Windows PowerShell 7\.4\+ route$/m, `${labPath} must keep the Native Windows heading as the candidate whole-lab path`);
@@ -153,9 +164,15 @@ function assertWindowsStartingState(labPath, body) {
     /does not replace Tasks 1-3[\s\S]*still walk Task 2/,
     `${labPath} must state how the compressed route relates to the ordered tasks`,
   );
+  assert.match(route, /alternative paths/, `${labPath} must state that starting-state and the whole-lab route are alternative paths`);
+  assert.match(route, /Do not run both/, `${labPath} must say not to run both Windows attempts`);
   const routeCode = powershellText(route);
   assert.match(routeCode, /node \$Helper create\b/, `${labPath} Native Windows route must remain a whole-lab script`);
   assert.match(routeCode, /\barchive\b/, `${labPath} Native Windows route must remain a whole-lab script`);
+  const pause = routeCode.search(/Read-Host/);
+  const verify = routeCode.search(/node \$Helper verify\b/);
+  assert.ok(pause >= 0, `${labPath} compressed Windows route must pause for the required learner edit`);
+  assert.ok(verify >= 0 && pause < verify, `${labPath} compressed Windows route must pause before verify`);
 }
 
 /** Read-only implementation lesson, fixture, evidence, and future-module boundary verifier. */
