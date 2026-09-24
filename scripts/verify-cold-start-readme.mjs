@@ -17,7 +17,7 @@ const corporateMirrorUrl =
 const occurrences = (value, needle) => value.split(needle).length - 1;
 
 assert.ok(readme.startsWith(openMarker), "the cold-start marker must begin at byte 0");
-assertTeachingBaselinePin(packageJson, readme);
+const directivePin = assertTeachingBaselinePin(packageJson, readme);
 assert.equal(occurrences(readme, openMarker), 1, "the opening marker must appear exactly once");
 assert.equal(occurrences(readme, closeMarker), 1, "the closing marker must appear exactly once");
 
@@ -33,6 +33,20 @@ const block = readme.slice(0, closeIndex + closeMarker.length);
 const rungs = [...block.matchAll(/^> (\d+)\. /gm)].map((match) => Number(match[1]));
 assert.deepEqual(rungs, [1, 2, 3, 4, 5, 6], "the ladder must contain ordered rungs 1 through 6");
 assert.ok(block.includes(corporateMirrorUrl), "the corporate-mirror recovery link must be absolute");
+
+const rungThree = block.match(/^> 3\. .*$/m)?.[0];
+assert.ok(rungThree, "the cold-start ladder must contain rung 3");
+const globalInstallCommands = [
+  ...rungThree.matchAll(/`((?:npm i|pnpm add) -g @deftai\/directive(?:@[^\s`]+)?)`/g),
+].map((match) => match[1]);
+assert.deepEqual(
+  globalInstallCommands,
+  [
+    `npm i -g @deftai/directive@${directivePin}`,
+    `pnpm add -g @deftai/directive@${directivePin}`,
+  ],
+  `rung 3 global installs must use the committed Directive pin ${directivePin}`,
+);
 
 const markdownLinks = [...block.matchAll(/\]\(([^)]+)\)/g)].map((match) => match[1]);
 assert.ok(
