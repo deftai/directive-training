@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #68",
-    "updated": "2026-09-25T00:55:24Z"
+    "updated": "2026-09-25T01:55:00Z"
   },
   "plan": {
     "title": "Capstone uv prerequisite blurs verified context and required version",
@@ -46,7 +46,7 @@
         }
       },
       {
-        "title": "Cite `assessments/capstone-end-to-end.md:149` and `:248` for recording and Blocked-by-environment. Do not add a new recording procedure.",
+        "title": "Cite the existing recording and Blocked-by-environment rows in `assessments/capstone-end-to-end.md` by **Required evidence manifest** runtime-observation text and **Self-evaluation rubric**. Do not add a new recording procedure.",
         "status": "proposed",
         "id": "clause:4",
         "narrative": {
@@ -104,7 +104,7 @@
         },
         {
           "id": 4,
-          "text": "Cite `assessments/capstone-end-to-end.md:149` and `:248` for recording and Blocked-by-environment. Do not add a new recording procedure.",
+          "text": "Cite the existing recording and Blocked-by-environment rows in `assessments/capstone-end-to-end.md` by **Required evidence manifest** runtime-observation text and **Self-evaluation rubric**. Do not add a new recording procedure.",
           "artifact_path": "labs/capstone-end-to-end.md",
           "ambiguous": false,
           "provenance": "statement"

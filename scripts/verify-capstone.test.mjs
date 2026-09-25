@@ -257,7 +257,7 @@ test("verifier rejects a capstone Expected paragraph that makes uv 0.11.10 exact
 test("verifier rejects dropping the existing recording-row cite", () => {
   const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
     body,
-    "at `assessments/capstone-end-to-end.md:149`",
+    "in `assessments/capstone-end-to-end.md`\n**Required evidence manifest** (`capstone-assessment-note.md` — runtime observation)",
     "in a new recording table",
   ));
   assert.throws(() => verifyCapstone(root), /runtime-observation recording row/);
@@ -266,10 +266,19 @@ test("verifier rejects dropping the existing recording-row cite", () => {
 test("verifier rejects dropping the existing Blocked-by-environment cite", () => {
   const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
     body,
-    "`assessments/capstone-end-to-end.md:248`",
-    "a new environment-block procedure",
+    "`Blocked by environment` in `assessments/capstone-end-to-end.md`\n**Self-evaluation rubric**",
+    "`Blocked by environment` in a new environment-block procedure",
   ));
   assert.throws(() => verifyCapstone(root), /Blocked-by-environment row/);
+});
+
+test("verifier rejects brittle assessment line pointers", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    "in `assessments/capstone-end-to-end.md`\n**Required evidence manifest** (`capstone-assessment-note.md` — runtime observation)",
+    "at `assessments/capstone-end-to-end.md:" + "149`",
+  ));
+  assert.throws(() => verifyCapstone(root), /brittle assessment line pointers|runtime-observation recording row/);
 });
 
 test("verifier rejects dropping required uv discovery from Lab 7", () => {

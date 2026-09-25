@@ -820,13 +820,18 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   );
   assert.match(
     labEnvironment,
-    /assessments\/capstone-end-to-end\.md:149/,
+    /assessments\/capstone-end-to-end\.md[\s\S]{0,80}Required evidence manifest[\s\S]{0,80}runtime observation/,
     "capstone lab must cite the existing runtime-observation recording row",
   );
   assert.match(
     labEnvironment,
-    /assessments\/capstone-end-to-end\.md:248/,
+    /Blocked by environment[\s\S]{0,80}assessments\/capstone-end-to-end\.md[\s\S]{0,80}Self-evaluation rubric/,
     "capstone lab must cite the existing Blocked-by-environment row",
+  );
+  assert.doesNotMatch(
+    labEnvironment,
+    /assessments\/capstone-end-to-end\.md:\d+/,
+    "capstone lab must not use brittle assessment line pointers",
   );
   assert.match(
     labEnvironment,

@@ -152,7 +152,8 @@ git -C $CapstoneRoot status --short --branch
 Expected: the Node major-version assertion passes. Node.js 22 or newer remains
 required. Record the printed Node value, successful assertion, operating system and shell,
 and observed npm, Git, Task, uv, and Python command and version in the private assessment
-note. Use the existing runtime-observation row at `assessments/capstone-end-to-end.md:149`;
+note. Use the existing runtime-observation row in `assessments/capstone-end-to-end.md`
+**Required evidence manifest** (`capstone-assessment-note.md` — runtime observation);
 do not add another recording procedure. Task `3.50.0`, uv `0.11.10`, and Python `3.13.13`
 are verified matrix evidence, not exact prerequisites. Python is a presence-only requirement:
 the helper resolves `python3` then `python` on macOS/Linux and `python`, `python3`, then `py`
@@ -161,8 +162,8 @@ candidate-environment evidence, not a minimum or exact learner version. Guard pr
 exact root; the branch is `training/capstone`; the remote command prints no names; status
 contains no product change. Stop if a required tool is absent. A different observed uv patch
 is recorded and is not by itself a stop. Use the matching documented environment when a
-required tool is absent. `Blocked by environment` at
-`assessments/capstone-end-to-end.md:248` applies only when the exact runtime or registry
+required tool is absent. `Blocked by environment` in `assessments/capstone-end-to-end.md`
+**Self-evaluation rubric** applies only when the exact runtime or registry
 prerequisite remains unavailable after documented recovery. Do not repair the current
 directory into the expected shape.
 
