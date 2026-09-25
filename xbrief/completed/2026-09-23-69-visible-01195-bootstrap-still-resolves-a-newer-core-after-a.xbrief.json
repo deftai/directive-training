@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #69",
-    "updated": "2026-09-25T02:32:32Z"
+    "updated": "2026-09-25T04:06:47Z"
   },
   "plan": {
     "title": "Visible 0.119.5 bootstrap still resolves a newer core after a compatible release",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Recut learner-visible exact-core claims so exact Directive 0.119.5 denotes the fixture-local four-package graph, while the visible bootstrap remains an availability and recovery path that may resolve newer compatible nested packages. Add a separately isolated runtime characterization of pinned and latest global-prefix resolution without turning upstream caret behavior into a local exact-bootstrap promise or changing issue #63's literal cold-start pin.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/69",
@@ -20,8 +20,14 @@
     "items": [
       {
         "title": "Bind one topology: claim-and-gate recut. Relieved `P1` is the gap between learner-visible exact-core claims and the installed graph. Caret resolution of `@deftai/directive@0.119.5` (CLI 0.119.5, nested 0.119.7) is an upstream packaging fact reported on deftai/directive#4766; it is not a local exact-bootstrap remainder. Lab 2 / project-local fixture `overrides` plus `verifyInstalledGraph` remains the exact four-package 0.119.5 proof. The visible bootstrap (README rungs 1-4, unversioned global, and prefix CLI pin) is availability and recovery, not graph-exact. Do not add an isolated-prefix exact ladder. A SOURCE-BASELINE policy recut that would permit a training-root install or lockfile is a later issue.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #91 head c35f287cbe5c966e03bfa609481b0715d5125301, merged as b87266f6cd22816799a09dd75e2cc2fc8088aff7: learner-visible exact-core claims name the Lab 2/project-local CLI-plus-overrides graph while README bootstrap remains availability and recovery; leftover-complete npm run check:modules-2-3 passed (20 artifacts, 0 missing), check:modules-4-5 through check:module-12 passed, and node --test scripts/directive-bootstrap-runtime.test.mjs passed 4/4 with 0 failures, characterizing pinned mixed CLI 0.119.5 / nested 0.119.9 without an isolated-prefix exact ladder",
+          "recorded_at": "2026-09-25T04:00:53Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given the visible bootstrap and exact-version teaching claims, when a learner compares them, then bootstrap is described as availability and recovery while only the Lab 2/project-local CLI plus overrides graph is identified as exact four-package 0.119.5 proof.",
           "Traces": "Issue #69 successor bound contract clause 1"
@@ -29,8 +35,14 @@
       },
       {
         "title": "Do not reuse Lab 2 `verifyInstalledGraph` equality on the host-global route. Do not invent a seventh fixture helper.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #91 head c35f287cbe5c966e03bfa609481b0715d5125301, merged as b87266f6cd22816799a09dd75e2cc2fc8088aff7: scripts/directive-bootstrap-runtime.test.mjs reads nested versions via nestedGraph and does not reuse Lab 2 verifyInstalledGraph equality on the host-global route; no seventh fixture helper was added; leftover-complete node --test scripts/directive-bootstrap-runtime.test.mjs passed 4/4 with 0 failures",
+          "recorded_at": "2026-09-25T04:00:53Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given a pinned or unversioned host-global install, when package versions are observed, then no Lab 2 flat-graph equality check is reused on that route and no additional fixture helper is introduced.",
           "Traces": "Issue #69 successor bound contract clause 2"
@@ -38,8 +50,14 @@
       },
       {
         "title": "Take `README.md:4` off this remainder's recut list. Recut every learner-visible exact-core row still in force so exact core 0.119.5 means the fixture-local graph: module records 1-12 as written; Lab 2; current-claim points in `SOURCE-BASELINE.md` and `SOURCE-NOTES.md`; `references/SOURCE-BASELINE.md:33` disposable-probe conjunct and `references/SOURCE-BASELINE.md:34` live-authoring-CLI conjunct (keep the Exact package graph fixture sentence, the integrities, the 2026-09-20 verification row, and the SOURCE-NOTES unpinned-init bullet dated 2026-09-20); content tests that pin the module-record string; matching solution keys `solutions/module-01-what-directive-is.md:16`, `solutions/module-03-authority-and-context.md:15`, `solutions/module-04-xbrief-as-durable-state.md:15`, `solutions/module-06-creating-well-shaped-work.md:16`, `solutions/module-08-session-and-work-selection.md:7`, `solutions/module-09-design-critique-arcs.md:16`, `solutions/module-12-review-and-completion.md:7`; `solutions/lab-02-disposable-initialization.md:16`; and `curriculum/modules/02-installation-and-anatomy.md:164-172` (show the Lab 2 `overrides` block, or state that the fence is the CLI pin only and that `overrides` locks core/content/types; extend `scripts/verify-modules-2-3.mjs` if the fence changes). Keep the dated historical bind and hashes. Keep Module 1 command-free. Leave Labs 5/7/10/11/capstone records that already name the project-local graph.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #91 head c35f287cbe5c966e03bfa609481b0715d5125301, merged as b87266f6cd22816799a09dd75e2cc2fc8088aff7: module records 1-12, named solution keys, Lab 2, SOURCE-BASELINE.md, SOURCE-NOTES.md, and Module 2 overrides teaching recut exact 0.119.5 onto the fixture-local graph while keeping historical binds, hashes, and Module 1 command-free; leftover-complete check:modules-2-3 passed (20 artifacts, 0 missing), check:modules-4-5 (10 artifacts), check:module-6 through check:module-12 passed, and node --test scripts/verify-module-8.test.mjs scripts/verify-module-10.test.mjs scripts/verify-module-12.test.mjs passed 92/92 with 0 failures",
+          "recorded_at": "2026-09-25T04:00:53Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given module records 1-12, the named solution keys, Lab 2, and current source baseline/notes claims, when the content checks run, then exact core 0.119.5 means the fixture-local graph, historical binds and hashes remain intact, Module 1 stays command-free, and already-correct lab records remain unchanged.",
           "Traces": "Issue #69 successor bound contract clause 3 and approved file scope"
@@ -47,8 +65,14 @@
       },
       {
         "title": "Keep `scripts/teaching-baseline.mjs` as the CLI-pin coupler. Keep `scripts/verify-cold-start-readme.mjs` top-level as the hermetic structural check. Attach nested bootstrap observation as a sibling runtime module invoked from `test:runtime` under a different file, not from top-level `verify-cold-start-readme.mjs`. Append that new file path to `package.json` `scripts.test:runtime`. Name `scripts/verify-text-portability.test.mjs` among the consumers that must stay off the install; keep its four-file copy set closed. Isolated global-prefix install of `@deftai/directive@0.119.5` is the pinned caret characterization; read all four versions from the installed CLI's nested resolution tree. Unversioned global bootstrap is a separate latest-version observation. Temporary prefix, isolated npm userconfig and globalconfig, Lab 2 `withoutHostNpmConfig`, first assert a newer compatible release exists in the caret range or report not-exercised. Do not reach that install from `test:content` / `scripts/teaching-baseline.test.mjs`. Characterization of mixed resolution. Do not frame the test around 0.119.6. Do not assert four-package equality to 0.119.5 on the mixed route.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:4",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #91 head c35f287cbe5c966e03bfa609481b0715d5125301, merged as b87266f6cd22816799a09dd75e2cc2fc8088aff7: scripts/directive-bootstrap-runtime.test.mjs is appended to package.json scripts.test:runtime, uses a temporary global prefix, isolated npm user/global config and cache, and --ignore-scripts, and characterizes mixed nested resolution separately from unversioned latest; leftover-complete node --test scripts/directive-bootstrap-runtime.test.mjs passed 4/4 with 0 failures (pinned mixed CLI 0.119.5 / nested 0.119.9; unversioned latest observed at 0.119.9), npm run test:teaching-baseline passed 6/6, npm run check:cold-start-readme passed, and npm run test:portability passed 67/67 with 0 failures",
+          "recorded_at": "2026-09-25T04:00:53Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given a newer compatible release exists, when the sibling runtime test installs CLI 0.119.5, then it uses a temporary global prefix, isolated npm user/global config and cache, and `--ignore-scripts`, reads all four nested versions, and characterizes mixed resolution; otherwise it reports not-exercised, and unversioned latest is observed separately.",
           "Traces": "Issue #69 successor bound contract clause 4 and upstream deftai/directive#4766 evidence"
@@ -56,8 +80,14 @@
       },
       {
         "title": "Literal `@0.119.5` on cold-start rung 3 stays on issue 63. That edit is not this harvest.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:5",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #91 head c35f287cbe5c966e03bfa609481b0715d5125301, merged as b87266f6cd22816799a09dd75e2cc2fc8088aff7: inherited issue #63 literal @0.119.5 cold-start enforcement remains on scripts/verify-cold-start-readme.mjs and scripts/teaching-baseline.mjs; the registry characterization is absent from test:content and the portability four-file copy set; leftover-complete npm run check:cold-start-readme passed, npm run test:teaching-baseline passed 6/6, and npm run test:portability passed 67/67 with 0 failures",
+          "recorded_at": "2026-09-25T04:00:53Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given issue #63 has landed, when #69's focused and aggregate checks run, then its inherited literal `@0.119.5` cold-start enforcement remains unchanged and the new registry characterization is absent from `test:content`, teaching-baseline tests, and the portability four-file copy set.",
           "Traces": "Issue #69 successor bound contract clause 5; dependency github.issue.5544448158"
@@ -179,11 +209,9 @@
           "npm run check:module-10",
           "npm run check:module-11",
           "npm run check:module-12",
-          "node --test scripts/directive-bootstrap-runtime.test.mjs",
           "npm run test:teaching-baseline",
           "npm run check:cold-start-readme",
           "npm run test:portability",
-          "npm run test:content",
           "npm run test:runtime"
         ],
         "expected_outputs": [
@@ -1149,9 +1177,33 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "03223534e0f2ef12cd782f96beac2d0b8632d5fb48b303f40d28dc0fbc731d8e"
+      },
+      "completionProvenance": {
+        "repository": "deftai/directive-training",
+        "implementationCommit": "c35f287cbe5c966e03bfa609481b0715d5125301",
+        "prNumber": 91,
+        "prBase": null,
+        "mergeCommit": "b87266f6cd22816799a09dd75e2cc2fc8088aff7",
+        "deliveryBranch": "master",
+        "deliveryCommit": "b87266f6cd22816799a09dd75e2cc2fc8088aff7",
+        "verifiedAt": "2026-09-25T04:06:47Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:grok:v1:MDFhMGQ2YjMtOWI5MC03YzMyLTk5MjgtMGZiYmUxOGU4NTU2"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-25T04:06:47Z",
+      "completedSessionId": "host:grok:v1:MDFhMGQ2YjMtOWI5MC03YzMyLTk5MjgtMGZiYmUxOGU4NTU2",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-25T04:06:47Z"
       }
     },
     "id": "github.issue.5547768904",
-    "updated": "2026-09-25T02:32:32Z"
+    "updated": "2026-09-25T04:06:47Z"
   }
 }
