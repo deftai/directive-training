@@ -223,6 +223,66 @@ function interFenceWithoutComments(text) {
   return stripHtmlComments(text).replace(/^\s*#.*$/gm, "").trim();
 }
 
+export const lab11RetainedLiteralStdoutTokens = Object.freeze([
+  "verify:ac passed (#3284) [rung=derived]",
+  "Literal acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim",
+  "✓ npm run test:focused — exit 0 (expected 0)",
+  "✓ npm run check:behavior — exit 0 (expected 0)",
+  "AC-pass bank checkpoint required (finalize-on-green) (#3285)",
+  "unbounded budget — dual-stop still applies; bank is optional discipline",
+  "[deft ac-pass-banking] banked scope=northstar.testing.summary-average next=finalize_and_deepen had_surplus=true (#3285)",
+]);
+
+const lab11ObsoleteWalkPhrases = Object.freeze([
+  "0 verified, 1 unverifiable",
+  "verify:ac clause walk",
+  "no artifact path bound",
+]);
+
+function textFence(section, path, label) {
+  const fence = section.match(/```text\r?\n([\s\S]*?)\r?\n```/)?.[1];
+  assert.ok(fence, `${path} is missing the ${label}`);
+  return fence;
+}
+
+function requireRetainedLiteralInspectFragment(path, fragment) {
+  for (const phrase of lab11ObsoleteWalkPhrases) {
+    assert.ok(
+      !fragment.includes(phrase),
+      `${path} inspect fragment must not restore obsolete clause-walk evidence: ${phrase}`,
+    );
+  }
+  let cursor = 0;
+  for (const token of lab11RetainedLiteralStdoutTokens) {
+    const found = fragment.indexOf(token);
+    assert.ok(found !== -1, `${path} inspect fragment must lock retained 0.119.5 stdout: ${token}`);
+    const ordered = fragment.indexOf(token, cursor);
+    const gap = ordered === -1 ? fragment.slice(cursor) : fragment.slice(cursor, ordered);
+    assert.ok(
+      ordered !== -1 && /^\s*$/.test(gap),
+      `${path} inspect fragment must keep retained 0.119.5 stdout as a contiguous ordered fragment`,
+    );
+    cursor = ordered + token.length;
+  }
+}
+
+function requireSingleRetainedLiteralClassification(path, sectionBody) {
+  const normalized = sectionBody.replace(/\s+/g, " ");
+  for (const phrase of [
+    "literal-acceptance proof",
+    "[rung=derived]",
+    "AC-pass-bank dual-stop",
+    "upstream 0.119.5 diagnostics",
+  ]) {
+    assert.ok(normalized.includes(phrase), `${path} must classify retained 0.119.5 stdout: ${phrase}`);
+  }
+  assert.doesNotMatch(
+    sectionBody,
+    /\bboth observed variants\b|\bWindows\/macOS\b|\bplatform-controlled(?: the)? variant\b|\bmacOS form\b|\bWindows form\b/i,
+    `${path} must present one retained fixture fragment, not a dual-variant recut`,
+  );
+}
+
 function executableCommandLines(content) {
   return content.split(/\r?\n/).flatMap((line) => {
     const trimmed = line.trim();
@@ -509,19 +569,14 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
     expectedQualityRecord,
     `${lab11} Task 4 completed quality-record example drifted`,
   );
-  assert.ok(
-    labPage.includes("The focused test and numeric-summary CLI pass for an ordinary sample and an empty sample."),
-    `${lab11} must quote Lab 11 verify:ac clause 1 text`,
+  const task3 = exactHeadingSlice(labPage, "Task 3 — Run literal and forward evidence", 3);
+  requireRetainedLiteralInspectFragment(
+    lab11,
+    textFence(task3, lab11, "Task 3 quoted verify:ac PASS fragment"),
   );
-  for (const phrase of [
-    "0 verified, 1 unverifiable",
-    "no artifact path bound",
-    "quoted evidence, not a step to type",
-    "literal.json.literalAcceptance.stdout",
-    "[rung=derived]",
-  ]) {
-    assert.ok(labPage.includes(phrase), `${lab11} must lock the verify:ac PASS fragment: ${phrase}`);
-  }
+  requireSingleRetainedLiteralClassification(lab11, task3);
+  assert.ok(labPage.includes("quoted evidence, not a step to type"), `${lab11} must keep quoted-evidence guidance`);
+  assert.ok(labPage.includes("literal.json.literalAcceptance.stdout"), `${lab11} must name the retained stdout field`);
   assertWindowsRoutePauses(lab11, labPage);
 
   const solutionProse = parsed.get(solution11).prose;
@@ -530,11 +585,12 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
     assert.ok(solutionProse.includes(phrase), `${solution11} is missing explained evidence: ${phrase}`);
   }
   const solutionPage = content.get(solution11);
-  assert.ok(
-    solutionPage.includes("The focused test and numeric-summary CLI pass for an ordinary sample and an empty sample."),
-    `${solution11} must classify the Lab 11 verify:ac clause 1 fragment`,
+  const step5 = exactHeadingSlice(solutionPage, "Step 5 — Run contract and coverage evidence", 3);
+  requireRetainedLiteralInspectFragment(
+    solution11,
+    textFence(step5, solution11, "explained-solution quoted verify:ac PASS fragment"),
   );
-  assert.ok(solutionPage.includes("no artifact path bound"), `${solution11} must classify unverifiable as no bound artifact path`);
+  requireSingleRetainedLiteralClassification(solution11, step5);
 
   const course = content.get("curriculum/README.md");
   const module11Row = courseModuleRow(course, 11);

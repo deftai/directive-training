@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { verifyModule11 } from "./verify-module-11.mjs";
+import { lab11RetainedLiteralStdoutTokens, verifyModule11 } from "./verify-module-11.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const copyPaths = [
@@ -294,6 +294,74 @@ test("verifier accepts CRLF Lab 11 Task 4 markup", () => {
   assert.ok(verifyModule11(root).artifactCount > 25);
 });
 
+const solution11Path = "solutions/lab-11-testing-gates-and-evidence.md";
+const retainedFocusedCommand = "✓ npm run test:focused — exit 0 (expected 0)";
+const retainedBehaviorCommand = "✓ npm run check:behavior — exit 0 (expected 0)";
+const retainedBankedLine = lab11RetainedLiteralStdoutTokens.at(-1);
+
+test("verifier rejects a Lab 11 Task 3 inspect fragment missing a retained stdout token", () => {
+  const root = changedCopy(lab11Path, (body) => spliceOnce(
+    lab11Lf(body),
+    `  ${retainedFocusedCommand}\n`,
+    "",
+  ));
+  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.5 stdout/);
+});
+
+test("verifier rejects an explained-solution inspect fragment missing a retained stdout token", () => {
+  const root = changedCopy(solution11Path, (body) => spliceOnce(
+    lab11Lf(body),
+    `${retainedBankedLine}\n`,
+    "",
+  ));
+  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.5 stdout/);
+});
+
+test("verifier rejects swapping or inserting between the two retained command lines", () => {
+  const root = changedCopy(lab11Path, (body) => spliceOnce(
+    lab11Lf(body),
+    `  ${retainedFocusedCommand}\n  ${retainedBehaviorCommand}\n`,
+    `  ${retainedBehaviorCommand}\n  extra command line\n  ${retainedFocusedCommand}\n`,
+  ));
+  assert.throws(() => verifyModule11(root), /contiguous ordered fragment/);
+});
+
+test("verifier rejects restoring clause-walk evidence in the Lab 11 Task 3 inspect fragment", () => {
+  const root = changedCopy(lab11Path, (body) => spliceOnce(
+    lab11Lf(body),
+    "Literal acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim\n",
+    "verify:ac clause walk (#3323): 0 verified, 1 unverifiable, 0 failed\nLiteral acceptance-command gate passed (#3284/#3267): 2 command(s) run verbatim\n",
+  ));
+  assert.throws(() => verifyModule11(root), /must not restore obsolete clause-walk evidence/);
+});
+
+test("verifier rejects restoring no-artifact-path evidence in the explained-solution inspect fragment", () => {
+  const root = changedCopy(solution11Path, (body) => spliceOnce(
+    lab11Lf(body),
+    `  ${retainedFocusedCommand}\n`,
+    "  [unverifiable] clause 1 @ (no path): sample — no artifact path bound\n  ✓ npm run test:focused — exit 0 (expected 0)\n",
+  ));
+  assert.throws(() => verifyModule11(root), /must not restore obsolete clause-walk evidence: no artifact path bound/);
+});
+
+test("verifier rejects teaching both stdout variants in Lab 11 Task 3", () => {
+  const root = changedCopy(lab11Path, (body) => spliceOnce(
+    lab11Lf(body),
+    "Classify that fragment:",
+    "Teach both observed variants. Classify that fragment:",
+  ));
+  assert.throws(() => verifyModule11(root), /one retained fixture fragment, not a dual-variant recut/);
+});
+
+test("verifier rejects dropping literal-acceptance classification from Lab 11 Task 3", () => {
+  const root = changedCopy(lab11Path, (body) => spliceOnce(
+    lab11Lf(body),
+    "That is the literal-acceptance proof.",
+    "That is the overall pass signal.",
+  ));
+  assert.throws(() => verifyModule11(root), /must classify retained 0\.119\.5 stdout: literal-acceptance proof/);
+});
+
 test("verifier rejects a missing Module 11 outcome mapping", () => {
   const root = changedCopy("curriculum/modules/11-testing-gates-and-evidence.md", (body) => body.replaceAll("O11.8", "O11.X"));
   assert.throws(() => verifyModule11(root), /missing O11\.8/);
@@ -310,7 +378,7 @@ function lab11Lf(body) {
 
 function spliceOnce(haystack, needle, replacement) {
   const index = haystack.indexOf(needle);
-  assert.ok(index >= 0, "Lab 11 Native Windows mutation must match the authored pause text");
+  assert.ok(index >= 0, "mutation must match authored text");
   return `${haystack.slice(0, index)}${replacement}${haystack.slice(index + needle.length)}`;
 }
 
