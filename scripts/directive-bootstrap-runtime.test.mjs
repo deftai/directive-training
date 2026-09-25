@@ -36,7 +36,14 @@ writeFileSync(userconfig, "registry=https://registry.npmjs.org/\naudit=false\nfu
 writeFileSync(globalconfig, "audit=false\nfund=false\n");
 
 function npmCliScript() {
+  const execPath = process.env.npm_execpath;
+  if (typeof execPath === "string" && execPath.length > 0 && existsSync(execPath)) {
+    return execPath;
+  }
   const searchRoots = [dirname(process.execPath), resolve(dirname(process.execPath), "..")];
+  if (typeof execPath === "string" && execPath.length > 0) {
+    searchRoots.unshift(dirname(execPath), resolve(dirname(execPath), ".."));
+  }
   const pathValue = governingEnv().PATH;
   const suffixes = process.platform === "win32"
     ? ["", ...(process.env.PATHEXT ?? ".COM;.EXE;.BAT;.CMD").split(";").filter(Boolean)]
@@ -94,13 +101,20 @@ function parseNpmJson(stdout) {
   return JSON.parse(text.slice(start));
 }
 
+const exactReleasePattern = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
+
+function isExactRelease(version) {
+  return exactReleasePattern.test(String(version));
+}
+
 function parseRelease(version) {
-  const match = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.exec(String(version));
+  const match = exactReleasePattern.exec(String(version));
   assert.ok(match, `expected exact x.y.z version, got ${version}`);
   return match.slice(1).map(Number);
 }
 
 function isNewerCompatible(version) {
+  if (!isExactRelease(version)) return false;
   const [major, minor, patch] = parseRelease(version);
   const [pinMajor, pinMinor, pinPatch] = parseRelease(pin);
   return major === pinMajor && minor === pinMinor && patch > pinPatch;
@@ -146,10 +160,21 @@ function newerCompatibleReleaseExists() {
   const ranged = ["directive-core", "directive-content"].filter((name) => rangeAllowsNewer(dependencies[`@deftai/${name}`]));
   if (ranged.length === 0) return false;
   for (const name of [...ranged, "directive-types"]) {
-    if (publishedVersions(name).some(isNewerCompatible)) return true;
+    if (publishedVersions(name).filter(isExactRelease).some(isNewerCompatible)) return true;
   }
   return false;
 }
+
+test("prereleases are not treated as newer compatible releases", () => {
+  assert.equal(isNewerCompatible("0.119.6-rc.1"), false);
+  assert.equal(isNewerCompatible("0.119.6-alpha.0"), false);
+  assert.equal(isExactRelease("0.119.6"), true);
+  assert.equal(isExactRelease("0.119.6-rc.1"), false);
+  assert.deepEqual(
+    ["0.119.5", "0.119.6-rc.1", "0.119.7"].filter(isExactRelease).filter(isNewerCompatible),
+    ["0.119.7"],
+  );
+});
 
 test("isolated pinned global-prefix install characterizes mixed nested resolution", { timeout: 300_000 }, (t) => {
   if (!newerCompatibleReleaseExists()) {
