@@ -13,7 +13,7 @@ outcomes that your evidence does not yet demonstrate.
 | Status | `learner-ready draft` |
 | Last content update | 2026-09-07 |
 | Last verified | 2026-09-07 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Classify the Northstar stack](../curriculum/modules/01-what-directive-is.md#exercise-classify-the-northstar-stack) |
 
 ## Before you use this solution

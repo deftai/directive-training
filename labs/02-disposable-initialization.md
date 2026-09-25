@@ -11,7 +11,7 @@ it, inspect its anatomy, and preserve evidence without touching a business repos
 | Supports | Module 2 outcomes O2.1, O2.2, O2.3, and O2.4 |
 | Status | `learner-ready draft`; 0.119.5 path verified on macOS/zsh; Linux/bash and Windows/PowerShell are candidates pending native evidence |
 | Last verified | 2026-09-21 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Estimated duration | 25–35 minutes |
 | Fixture | [Fictional Northstar package](fixtures/02-disposable-initialization/package.json) driven by the [stateless lab helper](fixtures/02-disposable-initialization/init-lab.mjs) |
 

@@ -22,9 +22,10 @@ They are maintainer evidence, not a learner command reference.
   resolved to 0.112.0 on each applicable learner-proof graph.
 - Historical learner-baseline deposit proof: reconstituted surfaces reported 0.112.0. This
   is preserved evidence, not a description of the current authoring deposit.
-- Current authoring context: the unqualified shell CLI reports engine 0.119.5, the tracked
-  generation record reports content 0.119.5 from `directive-update`, and the ignored deposit
-  reports tag `v0.119.5`. These match the direct project pin.
+- Current authoring context: the tracked generation record reports content 0.119.5 from
+  `directive-update`, and the ignored deposit reports tag `v0.119.5`. These match the
+  direct project pin. The unqualified shell CLI is bootstrap availability, not
+  fixture-local four-package proof; exact core 0.119.5 is the Lab 2 / project-local graph.
 - Official tag: `v0.119.5`; annotated tag object
   `f8054b3402881648dfc5893b5b3b8825acf83194`; peeled commit and npm `gitHead`
   `75e7d33f114b0e2e67741257813c095e74d9668f`.

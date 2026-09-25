@@ -7,7 +7,7 @@
 | Stable ID | `module-11-testing-gates-and-evidence` |
 | Status | Learner-ready draft |
 | Estimated time | 65 minutes |
-| Directive baseline | `@deftai/directive@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Prerequisite | [Module 10 — The Implementation Golden Path](10-implementation-golden-path.md) |
 | Practical work | [Lab 11 — Testing, Gates, and Evidence](../../labs/11-testing-gates-and-evidence.md) |
 

@@ -315,6 +315,16 @@ for (const content of [module2, lab2, lab2Solution]) {
   assert.match(content, /no[- ]remote/i, "Module 2 path must preserve the no-remote guard");
   assert.doesNotMatch(content, /doctor[^\n]*--repo-root/, "doctor must use the verified --project-root flag");
 }
+assert.match(
+  module2,
+  /"overrides"[\s\S]*"@deftai\/directive-content": "0\.119\.5"[\s\S]*"@deftai\/directive-core": "0\.119\.5"[\s\S]*"@deftai\/directive-types": "0\.119\.5"/,
+  "Module 2 must show the Lab 2 overrides that lock core, content, and types",
+);
+assert.match(
+  module2,
+  /CLI pin is availability|not the four-package graph/i,
+  "Module 2 must not teach the CLI-only pin as the full-graph lock",
+);
 assert.match(lab2, /doctor --full --project-root \./, "Lab 2 must teach the verified doctor project-root flag");
 for (const requiredSafetyPattern of [
   /\$PSNativeCommandUseErrorActionPreference = \$true/,

@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #69",
-    "updated": "2026-09-23T16:45:21Z"
+    "updated": "2026-09-25T02:32:32Z"
   },
   "plan": {
     "title": "Visible 0.119.5 bootstrap still resolves a newer core after a compatible release",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "Recut learner-visible exact-core claims so exact Directive 0.119.5 denotes the fixture-local four-package graph, while the visible bootstrap remains an availability and recovery path that may resolve newer compatible nested packages. Add a separately isolated runtime characterization of pinned and latest global-prefix resolution without turning upstream caret behavior into a local exact-bootstrap promise or changing issue #63's literal cold-start pin.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/69",
@@ -1152,6 +1152,6 @@
       }
     },
     "id": "github.issue.5547768904",
-    "updated": "2026-09-23T16:45:21Z"
+    "updated": "2026-09-25T02:32:32Z"
   }
 }

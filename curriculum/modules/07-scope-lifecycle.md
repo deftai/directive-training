@@ -7,7 +7,7 @@
 | Stable ID | `module-07-scope-lifecycle` |
 | Status | Learner-ready draft; executable lab verified on macOS/zsh |
 | Last verified | 2026-09-09 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Duration | 65 minutes, including the disposable lab |
 | Prerequisites | Modules 1–6; Node.js 20+, npm, Git, Task, `uv`, and a dedicated terminal |
 | Native platform evidence | macOS/zsh verified; Linux/bash and Windows/PowerShell are candidates, not learner-ready claims |

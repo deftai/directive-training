@@ -12,7 +12,7 @@ applying behavior specificity, rule strength, authorization, or operator escalat
 | Outcomes covered | O3.1, O3.2, O3.3, O3.4 |
 | Status | `learner-ready draft` |
 | Last verified | 2026-09-07 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Module 3 conflict exercise](../curriculum/modules/03-authority-and-context.md#exercise) |
 
 ## Before you use this solution

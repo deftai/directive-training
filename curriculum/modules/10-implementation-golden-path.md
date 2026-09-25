@@ -7,7 +7,7 @@
 | Stable ID | `module-10-implementation-golden-path` |
 | Status | Learner-ready draft; executable lab verified on macOS/zsh |
 | Last verified | 2026-09-10 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Duration | 70 minutes, including the disposable lab |
 | Prerequisites | Modules 1–9; Node.js 20+, npm, Git, Task, `uv`, and a dedicated zsh terminal |
 | Native platform evidence | macOS/zsh verified; Linux/bash and Windows/PowerShell are candidates |

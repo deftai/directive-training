@@ -11,7 +11,7 @@ repair drift there, and prove the view reflects the intended change.
 | Status | Learner-ready draft; executable lab verified on macOS/zsh; Linux and Windows candidates |
 | Last content update | 2026-09-12 |
 | Last verified | 2026-09-12 |
-| Directive baseline | Package and engine 0.119.5; xBRIEF 0.8; [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local package and engine 0.119.5; xBRIEF 0.8; [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 45–60 minutes, including Lab 5 and self-assessment |
 | Prerequisites | Modules 1–4; Git, Node.js 20+, npm; zsh on macOS or PowerShell 7.4+ on Windows |
 

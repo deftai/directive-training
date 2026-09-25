@@ -11,7 +11,7 @@ or a recovery point, and explain what that artifact can authorize.
 | Status | `learner-ready draft` |
 | Last content update | 2026-09-07 |
 | Last verified | 2026-09-07 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 45–55 minutes |
 | Prerequisites | Complete [Module 3](03-authority-and-context.md); distinguish product requirements, live authorization, and gate evidence |
 

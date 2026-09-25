@@ -111,8 +111,8 @@ test("verifier rejects a broken local navigation link", () => {
 
 test("verifier rejects a stale or ranged teaching baseline", () => {
   const root = changedCopy("solutions/module-08-session-and-work-selection.md", (body) => body.replace(
-    "| Directive baseline | 0.119.5 |",
-    "| Directive baseline | 0.119.5–0.114.0 |",
+    "| Directive baseline | fixture-local 0.119.5 |",
+    "| Directive baseline | fixture-local 0.119.5–0.114.0 |",
   ));
   assert.throws(() => verifyModule8(root), /stale or ranged Directive baseline/);
 });
