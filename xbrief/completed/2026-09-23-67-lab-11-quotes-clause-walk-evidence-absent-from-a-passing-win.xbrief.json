@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #67",
-    "updated": "2026-09-24T22:55:47Z"
+    "updated": "2026-09-25T00:17:43Z"
   },
   "plan": {
     "title": "Lab 11 quotes clause-walk evidence absent from a passing Windows 0.119.5 run",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Align Lab 11 Task 3 and its explained solution with the retained literal-acceptance stdout that the fixture's Directive 0.119.5 runner actually emits. This independently buildable story is limited to the Task 3 inspect fragment and classification, their Module 11 content contracts, and the existing runtime observer; it does not promote Windows platform proof or recut the capstone.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/67",
@@ -20,8 +20,14 @@
     "items": [
       {
         "title": "Replace the Task 3 fence in `labs/11-testing-gates-and-evidence.md` and the matching explained-solution fence with the retained `literal.json.literalAcceptance.stdout` from this fixture's 0.119.5 runner.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #87 head 372feee14de5557bf9b2cc0e4c05e8c5e03b1d78, merged as c36d16097459ea2c4bc938f32c2e2a3bbcd5bebc: labs/11-testing-gates-and-evidence.md Task 3 and solutions/lab-11-testing-gates-and-evidence.md quote the retained 0.119.5 simple pass lead, literal gate, two successful npm command lines, AC-pass-bank notes, and banked line; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 58/58 with 0 failures, including verifier rejects a Lab 11 Task 3 inspect fragment missing a retained stdout token and verifier rejects an explained-solution inspect fragment missing a retained stdout token",
+          "recorded_at": "2026-09-25T00:13:51Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given the Task 3 lab and matching solution fences, when they are compared with a passing fixture artifact, then both contain the retained 0.119.5 simple pass lead, literal gate, two successful npm command lines, AC-pass-bank notes, and banked line.",
           "Traces": "Issue #67 bound remedy clause 1"
@@ -29,8 +35,14 @@
       },
       {
         "title": "Drop the teach-both-variants arm and the platform-controls-the-variant arm for this fixture.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #87 head 372feee14de5557bf9b2cc0e4c05e8c5e03b1d78, merged as c36d16097459ea2c4bc938f32c2e2a3bbcd5bebc: Lab 11 Task 3 presents one retained fixture fragment and does not teach a Windows/macOS dual variant or a platform-controlled variant; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 58/58 with 0 failures, including verifier rejects teaching both stdout variants in Lab 11 Task 3",
+          "recorded_at": "2026-09-25T00:13:51Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given either targeted inspect surface, when a learner reads the 0.119.5 evidence guidance, then it presents one retained fixture fragment and does not teach a Windows/macOS dual variant or a platform-controlled variant.",
           "Traces": "Issue #67 bound remedy clause 2"
@@ -38,8 +50,14 @@
       },
       {
         "title": "Recut Task 3 classification bullets onto lines that stdout actually carries: the two stored npm commands as the literal-acceptance proof; `[rung=derived]` and the AC-pass-bank dual-stop lines as upstream 0.119.5 diagnostics.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #87 head 372feee14de5557bf9b2cc0e4c05e8c5e03b1d78, merged as c36d16097459ea2c4bc938f32c2e2a3bbcd5bebc: Lab 11 Task 3 and the explained solution classify the two stored npm commands as literal-acceptance proof and [rung=derived] plus AC-pass-bank dual-stop lines as upstream 0.119.5 diagnostics; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 58/58 with 0 failures, including verifier rejects dropping literal-acceptance classification from Lab 11 Task 3",
+          "recorded_at": "2026-09-25T00:13:51Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given the retained fragment, when the Task 3 classification is applied, then the two stored npm commands are classified as literal-acceptance proof and the derived-rung and AC-pass-bank lines are classified as upstream diagnostics.",
           "Traces": "Issue #67 bound remedy clause 3"
@@ -47,8 +65,14 @@
       },
       {
         "title": "Recut `scripts/verify-module-11.mjs` so the lab page and explained solution lock tokens from that retained fragment. Drop the walk-phrase and `no artifact path bound` fragment locks on Lab 11.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:4",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #87 head 372feee14de5557bf9b2cc0e4c05e8c5e03b1d78, merged as c36d16097459ea2c4bc938f32c2e2a3bbcd5bebc: scripts/verify-module-11.mjs locks the retained 0.119.5 tokens as a contiguous ordered fragment and refuses obsolete clause-walk/no-artifact-path evidence in the Task 3 and matching solution inspect surfaces; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 58/58 with 0 failures, including verifier rejects restoring clause-walk evidence in the Lab 11 Task 3 inspect fragment, verifier rejects restoring no-artifact-path evidence in the explained-solution inspect fragment, verifier rejects swapping or inserting between the two retained command lines, and full lab retains ordered red-green-refactor and aggregate diagnosis evidence",
+          "recorded_at": "2026-09-25T00:13:51Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given a mutation that removes a retained token or restores clause-walk/no-artifact-path evidence in the Task 3 or matching solution inspect fragment, when the Module 11 verifier tests and full-lab observer run, then the mutation fails and the runtime/content token sets remain aligned.",
           "Traces": "Issue #67 bound remedy clause 4 and approved allocation expected result"
@@ -89,7 +113,6 @@
         ],
         "verify_commands": [
           "npm run check:module-11",
-          "node --test scripts/verify-module-11.test.mjs",
           "npm run test:module-11"
         ],
         "expected_outputs": [
@@ -268,6 +291,30 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "b40751c24c0fa614664211af075908cbef0d38e9b5627a9ef12869ba384d178a"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 87,
+        "prBase": null,
+        "mergeCommit": "c36d16097459ea2c4bc938f32c2e2a3bbcd5bebc",
+        "deliveryBranch": "master",
+        "deliveryCommit": "c36d16097459ea2c4bc938f32c2e2a3bbcd5bebc",
+        "verifiedAt": "2026-09-25T00:17:43Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:grok:v1:MDFhMGQ1ZTMtNGU3OS03YzUxLWFiNWItYzljMzIxMGI5MmRk"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-25T00:17:43Z",
+      "completedSessionId": "host:grok:v1:MDFhMGQ1ZTMtNGU3OS03YzUxLWFiNWItYzljMzIxMGI5MmRk",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-25T00:17:43Z"
       }
     },
     "acceptance": {
@@ -308,6 +355,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5544902927",
-    "updated": "2026-09-24T22:55:47Z"
+    "updated": "2026-09-25T00:17:43Z"
   }
 }
