@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #68",
-    "updated": "2026-09-25T01:55:00Z"
+    "updated": "2026-09-25T02:18:22Z"
   },
   "plan": {
     "title": "Capstone uv prerequisite blurs verified context and required version",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Make the course map and capstone starting-state guidance distinguish required tools from the versions used by the verified platform matrix. This independently buildable story keeps Node 22 or newer and uv availability as requirements, treats Task 3.50.0, uv 0.11.10, and Python 3.13.13 as evidence, and makes a different uv patch recordable rather than disqualifying.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/68",
@@ -20,8 +20,14 @@
     "items": [
       {
         "title": "Classify required versus verified across the course-map matrix bullet and the capstone Expected paragraph. Node stays 22 or newer required. Task 3.50.0, uv 0.11.10, and Python 3.13.13 stay verified matrix evidence.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:1",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #89 head 09a5b219a0ef5a57810cd3e8de8f1d5c4fbf2c67, merged as 230de8e356e329413825d0e9c23bce32df9a0cba: curriculum/README.md Audience and prerequisites and labs/capstone-end-to-end.md Expected paragraph keep Node.js 22 or newer required while labeling Task 3.50.0, uv 0.11.10, and Python 3.13.13 as verified matrix evidence, not exact prerequisites; leftover-complete npm run check:capstone passed (36 artifacts, 0 missing) and npm run test:capstone passed 105/107 with 0 failures (2 skipped), including verifier rejects a course-map matrix that makes uv 0.11.10 exact and verifier rejects a capstone Expected paragraph that makes uv 0.11.10 exact",
+          "recorded_at": "2026-09-25T02:13:58Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given the course-map matrix bullet and capstone Expected paragraph, when a learner reads them, then Node 22 or newer is required while Task 3.50.0, uv 0.11.10, and Python 3.13.13 are labeled verified matrix evidence.",
           "Traces": "Issue #68 bound remedy clause 1"
@@ -29,8 +35,14 @@
       },
       {
         "title": "Labs 7, 10, and 11 keep required `findExecutable(\"uv\")`. The capstone records an observed uv version when present and does not make 0.11.10 exact.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:2",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #89 head 09a5b219a0ef5a57810cd3e8de8f1d5c4fbf2c67, merged as 230de8e356e329413825d0e9c23bce32df9a0cba: Labs 7, 10, and 11 helpers keep required findExecutable(\"uv\") while the capstone records observed uv --version before create without asserting exact 0.11.10 equality; leftover-complete npm run check:capstone passed (36 artifacts, 0 missing) and npm run test:capstone passed 105/107 with 0 failures (2 skipped), including verifier rejects dropping required uv discovery from Lab 7 and the content contract still locks CI version: \"0.11.10\" as evidence provenance",
+          "recorded_at": "2026-09-25T02:13:58Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given Labs 7, 10, and 11 plus the capstone, when uv is checked, then the three labs still require a resolvable uv executable and the capstone records its observed version without requiring exact 0.11.10 equality.",
           "Traces": "Issue #68 bound remedy clause 2"
@@ -38,8 +50,14 @@
       },
       {
         "title": "State the stop-or-record predicate before each `create` call in both shell paths. A different observed uv patch is recorded and is not by itself a stop.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:3",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #89 head 09a5b219a0ef5a57810cd3e8de8f1d5c4fbf2c67, merged as 230de8e356e329413825d0e9c23bce32df9a0cba: both POSIX and Windows capstone start fences state the stop-or-record predicate immediately before create; leftover-complete npm run check:capstone passed (36 artifacts, 0 missing) and npm run test:capstone passed 105/107 with 0 failures (2 skipped), including verifier rejects removing the POSIX/Windows pre-create uv stop-or-record predicate and verifier rejects turning a POSIX/Windows uv patch mismatch into an exact-version failure",
+          "recorded_at": "2026-09-25T02:13:58Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given either capstone shell route, when the learner reaches the point immediately before `create`, then the route states the same stop-or-record predicate and a different observed uv patch is recorded rather than rejected.",
           "Traces": "Issue #68 bound remedy clause 3"
@@ -47,8 +65,14 @@
       },
       {
         "title": "Cite the existing recording and Blocked-by-environment rows in `assessments/capstone-end-to-end.md` by **Required evidence manifest** runtime-observation text and **Self-evaluation rubric**. Do not add a new recording procedure.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:4",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #89 head 09a5b219a0ef5a57810cd3e8de8f1d5c4fbf2c67, merged as 230de8e356e329413825d0e9c23bce32df9a0cba: labs/capstone-end-to-end.md cites assessments/capstone-end-to-end.md Required evidence manifest runtime-observation text and Self-evaluation rubric Blocked-by-environment without adding a new recording procedure; leftover-complete npm run check:capstone passed (36 artifacts, 0 missing) and npm run test:capstone passed 105/107 with 0 failures (2 skipped), including verifier rejects dropping the existing recording-row cite, verifier rejects dropping the existing Blocked-by-environment cite, and verifier rejects brittle assessment line pointers",
+          "recorded_at": "2026-09-25T02:13:58Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given a prerequisite observation that differs from verified evidence, when the learner records or blocks the attempt, then the existing capstone assessment recording and Blocked-by-environment rows are used without introducing another procedure.",
           "Traces": "Issue #68 bound remedy clause 4; assessments/capstone-end-to-end.md recording rows"
@@ -56,8 +80,14 @@
       },
       {
         "title": "Add one focused content assertion over that pre-create guidance in both shell paths. Leave CI uv 0.11.10 pins as evidence provenance.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause:5",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #89 head 09a5b219a0ef5a57810cd3e8de8f1d5c4fbf2c67, merged as 230de8e356e329413825d0e9c23bce32df9a0cba: scripts/verify-capstone.mjs and scripts/verify-capstone.test.mjs lock pre-create guidance on both shell routes and leave CI uv 0.11.10 pins as evidence provenance; leftover-complete npm run check:capstone passed (36 artifacts, 0 missing) and npm run test:capstone passed 105/107 with 0 failures (2 skipped) plus npm run test:portability passed 67/67 with 0 failures, including verifier rejects removing the POSIX/Windows pre-create uv stop-or-record predicate and the workflow still includes version: \"0.11.10\"",
+          "recorded_at": "2026-09-25T02:13:58Z",
+          "recorded_by": "agent:grok"
+        },
         "narrative": {
           "Acceptance": "Given a mutation that removes the pre-create guidance from either shell route or makes uv 0.11.10 exact, when the focused capstone verifier tests run, then they fail while the CI uv pin remains evidence provenance.",
           "Traces": "Issue #68 bound remedy clause 5 and approved allocation expected result"
@@ -133,7 +163,6 @@
         ],
         "verify_commands": [
           "npm run check:capstone",
-          "node --test scripts/verify-capstone.test.mjs",
           "npm run test:capstone",
           "npm run test:portability"
         ],
@@ -401,9 +430,33 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "e31986133f480d5f7ea35ee55022a5f36eb2e8cce8d9991a0a1a39febc876d52"
+      },
+      "completionProvenance": {
+        "repository": "deftai/directive-training",
+        "implementationCommit": "09a5b219a0ef5a57810cd3e8de8f1d5c4fbf2c67",
+        "prNumber": 89,
+        "prBase": null,
+        "mergeCommit": "230de8e356e329413825d0e9c23bce32df9a0cba",
+        "deliveryBranch": "master",
+        "deliveryCommit": "230de8e356e329413825d0e9c23bce32df9a0cba",
+        "verifiedAt": "2026-09-25T02:18:22Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:grok:v1:MDFhMGQ2NTItMWM5MC03NTcxLWEwOWItNGUyMTIxMDlhYWMw"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-25T02:18:22Z",
+      "completedSessionId": "host:grok:v1:MDFhMGQ2NTItMWM5MC03NTcxLWEwOWItNGUyMTIxMDlhYWMw",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-25T02:18:22Z"
       }
     },
     "id": "github.issue.5545125499",
-    "updated": "2026-09-25T00:55:24Z"
+    "updated": "2026-09-25T02:18:22Z"
   }
 }
