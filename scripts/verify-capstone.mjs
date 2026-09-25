@@ -243,6 +243,16 @@ const identifierBoundGuard = /if \(highest >= 999\)\s*\{?\s*throw new RangeError
 // Labs 2/5 first-statement pin: condition plus throw, so Write-Host still fails.
 const windowsPowerShellVersionGuard =
   "if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }";
+export const capstoneUvStopOrRecordPredicate =
+  "Stop if a required tool is absent. A different observed uv patch is recorded and is not by itself a stop.";
+const verifiedMatrixEvidence =
+  /Task `?3\.50\.0`?[\s\S]{0,40}uv[\s\S]{0,40}`?0\.11\.10`?[\s\S]{0,40}Python[\s\S]{0,40}`?3\.13\.13`?[\s\S]{0,80}verified matrix evidence[\s\S]{0,40}not exact prerequisites/;
+const uvExactPin = /(?:require|must (?:use|match)|exact(?:ly)?(?: a)?(?: learner)?(?: uv)?(?: version)?)\s+`?0\.11\.10`?/i;
+const requiredUvDiscovery = [
+  "labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs",
+  "labs/fixtures/10-implementation-golden-path/implementation-lab.mjs",
+  "labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs",
+];
 
 function readRequiredFiles(root, paths) {
   const values = new Map();
@@ -324,6 +334,23 @@ function capstoneCheckpointRow(body, path) {
   assert.match(cells[5], /missing admitted completed-arc record/i, path + " checkpoint safe action must require the missing completed-arc record");
   assert.match(cells[6], /(?:chip|synthesis)[^|]*(?:neither|does not|do not|not)[^|]*activation[^|]*implementation/i, path + " checkpoint must deny activation and implementation authority to chip/synthesis state");
   return cells;
+}
+
+function fencedBlock(body, language) {
+  return body.match(new RegExp("```" + language + "\\r?\\n([\\s\\S]*?)```"))?.[1] ?? "";
+}
+
+function assertCapstoneStartFence(fence, label) {
+  assert.ok(fence.trim(), label + " start fence is missing");
+  const create = /node\s+(?:"\$CAPSTONE_HELPER"|\$CapstoneHelper)\s+create/.exec(fence);
+  assert.ok(create, label + " start must call helper create");
+  const beforeCreate = fence.slice(0, create.index);
+  assert.ok(
+    beforeCreate.includes(capstoneUvStopOrRecordPredicate),
+    label + " start must state the stop-or-record predicate before create",
+  );
+  assert.match(fence, /^uv --version$/m, label + " start must record the observed uv version");
+  assert.doesNotMatch(fence, /0\.11\.10/, label + " start must not treat a uv patch mismatch as an exact-version failure");
 }
 
 function assertSafeExecutableBlocks(parts, path) {
@@ -440,6 +467,17 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
     /Python 3\.13\.13 or newer|(?:minimum|exact(?:ly)?|at least|required to use|must use)\s+Python(?:\s+version)?\s*3\.13\.13/i,
     "course entry must not impose a Python version floor or equality",
   );
+  assert.match(
+    courseEntry,
+    /Node\.js 22 or newer remains\s+required/,
+    "course entry must keep Node.js 22 or newer required",
+  );
+  assert.match(
+    courseEntry,
+    verifiedMatrixEvidence,
+    "course entry must label Task 3.50.0, uv 0.11.10, and Python 3.13.13 as verified matrix evidence",
+  );
+  assert.doesNotMatch(courseMap, uvExactPin, "course entry must not make uv 0.11.10 exact");
   for (const path of [curriculumPath, assessmentPath, solutionPath]) {
     assert.doesNotMatch(content.get(path), /\bsynthesis\s+chip\b/i, path + " must use ingest-ready catalog chip vocabulary");
   }
@@ -764,7 +802,52 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.doesNotMatch(labEnvironment, /command -v python(?:3)?/, "capstone POSIX start must not admit shell functions");
   assert.match(labEnvironment, /@\("python", "python3", "py"\)[\s\S]*Get-Command/, "capstone Windows start must resolve python, python3, then py");
   assert.match(labEnvironment, /presence-only requirement[\s\S]*before constructing `isolatedEnv`/, "capstone lab must explain the isolatedEnv Python requirement");
-  assert.match(labEnvironment, /3\.13\.13[\s\S]{0,100}candidate-environment evidence[\s\S]{0,100}not a minimum or exact learner version/, "capstone lab must keep Python 3.13.13 as candidate evidence only");
+  assert.match(
+    labEnvironment,
+    /Python 3\.13\.13 is Windows\s+candidate-environment evidence[\s\S]{0,40}not a minimum or exact learner version/,
+    "capstone lab must keep Python 3.13.13 as candidate evidence only",
+  );
+  assert.match(
+    labEnvironment,
+    /Node\.js 22 or newer remains\s+required/,
+    "capstone Expected paragraph must keep Node.js 22 or newer required",
+  );
+  assert.match(
+    labEnvironment,
+    verifiedMatrixEvidence,
+    "capstone Expected paragraph must label Task 3.50.0, uv 0.11.10, and Python 3.13.13 as verified matrix evidence",
+  );
+  assert.match(
+    labEnvironment,
+    /assessments\/capstone-end-to-end\.md:149/,
+    "capstone lab must cite the existing runtime-observation recording row",
+  );
+  assert.match(
+    labEnvironment,
+    /assessments\/capstone-end-to-end\.md:248/,
+    "capstone lab must cite the existing Blocked-by-environment row",
+  );
+  assert.match(
+    labEnvironment,
+    /do not add another recording procedure/,
+    "capstone lab must reuse the existing recording procedure",
+  );
+  assert.match(
+    labEnvironment,
+    /Blocked by environment[\s\S]{0,160}exact runtime or registry\s+prerequisite/,
+    "capstone lab must reuse the existing Blocked-by-environment standard",
+  );
+  assert.doesNotMatch(labEnvironment, uvExactPin, "capstone lab must not make uv 0.11.10 exact");
+  assertCapstoneStartFence(fencedBlock(labEnvironment, "sh"), "POSIX");
+  assertCapstoneStartFence(fencedBlock(labEnvironment, "powershell"), "Windows");
+  for (const helperPath of requiredUvDiscovery) {
+    const helper = readFileSync(resolve(root, helperPath), "utf8");
+    assert.match(
+      helper,
+      /\["uv", findExecutable\("uv"\)\]/,
+      helperPath + " must keep required findExecutable(\"uv\")",
+    );
+  }
   for (const [pattern, label] of [
     [/export CAPSTONE_NOTES_DIR="\$\(mktemp -d /, "CAPSTONE_NOTES_DIR"],
     [/export CAPSTONE_ASSESSMENT_NOTE="\$CAPSTONE_NOTES_DIR\/capstone-assessment-note\.md"/, "CAPSTONE_ASSESSMENT_NOTE"],

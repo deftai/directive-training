@@ -5,7 +5,7 @@ import { delimiter, dirname, join, win32 } from "node:path";
 import { spawnSync } from "node:child_process";
 import { afterEach, test } from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { verifyCapstone } from "./verify-capstone.mjs";
+import { capstoneUvStopOrRecordPredicate, verifyCapstone } from "./verify-capstone.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const copyPaths = [
@@ -165,6 +165,95 @@ test("verifier rejects turning verified Python evidence into a learner version f
   const root = changedCopy("curriculum/README.md", (body) =>
     body + "\nPython 3.13.13 or newer is required for every learner.\n");
   assert.throws(() => verifyCapstone(root), /must not impose a Python version floor or equality/);
+});
+
+const uvStopOrRecordComment = "# " + capstoneUvStopOrRecordPredicate;
+
+test("verifier rejects removing the POSIX pre-create uv stop-or-record predicate", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    uvStopOrRecordComment + "\nexport CAPSTONE_ROOT=",
+    "export CAPSTONE_ROOT=",
+  ));
+  assert.throws(() => verifyCapstone(root), /POSIX start must state the stop-or-record predicate before create/);
+});
+
+test("verifier rejects removing the Windows pre-create uv stop-or-record predicate", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    uvStopOrRecordComment + "\n$CapstoneRoot =",
+    "$CapstoneRoot =",
+  ));
+  assert.throws(() => verifyCapstone(root), /Windows start must state the stop-or-record predicate before create/);
+});
+
+test("verifier rejects turning a POSIX uv patch mismatch into an exact-version failure", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    uvStopOrRecordComment + "\nexport CAPSTONE_ROOT=",
+    "# If uv is not 0.11.10, stop.\nexport CAPSTONE_ROOT=",
+  ));
+  assert.throws(
+    () => verifyCapstone(root),
+    /POSIX start must (?:state the stop-or-record predicate before create|not treat a uv patch mismatch as an exact-version failure)/,
+  );
+});
+
+test("verifier rejects turning a Windows uv patch mismatch into an exact-version failure", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    uvStopOrRecordComment + "\n$CapstoneRoot =",
+    "# If uv is not 0.11.10, stop.\n$CapstoneRoot =",
+  ));
+  assert.throws(
+    () => verifyCapstone(root),
+    /Windows start must (?:state the stop-or-record predicate before create|not treat a uv patch mismatch as an exact-version failure)/,
+  );
+});
+
+test("verifier rejects a course-map matrix that makes uv 0.11.10 exact", () => {
+  const root = changedCopy("curriculum/README.md", (body) => replaceFirst(
+    body,
+    "are verified matrix evidence, not exact prerequisites",
+    "are exact learner prerequisites",
+  ));
+  assert.throws(() => verifyCapstone(root), /verified matrix evidence/);
+});
+
+test("verifier rejects a capstone Expected paragraph that makes uv 0.11.10 exact", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    "are verified matrix evidence, not exact prerequisites",
+    "are exact learner prerequisites",
+  ));
+  assert.throws(() => verifyCapstone(root), /verified matrix evidence|must not make uv 0\.11\.10 exact/);
+});
+
+test("verifier rejects dropping the existing recording-row cite", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    "at `assessments/capstone-end-to-end.md:149`",
+    "in a new recording table",
+  ));
+  assert.throws(() => verifyCapstone(root), /runtime-observation recording row/);
+});
+
+test("verifier rejects dropping the existing Blocked-by-environment cite", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    "`assessments/capstone-end-to-end.md:248`",
+    "a new environment-block procedure",
+  ));
+  assert.throws(() => verifyCapstone(root), /Blocked-by-environment row/);
+});
+
+test("verifier rejects dropping required uv discovery from Lab 7", () => {
+  const root = changedCopy("labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs", (body) => replaceFirst(
+    body,
+    '["uv", findExecutable("uv")],',
+    '["uv", findExecutable("node")],',
+  ));
+  assert.throws(() => verifyCapstone(root), /must keep required findExecutable\("uv"\)/);
 });
 
 test("verifier rejects a course-entry prerequisite without the isolated-PATH rationale", () => {

@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #68",
-    "updated": "2026-09-23T16:45:19Z"
+    "updated": "2026-09-25T00:55:24Z"
   },
   "plan": {
     "title": "Capstone uv prerequisite blurs verified context and required version",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "Make the course map and capstone starting-state guidance distinguish required tools from the versions used by the verified platform matrix. This independently buildable story keeps Node 22 or newer and uv availability as requirements, treats Task 3.50.0, uv 0.11.10, and Python 3.13.13 as evidence, and makes a different uv patch recordable rather than disqualifying.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/68",
@@ -404,6 +404,6 @@
       }
     },
     "id": "github.issue.5545125499",
-    "updated": "2026-09-23T16:45:19Z"
+    "updated": "2026-09-25T00:55:24Z"
   }
 }

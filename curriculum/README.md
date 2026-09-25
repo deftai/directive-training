@@ -24,8 +24,9 @@ For command-based modules you will need:
 - Git and GitHub CLI;
 - npm as the primary package manager, with pnpm differences called out where
   they matter;
-- Task and uv for executable lifecycle labs; the capstone matrix uses Task
-  3.50.0 and uv 0.11.10;
+- Task and uv for executable lifecycle labs; Node.js 22 or newer remains
+  required for the capstone, while Task 3.50.0, uv 0.11.10, and Python 3.13.13
+  are verified matrix evidence, not exact prerequisites;
 - a resolvable Python interpreter on every supported operating system before
   Module 1. Labs 7, 10, 11, and the capstone require it because their helpers
   construct an isolated `PATH`. Windows resolves `python`, `python3`, then
