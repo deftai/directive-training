@@ -11,7 +11,7 @@ explain which resulting files are authoritative, managed, ignored, or reconstitu
 | Status | `learner-ready draft` |
 | Last content update | 2026-09-07 |
 | Last verified | 2026-09-07 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Platform status | 0.119.5 path verified on macOS/zsh; Linux/bash and Windows/PowerShell are candidates pending native evidence |
 | Estimated duration | 60 minutes |
 | Prerequisites | Complete [Module 1](01-what-directive-is.md); know basic Git and terminal navigation; have Node.js 20 or newer, Git, GitHub CLI, and npm |
@@ -164,15 +164,28 @@ examples need release-specific verification.
 ### 2. Pin before initialization
 
 The unpinned 0.119.5 disposable probe confirmed that init creates a private
-`package.json` with the exact Directive pin. The lab still starts with a fictional private
-manifest so its full CLI/core/content/types graph is locked before installation:
+`package.json` with the exact CLI pin. That CLI pin is availability for the teaching
+package; it is not the four-package graph. The lab still starts with a fictional private
+manifest so its full CLI/core/content/types graph is locked before installation. The fence
+below is the CLI pin plus `overrides`, which lock core, content, and types:
 
 ```json
-"@deftai/directive": "0.119.5"
+{
+  "devDependencies": {
+    "@deftai/directive": "0.119.5"
+  },
+  "overrides": {
+    "@deftai/directive-content": "0.119.5",
+    "@deftai/directive-core": "0.119.5",
+    "@deftai/directive-types": "0.119.5"
+  }
+}
 ```
 
-It installs that package and invokes the explicit project-local executable. This prevents a
-missing local install from silently falling through to an unrelated global executable.
+It installs that package graph and invokes the explicit project-local executable. This
+prevents a missing local install from silently falling through to an unrelated global
+executable. Visible bootstrap (README rungs, an unversioned global, or a prefix CLI pin)
+is recovery, not graph-exact.
 
 ### 3. Keep consumer and maintainer commands on their own sides
 

@@ -13,7 +13,7 @@ and complete the evidence-backed mechanism-routing decision.
 | Outcomes covered | O6.1, O6.2, O6.3, O6.4 |
 | Status | `learner-ready draft; command-free` |
 | Last verified | 2026-09-17 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Module 6 shaping exercise](../curriculum/modules/06-creating-well-shaped-work.md#exercise) |
 
 ## Before you use this solution

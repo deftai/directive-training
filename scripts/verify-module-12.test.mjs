@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { test } from "node:test";
+import { afterEach, test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { verifyModule12 } from "./verify-module-12.mjs";
 
@@ -18,9 +18,16 @@ const historicalLineage = Object.freeze({
   costEstimateHeading: "## Prior scope — Module 11 and capstone (2026-09-10)",
 });
 const { scopeFilename, projectScopeId } = historicalLineage;
+const copiedRoots = new Set();
+
+afterEach(() => {
+  for (const root of copiedRoots) rmSync(root, { force: true, recursive: true });
+  copiedRoots.clear();
+});
 
 function copiedRepository() {
   const root = mkdtempSync(join(tmpdir(), "module12-contract-test-"));
+  copiedRoots.add(root);
   for (const source of copyPaths) cpSync(join(repositoryRoot, source), join(root, source), { recursive: true });
   return root;
 }
@@ -44,9 +51,18 @@ function replaceAfterHeading(body, heading, pattern, replacement) {
 // Splice the first anchor positionally so no replacement metacharacter is interpreted.
 function splicedCopy(path, anchor, replacement) {
   return changedCopy(path, (body) => {
-    const index = body.indexOf(anchor);
+    const candidates = anchor.includes("\n") ? [anchor, anchor.replaceAll("\n", "\r\n")] : [anchor];
+    let found = "";
+    let index = -1;
+    for (const candidate of candidates) {
+      index = body.indexOf(candidate);
+      if (index >= 0) {
+        found = candidate;
+        break;
+      }
+    }
     assert.ok(index >= 0, `negative mutation anchor is missing in ${path}: ${anchor}`);
-    return body.slice(0, index) + replacement + body.slice(index + anchor.length);
+    return body.slice(0, index) + replacement + body.slice(index + found.length);
   });
 }
 
@@ -112,8 +128,8 @@ test("verifier rejects an underscore-suffixed outcome identifier", () => {
 
 test("verifier rejects a stale or ranged learner baseline", () => {
   const root = changedCopy("curriculum/modules/12-review-and-completion.md", (body) => body.replace(
-    "| Directive baseline | 0.119.5 |",
-    "| Directive baseline | 0.119.5-0.116.0 |",
+    "| Directive baseline | fixture-local 0.119.5 |",
+    "| Directive baseline | fixture-local 0.119.5-0.116.0 |",
   ));
   assert.throws(() => verifyModule12(root), /stale or ranged Directive baseline/);
 });
@@ -350,7 +366,7 @@ test("verifier rejects a missing Module 12 source record", () => {
 test("verifier separates current Module 12 roles from historical evidence", () => {
   for (const [path, heading, pattern] of [
     ["references/SOURCE-BASELINE.md", "## Release identity", /Consumer project pin[^\n]*@deftai\/directive: 0\.119\.5/i],
-    ["references/SOURCE-BASELINE.md", "## Module 12 review-and-completion validation", /learner pin, authoring runtime, and deposit all resolve to 0\.119\.5/i],
+    ["references/SOURCE-BASELINE.md", "## Module 12 review-and-completion validation", /learner pin and deposit resolve to 0\.119\.5[\s\S]{0,240}fixture-local/i],
     ["references/SOURCE-NOTES.md", "## Verification context", /Project direct pin:[^\n]*0\.119\.5/i],
   ]) {
     const root = changedCopy(path, (body) => replaceAfterHeading(body, heading, pattern, "current baseline role omitted"));
@@ -359,7 +375,7 @@ test("verifier separates current Module 12 roles from historical evidence", () =
   const currentAuthoring = changedCopy("references/SOURCE-NOTES.md", (body) => replaceAfterHeading(
     body,
     "## Verification context",
-    /Current authoring context:[\s\S]{0,240}engine 0\.119\.5[\s\S]{0,240}content 0\.119\.5[\s\S]{0,240}v0\.119\.5/i,
+    /Current authoring context:[\s\S]{0,280}content 0\.119\.5[\s\S]{0,200}v0\.119\.5[\s\S]{0,240}bootstrap availability[\s\S]{0,200}Lab 2 \/ project-local graph/i,
     "Current authoring context omitted",
   ));
   assert.throws(() => verifyModule12(currentAuthoring), /aligned current authoring context/);

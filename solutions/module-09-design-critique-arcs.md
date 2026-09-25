@@ -13,7 +13,7 @@ implementation authority.
 | Outcomes covered | O9.6, O9.7, O9.8, O9.9 |
 | Status | `learner-ready draft; command-free fixed-state practicum` |
 | Last verified | 2026-09-18 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md#module-9-design-critique-validation) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md#module-9-design-critique-validation) |
 | Source exercise | [Module 9 fixed packet](../curriculum/modules/09-design-critique-arcs.md#exercise) |
 
 ## Before you use this solution

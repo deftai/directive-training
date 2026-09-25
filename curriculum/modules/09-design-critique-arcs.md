@@ -12,7 +12,7 @@ halt, verified synthesis, or later ingest.
 | Status | `learner-ready draft; command-free fixed-state practicum` |
 | Last content update | 2026-09-18 |
 | Last verified | 2026-09-18 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md#module-9-design-critique-validation) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md#module-9-design-critique-validation) |
 | Estimated duration | 75 minutes |
 | Prerequisite | Modules 1–8, including a passing [Module 6 O6.4 routing artifact](06-creating-well-shaped-work.md#exercise) |
 | Format | Fixed fictional cards and a personal scratch worksheet; no command, account, repository, or live critic |

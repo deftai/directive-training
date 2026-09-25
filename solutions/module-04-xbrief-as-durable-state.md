@@ -12,7 +12,7 @@ session may do.
 | Outcomes covered | O4.1, O4.2, O4.3, O4.4 |
 | Status | `learner-ready draft` |
 | Last verified | 2026-09-07 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Module 4 artifact exercise](../curriculum/modules/04-xbrief-as-durable-state.md#exercise) |
 
 ## Before you use this solution

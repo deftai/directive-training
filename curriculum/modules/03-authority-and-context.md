@@ -11,7 +11,7 @@ authorization, and deterministic evidence into one misleading file-order list.
 | Status | `learner-ready draft` |
 | Last content update | 2026-09-07 |
 | Last verified | 2026-09-07 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 45 minutes |
 | Prerequisites | Complete [Module 2](02-installation-and-anatomy.md); understand project versus managed files and xBRIEF as durable work state |
 

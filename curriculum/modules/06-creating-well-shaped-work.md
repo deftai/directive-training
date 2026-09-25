@@ -12,7 +12,7 @@ required route / no route / insufficient-evidence decision before lifecycle auth
 | Status | `learner-ready draft; command-free` |
 | Last content update | 2026-09-17 |
 | Last verified | 2026-09-17 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | O6.2 structural check | Lab 7 Task 5, an adjacent practical step in a disposable guarded repository; this module stays command-free |
 | Estimated duration | 50–60 minutes |
 | Prerequisites | Complete [Module 5's](05-sources-versus-projections.md) conceptual outcomes; its practical outcome may remain environment-blocked as documented in the [course map](../README.md) |

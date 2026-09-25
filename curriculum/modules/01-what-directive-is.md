@@ -11,7 +11,7 @@ explain how its three pillars make repository work repeatable.
 | Status | `learner-ready draft` |
 | Last content update | 2026-09-07 |
 | Last verified | 2026-09-07 |
-| Directive baseline | `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 45 minutes |
 | Prerequisites | Read the [curriculum map](../README.md); be familiar with Git repositories, pull requests, tests, and at least one coding-agent host |
 

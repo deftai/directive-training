@@ -30,8 +30,8 @@ revalidated on 2026-09-20 and must be refreshed when the project pin changes.
 | --- | --- |
 | Consumer project pin | `package.json` has exact dev dependency `@deftai/directive: 0.119.5`. |
 | Executables used for probes | The release bind used the 0.119.5 authoring CLI. The unpinned-init proof and executable fixture suites use project-local, pin-matched launchers in disposable no-remote repositories. |
-| Installed packages | The disposable release probe and fixture installs resolve CLI, core, content, and types to 0.119.5. The training repository itself records a pin but intentionally contains no project-local install or lockfile. |
-| Runtime version report | The live authoring CLI and disposable project-local CLI report `@deftai/directive-core@0.119.5`. |
+| Installed packages | Fixture installs with the Lab 2 CLI pin plus core/content/types overrides resolve CLI, core, content, and types to 0.119.5. A CLI-only disposable probe or host-global install of the pin is availability, not graph-exact. The training repository itself records a pin but intentionally contains no project-local install or lockfile. |
+| Runtime version report | The disposable project-local CLI on the fixture graph reports `@deftai/directive-core@0.119.5`. The live authoring CLI is a bootstrap availability path and is not four-package proof. |
 | Consumer deposit | The tracked generation record and ignored deposit report payload, templates, skills, and docs at 0.119.5. |
 | Release tag | Annotated tag `v0.119.5`; tag object `f8054b3402881648dfc5893b5b3b8825acf83194`. |
 | Release commit | `75e7d33f114b0e2e67741257813c095e74d9668f`. The tag peel and npm `gitHead` agree. |
@@ -353,7 +353,8 @@ were revalidated against immutable source at the 0.119.5 release commit:
 | [deft-directive-review-cycle][skill-review] | Classification before editing, acceptance-scope disposition, one fix batch, and current-head review. |
 | [Directive lifecycle][src-lifecycle] | Implemented, PR-open, merge-ready, integration-merged, delivered, deployed, and UAT evidence boundaries. |
 
-The learner pin, authoring runtime, and deposit all resolve to 0.119.5. Exact hashes and
+The learner pin and deposit resolve to 0.119.5. Exact core 0.119.5 is the fixture-local
+graph; the authoring runtime is bootstrap availability, not four-package proof. Exact hashes and
 adaptation notes remain in the maintainer-only source notes. The exercise implements the project's
 simulated-review policy: it requires no live GitHub repository, external review bot, CI run,
 merge, deployment, or UAT execution.

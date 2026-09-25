@@ -4,7 +4,7 @@
 
 | Field | Value |
 | --- | --- |
-| Directive baseline | 0.119.5 |
+| Directive baseline | fixture-local 0.119.5 |
 | Estimated time | 45 minutes |
 | Prerequisite | [Module 7 — Scope lifecycle and implementation authorization](07-scope-lifecycle.md) |
 | Exercise model | Command-free analysis of fixed fictional state |
