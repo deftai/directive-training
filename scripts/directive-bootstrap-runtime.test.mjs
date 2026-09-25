@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { delimiter, dirname, join, resolve } from "node:path";
+import { basename, delimiter, dirname, join, resolve } from "node:path";
 import { after, test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { governingEnv, withoutHostNpmConfig } from "../labs/fixtures/02-disposable-initialization/init-lab.mjs";
@@ -35,13 +35,19 @@ assert.doesNotMatch(
 writeFileSync(userconfig, "registry=https://registry.npmjs.org/\naudit=false\nfund=false\nignore-scripts=true\n");
 writeFileSync(globalconfig, "audit=false\nfund=false\n");
 
+function isNpmExecPath(execPath) {
+  if (typeof execPath !== "string" || execPath.length === 0) return false;
+  const name = basename(execPath).toLowerCase();
+  return name === "npm-cli.js" || name === "npm";
+}
+
 function npmCliScript() {
   const execPath = process.env.npm_execpath;
-  if (typeof execPath === "string" && execPath.length > 0 && existsSync(execPath)) {
+  if (isNpmExecPath(execPath) && existsSync(execPath)) {
     return execPath;
   }
   const searchRoots = [dirname(process.execPath), resolve(dirname(process.execPath), "..")];
-  if (typeof execPath === "string" && execPath.length > 0) {
+  if (isNpmExecPath(execPath)) {
     searchRoots.unshift(dirname(execPath), resolve(dirname(execPath), ".."));
   }
   const pathValue = governingEnv().PATH;
@@ -164,6 +170,14 @@ function newerCompatibleReleaseExists() {
   }
   return false;
 }
+
+test("npm_execpath is accepted only when it names npm", () => {
+  assert.equal(isNpmExecPath(join("node_modules", "npm", "bin", "npm-cli.js")), true);
+  assert.equal(isNpmExecPath("/usr/bin/npm"), true);
+  assert.equal(isNpmExecPath(join("pnpm", "bin", "pnpm.cjs")), false);
+  assert.equal(isNpmExecPath("/usr/bin/pnpm"), false);
+  assert.equal(isNpmExecPath(""), false);
+});
 
 test("prereleases are not treated as newer compatible releases", () => {
   assert.equal(isNewerCompatible("0.119.6-rc.1"), false);
