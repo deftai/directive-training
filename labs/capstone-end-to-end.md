@@ -90,6 +90,7 @@ export CAPSTONE_NOTES_DIR="$(mktemp -d "${TMPDIR:-/tmp}/3ci-capstone-notes-XXXXX
 export CAPSTONE_NOTES_DIR="$(cd "$CAPSTONE_NOTES_DIR" && pwd -P)"
 export CAPSTONE_ASSESSMENT_NOTE="$CAPSTONE_NOTES_DIR/capstone-assessment-note.md"
 test "$CAPSTONE_NOTES_DIR" != "$CAPSTONE_LAUNCHER"
+# Stop if a required tool is absent. A different observed uv patch is recorded and is not by itself a stop.
 export CAPSTONE_ROOT="$(node "$CAPSTONE_HELPER" create)"
 export CAPSTONE_EVIDENCE="$(dirname "$CAPSTONE_ROOT")/evidence"
 node "$CAPSTONE_HELPER" guard "$CAPSTONE_ROOT"
@@ -139,6 +140,7 @@ $CapstoneNotesDir = (Resolve-Path -LiteralPath $CapstoneNotesDir).Path
 $CapstoneAssessmentNote = Join-Path $CapstoneNotesDir "capstone-assessment-note.md"
 if ([StringComparer]::OrdinalIgnoreCase.Equals($CapstoneNotesDir, $CapstoneLauncher)) { throw "Notes directory reused the launcher." }
 Set-Location -LiteralPath $CapstoneLauncher
+# Stop if a required tool is absent. A different observed uv patch is recorded and is not by itself a stop.
 $CapstoneRoot = ((& node $CapstoneHelper create) | Out-String).Trim()
 $CapstoneEvidence = Join-Path (Split-Path -Parent $CapstoneRoot) "evidence"
 & node $CapstoneHelper guard $CapstoneRoot
@@ -147,16 +149,23 @@ if (@(& git -C $CapstoneRoot remote).Count -ne 0) { throw "Capstone must have no
 git -C $CapstoneRoot status --short --branch
 ```
 
-Expected: the Node major-version assertion passes. Record the printed Node value,
-successful assertion, operating system and shell, and observed npm, Git, Task, uv, and
-Python command and version in the private assessment note. Confirm Task and uv against the
-verified `3.50.0` and `0.11.10` context. Python is a presence-only requirement: the helper
-resolves `python3` then `python` on macOS/Linux and `python`, `python3`, then `py` on Windows
-before constructing `isolatedEnv`. Python 3.13.13 is Windows candidate-environment evidence,
-not a minimum or exact learner version. Guard prints the exact root; the branch is
-`training/capstone`; the remote command prints no names; status contains no product change.
-If any required value is absent, stop and use the matching documented environment. Do not
-repair the current directory into the expected shape.
+Expected: the Node major-version assertion passes. Node.js 22 or newer remains
+required. Record the printed Node value, successful assertion, operating system and shell,
+and observed npm, Git, Task, uv, and Python command and version in the private assessment
+note. Use the existing runtime-observation row in `assessments/capstone-end-to-end.md`
+**Required evidence manifest** (`capstone-assessment-note.md` — runtime observation);
+do not add another recording procedure. Task `3.50.0`, uv `0.11.10`, and Python `3.13.13`
+are verified matrix evidence, not exact prerequisites. Python is a presence-only requirement:
+the helper resolves `python3` then `python` on macOS/Linux and `python`, `python3`, then `py`
+on Windows before constructing `isolatedEnv`. Python 3.13.13 is Windows
+candidate-environment evidence, not a minimum or exact learner version. Guard prints the
+exact root; the branch is `training/capstone`; the remote command prints no names; status
+contains no product change. Stop if a required tool is absent. A different observed uv patch
+is recorded and is not by itself a stop. Use the matching documented environment when a
+required tool is absent. `Blocked by environment` in `assessments/capstone-end-to-end.md`
+**Self-evaluation rubric** applies only when the exact runtime or registry
+prerequisite remains unavailable after documented recovery. Do not repair the current
+directory into the expected shape.
 
 ## Safety boundary
 
