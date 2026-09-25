@@ -293,8 +293,8 @@
         "sha256": "b40751c24c0fa614664211af075908cbef0d38e9b5627a9ef12869ba384d178a"
       },
       "completionProvenance": {
-        "repository": null,
-        "implementationCommit": null,
+        "repository": "deftai/directive-training",
+        "implementationCommit": "372feee14de5557bf9b2cc0e4c05e8c5e03b1d78",
         "prNumber": 87,
         "prBase": null,
         "mergeCommit": "c36d16097459ea2c4bc938f32c2e2a3bbcd5bebc",
