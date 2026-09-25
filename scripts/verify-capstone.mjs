@@ -247,7 +247,8 @@ export const capstoneUvStopOrRecordPredicate =
   "Stop if a required tool is absent. A different observed uv patch is recorded and is not by itself a stop.";
 const verifiedMatrixEvidence =
   /Task `?3\.50\.0`?[\s\S]{0,40}uv[\s\S]{0,40}`?0\.11\.10`?[\s\S]{0,40}Python[\s\S]{0,40}`?3\.13\.13`?[\s\S]{0,80}verified matrix evidence[\s\S]{0,40}not exact prerequisites/;
-const uvExactPin = /(?:require|must (?:use|match)|exact(?:ly)?(?: a)?(?: learner)?(?: uv)?(?: version)?)\s+`?0\.11\.10`?/i;
+const uvExactPin =
+  /(?:(?:require|must (?:use|match)|exact(?:ly)?(?: a)?(?: learner)?(?: uv)?(?: version)?)\s+(?:uv\s+)?`?0\.11\.10`?|uv\s+`?0\.11\.10`?\s+is required)/i;
 const requiredUvDiscovery = [
   "labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs",
   "labs/fixtures/10-implementation-golden-path/implementation-lab.mjs",
@@ -349,7 +350,7 @@ function assertCapstoneStartFence(fence, label) {
     beforeCreate.includes(capstoneUvStopOrRecordPredicate),
     label + " start must state the stop-or-record predicate before create",
   );
-  assert.match(fence, /^uv --version$/m, label + " start must record the observed uv version");
+  assert.match(beforeCreate, /^uv --version$/m, label + " start must record the observed uv version before create");
   assert.doesNotMatch(fence, /0\.11\.10/, label + " start must not treat a uv patch mismatch as an exact-version failure");
 }
 

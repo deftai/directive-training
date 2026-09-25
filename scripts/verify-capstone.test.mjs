@@ -220,6 +220,31 @@ test("verifier rejects a course-map matrix that makes uv 0.11.10 exact", () => {
   assert.throws(() => verifyCapstone(root), /verified matrix evidence/);
 });
 
+for (const wording of ["uv 0.11.10 is required", "must use uv 0.11.10"]) {
+  test("verifier rejects course-map wording that says " + wording, () => {
+    const root = changedCopy("curriculum/README.md", (body) => body + "\n" + wording + ".\n");
+    assert.throws(() => verifyCapstone(root), /must not make uv 0\.11\.10 exact/);
+  });
+}
+
+test("verifier rejects a POSIX uv probe moved after create", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    replaceFirst(body, "uv --version\npython_probe=", "python_probe="),
+    'export CAPSTONE_ROOT="$(node "$CAPSTONE_HELPER" create)"\n',
+    'export CAPSTONE_ROOT="$(node "$CAPSTONE_HELPER" create)"\nuv --version\n',
+  ));
+  assert.throws(() => verifyCapstone(root), /POSIX start must record the observed uv version before create/);
+});
+
+test("verifier rejects a Windows uv probe moved after create", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    replaceFirst(body, "uv --version\n$CapstonePython =", "$CapstonePython ="),
+    "$CapstoneRoot = ((& node $CapstoneHelper create) | Out-String).Trim()\n",
+    "$CapstoneRoot = ((& node $CapstoneHelper create) | Out-String).Trim()\nuv --version\n",
+  ));
+  assert.throws(() => verifyCapstone(root), /Windows start must record the observed uv version before create/);
+});
+
 test("verifier rejects a capstone Expected paragraph that makes uv 0.11.10 exact", () => {
   const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
     body,
