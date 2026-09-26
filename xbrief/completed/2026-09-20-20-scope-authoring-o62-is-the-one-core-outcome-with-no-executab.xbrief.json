@@ -20,7 +20,7 @@
       {
         "title": "Do not bind either bare sentence from the Handoff open-question. O6.2 keeps its existing shaping and artifact outcome. Completion evidence is strengthened so structural conformance is positively checked against the exact learner-authored artifact: retain path, command, exit, and result.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "narrative": {
           "Acceptance": "O6.2 keeps its existing shaping and artifact outcome, neither bare sentence from the Handoff open-question is bound, and its completion evidence records the path, command, exit code, and result of a structural check run against the exact learner-authored artifact.",
           "Traces": "Accepted bound remedy on deftai/directive-training#20, comment 5735200311, confirmed by parent synthesis 5735296883 and verified-claims table 5735295619; relieves recorded pain P1."
@@ -36,7 +36,7 @@
       {
         "title": "Add or recut a separate outcome only if command choice, invocation, output interpretation, or recovery is itself part of what the learner must demonstrate.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "narrative": {
           "Acceptance": "A separate outcome is created or recut only when command choice, invocation, output interpretation, or recovery is itself part of what the learner must demonstrate.",
           "Traces": "Accepted bound remedy on deftai/directive-training#20, comment 5735200311, confirmed by parent synthesis 5735296883 and verified-claims table 5735295619; relieves recorded pain P1."
@@ -52,7 +52,7 @@
       {
         "title": "Name the vehicle recut even if O6.2 wording stays: either revise Module 6's command-free contract and give a disposable guarded environment, or add an adjacent practical outcome/lab that consumes the O6.2 artifact. Do not drop a command into the existing worksheet as if nothing changed.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "narrative": {
           "Acceptance": "Module 6 shows the named vehicle recut: either a revised command-free contract with a disposable guarded environment, or an adjacent practical outcome or lab that consumes the O6.2 artifact. No command appears in the existing worksheet without that framing.",
           "Traces": "Accepted bound remedy on deftai/directive-training#20, comment 5735200311, confirmed by parent synthesis 5735296883 and verified-claims table 5735295619; relieves recorded pain P1."
@@ -68,7 +68,7 @@
       {
         "title": "Keep the accepted refusals: do not use `xbrief:preflight` or `doctor` as the authoring-validity pass, and do not simply remove one Lab 7 supplied scope.",
         "status": "completed",
-        "id": "clause:4",
+        "id": "clause.4",
         "narrative": {
           "Acceptance": "Neither `xbrief:preflight` nor `doctor` is presented as the authoring-validity pass, and Lab 7 still shows every supplied scope it shows today.",
           "Traces": "Accepted bound remedy on deftai/directive-training#20, comment 5735200311, confirmed by parent synthesis 5735296883 and verified-claims table 5735295619; relieves recorded pain P1."
@@ -84,7 +84,7 @@
       {
         "title": "Split evidence: the Directive command proves parse/schema/lifecycle-record structure; the Module 6 comparison rubric still proves strategy, observability, traces, and no implementation authority. A green structural result does not grant promotion, activation, or implementation authority.",
         "status": "completed",
-        "id": "clause:5",
+        "id": "clause.5",
         "narrative": {
           "Acceptance": "The module and verifier keep two evidence surfaces separate: the Directive command validates parse, schema, and lifecycle-record structure, while the Module 6 comparison rubric still proves strategy, observability, traces, and absence of implementation authority. The text states that a green structural result grants no promotion, activation, or implementation authority.",
           "Traces": "Accepted bound remedy on deftai/directive-training#20, comment 5735200311, confirmed by parent synthesis 5735296883 and verified-claims table 5735295619; relieves recorded pain P1."

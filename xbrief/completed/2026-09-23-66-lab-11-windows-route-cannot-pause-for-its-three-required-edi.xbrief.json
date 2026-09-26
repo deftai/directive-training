@@ -20,7 +20,7 @@
       {
         "title": "Split the Lab 11 Native Windows powershell fence at the Task 1, Task 2 implement, Task 2 refactor, and Task 4 boundaries. Keep `$LabRoot` across those phases.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #85 head f7577f5b9094b4f2a35c3b5d44495dac112da117, merged as f7807a7871c21bbd078dc8c9bf533ca92592df0d: labs/11-testing-gates-and-evidence.md Native Windows route has distinct Phase A create/guard/install, Phase B red, Phase C green, Phase D refactor/literal/aggregate, and Phase E final/evidence/reset/archive PowerShell fences; Task 1 test, Task 2 implement, Task 2 refactor, and Task 4 quality-record edits sit in visible prose between those fences; every later phase reuses retained $LabRoot; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 51/51 with 0 failures, including verifier rejects a later Lab 11 Windows phase that creates a new attempt",
@@ -36,7 +36,7 @@
       {
         "title": "Give the post-green source digest change its own checkpoint before `refactor`, matching Task 2 and `recordRefactor`.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #85 head f7577f5b9094b4f2a35c3b5d44495dac112da117, merged as f7807a7871c21bbd078dc8c9bf533ca92592df0d: Phase C runs only green; visible pause prose then requires a second source-only named-locals edit on Join-Path $LabRoot \"src/summary.mjs\" and says Do not run refactor on the same source bytes that just passed green; Phase D then runs refactor; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 51/51 with 0 failures, including verifier rejects dropping the post-green source-only handoff text and verifier rejects a Lab 11 Native Windows route that separates green and refactor with only a comment",
@@ -52,7 +52,7 @@
       {
         "title": "Lock the split with the Lab 2 fence-extract pattern. Do not add a helper pause verb.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #85 head f7577f5b9094b4f2a35c3b5d44495dac112da117, merged as f7807a7871c21bbd078dc8c9bf533ca92592df0d: scripts/verify-module-11.mjs parses Native Windows PowerShell fences and fails when comments or same-fence text stand in for a required handoff; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 51/51 with 0 failures, including verifier rejects a Lab 11 Native Windows route that keeps the required edits in one fence, verifier rejects routes that separate create/red, red/green, green/refactor, or aggregate/final with only a comment, verifier rejects Lab 11 pause instructions hidden in an HTML comment, verifier rejects a Lab 11 Native Windows Read-Host pause inside a fence, and verifier rejects a Lab 11 Native Windows helper pause verb",

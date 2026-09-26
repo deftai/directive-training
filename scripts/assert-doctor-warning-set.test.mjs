@@ -25,11 +25,11 @@ const signpostMessage =
   + " via npm: install the engine with `npm i -g @deftai/directive@latest`, then run"
   + " `directive migrate` to stamp provenance.";
 
-// The captured 0.119.5 replay recorded in references/SOURCE-NOTES.md, reduced to the rows the
+// The captured 0.119.9 replay recorded in references/SOURCE-NOTES.md, reduced to the rows the
 // assertion reads.
 const realCapture = [
   "Directive doctor (full)",
-  `${PASS}Engine deposit: @deftai/directive-core@0.119.5`,
+  `${PASS}Engine deposit: @deftai/directive-core@0.119.9`,
   `${PASS}Project-lifecycle: valid at /private/tmp/3ci-directive-module-02.ab12cd/attempt-02.ef34gh/xbrief`,
   `${WARN}canonical-vendored-npm-signpost: ${signpostMessage}`,
   `${WARN}System check completed with 1 warning(s).`,
@@ -38,7 +38,7 @@ const realCapture = [
 
 const replays = [
   {
-    name: "real: the captured 0.119.5 replay passes",
+    name: "real: the captured 0.119.9 replay passes",
     text: realCapture,
     expectProblem: null,
   },

@@ -9,7 +9,7 @@
 | Outcomes covered | O7.1, O7.2, O7.3, O7.4 |
 | Status | Learner-ready draft for the verified macOS/zsh path |
 | Last verified | 2026-09-21 |
-| Directive baseline | CLI/core/content/types `0.119.5`; [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | CLI/core/content/types `0.119.9`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Platform limit | Linux/bash and Windows/PowerShell are candidates and are not verified or learner-ready for this lab |
 
 The lab helper is course tooling around released commands; it is not itself a
@@ -92,7 +92,7 @@ The helper invokes both the exact local Directive binary and the consumer Task s
 engine exits `1`. On the verified go-task 3.50.0 host, the Task process returns `201` while
 reporting its child exit `1`.
 
-Retain both. Use `1` for the Directive 0.119.5 behavior claim. Use the
+Retain both. Use `1` for the Directive 0.119.9 behavior claim. Use the
 Task result as environment evidence and require only that it is nonzero on an unverified Task
 version or platform. Hiding one exit loses useful diagnostic context; treating `201` as an
 engine guarantee overclaims it.
@@ -117,11 +117,11 @@ Run the lab's environment block from the course root. A correct start has:
 ```text
 .../3ci-directive-lab07-<unique>/repo
 training/module-07
-@deftai/directive (engine: @deftai/directive-core@0.119.5)
+@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)
 ```
 
 The empty `git remote` output is evidence, not missing setup. The helper verifies the exact
-CLI/core/content/types graph and the deposited 0.119.5 version. Its isolated Task PATH keeps
+CLI/core/content/types graph and the deposited 0.119.9 version. Its isolated Task PATH keeps
 another installed Directive version from taking precedence.
 
 The generated workspace-local USER.md is fictional attempt state. It is ignored and never
@@ -247,7 +247,7 @@ artifact **path**, the exact `xbrief:verify` **command**, the **exit code** `0`,
 Lab 7 outcome, so this table keeps its four O7 rows, and the four Task 5 boundary clauses in
 Step 5 govern how the green result may be read.
 
-Also retain the exact 0.119.5 package graph and empty remote value. A screenshot of final
+Also retain the exact 0.119.9 package graph and empty remote value. A screenshot of final
 folders alone does not prove O7.1 or O7.3.
 
 ## Compare with your attempt

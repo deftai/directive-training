@@ -11,7 +11,7 @@ explain how its three pillars make repository work repeatable.
 | Status | `learner-ready draft` |
 | Last content update | 2026-09-07 |
 | Last verified | 2026-09-07 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 45 minutes |
 | Prerequisites | Read the [curriculum map](../README.md); be familiar with Git repositories, pull requests, tests, and at least one coding-agent host |
 
@@ -289,7 +289,7 @@ Make a first attempt and use the progressive hints before opening the [Module 1 
 
 ## Official sources
 
-This lesson paraphrases the following official sources pinned to Directive `v0.119.5`. If the project pin changes, consult the [source baseline](../../references/SOURCE-BASELINE.md) before relying on these claims.
+This lesson paraphrases the following official sources pinned to Directive `v0.119.9`. If the project pin changes, consult the [source baseline](../../references/SOURCE-BASELINE.md) before relying on these claims.
 
 - [README — opening category and naming summary](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/README.md) and [Getting Started](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/README.md#-getting-started)
 - [Category decision aid — Four-way fit table](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/CATEGORY.md#four-way-fit-table), [What Directive is](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/CATEGORY.md#what-directive-is), [What Directive is not](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/CATEGORY.md#what-directive-is-not), and [How the four categories relate](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/CATEGORY.md#how-the-four-categories-relate)

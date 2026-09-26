@@ -20,7 +20,7 @@
       {
         "title": "Keep the column as an identifier. The route-row value is `NS-INGEST-R2`. Do not rename the header.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "narrative": {
           "Acceptance": "The `Proposed mechanism revision` column header stays unchanged and the route row shows the identifier `NS-INGEST-R2`. The change record frames the defect as a hidden strengthening, because the published rubric names the revision while the solution and verifier demanded an untaught Module 9 clearance sentence.",
           "Traces": "Accepted bound remedy on deftai/directive-training#16, comment 5734130226, confirmed by parent synthesis 5734252947 and verified-claims table 5734251210; relieves recorded pain P1."
@@ -36,7 +36,7 @@
       {
         "title": "Recut `solutions/module-06-creating-well-shaped-work.md` cell 4 to that identifier. Do not move the redesign sentence into Safe next action. Keep column 5 as the already-written hold-and-route action.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "narrative": {
           "Acceptance": "Cell 4 of the routing matrix in the Module 6 solution shows that identifier, the redesign sentence is deleted rather than relocated, and column 5 keeps the hold-and-route action it already shows.",
           "Traces": "Accepted bound remedy on deftai/directive-training#16, comment 5734130226, confirmed by parent synthesis 5734252947 and verified-claims table 5734251210; relieves recorded pain P1."
@@ -52,7 +52,7 @@
       {
         "title": "Recut `scripts/verify-module-6.mjs` and `scripts/verify-module-6.test.mjs` with the cell: require the exact identifier, reject a redesign sentence, keep `Not applicable.` as the non-route fill. Reuse the Module 9 Target-revision exact-value shape rather than a new routing grammar.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "narrative": {
           "Acceptance": "When the revision cell holds a redesign sentence, `npm run check:module-6` fails; when it holds the exact identifier, the check returns success; and `Not applicable.` remains accepted as the non-route fill. The assertion reuses the Module 9 Target-revision exact-value shape rather than a new routing grammar.",
           "Traces": "Accepted bound remedy on deftai/directive-training#16, comment 5734130226, confirmed by parent synthesis 5734252947 and verified-claims table 5734251210; relieves recorded pain P1."
@@ -68,7 +68,7 @@
       {
         "title": "Extend self-assessment key item 4 so it names the revision-column field/value pair.",
         "status": "completed",
-        "id": "clause:4",
+        "id": "clause.4",
         "narrative": {
           "Acceptance": "Self-assessment key item 4 shows the revision-column field and its value as a pair, so the learner can tell which cell the answer scores.",
           "Traces": "Accepted bound remedy on deftai/directive-training#16, comment 5734130226, confirmed by parent synthesis 5734252947 and verified-claims table 5734251210; relieves recorded pain P1."
@@ -84,7 +84,7 @@
       {
         "title": "Add a Module 6 Terminology row and a glossary entry: Proposed mechanism revision is the identifier of the routed target, not a redesign sentence.",
         "status": "completed",
-        "id": "clause:5",
+        "id": "clause.5",
         "narrative": {
           "Acceptance": "Module 6 Terminology shows a row and the glossary shows an entry, each defining Proposed mechanism revision as the identifier of the routed target, and neither displays it as a redesign sentence.",
           "Traces": "Accepted bound remedy on deftai/directive-training#16, comment 5734130226, confirmed by parent synthesis 5734252947 and verified-claims table 5734251210; relieves recorded pain P1."
@@ -98,8 +98,8 @@
         }
       },
       {
-        "id": "clause:6",
-        "title": "clause:6",
+        "id": "clause.6",
+        "title": "clause.6",
         "status": "completed",
         "x-directive/evidence": {
           "kind": "review",

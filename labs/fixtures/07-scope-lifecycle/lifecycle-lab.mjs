@@ -20,7 +20,7 @@ import { assertNoGitRedirection, assertPlainTree, git, safePath, sameFileSystemE
 
 const fixture = dirname(fileURLToPath(import.meta.url));
 const read = (path) => readFileSync(path, "utf8");
-const exactVersion = "0.119.5";
+const exactVersion = "0.119.9";
 const deliveryFile = "2026-01-15-fictional-delivery.xbrief.json";
 const cancellationFile = "2026-01-15-fictional-cancel.xbrief.json";
 const lifecycleFolders = ["proposed", "pending", "active", "completed", "cancelled"];
@@ -37,7 +37,9 @@ function digest(text) {
   return createHash("sha256").update(text.replace(/\r\n/g, "\n")).digest("hex");
 }
 
-function story(id, title) {
+function story(id, title, filename) {
+  const activePath = `xbrief/active/${filename}`;
+  const acceptanceLine = `acceptance: ${activePath} exists before the fictional scope is completed.`;
   return {
     xBRIEFInfo: { version: "0.8", description: "Fictional Module 7 lifecycle lab scope" },
     plan: {
@@ -47,9 +49,21 @@ function story(id, title) {
       narratives: {
         Description: "Observe one fictional local greeting scope without changing application code or contacting a remote.",
         UserStory: "As a learner, I want observable lifecycle state so I can distinguish approved scope from implementation authorization.",
+        AcceptanceCriteria: acceptanceLine,
       },
       items: [],
-      metadata: { kind: "story" },
+      acceptance: {
+        commands: [],
+        none_stated: true,
+        source_rung: "derived",
+        confessions: [
+          title,
+          "Observe one fictional local greeting scope without changing application code or contacting a remote.",
+          acceptanceLine,
+          "clause.1",
+        ],
+      },
+      metadata: { kind: "process", swarm: { file_scope: [activePath] } },
     },
   };
 }
@@ -65,9 +79,9 @@ function readJson(path) {
 function verifyManifest(root) {
   const manifest = readJson(safePath(root, "package.json"));
   assert.equal(manifest.private, true, "fixture must remain private");
-  assert.equal(manifest.devDependencies?.["@deftai/directive"], exactVersion, "exact 0.119.5 pin required");
+  assert.equal(manifest.devDependencies?.["@deftai/directive"], exactVersion, "exact 0.119.9 pin required");
   for (const name of ["directive-core", "directive-content", "directive-types"]) {
-    assert.equal(manifest.overrides?.["@deftai/" + name], exactVersion, "exact 0.119.5 overrides required");
+    assert.equal(manifest.overrides?.["@deftai/" + name], exactVersion, "exact 0.119.9 overrides required");
   }
 }
 
@@ -227,8 +241,8 @@ export function createAttempt() {
   writeFileSync(safePath(root, ".gitignore"), gitignore, { flag: "wx" });
   writeFileSync(safePath(root, ".gitattributes"), "/xbrief/*.json text eol=lf\n/xbrief/**/*.json text eol=lf\n", { flag: "wx" });
   writeFileSync(safePath(root, ".npmrc"), "registry=https://registry.npmjs.org/\naudit=false\nfund=false\nignore-scripts=true\n", { flag: "wx" });
-  writeJson(safePath(root, `xbrief/proposed/${deliveryFile}`), story("northstar.lifecycle.delivery", "Complete the fictional greeting scope"), { flag: "wx" });
-  writeJson(safePath(root, `xbrief/proposed/${cancellationFile}`), story("northstar.lifecycle.cancel", "Cancel an obsolete fictional scope"), { flag: "wx" });
+  writeJson(safePath(root, `xbrief/proposed/${deliveryFile}`), story("northstar.lifecycle.delivery", "Complete the fictional greeting scope", deliveryFile), { flag: "wx" });
+  writeJson(safePath(root, `xbrief/proposed/${cancellationFile}`), story("northstar.lifecycle.cancel", "Cancel an obsolete fictional scope", cancellationFile), { flag: "wx" });
   const fixtureDigests = Object.fromEntries(fixtureFiles.map((name) => [name, digest(read(join(fixture, name)))]));
   writeJson(join(parent, "lab-state.json"), { lab: "module-07", root, fixtureDigests }, { flag: "wx" });
   writeFileSync(join(parent, "evidence", "README.md"), "# Module 7 retained evidence\n\nExpected failures and successful lifecycle results are written here.\n", { flag: "wx" });
@@ -263,12 +277,12 @@ function verifyAttemptIdentity(input = process.cwd()) {
 /** Verify canonical temp identity, exact pin, no remote, and lifecycle folder/status agreement. */
 export function guardAttempt(input = process.cwd()) {
   const { root, marker } = verifyAttemptIdentity(input);
-  for (const name of fixtureFiles) assert.equal(digest(read(safePath(root, name))), marker.fixtureDigests[name], `Stop: ${name} differs from the supplied exact 0.119.5 fixture.`);
+  for (const name of fixtureFiles) assert.equal(digest(read(safePath(root, name))), marker.fixtureDigests[name], `Stop: ${name} differs from the supplied exact 0.119.9 fixture.`);
   verifyManifest(root);
   locateStory(root, deliveryFile);
   locateStory(root, cancellationFile);
   if (existsSync(join(root, "node_modules"))) verifyInstalledGraph(root);
-  if (existsSync(join(root, ".deft/core/VERSION"))) assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.5'/, "Stop: Directive deposit must be 0.119.5.");
+  if (existsSync(join(root, ".deft/core/VERSION"))) assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.9'/, "Stop: Directive deposit must be 0.119.9.");
   return root;
 }
 
@@ -276,7 +290,7 @@ function verifyInstalledGraph(root) {
   safePath(root, "node_modules");
   for (const name of ["directive", "directive-core", "directive-content", "directive-types"]) {
     const manifest = readJson(safePath(root, `node_modules/@deftai/${name}/package.json`));
-    assert.equal(manifest.version, exactVersion, `${name} must resolve to 0.119.5`);
+    assert.equal(manifest.version, exactVersion, `${name} must resolve to 0.119.9`);
   }
   const target = realpathSync(safePath(root, "node_modules/@deftai/directive/dist/bin.js"));
   if (process.platform !== "win32") assert.equal(realpathSync(join(root, "node_modules/.bin/directive")), target, "local Directive launcher must resolve inside this attempt");
@@ -300,7 +314,7 @@ export function installAttempt(root = process.cwd(), platform = process.platform
   createIsolatedTools(root);
   const init = runDirective(root, ["init", "--yes", "--repo-root", root, "--json"], isolatedEnv(root, "lab-install-session"));
   requireSuccess("directive init", init);
-  assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.5'/, "installed content deposit must be 0.119.5");
+  assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.9'/, "installed content deposit must be 0.119.9");
   writeFileSync(join(root, ".deft/USER.md"), "# User Preferences\n\n## Personal\n\n**Name**: Address the user as: **Learner**\n\n## Defaults\n\n**Coverage**: >=90% test coverage\n");
   const tracked = [
     ".gitattributes", ".gitignore", ".npmrc", "Taskfile.yml", "package.json", "package-lock.json",
@@ -348,6 +362,7 @@ export function runLifecycle(root = process.cwd(), options = {}) {
   steps.sessionStart = requireSuccess("session start", runTask(root, "deft:session:start", [`--session-id=${sessionId}`], sessionId));
   steps.sessionRitual = requireSuccess("gated ritual", runTask(root, "deft:verify:session-ritual", ["--tier=gated"], sessionId));
   steps.activePreflight = requireSuccess("active preflight", runTask(root, "deft:xbrief:preflight", [`xbrief/active/${deliveryFile}`], sessionId));
+  steps.stampEvidence = requireSuccess("stamp evidence", runTask(root, "deft:scope:stamp-evidence", [`xbrief/active/${deliveryFile}`], sessionId));
   steps.complete = requireSuccess("complete", runTask(root, "deft:scope:complete", [`xbrief/active/${deliveryFile}`], sessionId));
   const final = {
     delivery: (({ folder, status }) => ({ folder, status }))(locateStory(root, deliveryFile)),

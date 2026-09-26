@@ -11,7 +11,7 @@ repair drift there, and prove the view reflects the intended change.
 | Status | Learner-ready draft; executable lab verified on macOS/zsh; Linux and Windows candidates |
 | Last content update | 2026-09-12 |
 | Last verified | 2026-09-12 |
-| Directive baseline | fixture-local package and engine 0.119.5; xBRIEF 0.8; [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local package and engine 0.119.9; xBRIEF 0.8; [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 45–60 minutes, including Lab 5 and self-assessment |
 | Prerequisites | Modules 1–4; Git, Node.js 20+, npm; zsh on macOS or PowerShell 7.4+ on Windows |
 
@@ -128,7 +128,7 @@ that behavior in the fictional source code.
 
 ### 3. Combine evidence
 
-Directive 0.119.5 permits an absent MAP in its freshness
+Directive 0.119.9 permits an absent MAP in its freshness
 check. A successful freshness command therefore does not prove a MAP exists.
 An existing tampered or stale MAP is rejected.
 
@@ -294,7 +294,7 @@ the instrument that scores this module.
 
 | Claim | Source | Verified date | Boundary |
 | --- | --- | --- | --- |
-| Generated-document ownership | [0.119.5 command families][commands] | 2026-09-07 | Commands serve different artifacts |
+| Generated-document ownership | [0.119.9 command families][commands] | 2026-09-07 | Commands serve different artifacts |
 | MAP source and renderer | [Released MAP source][map-source] | 2026-09-07 | Maintainer traceability; learners use public CLI |
 | Missing/tampered/stale MAP behavior | [Released freshness source][fresh-source] and [course probes](../../references/SOURCE-NOTES.md) | 2026-09-07 | Proof is limited to executed environments |
 | Disposable-only boundary | [Lab safety policy](../../labs/README.md) | 2026-09-07 | Course requirement |

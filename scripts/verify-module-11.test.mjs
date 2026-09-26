@@ -91,8 +91,8 @@ test("Module 11 content contract accepts active and completed lifecycle states",
 
 test("verifier rejects a stale or ranged learner baseline", () => {
   const root = changedCopy("curriculum/modules/11-testing-gates-and-evidence.md", (body) => body.replaceAll(
-    "@deftai/directive@0.119.5",
-    "@deftai/directive@0.119.5–0.114.0",
+    "@deftai/directive@0.119.9",
+    "@deftai/directive@0.119.9–0.114.0",
   ));
   assert.throws(() => verifyModule11(root), /stale or ranged Directive baseline/);
 });
@@ -305,7 +305,7 @@ test("verifier rejects a Lab 11 Task 3 inspect fragment missing a retained stdou
     `  ${retainedFocusedCommand}\n`,
     "",
   ));
-  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.5 stdout/);
+  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.9 stdout/);
 });
 
 test("verifier rejects an explained-solution inspect fragment missing a retained stdout token", () => {
@@ -314,7 +314,7 @@ test("verifier rejects an explained-solution inspect fragment missing a retained
     `${retainedBankedLine}\n`,
     "",
   ));
-  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.5 stdout/);
+  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.9 stdout/);
 });
 
 test("verifier rejects swapping or inserting between the two retained command lines", () => {
@@ -359,7 +359,7 @@ test("verifier rejects dropping literal-acceptance classification from Lab 11 Ta
     "That is the literal-acceptance proof.",
     "That is the overall pass signal.",
   ));
-  assert.throws(() => verifyModule11(root), /must classify retained 0\.119\.5 stdout: literal-acceptance proof/);
+  assert.throws(() => verifyModule11(root), /must classify retained 0\.119\.9 stdout: literal-acceptance proof/);
 });
 
 test("verifier rejects a missing Module 11 outcome mapping", () => {
@@ -368,7 +368,7 @@ test("verifier rejects a missing Module 11 outcome mapping", () => {
 });
 
 test("verifier rejects an altered exact fixture pin", () => {
-  const root = changedCopy("labs/fixtures/11-testing-gates-and-evidence/package.json", (body) => body.replaceAll("0.119.5", "^0.119.5"));
+  const root = changedCopy("labs/fixtures/11-testing-gates-and-evidence/package.json", (body) => body.replaceAll("0.119.9", "^0.119.9"));
   assert.throws(() => verifyModule11(root), /exact Directive pin/);
 });
 

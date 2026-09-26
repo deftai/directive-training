@@ -21,7 +21,7 @@
       {
         "title": "Replace the Task 3 fence in `labs/11-testing-gates-and-evidence.md` and the matching explained-solution fence with the retained `literal.json.literalAcceptance.stdout` from this fixture's 0.119.5 runner.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #87 head 372feee14de5557bf9b2cc0e4c05e8c5e03b1d78, merged as c36d16097459ea2c4bc938f32c2e2a3bbcd5bebc: labs/11-testing-gates-and-evidence.md Task 3 and solutions/lab-11-testing-gates-and-evidence.md quote the retained 0.119.5 simple pass lead, literal gate, two successful npm command lines, AC-pass-bank notes, and banked line; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 58/58 with 0 failures, including verifier rejects a Lab 11 Task 3 inspect fragment missing a retained stdout token and verifier rejects an explained-solution inspect fragment missing a retained stdout token",
@@ -36,7 +36,7 @@
       {
         "title": "Drop the teach-both-variants arm and the platform-controls-the-variant arm for this fixture.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #87 head 372feee14de5557bf9b2cc0e4c05e8c5e03b1d78, merged as c36d16097459ea2c4bc938f32c2e2a3bbcd5bebc: Lab 11 Task 3 presents one retained fixture fragment and does not teach a Windows/macOS dual variant or a platform-controlled variant; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 58/58 with 0 failures, including verifier rejects teaching both stdout variants in Lab 11 Task 3",
@@ -51,7 +51,7 @@
       {
         "title": "Recut Task 3 classification bullets onto lines that stdout actually carries: the two stored npm commands as the literal-acceptance proof; `[rung=derived]` and the AC-pass-bank dual-stop lines as upstream 0.119.5 diagnostics.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #87 head 372feee14de5557bf9b2cc0e4c05e8c5e03b1d78, merged as c36d16097459ea2c4bc938f32c2e2a3bbcd5bebc: Lab 11 Task 3 and the explained solution classify the two stored npm commands as literal-acceptance proof and [rung=derived] plus AC-pass-bank dual-stop lines as upstream 0.119.5 diagnostics; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 58/58 with 0 failures, including verifier rejects dropping literal-acceptance classification from Lab 11 Task 3",
@@ -66,7 +66,7 @@
       {
         "title": "Recut `scripts/verify-module-11.mjs` so the lab page and explained solution lock tokens from that retained fragment. Drop the walk-phrase and `no artifact path bound` fragment locks on Lab 11.",
         "status": "completed",
-        "id": "clause:4",
+        "id": "clause.4",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #87 head 372feee14de5557bf9b2cc0e4c05e8c5e03b1d78, merged as c36d16097459ea2c4bc938f32c2e2a3bbcd5bebc: scripts/verify-module-11.mjs locks the retained 0.119.5 tokens as a contiguous ordered fragment and refuses obsolete clause-walk/no-artifact-path evidence in the Task 3 and matching solution inspect surfaces; leftover-complete npm run check:module-11 passed (29 artifacts, 0 missing) and npm run test:module-11 passed 58/58 with 0 failures, including verifier rejects restoring clause-walk evidence in the Lab 11 Task 3 inspect fragment, verifier rejects restoring no-artifact-path evidence in the explained-solution inspect fragment, verifier rejects swapping or inserting between the two retained command lines, and full lab retains ordered red-green-refactor and aggregate diagnosis evidence",

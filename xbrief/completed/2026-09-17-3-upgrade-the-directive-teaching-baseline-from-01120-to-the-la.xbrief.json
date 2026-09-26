@@ -15,7 +15,7 @@
     },
     "items": [
       {
-        "id": "clause:1",
+        "id": "clause.1",
         "title": "Bind npm latest once at branch start and freeze that identity in the first SOURCE-BASELINE commit, recording the exact directive/core/content/types graph, integrity, annotated tag, peeled commit, probe surfaces, disagreements, and verification date.",
         "status": "completed",
         "x-directive/evidence": {
@@ -26,7 +26,7 @@
         }
       },
       {
-        "id": "clause:2",
+        "id": "clause.2",
         "title": "Carry the two reproduced before-state defect classes inside issue 3 as a pre-upgrade tranche: make the lifecycle, implementation, and gates fixture launchers resolve a real Python executable portably without assuming a `python` alias, and import/use `symlinkSync` correctly in scripts/projection-lab.test.mjs; add focused regression proof for both classes.",
         "status": "completed",
         "x-directive/evidence": {
@@ -37,7 +37,7 @@
         }
       },
       {
-        "id": "clause:3",
+        "id": "clause.3",
         "title": "Add a package script named test:baseline-upgrade whose value is `node --test scripts/capstone-lab.test.mjs scripts/gates-lab.test.mjs scripts/implementation-lab.test.mjs scripts/lifecycle-lab.test.mjs scripts/projection-lab.test.mjs scripts/linked-path-safety.test.mjs scripts/restore-validation-deposit.test.mjs`; after the pre-upgrade tranche, record this exact aggregate green before any version-collapse edit and use `npm run test:baseline-upgrade` for the post-collapse proof and evidence location.",
         "status": "completed",
         "x-directive/evidence": {
@@ -48,7 +48,7 @@
         }
       },
       {
-        "id": "clause:4",
+        "id": "clause.4",
         "title": "Collapse every current authoring and learner surface listed in the issue body to the bound release while preserving labeled historical records; explicitly include all seven files named by the aggregate and the fixture launchers, manifests, docs, workflows, current references, maintainer helpers, verifier tests, ROADMAP projection, AGENTS.md, host hooks, package pin, generation stamp, and xbrief pin already enumerated by the body.",
         "status": "completed",
         "x-directive/evidence": {
@@ -59,7 +59,7 @@
         }
       },
       {
-        "id": "clause:5",
+        "id": "clause.5",
         "title": "Re-probe the taught command surfaces in disposable no-remote repositories on the bound release, beginning with the unpinned init probe, and reconcile learner and maintainer claims, platform labels, SOURCE-NOTES current context, fixture behavior, and bound-release-relative negative mutation constants from those observations.",
         "status": "completed",
         "x-directive/evidence": {
@@ -70,7 +70,7 @@
         }
       },
       {
-        "id": "clause:6",
+        "id": "clause.6",
         "title": "Replace the ten independent root-pin literals with one shared value derived from the declared teaching baseline and prove that the coupling assertion fails against dc20d5e content but passes only after the collapse.",
         "status": "completed",
         "x-directive/evidence": {
@@ -81,7 +81,7 @@
         }
       },
       {
-        "id": "clause:7",
+        "id": "clause.7",
         "title": "Dispose the inherited Module 11 and LICENSE-related failures as named dependencies rather than upgrade regressions, then record the baseline-upgrade aggregate, current check scripts, vBRIEF conformance, and deposit-present Deft aggregate evidence without publishing or running learner mutations in this training worktree.",
         "status": "completed",
         "x-directive/evidence": {

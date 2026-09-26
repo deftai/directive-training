@@ -8,15 +8,15 @@
 | Supports | O7.1 proposed failure, O7.2 lifecycle transitions, O7.3 current readiness, O7.4 evidence and recovery, plus Module 6 O6.2 structural completion evidence in Task 5 |
 | Status | Learner-ready on macOS/zsh; Linux/bash and Windows/PowerShell remain candidates |
 | Last verified | 2026-09-17 |
-| Directive baseline | CLI/core/content/types `0.119.5`; [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | CLI/core/content/types `0.119.9`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 45–50 minutes, including install, prediction, evidence review, your own scope check, reset, and archive |
 | Platforms verified | macOS/zsh local baseline-upgrade suite; go-task 3.50.0 |
-| Candidate platforms | Linux/bash and Windows/PowerShell are not verified on 0.119.5 |
+| Candidate platforms | Linux/bash and Windows/PowerShell are not verified on 0.119.9 |
 
 The helper is course tooling; it does not add a new Directive feature.
 
 The helper retains a Windows command path, but its prior walkthrough used the old
-baseline. It remains a candidate until the complete 0.119.5 lifecycle route runs natively.
+baseline. It remains a candidate until the complete 0.119.9 lifecycle route runs natively.
 
 ## Goal and done condition
 
@@ -121,8 +121,8 @@ test -f "$lab_root/.deft/core/VERSION"
 test -z "$(git -C "$lab_root" remote)"
 ```
 
-**Pass:** install reports Directive 0.119.5 and the explicit local CLI reports engine
-0.119.5. The helper uses the public npm registry, a lab-local cache, ignored runtime paths,
+**Pass:** install reports Directive 0.119.9 and the explicit local CLI reports engine
+0.119.9. The helper uses the public npm registry, a lab-local cache, ignored runtime paths,
 and a fictional local Git identity. It never changes the course checkout or global npm
 configuration.
 
@@ -180,7 +180,7 @@ try {
 
 **Pass:** `$LabRoot` is an absolute canonical path ending in a unique
 `3ci-directive-lab07-<id>/repo` under the operating-system temporary directory. The branch
-is `training/module-07` and the remote list is empty. Install reports Directive 0.119.5
+is `training/module-07` and the remote list is empty. Install reports Directive 0.119.9
 through `dist/bin.js`. This candidate branch is not verified practical-outcome coverage.
 
 ## Safety boundary
@@ -188,7 +188,7 @@ through `dist/bin.js`. This candidate branch is not verified practical-outcome c
 - Every mutation must stay inside the exact guarded temporary root or its
   named parent evidence directory.
 - The fixture must remain private, on `training/module-07`, with no remote
-  and exact CLI/core/content/types 0.119.5 pins.
+  and exact CLI/core/content/types 0.119.9 pins.
 - Do not use a business repository, client data, credentials, production
   logs, a remote action, deployment, publication, or release.
 - Run `guard` before install, lifecycle execution, reset, or archive. A
@@ -260,7 +260,7 @@ Open `../evidence/proposed-preflight.json` relative to `lab_root`. Confirm:
 - both command outputs name the proposed/active boundary; and
 - the file was written before the recorded promotion.
 
-The pinned 0.119.5 proposed-preflight stderr is:
+The pinned 0.119.9 proposed-preflight stderr is:
 
 ```text
 xBRIEF is in xbrief/proposed/ -- only xbrief/active/ (or legacy vbrief/active/) is eligible for implementation.

@@ -12,7 +12,7 @@ halt, verified synthesis, or later ingest.
 | Status | `learner-ready draft; command-free fixed-state practicum` |
 | Last content update | 2026-09-18 |
 | Last verified | 2026-09-18 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md#module-9-design-critique-validation) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md#module-9-design-critique-validation) |
 | Estimated duration | 75 minutes |
 | Prerequisite | Modules 1–8, including a passing [Module 6 O6.4 routing artifact](06-creating-well-shaped-work.md#exercise) |
 | Format | Fixed fictional cards and a personal scratch worksheet; no command, account, repository, or live critic |
@@ -56,7 +56,7 @@ controlling fact, disposition, safe next action, or proposed revision is missing
 [Module 8](08-session-and-work-selection.md) if durable state and conversation are still
 blurred. Do not infer a mechanism from keywords alone.
 
-This check and the practicum are human-semantic course work. Directive 0.119.5 does not
+This check and the practicum are human-semantic course work. Directive 0.119.9 does not
 compute whether a proposal is mechanism-shaped.
 
 ## Why this matters
@@ -425,7 +425,7 @@ always available and requires no instructor, account, or automation unlock.
 
 ## Official sources
 
-| Statement supported | Pinned 0.119.5 source | Verified date | Notes |
+| Statement supported | Pinned 0.119.9 source | Verified date | Notes |
 | --- | --- | --- | --- |
 | Arc boundary, stops, critic method, envelope, successor lean, dual stop, bind, and security context | [Design-critique contract](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/contracts/design-critique.md) | 2026-09-18 | Teach the stable bounded motion, not every maintainer detail |
 | Envelope fields and forbidden inputs | [Critic brief template](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/templates/design-critique-brief.md) | 2026-09-18 | Packet values are fictional |

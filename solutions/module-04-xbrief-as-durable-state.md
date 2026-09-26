@@ -12,7 +12,7 @@ session may do.
 | Outcomes covered | O4.1, O4.2, O4.3, O4.4 |
 | Status | `learner-ready draft` |
 | Last verified | 2026-09-07 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Module 4 artifact exercise](../curriculum/modules/04-xbrief-as-durable-state.md#exercise) |
 
 ## Before you use this solution
@@ -248,7 +248,7 @@ direct edits to L/M as the durable fix.
 ### When the baseline differs
 
 This conceptual exercise requires no installed runtime. Record the version of any alternate
-reference you used, reopen the pinned 0.119.5 sources, and retry the affected classifications.
+reference you used, reopen the pinned 0.119.9 sources, and retry the affected classifications.
 Do not mix old schema examples or newer lifecycle behavior into this exercise. The taxonomy
 contains legacy names and schema snippets; the release's main guidance supplies current
 xBRIEF 0.8 authoring names. Pinned prose disagrees about the terminal failure destination;

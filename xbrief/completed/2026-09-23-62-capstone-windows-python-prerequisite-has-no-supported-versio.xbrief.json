@@ -20,7 +20,7 @@
       {
         "title": "Publish presence of a resolvable Python interpreter as the fail-closed learner requirement for Labs 7, 10, 11, and the capstone on macOS, Linux, and Windows. Keep `3.13.13` as verified candidate parity, not a learner exact or minimum.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #73 head b7f74d32f59e4f62ffda2a27c19071bef86fa37f: course-entry and capstone documentation require resolvable Python across Labs 7/10/11/capstone on macOS, Linux, and Windows while retaining 3.13.13 as evidence only; npm run check:module-7 (21 artifacts, 0 missing), npm run test:module-7 (43/43), npm run check:capstone (36 artifacts, 0 missing), and npm run test:capstone (84 pass, 0 fail, 2 expected POSIX skips on Windows) passed; labs CI run 35943308810 and capstone CI run 35943308814 passed Linux, macOS, and Windows jobs",
@@ -34,7 +34,7 @@
       {
         "title": "Name the fail-closed sites as helper isolated PATH at Lab 7/10/11 install and capstone `isolatedEnv`. Recut `labs/07-scope-lifecycle.md:120-121` so the isolated-tools list includes python. Replace \"for Directive verification\" with that helper PATH requirement unless a deposited 0.119.5 consumer command is shown.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #73 head b7f74d32f59e4f62ffda2a27c19071bef86fa37f: Lab 7 names Python in its isolated-tools list and the Labs 7/10/11 helper isolated PATH plus capstone isolatedEnv as the fail-closed sites; npm run check:module-7 reported 21 artifacts and 0 missing, npm run test:module-7 passed 43/43 including rejection of a generic Directive rationale, and labs CI run 35943308810 passed jobs 107455747886 (Linux), 107455747899 (macOS), and 107455747852 (Windows)",
@@ -48,7 +48,7 @@
       {
         "title": "Close one command name-set across the course-wide contract and both helper families before writing an assertion.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #73 head b7f74d32f59e4f62ffda2a27c19071bef86fa37f: capstone lookup and documentation use Windows [python, python3, py] and POSIX [python3, python]; npm run test:capstone passed 84 tests with 0 failures and 2 expected POSIX skips on Windows, covering lookup order, unusable candidates, concrete-command retention, isolated shims, and no-candidate failure; capstone CI run 35943308814 passed jobs 107455747562 (Linux 10/10), 107455747805 (macOS 10/10), and 107455747703 (Windows 9 pass, 0 fail, 1 expected skip)",
@@ -62,7 +62,7 @@
       {
         "title": "Put the explicit verdict in the course-entry prerequisite, not only in the capstone fence. Keep Windows practical outcomes candidate.",
         "status": "completed",
-        "id": "clause:4",
+        "id": "clause.4",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #73 head b7f74d32f59e4f62ffda2a27c19071bef86fa37f: the course-entry prerequisite gives the presence verdict before Module 1, names Labs 7/10/11 and the capstone, and preserves candidate platform markers; npm run check:module-7 (21 artifacts, 0 missing), npm run test:module-7 (43/43), npm run check:capstone (36 artifacts, 0 missing), and npm run test:capstone (84 pass, 0 fail, 2 expected skips) passed, with all-platform labs run 35943308810 and capstone run 35943308814 green",
@@ -76,7 +76,7 @@
       {
         "title": "Extend the existing capstone content check so a missing learner presence verdict fails. Do not bind a version equality or min the helpers do not enforce.",
         "status": "completed",
-        "id": "clause:5",
+        "id": "clause.5",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #73 head b7f74d32f59e4f62ffda2a27c19071bef86fa37f: npm run check:capstone reported 36 artifacts and 0 missing, and npm run test:capstone passed 84 tests with 0 failures and 2 expected POSIX skips on Windows; negative cases reject a missing resolvable-Python verdict, omitted lab coverage, CRLF-sensitive drift, changed platform orders, and any Python version floor or equality; capstone CI run 35943308814 passed Linux job 107455747562, macOS job 107455747805, and Windows job 107455747703",

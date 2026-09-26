@@ -26,7 +26,7 @@ import { assertNoGitRedirection, assertPlainTree, git, safePath, sameFileSystemE
 const fixture = dirname(fileURLToPath(import.meta.url));
 const courseRoot = realpathSync(resolve(fixture, "../../.."));
 const read = (path) => readFileSync(path, "utf8");
-const exactVersion = "0.119.5";
+const exactVersion = "0.119.9";
 const storyFile = "2026-01-15-fictional-work-items.xbrief.json";
 const proposedStoryPath = `xbrief/proposed/${storyFile}`;
 const activeStoryPath = `xbrief/active/${storyFile}`;
@@ -145,10 +145,15 @@ function story() {
         commands: ["npm run test:focused", "npm run check:behavior"],
         none_stated: false,
         source_rung: "derived",
+        confessions: [
+          "Complete the fictional work-items library",
+          "Implement one immutable work-items source file test-first, preserve every supplied gate, and classify the resulting local evidence precisely.",
+        ],
       },
       metadata: {
         kind: "story",
         file_scope: allowedProductFiles,
+        swarm: { file_scope: allowedProductFiles },
         intended_placement: {
           schema: "deft.scope.intended_placement.v1",
           files: allowedProductFiles,
@@ -169,8 +174,10 @@ function storyContract(value) {
       commands: value.plan.acceptance?.commands,
       none_stated: value.plan.acceptance?.none_stated,
       source_rung: value.plan.acceptance?.source_rung,
+      confessions: value.plan.acceptance?.confessions,
     },
     file_scope: value.plan.metadata.file_scope,
+    swarm: value.plan.metadata.swarm,
     intended_placement: value.plan.metadata.intended_placement,
   };
 }
@@ -178,9 +185,9 @@ function storyContract(value) {
 function verifyManifest(root) {
   const manifest = readJson(safePath(root, "package.json"));
   assert.equal(manifest.private, true, "fixture must remain private");
-  assert.equal(manifest.devDependencies?.["@deftai/directive"], exactVersion, "exact 0.119.5 pin required");
+  assert.equal(manifest.devDependencies?.["@deftai/directive"], exactVersion, "exact 0.119.9 pin required");
   for (const name of ["directive-core", "directive-content", "directive-types"]) {
-    assert.equal(manifest.overrides?.[`@deftai/${name}`], exactVersion, `exact 0.119.5 ${name} override required`);
+    assert.equal(manifest.overrides?.[`@deftai/${name}`], exactVersion, `exact 0.119.9 ${name} override required`);
   }
 }
 
@@ -459,7 +466,7 @@ function verifyInstalledGraph(root) {
   safePath(root, "node_modules");
   for (const name of ["directive", "directive-core", "directive-content", "directive-types"]) {
     const manifest = readJson(safePath(root, `node_modules/@deftai/${name}/package.json`));
-    assert.equal(manifest.version, exactVersion, `${name} must resolve to 0.119.5`);
+    assert.equal(manifest.version, exactVersion, `${name} must resolve to 0.119.9`);
   }
   if (process.platform !== "win32") {
     const target = realpathSync(safePath(root, "node_modules/@deftai/directive/dist/bin.js"));
@@ -517,7 +524,7 @@ export function guardAttempt(input = process.cwd()) {
   verifyStoryContract(root, marker, placement);
   if (existsSync(join(root, "node_modules"))) verifyInstalledGraph(root);
   if (existsSync(join(root, ".deft/core/VERSION"))) {
-    assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.5'/, "Stop: Directive deposit must be 0.119.5.");
+    assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.9'/, "Stop: Directive deposit must be 0.119.9.");
   }
   return root;
 }
@@ -596,7 +603,7 @@ export function installAttempt(root = process.cwd()) {
     "capstone-lab-session",
     { DEFT_USER_PATH: join(dirname(root), "user-config") },
   ));
-  assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.5'/, "installed content deposit must be 0.119.5");
+  assert.match(read(join(root, ".deft/core/VERSION")), /(?:ref|tag): 'v0\.119\.9'/, "installed content deposit must be 0.119.9");
   copyFileSync(join(fixture, "Taskfile.yml"), safePath(root, "Taskfile.yml"));
   copyFileSync(join(fixture, "PROJECT-DEFINITION.xbrief.json"), safePath(root, "xbrief/PROJECT-DEFINITION.xbrief.json"));
   const generatedLifecycleKeepFiles = ["proposed", "pending", "active", "completed", "cancelled"]
@@ -630,7 +637,7 @@ export function recordOrientation(root = process.cwd()) {
   requireStage(marker, "CHECKPOINT");
   assert.equal(git(root, ["status", "--porcelain", "--untracked-files=all"]).trim(), "", "Stop: orientation requires the clean checkpoint.");
   const version = requireSuccess("Directive version", runDirective(root, ["--version"]));
-  assert.match(version.stdout, /@deftai\/directive-core@0\.119\.5/, "Stop: orientation observed the wrong Directive engine.");
+  assert.match(version.stdout, /@deftai\/directive-core@0\.119\.9/, "Stop: orientation observed the wrong Directive engine.");
   const evidence = {
     schema: "3ci.training.capstone.orientation-evidence.v1",
     generatedAt: new Date().toISOString(),

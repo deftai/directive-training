@@ -258,7 +258,7 @@ for (const allowed of [
   "npm install --globalconfig NUL --userconfig .npmrc",
   "npm --globalconfig /dev/null install",
   "npm install --ignore-scripts --no-audit --no-fund",
-  "npm install @deftai/directive@0.119.5",
+  "npm install @deftai/directive@0.119.9",
   "npm ls @deftai/directive",
   "npm config get registry",
   "gh --version",
@@ -311,13 +311,13 @@ for (const [label, content] of [
 }
 
 for (const content of [module2, lab2, lab2Solution]) {
-  assert.match(content, /0\.119\.5/, "Module 2 path must use the exact Directive pin");
+  assert.match(content, /0\.119\.9/, "Module 2 path must use the exact Directive pin");
   assert.match(content, /no[- ]remote/i, "Module 2 path must preserve the no-remote guard");
   assert.doesNotMatch(content, /doctor[^\n]*--repo-root/, "doctor must use the verified --project-root flag");
 }
 assert.match(
   module2,
-  /"overrides"[\s\S]*"@deftai\/directive-content": "0\.119\.5"[\s\S]*"@deftai\/directive-core": "0\.119\.5"[\s\S]*"@deftai\/directive-types": "0\.119\.5"/,
+  /"overrides"[\s\S]*"@deftai\/directive-content": "0\.119\.9"[\s\S]*"@deftai\/directive-core": "0\.119\.9"[\s\S]*"@deftai\/directive-types": "0\.119\.9"/,
   "Module 2 must show the Lab 2 overrides that lock core, content, and types",
 );
 assert.match(
@@ -689,7 +689,7 @@ assert.match(
   /verify:codebase-map-fresh --help[\s\S]{0,220}(?:runs|performs)[\s\S]{0,80}check/i,
   "Module 2 must warn that command-specific help can execute a verifier",
 );
-// The pinned 0.119.5 engine cannot emit `Missing directory: xbrief/`: that string is
+// The pinned 0.119.9 engine cannot emit `Missing directory: xbrief/`: that string is
 // reserved for framework-content and engine-deposit rows, and the lifecycle row has its own
 // wording. Teaching it -- even behind an "if it appears" hedge -- locks a false evidence
 // lesson into the first executable lab, so the three learner files must teach the warning a
@@ -791,7 +791,7 @@ const fixture = JSON.parse(read("labs/fixtures/02-disposable-initialization/pack
 assert.equal(fixture.private, true, "the fictional lab fixture must be private");
 assert.equal(
   fixture.devDependencies?.["@deftai/directive"],
-  "0.119.5",
+  "0.119.9",
   "the lab fixture must pin @deftai/directive exactly",
 );
 assert.deepEqual(
@@ -802,9 +802,9 @@ assert.deepEqual(
 assert.deepEqual(
   fixture.overrides,
   {
-    "@deftai/directive-content": "0.119.5",
-    "@deftai/directive-core": "0.119.5",
-    "@deftai/directive-types": "0.119.5",
+    "@deftai/directive-content": "0.119.9",
+    "@deftai/directive-core": "0.119.9",
+    "@deftai/directive-types": "0.119.9",
   },
   "the lab fixture must pin the complete Directive package graph",
 );
@@ -1117,7 +1117,7 @@ assert.deepEqual(
     date: "2026-09-20",
     evidence: "baseline-upgrade-65-of-65",
   },
-  "macOS/zsh must point to the current local 0.119.5 learner-path proof",
+  "macOS/zsh must point to the current local 0.119.9 learner-path proof",
 );
 for (const platformId of ["linux-bash", "windows-pwsh7"]) {
   assert.deepEqual(
@@ -1127,7 +1127,7 @@ for (const platformId of ["linux-bash", "windows-pwsh7"]) {
       date: "2026-09-20",
       evidence: "not-run",
     },
-    platformId + " must remain a candidate until a native 0.119.5 replay exists",
+    platformId + " must remain a candidate until a native 0.119.9 replay exists",
   );
 }
 assert.match(
@@ -1183,12 +1183,12 @@ assert.match(
 );
 assert.match(
   sourceBaseline,
-  /unpinned disposable no-remote `init --json` emitted parseable JSON and created the exact private package pin and 0\.119\.5 generation/,
+  /unpinned disposable no-remote `init --json` emitted parseable JSON and created the exact private package pin and 0\.119\.9 generation/,
   "SOURCE-BASELINE must record the successful current JSON init probe",
 );
 assert.doesNotMatch(
   sourceBaseline,
-  /released command rejects that separator|Pass the xBRIEF path directly for 0\.119\.5/,
+  /released command rejects that separator|Pass the xBRIEF path directly for 0\.119\.9/,
   "SOURCE-BASELINE must not retain the resolved 0.111.0 separator workaround",
 );
 

@@ -7,7 +7,7 @@
 | Stable ID | `module-10-implementation-golden-path` |
 | Status | Learner-ready draft; executable lab verified on macOS/zsh |
 | Last verified | 2026-09-10 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Duration | 70 minutes, including the disposable lab |
 | Prerequisites | Modules 1–9; Node.js 20+, npm, Git, Task, `uv`, and a dedicated zsh terminal |
 | Native platform evidence | macOS/zsh verified; Linux/bash and Windows/PowerShell are candidates |
@@ -166,7 +166,7 @@ the following checkpoints:
 | Checkpoint | Expected state |
 | --- | --- |
 | Create | Unique OS-temporary no-remote Git repository on `training/module-10` |
-| Install | Exact CLI/core/content/types 0.119.5 graph and clean local checkpoint |
+| Install | Exact CLI/core/content/types 0.119.9 graph and clean local checkpoint |
 | Readiness | Four start gates green; focused test red; `readiness.json` says `READY` |
 | Implement | Only `src/greeting.mjs` differs |
 | Verify | Focused and CLI behavior green; diff check green; `implementation.json` says `PASS` |
@@ -192,7 +192,7 @@ and proof precise.
 ## Completion evidence
 
 - **O10.5:** `readiness.json` names the clean checkpoint, active scope, empty remote, branch,
-  exact 0.119.5 baseline, and four successful start gates.
+  exact 0.119.9 baseline, and four successful start gates.
 - **O10.6:** the readiness record retains focused exit `1`; the final record retains focused
   exit `0` after the smallest coherent change.
 - **O10.7:** the active scope and final diff each list only `src/greeting.mjs`.

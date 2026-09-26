@@ -11,7 +11,7 @@ authorization, and deterministic evidence into one misleading file-order list.
 | Status | `learner-ready draft` |
 | Last content update | 2026-09-07 |
 | Last verified | 2026-09-07 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 45 minutes |
 | Prerequisites | Complete [Module 2](02-installation-and-anatomy.md); understand project versus managed files and xBRIEF as durable work state |
 
@@ -419,7 +419,7 @@ instructor unlock is required.
 
 ## Official sources
 
-| Claim | Pinned 0.119.5 source | Use in this module |
+| Claim | Pinned 0.119.9 source | Use in this module |
 | --- | --- | --- |
 | Personal, project, Defaults, and lazy-loading precedence | [Core skill — `Core Principle: Rule Precedence` and `File Reading Strategy (Lazy Loading)`](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/SKILL.md) | Behavior specificity and context selection |
 | Deterministic rule strength and modularity | [Concepts — `Rule Strength` and `Lazy Loading And Modularity`](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/CONCEPTS.md) | Enforcement axis |

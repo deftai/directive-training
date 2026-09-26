@@ -38,6 +38,18 @@
         "command": "deft-hook --host cursor --event session.compact",
         "timeout": 5
       }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "command": "deft-hook --host cursor --event prompt.submit",
+        "timeout": 5
+      }
+    ],
+    "afterAgentResponse": [
+      {
+        "command": "deft-hook --host cursor --event agent.response",
+        "timeout": 5
+      }
     ]
   }
 }

@@ -128,8 +128,8 @@ test("verifier rejects an underscore-suffixed outcome identifier", () => {
 
 test("verifier rejects a stale or ranged learner baseline", () => {
   const root = changedCopy("curriculum/modules/12-review-and-completion.md", (body) => body.replace(
-    "| Directive baseline | fixture-local 0.119.5 |",
-    "| Directive baseline | fixture-local 0.119.5-0.116.0 |",
+    "| Directive baseline | fixture-local 0.119.9 |",
+    "| Directive baseline | fixture-local 0.119.9-0.116.0 |",
   ));
   assert.throws(() => verifyModule12(root), /stale or ranged Directive baseline/);
 });
@@ -365,9 +365,9 @@ test("verifier rejects a missing Module 12 source record", () => {
 
 test("verifier separates current Module 12 roles from historical evidence", () => {
   for (const [path, heading, pattern] of [
-    ["references/SOURCE-BASELINE.md", "## Release identity", /Consumer project pin[^\n]*@deftai\/directive: 0\.119\.5/i],
-    ["references/SOURCE-BASELINE.md", "## Module 12 review-and-completion validation", /learner pin and deposit resolve to 0\.119\.5[\s\S]{0,240}fixture-local/i],
-    ["references/SOURCE-NOTES.md", "## Verification context", /Project direct pin:[^\n]*0\.119\.5/i],
+    ["references/SOURCE-BASELINE.md", "## Release identity", /Consumer project pin[^\n]*@deftai\/directive: 0\.119\.9/i],
+    ["references/SOURCE-BASELINE.md", "## Module 12 review-and-completion validation", /learner pin and deposit resolve to 0\.119\.9[\s\S]{0,240}fixture-local/i],
+    ["references/SOURCE-NOTES.md", "## Verification context", /Project direct pin:[^\n]*0\.119\.9/i],
   ]) {
     const root = changedCopy(path, (body) => replaceAfterHeading(body, heading, pattern, "current baseline role omitted"));
     assert.throws(() => verifyModule12(root), /current Module 12 baseline role/);
@@ -375,7 +375,7 @@ test("verifier separates current Module 12 roles from historical evidence", () =
   const currentAuthoring = changedCopy("references/SOURCE-NOTES.md", (body) => replaceAfterHeading(
     body,
     "## Verification context",
-    /Current authoring context:[\s\S]{0,280}content 0\.119\.5[\s\S]{0,200}v0\.119\.5[\s\S]{0,240}bootstrap availability[\s\S]{0,200}Lab 2 \/ project-local graph/i,
+    /Current authoring context:[\s\S]{0,280}content 0\.119\.9[\s\S]{0,200}v0\.119\.9[\s\S]{0,240}bootstrap availability[\s\S]{0,200}Lab 2 \/ project-local graph/i,
     "Current authoring context omitted",
   ));
   assert.throws(() => verifyModule12(currentAuthoring), /aligned current authoring context/);
@@ -472,8 +472,8 @@ test("verifier rejects an unlinked or unavailable Module 12 course row", () => {
 
 test("verifier rejects an altered exact project pin", () => {
   const root = changedCopy("package.json", (body) => body.replace(
-    '"@deftai/directive": "0.119.5"',
-    '"@deftai/directive": "^0.119.5"',
+    '"@deftai/directive": "0.119.9"',
+    '"@deftai/directive": "^0.119.9"',
   ));
   assert.throws(() => verifyModule12(root), /must pin @deftai\/directive exactly/);
 });

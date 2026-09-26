@@ -88,8 +88,8 @@ test("create produces a guarded no-remote attempt and records no caller shell st
     assert.equal(markerText.includes(forbidden), false, "lab-state.json must not replay caller state: " + forbidden);
   }
   const manifest = JSON.parse(read(join(root, "package.json")));
-  assert.equal(manifest.devDependencies["@deftai/directive"], "0.119.5");
-  assert.equal(manifest.overrides["@deftai/directive-core"], "0.119.5");
+  assert.equal(manifest.devDependencies["@deftai/directive"], "0.119.9");
+  assert.equal(manifest.overrides["@deftai/directive-core"], "0.119.9");
   assert.equal(read(join(root, ".npmrc")).includes("registry=https://registry.npmjs.org/"), true);
   assert.equal(existsSync(join(dirname(root), "evidence.md")), true);
   archiveAttempt(root);
@@ -134,7 +134,7 @@ test("guard refuses the curriculum clone, a remote, and a changed pin without re
   writeFileSync(config, originalConfig);
   const manifestPath = join(root, "package.json");
   const originalManifest = read(manifestPath);
-  writeFileSync(manifestPath, splice(originalManifest, '"0.119.5"', '"0.119.3"'));
+  writeFileSync(manifestPath, splice(originalManifest, '"0.119.9"', '"0.119.3"'));
   assert.throws(() => guardAttempt(root), /Stop: the attempt fixture differs from the supplied course fixture/);
   assert.match(read(manifestPath), /0\.119\.3/);
   writeFileSync(manifestPath, originalManifest);
@@ -190,7 +190,7 @@ test("the pinned learner path installs, diagnoses, and accepts from separate hel
   const deftLauncher = join(root, "node_modules/.bin/deft");
   assert.equal(existsSync(directiveLauncher), true);
   assert.equal(existsSync(deftLauncher), true);
-  assert.equal(JSON.parse(read(join(root, "node_modules/@deftai/directive-core/package.json"))).version, "0.119.5");
+  assert.equal(JSON.parse(read(join(root, "node_modules/@deftai/directive-core/package.json"))).version, "0.119.9");
 
   const diagnosis = diagnoseAttempt(root);
   assert.deepEqual({ doctorExit: diagnosis.doctorExit, toolchainExit: diagnosis.toolchainExit }, { doctorExit: 0, toolchainExit: 0 });

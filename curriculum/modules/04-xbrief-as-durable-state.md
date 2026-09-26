@@ -11,7 +11,7 @@ or a recovery point, and explain what that artifact can authorize.
 | Status | `learner-ready draft` |
 | Last content update | 2026-09-07 |
 | Last verified | 2026-09-07 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.5`, engine `@deftai/directive-core@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 45–55 minutes |
 | Prerequisites | Complete [Module 3](03-authority-and-context.md); distinguish product requirements, live authorization, and gate evidence |
 
@@ -47,7 +47,7 @@ absent; completed work has no authority over the next build; required gate evide
 controls mutation readiness.
 
 **Recovery:** Revisit [Module 3's authorization model](03-authority-and-context.md#authorization-is-a-conjunction),
-then retry in a fresh note. This module uses the stated 0.119.5 course baseline, not the
+then retry in a fresh note. This module uses the stated 0.119.9 course baseline, not the
 version installed on your computer. If your reference copy uses another release, reopen
 the pinned sources at the end of this page before comparing claims.
 
@@ -439,7 +439,7 @@ This lesson is an original paraphrase and fictional teaching adaptation. See the
 - Four outcomes have explicit exercise and solution evidence.
 - The walkthrough, card decisions, recovery, and self-assessment are inspectable from the
   stated fictional starting state; no shell behavior or live environment is claimed.
-- Source claims use the immutable 0.119.5 release and disclose the legacy taxonomy wording.
+- Source claims use the immutable 0.119.9 release and disclose the legacy taxonomy wording.
 - Navigation and source links are part of the curriculum's content verification.
 - An independent learner pilot remains a separate course milestone.
 

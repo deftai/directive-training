@@ -31,7 +31,7 @@ export function checkDoctorWarningSet(rawText, expectedWarningIds = EXPECTED_WAR
   const lines = text.split("\n");
   const problems = [];
 
-  // The pinned 0.119.5 engine cannot emit this row; seeing it means the dead string was
+  // The pinned 0.119.9 engine cannot emit this row; seeing it means the dead string was
   // reintroduced somewhere upstream of the proof.
   if (/Missing directory: *`?xbrief\//.test(text)) {
     problems.push("doctor emitted the retired xbrief false negative");
