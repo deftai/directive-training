@@ -10,8 +10,8 @@
   release identity and version-output evidence, adapt lifecycle fixtures to the current
   acceptance-evidence contract, and migrate legacy completed-scope `clause:N` item IDs to
   valid dotted IDs without changing their historical release facts (#102).
-- Register Cursor's prompt-submit and agent-response planning-choice hooks with the
-  managed five-second timeout (#102).
+- Enable Cursor sessions to apply Deft planning guidance before prompt submission
+  and after agent responses, using the managed five-second hook timeout (#102).
 
 ### Fixed
 
