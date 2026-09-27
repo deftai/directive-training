@@ -18,7 +18,7 @@
       "option": "Waive the entire npm test criterion"
     }
   ],
-  "whyWinner": "Flynn explicitly approved finishing the cohort on 2026-09-27 after reviewing that npm test exited zero with 0 failures and exactly 3 intentional skips: one POSIX-only test on Windows and two not-exercised checks because no newer compatible release than 0.119.9 exists. The narrow waiver preserves the passing command evidence and every other acceptance requirement.",
+  "whyWinner": "Flynn explicitly approved finishing the cohort on 2026-09-27 after reviewing that npm test exited zero with 0 failures and exactly 3 intentional skips: two POSIX-only tests on Windows and one not-exercised check because no newer compatible release than 0.119.9 exists. The narrow waiver preserves the passing command evidence and every other acceptance requirement.",
   "confidence": "high",
   "activeScopeRefs": [
     "xbrief/active/2026-09-26-102-upgrade-directive-teaching-baseline-to-01199.xbrief.json"

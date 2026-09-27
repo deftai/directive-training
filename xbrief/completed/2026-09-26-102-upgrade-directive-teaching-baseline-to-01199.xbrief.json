@@ -174,13 +174,13 @@
         "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
-          "pointer": "Current master 88ab49ef54752e627df0525a5a0105b35ff24f2c: `npm test` exited 0 with 0 failures on 2026-09-27; exactly 3 tests were intentionally skipped (one POSIX-only test on Windows and two newer-compatible-release probes not exercised because 0.119.9 is the latest compatible release)",
+          "pointer": "Current master 88ab49ef54752e627df0525a5a0105b35ff24f2c: `npm test` exited 0 with 0 failures on 2026-09-27; exactly 3 tests were intentionally skipped (two POSIX-only tests on Windows and one newer-compatible-release probe not exercised because 0.119.9 is the latest compatible release)",
           "recorded_at": "2026-09-27T19:14:41Z",
           "recorded_by": "agent:issue_102_lifecycle_closeout"
         },
         "x-directive/disposition": {
           "disposition": "waived",
-          "reason": "Waived only the no-skipped qualifier. On current master 88ab49ef54752e627df0525a5a0105b35ff24f2c, `npm test` exited 0 with 0 failures; exactly 3 skips were intentional and non-failing: one POSIX-only test on Windows and two not-exercised checks because no newer compatible release than 0.119.9 exists. The passing command evidence and every other part of clause 9 remain in force. Flynn explicitly approved this narrow exception by replying `yes, finish the upgrade cohort` on 2026-09-27.",
+          "reason": "Waived only the no-skipped qualifier. On current master 88ab49ef54752e627df0525a5a0105b35ff24f2c, `npm test` exited 0 with 0 failures; exactly 3 skips were intentional and non-failing: two POSIX-only tests on Windows and one not-exercised check because no newer compatible release than 0.119.9 exists. The passing command evidence and every other part of clause 9 remain in force. Flynn explicitly approved this narrow exception by replying `yes, finish the upgrade cohort` on 2026-09-27.",
           "provenance": {
             "kind": "operator-session",
             "actor": "Flynn",
