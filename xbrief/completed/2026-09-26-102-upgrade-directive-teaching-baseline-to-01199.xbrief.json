@@ -71,7 +71,7 @@
         "status": "completed",
         "x-directive/evidence": {
           "kind": "merge",
-          "pointer": "Product PR #103 head 8a992725ca9462fae72d2663a2cccea7f098bb1f merged to master as a85903658b90765432f5632c6897d03ab21efa62; protected-hook follow-up PR #104 head 3daeb9a16c63fb2edf819bf9151aba184b577ded merged as 88ab49ef54752e627df0525a5a0105b35ff24f2c. Both final heads had Greptile 5/5 and zero unresolved review threads; #103 had 18 successful checks plus advisory SLizard neutral and no failing/incomplete check, while #104 had 9/9 successful checks. This branch uses the supported lifecycle transition to generate issue 102's completed record; landing that record on master remains the lifecycle PR postcondition and is not claimed before merge.",
+          "pointer": "Product PR #103 head 8a992725ca9462fae72d2663a2cccea7f098bb1f merged to master as a85903658b90765432f5632c6897d03ab21efa62; protected-hook follow-up PR #104 head 3daeb9a16c63fb2edf819bf9151aba184b577ded merged as 88ab49ef54752e627df0525a5a0105b35ff24f2c. Both final heads had Greptile 5/5 and zero unresolved review threads; #103 had 18 successful checks plus advisory SLizard neutral and no failing/incomplete check, while #104 had 9/9 successful checks. The supported `swarm:finalize-cohort` ancestry check verified product merge a85903658b90765432f5632c6897d03ab21efa62 on `master` and recorded remote delivery tip 88ab49ef54752e627df0525a5a0105b35ff24f2c as `deliveryCommit`; that field proves product delivery ancestry and does not claim the lifecycle record was already present at that tip. PR #105 independently lands the generated completed record.",
           "recorded_at": "2026-09-27T18:55:30Z",
           "recorded_by": "agent:issue_102_lifecycle_closeout"
         },
@@ -172,6 +172,12 @@
         "id": "clause.9",
         "title": "clause.9",
         "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Current master 88ab49ef54752e627df0525a5a0105b35ff24f2c: `npm test` exited 0 with 0 failures on 2026-09-27; exactly 3 tests were intentionally skipped (one POSIX-only test on Windows and two newer-compatible-release probes not exercised because 0.119.9 is the latest compatible release)",
+          "recorded_at": "2026-09-27T19:14:41Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        },
         "x-directive/disposition": {
           "disposition": "waived",
           "reason": "Waived only the no-skipped qualifier. On current master 88ab49ef54752e627df0525a5a0105b35ff24f2c, `npm test` exited 0 with 0 failures; exactly 3 skips were intentional and non-failing: one POSIX-only test on Windows and two not-exercised checks because no newer compatible release than 0.119.9 exists. The passing command evidence and every other part of clause 9 remain in force. Flynn explicitly approved this narrow exception by replying `yes, finish the upgrade cohort` on 2026-09-27.",
