@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #102",
-    "updated": "2026-09-26T22:20:00Z"
+    "updated": "2026-09-27T18:58:45Z"
   },
   "plan": {
     "title": "Upgrade Directive teaching baseline to 0.119.9",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Upgrade the complete Directive training baseline from 0.119.5 to the immutable 0.119.9 release across current teaching, executable fixtures, release evidence, and generated project metadata. Restore current lifecycle validation by migrating legacy completed-scope identifiers without weakening the validator or rewriting historical version evidence.",
       "UserStory": "As a Directive learner or maintainer, I want the repository's current guidance, executable examples, and lifecycle records to satisfy Directive 0.119.9, so that training follows one verified framework generation and the delivery gates remain trustworthy.",
@@ -16,13 +16,20 @@
       "Traces": "GitHub issue deftai/directive-training#102; PROJECT-DEFINITION DirectiveBaseline, SourceOfTruth, SupportedEnvironments, LabModel, Maintenance, RisksAndUnknowns, and ProjectRules; the verified 0.119.9 npm identities; and Flynn's explicit approval for build, push, PR, conditional merge, and closeout.",
       "QualityGate": "Run npm run test:teaching-baseline, npm run check:cold-start-readme, npm run test:baseline-upgrade, npm run test:portability, npm test, git diff --check, deft xbrief:validate, and deft check. Require clean CI and automated review on the final PR head before squash merge.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/102",
-      "Overview": "## Summary\n\nUpgrade the complete Directive training baseline from 0.119.5 to the latest published release, 0.119.9, and restore lifecycle validation under the upgraded Directive payload.\n\nThis is a course-wide rebind, not a metadata-only dependency bump. The root package pin is deliberately coupled to learner-facing content, fixtures, verification code, and release evidence.\n\n## Bound release identity\n\n| Surface | 0.119.9 identity |\n| --- | --- |\n| npm `@deftai/directive` integrity | `sha512-EehSNvojnB6mpoJS+85/GtK2OQCyLdrFj9HNSUV/LP7xgl/ITHvpBbI0kigucJ5YDUtd0caIbQl4V5hI7o/Cng==` |\n| npm `@deftai/directive-core` integrity | `sha512-plUB32BkF3DMwCB3jO4FXxdjhiAqug/xq3jCVYuJYCxHuVQhzkDjdgyOG/xhr0ZTmVSjyIHmdhmCugr+8WgtKQ==` |\n| npm `@deftai/directive-content` integrity | `sha512-sB3AvtI2b3CCTXVcFXzvOprhsCNDJ+hn3JiFIU+PLYi/vh73PusaBXGkQZywSp7Hp7QFVQh/xgpGq0EdUrNm+A==` |\n| npm `@deftai/directive-types` integrity | `sha512-iA/BJhq6+KaYW/KBMhAd2n8l1y8ZRYS4PNdsD8m67SCdZ0bEeFfYmzrsqazLoLFiHNTKlFdIvD++I2qETfG/0A==` |\n| npm `gitHead` / peeled release commit | `8c9108bfa106719ab340379d6b9c958c8f9a2523` |\n| annotated tag object | `7b4ae5ebb8ecb338738c0a3095caadbec31fb174` |\n\nThe release was bound on 2026-09-26. A later publication is follow-up work unless it invalidates a surface already probed in this change.\n\n## Current evidence\n\n- The generated authoring pin and local Directive deposit are 0.119.9.\n- `npm run test:teaching-baseline` fails because the README teaching declaration remains 0.119.5.\n- There are 531 exact 0.119.5 occurrences across 89 current-surface files after excluding framework deposit, completed/cancelled lifecycle history, archived change history, and historical changelog entries.\n- `deft xbrief:validate` reports 168 invalid legacy `clause:N` item IDs across 32 completed scope records. The validator must be made green by migrating product data, not by weakening the validator.\n- `directive --version` now reports both engine and package identity; maintained examples using the former engine-only output need re-probing.\n\n## Scope\n\n- Keep the generated 0.119.9 metadata changes already produced by `directive update`.\n- Re-probe 0.119.9 behavior and update current curriculum, labs, solutions, assessment, references, maintenance guidance, workflow assertions, fixtures, guards, and verification scripts.\n- Pin all six disposable fixture graphs exactly to CLI/core/content/types 0.119.9.\n- Classify each prior-version occurrence as current evidence to update, explicitly historical evidence to preserve, or superseded material to remove. Do not mechanically relabel history.\n- Migrate the invalid completed-scope clause IDs so current xBRIEF validation passes without gate changes.\n- Add a Keep a Changelog entry under `[Unreleased]`.\n- Deliver on a feature branch through pull request review, CI, squash merge, and post-merge lifecycle closeout.\n\n## Safety boundary\n\nAll mutation probes run only in unique disposable repositories with no remote. Do not run learner mutation stages in the training checkout, publish a package, deploy, or modify the Directive source repository.\n\n## Acceptance\n\n- [ ] Release identity and package graph evidence identify only 0.119.9 for current claims.\n- [ ] Current learner and executable surfaces use 0.119.9; historical evidence remains explicitly historical.\n- [ ] Six fixture-local package graphs resolve CLI/core/content/types exactly to 0.119.9.\n- [ ] The version-output and other changed command claims are re-probed and reflected in maintained examples.\n- [ ] `npm run test:teaching-baseline` passes.\n- [ ] `npm run check:cold-start-readme` passes.\n- [ ] `npm run test:baseline-upgrade` passes.\n- [ ] `npm run test:portability` passes.\n- [ ] `npm test` passes with no skipped or failed tests.\n- [ ] `git diff --check` passes.\n- [ ] `deft xbrief:validate` passes.\n- [ ] `deft check` passes at the merge chokepoint.\n- [ ] Required CI and review gates are clean on the PR head before squash merge.\n\n## Cost decision\n\nIncremental service cost is expected to remain $0 using existing tooling. The equivalent revalidation/build effort is estimated at 16-40 hours, with 1-3 hours per month of maintenance plus focused revalidation after a future material Directive release. Flynn approved Build, lifecycle activation, push, PR, review, conditional merge on clean gates, and closeout on 2026-09-26.\n\n"
+      "Overview": "## Summary\n\nUpgrade the complete Directive training baseline from 0.119.5 to the latest published release, 0.119.9, and restore lifecycle validation under the upgraded Directive payload.\n\nThis is a course-wide rebind, not a metadata-only dependency bump. The root package pin is deliberately coupled to learner-facing content, fixtures, verification code, and release evidence.\n\n## Bound release identity\n\n| Surface | 0.119.9 identity |\n| --- | --- |\n| npm `@deftai/directive` integrity | `sha512-EehSNvojnB6mpoJS+85/GtK2OQCyLdrFj9HNSUV/LP7xgl/ITHvpBbI0kigucJ5YDUtd0caIbQl4V5hI7o/Cng==` |\n| npm `@deftai/directive-core` integrity | `sha512-plUB32BkF3DMwCB3jO4FXxdjhiAqug/xq3jCVYuJYCxHuVQhzkDjdgyOG/xhr0ZTmVSjyIHmdhmCugr+8WgtKQ==` |\n| npm `@deftai/directive-content` integrity | `sha512-sB3AvtI2b3CCTXVcFXzvOprhsCNDJ+hn3JiFIU+PLYi/vh73PusaBXGkQZywSp7Hp7QFVQh/xgpGq0EdUrNm+A==` |\n| npm `@deftai/directive-types` integrity | `sha512-iA/BJhq6+KaYW/KBMhAd2n8l1y8ZRYS4PNdsD8m67SCdZ0bEeFfYmzrsqazLoLFiHNTKlFdIvD++I2qETfG/0A==` |\n| npm `gitHead` / peeled release commit | `8c9108bfa106719ab340379d6b9c958c8f9a2523` |\n| annotated tag object | `7b4ae5ebb8ecb338738c0a3095caadbec31fb174` |\n\nThe release was bound on 2026-09-26. A later publication is follow-up work unless it invalidates a surface already probed in this change.\n\n## Current evidence\n\n- The generated authoring pin and local Directive deposit are 0.119.9.\n- `npm run test:teaching-baseline` fails because the README teaching declaration remains 0.119.5.\n- There are 531 exact 0.119.5 occurrences across 89 current-surface files after excluding framework deposit, completed/cancelled lifecycle history, archived change history, and historical changelog entries.\n- `deft xbrief:validate` reports 168 invalid legacy `clause:N` item IDs across 32 completed scope records. The validator must be made green by migrating product data, not by weakening the validator.\n- `directive --version` now reports both engine and package identity; maintained examples using the former engine-only output need re-probing.\n\n## Scope\n\n- Keep the generated 0.119.9 metadata changes already produced by `directive update`.\n- Re-probe 0.119.9 behavior and update current curriculum, labs, solutions, assessment, references, maintenance guidance, workflow assertions, fixtures, guards, and verification scripts.\n- Pin all six disposable fixture graphs exactly to CLI/core/content/types 0.119.9.\n- Classify each prior-version occurrence as current evidence to update, explicitly historical evidence to preserve, or superseded material to remove. Do not mechanically relabel history.\n- Migrate the invalid completed-scope clause IDs so current xBRIEF validation passes without gate changes.\n- Add a Keep a Changelog entry under `[Unreleased]`.\n- Deliver on a feature branch through pull request review, CI, squash merge, and post-merge lifecycle closeout.\n\n## Safety boundary\n\nAll mutation probes run only in unique disposable repositories with no remote. Do not run learner mutation stages in the training checkout, publish a package, deploy, or modify the Directive source repository.\n\n## Acceptance\n\n- [ ] Release identity and package graph evidence identify only 0.119.9 for current claims.\n- [ ] Current learner and executable surfaces use 0.119.9; historical evidence remains explicitly historical.\n- [ ] Six fixture-local package graphs resolve CLI/core/content/types exactly to 0.119.9.\n- [ ] The version-output and other changed command claims are re-probed and reflected in maintained examples.\n- [ ] `npm run test:teaching-baseline` passes.\n- [ ] `npm run check:cold-start-readme` passes.\n- [ ] `npm run test:baseline-upgrade` passes.\n- [ ] `npm run test:portability` passes.\n- [ ] `npm test` passes with no skipped or failed tests.\n- [ ] `git diff --check` passes.\n- [ ] `deft xbrief:validate` passes.\n- [ ] `deft check` passes at the merge chokepoint.\n- [ ] Required CI and review gates are clean on the PR head before squash merge.\n\n## Cost decision\n\nIncremental service cost is expected to remain $0 using existing tooling. The equivalent revalidation/build effort is estimated at 16-40 hours, with 1-3 hours per month of maintenance plus focused revalidation after a future material Directive release. Flynn approved Build, lifecycle activation, push, PR, review, conditional merge on clean gates, and closeout on 2026-09-26.\n\n",
+      "Decisions": "- xbrief/decisions/2026-09-27-waive-only-issue-102-clause-9-zero-skip-qualifier.decision.json — Waive only issue 102 clause 9 zero-skip qualifier while retaining the passing npm test result"
     },
     "items": [
       {
         "id": "training.directive-baseline-0.119.9.release-proof",
         "title": "Bind and re-probe the immutable Directive 0.119.9 release",
-        "status": "proposed",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #103 head 8a992725ca9462fae72d2663a2cccea7f098bb1f, merged as a85903658b90765432f5632c6897d03ab21efa62: the current release baseline records the verified 0.119.9 package integrities, annotated tag 7b4ae5ebb8ecb338738c0a3095caadbec31fb174, peeled release commit 8c9108bfa106719ab340379d6b9c958c8f9a2523, exact installed graph, and re-probed version output while retaining historical release records; current-master teaching-baseline passed 7/7",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        },
         "effort": "M",
         "narrative": {
           "Acceptance": "Current release evidence records the verified 0.119.9 package integrities, annotated tag, peeled commit, installed graph, and changed command output without relabeling prior release evidence."
@@ -31,7 +38,13 @@
       {
         "id": "training.directive-baseline-0.119.9.current-surfaces",
         "title": "Rebind current teaching and executable surfaces to 0.119.9",
-        "status": "proposed",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #103 head 8a992725ca9462fae72d2663a2cccea7f098bb1f, merged as a85903658b90765432f5632c6897d03ab21efa62: current curriculum, labs, solutions, assessment, references, maintenance guidance, workflows, scripts, guards, and six disposable fixture graphs were rebound to 0.119.9; current-master teaching-baseline passed 7/7, cold-start returned ok, baseline-upgrade reported 0 failures, and portability passed 68/68",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        },
         "effort": "M",
         "narrative": {
           "Acceptance": "Current curriculum, labs, solutions, assessment, references, maintenance guidance, workflows, scripts, guards, and all six disposable fixture graphs consistently use and verify Directive 0.119.9."
@@ -40,7 +53,13 @@
       {
         "id": "training.directive-baseline-0.119.9.schema-migration",
         "title": "Migrate legacy completed-scope identifiers for current validation",
-        "status": "proposed",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #103 head 8a992725ca9462fae72d2663a2cccea7f098bb1f, merged as a85903658b90765432f5632c6897d03ab21efa62: legacy completed-scope item IDs were migrated without changing historical release values or weakening the validator; current-master `deft xbrief:validate` passed 71 scope xBRIEFs plus PROJECT-DEFINITION",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        },
         "effort": "M",
         "narrative": {
           "Acceptance": "Every completed xBRIEF satisfies the current item-ID contract, the migration preserves record meaning and historical release values, and no validator or policy gate is weakened."
@@ -49,10 +68,164 @@
       {
         "id": "training.directive-baseline-0.119.9.delivery",
         "title": "Prove and deliver the upgrade through merge and lifecycle closeout",
-        "status": "proposed",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "Product PR #103 head 8a992725ca9462fae72d2663a2cccea7f098bb1f merged to master as a85903658b90765432f5632c6897d03ab21efa62; protected-hook follow-up PR #104 head 3daeb9a16c63fb2edf819bf9151aba184b577ded merged as 88ab49ef54752e627df0525a5a0105b35ff24f2c. Both final heads had Greptile 5/5 and zero unresolved review threads; #103 had 18 successful checks plus advisory SLizard neutral and no failing/incomplete check, while #104 had 9/9 successful checks. This branch uses the supported lifecycle transition to generate issue 102's completed record; landing that record on master remains the lifecycle PR postcondition and is not claimed before merge.",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        },
         "effort": "M",
         "narrative": {
           "Acceptance": "All literal acceptance commands pass; CI and automated review are clean on the final PR head; the change is squash-merged; and issue 102 has a tracked completed lifecycle record on master."
+        }
+      },
+      {
+        "id": "clause.1",
+        "title": "clause.1",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #103 head 8a992725ca9462fae72d2663a2cccea7f098bb1f merged as a85903658b90765432f5632c6897d03ab21efa62: current release identities and installed package-graph claims are 0.119.9; current-master teaching-baseline passed 7/7",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        }
+      },
+      {
+        "id": "clause.2",
+        "title": "clause.2",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #103 head 8a992725ca9462fae72d2663a2cccea7f098bb1f merged as a85903658b90765432f5632c6897d03ab21efa62: current learner/executable surfaces were rebound to 0.119.9 while protected historical evidence retained its original release values; teaching-baseline passed 7/7 and baseline-upgrade reported 0 failures on current master",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        }
+      },
+      {
+        "id": "clause.3",
+        "title": "clause.3",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #103 head 8a992725ca9462fae72d2663a2cccea7f098bb1f merged as a85903658b90765432f5632c6897d03ab21efa62: all six disposable fixture package graphs pin CLI/core/content/types to 0.119.9; current-master baseline-upgrade reported 0 failures",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        }
+      },
+      {
+        "id": "clause.4",
+        "title": "clause.4",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "PR #103 head 8a992725ca9462fae72d2663a2cccea7f098bb1f merged as a85903658b90765432f5632c6897d03ab21efa62: maintained examples reflect the re-probed 0.119.9 version output and changed command behavior; teaching-baseline passed 7/7 and cold-start returned ok on current master",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        }
+      },
+      {
+        "id": "clause.5",
+        "title": "clause.5",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Current master 88ab49ef54752e627df0525a5a0105b35ff24f2c: `npm run test:teaching-baseline` passed 7/7 with 0 failures, 0 skipped, and exit 0 on 2026-09-27",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        }
+      },
+      {
+        "id": "clause.6",
+        "title": "clause.6",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Current master 88ab49ef54752e627df0525a5a0105b35ff24f2c: `npm run check:cold-start-readme` printed `README cold-start bootstrap: ok` and exited 0 on 2026-09-27",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        }
+      },
+      {
+        "id": "clause.7",
+        "title": "clause.7",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Current master 88ab49ef54752e627df0525a5a0105b35ff24f2c: `npm run test:baseline-upgrade` exited 0 with 69 passed, 0 failed, and 6 explicitly capability-skipped Windows symlink cases on 2026-09-27",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        }
+      },
+      {
+        "id": "clause.8",
+        "title": "clause.8",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Current master 88ab49ef54752e627df0525a5a0105b35ff24f2c: `npm run test:portability` passed 68/68 with 0 failures, 0 skipped, and exit 0 on 2026-09-27",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        }
+      },
+      {
+        "id": "clause.9",
+        "title": "clause.9",
+        "status": "completed",
+        "x-directive/disposition": {
+          "disposition": "waived",
+          "reason": "Waived only the no-skipped qualifier. On current master 88ab49ef54752e627df0525a5a0105b35ff24f2c, `npm test` exited 0 with 0 failures; exactly 3 skips were intentional and non-failing: one POSIX-only test on Windows and two not-exercised checks because no newer compatible release than 0.119.9 exists. The passing command evidence and every other part of clause 9 remain in force. Flynn explicitly approved this narrow exception by replying `yes, finish the upgrade cohort` on 2026-09-27.",
+          "provenance": {
+            "kind": "operator-session",
+            "actor": "Flynn",
+            "mintedVia": "Codex chat",
+            "eventRef": "2026-09-27 chat approval: yes, finish the upgrade cohort"
+          },
+          "recorded_at": "2026-09-27T18:55:30Z"
+        }
+      },
+      {
+        "id": "clause.10",
+        "title": "clause.10",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Current master 88ab49ef54752e627df0525a5a0105b35ff24f2c: `git diff --check` exited 0 on 2026-09-27; the lifecycle-only diff is rechecked in the pre-PR and merge-ready gates",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        }
+      },
+      {
+        "id": "clause.11",
+        "title": "clause.11",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Current master 88ab49ef54752e627df0525a5a0105b35ff24f2c: `deft xbrief:validate` passed 71 scope xBRIEFs plus PROJECT-DEFINITION on 2026-09-27; the completed record is revalidated before PR creation",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        }
+      },
+      {
+        "id": "clause.12",
+        "title": "clause.12",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "Current master 88ab49ef54752e627df0525a5a0105b35ff24f2c: `deft check` completed successfully on 2026-09-27; the lifecycle-only final diff is rerun through the same merge chokepoint before push",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
+        }
+      },
+      {
+        "id": "clause.13",
+        "title": "clause.13",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "PR #103 final head 8a992725ca9462fae72d2663a2cccea7f098bb1f: Greptile 5/5, 12/12 review threads resolved, 18 successful checks plus advisory SLizard neutral, and no failing/incomplete check. PR #104 final head 3daeb9a16c63fb2edf819bf9151aba184b577ded: Greptile 5/5, 1/1 review thread resolved, and 9/9 checks successful. Both were squash-merged only after their final-head gates were clean.",
+          "recorded_at": "2026-09-27T18:55:30Z",
+          "recorded_by": "agent:issue_102_lifecycle_closeout"
         }
       }
     ],
@@ -144,6 +317,30 @@
         "github_issue_id": 5597773927,
         "origin": "deftai/directive-training#102",
         "id": "github.issue.5597773927"
+      },
+      "completionProvenance": {
+        "repository": "deftai/directive-training",
+        "implementationCommit": "8a992725ca9462fae72d2663a2cccea7f098bb1f",
+        "prNumber": 103,
+        "prBase": "master",
+        "mergeCommit": "a85903658b90765432f5632c6897d03ab21efa62",
+        "deliveryBranch": "master",
+        "deliveryCommit": "88ab49ef54752e627df0525a5a0105b35ff24f2c",
+        "verifiedAt": "2026-09-27T18:58:45Z",
+        "verifier": "swarm:finalize-cohort",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "01a0df26-49aa-7e53-b366-df8498983910"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-27T18:58:45Z",
+      "completedSessionId": "01a0df26-49aa-7e53-b366-df8498983910",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-27T18:58:45Z"
       }
     },
     "acceptance": {
@@ -349,6 +546,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5597773927",
-    "updated": "2026-09-26T22:20:00Z"
+    "updated": "2026-09-27T18:58:45Z"
   }
 }

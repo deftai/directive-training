@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "deft.decision.v1",
+  "id": "waive-only-issue-102-clause-9-zero-skip-qualifier",
+  "decision": "Waive only issue 102 clause 9 zero-skip qualifier while retaining the passing npm test result",
+  "governingRule": {
+    "description": "Significant operator-approved process exceptions require durable rationale, and scope completion waivers require human-origin provenance",
+    "path": ".deft/core/docs/decision-log.md",
+    "rfc2119": "MUST"
+  },
+  "alternativesConsidered": [
+    {
+      "option": "Refuse closeout until platform- and release-conditional tests can execute"
+    },
+    {
+      "option": "Rewrite the accepted no-skipped criterion"
+    },
+    {
+      "option": "Waive the entire npm test criterion"
+    }
+  ],
+  "whyWinner": "Flynn explicitly approved finishing the cohort on 2026-09-27 after reviewing that npm test exited zero with 0 failures and exactly 3 intentional skips: one POSIX-only test on Windows and two not-exercised checks because no newer compatible release than 0.119.9 exists. The narrow waiver preserves the passing command evidence and every other acceptance requirement.",
+  "confidence": "high",
+  "activeScopeRefs": [
+    "xbrief/active/2026-09-26-102-upgrade-directive-teaching-baseline-to-01199.xbrief.json"
+  ],
+  "timestamp": "2026-09-27T18:53:17Z",
+  "revisitTrigger": "Revisit when a newer Directive release exists or when the suite can execute all platform-conditional tests in one supported environment; remove the exception only through a new scope decision.",
+  "tags": [
+    "process",
+    "acceptance"
+  ],
+  "relatedIssues": [
+    102
+  ]
+}
