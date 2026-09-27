@@ -7,7 +7,9 @@
 | Stable ID | `module-11-testing-gates-and-evidence` |
 | Status | Learner-ready draft |
 | Estimated time | 65 minutes |
-| Directive baseline | fixture-local `@deftai/directive@0.119.5`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Last verified | 2026-09-26 |
+| Platform evidence | 0.119.9 fixture verified on Windows/PowerShell; published shell walkthroughs, Linux/bash, and macOS/zsh remain candidates |
 | Prerequisite | [Module 10 — The Implementation Golden Path](10-implementation-golden-path.md) |
 | Practical work | [Lab 11 — Testing, Gates, and Evidence](../../labs/11-testing-gates-and-evidence.md) |
 
@@ -69,7 +71,7 @@ After the expected red result, freeze the focused test. Editing both the test an
 
 ### Literal acceptance answers a contract question
 
-On the pinned release, `task deft:verify:ac -- <active-xbrief>` reads the active contract and runs its accepted command list verbatim. Direct `node` commands and arbitrary npm scripts are safety-refused by the 0.119.5 literal-command allowlist; the lab therefore uses the allowed test/check script families. A safety refusal is not a product failure and must not be relabeled as one.
+On the pinned release, `task deft:verify:ac -- <active-xbrief>` reads the active contract and runs its accepted command list verbatim. Direct `node` commands and arbitrary npm scripts are safety-refused by the 0.119.9 literal-command allowlist; the lab therefore uses the allowed test/check script families. A safety refusal is not a product failure and must not be relabeled as one.
 
 ### Forward coverage answers a correspondence question
 
@@ -110,7 +112,7 @@ Do not skip directly to the seeded aggregate failure. The helper accepts stages 
 - **O11.5:** `red.json`, `green.json`, and `refactor.json` show the expected exit sequence and one unchanged focused-test digest after red.
 - **O11.6:** `literal.json` identifies separate passing literal-acceptance and forward-coverage results before the aggregate run.
 - **O11.7:** `aggregate-failure.json` names `quality:record` as the first failing subcheck; `final.json` reports unchanged gate-definition hashes and a passing aggregate.
-- **O11.8:** the final diff contains only `test/summary.test.mjs`, `src/summary.mjs`, and `quality-record.json`; the platform record labels only macOS/zsh verified.
+- **O11.8:** the final diff contains only `test/summary.test.mjs`, `src/summary.mjs`, and `quality-record.json`; the platform record separates the verified Windows fixture from candidate walkthroughs.
 
 ## Progressive hints
 
@@ -143,7 +145,7 @@ Do not skip directly to the seeded aggregate failure. The helper accepts stages 
 - **O11.5:** Can you show red, green, and refactor exits in order and prove the test digest stayed fixed after red?
 - **O11.6:** Can you state the distinct question answered by the focused check, literal acceptance, forward coverage, and aggregate gate?
 - **O11.7:** Can you name the first failing subcheck, justify the one-file repair, and show unchanged gate-definition hashes?
-- **O11.8:** Can you present the final three-file diff and label macOS/zsh verified while leaving Linux/bash and Windows/PowerShell as candidates?
+- **O11.8:** Can you present the final three-file diff and distinguish the verified Windows fixture from the candidate Windows, Linux, and macOS walkthroughs?
 
 You are ready to continue only when all four answers are supported by retained evidence.
 

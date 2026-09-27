@@ -7,8 +7,8 @@
 | Source | [Lab 11 — Testing, Gates, and Evidence](../labs/11-testing-gates-and-evidence.md) |
 | Stable ID | `solution-lab-11-testing-gates-and-evidence` |
 | Status | Available |
-| Verified | 2026-09-10 on macOS/zsh |
-| Directive baseline | `@deftai/directive@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Verified | 2026-09-26 on Windows/PowerShell for the 0.119.9 fixture; published walkthroughs remain candidates |
+| Directive baseline | `@deftai/directive@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 
 ## Before you use this solution
 
@@ -29,7 +29,7 @@ The final behavior for `[2, 4, 6]` was `{ count: 3, total: 12, average: 4 }`; an
 | **O11.5** | `red.json`, `green.json`, and `refactor.json` show exits 1, 0, 0 in order with the same post-red test digest |
 | **O11.6** | `literal.json` contains separate passing `verify:ac` and forward-coverage results before `task check` |
 | **O11.7** | `aggregate-failure.json` names `quality:record`; the final diff repairs `quality-record.json only`; `final.json` reports unchanged gates |
-| **O11.8** | `final.json` lists exactly the test, source, and record paths; source notes limit verified execution to macOS/zsh |
+| **O11.8** | `final.json` lists exactly the test, source, and record paths; source notes distinguish the verified Windows fixture from candidate walkthroughs |
 
 ## Reasoning
 
@@ -49,7 +49,7 @@ The aggregate reached `quality:record` only after the earlier checks passed. Tha
 
 ### Step 1 — Create and install
 
-The helper created a canonical unique temporary root, branch `training/module-11`, and no remote, then installed the exact 0.119.5 package/core/content/types graph. The clean checkpoint contained the active/running story and unchanged gates.
+The helper created a canonical unique temporary root, branch `training/module-11`, and no remote, then installed the exact 0.119.9 package/core/content/types graph. The clean checkpoint contained the active/running story and unchanged gates.
 
 ### Step 2 — Add the red test
 
@@ -108,7 +108,7 @@ unbounded budget — dual-stop still applies; bank is optional discipline
 ```
 
 The two stored npm commands are the literal-acceptance proof. `[rung=derived]` and the AC-pass-bank
-dual-stop lines are upstream 0.119.5 diagnostics.
+dual-stop lines are upstream 0.119.9 diagnostics.
 
 ### Step 6 — Diagnose and repair the aggregate
 

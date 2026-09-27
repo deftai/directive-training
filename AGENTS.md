@@ -18,7 +18,7 @@ Scoped work, ranked queue, and tracked bugs live in authoritative sources — no
 
 (Optional) Ephemeral shell quirks or uncommitted local artifacts only — not tracked work state.
 
-<!-- deft:managed-section v3 sha=0.119.5 refreshed=2026-09-20T03:10:01Z session=0e11304fb7d4 -->
+<!-- deft:managed-section v3 sha=0.119.9 refreshed=2026-09-26T23:45:36Z session=6626a5472779 -->
 # Deft — AI Development Framework
 
 Deft is installed in .deft/core/. Full guidelines: .deft/core/main.md
@@ -37,7 +37,7 @@ Deft is installed in .deft/core/. Full guidelines: .deft/core/main.md
 
 ## Session routing (#2176)
 
-! **Read-only default** until mutation intent: load AGENTS.md / main.md / USER.md / `xbrief/PROJECT-DEFINITION.xbrief.json`; resolve USER.md via `deft session:start` (`USER.md resolved …`; win32 `%APPDATA%\deft\USER.md`; unix `~/.config/deft/USER.md`; ⊗ invent `~/.config/deft` on Windows #2544); confirm Deft alignment + addressing-name; ⊗ no mutable `deft session:start` / triage welcome / sync / branch-policy unless asked or implementation-ready (#2176) — `.deft/core/commands.md` § Session routing. Bootstrap: Cold-start (#2273) → #4090 (`directive doctor --full`, then `npm i -g @deftai/directive@<pin>`) ⊗ never a payload path; pre-cutover → setup Pre-Cutover (#2068); missing USER.md / PROJECT-DEFINITION → setup Phase 1/2 (#1813) ⊗ before answering; else main → USER → PROJECT-DEFINITION; ~ sync. Mutation → `deft session:start` then `deft verify:session-ritual -- --tier=gated` (#1149). Occupancy (#4625): not #3334/#3396; ritual does not bind complete/check (occupancyLive; #3729). ⊗#3805. Dest-wo: process-only, leftover complete, finalize-cohort. #4624. ? `deft session:start -- --read-only` (#2176). ? Tracked docs: `deft session:start --posture=requirements` (#4444).
+! **Read-only default** until mutation intent: load AGENTS.md / main.md / USER.md / `xbrief/PROJECT-DEFINITION.xbrief.json`; resolve USER.md via `deft session:start` (`USER.md resolved …`; win32 `%APPDATA%\deft\USER.md`; unix `~/.config/deft/USER.md`; ⊗ invent `~/.config/deft` on Windows #2544); confirm Deft alignment + addressing-name; ⊗ no mutable `deft session:start` / triage welcome / sync / branch-policy unless asked or implementation-ready (#2176) — `.deft/core/commands.md` § Session routing. Bootstrap: Cold-start (#2273) → #4090 (`directive doctor --full`, then `npm i -g @deftai/directive@<pin>`) ⊗ never a payload path; pre-cutover → setup Pre-Cutover (#2068); missing USER.md / PROJECT-DEFINITION → setup Phase 1/2 (#1813) ⊗ before answering; else main → USER → PROJECT-DEFINITION; ~ sync. identity-only + product mutation → Phase 3 Starting-new / Rapid before Mutation (Process-only; ⊗ --prompt). Mutation → `deft session:start` then `deft verify:session-ritual -- --tier=gated` (#1149). Occupancy (#4625): not #3334/#3396; ritual does not bind complete/check (occupancyLive; #3729). ⊗#3805. Dest-wo: process-only, leftover complete, finalize-cohort. #4624. Stale-ritual (#4290): name ready/rearm/cold only when occupancy admits this actor; restricted primary → `--primary-claim-exception=operator-default-branch` or linked-worktree same-actor. ? `deft session:start -- --read-only` (#2176). ? Tracked docs: `deft session:start --posture=requirements` (#4444).
 
 ## Session-start ritual (#1149)
 
@@ -52,6 +52,7 @@ Deft is installed in .deft/core/. Full guidelines: .deft/core/main.md
 ! Writes: `./xbrief/` (`PROJECT-DEFINITION.xbrief.json`, `plan.xbrief.json`, `specification.xbrief.json`) as `"xBRIEFInfo"` `"version": "0.8"`. Legacy `vbrief/`; `deft migrate:xbrief`.
 ! Completed xBRIEFs are record of *what is*, zero authority over *what to build next* (#3383). Current contract = active xBRIEF + human operator live instruction.
 ⊗ Treat a completed xBRIEF as the next-build contract. ⊗ Emit `"version": "0.6"` on new writes. ⊗ No xBRIEF DeftVersion stamps (#4271).
+⊗ Patch `xbrief/PROJECT-DEFINITION.xbrief.json` or the `$DEFT_PROJECT_PATH` file to store Phase 2 narratives. Use `deft project:write-narratives`.
 
 ## Unmanaged project header (#2065)
 
@@ -104,27 +105,26 @@ Deft is installed in .deft/core/. Full guidelines: .deft/core/main.md
 
 ## Continuous Improvement Learning (#607 / #3164)
 
-! After a failure: ask if it could recur with a different query or session. One-off → write and later re-read `./lessons.md` inbox (also load packs:slice; ⊗ hand-edit generated `meta/lessons.md`); recurrable structural → propose skill/directive via issue/PR under Self-Improving gates — never mid-run constitution self-edit. Depth: Continuous Improvement in main.md; stance #3164; optional #666.
+! After a failure: ask if it could recur with a different query or session. One-off → write and later re-read `./lessons.md` inbox (also load packs:slice; ⊗ hand-edit generated `meta/lessons.md`); recurrable structural → propose skill/directive via issue/PR under Self-Improving gates — never mid-run constitution self-edit. Depth: main.md Continuous Improvement; #3164; optional #666.
 
 ## Through-merge worker dispatch (#3032)
 
-! On **through merge** / **drive to merge** / land-ship / **drive-to: merge-ready** story intent: parent MUST dispatch a worker via the **swarm/solo-worker launch path** even if **cohort size is 1** — parent MUST NOT implement as the leaf. Default envelope is `drive-to: merge-ready` (worktree, preflight, pre-pr, review-cycle, merge/`scope:complete`). **Grok through-merge (#4529):** implement is `stop-at: pr-open` — not Gap C silent handback; Envelope SLA names the partner. Depth: swarm Phase 0 + skill-pin-policy (#3032 / #1880 Gap C). Spawn dest (#4066 / #4295): dest-place implement workers before occupancy. Cursor local is dest-placing (nursery inherit or dest-rooted `@cursor/sdk` `Agent.create`); ⊗ Task dest keys.
+! On **through merge** / **drive to merge** / land-ship / **drive-to: merge-ready** story intent: parent MUST dispatch a worker via the **swarm/solo-worker launch path** even if **cohort size is 1** — parent MUST NOT implement as the leaf. Default envelope is `drive-to: merge-ready` (worktree, preflight, pre-pr, review-cycle, merge/`scope:complete`). **Grok through-merge (#4529 / #4821):** implement is `stop-at: pr-open` — not Gap C silent handback; Envelope SLA names dest residual then closer. Depth: swarm Phase 0 + skill-pin-policy (#3032 / #1880 Gap C). Spawn dest (#4066 / #4295): dest-place before occupancy. Cursor local is dest-placing (nursery inherit or dest-rooted `@cursor/sdk` `Agent.create`); ⊗ Task dest keys.
 ⊗ Parent conversation implements or babysits product fix/CI loops for drive-to:merge-ready work when background subagent/worktree dispatch is available (#3032). ⊗ Harvest a Grok `drive-to: merge-ready` continuation as that partner (#4529).
 ! After leaf announce: tool-first / yield / one short non-repeated answer; ⊗ N>2 near-identical zero-tool (FC14 / #3131). Machine: `evaluateParentTurnShape` (`parent-turn-shape`). Depth: preamble §11 + `docs/openclaw-agent-host.md`.
 
 ## Envelope selection SLA (#3153)
 
-! Default story / through-merge unit of work is `drive-to: merge-ready`. Deliberate `stop-at: pr-open` is allowed only when a **partner merge-path owner** is planned (review-cycle babysit / Approach 1 lease / parent-retained) for Greptile + CI + post-merge `scope:complete` — triggers: capacity stall, wall-clock budget, large multi-gate, host nest limits (Cursor / Claude Code / Grok Build #4130; swarm Phase 0 decision tree). Depth: `deft-directive-swarm` + `deft-directive-review-cycle` partner merge-path.
-! **Grok through-merge (#4529):** implement MUST be `stop-at: pr-open`. Partner: Approach 1 or parent-retained. Phase 6 monitor squash-merges via `pr:wait-mergeable-and-merge` (or parent-retained). `swarm:finalize-cohort` is leftover after merge. Not a global SLA recut. ⊗ Harvest option 2 or `merge-release` as closer. Related: #4421.
-! Under human-merge policy, a **durable** owner (parent/monitor sticky lease or Phase 6 closer) MUST remain for post-merge `scope:complete` — CLEAN alone is not lifecycle complete; ⊗ stand down at CLEAN with no reachable owner.
-⊗ Silent PR-open handback for a worker already scoped `drive-to: merge-ready`.
-⊗ `stop-at: pr-open` without a named babysit / merge-path owner, or dual review-monitor leases on recovery (#3044 / #2261).
+! Default story / through-merge unit of work is `drive-to: merge-ready`. Deliberate `stop-at: pr-open` only with a **partner merge-path owner** (review-cycle babysit / Approach 1 lease / parent-retained) for Greptile + CI + post-merge `scope:complete` — capacity stall, wall-clock, large multi-gate, host nest limits (#4130; swarm Phase 0). Depth: `deft-directive-swarm` + `deft-directive-review-cycle`.
+! **Grok through-merge (#4529 / #4821):** implement MUST be `stop-at: pr-open`. Dest class A residual, then Approach 1 wait, then parent-retained closer after CLEAN. Not a global SLA recut. ⊗ Harvest option 2 / `merge-release` / parent-inline residual.
+! After stop-at:pr-open (#4882), merge-path owner MUST keep a still-running phase-correct wait (pre-CLEAN: blocking `pr:watch` / Approach 1; post-CLEAN: `pr:wait-mergeable-and-merge`) until CLEAN or explicit option-C finish; under human-merge also remain for post-merge `scope:complete`. Sticky lease alone or Path B promise without a live wait is unarmed; CLEAN alone is not lifecycle complete. Probe: `deft verify:review-monitor -- --pr <N> --merge-path-arm` (`--live-wait` / `--explicit-finish`). `pr:watch --json` wrappers MUST parse full stdout JSON (pretty multi-line valid); line-split misses CLEAN (#5015). Prefer native `pr:watch`.
+⊗ Silent PR-open handback for a worker already scoped `drive-to: merge-ready`. ⊗ `stop-at: pr-open` without a named babysit / merge-path owner, or dual review-monitor leases on recovery (#3044 / #2261). ⊗ Stand down unarmed, or treat lease-only / line-parsed `pr-watch --json` as armed (#4882).
 ! After merge of issue `#N`, `deft verify:orphan-active -- --issue N` MUST exit 0 before `DONE` (#3429). After `scope:complete`, `deft verify:completed-tracked -- --issue N` MUST exit 0 on `origin/<deliveryBranch>` before `DONE` (#3476). Exit 1 shipped → printed `scope:complete`; missing tracked land → `swarm:finalize-cohort` or a lifecycle PR; unresolved lookup → retry / `BLOCKED` (⊗ complete unfinished scope). **Grok leftover (#4529):** Phase 6 `swarm:finalize-cohort`, not the implement dest.
 ⊗ Emit `ISSUE: closed` while that brief is still in `active/`.
 
 ## Nuclear-family A2A topology (#3155)
 
-! Agent-to-agent messaging is **nuclear-family** only: parent / sibling (same cohort) / child. Cross-cohort or cross-session coordination goes through a shared parent or durable parent-owned artifacts — not peer mesh. Depth: `.deft/core/swarm/swarm.md` `## Communication Topology (#3155)`; security: `.deft/core/meta/security.md` `## Unbounded A2A graphs (#3155)`; ADR: `docs/decisions/ADR-003-a2a-nuclear-family-topology.md` (decision input to #2705; client-posture ADR remainder stays on #2705). Pair: retained children #3158; parent epic #3179.
+! Agent-to-agent messaging is **nuclear-family** only: parent / sibling (same cohort) / child. Cross-cohort or cross-session coordination goes through a shared parent or durable parent-owned artifacts — not peer mesh. Depth: swarm.md / security.md / ADR-003 (#2705). Pair: #3158; #3179.
 ⊗ Open-mesh agent-to-agent messaging across cohorts or sessions ("agents everywhere").
 ⊗ Treat retained / re-addressable children as license to mesh outside the nuclear family.
 
@@ -142,8 +142,8 @@ Deft is installed in .deft/core/. Full guidelines: .deft/core/main.md
 
 ## Value feedback and attribution (#1709)
 
-! `plan.policy.valueFeedback.enabled` defaults OFF — `deft policy:show --field=valueFeedback` / `deft policy:enable-value-feedback -- --confirm`; `deft value:show`; `deft feedback:file`; `.deft/core/.agents/skills/deft-directive-feedback/SKILL.md` (#1709).
-! Consumer hard-stop (#3713): `BLOCKER` is the sole permitted title classification — `deft feedback:file --blocker`; absence is not a verdict. ⊗ Derive `adoption-blocker` from a consumer title (privileged, body-evidence gated); `.deft/core/scm/github.md`.
+! `plan.policy.valueFeedback.enabled` defaults OFF — `deft policy:show --field=valueFeedback` / `deft policy:enable-value-feedback -- --confirm`; `deft value:show`; `deft feedback:file`; `deft-directive-feedback/SKILL.md` (#1709).
+! Consumer hard-stop (#3713): `BLOCKER` is the sole permitted title classification — `deft feedback:file --blocker`; absence is not a verdict. ⊗ Derive `adoption-blocker` from a consumer title (body-evidence gated); `scm/github.md`.
 
 ## Structured decision log (#1396 / #3211)
 ! Significant choices → `deft decision:write`; re-load → `deft decision:list` / `xbrief/decisions/`; depth `.deft/core/docs/decision-log.md` (not triage/ADRs/lessons).
@@ -154,27 +154,33 @@ Deft is installed in .deft/core/. Full guidelines: .deft/core/main.md
 ## Branch policy & branch verification
 
 ! Feature branches — `deft verify:branch`, `deft verify:forward-coverage` (90% warn-first, #3514), `deft coverage:hotspots`, hooks, `deft check` (#746 / #747) — `.deft/core/scm/github.md`. One origin/PR else one-PR-unit grant (not #1378/`--allow-close`).
-! Test placement + scope provenance (#3145) — `deft verify:test-boundary` (warn-only), `deft verify:scope-provenance` (`--enforce` empty-scope only; declared `file_scope` without base approval fails closed), `deft verify:consumer-check-contract` (composition fails closed; CI omissions warn), `deft verify:evaluator-surface`, `deft verify:observable-scope`, `deft verify:intent-constraint`, `deft verify:consumer-test-lane` (docs: `docs/test-boundary.md`, `docs/scope-provenance.md`, `docs/consumer-check-contract.md`, `docs/observable-scope.md`).
-! Declared `file_scope` expansion after first mint hard-fails merge-time `verify:scope-provenance`; remint is `scope:record-approved-scope --kind renewed-approval` on operator return (multi-PR; #4589). First-mint activate digest is open #4383. ⊗ unattended remint, same-PR approval rewrite, or editing the verifier. Depth: `docs/scope-provenance.md`.
+! Test placement + scope provenance (#3145 / #4956) — `deft verify:test-boundary` (warn-only), `deft verify:scope-provenance` (merge-base `file_scope` fence; production allowance 2–5; test roots free), `deft verify:consumer-check-contract`, `deft verify:evaluator-surface`, `deft verify:class-checks`, `deft verify:observable-scope`, `deft verify:intent-constraint`, `deft verify:consumer-test-lane` (docs: `docs/test-boundary.md`, `docs/scope-provenance.md`).
+! After proceed: no scope ceremony (#4956). No approved-scope digest on proceed; head brief does not widen the fence; over-budget splits (no remint). Class checks #4980. #4383 still open. Depth: `docs/scope-provenance.md`.
 
 ## Branch Policy Disclosure (#746)
 
 ! When `plan.policy.allowDirectCommitsToMaster = true`, surface via `deft policy:show --field=allowDirectCommitsToMaster` (#746) — `.deft/core/scm/github.md` § Branch policy.
 
+## Destructive gh verbs (#1019)
+
+! Default-branch push and destructive gh verbs: `deft preflight-gh`. Typed opt-out `deft policy:allow-destructive-gh-verbs -- --confirm` (reverse `policy:enforce-destructive-gh-verbs`). Env `DEFT_ALLOW_DESTRUCTIVE_GH_VERBS` is a per-invocation override. `--repo=origin master`, `--all`, and `--mirror` refuse as default-branch updates. Depth: `.deft/core/scm/github.md` § Destructive gh verbs.
+
 ## Windows PowerShell: multi-line git/gh bodies (#2646 / #2744)
 
-! Multi-line git commit / gh issue|pr|comment bodies: write UTF-8 (no BOM) to OS temp, then `git commit -F` / `gh --body-file` / `deft scm:body:* --body-file`. Issue-body RMW on win32: `deft scm:body:issue:fetch --out-file` then edit the file then `deft scm:body:issue:edit --body-file` (#2607 postcondition verify). ⊗ bash heredocs, `<<<`, inline multi-line `--body`, or PS capture-concat of `gh api --jq .body` (string[]/$OFS destroys bodies — #2087, #2741, #1492). Detail: `.deft/core/scm/github.md` § #2646 / #2744. `ghx` is read-only — mutations stay on live `gh`. Explicit PR `--body-file` / `--body` / `--fill` skip the GitHub template (#4293): compose the template `Documentation impact` block, then `deft verify:docs-impact -- --body-file --base-ref` on those same bytes (leftover-complete).
+! Multi-line git commit / gh issue|pr|comment bodies: write UTF-8 (no BOM) to OS temp, then `git commit -F` / `gh --body-file` / `deft scm:body:* --body-file`. Issue-body RMW on win32: `deft scm:body:issue:fetch --out-file` then edit then `deft scm:body:issue:edit --body-file` (#2607). ⊗ bash heredocs, `<<<`, inline multi-line `--body`, or PS capture-concat of `gh api --jq .body` (string[]/$OFS destroys bodies — #2087, #2741, #1492). Detail: `scm/github.md` § #2646 / #2744. `ghx` is read-only — mutations stay on live `gh`. Explicit PR `--body-file` / `--body` / `--fill` skip the GitHub template (#4293): compose the template `Documentation impact` block, then `deft verify:docs-impact -- --body-file --base-ref` on those same bytes (leftover-complete).
 
 ## Contextual guardrails (runtime-detect lazy-load)
 
 ! Detect OS/shell; use portable syntax or explicit shell (#2568). `.deft/core/scm/github.md` (#2157/#2369): PS encoding→`deft verify:encoding` (#798); TS capture; cascade→`deft pr:wait-mergeable-and-merge`; SCM→`deft verify:scm-boundary`.
 ! Forge outage (#3422): drop GitHub I/O on attributed outage or repeated 429/502/503; report once to the human; re-probe on `plan.policy.forgeOutageRetryMinutes` (default 30; USER.md Personal wins). Depth: `scm/github.md` § #3180.
+! Credential-class ban (#3858 / #2275): no GitHub App installation credential may drive `scm issue *`, `issue:ingest`, and `reconcile:issues`. Those three verbs parse `--repo` / `-R` before `requireScmReady` at depth deep. Doctor and default `session:start` stay shallow. Depth: `scm/github.md` § #2275.
+! Registered-worker auth (#3663): local linked-worktree workers validate the independently stored assignment at `requireScmReady`; an inferred parent stamp is never exported as `DEFT_GITHUB_AUTH_MODE=host-gh` for those workers. Depth: `scm/github.md`.
 
 ## Development Process
 
 ### Gate integrity (#3156)
 
-! When a quality gate fails, fix the product/process/test under test — ⊗ clear red by editing the gate definition, verifier, reward, required check, coverage floor, or policy flag solely to go green. Deliberate gate changes go through issue/PR + review. Depth: `.deft/core/docs/gate-integrity.md` (refine-internal SkillOpt stays on #2436).
+! When a quality gate fails, fix the product/process/test under test — ⊗ clear red by editing the gate definition, verifier, reward, required check, coverage floor, or policy flag solely to go green. Deliberate gate changes go through issue/PR + review. Depth: `docs/gate-integrity.md` (SkillOpt stays on #2436).
 
 ### Implementation Intent Gate (#810 / #1193)
 

@@ -20,7 +20,7 @@ import { fileURLToPath } from "node:url";
 
 const fixtureDirectory = dirname(fileURLToPath(import.meta.url));
 const courseRoot = resolve(fixtureDirectory, "../../..");
-const exactVersion = "0.119.5";
+const exactVersion = "0.119.9";
 const labId = "module-02";
 const labBranch = "training/module-02";
 const parentPrefix = "3ci-directive-module-02.";
@@ -402,6 +402,7 @@ export function installAttempt(input) {
 
   const version = requireSuccess("directive --version", runDirective(root, ["--version"]));
   assert.ok(version.stdout.includes("@deftai/directive-core@" + exactVersion), "Stop: wrong Directive version: " + version.stdout);
+  assert.ok(version.stdout.includes("@deftai/directive@" + exactVersion), "Stop: wrong Directive package identity: " + version.stdout);
   for (const help of [["--help"], ["commands"], ["init", "--help"], ["update", "--help"], ["doctor", "--help"]]) {
     requireSuccess("directive " + help.join(" "), runDirective(root, help));
   }
@@ -485,6 +486,7 @@ export function acceptAttempt(input) {
   assert.equal(runGit(root, ["config", "--get", "core.hooksPath"]).trim(), ".githooks", "Stop: unexpected Git hooks path.");
   const version = requireSuccess("directive --version", runDirective(root, ["--version"]));
   assert.ok(version.stdout.includes("@deftai/directive-core@" + exactVersion), "Stop: wrong Directive version: " + version.stdout);
+  assert.ok(version.stdout.includes("@deftai/directive@" + exactVersion), "Stop: wrong Directive package identity: " + version.stdout);
   requireSuccess("doctor --full", runDirective(root, ["doctor", "--full", "--project-root", "."]));
   requireSuccess("toolchain:check --consumer", runDirective(root, ["toolchain:check", "--consumer", "--project-root", "."]));
   assert.equal(runGitResult(root, ["diff", "--quiet"]).exitCode, 0, "Stop: unstaged tracked changes remain.");

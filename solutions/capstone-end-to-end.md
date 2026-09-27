@@ -7,9 +7,9 @@
 | Stable ID | `solution-assessment-capstone-end-to-end` |
 | Supports | `CAP.1`, `CAP.2`, `CAP.3`, and `CAP.4` |
 | Status | Learner-ready |
-| Last verified | 2026-09-17 |
-| Directive baseline | Exact `@deftai/directive@0.119.5` CLI/core/content/types graph; [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
-| Execution runtime | Node.js `22 or newer`; the verified local macOS run used `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
+| Last verified | 2026-09-26 |
+| Directive baseline | Exact `@deftai/directive@0.119.9` CLI/core/content/types graph; [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
+| Execution runtime | Node.js `22 or newer`; the current Windows fixture run used `26.8.1`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
 | Prerequisite | Modules 1–12, ending with [Module 12 — PR, Review, and Actual Completion](../curriculum/modules/12-review-and-completion.md) |
 | Lesson | [Capstone — End-to-End Solo Directive Lifecycle](../curriculum/capstone-end-to-end.md) |
 | Assessment | [Capstone assessment](../assessments/capstone-end-to-end.md) |
@@ -107,7 +107,7 @@ Expected outer outputs:
 | Verb | Output |
 | --- | --- |
 | `create` | Unique absolute repository root |
-| `install` | `OK: installed Directive 0.119.5` |
+| `install` | `OK: installed Directive 0.119.9` |
 | `orient` | `"PASS"` |
 | `activate` | `"PASS"` |
 | `ready` | `"READY"` |
@@ -130,7 +130,7 @@ unbounded budget — dual-stop still applies; bank is optional discipline
 
 The two stored npm commands are the literal-acceptance proof. `unverifiable` means clause 1
 has no bound artifact path, not a failed focused test. `[rung=derived]` and the AC-pass-bank
-dual-stop line are upstream 0.119.5 diagnostics.
+dual-stop line are upstream 0.119.9 diagnostics.
 | `aggregate` | `"EXPECTED_FAILURE"` |
 | `pre-pr` | `"FINDING_RECORDED"` |
 | `review` | `"PASS"` |
@@ -149,7 +149,7 @@ in `red.json.focused.exitCode` and
 
 Run the lab's Node 22-or-newer capability assertion before `create`. The helper creates a
 unique OS-temporary repository on `training/capstone` with no remote.
-`install` contacts the public npm registry, verifies the exact 0.119.5 graph,
+`install` contacts the public npm registry, verifies the exact 0.119.9 graph,
 deposits Directive, and creates the clean fixture checkpoint.
 
 `orientation.json` then binds the project, branch, empty remote, exact

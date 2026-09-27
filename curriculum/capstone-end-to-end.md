@@ -7,16 +7,16 @@
 | Stable ID | `capstone-end-to-end` |
 | Status | Learner-ready |
 | Estimated time | 120 minutes |
-| Directive baseline | `@deftai/directive@0.119.5`; see the [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
-| Directive runtime | Node.js `22 or newer`; the verified local macOS run used `24.20.0` |
+| Directive baseline | `@deftai/directive@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
+| Directive runtime | Node.js `22 or newer`; the current Windows fixture proof used `26.8.1` |
 | Application compatibility | Node.js 20-compatible source is a source-level design constraint; no isolated Node.js 20 execution is claimed |
 | Prerequisite | [Module 12 — PR, Review, and Actual Completion](modules/12-review-and-completion.md) |
 | Practical work | [End-to-end capstone lab](../labs/capstone-end-to-end.md) |
 | Assessment | [Capstone evidence assessment](../assessments/capstone-end-to-end.md) |
 | Explained solution | [Capstone explained solution](../solutions/capstone-end-to-end.md) |
 
-The guarded fixture has local macOS/zsh evidence. Linux, Windows, and independent learner
-walkthrough validation remain separate candidate claims.
+The guarded 0.119.9 fixture passed 9 tests on Windows/PowerShell with 1 documented
+POSIX-only skip. Published walkthroughs, Linux/bash, and macOS/zsh remain candidates.
 
 ## Learning outcomes
 
@@ -42,7 +42,7 @@ Before starting, confirm all of the following:
 
 1. You completed Modules 1–12 or can produce their completion evidence.
 2. Node.js reports major version 22 or newer for the Directive proof. Record the
-   exact version you use; the verified platform matrix used `v24.20.0`.
+   exact version you use; the current Windows fixture proof used `v26.8.1`.
 3. You know the absolute path to this curriculum checkout, but your shell is in
    a new dedicated launcher under the operating-system temporary directory.
 4. The launcher is not a Git repository, the curriculum repository, a home or
@@ -51,8 +51,8 @@ Before starting, confirm all of the following:
 
 The application exercise itself remains Node.js 20-compatible as a source-level
 design constraint; no isolated Node.js 20 run is claimed. The full proof needs
-Node.js 22 or newer because pinned Directive 0.119.5 imports `globSync` from
-`node:fs`. Patch version `24.20.0` describes the verified local macOS/zsh run,
+Node.js 22 or newer because pinned Directive 0.119.9 imports `globSync` from
+`node:fs`. Patch version `26.8.1` describes the current Windows fixture run,
 not a learner requirement.
 
 If any check differs, stop before `create`. Use the matching recovery in the
@@ -106,7 +106,7 @@ identity, remotes, and the one-file product boundary independently of this prose
 ### CAP.1 — establish authority before mutation
 
 `create` makes one no-remote repository on `training/capstone`. `install`
-deposits the exact 0.119.5 graph and creates a clean checkpoint. `orient` records
+deposits the exact 0.119.9 graph and creates a clean checkpoint. `orient` records
 project, branch, remote, pin, proposed contract, and checkpoint.
 
 Before `activate`, complete this command-free recognition checkpoint in your

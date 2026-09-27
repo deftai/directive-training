@@ -20,7 +20,7 @@
       {
         "title": "In `labs/capstone-end-to-end.md` Environment and starting-state check, put the Labs 2/5 `$PSVersionTable.PSVersion -lt [version]'7.4'` throw as the first statement of the powershell fence that opens at line 94, before `$ErrorActionPreference`.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #79 head 9527bafe2d4cc22c89a680a2d2952305d4a58db8, merged as a841e3294d9b0efa4cc09968b784467ea9b21653: the Windows Environment fence in labs/capstone-end-to-end.md starts with `if ($PSVersionTable.PSVersion -lt [version]'7.4') { throw 'PowerShell 7.4 or newer is required' }` before `$ErrorActionPreference`; npm run check:capstone (36 artifacts, 0 missing) passed; leftover-complete npm run test:capstone passed 91/91 with 0 failures and 2 expected POSIX skips on native Windows, including rejection of a missing, displaced, or non-throwing first-statement guard and CRLF-authored mutations",
@@ -34,7 +34,7 @@
       {
         "title": "Add one `assert.match` on the existing `labEnvironment` slice in `scripts/verify-capstone.mjs` with Lab 2's regex `/\\$PSVersionTable\\.PSVersion -lt \\[version\\]'7\\.4'/`, and extend the existing Windows-start negative test in `scripts/verify-capstone.test.mjs`.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #79 head 9527bafe2d4cc22c89a680a2d2952305d4a58db8, merged as a841e3294d9b0efa4cc09968b784467ea9b21653: scripts/verify-capstone.mjs labEnvironment slice requires the Labs 2/5 `$PSVersionTable.PSVersion -lt [version]'7.4'` throw as the first Windows-start statement; leftover-complete npm run test:capstone passed 91/91 with 0 failures and 2 expected POSIX skips on native Windows, including verifier rejects a missing PowerShell 7.4 first-statement guard, a guard moved behind Windows start setup, a non-throwing Write-Host replacement, and CRLF-authored mutations",
@@ -48,7 +48,7 @@
       {
         "title": "Keep the check in the wrapper; the helper remains Node. Other PowerShell 7.4+ headed routes stay outside this recut.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #79 head 9527bafe2d4cc22c89a680a2d2952305d4a58db8, merged as a841e3294d9b0efa4cc09968b784467ea9b21653: implementation diff is labs/capstone-end-to-end.md, scripts/verify-capstone.mjs, and scripts/verify-capstone.test.mjs only; labs/fixtures/capstone-end-to-end/capstone-lab.mjs stayed Node with no helper-side shell check; Labs 7/10/11 and labs/README.md PowerShell 7.4+ routes were unchanged; leftover-complete npm run test:capstone passed 91/91 with 0 failures and 2 expected POSIX skips, and node --check labs/fixtures/capstone-end-to-end/capstone-lab.mjs passed",

@@ -262,7 +262,7 @@ test("create produces one unique guarded no-remote capstone repository", () => {
 
   const manifest = JSON.parse(read(join(root, "package.json")));
   assert.equal(manifest.private, true);
-  assert.equal(manifest.devDependencies["@deftai/directive"], "0.119.5");
+  assert.equal(manifest.devDependencies["@deftai/directive"], "0.119.9");
   const proposed = JSON.parse(read(join(root, "xbrief/proposed/2026-01-15-fictional-work-items.xbrief.json")));
   assert.equal(proposed.plan.status, "proposed");
   assert.deepEqual(proposed.plan.metadata.file_scope, ["src/work-items.mjs"]);
@@ -365,9 +365,9 @@ test("full rehearsal enforces ordered evidence through local closeout", { timeou
   const root = createAttempt({ callerRoot: makeLauncher() });
   const lifecycleKeepPath = "xbrief/active/.gitkeep";
   writeFileSync(join(root, lifecycleKeepPath), "");
-  assert.equal(main(["install", root]), "OK: installed Directive 0.119.5");
+  assert.equal(main(["install", root]), "OK: installed Directive 0.119.9");
   assert.equal(git(root, ["ls-files", "--error-unmatch", lifecycleKeepPath]).trim(), lifecycleKeepPath);
-  assert.equal(verifyPin(root), "0.119.5");
+  assert.equal(verifyPin(root), "0.119.9");
   assert.throws(() => main(["red", root]), /expected READY stage/);
 
   const toolProbe = join(root, ".lab-tools", "unexpected-tool");

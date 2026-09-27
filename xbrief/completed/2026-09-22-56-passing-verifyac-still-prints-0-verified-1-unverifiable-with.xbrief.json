@@ -17,7 +17,7 @@
       {
         "title": "Quote Lab 11 `verify:ac` PASS stdout beside Task 3 / Literal acceptance commands, using Lab 11 clause 1 text. Quote capstone PASS stdout beside literal/close, using the capstone work-items clause 1 text. Share the classification bullets. Keep the two stored npm commands as the literal-acceptance proof.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
@@ -28,7 +28,7 @@
       {
         "title": "Classify `unverifiable` here as an acceptance sentence with no bound artifact path, not as a failed focused test. Point learners at `literal.json.literalAcceptance.stdout` and `closeout.json.gate.currentHeadGate.stdout`.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
@@ -39,7 +39,7 @@
       {
         "title": "Classify `[rung=derived]` and the AC-pass-bank dual-stop line as upstream 0.119.5 diagnostics, not capstone closeout axes.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
@@ -50,7 +50,7 @@
       {
         "title": "Delete the bind-a-path alternative from this next-build contract.",
         "status": "completed",
-        "id": "clause:4",
+        "id": "clause.4",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
@@ -61,7 +61,7 @@
       {
         "title": "After the per-surface quotes land, lock them in `scripts/verify-module-11.mjs` and `scripts/verify-capstone.mjs`, and classify the same fragment in `solutions/lab-11-testing-gates-and-evidence.md` and `solutions/capstone-end-to-end.md`. Reuse Lab 2's quoted-evidence fence language.",
         "status": "completed",
-        "id": "clause:5",
+        "id": "clause.5",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",

@@ -17,7 +17,7 @@
       {
         "title": "Split `labs/capstone-end-to-end.md` Task 1 after `orient`. Reuse Task 3's split-fence shape and the explained-solution pause. Keep the checkpoint command-free.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
@@ -28,7 +28,7 @@
       {
         "title": "Point the pause at curriculum CAP.1 or assessment Task 1. Write the row into `$CAPSTONE_ASSESSMENT_NOTE` / `$CapstoneAssessmentNote` already set at lab 78 and 121. Do not paste the filled assessment row into the lab.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
@@ -39,7 +39,7 @@
       {
         "title": "Recut Checkpoints retained-proof and the Evidence bundle so they name the private `CAP-DC-01` row between `orient` and `activate`.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
@@ -50,7 +50,7 @@
       {
         "title": "Keep helper `PASS` on activate as the fixture transition. Recut the Task 1 expected line so helper green is the fixture transition and the private row is the CAP.1 routing evidence.",
         "status": "completed",
-        "id": "clause:4",
+        "id": "clause.4",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
@@ -61,7 +61,7 @@
       {
         "title": "Keep the existing PowerShell same-verbs sentence covering both verb groups after the pause. Do not add a unique Task 1 PowerShell fence.",
         "status": "completed",
-        "id": "clause:5",
+        "id": "clause.5",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",
@@ -72,7 +72,7 @@
       {
         "title": "Extend the existing assessment sequence assertion onto lab Task 1 in `scripts/verify-capstone.mjs`, with a negative test that one fence of `orient` then `activate` under that heading fails. Keep the command-free locks on curriculum, assessment, and solution.",
         "status": "completed",
-        "id": "clause:6",
+        "id": "clause.6",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "Shipped in https://github.com/deftai/directive-training/pull/57 (merge 0056f19a7f695be153b72e8422bfd449de5c2f30). Bound-remedy recut is on origin/master; Greptile 5/5 SHA-matched 60b9c58266ec6689cdafcc46f0de5b7e87ef07d7; windows-node24, linux-node24, macos-node24, and content-contract checks passed on that HEAD.",

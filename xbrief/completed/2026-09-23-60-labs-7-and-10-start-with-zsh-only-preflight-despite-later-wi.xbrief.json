@@ -20,7 +20,7 @@
       {
         "title": "At each Lab 7 and Lab 10 Environment and starting-state check, add a Windows starting-state branch for tools, helper path, create, and guard, reusing Lab 2/5/capstone environment-section branching and Lab 2 candidate heading text.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #77 head f0f596b0a3357c9ce7fa306d12dd4da6195b9dc9, merged as c8538d2e5c225692632b133826e4f53e4fc18d53: npm run check:module-7 (21 artifacts, 0 missing) and npm run check:module-10 (27 artifacts, 0 missing) passed; npm run test:module-7 passed 54/54 and npm run test:module-10 passed 34/34 on linux-node24 job 107674047628, including negative tests that reject a zsh-only Environment section, an unbranched zsh lead, and a Windows starting-state branch missing tools, helper path, create, or guard; labs CI run 36011780099 passed linux-node24, macos-node24, and windows-node24",
@@ -34,7 +34,7 @@
       {
         "title": "Keep the existing `## Native Windows PowerShell 7.4+ route` as a candidate whole-lab path, not as the starting-state check.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #77 head f0f596b0a3357c9ce7fa306d12dd4da6195b9dc9, merged as c8538d2e5c225692632b133826e4f53e4fc18d53: focused verifiers keep `## Native Windows PowerShell 7.4+ route` as a candidate whole-lab path and reject relabeling it as the starting-state check; npm run test:module-7 passed 54/54 and npm run test:module-10 passed 34/34 on linux-node24 job 107674047628; labs CI run 36011780099 passed linux-node24, macos-node24, and windows-node24",
@@ -48,7 +48,7 @@
       {
         "title": "For each lab, state whether that compressed route replaces Tasks 1-N or the learner still walks the ordered tasks.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #77 head f0f596b0a3357c9ce7fa306d12dd4da6195b9dc9, merged as c8538d2e5c225692632b133826e4f53e4fc18d53: focused tests reject dropping the ordered-task relationship and treating starting-state plus the compressed Native Windows route as a sequence; npm run test:module-7 passed 54/54 and npm run test:module-10 passed 34/34 on linux-node24 job 107674047628; labs CI run 36011780099 passed linux-node24, macos-node24, and windows-node24",
@@ -62,7 +62,7 @@
       {
         "title": "Keep `curriculum/README.md:176-179` as an allowed environment-blocked stop. Do not promote the compressed route to verified preflight.",
         "status": "completed",
-        "id": "clause:4",
+        "id": "clause.4",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #77 head f0f596b0a3357c9ce7fa306d12dd4da6195b9dc9, merged as c8538d2e5c225692632b133826e4f53e4fc18d53: focused verifiers keep the environment-blocked stop on both starting-state and compressed-route sections and reject promoting the compressed Windows route to verified preflight; npm run check:module-7 (21 artifacts, 0 missing), npm run check:module-10 (27 artifacts, 0 missing), npm run test:module-7 54/54, and npm run test:module-10 34/34 passed on linux-node24 job 107674047628; labs CI run 36011780099 passed linux-node24, macos-node24, and windows-node24",

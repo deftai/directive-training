@@ -258,7 +258,7 @@ for (const allowed of [
   "npm install --globalconfig NUL --userconfig .npmrc",
   "npm --globalconfig /dev/null install",
   "npm install --ignore-scripts --no-audit --no-fund",
-  "npm install @deftai/directive@0.119.5",
+  "npm install @deftai/directive@0.119.9",
   "npm ls @deftai/directive",
   "npm config get registry",
   "gh --version",
@@ -311,13 +311,13 @@ for (const [label, content] of [
 }
 
 for (const content of [module2, lab2, lab2Solution]) {
-  assert.match(content, /0\.119\.5/, "Module 2 path must use the exact Directive pin");
+  assert.match(content, /0\.119\.9/, "Module 2 path must use the exact Directive pin");
   assert.match(content, /no[- ]remote/i, "Module 2 path must preserve the no-remote guard");
   assert.doesNotMatch(content, /doctor[^\n]*--repo-root/, "doctor must use the verified --project-root flag");
 }
 assert.match(
   module2,
-  /"overrides"[\s\S]*"@deftai\/directive-content": "0\.119\.5"[\s\S]*"@deftai\/directive-core": "0\.119\.5"[\s\S]*"@deftai\/directive-types": "0\.119\.5"/,
+  /"overrides"[\s\S]*"@deftai\/directive-content": "0\.119\.9"[\s\S]*"@deftai\/directive-core": "0\.119\.9"[\s\S]*"@deftai\/directive-types": "0\.119\.9"/,
   "Module 2 must show the Lab 2 overrides that lock core, content, and types",
 );
 assert.match(
@@ -689,7 +689,7 @@ assert.match(
   /verify:codebase-map-fresh --help[\s\S]{0,220}(?:runs|performs)[\s\S]{0,80}check/i,
   "Module 2 must warn that command-specific help can execute a verifier",
 );
-// The pinned 0.119.5 engine cannot emit `Missing directory: xbrief/`: that string is
+// The pinned 0.119.9 engine cannot emit `Missing directory: xbrief/`: that string is
 // reserved for framework-content and engine-deposit rows, and the lifecycle row has its own
 // wording. Teaching it -- even behind an "if it appears" hedge -- locks a false evidence
 // lesson into the first executable lab, so the three learner files must teach the warning a
@@ -722,6 +722,11 @@ assert.match(
   lab2,
   /canonical-vendored-npm-signpost[\s\S]{0,900}npm i -g @deftai\/directive@latest[\s\S]{0,400}directive migrate/i,
   "Lab 2 must quote the signpost message with its recommended npm install and migrate action",
+);
+assert.match(
+  lab2,
+  /Signpost advisory: canonical-vendored-npm-signpost:/,
+  "Lab 2 must quote the 0.119.9 signpost label before the stable warning identity",
 );
 assert.match(
   lab2,
@@ -791,7 +796,7 @@ const fixture = JSON.parse(read("labs/fixtures/02-disposable-initialization/pack
 assert.equal(fixture.private, true, "the fictional lab fixture must be private");
 assert.equal(
   fixture.devDependencies?.["@deftai/directive"],
-  "0.119.5",
+  "0.119.9",
   "the lab fixture must pin @deftai/directive exactly",
 );
 assert.deepEqual(
@@ -802,9 +807,9 @@ assert.deepEqual(
 assert.deepEqual(
   fixture.overrides,
   {
-    "@deftai/directive-content": "0.119.5",
-    "@deftai/directive-core": "0.119.5",
-    "@deftai/directive-types": "0.119.5",
+    "@deftai/directive-content": "0.119.9",
+    "@deftai/directive-core": "0.119.9",
+    "@deftai/directive-types": "0.119.9",
   },
   "the lab fixture must pin the complete Directive package graph",
 );
@@ -1048,7 +1053,64 @@ for (const triggerPath of [
 
 const sourceNotes = read("references/SOURCE-NOTES.md");
 const sourceBaseline = read("references/SOURCE-BASELINE.md");
-const releaseCommit = "75e7d33f114b0e2e67741257813c095e74d9668f";
+const nodeRuntimeContracts = [
+  [
+    "README.md",
+    read("README.md"),
+    /@deftai\/directive@0\.119\.9` \(Node ≥ 22 for this project/,
+  ],
+  [
+    "curriculum/README.md",
+    read("curriculum/README.md"),
+    /Node\.js 22 or newer for the command-based core modules/,
+  ],
+  [
+    "curriculum/modules/02-installation-and-anatomy.md",
+    module2,
+    /\*\*Pass:\*\* Node reports version 22 or newer/,
+  ],
+  [
+    "labs/02-disposable-initialization.md",
+    lab2,
+    /Node\.js 22 or newer[\s\S]{0,900}\*\*Pass:\*\* every command exits 0 and Node reports 22 or newer/,
+  ],
+  [
+    "solutions/lab-02-disposable-initialization.md",
+    lab2Solution,
+    /\| Node\.js 22\+ version other than the verified 24 line \| It satisfies this course's runtime floor \|/,
+  ],
+  [
+    "references/SOURCE-BASELINE.md",
+    sourceBaseline,
+    /course requires Node\.js 22 or newer for the 0\.119\.9 consumer runtime/,
+  ],
+];
+for (const [relativePath, content, expectedPrerequisite] of nodeRuntimeContracts) {
+  assert.match(content, expectedPrerequisite, `${relativePath} must teach the Node.js 22 consumer floor`);
+}
+for (const [relativePath, content] of nodeRuntimeContracts.slice(0, -1)) {
+  assert.doesNotMatch(
+    content,
+    /Node(?:\.js)?\s*(?:≥|>=)\s*20|Node\.js 20\+|Node\.js 20 or newer|Node reports (?:version )?20 or newer/,
+    `${relativePath} must not retain the unsupported Node.js 20 consumer floor`,
+  );
+}
+assert.match(
+  sourceBaseline,
+  /getting-started prose[\s\S]{0,120}Node 20\+[\s\S]{0,300}glob expansion source[\s\S]{0,180}globSync[\s\S]{0,180}added in 22\.0\.0/,
+  "SOURCE-BASELINE must distinguish upstream Node 20 prose from the released Node 22 runtime floor",
+);
+assert.match(
+  lab2Solution,
+  /A pre-seeded pin proves what init creates[\s\S]{0,240}unpinned 0\.119\.9 probe created its own private exact CLI pin/,
+  "the Lab 2 solution must distinguish the fixture's pre-seeded graph from current init behavior",
+);
+assert.doesNotMatch(
+  lab2Solution,
+  /0\.119\.9 did not; the exact fixture pin preceded init/,
+  "the Lab 2 solution must not retain the old pre-0.119.9 init-pin behavior",
+);
+const releaseCommit = "8c9108bfa106719ab340379d6b9c958c8f9a2523";
 const normalizeReferenceId = (value) => value.trim().replace(/\s+/g, " ").toLowerCase();
 const normalizeReferenceDestination = (value) =>
   value.startsWith("<") && value.endsWith(">") ? value.slice(1, -1) : value;
@@ -1113,32 +1175,31 @@ for (const platformId of ["macos-zsh", "linux-bash", "windows-pwsh7"]) {
 assert.deepEqual(
   platformProof.get("macos-zsh"),
   {
-    status: "verified",
-    date: "2026-09-20",
-    evidence: "baseline-upgrade-65-of-65",
+    status: "candidate",
+    date: "2026-09-26",
+    evidence: "not-run-at-0.119.9",
   },
-  "macOS/zsh must point to the current local 0.119.5 learner-path proof",
+  "macOS/zsh must remain a candidate until a current 0.119.9 replay exists",
 );
-for (const platformId of ["linux-bash", "windows-pwsh7"]) {
-  assert.deepEqual(
-    platformProof.get(platformId),
-    {
-      status: "candidate",
-      date: "2026-09-20",
-      evidence: "not-run",
-    },
-    platformId + " must remain a candidate until a native 0.119.5 replay exists",
-  );
-}
+assert.deepEqual(platformProof.get("linux-bash"), {
+  status: "candidate",
+  date: "2026-09-26",
+  evidence: "not-run-at-0.119.9",
+}, "linux-bash must remain a candidate until a current 0.119.9 replay exists");
+assert.deepEqual(platformProof.get("windows-pwsh7"), {
+  status: "candidate",
+  date: "2026-09-26",
+  evidence: "baseline-upgrade-69-pass-6-skip-dedicated-linked-path-preflight-eperm",
+}, "windows-pwsh7 must distinguish fixture evidence from full platform support");
 assert.match(
   sourceBaseline,
-  /Linux\/bash and Windows\/PowerShell remain candidates pending native replay/,
+  /separate `npm run test:linked-path-safety` command remains fail-closed[\s\S]{0,180}`EPERM`/,
   "SOURCE-BASELINE must bound the current platform evidence",
 );
 assert.match(
   lab2,
-  /(?:macOS\/zsh[^\n]*(?:verified|learner-ready)|(?:verified|learner-ready)[^\n]*macOS\/zsh)/i,
-  "Lab 2 must match the verified macOS marker",
+  /macOS\/zsh[^\n]*candidate/i,
+  "Lab 2 must match the candidate macOS marker",
 );
 assert.match(
   lab2,
@@ -1147,8 +1208,8 @@ assert.match(
 );
 assert.match(
   lab2,
-  /Windows\/PowerShell[^\n]*candidate|candidate[^\n]*Windows\/PowerShell/i,
-  "Lab 2 must match the candidate Windows marker",
+  /Windows\/PowerShell[^\n]*helper verified[^\n]*walkthrough candidate/i,
+  "Lab 2 must distinguish the verified Windows helper from the candidate walkthrough",
 );
 for (const relativePath of [
   "README.md",
@@ -1162,8 +1223,8 @@ for (const relativePath of [
   const content = read(relativePath);
   assert.match(
     content,
-    /(?:verified[\s\S]{0,180}macOS\/zsh|macOS\/zsh[\s\S]{0,180}verified)/i,
-    relativePath + " must label macOS/zsh as verified",
+    /(?:candidate[\s\S]{0,240}macOS\/zsh|macOS\/zsh[\s\S]{0,240}candidate)/i,
+    relativePath + " must label macOS/zsh as a candidate",
   );
   assert.match(
     content,
@@ -1172,8 +1233,13 @@ for (const relativePath of [
   );
   assert.match(
     content,
-    /(?:candidate[\s\S]{0,180}Windows\/PowerShell|Windows\/PowerShell[\s\S]{0,180}candidate)/i,
-    relativePath + " must label Windows/PowerShell as a candidate",
+    /(?:verified[\s\S]{0,240}Windows(?:\/PowerShell)?|Windows(?:\/PowerShell)?[\s\S]{0,240}verified)/i,
+    relativePath + " must label the Windows fixture as verified",
+  );
+  assert.match(
+    content,
+    /(?:candidate[\s\S]{0,240}Windows(?:\/PowerShell)?|Windows(?:\/PowerShell)?[\s\S]{0,240}candidate)/i,
+    relativePath + " must label the published Windows walkthrough as a candidate",
   );
 }
 assert.match(
@@ -1183,12 +1249,12 @@ assert.match(
 );
 assert.match(
   sourceBaseline,
-  /unpinned disposable no-remote `init --json` emitted parseable JSON and created the exact private package pin and 0\.119\.5 generation/,
+  /unpinned disposable no-remote `init --json` emitted parseable JSON and created the exact private package pin and 0\.119\.9 generation/,
   "SOURCE-BASELINE must record the successful current JSON init probe",
 );
 assert.doesNotMatch(
   sourceBaseline,
-  /released command rejects that separator|Pass the xBRIEF path directly for 0\.119\.5/,
+  /released command rejects that separator|Pass the xBRIEF path directly for 0\.119\.9/,
   "SOURCE-BASELINE must not retain the resolved 0.111.0 separator workaround",
 );
 

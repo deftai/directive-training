@@ -48,3 +48,6 @@ vbrief/*.lock
 vbrief/.eval/results/
 xbrief/.eval/results/
 .deft/core/
+
+# Deft framework: ignore local-only caches and scratch directories
+.deft-scratch/

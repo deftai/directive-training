@@ -16,7 +16,7 @@
     },
     "items": [
       {
-        "id": "clause:1",
+        "id": "clause.1",
         "title": "Extend Module 6 within its existing pacing with O6.4, a required command-free route / no route / insufficient-evidence matrix over three fixed fictional fact patterns. Every row must pass a self-checkable rubric by identifying the controlling fact, choosing the correct disposition, and naming the safe next action; the route row also names the proposed mechanism revision. Thread this artifact through the Module 6 prompt, acceptance criteria, completion record, self-assessment, mandatory explained solution, assessment map, and positive and negative verifier fixtures that reject presence-only and keyword-only answers.",
         "status": "completed",
         "x-directive/evidence": {
@@ -27,7 +27,7 @@
         }
       },
       {
-        "id": "clause:2",
+        "id": "clause.2",
         "title": "Require the passing O6.4 artifact in Module 7's starting-state check before the executable lifecycle lab. Keep the hold curricular and human-semantic: Directive 0.119.2 does not compute mechanism-shaped status, and scope:promote is not fail-closed on that judgment.",
         "status": "completed",
         "x-directive/evidence": {
@@ -38,7 +38,7 @@
         }
       },
       {
-        "id": "clause:3",
+        "id": "clause.3",
         "title": "Add a command-free fixed-state practicum after current Module 8 with stable ID `module-09-design-critique-arcs` and four observable outcomes: route the scenario and distinguish arc, round, target revision, and ordinary review; select charter and spend and complete a default N=1 envelope while distinguishing isolation from trust; classify findings and build a total take map with independent-audit recognition; and decide retry, halt, verified synthesis, or later ingest while separating catalog chips, completed-arc clearance, and implementation authority.",
         "status": "completed",
         "x-directive/evidence": {
@@ -49,7 +49,7 @@
         }
       },
       {
-        "id": "clause:4",
+        "id": "clause.4",
         "title": "Give every fictional card or comment a stable source ID. Preserve and cite instruction-shaped content, refuse it, record its attempted effect as a finding, and continue the bounded critique. Include two individually incomplete fragments that become instruction-shaped only when combined; the passing response attributes both IDs, refuses the aggregate, records the finding, and continues. Treat inertness as a fixture and exercise-procedure property, never a Directive runtime guarantee.",
         "status": "completed",
         "x-directive/evidence": {
@@ -60,7 +60,7 @@
         }
       },
       {
-        "id": "clause:5",
+        "id": "clause.5",
         "title": "Use this globally unique current outcome map: new Module 9 design critique uses `O9.6`–`O9.9`; former Module 9 implementation, now Module 10, maps `O9.1`–`O9.5` to `O10.5`–`O10.9`; former Module 10 testing, now Module 11, maps `O10.1`–`O10.4` to `O11.5`–`O11.8`; former Module 11 review, now Module 12, maps `O11.1`–`O11.4` to `O12.1`–`O12.4`. Apply the same map to current assessments, solutions, verifiers, evidence labels, and navigation, and add a negative fixture that rejects any current outcome ID already present in the protected historical corpus.",
         "status": "completed",
         "x-directive/evidence": {
@@ -71,7 +71,7 @@
         }
       },
       {
-        "id": "clause:6",
+        "id": "clause.6",
         "title": "Keep `xbrief/proposed/2026-09-05-modules-9-11-implementation-gates-and-review.xbrief.json` at its existing path and retain `training.modules9-11`, `training.modules9-11.implementation`, `training.modules9-11.gates`, and `training.modules9-11.review` as opaque lifecycle lineage keys. Change its human-facing description, plan title, and three item titles to Modules 10–12; keep its completed-child reference triples unchanged; keep the capstone's `training.modules9-11` dependency; and give issue #4 and the new practicum fresh identities that reuse none of those keys.",
         "status": "completed",
         "x-directive/evidence": {
@@ -82,7 +82,7 @@
         }
       },
       {
-        "id": "clause:7",
+        "id": "clause.7",
         "title": "Regenerate PROJECT-DEFINITION so the proposed registry entry retains its filename-derived ID and source path but displays the Modules 10–12 title. Regenerate ROADMAP so Proposed displays Modules 10–12 while completed rows remain historical. Preserve every completed xBRIEF, `history/**`, `.deft/approved-scope/**`, prior-evidence artifact, and existing completed registry-item subtree byte-for-byte.",
         "status": "completed",
         "x-directive/evidence": {
@@ -93,7 +93,7 @@
         }
       },
       {
-        "id": "clause:8",
+        "id": "clause.8",
         "title": "Atomically migrate every non-allowlisted current assertion across learner lessons, labs, fixtures, solutions, stable IDs, paths, navigation, assessments, capstone prerequisites, PROJECT-DEFINITION narratives, root and curriculum README/course maps, current source-baseline and source-notes headings, glossary and quick-reference links, maintainer commands, verifier scripts and tests, package tasks, workflow names and path filters, and course count, order, and duration.",
         "status": "completed",
         "x-directive/evidence": {
@@ -104,7 +104,7 @@
         }
       },
       {
-        "id": "clause:9",
+        "id": "clause.9",
         "title": "Close the old-number allowlist to exact occurrences and semantic fields, never an entire file, directory, object, symbol, or container. The permitted occurrences are only: the unchanged proposed-parent filename and four opaque plan/item ID values; that parent's completed-child reference triples; the proposed registry entry's filename-derived ID and source-path values; the capstone's single opaque parent dependency value; individually enumerated immutable historical locator, selector, path, and ID values needed by the renumbered Module 10/11/12 verifiers; explicit negative-fixture input literals; the executable migration allowlist's own enumerated entries; protected historical files and completed registry subtrees; explicitly historical ROADMAP rows, CHANGELOG, COST-ESTIMATE, and source-note fields; the issue transcript; and the structured decision's before/after fields. Everything else must use current numbering.",
         "status": "completed",
         "x-directive/evidence": {
@@ -115,7 +115,7 @@
         }
       },
       {
-        "id": "clause:10",
+        "id": "clause.10",
         "title": "In renumbered verifiers, group permitted stable values in a named `historicalLineage` object for readability, but grant no exemption from that object or symbol name. Each member must match an individually allowed semantic field and exact value. Current prose, verifier messages, headings, task names, automation assertions, and executable branch labels remain forbidden regardless of their containing file, object, or variable.",
         "status": "completed",
         "x-directive/evidence": {
@@ -126,7 +126,7 @@
         }
       },
       {
-        "id": "clause:11",
+        "id": "clause.11",
         "title": "Add a mutation case that inserts an old-number current assertion into an otherwise permitted verifier or `historicalLineage` container and require the migration scan to fail. Keep negative fixtures scoped to explicit test inputs so they cannot exempt adjacent production assertions.",
         "status": "completed",
         "x-directive/evidence": {
@@ -137,7 +137,7 @@
         }
       },
       {
-        "id": "clause:12",
+        "id": "clause.12",
         "title": "Record a structured one-time pre-MVP decision containing the display-number mapping, globally unique outcome map, retained lineage keys, occurrence-and-field-scoped historical allowlist, and no-reuse rule. The exception does not weaken the general no-renumber-after-publication rule.",
         "status": "completed",
         "x-directive/evidence": {
@@ -148,7 +148,7 @@
         }
       },
       {
-        "id": "clause:13",
+        "id": "clause.13",
         "title": "Before edits, record a digest manifest for protected historical files and canonical snapshots of completed PROJECT-DEFINITION items. After both renders, prove lineage resolution, Modules 10–12 display, global current-outcome uniqueness, absence of non-allowlisted stale numbering, byte-identical protected files, and structurally identical completed registry subtrees; then run focused curriculum verifiers, the container-laundering mutation case, negative fixtures, literal acceptance commands, roadmap/project freshness checks, and the aggregate deft check.",
         "status": "completed",
         "x-directive/evidence": {

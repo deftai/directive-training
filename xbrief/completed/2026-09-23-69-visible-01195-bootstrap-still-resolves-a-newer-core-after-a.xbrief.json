@@ -21,7 +21,7 @@
       {
         "title": "Bind one topology: claim-and-gate recut. Relieved `P1` is the gap between learner-visible exact-core claims and the installed graph. Caret resolution of `@deftai/directive@0.119.5` (CLI 0.119.5, nested 0.119.7) is an upstream packaging fact reported on deftai/directive#4766; it is not a local exact-bootstrap remainder. Lab 2 / project-local fixture `overrides` plus `verifyInstalledGraph` remains the exact four-package 0.119.5 proof. The visible bootstrap (README rungs 1-4, unversioned global, and prefix CLI pin) is availability and recovery, not graph-exact. Do not add an isolated-prefix exact ladder. A SOURCE-BASELINE policy recut that would permit a training-root install or lockfile is a later issue.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #91 head c35f287cbe5c966e03bfa609481b0715d5125301, merged as b87266f6cd22816799a09dd75e2cc2fc8088aff7: learner-visible exact-core claims name the Lab 2/project-local CLI-plus-overrides graph while README bootstrap remains availability and recovery; leftover-complete npm run check:modules-2-3 passed (20 artifacts, 0 missing), check:modules-4-5 through check:module-12 passed, and node --test scripts/directive-bootstrap-runtime.test.mjs passed 4/4 with 0 failures, characterizing pinned mixed CLI 0.119.5 / nested 0.119.9 without an isolated-prefix exact ladder",
@@ -36,7 +36,7 @@
       {
         "title": "Do not reuse Lab 2 `verifyInstalledGraph` equality on the host-global route. Do not invent a seventh fixture helper.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #91 head c35f287cbe5c966e03bfa609481b0715d5125301, merged as b87266f6cd22816799a09dd75e2cc2fc8088aff7: scripts/directive-bootstrap-runtime.test.mjs reads nested versions via nestedGraph and does not reuse Lab 2 verifyInstalledGraph equality on the host-global route; no seventh fixture helper was added; leftover-complete node --test scripts/directive-bootstrap-runtime.test.mjs passed 4/4 with 0 failures",
@@ -51,7 +51,7 @@
       {
         "title": "Take `README.md:4` off this remainder's recut list. Recut every learner-visible exact-core row still in force so exact core 0.119.5 means the fixture-local graph: module records 1-12 as written; Lab 2; current-claim points in `SOURCE-BASELINE.md` and `SOURCE-NOTES.md`; `references/SOURCE-BASELINE.md:33` disposable-probe conjunct and `references/SOURCE-BASELINE.md:34` live-authoring-CLI conjunct (keep the Exact package graph fixture sentence, the integrities, the 2026-09-20 verification row, and the SOURCE-NOTES unpinned-init bullet dated 2026-09-20); content tests that pin the module-record string; matching solution keys `solutions/module-01-what-directive-is.md:16`, `solutions/module-03-authority-and-context.md:15`, `solutions/module-04-xbrief-as-durable-state.md:15`, `solutions/module-06-creating-well-shaped-work.md:16`, `solutions/module-08-session-and-work-selection.md:7`, `solutions/module-09-design-critique-arcs.md:16`, `solutions/module-12-review-and-completion.md:7`; `solutions/lab-02-disposable-initialization.md:16`; and `curriculum/modules/02-installation-and-anatomy.md:164-172` (show the Lab 2 `overrides` block, or state that the fence is the CLI pin only and that `overrides` locks core/content/types; extend `scripts/verify-modules-2-3.mjs` if the fence changes). Keep the dated historical bind and hashes. Keep Module 1 command-free. Leave Labs 5/7/10/11/capstone records that already name the project-local graph.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #91 head c35f287cbe5c966e03bfa609481b0715d5125301, merged as b87266f6cd22816799a09dd75e2cc2fc8088aff7: module records 1-12, named solution keys, Lab 2, SOURCE-BASELINE.md, SOURCE-NOTES.md, and Module 2 overrides teaching recut exact 0.119.5 onto the fixture-local graph while keeping historical binds, hashes, and Module 1 command-free; leftover-complete check:modules-2-3 passed (20 artifacts, 0 missing), check:modules-4-5 (10 artifacts), check:module-6 through check:module-12 passed, and node --test scripts/verify-module-8.test.mjs scripts/verify-module-10.test.mjs scripts/verify-module-12.test.mjs passed 92/92 with 0 failures",
@@ -66,7 +66,7 @@
       {
         "title": "Keep `scripts/teaching-baseline.mjs` as the CLI-pin coupler. Keep `scripts/verify-cold-start-readme.mjs` top-level as the hermetic structural check. Attach nested bootstrap observation as a sibling runtime module invoked from `test:runtime` under a different file, not from top-level `verify-cold-start-readme.mjs`. Append that new file path to `package.json` `scripts.test:runtime`. Name `scripts/verify-text-portability.test.mjs` among the consumers that must stay off the install; keep its four-file copy set closed. Isolated global-prefix install of `@deftai/directive@0.119.5` is the pinned caret characterization; read all four versions from the installed CLI's nested resolution tree. Unversioned global bootstrap is a separate latest-version observation. Temporary prefix, isolated npm userconfig and globalconfig, Lab 2 `withoutHostNpmConfig`, first assert a newer compatible release exists in the caret range or report not-exercised. Do not reach that install from `test:content` / `scripts/teaching-baseline.test.mjs`. Characterization of mixed resolution. Do not frame the test around 0.119.6. Do not assert four-package equality to 0.119.5 on the mixed route.",
         "status": "completed",
-        "id": "clause:4",
+        "id": "clause.4",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #91 head c35f287cbe5c966e03bfa609481b0715d5125301, merged as b87266f6cd22816799a09dd75e2cc2fc8088aff7: scripts/directive-bootstrap-runtime.test.mjs is appended to package.json scripts.test:runtime, uses a temporary global prefix, isolated npm user/global config and cache, and --ignore-scripts, and characterizes mixed nested resolution separately from unversioned latest; leftover-complete node --test scripts/directive-bootstrap-runtime.test.mjs passed 4/4 with 0 failures (pinned mixed CLI 0.119.5 / nested 0.119.9; unversioned latest observed at 0.119.9), npm run test:teaching-baseline passed 6/6, npm run check:cold-start-readme passed, and npm run test:portability passed 67/67 with 0 failures",
@@ -81,7 +81,7 @@
       {
         "title": "Literal `@0.119.5` on cold-start rung 3 stays on issue 63. That edit is not this harvest.",
         "status": "completed",
-        "id": "clause:5",
+        "id": "clause.5",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #91 head c35f287cbe5c966e03bfa609481b0715d5125301, merged as b87266f6cd22816799a09dd75e2cc2fc8088aff7: inherited issue #63 literal @0.119.5 cold-start enforcement remains on scripts/verify-cold-start-readme.mjs and scripts/teaching-baseline.mjs; the registry characterization is absent from test:content and the portability four-file copy set; leftover-complete npm run check:cold-start-readme passed, npm run test:teaching-baseline passed 6/6, and npm run test:portability passed 67/67 with 0 failures",

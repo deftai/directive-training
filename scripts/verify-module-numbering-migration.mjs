@@ -22,7 +22,7 @@ const CAPSTONE_PARENT_PATH = "xbrief/proposed/2026-09-05-disposable-end-to-end-c
 const DECISION_PATH = "xbrief/decisions/2026-09-18-insert-a-new-current-module-9-design-critique-practicum-renumber.decision.json";
 const ISSUE_PATH = "xbrief/active/2026-09-18-4-refactor-core-curriculum-to-add-required-module-7-on-directi.xbrief.json";
 const EXPECTED_SOURCE_COMMIT = "40fa2753af025dc6a3c4bc62754246ae6fdfd6ea";
-const EXPECTED_BASELINE_DIGEST = "sha256:347291df5a953f923ef0f8f47475ab465e3843d503175e606e75a9ba2ffc0725";
+const EXPECTED_BASELINE_DIGEST = "sha256:77ed3478de2fcfb205e103b8b522c7bb2ab30ed0af3ddce01ed732113e520ae2";
 const ISSUE_TRANSCRIPT_COMMENT_IDS = Object.freeze([
   5707793958, 5707871635, 5707916641, 5707938532, 5707940177, 5707956318,
   5708038144, 5708042690, 5708056751, 5714259300, 5714373154, 5714388952,
@@ -109,12 +109,6 @@ const STALE_PATTERNS = Object.freeze([
 ]);
 
 const HISTORICAL_TEXT_EXCEPTIONS = Object.freeze([
-  ["ROADMAP.md", joined("- Module ", "11: PR, Review, and Actual Completion -- `[completed]`")],
-  ["ROADMAP.md", joined("- Module ", "10: Testing, Gates, and Evidence -- `[completed]`")],
-  ["ROADMAP.md", joined("- **#34** -- Module ", "9: The Implementation Golden Path -- `[completed]`")],
-  ["ROADMAP.md", joined("- **#78** -- Complete native Windows learner paths for Labs 7, ", "9, and 10 -- `[completed]`")],
-  ["ROADMAP.md", joined("- **#77** -- Labs 7/", "9/10 happy-path tests run unconditionally on unsupported Windows -- `[completed]`")],
-  ["ROADMAP.md", joined("- **#66** -- Labs 7/", "9/10 Windows install fails with npm.cmd EINVAL instead of the documented not-learner-ready stop -- `[completed]`")],
   ["CHANGELOG.md", joined("Module ", "11, a command-free fixed-state pre-PR, review-finding")],
   ["CHANGELOG.md", joined("Module ", "10, a testing-and-gates lesson")],
   ["CHANGELOG.md", joined("Module ", "9, a readiness-before-mutation lesson, guarded disposable implementation lab")],
@@ -603,7 +597,7 @@ export function verifyStaleNumbering(root, {
   for (const path of scanPaths.sort()) {
     const absolute = resolve(root, path);
     if (!existsSync(absolute) || !lstatSync(absolute).isFile()) continue;
-    const text = readFileSync(absolute, "utf8");
+    const text = readFileSync(absolute, "utf8").replace(/\r\n/g, "\n");
     const spans = [
       ...historicalLineageSpans(path, text, historicalLineage),
       ...negativeFixtureSpans(path, text, negativeFixtures),

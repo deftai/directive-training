@@ -22,6 +22,10 @@ import {
   verifyLocalBinary,
   verifyPin,
 } from "../labs/fixtures/05-projection-drift-recovery/projection-lab.mjs";
+import {
+  isWindowsSymlinkCapabilityUnavailable,
+  verifyWindowsSymlinkCapability,
+} from "./verify-symlink-capability.mjs";
 
 const read = (path) => readFileSync(path, "utf8");
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
@@ -34,11 +38,31 @@ const helpers = [
   "labs/fixtures/capstone-end-to-end/capstone-lab.mjs",
 ];
 
+let capabilitySkipReason = null;
+try {
+  verifyWindowsSymlinkCapability();
+} catch (error) {
+  if (!isWindowsSymlinkCapabilityUnavailable(error)) throw error;
+  capabilitySkipReason =
+    "Windows symlink capability is unavailable (EPERM); " +
+    "the dedicated npm run test:linked-path-safety command remains fail-closed.";
+}
+
+function linkedPathTest(name, assertion) {
+  test(name, (t) => {
+    if (capabilitySkipReason) {
+      t.skip(capabilitySkipReason);
+      return;
+    }
+    assertion();
+  });
+}
+
 function fakeGraph(root) {
   for (const name of ["directive", "directive-core", "directive-content", "directive-types"]) {
     const directory = join(root, "node_modules", "@deftai", name);
     mkdirSync(directory, { recursive: true });
-    writeFileSync(join(directory, "package.json"), JSON.stringify({ version: "0.119.5" }));
+    writeFileSync(join(directory, "package.json"), JSON.stringify({ version: "0.119.9" }));
   }
   mkdirSync(join(root, "node_modules/.bin"));
   mkdirSync(join(root, "node_modules/@deftai/directive/dist"));
@@ -63,7 +87,7 @@ function windowsShimFixture() {
   return root;
 }
 
-test("lab helper entry detection accepts alternate symbolic paths for the same file", () => {
+linkedPathTest("lab helper entry detection accepts alternate symbolic paths for the same file", () => {
   const aliasRoot = mkdtempSync(join(tmpdir(), "3ci-lab-helper-alias-"));
   for (const [index, relativePath] of helpers.entries()) {
     const helper = join(repositoryRoot, relativePath);
@@ -76,7 +100,7 @@ test("lab helper entry detection accepts alternate symbolic paths for the same f
   }
 });
 
-test("Windows launcher and target symbolic links are rejected", () => {
+linkedPathTest("Windows launcher and target symbolic links are rejected", () => {
   const root = windowsShimFixture();
   const launcher = join(root, "node_modules/.bin/directive.cmd");
   renameSync(launcher, launcher + ".retained");
@@ -90,7 +114,7 @@ test("Windows launcher and target symbolic links are rejected", () => {
   assert.throws(() => verifyLocalBinary(second, "win32"), /symlink/);
 });
 
-test("projection guard rejects symbolic source ancestors", () => {
+linkedPathTest("projection guard rejects symbolic source ancestors", () => {
   const root = createAttempt();
   renameSync(join(root, "xbrief"), join(root, "xbrief-original"));
   symlinkSync(join(root, "xbrief-original"), join(root, "xbrief"), "dir");
@@ -113,7 +137,7 @@ test("projection guard rejects symbolic source ancestors", () => {
   archiveAttempt(root);
 });
 
-test("MAP symbolic link is refused before mutation reaches evidence", () => {
+linkedPathTest("MAP symbolic link is refused before mutation reaches evidence", () => {
   const root = createAttempt();
   const outside = join(root, "../evidence.md");
   const original = read(outside);
@@ -124,10 +148,10 @@ test("MAP symbolic link is refused before mutation reaches evidence", () => {
   archiveAttempt(root);
 });
 
-test("verifyPin rejects a symbolic package graph", () => {
+linkedPathTest("verifyPin rejects a symbolic package graph", () => {
   const root = createAttempt();
   fakeGraph(root);
-  assert.equal(verifyPin(root), "0.119.5");
+  assert.equal(verifyPin(root), "0.119.9");
   renameSync(join(root, "node_modules"), join(root, "node_modules-original"));
   symlinkSync(join(root, "node_modules-original"), join(root, "node_modules"), "dir");
   assert.throws(() => verifyPin(root), /symlink/);

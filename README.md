@@ -5,7 +5,7 @@
 >
 > 1. **Already installed?** Run `directive doctor` (or the `deft` alias). If it runs, you're bootstrapped — skip the rest and follow its `Next command:`.
 > 2. **Local engine.** If `.deft/.cli/<platform>` holds an intact engine at or above the `package.json` pin, use it.
-> 3. **Global install (canonical).** `npm i -g @deftai/directive@0.119.5` (Node ≥ 20), then re-run `directive doctor`. Using pnpm? `pnpm add -g @deftai/directive@0.119.5` (same package, same registry) — make sure `PNPM_HOME` is on your `PATH` (`pnpm setup` if not). These commands align the selected CLI package with the committed teaching pin; they do not lock its transitive package graph.
+> 3. **Global install (canonical).** `npm i -g @deftai/directive@0.119.9` (Node ≥ 22 for this project; see `references/SOURCE-BASELINE.md`), then re-run `directive doctor`. Using pnpm? `pnpm add -g @deftai/directive@0.119.9` (same package, same registry) — make sure `PNPM_HOME` is on your `PATH` (`pnpm setup` if not). These commands align the selected CLI package with the committed teaching pin; they do not lock its transitive package graph.
 > 4. **Sandbox install.** If the global npm prefix isn't writable (sandboxed environment), install into the project instead: `npm install --prefix .deft/.cli/<platform> @deftai/directive@<pinned>`. (This internal `.deft/.cli/` layout is always npm-shaped, regardless of your project's package manager.)
 > 5. **Corporate mirror symptoms.** If install returns `E404` / `ETARGET`, or `@latest` silently stays behind the public release, follow the [corporate or mirrored npm registry recovery](https://github.com/deftai/directive/blob/master/content/UPGRADING.md#corporate-or-mirrored-npm-registry).
 > 6. **Offline.** If the npm registry is unreachable, install from a staged tarball / vendored payload. If none exists, stage one — recovery cannot proceed without a payload.
@@ -26,7 +26,7 @@ this Markdown; they will not replace it as the source of truth.
 ## Start here
 
 1. Confirm the prerequisites in the [course map](curriculum/README.md).
-2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.5<!-- /directive-training:teaching-baseline --> with xBRIEF
+2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.9<!-- /directive-training:teaching-baseline --> with xBRIEF
    schema 0.8.
 3. Complete [Module 1: What Directive Is](curriculum/modules/01-what-directive-is.md),
    [Module 2: Installation and Project Anatomy](curriculum/modules/02-installation-and-anatomy.md),
@@ -62,12 +62,15 @@ drift notes that are intentionally outside the beginner sequence.
 
 Modules 1–12 and the capstone are implemented and learner-ready. The curriculum
 remains an internal alpha until representative learner pilots complete; that
-release-maturity label does not mean the authored modules are partial. The 0.119.5 executable
-path is verified locally on macOS/zsh. Modules 4, 6, 8, 9, and 12 are command-free. Linux/bash
-and Windows/PowerShell remain candidates pending pin-matched native evidence.
+release-maturity label does not mean the authored modules are partial. The 0.119.9
+non-symlink executable fixtures are verified locally on Windows/PowerShell. The dedicated
+linked-path lane remains capability-gated on this host. Modules 4, 6, 8, 9, and 12 are
+command-free. Published macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs remain
+candidates pending current-release native evidence.
 Modules 9 and 12 use fixed fictional packets and need no lab fixture. The
-guarded capstone fixture is verified locally on macOS/zsh; native Linux, Windows, and
-independent learner walkthrough evidence remain separate claims.
+guarded capstone fixture is verified locally on Windows/PowerShell with its documented
+POSIX-only case skipped; native Linux, macOS, and independent learner walkthrough evidence
+remain separate claims.
 
 ## Safety boundary
 

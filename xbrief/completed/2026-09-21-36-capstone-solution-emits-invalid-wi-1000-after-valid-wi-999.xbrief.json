@@ -21,7 +21,7 @@
       {
         "title": "Keep bounded `WI-NNN` (`/^WI-\\d{3}$/`). Refuse the unbounded `WI-<digits>` alternative on this issue.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "narrative": {
           "Acceptance": "Keep bounded `WI-NNN` (`/^WI-\\d{3}$/`). Refuse the unbounded `WI-<digits>` alternative on this issue.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
@@ -37,7 +37,7 @@
       {
         "title": "Allocation stays max-suffix + 1. Generated-from-empty is `WI-001`. `WI-000` remains a legal existing identifier. Add refuses once a collection already holds `WI-999`, even when lower identifiers are free.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "narrative": {
           "Acceptance": "Allocation stays max-suffix + 1. Generated-from-empty is `WI-001`. `WI-000` remains a legal existing identifier. Add refuses once a collection already holds `WI-999`, even when lower identifiers are free.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
@@ -53,7 +53,7 @@
       {
         "title": "After `validateItems` and the highest-suffix calculation, and before constructing the item, throw `RangeError` with one stable phrase. Pin that type and message on `labs/capstone-end-to-end.md`, both solution listings, Valid alternatives, the supplied test, and `scripts/verify-capstone.mjs`.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "narrative": {
           "Acceptance": "After `validateItems` and the highest-suffix calculation, and before constructing the item, throw `RangeError` with one stable phrase. Pin that type and message on `labs/capstone-end-to-end.md`, both solution listings, Valid alternatives, the supplied test, and `scripts/verify-capstone.mjs`.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
@@ -69,7 +69,7 @@
       {
         "title": "Put the guard in `scripts/capstone-lab.test.mjs` `greenImplementation` after the reduce so `reviewedImplementation` inherits it. There is no second authored source.",
         "status": "completed",
-        "id": "clause:4",
+        "id": "clause.4",
         "narrative": {
           "Acceptance": "Put the guard in `scripts/capstone-lab.test.mjs` `greenImplementation` after the reduce so `reviewedImplementation` inherits it. There is no second authored source.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
@@ -85,7 +85,7 @@
       {
         "title": "Bind the protected comparison as a frozen supplied test in `labs/fixtures/capstone-end-to-end/test/work-items.test.mjs` that `recordGreen` already runs: call `addWorkItem` on a valid collection whose maximum suffix is `999`, assert the documented `RangeError`, and prove the input is unchanged. Keep the 50-item ordinary-range test and add one direct `WI-999` case. Do not carry that comparison in a helper-owned probe modeled on `duplicateProbe`. Do not delete `duplicateProbe`.",
         "status": "completed",
-        "id": "clause:5",
+        "id": "clause.5",
         "narrative": {
           "Acceptance": "Bind the protected comparison as a frozen supplied test in `labs/fixtures/capstone-end-to-end/test/work-items.test.mjs` that `recordGreen` already runs: call `addWorkItem` on a valid collection whose maximum suffix is `999`, assert the documented `RangeError`, and prove the input is unchanged. Keep the 50-item ordinary-range test and add one direct `WI-999` case. Do not carry that comparison in a helper-owned probe modeled on `duplicateProbe`. Do not delete `duplicateProbe`.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
@@ -101,7 +101,7 @@
       {
         "title": "Land the learner-facing bullet on `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green list, in the same change as that test.",
         "status": "completed",
-        "id": "clause:6",
+        "id": "clause.6",
         "narrative": {
           "Acceptance": "Land the learner-facing bullet on `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green list, in the same change as that test.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
@@ -117,7 +117,7 @@
       {
         "title": "Extend `scripts/verify-capstone.mjs` to assert that boundary on the lab, both listings, supplied test, and rehearsal copy. Add mutation tests that remove the focused boundary case or the guard from the green rehearsal string.",
         "status": "completed",
-        "id": "clause:7",
+        "id": "clause.7",
         "narrative": {
           "Acceptance": "Extend `scripts/verify-capstone.mjs` to assert that boundary on the lab, both listings, supplied test, and rehearsal copy. Add mutation tests that remove the focused boundary case or the guard from the green rehearsal string.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
@@ -133,7 +133,7 @@
       {
         "title": "Update the authored \"five supplied tests\" count with the suite.",
         "status": "completed",
-        "id": "clause:8",
+        "id": "clause.8",
         "narrative": {
           "Acceptance": "Update the authored \"five supplied tests\" count with the suite.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."
@@ -149,7 +149,7 @@
       {
         "title": "Leftover issue 38 is the assessment naming surface only. Lab and explained-solution naming of the bound ride this harvest.",
         "status": "completed",
-        "id": "clause:9",
+        "id": "clause.9",
         "narrative": {
           "Acceptance": "Leftover issue 38 is the assessment naming surface only. Lab and explained-solution naming of the bound ride this harvest.",
           "Traces": "Accepted bound remedy on deftai/directive-training#36, successor lean comment 5761685555, confirmed by parent synthesis 5762676188 and verified-claims table 5762673659; pain-audit 5762633722 returned footnote-only. Relieves recorded pain P1; pain P2 assessment naming is operator-deferred to issue 38."

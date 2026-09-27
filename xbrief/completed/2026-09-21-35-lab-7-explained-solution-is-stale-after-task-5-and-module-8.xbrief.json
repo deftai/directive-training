@@ -21,7 +21,7 @@
       {
         "title": "Refresh `solutions/lab-07-scope-lifecycle.md` itself so Result summary, worked approach, acceptance evidence, comparison, Expected failures and recovery, Retry plan, and Reset and cleanup name Task 5, the four retained fields (path, `xbrief:verify` command, exit code, result), and the four Task 5 boundary clauses: verify is not a lifecycle move; a green result grants no promotion, activation, or implementation authority; `xbrief:preflight` and `doctor` are not the authoring-validity pass; and a green structural result does not prove version `0.8`, proposed status, observable acceptance, or traces. Cross-link `solutions/module-06-creating-well-shaped-work.md#structural-record` for the long table. Do not paste the Module 6 shaping rubric into Lab 7.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "narrative": {
           "Acceptance": "Refresh `solutions/lab-07-scope-lifecycle.md` itself so Result summary, worked approach, acceptance evidence, comparison, Expected failures and recovery, Retry plan, and Reset and cleanup name Task 5, the four retained fields (path, `xbrief:verify` command, exit code, result), and the four Task 5 boundary clauses: verify is not a lifecycle move; a green result grants no promotion, activation, or implementation authority; `xbrief:preflight` and `doctor` are not the authoring-validity pass; and a green structural result does not prove version `0.8`, proposed status, observable acceptance, or traces. Cross-link `solutions/module-06-creating-well-shaped-work.md#structural-record` for the long table. Do not paste the Module 6 shaping rubric into Lab 7.",
           "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
@@ -37,7 +37,7 @@
       {
         "title": "Keep Outcomes covered as O7.1–O7.4. Name Task 5 as adjacent Module 6 O6.2 evidence. Do not add O6.2 or O7.5 to the Lab 7 outcome set.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "narrative": {
           "Acceptance": "Keep Outcomes covered as O7.1–O7.4. Name Task 5 as adjacent Module 6 O6.2 evidence. Do not add O6.2 or O7.5 to the Lab 7 outcome set.",
           "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
@@ -53,7 +53,7 @@
       {
         "title": "Keep the Continue sentence that returns to Module 7 self-assessment. Replace the whole false planned-claim, including \"use the course map rather than assuming a future filename is ready,\" with a working link to `../curriculum/modules/08-session-and-work-selection.md`. Lock that path-correct form. Do not copy Module 7 Navigation's `08-session-and-work-selection.md` href, which is broken from `solutions/`. The course map may remain a secondary pointer after that working link.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "narrative": {
           "Acceptance": "Keep the Continue sentence that returns to Module 7 self-assessment. Replace the whole false planned-claim, including \"use the course map rather than assuming a future filename is ready,\" with a working link to `../curriculum/modules/08-session-and-work-selection.md`. Lock that path-correct form. Do not copy Module 7 Navigation's `08-session-and-work-selection.md` href, which is broken from `solutions/`. The course map may remain a secondary pointer after that working link.",
           "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
@@ -69,7 +69,7 @@
       {
         "title": "In Compare with your attempt or Retry plan, send a Task 5 miss to Module 6 Part B re-authoring plus rerun of the same command against the same path, retaining both exit codes. Do not route that miss through a Lab 7 outcome retry or a fresh-root reinstall.",
         "status": "completed",
-        "id": "clause:4",
+        "id": "clause.4",
         "narrative": {
           "Acceptance": "In Compare with your attempt or Retry plan, send a Task 5 miss to Module 6 Part B re-authoring plus rerun of the same command against the same path, retaining both exit codes. Do not route that miss through a Lab 7 outcome retry or a fresh-root reinstall.",
           "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
@@ -85,7 +85,7 @@
       {
         "title": "Add that Lab 7 solution to `scripts/verify-module-6.mjs` `requiredFiles` and lock the four-field Task 5 comparison plus \"adds no Lab 7 outcome\" and the four boundary clauses. Update the module-6 synthetic fixture to author a Lab 7 solution body carrying those locked strings, and update the `artifactCount` 15 assertions. On `scripts/verify-module-7.mjs` refuse the retired planned-claim clauses and require the path-correct Module 8 lesson link. Mirror those mutations in `scripts/verify-module-6.test.mjs` and `scripts/verify-module-7.test.mjs`.",
         "status": "completed",
-        "id": "clause:5",
+        "id": "clause.5",
         "narrative": {
           "Acceptance": "Add that Lab 7 solution to `scripts/verify-module-6.mjs` `requiredFiles` and lock the four-field Task 5 comparison plus \"adds no Lab 7 outcome\" and the four boundary clauses. Update the module-6 synthetic fixture to author a Lab 7 solution body carrying those locked strings, and update the `artifactCount` 15 assertions. On `scripts/verify-module-7.mjs` refuse the retired planned-claim clauses and require the path-correct Module 8 lesson link. Mirror those mutations in `scripts/verify-module-6.test.mjs` and `scripts/verify-module-7.test.mjs`.",
           "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."
@@ -101,7 +101,7 @@
       {
         "title": "Bump the solution `Last verified` date with the recut. Do not widen this recut to a Windows verification claim.",
         "status": "completed",
-        "id": "clause:6",
+        "id": "clause.6",
         "narrative": {
           "Acceptance": "Bump the solution `Last verified` date with the recut. Do not widen this recut to a Windows verification claim.",
           "Traces": "Accepted bound remedy on deftai/directive-training#35, successor lean comment 5761087800, confirmed by parent synthesis 5761303748 and verified-claims table 5761289742; pain-audit 5761267735 returned footnote-only. Relieves recorded pains P1 and P2."

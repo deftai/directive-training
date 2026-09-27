@@ -7,10 +7,10 @@
 | Stable ID | `solution-lab-07-scope-lifecycle` |
 | Solves | [Lab 7 — Scope Lifecycle](../labs/07-scope-lifecycle.md) |
 | Outcomes covered | O7.1, O7.2, O7.3, O7.4 |
-| Status | Learner-ready draft for the verified macOS/zsh path |
-| Last verified | 2026-09-21 |
-| Directive baseline | CLI/core/content/types `0.119.5`; [source baseline](../references/SOURCE-BASELINE.md) |
-| Platform limit | Linux/bash and Windows/PowerShell are candidates and are not verified or learner-ready for this lab |
+| Status | Learner-ready draft; 0.119.9 executable fixture verified on Windows/PowerShell |
+| Last verified | 2026-09-26 |
+| Directive baseline | CLI/core/content/types `0.119.9`; [source baseline](../references/SOURCE-BASELINE.md) |
+| Platform limit | The published shell walkthrough remains a candidate; Linux/bash and macOS/zsh have no current-release native replay |
 
 The lab helper is course tooling around released commands; it is not itself a
 Directive guarantee.
@@ -28,7 +28,8 @@ blocks you, read it immediately—but retry from a fresh attempt before claiming
 The pinned Directive engine rejected proposed preflight with exit `1`. The Task lifecycle
 then produced `pending/pending` and `active/running`; the separate obsolete scope became
 `cancelled/cancelled`. Explicit current intent preceded session start, the gated ritual, and
-active preflight, all of which passed. Completion produced `completed/completed`.
+active preflight, all of which passed. Directive then stamped engine-owned test evidence for
+the path-bound process criterion before completion produced `completed/completed`.
 
 Lab 7 Task 5 then checked the scope authored in Module 6 Part B. The retained
 `evidence/authored-verify.txt` carried all four fields: the artifact **path**, the exact
@@ -45,7 +46,7 @@ exact guarded parent into a recoverable temporary archive. No product code or re
 | Outcome | Correct conclusion | Evidence |
 | --- | --- | --- |
 | O7.1 | Proposed scope is shaped candidate state, not implementation-ready active state. | Pinned preflight exit `1`, nonzero Task wrapper exit, unchanged proposed pair |
-| O7.2 | Lifecycle commands own folder/status transitions; manual moves do not. | Task exits `0`; pending, active/running, completed, and cancelled pairs |
+| O7.2 | Lifecycle commands own folder/status transitions; manual moves do not. | Task exits `0`; pending, active/running, evidence stamp, completed, and cancelled pairs |
 | O7.3 | Current authority requires active/running scope plus live implementation intent; current gates establish readiness. | `liveIntent`, then session start, ritual, and active preflight exits `0` |
 | O7.4 | Recovery preserves evidence by creating a new root; archive is an exact recoverable move. | Different reset paths, readable original JSON, guarded archive path |
 
@@ -81,6 +82,7 @@ In the verified sequence:
 | Promote | `proposed/proposed` | `pending/pending` | `0` |
 | Activate | `pending/pending` | `active/running` | `0` |
 | Cancel obsolete story | `proposed/proposed` | `cancelled/cancelled` | `0` |
+| Stamp acceptance evidence | `active/running` | `active/running` with typed test evidence | `0` |
 | Complete delivery story | `active/running` | `completed/completed` | `0` |
 
 The unusual `running` status in the `active/` folder is intentional. Folder and status have
@@ -92,7 +94,7 @@ The helper invokes both the exact local Directive binary and the consumer Task s
 engine exits `1`. On the verified go-task 3.50.0 host, the Task process returns `201` while
 reporting its child exit `1`.
 
-Retain both. Use `1` for the Directive 0.119.5 behavior claim. Use the
+Retain both. Use `1` for the Directive 0.119.9 behavior claim. Use the
 Task result as environment evidence and require only that it is nonzero on an unverified Task
 version or platform. Hiding one exit loses useful diagnostic context; treating `201` as an
 engine guarantee overclaims it.
@@ -117,11 +119,11 @@ Run the lab's environment block from the course root. A correct start has:
 ```text
 .../3ci-directive-lab07-<unique>/repo
 training/module-07
-@deftai/directive (engine: @deftai/directive-core@0.119.5)
+@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)
 ```
 
 The empty `git remote` output is evidence, not missing setup. The helper verifies the exact
-CLI/core/content/types graph and the deposited 0.119.5 version. Its isolated Task PATH keeps
+CLI/core/content/types graph and the deposited 0.119.9 version. Its isolated Task PATH keeps
 another installed Directive version from taking precedence.
 
 The generated workspace-local USER.md is fictional attempt state. It is ignored and never
@@ -147,8 +149,8 @@ Expected first evidence fields:
 }
 ```
 
-The displayed Task value is from the verified macOS/zsh/go-task environment. A different
-nonzero Task wrapper result can still satisfy the candidate path if the pinned engine exit is
+The displayed Task value is from the verified Windows/PowerShell/go-task environment. A different
+nonzero Task wrapper result can still satisfy a candidate path if the pinned engine exit is
 `1` and the diagnostic names the proposed boundary.
 
 ### Step 3 — Read the lifecycle as a sequence
@@ -237,7 +239,7 @@ and `evidence/`. Record the new path. This is recoverable cleanup, not deletion.
 | Outcome | Required evidence | Passing interpretation |
 | --- | --- | --- |
 | O7.1 | Proposed engine exit `1`, nonzero Task exit, diagnostic, proposed pair | The expected failure is understood and retained. |
-| O7.2 | Promote, activate, cancel, complete exits `0`; final guarded files | Commands produced matching folder/status pairs. |
+| O7.2 | Promote, activate, cancel, stamp evidence, and complete exit `0`; final guarded files | Commands produced matching folder/status pairs and typed criterion evidence. |
 | O7.3 | Explicit current intent; session start, ritual, active preflight exits `0` in order | Current authority and readiness were established without conflation. |
 | O7.4 | Different guarded reset root; old evidence readable; retained/archive locations | Recovery did not overwrite evidence or widen the target. |
 
@@ -247,7 +249,7 @@ artifact **path**, the exact `xbrief:verify` **command**, the **exit code** `0`,
 Lab 7 outcome, so this table keeps its four O7 rows, and the four Task 5 boundary clauses in
 Step 5 govern how the green result may be read.
 
-Also retain the exact 0.119.5 package graph and empty remote value. A screenshot of final
+Also retain the exact 0.119.9 package graph and empty remote value. A screenshot of final
 folders alone does not prove O7.1 or O7.3.
 
 ## Compare with your attempt
@@ -347,8 +349,8 @@ Task 5 boundary clauses in Step 5 hold across both routes.
 
 - [Module 7 source validation](../references/SOURCE-NOTES.md#module-7-source-validation)
 - [Directive source baseline](../references/SOURCE-BASELINE.md#module-7-lifecycle-validation)
-- [Pinned Commands source](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/commands.md)
-- [Pinned Main source](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/main.md)
+- [Pinned Commands source](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md)
+- [Pinned Main source](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/main.md)
 
 ## Continue
 

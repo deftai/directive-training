@@ -91,8 +91,8 @@ test("Module 11 content contract accepts active and completed lifecycle states",
 
 test("verifier rejects a stale or ranged learner baseline", () => {
   const root = changedCopy("curriculum/modules/11-testing-gates-and-evidence.md", (body) => body.replaceAll(
-    "@deftai/directive@0.119.5",
-    "@deftai/directive@0.119.5–0.114.0",
+    "@deftai/directive@0.119.9",
+    "@deftai/directive@0.119.9–0.114.0",
   ));
   assert.throws(() => verifyModule11(root), /stale or ranged Directive baseline/);
 });
@@ -157,8 +157,8 @@ test("verifier rejects losing the separate LAB11_ROOT export fence", () => {
 
 test("verifier rejects Task or uv pins in the Lab 11 starting-state contract", () => {
   const root = changedCopy(lab11Path, (body) => body.replace(
-    "Use Node.js 20 or later, npm, Git, Task, and `uv`.",
-    "Use Node.js 20 or later, npm, Git, `Task` 3.50.0, and `uv` 0.11.10.",
+    "Use Node.js 22 or later, npm, Git, Task, and `uv`.",
+    "Use Node.js 22 or later, npm, Git, `Task` 3.50.0, and `uv` 0.11.10.",
   ));
   assert.throws(() => verifyModule11(root), /resolution checks only/);
 });
@@ -172,8 +172,8 @@ for (const pinnedTool of [
 ]) {
   test(`verifier rejects the natural-language pin ${pinnedTool}`, () => {
     const root = changedCopy(lab11Path, (body) => body.replace(
-      "Use Node.js 20 or later, npm, Git, Task, and `uv`.",
-      `Use Node.js 20 or later, npm, Git, Task, and \`uv\`; require ${pinnedTool}.`,
+      "Use Node.js 22 or later, npm, Git, Task, and `uv`.",
+      `Use Node.js 22 or later, npm, Git, Task, and \`uv\`; require ${pinnedTool}.`,
     ));
     assert.throws(() => verifyModule11(root), /resolution checks only/);
   });
@@ -219,7 +219,7 @@ test("verifier rejects losing Module 11's forward link to Module 12", () => {
   assert.throws(() => verifyModule11(root), /link forward to Module 12/);
 });
 
-test("verifier rejects promoting Windows without current native evidence", () => {
+test("verifier rejects promoting full Windows platform support from fixture-only evidence", () => {
   const root = changedCopy("references/SOURCE-BASELINE.md", (body) => body.replace(
     "teaching-platform-proof:windows-pwsh7 status=candidate",
     "teaching-platform-proof:windows-pwsh7 status=verified",
@@ -227,10 +227,10 @@ test("verifier rejects promoting Windows without current native evidence", () =>
   assert.throws(() => verifyModule11(root), /windows-pwsh7/);
 });
 
-test("verifier rejects a course index that drops candidate platforms", () => {
+test("verifier rejects a course index that drops the fixture-versus-walkthrough boundary", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Red-green-refactor and diagnose a gate failure |",
-    "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh only | Red-green-refactor and diagnose a gate failure |",
+    "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Red-green-refactor and diagnose a gate failure |",
+    "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; Windows verified | Red-green-refactor and diagnose a gate failure |",
   ));
   assert.throws(() => verifyModule11(root), /current platform boundary/);
 });
@@ -305,7 +305,7 @@ test("verifier rejects a Lab 11 Task 3 inspect fragment missing a retained stdou
     `  ${retainedFocusedCommand}\n`,
     "",
   ));
-  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.5 stdout/);
+  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.9 stdout/);
 });
 
 test("verifier rejects an explained-solution inspect fragment missing a retained stdout token", () => {
@@ -314,7 +314,7 @@ test("verifier rejects an explained-solution inspect fragment missing a retained
     `${retainedBankedLine}\n`,
     "",
   ));
-  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.5 stdout/);
+  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.9 stdout/);
 });
 
 test("verifier rejects swapping or inserting between the two retained command lines", () => {
@@ -359,7 +359,7 @@ test("verifier rejects dropping literal-acceptance classification from Lab 11 Ta
     "That is the literal-acceptance proof.",
     "That is the overall pass signal.",
   ));
-  assert.throws(() => verifyModule11(root), /must classify retained 0\.119\.5 stdout: literal-acceptance proof/);
+  assert.throws(() => verifyModule11(root), /must classify retained 0\.119\.9 stdout: literal-acceptance proof/);
 });
 
 test("verifier rejects a missing Module 11 outcome mapping", () => {
@@ -368,7 +368,7 @@ test("verifier rejects a missing Module 11 outcome mapping", () => {
 });
 
 test("verifier rejects an altered exact fixture pin", () => {
-  const root = changedCopy("labs/fixtures/11-testing-gates-and-evidence/package.json", (body) => body.replaceAll("0.119.5", "^0.119.5"));
+  const root = changedCopy("labs/fixtures/11-testing-gates-and-evidence/package.json", (body) => body.replaceAll("0.119.9", "^0.119.9"));
   assert.throws(() => verifyModule11(root), /exact Directive pin/);
 });
 

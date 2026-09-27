@@ -20,7 +20,7 @@
       {
         "title": "Drop the helper-copy alternative from this next-build contract.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #81 head 871a6a67ea3243fbe5ecad545ce850f140f66904, merged as c749e086d4589fd3306807120cad43e76461252f: labs/07-scope-lifecycle.md pause tells the learner to write the Task 5 record at the printed destination and states the helper has no copy-in verb; scripts/verify-module-7.mjs rejects Copy-Item on the Native Windows route and requires pause prose `no copy-in verb`; leftover-complete npm run check:module-7 passed (21 artifacts, 0 missing) and npm run test:module-7 passed 63/63 with 0 failures, including verifier rejects a Lab 7 Windows route that adds a helper copy-in verb",
@@ -36,7 +36,7 @@
       {
         "title": "Recut `labs/07-scope-lifecycle.md` 414-457. Phase A ends after create / guard / install / run and `Write-Host` of absolute `$LabRoot` and `$Authored`. Prose then carries the Task 5 write instruction. Phase B starts with `Test-Path` / `guard`, then verify / reset / archive using retained variables.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #81 head 871a6a67ea3243fbe5ecad545ce850f140f66904, merged as c749e086d4589fd3306807120cad43e76461252f: labs/07-scope-lifecycle.md Native Windows route has distinct Phase A and Phase B PowerShell fences; Phase A ends after create, guard, install, run, and Write-Host of absolute $LabRoot and $Authored; prose carries the Task 5 write instruction; Phase B starts with Test-Path of $Authored then guard before verify, reset, and archive on retained variables; leftover-complete npm run check:module-7 passed (21 artifacts, 0 missing) and npm run test:module-7 passed 63/63 with 0 failures, including rejection of a one-fence paste-through, Phase A Test-Path of $Authored, a dropped Write-Host, a Read-Host in-fence pause, and Phase B verify-before-guard",
@@ -52,7 +52,7 @@
       {
         "title": "Copy the four Task 5 boundary clauses onto the Windows pause. Keep `$Authored` and the CLI under the installed first root. Do not promote or activate the authored record. Keep Windows as a candidate platform.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "PR #81 head 871a6a67ea3243fbe5ecad545ce850f140f66904, merged as c749e086d4589fd3306807120cad43e76461252f: the Windows pause states the authored record is untrusted input, keeps $Authored, the CLI, and --out under the installed first root, retains path, command, exit, and result, and grants no promotion, activation, or implementation authority while Windows stays a candidate platform; leftover-complete npm run check:module-7 passed (21 artifacts, 0 missing) and npm run test:module-7 passed 63/63 with 0 failures, including verifier rejects a Lab 7 pause that drops the untrusted-input boundary",

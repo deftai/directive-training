@@ -21,7 +21,7 @@
       {
         "title": "In `assessments/capstone-end-to-end.md`, under heading `### Task 2 — Produce green and diagnose the broader gate (CAP.2)`, recut the paragraph that currently says implement only the visible work-item contract so it names the same monotonic refusal once a collection already holds `WI-999`, even when lower identifiers are free, and throws `RangeError` with the exact message string the issue-36-landed `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green-list bullet and both `solutions/capstone-end-to-end.md` listings use once those bytes are on origin/master. Type `RangeError` and the 999 rule are specified here. Do not author a second message on this issue.",
         "status": "completed",
-        "id": "clause:1",
+        "id": "clause.1",
         "narrative": {
           "Acceptance": "In `assessments/capstone-end-to-end.md`, under heading `### Task 2 — Produce green and diagnose the broader gate (CAP.2)`, recut the paragraph that currently says implement only the visible work-item contract so it names the same monotonic refusal once a collection already holds `WI-999`, even when lower identifiers are free, and throws `RangeError` with the exact message string the issue-36-landed `labs/capstone-end-to-end.md` Task 2 (`CAP.2`) green-list bullet and both `solutions/capstone-end-to-end.md` listings use once those bytes are on origin/master. Type `RangeError` and the 999 rule are specified here. Do not author a second message on this issue.",
           "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
@@ -37,7 +37,7 @@
       {
         "title": "Do not add that sentence to CAP.2 progressive hints. Those hints stay evidence-layer.",
         "status": "completed",
-        "id": "clause:2",
+        "id": "clause.2",
         "narrative": {
           "Acceptance": "Do not add that sentence to CAP.2 progressive hints. Those hints stay evidence-layer.",
           "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
@@ -53,7 +53,7 @@
       {
         "title": "Keep the Required evidence manifest `green.json` row's empty-collection add probe as `WI-001 / Capture capstone evidence / open`. That row stays compatible; it is not the exhaustion namer.",
         "status": "completed",
-        "id": "clause:3",
+        "id": "clause.3",
         "narrative": {
           "Acceptance": "Keep the Required evidence manifest `green.json` row's empty-collection add probe as `WI-001 / Capture capstone evidence / open`. That row stays compatible; it is not the exhaustion namer.",
           "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
@@ -69,7 +69,7 @@
       {
         "title": "Extend `scripts/verify-capstone.mjs` so the extracted assessment Task 2 (`cap2Task`) must contain that 999 / `RangeError` sentence. Add a `changedCopy(\"assessments/capstone-end-to-end.md\", …)` mutation in `scripts/verify-capstone.test.mjs` that removes the sentence and fails.",
         "status": "completed",
-        "id": "clause:4",
+        "id": "clause.4",
         "narrative": {
           "Acceptance": "Extend `scripts/verify-capstone.mjs` so the extracted assessment Task 2 (`cap2Task`) must contain that 999 / `RangeError` sentence. Add a `changedCopy(\"assessments/capstone-end-to-end.md\", …)` mutation in `scripts/verify-capstone.test.mjs` that removes the sentence and fails.",
           "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
@@ -85,7 +85,7 @@
       {
         "title": "Do not skip the assessment with \"where it carries the contract.\"",
         "status": "completed",
-        "id": "clause:5",
+        "id": "clause.5",
         "narrative": {
           "Acceptance": "Do not skip the assessment with \"where it carries the contract.\"",
           "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
@@ -101,7 +101,7 @@
       {
         "title": "Do not land lab or explained-solution naming here; those ride issue 36.",
         "status": "completed",
-        "id": "clause:6",
+        "id": "clause.6",
         "narrative": {
           "Acceptance": "Do not land lab or explained-solution naming here; those ride issue 36.",
           "Traces": "Accepted bound remedy on deftai/directive-training#38, successor lean comment 5763422919, confirmed by parent synthesis 5763640716 and verified-claims table 5763628682; pain-audit 5763568758 upheld both cites. Relieves recorded pains P1 and P2. Leftover of the #36 Stop 1 P2 assessment-naming conjunct."
