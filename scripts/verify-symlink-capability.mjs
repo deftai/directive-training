@@ -3,6 +3,36 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
+const WINDOWS_SYMLINK_CAPABILITY_CODE = "ERR_WINDOWS_SYMLINK_CAPABILITY";
+
+class WindowsSymlinkCapabilityFailure extends Error {
+  constructor(type, cause) {
+    super(`${type} symlink creation is unavailable`, { cause });
+    this.name = "WindowsSymlinkCapabilityFailure";
+    this.code = WINDOWS_SYMLINK_CAPABILITY_CODE;
+  }
+}
+
+const isWindowsPrivilegeFailure = (error) =>
+  error instanceof Error && error.code === "EPERM";
+
+/**
+ * Distinguish an expected Windows symlink privilege boundary from probe infrastructure errors.
+ *
+ * @param {unknown} error
+ * @returns {boolean}
+ */
+export function isWindowsSymlinkCapabilityUnavailable(error) {
+  const seen = new Set();
+  let current = error;
+  while (current && typeof current === "object" && !seen.has(current)) {
+    seen.add(current);
+    if (current.code === WINDOWS_SYMLINK_CAPABILITY_CODE) return true;
+    current = current.cause;
+  }
+  return false;
+}
+
 /**
  * Verify the Windows capabilities required by linked-path safety tests.
  *
@@ -22,8 +52,19 @@ export function verifyWindowsSymlinkCapability({
       probeSymlink(type);
       checked.push(type);
     } catch (error) {
-      const errorCode = error instanceof Error ? (error.code ?? error.name) : "Error";
-      const errorMessage = error instanceof Error ? error.message : String(error);
+      // A supplied probe is a unit-test seam for the symlink operation itself. The native
+      // probe tags only an EPERM thrown by symlinkSync, so temp-directory, file-I/O, and
+      // cleanup failures remain ordinary test failures even when their own code is EPERM.
+      const capabilityFailure = error instanceof WindowsSymlinkCapabilityFailure
+        ? error
+        : probeSymlink !== probeNativeSymlink && isWindowsPrivilegeFailure(error)
+          ? new WindowsSymlinkCapabilityFailure(type, error)
+          : null;
+      if (!capabilityFailure) throw error;
+
+      const cause = capabilityFailure.cause;
+      const errorCode = cause instanceof Error ? (cause.code ?? cause.name) : "Error";
+      const errorMessage = cause instanceof Error ? cause.message : String(cause);
       const detail = errorMessage.startsWith(`${errorCode}: `)
         ? errorMessage
         : `${errorCode}: ${errorMessage}`;
@@ -31,7 +72,7 @@ export function verifyWindowsSymlinkCapability({
         `Windows symlink capability preflight failed: ${type} symlink creation is unavailable (${detail}). ` +
           "Full Windows safety sign-off is incomplete; linked-path safety assertions were not run, passed, or skipped. " +
           "Re-run from an operator-approved symlink-capable session, such as Developer Mode or an elevated shell.",
-        { cause: error },
+        { cause: capabilityFailure },
       );
     }
   }
@@ -47,7 +88,14 @@ function probeNativeSymlink(type) {
     const link = join(root, `${type}-link`);
     if (type === "file") writeFileSync(target, "symlink capability probe\n");
     else mkdirSync(target);
-    symlinkSync(target, link, type);
+    try {
+      symlinkSync(target, link, type);
+    } catch (error) {
+      if (isWindowsPrivilegeFailure(error)) {
+        throw new WindowsSymlinkCapabilityFailure(type, error);
+      }
+      throw error;
+    }
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

@@ -20,6 +20,7 @@ const EXPECTED_WARNING_IDS = ["canonical-vendored-npm-signpost"];
 const ANSI = /\u001b\[[0-9;]*m/g;
 const SUMMARY = /^(.*?)System check completed with (\d+) warning/;
 const CHECK_ID = /^([A-Za-z0-9][A-Za-z0-9._-]*):\s/;
+const SIGNPOST_LABEL = /^Signpost advisory:\s*/;
 
 /**
  * @param {string} rawText captured `directive doctor --full` output
@@ -65,7 +66,11 @@ export function checkDoctorWarningSet(rawText, expectedWarningIds = EXPECTED_WAR
   const warningRows = lines.filter((line, index) => isWarningRow(line, index));
   const warningIds = warningRows.map((line) => {
     const remainder = line.slice(marker.length).trim();
-    const identified = remainder.match(CHECK_ID);
+    // Directive 0.119.9 renders signpost warnings with a human-facing category before the
+    // stable check id. Strip only that known category; the exact identity comparison below
+    // still rejects renamed, missing, or additional warning checks.
+    const identityText = remainder.replace(SIGNPOST_LABEL, "");
+    const identified = identityText.match(CHECK_ID);
     return identified ? identified[1] : remainder.slice(0, 80);
   });
 

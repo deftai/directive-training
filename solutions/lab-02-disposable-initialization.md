@@ -287,7 +287,7 @@ action].” Do not copy an expected warning into your evidence if your run did n
 | Alternative | Why it can pass | Evidence required | When it fails |
 | --- | --- | --- | --- |
 | Organization-approved npm mirror | It may supply the same public package through approved infrastructure | Exact local CLI/core/content 0.119.9 and no credential in evidence | The mirror resolves a different version or requires undocumented secret handling |
-| Node.js 20+ version other than the verified 24 line | It satisfies Directive's consumer minimum | Toolchain check exit 0 and all lab commands pass | The runtime is unsupported by the organization or changes observed behavior |
+| Node.js 22+ version other than the verified 24 line | It satisfies this course's runtime floor | Toolchain check exit 0 and all lab commands pass | The runtime is unsupported by the organization or changes observed behavior |
 | A different recoverable temporary archive name | The path identity is not an assessed value | Canonical exact target, source moved, target exists, no remote | The target is broad, inside the lab parent, or overwrites existing data |
 | Equivalent written anatomy format | The outcomes assess classification, not table styling | Every named path has Git relation, owner, and class | It collapses tracked into authoritative or copies `USER.md` |
 
@@ -352,7 +352,7 @@ paths and has host-integration exclusions that a beginner dry-run does not fully
 
 | Misconception | What the evidence shows | Source |
 | --- | --- | --- |
-| Init always creates the package pin | 0.119.9 did not; the exact fixture pin preceded init | Source notes and released runtime |
+| A pre-seeded pin proves what init creates | The unpinned 0.119.9 probe created its own private exact CLI pin; this fixture pre-seeds the full four-package graph before install | Source notes and released runtime |
 | Empty Git means scaffold | `.git` alone selected brownfield in 0.119.9 | Released classifier and init dispatch |
 | Doctor is literally zero-write | It can write ignored throttle state while leaving tracked product state and remotes unchanged | Released doctor state implementation |
 | Every verb accepts `--help` | `toolchain:check --help` prints usage and exits 2 | Recorded CLI probe |

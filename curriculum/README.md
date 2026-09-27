@@ -21,8 +21,8 @@ deterministic gates.
 
 For command-based modules you will need:
 
-- Node.js 20 or newer for the core modules; the capstone Directive proof
-  requires Node.js 22 or newer because the pinned release uses `fs.globSync`;
+- Node.js 22 or newer for the command-based core modules and the capstone Directive
+  proof because the pinned release uses `fs.globSync`;
 - Git and GitHub CLI;
 - npm as the primary package manager, with pnpm differences called out where
   they matter;

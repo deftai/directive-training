@@ -24,6 +24,7 @@ const signpostMessage =
   "Canonical-vendored install (.deft/core/) is not yet npm-managed. Post-freeze upgrades run"
   + " via npm: install the engine with `npm i -g @deftai/directive@latest`, then run"
   + " `directive migrate` to stamp provenance.";
+const signpostWarning = `${WARN}Signpost advisory: canonical-vendored-npm-signpost: ${signpostMessage}`;
 
 // The captured 0.119.9 replay recorded in references/SOURCE-NOTES.md, reduced to the rows the
 // assertion reads.
@@ -31,7 +32,7 @@ const realCapture = [
   "Directive doctor (full)",
   `${PASS}Engine deposit: @deftai/directive-core@0.119.9`,
   `${PASS}Project-lifecycle: valid at /private/tmp/3ci-directive-module-02.ab12cd/attempt-02.ef34gh/xbrief`,
-  `${WARN}canonical-vendored-npm-signpost: ${signpostMessage}`,
+  signpostWarning,
   `${WARN}System check completed with 1 warning(s).`,
   "",
 ].join("\n");
@@ -40,6 +41,11 @@ const replays = [
   {
     name: "real: the captured 0.119.9 replay passes",
     text: realCapture,
+    expectProblem: null,
+  },
+  {
+    name: "compatible: an unlabeled warning row still binds the same check identity",
+    text: splice(realCapture, "Signpost advisory: "),
     expectProblem: null,
   },
   {
@@ -63,7 +69,7 @@ const replays = [
   {
     name: "no-warning: a clean run is rejected",
     text: splice(
-      splice(realCapture, `${WARN}canonical-vendored-npm-signpost: ${signpostMessage}\n`),
+      splice(realCapture, `${signpostWarning}\n`),
       "with 1 warning",
       "with 0 warning",
     ),

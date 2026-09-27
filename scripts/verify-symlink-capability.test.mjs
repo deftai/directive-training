@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { verifyWindowsSymlinkCapability } from "./verify-symlink-capability.mjs";
+import {
+  isWindowsSymlinkCapabilityUnavailable,
+  verifyWindowsSymlinkCapability,
+} from "./verify-symlink-capability.mjs";
 
 test("non-Windows platforms do not require a Windows symlink probe", () => {
   let probes = 0;
@@ -39,6 +42,7 @@ for (const unavailableType of ["file", "dir"]) {
           },
         }),
       (failure) => {
+        assert.equal(isWindowsSymlinkCapabilityUnavailable(failure), true);
         assert.match(failure.message, /Windows symlink capability preflight failed/);
         assert.match(failure.message, new RegExp(`${unavailableType} symlink`));
         assert.match(failure.message, /Full Windows safety sign-off is incomplete/);
@@ -50,3 +54,22 @@ for (const unavailableType of ["file", "dir"]) {
     );
   });
 }
+
+test("unexpected Windows probe errors remain failures instead of capability skips", () => {
+  const error = Object.assign(new Error("temporary directory is unreadable"), { code: "EIO" });
+
+  assert.throws(
+    () =>
+      verifyWindowsSymlinkCapability({
+        platform: "win32",
+        probeSymlink: () => {
+          throw error;
+        },
+      }),
+    (failure) => {
+      assert.equal(failure, error);
+      assert.equal(isWindowsSymlinkCapabilityUnavailable(failure), false);
+      return true;
+    },
+  );
+});

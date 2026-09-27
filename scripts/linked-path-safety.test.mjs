@@ -22,7 +22,10 @@ import {
   verifyLocalBinary,
   verifyPin,
 } from "../labs/fixtures/05-projection-drift-recovery/projection-lab.mjs";
-import { verifyWindowsSymlinkCapability } from "./verify-symlink-capability.mjs";
+import {
+  isWindowsSymlinkCapabilityUnavailable,
+  verifyWindowsSymlinkCapability,
+} from "./verify-symlink-capability.mjs";
 
 const read = (path) => readFileSync(path, "utf8");
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
@@ -39,11 +42,9 @@ let capabilitySkipReason = null;
 try {
   verifyWindowsSymlinkCapability();
 } catch (error) {
-  const code = error instanceof Error && error.cause && typeof error.cause === "object"
-    ? (error.cause.code ?? error.cause.name ?? "unavailable")
-    : "unavailable";
+  if (!isWindowsSymlinkCapabilityUnavailable(error)) throw error;
   capabilitySkipReason =
-    `Windows symlink capability is unavailable (${code}); ` +
+    "Windows symlink capability is unavailable (EPERM); " +
     "the dedicated npm run test:linked-path-safety command remains fail-closed.";
 }
 

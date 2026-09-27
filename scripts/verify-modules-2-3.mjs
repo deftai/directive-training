@@ -725,6 +725,11 @@ assert.match(
 );
 assert.match(
   lab2,
+  /Signpost advisory: canonical-vendored-npm-signpost:/,
+  "Lab 2 must quote the 0.119.9 signpost label before the stable warning identity",
+);
+assert.match(
+  lab2,
   /Boundary verdict[\s\S]{0,400}outside/i,
   "Lab 2 must state the boundary verdict for the signpost recommendation",
 );
@@ -1048,6 +1053,63 @@ for (const triggerPath of [
 
 const sourceNotes = read("references/SOURCE-NOTES.md");
 const sourceBaseline = read("references/SOURCE-BASELINE.md");
+const nodeRuntimeContracts = [
+  [
+    "README.md",
+    read("README.md"),
+    /@deftai\/directive@0\.119\.9` \(Node ≥ 22 for this project/,
+  ],
+  [
+    "curriculum/README.md",
+    read("curriculum/README.md"),
+    /Node\.js 22 or newer for the command-based core modules/,
+  ],
+  [
+    "curriculum/modules/02-installation-and-anatomy.md",
+    module2,
+    /\*\*Pass:\*\* Node reports version 22 or newer/,
+  ],
+  [
+    "labs/02-disposable-initialization.md",
+    lab2,
+    /Node\.js 22 or newer[\s\S]{0,900}\*\*Pass:\*\* every command exits 0 and Node reports 22 or newer/,
+  ],
+  [
+    "solutions/lab-02-disposable-initialization.md",
+    lab2Solution,
+    /\| Node\.js 22\+ version other than the verified 24 line \| It satisfies this course's runtime floor \|/,
+  ],
+  [
+    "references/SOURCE-BASELINE.md",
+    sourceBaseline,
+    /course requires Node\.js 22 or newer for the 0\.119\.9 consumer runtime/,
+  ],
+];
+for (const [relativePath, content, expectedPrerequisite] of nodeRuntimeContracts) {
+  assert.match(content, expectedPrerequisite, `${relativePath} must teach the Node.js 22 consumer floor`);
+}
+for (const [relativePath, content] of nodeRuntimeContracts.slice(0, -1)) {
+  assert.doesNotMatch(
+    content,
+    /Node(?:\.js)?\s*(?:≥|>=)\s*20|Node\.js 20\+|Node\.js 20 or newer|Node reports (?:version )?20 or newer/,
+    `${relativePath} must not retain the unsupported Node.js 20 consumer floor`,
+  );
+}
+assert.match(
+  sourceBaseline,
+  /getting-started prose[\s\S]{0,120}Node 20\+[\s\S]{0,300}glob expansion source[\s\S]{0,180}globSync[\s\S]{0,180}added in 22\.0\.0/,
+  "SOURCE-BASELINE must distinguish upstream Node 20 prose from the released Node 22 runtime floor",
+);
+assert.match(
+  lab2Solution,
+  /A pre-seeded pin proves what init creates[\s\S]{0,240}unpinned 0\.119\.9 probe created its own private exact CLI pin/,
+  "the Lab 2 solution must distinguish the fixture's pre-seeded graph from current init behavior",
+);
+assert.doesNotMatch(
+  lab2Solution,
+  /0\.119\.9 did not; the exact fixture pin preceded init/,
+  "the Lab 2 solution must not retain the old pre-0.119.9 init-pin behavior",
+);
 const releaseCommit = "8c9108bfa106719ab340379d6b9c958c8f9a2523";
 const normalizeReferenceId = (value) => value.trim().replace(/\s+/g, " ").toLowerCase();
 const normalizeReferenceDestination = (value) =>

@@ -33,7 +33,7 @@ Northstar Route Checker is a fictional future JavaScript route-validation tool; 
 
 ### Required environment
 
-- Node.js 20 or newer; the verified local 0.119.9 run used 24.20.0.
+- Node.js 22 or newer; the verified local 0.119.9 run used 24.20.0.
 - npm, Git, GitHub CLI, and either zsh, bash, or PowerShell 7.4 or newer.
 - A local clone of this curriculum repository, used only to read the fixture and run
   the lab helper. The public `deftai/directive-training` checkout is a valid
@@ -52,7 +52,7 @@ git --version
 gh --version
 ```
 
-**Pass:** every command exits 0 and Node reports 20 or newer. If a command is missing, use
+**Pass:** every command exits 0 and Node reports 22 or newer. If a command is missing, use
 your organization's approved tool installation path before continuing.
 
 ### How this lab runs
@@ -385,7 +385,7 @@ The pin-matched 0.119.9 replay prints one named warning, the provenance check
 `canonical-vendored-npm-signpost`:
 
 ```text
-⚠ canonical-vendored-npm-signpost: Canonical-vendored install (.deft/core/) is not yet
+⚠ Signpost advisory: canonical-vendored-npm-signpost: Canonical-vendored install (.deft/core/) is not yet
 npm-managed. Post-freeze upgrades run via npm: install the engine with
 `npm i -g @deftai/directive@latest`, then run `directive migrate` to stamp provenance.
 ```

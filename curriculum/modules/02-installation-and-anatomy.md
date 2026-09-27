@@ -54,7 +54,7 @@ git --version
 gh --version
 ```
 
-**Pass:** Node reports version 20 or newer, the other commands report versions, and your
+**Pass:** Node reports version 22 or newer, the other commands report versions, and your
 answers name an operating-system temporary path, no remote output, and `package.json`.
 
 **Recovery:** If a tool is absent, use your organization's approved installation path. If
