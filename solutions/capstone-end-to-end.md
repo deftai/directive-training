@@ -7,9 +7,9 @@
 | Stable ID | `solution-assessment-capstone-end-to-end` |
 | Supports | `CAP.1`, `CAP.2`, `CAP.3`, and `CAP.4` |
 | Status | Learner-ready |
-| Last verified | 2026-09-17 |
+| Last verified | 2026-09-26 |
 | Directive baseline | Exact `@deftai/directive@0.119.9` CLI/core/content/types graph; [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
-| Execution runtime | Node.js `22 or newer`; the verified local macOS run used `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
+| Execution runtime | Node.js `22 or newer`; the current Windows fixture run used `26.8.1`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
 | Prerequisite | Modules 1–12, ending with [Module 12 — PR, Review, and Actual Completion](../curriculum/modules/12-review-and-completion.md) |
 | Lesson | [Capstone — End-to-End Solo Directive Lifecycle](../curriculum/capstone-end-to-end.md) |
 | Assessment | [Capstone assessment](../assessments/capstone-end-to-end.md) |

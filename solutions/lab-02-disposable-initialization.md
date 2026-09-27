@@ -1,8 +1,8 @@
 # Explained solution — Lab 2: Initialize a Disposable Directive Consumer
 
-This solution explains the detailed local macOS/zsh route and how to evaluate equivalent
-learner evidence. The 0.119.9 pinned npm path is verified on macOS/zsh.
-Linux/bash and Windows/PowerShell remain candidates pending native 0.119.9 evidence.
+This solution explains the published macOS/zsh route and how to evaluate equivalent learner
+evidence. The 0.119.9 fixture is verified on Windows/PowerShell; published macOS/zsh,
+Linux/bash, and Windows/PowerShell walkthroughs remain candidate paths.
 
 ## Solution record
 
@@ -12,7 +12,7 @@ Linux/bash and Windows/PowerShell remain candidates pending native 0.119.9 evide
 | Solves | `lab-02-disposable-initialization` |
 | Outcomes covered | O2.1, O2.2, O2.3, O2.4 |
 | Status | `learner-ready draft` |
-| Last verified | 2026-09-21 |
+| Last verified | 2026-09-26 |
 | Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Lab 2](../labs/02-disposable-initialization.md) |
 
@@ -39,7 +39,7 @@ runtime from the same local `node_modules/.bin`. Git evidence separated
 authoritative sources from tracked managed integration and ignored runtime or reconstitutable
 state.
 
-Doctor exited 0 in the 2026-09-20 pin-matched 0.119.9 replay and printed the named
+Doctor exited 0 in the 2026-09-26 pin-matched 0.119.9 replay and printed the named
 provenance check `canonical-vendored-npm-signpost`. The solution records the warning and its
 recommendation; it does not redefine success as “no output,” and it does not score the
 result by counting warnings. That check recommends a host-global
@@ -117,7 +117,7 @@ approach is `git add --all`; it bypasses inspection of the generated boundary.
 
 Before running the verified route, the expected observations were:
 
-- the explicit local version contains `@deftai/directive-core@0.119.9`;
+- the explicit local version reports `@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)`;
 - `command -v deft` resolves to the disposable repository's local binary before commit;
 - init exits 0 and may say brownfield because `.git` exists;
 - `.deft/core/VERSION` is present but ignored;
@@ -153,8 +153,9 @@ local `deft` runtime also proves the installed pre-commit hook does not depend o
 Directive installation.
 
 **Observe:** The verified attempt installed 48 packages and reported
-`@deftai/directive-core@0.119.9`. The number of packages is context, not an acceptance gate;
-the exact core version is the required signal.
+`@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)`.
+The number of packages is context, not an acceptance gate; both identities are the required
+version signal.
 
 ### Step 2 — Verify help and initialize the consumer
 
@@ -203,7 +204,7 @@ the seven explicit verbose `git check-ignore` commands listed in the lab to buil
 **Why:** Doctor and toolchain output answer different questions. Git inspection supplies
 tracking evidence; source ownership supplies the anatomy classification.
 
-**Observe:** The 2026-09-20 pin-matched replay recorded `doctor_exit=0 toolchain_exit=0`.
+**Observe:** The 2026-09-26 pin-matched replay recorded `doctor_exit=0 toolchain_exit=0`.
 Doctor printed the provenance check `canonical-vendored-npm-signpost` and reported
 `✓ Project-lifecycle: valid at <lab_root>/xbrief`. A correct record names the check id, its
 message, its single recommended action — host-global `npm i -g @deftai/directive@latest` then
@@ -389,10 +390,10 @@ deletion, or a home-directory target.
 
 | Statement | Pinned source or policy | Verified date |
 | --- | --- | --- |
-| Consumer install and anatomy | [README — Getting Started and tracked/ignored](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/README.md); [Concepts — Installer Layout](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/CONCEPTS.md) | 2026-09-07 |
-| Consumer versus maintainer boundary | [Setup skill contract](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/skills/deft-directive-setup/SKILL.md) | 2026-09-07 |
-| Help, init, doctor, toolchain, package-pin, and brownfield observations | [Course source notes](../references/SOURCE-NOTES.md) tied to 0.119.9 | 2026-09-07 |
-| Disposable/no-remote/archive-only practice | [Lab safety model](../labs/README.md) and project definition | 2026-09-07 |
+| Consumer install and anatomy | [README — Getting Started and tracked/ignored](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/README.md); [Concepts — Installer Layout](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/CONCEPTS.md) | 2026-09-26 |
+| Consumer versus maintainer boundary | [Setup skill contract](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/skills/deft-directive-setup/SKILL.md) | 2026-09-26 |
+| Help, init, doctor, toolchain, package-pin, and brownfield observations | [Course source notes](../references/SOURCE-NOTES.md) tied to 0.119.9 | 2026-09-26 |
+| Disposable/no-remote/archive-only practice | [Lab safety model](../labs/README.md) and project definition | 2026-09-26 |
 
 The solution paraphrases the official sources. Exact identifiers and short diagnostic text
 are retained for reproducibility.

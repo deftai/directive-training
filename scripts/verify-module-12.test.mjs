@@ -372,13 +372,28 @@ test("verifier separates current Module 12 roles from historical evidence", () =
     const root = changedCopy(path, (body) => replaceAfterHeading(body, heading, pattern, "current baseline role omitted"));
     assert.throws(() => verifyModule12(root), /current Module 12 baseline role/);
   }
-  const currentAuthoring = changedCopy("references/SOURCE-NOTES.md", (body) => replaceAfterHeading(
-    body,
-    "## Verification context",
-    /Current authoring context:[\s\S]{0,280}content 0\.119\.9[\s\S]{0,200}v0\.119\.9[\s\S]{0,240}bootstrap availability[\s\S]{0,200}Lab 2 \/ project-local graph/i,
-    "Current authoring context omitted",
-  ));
-  assert.throws(() => verifyModule12(currentAuthoring), /aligned current authoring context/);
+  for (const [pattern, replacement] of [
+    [
+      /Current authoring context:[\s\S]{0,200}tracked generation record reports content 0\.119\.9 from\s+`directive-update`[\s\S]{0,160}ignored deposit reports tag `v0\.119\.9`[\s\S]{0,120}direct project pin/i,
+      "Current content and deposit roles omitted",
+    ],
+    [
+      /unqualified shell CLI reports\s+`@deftai\/directive \(engine: @deftai\/directive-core@0\.119\.9; package: @deftai\/directive@0\.119\.9\)`/i,
+      "Current CLI package and engine roles omitted",
+    ],
+    [
+      /bootstrap availability,\s+while the disposable fixtures prove the exact four-package graph/i,
+      "Current bootstrap and exact-graph boundary omitted",
+    ],
+  ]) {
+    const currentAuthoring = changedCopy("references/SOURCE-NOTES.md", (body) => replaceAfterHeading(
+      body,
+      "## Verification context",
+      pattern,
+      replacement,
+    ));
+    assert.throws(() => verifyModule12(currentAuthoring), /aligned current authoring context/);
+  }
 
   for (const [path, heading, pattern] of [
     ["COST-ESTIMATE.md", historicalLineage.costEstimateHeading, /project remains pinned to Directive 0\.112\.0 for learner-facing claims/i],

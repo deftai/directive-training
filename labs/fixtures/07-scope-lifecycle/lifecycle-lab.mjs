@@ -39,7 +39,6 @@ function digest(text) {
 
 function story(id, title, filename) {
   const activePath = `xbrief/active/${filename}`;
-  const acceptanceLine = `acceptance: ${activePath} exists before the fictional scope is completed.`;
   return {
     xBRIEFInfo: { version: "0.8", description: "Fictional Module 7 lifecycle lab scope" },
     plan: {
@@ -49,9 +48,18 @@ function story(id, title, filename) {
       narratives: {
         Description: "Observe one fictional local greeting scope without changing application code or contacting a remote.",
         UserStory: "As a learner, I want observable lifecycle state so I can distinguish approved scope from implementation authorization.",
-        AcceptanceCriteria: acceptanceLine,
       },
-      items: [],
+      items: [
+        {
+          id: "clause.1",
+          title: "Observe the guarded lifecycle artifact",
+          status: "pending",
+          effort: "S",
+          narrative: {
+            Acceptance: `${activePath} exists before the fictional scope is completed.`,
+          },
+        },
+      ],
       acceptance: {
         commands: [],
         none_stated: true,
@@ -59,8 +67,6 @@ function story(id, title, filename) {
         confessions: [
           title,
           "Observe one fictional local greeting scope without changing application code or contacting a remote.",
-          acceptanceLine,
-          "clause.1",
         ],
       },
       metadata: { kind: "process", swarm: { file_scope: [activePath] } },
@@ -372,7 +378,7 @@ export function runLifecycle(root = process.cwd(), options = {}) {
     schema: "3ci.training.module07.lifecycle-evidence.v1",
     generatedAt: new Date().toISOString(),
     baseline: { package: "@deftai/directive", engine: exactVersion },
-    environment: { platform: process.platform, shell: process.env.SHELL ? basename(process.env.SHELL) : "unknown", nativeClaim: process.platform === "darwin" ? "verified" : "candidate" },
+    environment: { platform: process.platform, shell: process.env.SHELL ? basename(process.env.SHELL) : "unknown", nativeClaim: "fixture-verified; walkthrough-candidate" },
     liveIntent: "implement (current helper invocation only; not durable future authority)",
     sessionId,
     steps,

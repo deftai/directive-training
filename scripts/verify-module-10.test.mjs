@@ -126,7 +126,7 @@ test("verifier rejects a broken local navigation link", () => {
   assert.throws(() => verifyModule10(root), /broken local link/);
 });
 
-test("verifier rejects promoting Windows without current native evidence", () => {
+test("verifier rejects promoting full Windows platform support from fixture-only evidence", () => {
   const root = changedCopy("references/SOURCE-BASELINE.md", (body) => body.replace(
     "teaching-platform-proof:windows-pwsh7 status=candidate",
     "teaching-platform-proof:windows-pwsh7 status=verified",
@@ -134,17 +134,17 @@ test("verifier rejects promoting Windows without current native evidence", () =>
   assert.throws(() => verifyModule10(root), /windows-pwsh7/);
 });
 
-test("verifier rejects a course index that drops candidate platforms", () => {
+test("verifier rejects a course index that drops the fixture-versus-walkthrough boundary", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Implement one test-backed active scope |",
-    "| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh only | Implement one test-backed active scope |",
+    "| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Implement one test-backed active scope |",
+    "| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Learner-ready; Windows verified | Implement one test-backed active scope |",
   ));
   assert.throws(() => verifyModule10(root), /current platform boundary/);
 });
 
 test("verifier rejects Module 11 regressing to planned after release", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Red-green-refactor and diagnose a gate failure |",
+    "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Red-green-refactor and diagnose a gate failure |",
     "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Planned | Red-green-refactor and diagnose a gate failure |",
   ));
   assert.throws(() => verifyModule10(root), /Module 11 must remain learner-ready/);
@@ -171,7 +171,7 @@ test("verifier rejects a missing Module 10 outcome mapping", () => {
   assert.throws(() => verifyModule10(root), /missing O10\.9/);
 });
 
-const lab10WindowsHeading = `### Windows/PowerShell 7.4+ ${"\u2014"} candidate pending native evidence`;
+const lab10WindowsHeading = `### Windows/PowerShell 7.4+ ${"\u2014"} helper verified; walkthrough candidate`;
 
 test("verifier rejects a zsh-only Lab 10 Environment section", () => {
   const root = changedCopy("labs/10-implementation-golden-path.md", (body) => body.replace(lab10WindowsHeading, "### Notes"));
@@ -226,7 +226,7 @@ test("verifier rejects a Lab 10 route that drops the ordered-task relationship",
 });
 
 test("verifier rejects relabeling the Lab 10 Native Windows route as the starting-state check", () => {
-  const root = changedCopy("labs/10-implementation-golden-path.md", (body) => body.replace("candidate whole-lab path", "verified starting-state check"));
+  const root = changedCopy("labs/10-implementation-golden-path.md", (body) => body.replace("published walkthrough remains a candidate", "published walkthrough is a verified starting-state check"));
   assert.throws(() => verifyModule10(root), /must not relabel the Native Windows route/);
 });
 

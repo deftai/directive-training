@@ -6,17 +6,18 @@
 | --- | --- |
 | Stable ID | `lab-07-scope-lifecycle` |
 | Supports | O7.1 proposed failure, O7.2 lifecycle transitions, O7.3 current readiness, O7.4 evidence and recovery, plus Module 6 O6.2 structural completion evidence in Task 5 |
-| Status | Learner-ready on macOS/zsh; Linux/bash and Windows/PowerShell remain candidates |
-| Last verified | 2026-09-17 |
+| Status | Learner-ready curriculum; the 0.119.9 executable helper is verified on Windows/PowerShell, while published shell walkthroughs remain candidate paths |
+| Last verified | 2026-09-26 |
 | Directive baseline | CLI/core/content/types `0.119.9`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 45–50 minutes, including install, prediction, evidence review, your own scope check, reset, and archive |
-| Platforms verified | macOS/zsh local baseline-upgrade suite; go-task 3.50.0 |
-| Candidate platforms | Linux/bash and Windows/PowerShell are not verified on 0.119.9 |
+| Platforms verified | Windows/PowerShell executable fixture, 10 of 10 tests; go-task 3.50.0 |
+| Candidate platforms | The Markdown walkthrough is not a current-release native learner replay on macOS/zsh, Linux/bash, or Windows/PowerShell |
 
 The helper is course tooling; it does not add a new Directive feature.
 
-The helper retains a Windows command path, but its prior walkthrough used the old
-baseline. It remains a candidate until the complete 0.119.9 lifecycle route runs natively.
+The 0.119.9 helper route passed on Windows, including installation, derivation, file-scope
+binding, evidence stamping, completion, reset, and archive. The tests do not execute the
+Markdown shell blocks, so the published learner walkthrough remains a separate candidate.
 
 ## Goal and done condition
 
@@ -40,22 +41,21 @@ a second represents obsolete work that should be cancelled. The helper intention
 no application edit. The observable product of this exercise is lifecycle evidence, not a
 shipping claim.
 
-Two minimal schema-0.8 scope records begin in `xbrief/proposed/` with
-`plan.status: proposed`. Both stay exactly where the lab put them. In Task 5 you add a third
-record of your own; it is checked, never promoted. Their lack of product acceptance items is intentional: the lab
-isolates lifecycle behavior and avoids pretending that a lifecycle completion proves a
-software feature was delivered.
+Two minimal schema-0.8 process-scope records begin in `xbrief/proposed/` with
+`plan.status: proposed`. Each carries one path-bound lifecycle criterion so Directive can
+derive, bind, and stamp evidence before completion without claiming a product delivery. In
+Task 5 you add a third record of your own; it is checked, never promoted.
 
 ## Environment and starting-state check
 
 Complete Modules 1–6 first. Confirm the course checkout is only the source of the helper.
-Choose the branch for your shell before any state is created. macOS/zsh is verified
-locally; Linux/bash and Windows/PowerShell 7.4+ remain candidates pending native evidence.
-This starting-state check is not verified preflight for a candidate platform. A learner
-without the verified environment may stop as environment-blocked instead of treating an
-unexecuted candidate platform as verified. See the [course map](../curriculum/README.md).
+Choose the branch for your shell before any state is created. The executable helper is
+verified on Windows/PowerShell, but no Markdown walkthrough is promoted by that automated
+proof. This starting-state check is not verified preflight for a published route. A learner
+may stop as environment-blocked instead of treating an unexecuted shell route as verified.
+See the [course map](../curriculum/README.md).
 
-### macOS/zsh — verified locally; Linux/bash — candidate
+### macOS/zsh and Linux/bash — candidate walkthroughs
 
 Use a dedicated zsh terminal at the root of this curriculum repository.
 
@@ -121,8 +121,8 @@ test -f "$lab_root/.deft/core/VERSION"
 test -z "$(git -C "$lab_root" remote)"
 ```
 
-**Pass:** install reports Directive 0.119.9 and the explicit local CLI reports engine
-0.119.9. The helper uses the public npm registry, a lab-local cache, ignored runtime paths,
+**Pass:** install reports Directive 0.119.9 and the explicit local CLI reports package and
+engine 0.119.9. The helper uses the public npm registry, a lab-local cache, ignored runtime paths,
 and a fictional local Git identity. It never changes the course checkout or global npm
 configuration.
 
@@ -130,12 +130,12 @@ If install is partial, preserve its sanitized output and use the reset section. 
 global Directive as a substitute; another version on `PATH` is exactly the ambiguity this
 fixture excludes.
 
-### Windows/PowerShell 7.4+ — candidate pending native evidence
+### Windows/PowerShell 7.4+ — helper verified; walkthrough candidate
 
-Use PowerShell 7.4+ at the root of this curriculum repository. This branch checks tools,
-the helper path, `create`, and `guard` before any later task. It is the candidate
-starting-state check, not the later Native Windows whole-lab route, and it is not
-verified preflight. This starting-state attempt and the later Native Windows whole-lab
+Use PowerShell 7.4+ at the root of this curriculum repository. This block checks tools,
+the helper path, `create`, and `guard` before any later task. Its helper operations are
+covered by the current Windows fixture proof, but the Markdown block itself remains a
+candidate starting-state check, not verified preflight. This starting-state attempt and the later Native Windows whole-lab
 route are alternative paths, not a sequence. Do not run both. On Windows, a later install
 invokes `node_modules/@deftai/directive/dist/bin.js` because the `.bin` launcher differs
 by platform.
@@ -181,7 +181,8 @@ try {
 **Pass:** `$LabRoot` is an absolute canonical path ending in a unique
 `3ci-directive-lab07-<id>/repo` under the operating-system temporary directory. The branch
 is `training/module-07` and the remote list is empty. Install reports Directive 0.119.9
-through `dist/bin.js`. This candidate branch is not verified practical-outcome coverage.
+through `dist/bin.js`. The helper operations are verified; this starting-state block alone
+is not practical-outcome coverage.
 
 ## Safety boundary
 
@@ -229,6 +230,7 @@ Before the lifecycle run, predict the sequence in private notes:
 | Cancel separate story | `proposed/proposed` | `0` | Creates `cancelled/cancelled`. |
 | Session start and gated ritual | delivery remains `active/running` | `0`, `0` | Establishes current session readiness. |
 | Active preflight | `active/running` | `0` | The named durable scope passes after live intent and session gates. |
+| Stamp acceptance evidence | `active/running` | `0` | Records engine-owned test evidence for the path-bound lifecycle criterion. |
 | Complete | `active/running` | `0` | Creates `completed/completed`. |
 | Authored-scope structural verify (Task 5) | your record stays `proposed/proposed` | `0` | Verify reads structure and is not a lifecycle move. |
 
@@ -292,6 +294,7 @@ steps.cancel
 steps.sessionStart
 steps.sessionRitual
 steps.activePreflight
+steps.stampEvidence
 steps.complete
 ```
 
@@ -505,8 +508,9 @@ policy outside this course.
 
 ## Native Windows PowerShell 7.4+ route
 
-This remains a candidate whole-lab path. It is not the Environment and starting-state
-check, and it is not verified preflight.
+The 0.119.9 helper operations used by this route are verified on Windows/PowerShell. The
+published two-phase walkthrough remains a candidate because the automated proof does not
+perform the human-authored Task 5 pause or execute these Markdown blocks.
 
 This compressed candidate route replaces the ordered helper commands in Tasks 1-4 and the
 Task 5 verify command. Do not walk those shell blocks after it. `run --intent=implement`
@@ -519,9 +523,8 @@ statement.
 The Environment starting-state attempt and this Native Windows whole-lab route are
 alternative paths, not a sequence. Do not run both.
 
-A learner without the verified macOS/zsh environment may stop as environment-blocked
-instead of treating this unexecuted candidate platform as verified practical-outcome
-coverage.
+A learner may stop as environment-blocked instead of treating the unexecuted walkthrough
+as verified practical-outcome coverage.
 
 Run this from the curriculum repository. Keep one PowerShell session so `$LabRoot` and
 `$Authored` remain set. Phase A creates, guards, installs, and runs the lifecycle, then
@@ -570,8 +573,8 @@ This is the Task 5 boundary, not a file-presence gate:
   no activation, and no implementation authority. Do not promote or activate the authored
   record.
 
-This Windows route remains a candidate platform. It is not pin-verified practical-outcome
-coverage.
+The helper half is pin-verified on Windows; the full learner walkthrough remains candidate
+practical-outcome coverage.
 
 ### Phase B — verify, reset, and archive
 

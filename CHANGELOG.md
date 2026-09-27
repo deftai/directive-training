@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade the current Directive teaching baseline to 0.119.9 across generated project
+  metadata, all six exact disposable package graphs, curriculum, labs, solutions,
+  assessments, references, workflows, and executable verification. Rebind immutable
+  release identity and version-output evidence, adapt lifecycle fixtures to the current
+  acceptance-evidence contract, and migrate legacy completed-scope `clause:N` item IDs to
+  valid dotted IDs without changing their historical release facts (#102).
+
 ### Fixed
 
 - Lab 2 helper PASS now matches `acceptAttempt`: the PASS table keeps version,

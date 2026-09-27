@@ -443,10 +443,10 @@ This lesson is an original paraphrase and fictional teaching adaptation. See the
 - Navigation and source links are part of the curriculum's content verification.
 - An independent learner pilot remains a separate course milestone.
 
-[concepts]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/CONCEPTS.md#xbrief-is-the-durable-state
-[main]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/main.md#xbrief-persistence
-[taxonomy]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/vbrief/vbrief.md
-[schema]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/vbrief/schemas/xbrief-core-0.8.schema.json
-[commands]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/commands.md
-[continue]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/resilience/continue-here.md
-[lifecycle]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/docs/directive-lifecycle.md
+[concepts]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/CONCEPTS.md#xbrief-is-the-durable-state
+[main]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/main.md#xbrief-persistence
+[taxonomy]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/vbrief/vbrief.md
+[schema]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/vbrief/schemas/xbrief-core-0.8.schema.json
+[commands]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md
+[continue]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/resilience/continue-here.md
+[lifecycle]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/docs/directive-lifecycle.md

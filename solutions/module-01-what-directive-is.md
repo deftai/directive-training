@@ -205,7 +205,7 @@ If you have not met the rubric:
 4. Re-answer the missed item without product names.
 5. Compare again. If your rationale now names the job, boundary, and observed evidence, the recovery is complete.
 
-If the same distinction remains unclear after two attempts, reread the module’s [mental model](../curriculum/modules/01-what-directive-is.md#mental-model) and the pinned official [What Directive is not](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/CATEGORY.md#what-directive-is-not) section, then try one new example from your own tooling.
+If the same distinction remains unclear after two attempts, reread the module’s [mental model](../curriculum/modules/01-what-directive-is.md#mental-model) and the pinned official [What Directive is not](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/CATEGORY.md#what-directive-is-not) section, then try one new example from your own tooling.
 
 ## Source note
 

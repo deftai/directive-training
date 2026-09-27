@@ -9,15 +9,15 @@ it, inspect its anatomy, and preserve evidence without touching a business repos
 | --- | --- |
 | Stable ID | `lab-02-disposable-initialization` |
 | Supports | Module 2 outcomes O2.1, O2.2, O2.3, and O2.4 |
-| Status | `learner-ready draft`; 0.119.9 path verified on macOS/zsh; Linux/bash and Windows/PowerShell are candidates pending native evidence |
-| Last verified | 2026-09-21 |
+| Status | `learner-ready draft`; 0.119.9 fixture verified on Windows/PowerShell; published shell walkthroughs remain candidates |
+| Last verified | 2026-09-26 |
 | Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Estimated duration | 25–35 minutes |
 | Fixture | [Fictional Northstar package](fixtures/02-disposable-initialization/package.json) driven by the [stateless lab helper](fixtures/02-disposable-initialization/init-lab.mjs) |
 
-The guarded 0.119.9 path passed the local macOS/zsh baseline-upgrade suite. The earlier
-Linux and Windows matrix is historical 0.112.0 evidence and does not promote those current
-paths. These bounds do not prove pnpm, other images, or coding-host integration.
+The guarded 0.119.9 fixture passed the current local Windows/PowerShell baseline-upgrade
+suite. Its Markdown shell walkthroughs remain separate candidate paths. These bounds do not
+prove pnpm, other images, or coding-host integration.
 
 ## Goal and done condition
 
@@ -83,7 +83,7 @@ This also means different things can go wrong, and the lab keeps them apart on p
 
 Only `Stop:` is a boundary failure. A missing paste is never a boundary failure.
 
-### macOS/zsh — verified locally; Linux/bash — candidate
+### macOS/zsh and Linux/bash — candidate walkthroughs
 
 In a separate command, export `DIRECTIVE_TRAINING_ROOT` with the absolute path of your
 curriculum clone. The block below reads and validates that learner-supplied value; it
@@ -145,7 +145,7 @@ outside its Git working tree. The marker file `lab-state.json` sits next to it a
 attempt root and the fixture digest. It deliberately records no caller `PATH` and no npm user
 configuration: nothing about the shell that created the attempt is replayed into a later one.
 
-### Windows/PowerShell 7.4+ — candidate pending native evidence
+### Windows/PowerShell 7.4+ — helper verified; walkthrough candidate
 
 Before pasting the block, set the process environment variable
 `DIRECTIVE_TRAINING_ROOT` to the absolute path of your curriculum clone.
@@ -225,8 +225,8 @@ node "$helper" guard "$lab_root"
 ```
 
 **Pass:** `install` prints `module_02_install=ready` with the checkpoint commit, both explicit
-project-local launchers exist and are executable, the version line contains
-`@deftai/directive-core@0.119.9`, and the checkpoint subject is exact. The two `test -x`
+project-local launchers exist and are executable, the version line reports
+`@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)`, and the checkpoint subject is exact. The two `test -x`
 checks are the learner-visible O2.2 proof: `$lab_root/node_modules/.bin/directive` and
 `$lab_root/node_modules/.bin/deft` are the exact paths that must answer, never a host-global
 `directive` or `deft` found on `PATH`.
@@ -550,7 +550,7 @@ git remote
 
 | Validation | Required exit/result | Observable signal | Outcomes |
 | --- | --- | --- | --- |
-| Exact local version | 0 | Contains `@deftai/directive-core@0.119.9` | O2.2 |
+| Exact local version | 0 | Reports `@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)` | O2.2 |
 | Full doctor | 0 | Health summary plus any classified warnings and one recommendation | O2.4 |
 | Consumer toolchain check | 0 | `All required tools available` | O2.2, O2.4 |
 | Git boundary checks | 0 | Clean tracked index, `.deft/core` ignored, no remote names | O2.2, O2.3 |

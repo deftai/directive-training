@@ -202,7 +202,7 @@ test("verifier rejects reset that reuses the failed root", () => {
   assert.throws(() => verifyModule7(root), /fresh-attempt reset/);
 });
 
-test("verifier rejects promoting Windows without current native evidence", () => {
+test("verifier rejects promoting full Windows platform support from fixture-only evidence", () => {
   const root = changedCopy("references/SOURCE-BASELINE.md", (body) => body.replace(
     "teaching-platform-proof:windows-pwsh7 status=candidate",
     "teaching-platform-proof:windows-pwsh7 status=verified",
@@ -210,10 +210,10 @@ test("verifier rejects promoting Windows without current native evidence", () =>
   assert.throws(() => verifyModule7(root), /windows-pwsh7/);
 });
 
-test("verifier rejects a course index that drops candidate platforms", () => {
+test("verifier rejects a course index that drops the fixture-versus-walkthrough boundary", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Fail, promote, activate, establish current readiness, complete, and cancel |",
-    "| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; lab verified on macOS/zsh only | Fail, promote, activate, establish current readiness, complete, and cancel |",
+    "| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Fail, promote, activate, establish current readiness, stamp evidence, complete, and cancel |",
+    "| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; Windows verified | Fail, promote, activate, establish current readiness, stamp evidence, complete, and cancel |",
   ));
   assert.throws(() => verifyModule7(root), /current platform boundaries/);
 });
@@ -318,7 +318,7 @@ test("verifier rejects the Module 7 Navigation href copied into the solution", (
   assert.throws(() => verifyModule7(root), /broken local link/);
 });
 
-const lab7WindowsHeading = `### Windows/PowerShell 7.4+ ${"\u2014"} candidate pending native evidence`;
+const lab7WindowsHeading = `### Windows/PowerShell 7.4+ ${"\u2014"} helper verified; walkthrough candidate`;
 
 test("verifier rejects a zsh-only Lab 7 Environment section", () => {
   const root = splicedCopy("labs/07-scope-lifecycle.md", lab7WindowsHeading, "### Notes");
@@ -368,7 +368,7 @@ test("verifier rejects a Lab 7 route that drops the ordered-task relationship", 
 });
 
 test("verifier rejects relabeling the Lab 7 Native Windows route as the starting-state check", () => {
-  const root = splicedCopy("labs/07-scope-lifecycle.md", "candidate whole-lab path", "verified starting-state check");
+  const root = splicedCopy("labs/07-scope-lifecycle.md", "published two-phase walkthrough remains a candidate", "published two-phase walkthrough is a verified starting-state check");
   assert.throws(() => verifyModule7(root), /must not relabel the Native Windows route/);
 });
 

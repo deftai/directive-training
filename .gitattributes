@@ -4,3 +4,9 @@
 .deft/core/** text eol=lf
 .deft/core/** linguist-generated=true
 .deft/core/** linguist-vendored=true
+
+# Module-numbering migration: these protected records are hashed byte-for-byte.
+# Pin LF so checkout settings cannot alter the protected-history evidence.
+.deft/approved-scope/** text eol=lf
+history/** text eol=lf
+xbrief/completed/** text eol=lf

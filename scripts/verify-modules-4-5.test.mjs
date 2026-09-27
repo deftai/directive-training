@@ -42,23 +42,23 @@ function fixture(t) {
   }));
   write(module5, document(moduleHeadings, outcomes5, {
     "Module record": record,
-    "Guided explanation": "plan.architecture.codeStructure is the source for .planning/codebase/MAP.md. Regenerate rather than hand-edit the projection. macOS/zsh is verified; Linux and Windows are candidates.",
+    "Guided explanation": "plan.architecture.codeStructure is the source for .planning/codebase/MAP.md. Regenerate rather than hand-edit the projection. The Windows/PowerShell fixture is verified; macOS/zsh, Linux/bash, and the Windows/PowerShell walkthrough are candidates.",
     "Exercise": `### Exercise acceptance\n\n${outcomes5}`,
     "Navigation": "Next: [Module 6](06-creating-well-shaped-work.md)",
   }));
   write(module6, "# Module 6\n");
   write(lab5, document(labHeadings, outcomes5, {
-    "Lab record": record + "\n| Platform status | macOS/zsh verified; Linux and Windows are candidates |",
+    "Lab record": record + "\n| Verified environment | fixture verified on Windows/PowerShell |\n| Candidate platforms | macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs are candidates |",
     "Literal acceptance commands": `\`\`\`zsh\n"$directive_path" codebase:map\n"$directive_path" verify:codebase-map-fresh\nnode projection-lab.mjs verify-result\n\`\`\`\n\n\`\`\`powershell\nnode projection-lab.mjs create\nnode projection-lab.mjs guard\nnpm.cmd install\nnode projection-lab.mjs verify-pin\nnode projection-lab.mjs checkpoint\nnode projection-lab.mjs inject-drift\n& .\\node_modules\\.bin\\directive.cmd codebase:map\n& .\\node_modules\\.bin\\directive.cmd verify:codebase-map-fresh\nnode projection-lab.mjs verify-result\nnode projection-lab.mjs archive C:\\temp\\lab\\repo\n\`\`\`\n\n${outcomes5}`,
     "Safety boundary": "Use a disposable repository with no remote. Mutations cannot touch the curriculum repository or a business repository.",
     "Done statement": "Record the actual operating system and shell used for the successful run. O5.1 O5.2 O5.3",
   }));
   write(solution4, document(solutionHeadings, outcomes4, { "Solution record": record }));
-  write(solution5, document(solutionHeadings, outcomes5, { "Solution record": record + "\n| Platform status | macOS/zsh verified; Linux and Windows are candidates |" }));
+  write(solution5, document(solutionHeadings, outcomes5, { "Solution record": record + "\n| Platform status | Windows/PowerShell fixture verified; macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs are candidates |" }));
   write("README.md", "# Course\n\n2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.9<!-- /directive-training:teaching-baseline --> with xBRIEF schema 0.8.\n");
   write("curriculum/README.md", "# Course\n\n| [Module 4](modules/04-xbrief-as-durable-state.md) | Learner-ready draft |\n| [Module 5](modules/05-sources-versus-projections.md) | Learner-ready draft — macOS/zsh |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| Module 7 | Learner-ready draft |\n");
   write("references/SOURCE-NOTES.md", "# Proof\n\n- `lab05-platform-proof:macos-zsh status=verified date=2026-09-07 evidence=local-disposable-lab5-full`\n- `lab05-platform-proof:linux-bash status=candidate date=2026-09-07 evidence=not-run`\n- `lab05-platform-proof:windows-pwsh7 status=verified date=2026-09-12 evidence=issue-65-reported-native-walkthrough`\n");
-  write("references/SOURCE-BASELINE.md", "# Current proof\n\n- `teaching-platform-proof:macos-zsh status=verified date=2026-09-17 evidence=baseline-upgrade-65-of-65`\n- `teaching-platform-proof:linux-bash status=candidate date=2026-09-17 evidence=not-run`\n- `teaching-platform-proof:windows-pwsh7 status=candidate date=2026-09-17 evidence=not-run`\n");
+  write("references/SOURCE-BASELINE.md", "# Current proof\n\n- `teaching-platform-proof:macos-zsh status=candidate date=2026-09-26 evidence=not-run-at-0.119.9`\n- `teaching-platform-proof:linux-bash status=candidate date=2026-09-26 evidence=not-run-at-0.119.9`\n- `teaching-platform-proof:windows-pwsh7 status=candidate date=2026-09-26 evidence=baseline-upgrade-69-pass-6-skip-dedicated-linked-path-preflight-eperm`\n");
   write("package.json", JSON.stringify({ private: true, devDependencies: { "@deftai/directive": "0.119.9" } }));
   return {
     root, write,
@@ -174,8 +174,8 @@ test("rejects unsupported native proof markers and prose claims", (t) => {
   files.change("references/SOURCE-BASELINE.md", (body) => body.replace("linux-bash status=candidate", "linux-bash status=verified"));
   assert.throws(() => verifyModules45(files.root), /current platform status/);
   files.change("references/SOURCE-BASELINE.md", (body) => body.replace("linux-bash status=verified", "linux-bash status=candidate"));
-  files.change(lab5, (body) => body.replace("Linux and Windows are candidates", "Linux and Windows are verified"));
-  assert.throws(() => verifyModules45(files.root), /identify Linux and Windows as candidate paths/);
+  files.change(lab5, (body) => body.replace("macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs are candidates", "macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs are verified"));
+  assert.throws(() => verifyModules45(files.root), /candidate-platform row/);
 });
 
 test("requires a complete PowerShell helper route and actual-environment done statement", (t) => {

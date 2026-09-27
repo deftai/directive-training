@@ -255,11 +255,11 @@ Never copy the actual contents of a shared `USER.md` into the scratch note.
 
 | Statement | Pinned source or policy | Verified date |
 | --- | --- | --- |
-| Personal/project/Defaults precedence and lazy loading | [Core skill — `Core Principle: Rule Precedence` and `File Reading Strategy (Lazy Loading)`](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/SKILL.md) | 2026-09-07 |
-| Deterministic enforcement order | [Concepts — `Rule Strength` and `Lazy Loading And Modularity`](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/CONCEPTS.md) | 2026-09-07 |
-| Active scope plus live intent; completed-scope boundary | [main.md — xBRIEF Persistence](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/main.md#xbrief-persistence) | 2026-09-07 |
-| Session posture and implementation intent | [Commands — `Session routing (#2176)` and `Scope xBRIEF Lifecycle`](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/commands.md) | 2026-09-07 |
-| Bounded operator escalation and no shared USER.md copying | `xbrief/PROJECT-DEFINITION.xbrief.json` ProjectRules and [Module 3](../curriculum/modules/03-authority-and-context.md) | 2026-09-07 |
+| Personal/project/Defaults precedence and lazy loading | [Core skill — `Core Principle: Rule Precedence` and `File Reading Strategy (Lazy Loading)`](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/SKILL.md) | 2026-09-26 |
+| Deterministic enforcement order | [Concepts — `Rule Strength` and `Lazy Loading And Modularity`](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/CONCEPTS.md) | 2026-09-26 |
+| Active scope plus live intent; completed-scope boundary | [main.md — xBRIEF Persistence](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/main.md#xbrief-persistence) | 2026-09-26 |
+| Session posture and implementation intent | [Commands — `Session routing (#2176)` and `Scope xBRIEF Lifecycle`](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md) | 2026-09-26 |
+| Bounded operator escalation and no shared USER.md copying | `xbrief/PROJECT-DEFINITION.xbrief.json` ProjectRules and [Module 3](../curriculum/modules/03-authority-and-context.md) | 2026-09-26 |
 
 This solution is an original paraphrase/adaptation. See the complete
 [source baseline](../references/SOURCE-BASELINE.md).

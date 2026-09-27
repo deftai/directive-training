@@ -10,10 +10,11 @@
 | Directive baseline | `@deftai/directive@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source module | [Module 11 — Testing, Gates, and Evidence](../curriculum/modules/11-testing-gates-and-evidence.md) |
 | Fixture | [`fixtures/11-testing-gates-and-evidence`](fixtures/11-testing-gates-and-evidence/) |
-| Verified environment | macOS/zsh; Linux/bash and Windows/PowerShell remain candidates pending native 0.119.9 evidence |
+| Verified environment | 0.119.9 fixture verified on Windows/PowerShell on 2026-09-26; published shell walkthroughs, Linux/bash, and macOS/zsh remain candidates |
 
-The helper retains a Windows command path, but its prior walkthrough used the old
-baseline. It remains a candidate until the complete 0.119.9 gate route runs natively.
+The guarded fixture suite ran on Windows/PowerShell at the current baseline. The published
+Windows command path remains a walkthrough candidate until a learner completes the full
+0.119.9 route; Linux/bash and macOS/zsh also remain candidates.
 
 ## Goal and done condition
 
@@ -27,7 +28,7 @@ All names and values are fictional. No remote service, business repository, cred
 
 ## Environment and starting-state check
 
-Use Node.js 20 or later, npm, Git, Task, and `uv`. Run these commands from the curriculum repository only to invoke the supplied helper; all exercise mutation occurs in the unique OS-temporary repository with no remote that it creates.
+Use Node.js 22 or later, npm, Git, Task, and `uv`. Run these commands from the curriculum repository only to invoke the supplied helper; all exercise mutation occurs in the unique OS-temporary repository with no remote that it creates.
 
 The guarded interface is `gates-lab.mjs create`, `gates-lab.mjs install`,
 `gates-lab.mjs red`, `gates-lab.mjs green`, `gates-lab.mjs refactor`,

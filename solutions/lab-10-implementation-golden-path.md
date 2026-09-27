@@ -8,8 +8,8 @@
 | Solves | `lab-10-implementation-golden-path` |
 | Outcomes covered | O10.5, O10.6, O10.7, O10.8, O10.9 |
 | Result | `Hello, Ada!`; only `src/greeting.mjs` changed |
-| Status | Learner-ready draft for the verified macOS/zsh path |
-| Last verified | 2026-09-10 |
+| Status | Learner-ready draft; 0.119.9 fixture verified on Windows/PowerShell; published walkthroughs candidate |
+| Last verified | 2026-09-26 |
 | Directive baseline | CLI/core/content/types `0.119.9`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Lab 10](../labs/10-implementation-golden-path.md) |
 

@@ -22,6 +22,7 @@ import {
   verifyLocalBinary,
   verifyPin,
 } from "../labs/fixtures/05-projection-drift-recovery/projection-lab.mjs";
+import { verifyWindowsSymlinkCapability } from "./verify-symlink-capability.mjs";
 
 const read = (path) => readFileSync(path, "utf8");
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
@@ -33,6 +34,28 @@ const helpers = [
   "labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs",
   "labs/fixtures/capstone-end-to-end/capstone-lab.mjs",
 ];
+
+let capabilitySkipReason = null;
+try {
+  verifyWindowsSymlinkCapability();
+} catch (error) {
+  const code = error instanceof Error && error.cause && typeof error.cause === "object"
+    ? (error.cause.code ?? error.cause.name ?? "unavailable")
+    : "unavailable";
+  capabilitySkipReason =
+    `Windows symlink capability is unavailable (${code}); ` +
+    "the dedicated npm run test:linked-path-safety command remains fail-closed.";
+}
+
+function linkedPathTest(name, assertion) {
+  test(name, (t) => {
+    if (capabilitySkipReason) {
+      t.skip(capabilitySkipReason);
+      return;
+    }
+    assertion();
+  });
+}
 
 function fakeGraph(root) {
   for (const name of ["directive", "directive-core", "directive-content", "directive-types"]) {
@@ -63,7 +86,7 @@ function windowsShimFixture() {
   return root;
 }
 
-test("lab helper entry detection accepts alternate symbolic paths for the same file", () => {
+linkedPathTest("lab helper entry detection accepts alternate symbolic paths for the same file", () => {
   const aliasRoot = mkdtempSync(join(tmpdir(), "3ci-lab-helper-alias-"));
   for (const [index, relativePath] of helpers.entries()) {
     const helper = join(repositoryRoot, relativePath);
@@ -76,7 +99,7 @@ test("lab helper entry detection accepts alternate symbolic paths for the same f
   }
 });
 
-test("Windows launcher and target symbolic links are rejected", () => {
+linkedPathTest("Windows launcher and target symbolic links are rejected", () => {
   const root = windowsShimFixture();
   const launcher = join(root, "node_modules/.bin/directive.cmd");
   renameSync(launcher, launcher + ".retained");
@@ -90,7 +113,7 @@ test("Windows launcher and target symbolic links are rejected", () => {
   assert.throws(() => verifyLocalBinary(second, "win32"), /symlink/);
 });
 
-test("projection guard rejects symbolic source ancestors", () => {
+linkedPathTest("projection guard rejects symbolic source ancestors", () => {
   const root = createAttempt();
   renameSync(join(root, "xbrief"), join(root, "xbrief-original"));
   symlinkSync(join(root, "xbrief-original"), join(root, "xbrief"), "dir");
@@ -113,7 +136,7 @@ test("projection guard rejects symbolic source ancestors", () => {
   archiveAttempt(root);
 });
 
-test("MAP symbolic link is refused before mutation reaches evidence", () => {
+linkedPathTest("MAP symbolic link is refused before mutation reaches evidence", () => {
   const root = createAttempt();
   const outside = join(root, "../evidence.md");
   const original = read(outside);
@@ -124,7 +147,7 @@ test("MAP symbolic link is refused before mutation reaches evidence", () => {
   archiveAttempt(root);
 });
 
-test("verifyPin rejects a symbolic package graph", () => {
+linkedPathTest("verifyPin rejects a symbolic package graph", () => {
   const root = createAttempt();
   fakeGraph(root);
   assert.equal(verifyPin(root), "0.119.9");

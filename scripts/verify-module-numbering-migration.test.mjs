@@ -100,6 +100,17 @@ test("protected baseline paths, bytes, and completed-registry subtrees remain ex
   );
 }));
 
+test("protected-history paths are pinned to LF for byte-exact cross-platform verification", () => {
+  const attributes = readFileSync(resolve(repositoryRoot, ".gitattributes"), "utf8").split(/\r?\n/);
+  for (const rule of [
+    ".deft/approved-scope/** text eol=lf",
+    "history/** text eol=lf",
+    "xbrief/completed/** text eol=lf",
+  ]) {
+    assert.ok(attributes.includes(rule), `missing protected-history checkout rule: ${rule}`);
+  }
+});
+
 test("protected-history verification is self-contained outside a Git checkout", () => withFixture(({ root, write }) => {
   const baseline = JSON.parse(readFileSync(resolve(repositoryRoot, "references/module-numbering-migration-baseline.json"), "utf8"));
   for (const path of Object.keys(baseline.protectedFiles)) {
@@ -190,6 +201,25 @@ test("negativeFixture syntax cannot launder stale text in a production file", ()
     () => verifyStaleNumbering(root, { paths: [path], historicalLineage: {}, textExceptions: [], baseline }),
     /non-allowlisted stale module numbering/,
   );
+}));
+
+test("historical text exceptions keep exact counts on CRLF checkouts", () => withFixture(({ root, write }) => {
+  const path = "COST-ESTIMATE.md";
+  const literal = joined("Module", "\n", "11 lesson and simulated review");
+  const occurrence = "Historical Module\r\n11 lesson and simulated review exercise.\r\n";
+  const baseline = baselineFixture();
+  const options = {
+    paths: [path],
+    historicalLineage: {},
+    textExceptions: [[path, literal]],
+    baseline,
+  };
+
+  write(path, occurrence);
+  verifyStaleNumbering(root, options);
+
+  write(path, `${occurrence}${occurrence}`);
+  assert.throws(() => verifyStaleNumbering(root, options), /historical exception occurrence count changed/);
 }));
 
 test("former executable branch, session, and lab labels cannot return", () => withFixture(({ root, write }) => {

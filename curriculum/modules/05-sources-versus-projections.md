@@ -8,12 +8,13 @@ repair drift there, and prove the view reflects the intended change.
 | Field | Value |
 | --- | --- |
 | Stable ID | `module-05-sources-versus-projections` |
-| Status | Learner-ready draft; executable lab verified on macOS/zsh; Linux and Windows candidates |
+| Status | Learner-ready draft; 0.119.9 executable fixture verified on Windows/PowerShell; published shell walkthroughs candidate |
 | Last content update | 2026-09-12 |
-| Last verified | 2026-09-12 |
+| Last verified | 2026-09-26 |
 | Directive baseline | fixture-local package and engine 0.119.9; xBRIEF 0.8; [source baseline](../../references/SOURCE-BASELINE.md) |
+| Platform evidence | Windows/PowerShell fixture verified; published macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs candidate |
 | Estimated duration | 45–60 minutes, including Lab 5 and self-assessment |
-| Prerequisites | Modules 1–4; Git, Node.js 20+, npm; zsh on macOS or PowerShell 7.4+ on Windows |
+| Prerequisites | Modules 1–4; Git, Node.js 22+, npm; zsh on macOS or PowerShell 7.4+ on Windows |
 
 Version-sensitive product statements cite the pinned release. Local requirements name their
 source, and learning advice explains its purpose.
@@ -294,11 +295,11 @@ the instrument that scores this module.
 
 | Claim | Source | Verified date | Boundary |
 | --- | --- | --- | --- |
-| Generated-document ownership | [0.119.9 command families][commands] | 2026-09-07 | Commands serve different artifacts |
-| MAP source and renderer | [Released MAP source][map-source] | 2026-09-07 | Maintainer traceability; learners use public CLI |
-| Missing/tampered/stale MAP behavior | [Released freshness source][fresh-source] and [course probes](../../references/SOURCE-NOTES.md) | 2026-09-07 | Proof is limited to executed environments |
-| Disposable-only boundary | [Lab safety policy](../../labs/README.md) | 2026-09-07 | Course requirement |
+| Generated-document ownership | [0.119.9 command families][commands] | 2026-09-26 | Commands serve different artifacts |
+| MAP source and renderer | [Released MAP source][map-source] | 2026-09-26 | Maintainer traceability; learners use public CLI |
+| Missing/tampered/stale MAP behavior | [Released freshness source][fresh-source] and [course probes](../../references/SOURCE-NOTES.md) | 2026-09-26 | Proof is limited to executed environments |
+| Disposable-only boundary | [Lab safety policy](../../labs/README.md) | 2026-09-26 | Course requirement |
 
-[commands]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/commands.md
-[map-source]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/packages/core/src/codebase/map.ts
-[fresh-source]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/packages/core/src/codebase/map-fresh.ts
+[commands]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md
+[map-source]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/packages/core/src/codebase/map.ts
+[fresh-source]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/packages/core/src/codebase/map-fresh.ts

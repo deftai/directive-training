@@ -150,10 +150,10 @@ test("rejects post-ceiling contamination in the finding map", (t) => {
 });
 
 test("rejects an incomplete successor-lean take map", (t) => {
-  const root = changedCopy(t, "solutions/module-09-design-critique-arcs.md", (body) => splice(
+  const root = changedCopy(t, "solutions/module-09-design-critique-arcs.md", (body) => spliceMatch(
     body,
-    "| `accept-into-contract` |\n| F2",
-    "|  |\n| F2",
+    /`accept-into-contract`(?= \|\r?\n\| F2 \|)/,
+    "",
   ));
   assert.throws(() => verifyModule9(root), /total parent take map/);
 });
@@ -251,7 +251,7 @@ test("rejects finding classes taught without the residual-disagreement clause", 
 test("rejects a missing F2 blocks-the-design recovery row", (t) => {
   const root = changedCopy(t, "curriculum/modules/09-design-critique-arcs.md", (body) => spliceMatch(
     body,
-    /^\| F2 is classified `blocks-the-design`.*\n/m,
+    /^\| F2 is classified `blocks-the-design`.*\r?\n/m,
     "",
   ));
   assert.throws(() => verifyModule9(root), /must recover the F2 blocks-the-design misclassification/);
@@ -260,7 +260,7 @@ test("rejects a missing F2 blocks-the-design recovery row", (t) => {
 test("rejects a missing F2 solution compare row", (t) => {
   const root = changedCopy(t, "solutions/module-09-design-critique-arcs.md", (body) => spliceMatch(
     body,
-    /^\| F2 class \|.*\n/m,
+    /^\| F2 class \|.*\r?\n/m,
     "",
   ));
   assert.throws(() => verifyModule9(root), /must contrast the F2 blocks-the-design misclassification/);

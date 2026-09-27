@@ -1,7 +1,7 @@
 # Directive learner quick reference
 
 Use this as a memory aid, not as an exhaustive command reference. It describes
-`@deftai/directive` 0.119.9 and xBRIEF 0.8, verified through 2026-09-20. Check
+`@deftai/directive` 0.119.9 and xBRIEF 0.8, verified through 2026-09-26. Check
 [the source baseline](SOURCE-BASELINE.md) before using it with another version.
 
 ## Mental model
@@ -163,6 +163,7 @@ task deft:scope:activate -- xbrief/pending/<scope>.xbrief.json
 task deft:session:start -- --session-id=<current-session-id>
 task deft:verify:session-ritual -- --tier=gated
 task deft:xbrief:preflight -- xbrief/active/<scope>.xbrief.json
+task deft:scope:stamp-evidence -- xbrief/active/<scope>.xbrief.json
 task deft:scope:complete -- xbrief/active/<scope>.xbrief.json
 task deft:scope:cancel -- xbrief/proposed/<obsolete-scope>.xbrief.json
 ```

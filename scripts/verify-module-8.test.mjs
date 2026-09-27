@@ -119,7 +119,7 @@ test("verifier rejects a stale or ranged teaching baseline", () => {
 
 test("verifier rejects Module 10 regressing to planned after release", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Learner-ready; lab verified on macOS/zsh; Linux and Windows candidates | Implement one test-backed active scope |",
+    "| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Implement one test-backed active scope |",
     "| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Planned | Implement one test-backed active scope |",
   ));
   assert.throws(() => verifyModule8(root), /Module 10 must remain learner-ready/);

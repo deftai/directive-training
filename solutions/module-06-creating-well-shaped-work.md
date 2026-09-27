@@ -445,16 +445,16 @@ record how the course resolves those disagreements.
 - No instructor, repository mutation, command, or remote system is required.
 - Source claims and disagreements match the Module 6 source record.
 
-[lifecycle]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/docs/directive-lifecycle.md
-[strategies]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/strategies/README.md
-[interview]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/strategies/interview.md
-[setup]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/skills/deft-directive-setup/SKILL.md
-[decompose]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/skills/deft-directive-decompose/SKILL.md
-[taxonomy]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/vbrief/vbrief.md
-[verification]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/verification/verification.md
-[upstream-glossary]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/glossary.md
-[gh-slice]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/skills/deft-directive-gh-slice/SKILL.md
-[commands]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/commands.md
-[main]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/main.md
-[design-critique-contract]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/contracts/design-critique.md#stop-1--gate
-[adr-005]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/decisions/ADR-005-design-critique-judgment-gate.md
+[lifecycle]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/docs/directive-lifecycle.md
+[strategies]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/strategies/README.md
+[interview]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/strategies/interview.md
+[setup]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/skills/deft-directive-setup/SKILL.md
+[decompose]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/skills/deft-directive-decompose/SKILL.md
+[taxonomy]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/vbrief/vbrief.md
+[verification]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/verification/verification.md
+[upstream-glossary]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/glossary.md
+[gh-slice]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/skills/deft-directive-gh-slice/SKILL.md
+[commands]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md
+[main]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/main.md
+[design-critique-contract]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/contracts/design-critique.md#stop-1--gate
+[adr-005]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/decisions/ADR-005-design-critique-judgment-gate.md

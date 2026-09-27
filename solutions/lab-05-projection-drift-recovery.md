@@ -7,11 +7,11 @@
 | Stable ID | `solution-lab-05-projection-drift-recovery` |
 | Solves | [Lab 5 — Projection drift recovery](../labs/05-projection-drift-recovery.md) |
 | Outcomes covered | O5.1, O5.2, O5.3 |
-| Status | Learner-ready draft for macOS/zsh; Linux and Windows paths are candidates |
-| Last verified | 2026-09-17 |
+| Status | Learner-ready draft; 0.119.9 fixture verified on Windows/PowerShell; published shell walkthroughs candidate |
+| Last verified | 2026-09-26 |
 | Directive baseline | CLI/core/content/types 0.119.9; [source baseline](../references/SOURCE-BASELINE.md) |
-| Verified environment | macOS/zsh with Node.js 24.20.0 |
-| Platform limit | Linux/bash and Windows/PowerShell are candidates pending native 0.119.9 evidence |
+| Verified environment | Windows/PowerShell with Node.js 26.8.1 |
+| Platform limit | Published macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs remain candidates |
 
 The fixture and helper are course tooling, not new Directive features.
 
@@ -350,14 +350,13 @@ to `3ci-directive-lab-archive`.
 
 | Statement | Verified source |
 | --- | --- |
-| Authored structure, default extraction, generated MAP, and freshness | Pinned [command reference](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/commands.md), “Project And Architecture Commands”; observed 0.119.9 renderer and freshness commands |
-| Source authority and projection boundary | Pinned [Concepts](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/CONCEPTS.md), “Source Of Truth Vs Projection” |
+| Authored structure, default extraction, generated MAP, and freshness | Pinned [command reference](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md), “Project And Architecture Commands”; observed 0.119.9 renderer and freshness commands |
+| Source authority and projection boundary | Pinned [Concepts](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/CONCEPTS.md), “Source Of Truth Vs Projection” |
 | Side-effecting help and advisory absent MAP | Disposable 0.119.9 probes recorded in [source notes](../references/SOURCE-NOTES.md) |
 | Disposable paths, no credentials/remotes, recoverable reset | [Lab environment contract](../labs/README.md) and [Lab 5](../labs/05-projection-drift-recovery.md) |
 
-The 0.119.9 behavior claims were verified locally on macOS/zsh on 2026-09-17.
-The earlier Windows walkthrough is historical evidence for the old baseline and does not
-promote the current Windows path. Explanations are original teaching adaptations; exact
+The 0.119.9 executable fixture was verified locally on Windows/PowerShell on 2026-09-26.
+That automated proof does not promote a published Markdown walkthrough. Explanations are original teaching adaptations; exact
 names, commands, and short output fragments retain the released spelling.
 
 ## Continue

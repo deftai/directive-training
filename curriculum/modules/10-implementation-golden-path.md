@@ -5,12 +5,12 @@
 | Field | Value |
 | --- | --- |
 | Stable ID | `module-10-implementation-golden-path` |
-| Status | Learner-ready draft; executable lab verified on macOS/zsh |
-| Last verified | 2026-09-10 |
+| Status | Learner-ready draft; 0.119.9 executable fixture verified on Windows/PowerShell |
+| Last verified | 2026-09-26 |
 | Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Duration | 70 minutes, including the disposable lab |
-| Prerequisites | Modules 1–9; Node.js 20+, npm, Git, Task, `uv`, and a dedicated zsh terminal |
-| Native platform evidence | macOS/zsh verified; Linux/bash and Windows/PowerShell are candidates |
+| Prerequisites | Modules 1–9; Node.js 22+, npm, Git, Task, `uv`, and a dedicated terminal |
+| Native platform evidence | Windows/PowerShell executable fixture verified; published shell walkthroughs remain candidates |
 
 ## Learning outcomes
 
@@ -263,5 +263,5 @@ Use it to diagnose the smallest gap, then retry from a known state.
 | Gate integrity | [Directive main][main] | 2026-09-10 |
 | Exact runtime observations | [Module 10 source validation](../../references/SOURCE-NOTES.md#module-10-source-validation) | 2026-09-10 |
 
-[commands]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/commands.md
-[main]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/main.md
+[commands]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md
+[main]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/main.md

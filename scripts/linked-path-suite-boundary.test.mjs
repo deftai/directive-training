@@ -39,6 +39,8 @@ test("Windows privilege-dependent symbolic-link fixtures live in the dedicated s
   );
 
   const dedicated = read("scripts/linked-path-safety.test.mjs");
+  assert.match(dedicated, /verifyWindowsSymlinkCapability\(\)/, "direct aggregate runs must use the supported capability probe");
+  assert.match(dedicated, /t\.skip\(capabilitySkipReason\)/, "unsupported aggregate runs must report an explicit capability skip");
   for (const boundary of [
     "alternate symbolic paths",
     "Windows launcher and target",

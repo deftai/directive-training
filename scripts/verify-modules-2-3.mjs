@@ -1048,7 +1048,7 @@ for (const triggerPath of [
 
 const sourceNotes = read("references/SOURCE-NOTES.md");
 const sourceBaseline = read("references/SOURCE-BASELINE.md");
-const releaseCommit = "75e7d33f114b0e2e67741257813c095e74d9668f";
+const releaseCommit = "8c9108bfa106719ab340379d6b9c958c8f9a2523";
 const normalizeReferenceId = (value) => value.trim().replace(/\s+/g, " ").toLowerCase();
 const normalizeReferenceDestination = (value) =>
   value.startsWith("<") && value.endsWith(">") ? value.slice(1, -1) : value;
@@ -1113,32 +1113,31 @@ for (const platformId of ["macos-zsh", "linux-bash", "windows-pwsh7"]) {
 assert.deepEqual(
   platformProof.get("macos-zsh"),
   {
-    status: "verified",
-    date: "2026-09-20",
-    evidence: "baseline-upgrade-65-of-65",
+    status: "candidate",
+    date: "2026-09-26",
+    evidence: "not-run-at-0.119.9",
   },
-  "macOS/zsh must point to the current local 0.119.9 learner-path proof",
+  "macOS/zsh must remain a candidate until a current 0.119.9 replay exists",
 );
-for (const platformId of ["linux-bash", "windows-pwsh7"]) {
-  assert.deepEqual(
-    platformProof.get(platformId),
-    {
-      status: "candidate",
-      date: "2026-09-20",
-      evidence: "not-run",
-    },
-    platformId + " must remain a candidate until a native 0.119.9 replay exists",
-  );
-}
+assert.deepEqual(platformProof.get("linux-bash"), {
+  status: "candidate",
+  date: "2026-09-26",
+  evidence: "not-run-at-0.119.9",
+}, "linux-bash must remain a candidate until a current 0.119.9 replay exists");
+assert.deepEqual(platformProof.get("windows-pwsh7"), {
+  status: "candidate",
+  date: "2026-09-26",
+  evidence: "baseline-upgrade-69-pass-6-skip-dedicated-linked-path-preflight-eperm",
+}, "windows-pwsh7 must distinguish fixture evidence from full platform support");
 assert.match(
   sourceBaseline,
-  /Linux\/bash and Windows\/PowerShell remain candidates pending native replay/,
+  /separate `npm run test:linked-path-safety` command remains fail-closed[\s\S]{0,180}`EPERM`/,
   "SOURCE-BASELINE must bound the current platform evidence",
 );
 assert.match(
   lab2,
-  /(?:macOS\/zsh[^\n]*(?:verified|learner-ready)|(?:verified|learner-ready)[^\n]*macOS\/zsh)/i,
-  "Lab 2 must match the verified macOS marker",
+  /macOS\/zsh[^\n]*candidate/i,
+  "Lab 2 must match the candidate macOS marker",
 );
 assert.match(
   lab2,
@@ -1147,8 +1146,8 @@ assert.match(
 );
 assert.match(
   lab2,
-  /Windows\/PowerShell[^\n]*candidate|candidate[^\n]*Windows\/PowerShell/i,
-  "Lab 2 must match the candidate Windows marker",
+  /Windows\/PowerShell[^\n]*helper verified[^\n]*walkthrough candidate/i,
+  "Lab 2 must distinguish the verified Windows helper from the candidate walkthrough",
 );
 for (const relativePath of [
   "README.md",
@@ -1162,8 +1161,8 @@ for (const relativePath of [
   const content = read(relativePath);
   assert.match(
     content,
-    /(?:verified[\s\S]{0,180}macOS\/zsh|macOS\/zsh[\s\S]{0,180}verified)/i,
-    relativePath + " must label macOS/zsh as verified",
+    /(?:candidate[\s\S]{0,240}macOS\/zsh|macOS\/zsh[\s\S]{0,240}candidate)/i,
+    relativePath + " must label macOS/zsh as a candidate",
   );
   assert.match(
     content,
@@ -1172,8 +1171,13 @@ for (const relativePath of [
   );
   assert.match(
     content,
-    /(?:candidate[\s\S]{0,180}Windows\/PowerShell|Windows\/PowerShell[\s\S]{0,180}candidate)/i,
-    relativePath + " must label Windows/PowerShell as a candidate",
+    /(?:verified[\s\S]{0,240}Windows(?:\/PowerShell)?|Windows(?:\/PowerShell)?[\s\S]{0,240}verified)/i,
+    relativePath + " must label the Windows fixture as verified",
+  );
+  assert.match(
+    content,
+    /(?:candidate[\s\S]{0,240}Windows(?:\/PowerShell)?|Windows(?:\/PowerShell)?[\s\S]{0,240}candidate)/i,
+    relativePath + " must label the published Windows walkthrough as a candidate",
   );
 }
 assert.match(

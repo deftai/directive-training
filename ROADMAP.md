@@ -7,7 +7,7 @@
 
 ## Active
 
-- Directive 0.119.5 Teaching Baseline Upgrade -- `[running]`
+- **#102** -- Upgrade Directive teaching baseline to 0.119.9 -- `[running]`
 
 ## Proposed
 
@@ -24,31 +24,31 @@ _Scopes not yet promoted to pending. Orientation only — not a substitute for `
 
 ## Completed
 
-_Showing 25 of 29 completed scopes (newest first). Full history: lifecycle `completed/` (or `task report` when available)._
+_Showing 25 of 59 completed scopes (newest first). Full history: lifecycle `completed/` (or `task report` when available)._
 
-- **#4** -- Refactor core curriculum to add required Module 7 on Directive design-critique arcs -- `[completed]`
-- **#3** -- Upgrade the Directive teaching baseline from 0.112.0 to the latest release (0.119.2) -- `[completed]`
-- **#2** -- Correct repo identity after the public deftai clone -- `[completed]`
-- Directive 0.119.1 Review and Build Reconciliation -- `[completed]`
-- **#1** -- Add an MIT license -- `[completed]`
-- **#78** -- Complete native Windows learner paths for Labs 7, 9, and 10 -- `[completed]`
-- **#74** -- Windows symlink capability failures lack a clear validation preflight -- `[completed]`
-- **#77** -- Labs 7/9/10 happy-path tests run unconditionally on unsupported Windows -- `[completed]`
-- **#76** -- Capstone negative verifier tests fail on CRLF checkouts and mutate the wrong package script -- `[completed]`
-- **#75** -- verify-text-portability uses Windows path separators and misses four mutation fixtures -- `[completed]`
-- Remove claim labels and 3Ci-specific module language -- `[completed]`
-- **#68** -- Lab 2 Windows start has no ready signal and CRLF commit warnings look like failure -- `[completed]`
-- **#67** -- Capstone Windows start still uses C:\absolute\path\to\directive-training placeholder -- `[completed]`
-- **#66** -- Labs 7/9/10 Windows install fails with npm.cmd EINVAL instead of the documented not-learner-ready stop -- `[completed]`
-- **#65** -- Lab 5 helper completes on Windows but the lab claims no Windows path -- `[completed]`
-- **#55** -- Official lab replay fixes for issues 55-58 -- `[completed]`
-- Capstone: Solo Lifecycle Walkthrough, Rubric, and Solution -- `[completed]`
-- Capstone: Guarded Disposable End-to-End Fixture -- `[completed]`
-- Module 11: PR, Review, and Actual Completion -- `[completed]`
-- Module 10: Testing, Gates, and Evidence -- `[completed]`
-- **#34** -- Module 9: The Implementation Golden Path -- `[completed]`
-- Module 8: Session Start and Authorized Work Selection -- `[completed]`
-- Module 7: Scope Lifecycle and Implementation Authorization -- `[completed]`
-- Module 6: Creating Well-Shaped Work -- `[completed]`
-- Modules 4-5: xBRIEF Durable State and Source-Projection Boundaries -- `[completed]`
+- **#69** -- Visible 0.119.5 bootstrap still resolves a newer core after a compatible release -- `[completed]`
+- **#68** -- Capstone uv prerequisite blurs verified context and required version -- `[completed]`
+- **#67** -- Lab 11 quotes clause-walk evidence absent from a passing Windows 0.119.5 run -- `[completed]`
+- **#66** -- Lab 11 Windows route cannot pause for its three required edits -- `[completed]`
+- **#65** -- Lab 10 Windows route cannot pause for the required greeting edit -- `[completed]`
+- **#64** -- Lab 7 Windows route cannot complete Task 5 as one pasted block -- `[completed]`
+- **#61** -- Capstone PowerShell 7.4+ block does not enforce the shell version -- `[completed]`
+- **#60** -- Labs 7 and 10 start with zsh-only preflight despite later Windows routes -- `[completed]`
+- **#63** -- Exact 0.119.5 bootstrap can resolve core 0.119.6 after a compatible release -- `[completed]`
+- **#62** -- Capstone Windows Python prerequisite has no supported version contract -- `[completed]`
+- **#59** -- Lab 11 starting-state check does not verify its required tools -- `[completed]`
+- **#56** -- Passing verify:ac still prints 0 verified, 1 unverifiable with no course explanation -- `[completed]`
+- **#55** -- Capstone lab Task 1 runs activate immediately, skipping the required CAP-DC-01 checkpoint -- `[completed]`
+- **#54** -- Lab 11 quality-record final check uses unpublished exact tokens the lab page never names -- `[completed]`
+- **#53** -- Lab 7 proposed preflight tells learners to activate a proposed file, skipping promotion -- `[completed]`
+- **#52** -- Module 6 solution and Lab 7 Task 5 disagree on the proposed-scope filename -- `[completed]`
+- **#51** -- First live doctor report says current vBRIEF document model after Module 1 forbids old names -- `[completed]`
+- **#50** -- Lab 2 still tells learners to export a private curriculum clone after the public deftai move -- `[completed]`
+- **#49** -- Lab 2 accept prints PASS without checking the written chooser, anatomy, or recovery evidence -- `[completed]`
+- **#38** -- Capstone assessment never names the WI-NNN exhaustion bound -- `[completed]`
+- **#35** -- Lab 7 explained solution is stale after Task 5 and Module 8 became available -- `[completed]`
+- **#36** -- Capstone solution emits invalid WI-1000 after valid WI-999 -- `[completed]`
+- Module 12 reaches tracked lifecycle closeout -- `[completed]`
+- Lab 2 runs from a coding-agent host without live shell state -- `[completed]`
+- **#19** -- Lab 2's documented doctor 'known false negative' does not reproduce on 0.119.2; the warning that does appear is undocumented -- `[completed]`
 

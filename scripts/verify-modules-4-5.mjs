@@ -186,15 +186,16 @@ export function verifyModules45(root = fileURLToPath(new URL("../", import.meta.
   }
   assert.ok(labCommands.some((line) => /projection-lab\.mjs\s+verify-result\b/.test(line)), "Lab 5 must verify MAP existence and content as well as freshness");
   const currentBaseline = content.get("references/SOURCE-BASELINE.md");
-  for (const [platform, expected] of [["macos-zsh", "verified"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
+  for (const [platform, expected] of [["macos-zsh", "candidate"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
     const markers = [...currentBaseline.matchAll(new RegExp(`teaching-platform-proof:${platform} status=(verified|candidate) date=(\\d{4}-\\d{2}-\\d{2}) evidence=([^\\s\x60]+)`, "g"))];
     assert.equal(markers.length, 1, `SOURCE-BASELINE must contain exactly one current proof marker for ${platform}`);
     assert.equal(markers[0][1], expected, `${platform}: current platform status does not match the supported paths`);
     if (expected === "verified") assert.doesNotMatch(markers[0][3], /^(?:none|not-run|pending|unknown)$/, `Lab 5 ${platform} proof must cite actual evidence`);
   }
   const platformRecord = section(parsed.get(lab5).prose, "Lab record");
-  assert.match(platformRecord, /macOS[^\n]*zsh/i, "Lab 5 must identify its verified macOS/zsh path");
-  assert.match(platformRecord, /Linux[^\n]*Windows[^\n]*candidate/i, "Lab 5 must identify Linux and Windows as candidate paths");
+  assert.match(platformRecord, /fixture verified on Windows\/PowerShell/i, "Lab 5 must identify its verified Windows fixture");
+  assert.match(platformRecord, /Candidate platforms[^\n]*macOS\/zsh[^\n]*Linux\/bash[^\n]*Windows\/PowerShell/i, "Lab 5 must identify all published walkthroughs as candidate paths");
+  assert.doesNotMatch(platformRecord, /Candidate platforms[^\n]*verified/i, "Lab 5 candidate-platform row must not promote a walkthrough to verified");
   const powershellCommands = parsed.get(lab5).blocks.filter(({ language }) => /^(?:powershell|pwsh)$/.test(language)).map(({ content: block }) => block).join("\n");
   for (const verb of ["create", "guard", "verify-pin", "checkpoint", "inject-drift", "verify-result", "archive"]) {
     assert.match(powershellCommands, new RegExp(`projection-lab\\.mjs[^\\n]*\\b${verb}\\b`), `Lab 5 must provide a PowerShell command for helper verb ${verb}`);
@@ -207,6 +208,8 @@ export function verifyModules45(root = fileURLToPath(new URL("../", import.meta.
   assert.match(doneStatement, /actual (?:operating system|OS)[^\n]*shell/i, "Lab 5 done statement must require the learner's actual OS and shell");
   assert.doesNotMatch(doneStatement, /completed[^\n]*recorded\s+macOS\//i, "Lab 5 done statement must not require macOS/zsh");
   for (const path of [lab5, solution5, module5]) {
+    assert.match(parsed.get(path).prose, /Windows(?:\/PowerShell)?[\s\S]{0,180}verified|verified[\s\S]{0,180}Windows(?:\/PowerShell)?/i, `${path} must identify the verified Windows fixture`);
+    assert.match(parsed.get(path).prose, /macOS(?:\/zsh)?[\s\S]{0,180}candidate|candidate[\s\S]{0,180}macOS(?:\/zsh)?/i, `${path} must keep macOS as a candidate`);
     assert.match(parsed.get(path).prose, /Linux[\s\S]{0,180}candidate|candidate[\s\S]{0,180}Linux/i, `${path} must keep Linux as a candidate`);
     assert.match(parsed.get(path).prose, /Windows[\s\S]{0,180}candidate|candidate[\s\S]{0,180}Windows/i, `${path} must keep Windows as a candidate`);
   }

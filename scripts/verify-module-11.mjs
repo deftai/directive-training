@@ -539,7 +539,7 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
 
   const labProse = parsed.get(lab11).prose;
   assert.match(labProse, /unique OS-temporary repository with no remote/, `${lab11} is missing its temporary no-remote boundary`);
-  assert.match(labProse, /macOS\/zsh; Linux\/bash and Windows\/PowerShell remain candidates/, `${lab11} must retain the current platform boundary`);
+  assert.match(labProse, /fixture verified on Windows\/PowerShell[\s\S]{0,160}walkthroughs[\s\S]{0,120}Linux\/bash[\s\S]{0,80}macOS\/zsh remain candidates/, `${lab11} must retain the current platform boundary`);
   for (const verb of ["create", "install", "red", "green", "refactor", "literal", "aggregate", "final", "reset", "archive"]) {
     assert.match(labProse, new RegExp(`gates-lab\\.mjs ${verb}`), `${lab11} is missing helper verb: ${verb}`);
   }
@@ -596,7 +596,7 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   const module11Row = courseModuleRow(course, 11);
   assert.match(module11Row, /11-testing-gates-and-evidence\.md/, "Module 11 course row must link the lesson");
   assert.doesNotMatch(module11Row, /\|\s*Planned\s*\|/i, "Module 11 must no longer be planned");
-  assert.match(module11Row, /verified on macOS\/zsh; Linux and Windows candidates/i, "Module 11 course row must retain the current platform boundary");
+  assert.match(module11Row, /0\.119\.9 fixture verified on Windows; published shell walkthroughs candidate/i, "Module 11 course row must retain the current platform boundary");
   const module12Row = courseModuleRow(course, 12);
   assert.match(
     module12Row,
@@ -610,7 +610,7 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   }
   assert.match(
     content.get("labs/README.md"),
-    /^\| \[Lab 11[^\n]*\]\(11-testing-gates-and-evidence\.md\) \| Learner-ready draft;[^\n]*macOS\/zsh; Linux and Windows candidates[^\n]*\|/m,
+    /^\| \[Lab 11[^\n]*\]\(11-testing-gates-and-evidence\.md\) \| Learner-ready draft;[^\n]*0\.119\.9 fixture verified on Windows; published shell walkthroughs candidate[^\n]*\|/m,
     "labs/README.md must list Lab 11 with the current platform boundary",
   );
 
@@ -624,7 +624,7 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   const notes = content.get("references/SOURCE-NOTES.md");
   assert.match(notes, /^## Module 11 source validation\s*$/m, "SOURCE-NOTES is missing the Module 11 source validation record");
   const baseline = content.get("references/SOURCE-BASELINE.md");
-  for (const [platform, expected] of [["macos-zsh", "verified"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
+  for (const [platform, expected] of [["macos-zsh", "candidate"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
     assert.match(baseline, new RegExp(`teaching-platform-proof:${platform} status=${expected}`), `SOURCE-BASELINE Module 11 platform status is missing: ${platform}`);
   }
   for (const token of ["exact CLI/core/content/types 0.119.9 graph", "verify:ac"]) assert.ok(baseline.includes(token), `SOURCE-BASELINE Module 11 evidence is missing: ${token}`);

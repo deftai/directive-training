@@ -6,12 +6,12 @@
 | --- | --- |
 | Stable ID | `lab-05-projection-drift-recovery` |
 | Supports | Module 5 outcomes O5.1 (ownership), O5.2 (recovery), O5.3 (evidence and reset) |
-| Status | Learner-ready draft; verified on macOS/zsh; Linux and Windows candidates |
-| Last verified | 2026-09-17 |
+| Status | Learner-ready draft; 0.119.9 fixture verified on Windows/PowerShell; published shell walkthroughs candidate |
+| Last verified | 2026-09-26 |
 | Directive baseline | `@deftai/directive@0.119.9` and core/content/types 0.119.9; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 30–35 minutes, including checks, retry, and archive |
-| Platforms verified | macOS/zsh local baseline-upgrade suite |
-| Candidate platforms | Linux/bash and Windows/PowerShell 7.4+ pending pin-matched native evidence |
+| Platforms verified | Windows/PowerShell non-symlink baseline-upgrade suite |
+| Candidate platforms | Published macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs pending current-release replay |
 
 Version-sensitive statements cite the pinned release. Local requirements name their source,
 and learning techniques explain their purpose.
@@ -600,6 +600,6 @@ State any unsupported clause as a gap. The course repository remains unchanged b
 
 Sources: [Module 5](../curriculum/modules/05-sources-versus-projections.md),
 [source baseline](../references/SOURCE-BASELINE.md), and the pinned
-[command reference](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/commands.md)
+[command reference](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md)
 under “Project And Architecture Commands.” The
 [lab environment contract](README.md) defines the 3Ci safety policy.

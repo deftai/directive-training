@@ -139,7 +139,7 @@ test("pinned task workflow records proposed failure, gated active success, compl
   assert.equal(evidence.baseline.engine, "0.119.9");
   assert.equal(evidence.steps.proposedDirectivePreflight.exitCode, 1);
   assert.notEqual(evidence.steps.proposedTaskPreflight.exitCode, 0);
-  for (const name of ["promote", "activate", "cancel", "sessionStart", "sessionRitual", "activePreflight", "complete"]) {
+  for (const name of ["promote", "activate", "cancel", "sessionStart", "sessionRitual", "activePreflight", "stampEvidence", "complete"]) {
     assert.equal(evidence.steps[name].exitCode, 0, `${name}: ${evidence.steps[name].stderr}`);
   }
   assert.deepEqual(evidence.final, {

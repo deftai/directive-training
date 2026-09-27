@@ -5,12 +5,12 @@
 | Field | Value |
 | --- | --- |
 | Stable ID | `module-07-scope-lifecycle` |
-| Status | Learner-ready draft; executable lab verified on macOS/zsh |
-| Last verified | 2026-09-09 |
+| Status | Learner-ready draft; 0.119.9 executable fixture verified on Windows/PowerShell |
+| Last verified | 2026-09-26 |
 | Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Duration | 65 minutes, including the disposable lab |
-| Prerequisites | Modules 1–6; Node.js 20+, npm, Git, Task, `uv`, and a dedicated terminal |
-| Native platform evidence | macOS/zsh verified; Linux/bash and Windows/PowerShell are candidates, not learner-ready claims |
+| Prerequisites | Modules 1–6; Node.js 22+, npm, Git, Task, `uv`, and a dedicated terminal |
+| Native platform evidence | Windows/PowerShell executable fixture verified; the published shell walkthrough and Linux/bash and macOS/zsh current-release routes remain candidates |
 
 Version-sensitive statements cite the pinned release. Local safety rules name their source,
 and teaching techniques explain their purpose.
@@ -152,6 +152,9 @@ A gate tests a condition; it does not expand scope or invent human permission.
 `scope:complete` closes an active scope as
 `completed/completed`. `scope:cancel` preserves a no-longer-wanted scope as
 `cancelled/cancelled`. Neither outcome should be imitated by deletion or manual movement.
+Current Directive completion also requires per-criterion typed evidence or an explicit
+human-origin disposition. The lab uses `scope:stamp-evidence` for its one path-bound process
+criterion; it does not invent or hand-write evidence.
 Local completion proves only the lifecycle mechanism; delivered work additionally requires
 that completed artifact tracked on the configured delivery branch, which
 [Module 12](12-review-and-completion.md) grades.
@@ -181,6 +184,7 @@ sequence and then compare it with the retained JSON:
 | Cancel the separate obsolete story | `cancelled/cancelled` | `0` |
 | Start session and run gated ritual | delivery story remains `active/running` | `0`, then `0` |
 | Active preflight after live intent and gates | `active/running` | `0` |
+| Stamp acceptance evidence | `active/running` | `0` |
 | Complete | `completed/completed` | `0` |
 
 The helper isolates the Task PATH so another installed Directive version cannot silently
@@ -207,8 +211,8 @@ Do not add product code to the fictional repository. The exercise is the lifecyc
 
 - **O7.1:** `evidence/proposed-preflight.json` records pinned engine exit `1`, the nonzero
   Task result, and the unchanged proposed folder/status pair.
-- **O7.2:** `evidence/lifecycle-run.json` records successful Task transitions and final
-  `completed/completed` plus `cancelled/cancelled` outcomes.
+- **O7.2:** `evidence/lifecycle-run.json` records successful Task transitions, the
+  `stampEvidence` step, and final `completed/completed` plus `cancelled/cancelled` outcomes.
 - **O7.3:** the evidence orders `sessionStart`, `sessionRitual`, and `activePreflight` after
   explicit current intent; all exit `0`.
 - **O7.4:** a second unique reset root exists while the first evidence remains readable, and
@@ -278,5 +282,5 @@ retain the failure first and retry in a fresh attempt.
 | Session routing and gated ritual | [Commands — Session routing and ritual][commands] | 2026-09-09 |
 | Release-specific runtime exits and Task wrapper result | [Module 7 source validation](../../references/SOURCE-NOTES.md#module-7-source-validation) | 2026-09-09 |
 
-[commands]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/commands.md
-[main]: https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/main.md
+[commands]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md
+[main]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/main.md

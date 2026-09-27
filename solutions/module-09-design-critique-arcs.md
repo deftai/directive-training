@@ -308,10 +308,10 @@ there is no fixture directory or live arc to delete.
 - [Module 9 lesson](../curriculum/modules/09-design-critique-arcs.md)
 - [Directive 0.119.9 source baseline](../references/SOURCE-BASELINE.md#module-9-design-critique-validation)
 - [Module 9 source notes](../references/SOURCE-NOTES.md#module-9-design-critique-source-validation)
-- [Design-critique contract at the pinned commit](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/contracts/design-critique.md)
-- [Critic brief template at the pinned commit](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/templates/design-critique-brief.md)
-- [ADR-005](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/decisions/ADR-005-design-critique-judgment-gate.md)
-- [ADR-006](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/decisions/ADR-006-parent-side-substantiation.md)
+- [Design-critique contract at the pinned commit](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/contracts/design-critique.md)
+- [Critic brief template at the pinned commit](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/templates/design-critique-brief.md)
+- [ADR-005](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/decisions/ADR-005-design-critique-judgment-gate.md)
+- [ADR-006](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/decisions/ADR-006-parent-side-substantiation.md)
 
 ## Continue
 

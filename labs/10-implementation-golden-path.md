@@ -6,17 +6,17 @@
 | --- | --- |
 | Stable ID | `lab-10-implementation-golden-path` |
 | Supports | O10.5 readiness, O10.6 red-green, O10.7 bounded scope, O10.8 paired evidence, O10.9 recovery |
-| Status | Learner-ready on macOS/zsh; Linux/bash and Windows/PowerShell remain candidates |
-| Last verified | 2026-09-17 |
+| Status | Learner-ready; 0.119.9 executable fixture verified on Windows/PowerShell; published shell walkthroughs candidate |
+| Last verified | 2026-09-26 |
 | Directive baseline | CLI/core/content/types `0.119.9`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 40–45 minutes, including install, implementation, evidence, and cleanup |
-| Platforms verified | macOS/zsh local baseline-upgrade suite; go-task 3.50.0 |
-| Candidate platforms | Linux/bash and Windows/PowerShell are not verified on 0.119.9 |
+| Platforms verified | Windows/PowerShell non-symlink baseline-upgrade suite; go-task 3.50.0 |
+| Candidate platforms | Published macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs |
 
 The helper is course tooling, not a new Directive command.
 
-The helper retains a Windows command path, but its prior walkthrough used the old
-baseline. It remains a candidate until the complete 0.119.9 implementation route runs natively.
+The complete 0.119.9 helper route passed on Windows. The tests do not execute the Markdown
+shell blocks, so published learner walkthroughs remain separate candidates.
 
 ## Goal and done condition
 
@@ -39,13 +39,13 @@ not design novelty.
 
 The helper creates a unique OS-temporary repository with no remote. It does not initialize
 or mutate this course repository. Choose the branch for your shell before any state is
-created. macOS/zsh is verified locally; Linux/bash and Windows/PowerShell 7.4+ remain
-candidates pending native evidence. This starting-state check is not verified preflight
-for a candidate platform. A learner without the verified environment may stop as
-environment-blocked instead of treating an unexecuted candidate platform as verified. See
+created. The executable helper is verified on Windows/PowerShell, but no Markdown
+walkthrough is promoted by that automated proof. This starting-state check is not verified
+preflight for a published route. A learner may stop as environment-blocked instead of
+treating an unexecuted walkthrough as verified. See
 the [course map](../curriculum/README.md).
 
-### macOS/zsh — verified locally; Linux/bash — candidate
+### macOS/zsh and Linux/bash — candidate walkthroughs
 
 Use a dedicated zsh terminal at the root of this curriculum checkout.
 
@@ -78,13 +78,14 @@ node "$lab_root/node_modules/.bin/directive" --version
 git -C "$lab_root" status --short
 ```
 
-**Pass:** the helper reports Directive 0.119.9, the explicit local CLI reports engine
-0.119.9, and status is empty. The fixture pins CLI/core/content/types exactly.
+**Pass:** the helper reports Directive 0.119.9, the explicit local CLI reports
+`@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)`,
+and status is empty. The fixture pins CLI/core/content/types exactly.
 
 The deposited Task surface belongs to that exact local install.
 Do not substitute a newer global executable.
 
-### Windows/PowerShell 7.4+ — candidate pending native evidence
+### Windows/PowerShell 7.4+ — helper verified; walkthrough candidate
 
 Use PowerShell 7.4+ at the root of this curriculum checkout. This branch checks tools, the
 helper path, `create`, and `guard` before any later task. It is the candidate
@@ -134,7 +135,7 @@ try {
 **Pass:** the printed root is canonical and looks like
 `<OS temp>/3ci-directive-lab10-<unique>/repo`. The branch is `training/module-10`, the
 remote list is empty, and status is empty after install. The explicit local CLI reports
-engine 0.119.9 through `dist/bin.js`. This candidate branch is not verified
+the 0.119.9 engine and package identities through `dist/bin.js`. This candidate branch is not verified
 practical-outcome coverage.
 
 ## Safety boundary
@@ -337,8 +338,9 @@ each root you intentionally want to archive. Nothing is recursively deleted.
 
 ## Native Windows PowerShell 7.4+ route
 
-This remains a candidate whole-lab path. It is not the Environment and starting-state
-check, and it is not verified preflight.
+The 0.119.9 helper operations used by this route are verified on Windows/PowerShell. The
+published walkthrough remains a candidate because the automated proof does not execute
+these Markdown blocks.
 
 This compressed candidate route does not replace Tasks 1-3. Phase A runs create,
 guard, install, and readiness. You still walk Task 2: the only `src/greeting.mjs`
@@ -348,9 +350,8 @@ then continues with verify, reset, and archive. Do not skip that ordered edit.
 The Environment starting-state attempt and this Native Windows whole-lab route are
 alternative paths, not a sequence. Do not run both.
 
-A learner without the verified macOS/zsh environment may stop as environment-blocked
-instead of treating this unexecuted candidate platform as verified practical-outcome
-coverage.
+A learner may stop as environment-blocked instead of treating this unexecuted walkthrough
+as verified practical-outcome coverage.
 
 Run Phase A from the curriculum repository. After it reports `READY` and prints
 `$LabRoot`, stay in that PowerShell session, make the Task 2 greeting edit,

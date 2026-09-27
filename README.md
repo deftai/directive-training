@@ -62,12 +62,15 @@ drift notes that are intentionally outside the beginner sequence.
 
 Modules 1–12 and the capstone are implemented and learner-ready. The curriculum
 remains an internal alpha until representative learner pilots complete; that
-release-maturity label does not mean the authored modules are partial. The 0.119.9 executable
-path is verified locally on macOS/zsh. Modules 4, 6, 8, 9, and 12 are command-free. Linux/bash
-and Windows/PowerShell remain candidates pending pin-matched native evidence.
+release-maturity label does not mean the authored modules are partial. The 0.119.9
+non-symlink executable fixtures are verified locally on Windows/PowerShell. The dedicated
+linked-path lane remains capability-gated on this host. Modules 4, 6, 8, 9, and 12 are
+command-free. Published macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs remain
+candidates pending current-release native evidence.
 Modules 9 and 12 use fixed fictional packets and need no lab fixture. The
-guarded capstone fixture is verified locally on macOS/zsh; native Linux, Windows, and
-independent learner walkthrough evidence remain separate claims.
+guarded capstone fixture is verified locally on Windows/PowerShell with its documented
+POSIX-only case skipped; native Linux, macOS, and independent learner walkthrough evidence
+remain separate claims.
 
 ## Safety boundary
 

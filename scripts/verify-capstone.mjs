@@ -983,9 +983,9 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.deepEqual(
     markers,
     [
-      { proof: "macos-zsh", status: "verified", date: "2026-09-20", evidence: "baseline-upgrade-65-of-65" },
-      { proof: "linux-bash", status: "candidate", date: "2026-09-20", evidence: "not-run" },
-      { proof: "windows-pwsh7", status: "candidate", date: "2026-09-20", evidence: "not-run" },
+      { proof: "macos-zsh", status: "candidate", date: "2026-09-26", evidence: "not-run-at-0.119.9" },
+      { proof: "linux-bash", status: "candidate", date: "2026-09-26", evidence: "not-run-at-0.119.9" },
+      { proof: "windows-pwsh7", status: "candidate", date: "2026-09-26", evidence: "baseline-upgrade-69-pass-6-skip-dedicated-linked-path-preflight-eperm" },
     ],
     "SOURCE-BASELINE current platform proof marker set is incorrect",
   );

@@ -637,7 +637,7 @@ export function recordOrientation(root = process.cwd()) {
   requireStage(marker, "CHECKPOINT");
   assert.equal(git(root, ["status", "--porcelain", "--untracked-files=all"]).trim(), "", "Stop: orientation requires the clean checkpoint.");
   const version = requireSuccess("Directive version", runDirective(root, ["--version"]));
-  assert.match(version.stdout, /@deftai\/directive-core@0\.119\.9/, "Stop: orientation observed the wrong Directive engine.");
+  assert.match(version.stdout, /@deftai\/directive \(engine: @deftai\/directive-core@0\.119\.9; package: @deftai\/directive@0\.119\.9\)/, "Stop: orientation observed the wrong Directive engine or package identity.");
   const evidence = {
     schema: "3ci.training.capstone.orientation-evidence.v1",
     generatedAt: new Date().toISOString(),

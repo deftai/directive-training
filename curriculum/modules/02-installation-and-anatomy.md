@@ -10,11 +10,11 @@ explain which resulting files are authoritative, managed, ignored, or reconstitu
 | Stable ID | `module-02-installation-and-anatomy` |
 | Status | `learner-ready draft` |
 | Last content update | 2026-09-07 |
-| Last verified | 2026-09-07 |
+| Last verified | 2026-09-26 |
 | Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
-| Platform status | 0.119.9 path verified on macOS/zsh; Linux/bash and Windows/PowerShell are candidates pending native evidence |
+| Platform status | 0.119.9 fixture verified on Windows/PowerShell; published macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs remain candidates |
 | Estimated duration | 60 minutes |
-| Prerequisites | Complete [Module 1](01-what-directive-is.md); know basic Git and terminal navigation; have Node.js 20 or newer, Git, GitHub CLI, and npm |
+| Prerequisites | Complete [Module 1](01-what-directive-is.md); know basic Git and terminal navigation; have Node.js 22 or newer, Git, GitHub CLI, and npm |
 
 Suggested pacing: 5 minutes for the starting check, 20 minutes for the lesson, 25 minutes
 for the disposable lab, and 10 minutes for evidence review and self-assessment.
@@ -327,9 +327,9 @@ archive path. Do not keep environment dumps, token output, or unrelated files.
 | Diagnostic/recovery record | Exit codes, findings, the completed recovery decision drill, and final archive path are present. | O2.4 |
 
 You are ready to continue when all four rows are demonstrated. Current local evidence verifies
-the 0.119.9 pinned npm path on macOS/zsh. Linux/bash and Windows/PowerShell remain candidates
-pending a pin-matched native replay. This evidence does not prove pnpm, other operating-system
-images, or coding-host integration.
+the 0.119.9 pinned fixture on Windows/PowerShell. Published shell walkthroughs remain
+candidate paths. This evidence does not prove pnpm, other operating-system images, or
+coding-host integration.
 
 ## Progressive hints
 
@@ -428,10 +428,10 @@ drill, and a safe retry route. No instructor unlock is required.
 
 | Claim | Pinned 0.119.9 source or observed surface | Use in this module |
 | --- | --- | --- |
-| Consumer install and layout | [README — Getting Started](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/README.md#getting-started); [Concepts — Installer Layout](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/docs/CONCEPTS.md#installer-layout) | Command chooser and deposit model |
-| Consumer prerequisites | [Getting started — Prerequisites](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/docs/getting-started.md#prerequisites) | Tool starting check |
-| Consumer versus contributor route | [Setup skill contract](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/content/skills/deft-directive-setup/SKILL.md) | Repository boundary |
-| Tracked and ignored surfaces | [README — Getting Started](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/README.md#getting-started); [core skill — Project Root vs Framework Internals](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/SKILL.md) | Artifact classification |
+| Consumer install and layout | [README — Getting Started](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/README.md#getting-started); [Concepts — Installer Layout](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/CONCEPTS.md#installer-layout) | Command chooser and deposit model |
+| Consumer prerequisites | [Getting started — Prerequisites](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/docs/getting-started.md#prerequisites) | Tool starting check |
+| Consumer versus contributor route | [Setup skill contract](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/skills/deft-directive-setup/SKILL.md) | Repository boundary |
+| Tracked and ignored surfaces | [README — Getting Started](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/README.md#getting-started); [core skill — Project Root vs Framework Internals](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/SKILL.md) | Artifact classification |
 | Literal CLI behavior | `directive --help`, `directive commands`, and each verb help/runtime probe recorded in [source notes](../../references/SOURCE-NOTES.md#cli-help-probes) | Version-specific syntax and disagreements |
 
 All explanations are paraphrased or adapted. Exact command names, paths, versions, and short

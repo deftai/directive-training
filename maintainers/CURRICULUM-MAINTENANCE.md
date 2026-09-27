@@ -216,9 +216,9 @@ with the evidence; a prior green run is not current proof.
 
 Modules 4–5 add classification and projection-recovery evidence. The two new
 focused commands supplement the active scope's literal conformance command;
-they do not replace it. Lab 5's macOS/zsh execution evidence is distinct from
-historical platform evidence. Keep Linux and Windows as candidates for Lab 5
-until their 0.119.9 written paths have been executed natively.
+they do not replace it. Lab 5's 0.119.9 fixture is verified on Windows/PowerShell.
+Keep the published Windows, Linux, and macOS walkthroughs as candidates until
+their current-release written paths have been executed natively.
 
 Module 6 adds a command-free worksheet and explained solution. Its focused
 checks prove required sections, outcome coverage, source-bound terminology,
@@ -236,15 +236,15 @@ that Directive guarantees runtime inertness.
 Module 10 adds an executable golden-path lab. Revalidate the exact 0.119.9 package graph,
 clean guarded checkpoint, session/story/active-preflight order, expected focused red,
 one-file `src/greeting.mjs` boundary, named/fallback behavior, patch check, retained JSON
-evidence, fresh reset, and recoverable archive together. Current 0.119.9 support is
-macOS/zsh; Linux/bash and Windows/PowerShell remain candidates pending native replay.
+evidence, fresh reset, and recoverable archive together. The 0.119.9 fixture is verified
+on Windows/PowerShell; published Windows, Linux, and macOS walkthroughs remain candidates.
 
 Module 11 adds an executable testing-and-gates lab. Revalidate the exact 0.119.9 graph,
 meaningful red, frozen test digest, passing green and source-only refactor, literal `verify:ac`,
 forward coverage, the seeded `quality:record` aggregate failure, the one-record repair, final
 three-file diff, unchanged gate fingerprints, fresh reset, and recoverable archive together.
-Current 0.119.9 support is macOS/zsh; Linux/bash and Windows/PowerShell remain candidates
-pending native replay.
+The 0.119.9 fixture is verified on Windows/PowerShell; published Windows, Linux, and macOS
+walkthroughs remain candidates.
 
 Module 12 is a command-free fixed-state exercise. Revalidate the complete H1
 packet, Read-Write-Lint-Diff zero-change exit, classify-before-editing order,
@@ -257,14 +257,14 @@ reset.
 
 The learner-ready
 [capstone](../curriculum/capstone-end-to-end.md) combines the course lifecycle
-in one guarded no-remote fixture. Revalidate the exact 0.119.9 graph on Node.js
-24.20.0, the full stage and evidence order, meaningful red and intentional
+in one guarded no-remote fixture. Revalidate the exact 0.119.9 graph on a supported
+Node.js runtime, the full stage and evidence order, meaningful red and intentional
 review-evidence aggregate failure, source-only green and P1 repair, simulated
 current-product review timing, implemented/local-pass closeout boundary, fresh
 reset, and separate recoverable archives. Run both capstone commands above.
-The current local suite proves the capstone on macOS/zsh. The prior native matrix is
-historical evidence only; rerun Linux and Windows against 0.119.9 and record independent
-learner walkthrough pilots separately.
+The current Windows/PowerShell fixture run used Node.js 26.8.1 and passed 9 tests with one
+documented POSIX-only skip. The prior native matrix is historical evidence only; record
+independent Windows, Linux, and macOS learner walkthrough pilots separately.
 
 The [native Windows revalidation handoff](WINDOWS-REVALIDATION.md) is a preserved
 historical 0.112.0 assignment, not a current 0.119.9 runbook. Do not reuse it without a new

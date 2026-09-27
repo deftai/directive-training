@@ -7,9 +7,9 @@
 | Stable ID | `assessment-capstone-end-to-end` |
 | Assesses | `CAP.1`, `CAP.2`, `CAP.3`, and `CAP.4` |
 | Status | Learner-ready |
-| Last verified | 2026-09-17 |
+| Last verified | 2026-09-26 |
 | Directive baseline | `@deftai/directive@0.119.9`; engine, content, and types `0.119.9`; [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
-| Execution runtime | Node.js `22 or newer`; the verified local macOS run used `24.20.0`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
+| Execution runtime | Node.js `22 or newer`; the current Windows fixture run used `26.8.1`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
 | Suggested duration | 105–120 minutes, including evidence review, reset, and recoverable archive |
 | Suggested first attempt | 45 minutes before opening the explained solution |
 | Attempt conditions | Open-book; guarded disposable local repositories; fictional data only; no remote |
@@ -17,9 +17,9 @@
 | Source exercise | [Capstone lab](../labs/capstone-end-to-end.md) |
 | Explained solution | [Capstone explained solution](../solutions/capstone-end-to-end.md) |
 
-The guarded fixture suite ran locally on macOS/zsh with Node.js 24.20.0. Linux and Windows
-remain candidates pending native 0.119.9 evidence; no independent learner walkthrough is
-inferred from this run.
+The guarded 0.119.9 fixture suite ran on Windows/PowerShell with Node.js 26.8.1: 9 tests
+passed and 1 documented POSIX-only test skipped. Published walkthroughs, Linux/bash, and
+macOS/zsh remain candidates; no independent learner walkthrough is inferred from this run.
 
 This assessment requires no instructor, private answer, Greptile result, live
 reviewer, GitHub mutation, deployment, or UAT environment. Initial package

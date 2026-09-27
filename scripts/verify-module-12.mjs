@@ -452,7 +452,26 @@ export function verifyModule12(root = fileURLToPath(new URL("../", import.meta.u
   ]) {
     assert.match(source, currentPattern, `${label} is missing the current Module 12 baseline role`);
   }
-  assert.match(verificationContext, /Current authoring context:[\s\S]{0,280}content 0\.119\.9[\s\S]{0,200}v0\.119\.9[\s\S]{0,240}bootstrap availability[\s\S]{0,200}Lab 2 \/ project-local graph/i, "SOURCE-NOTES verification context must describe the aligned current authoring context");
+  for (const [currentPattern, detail] of [
+    [
+      /Current authoring context:[\s\S]{0,200}tracked generation record reports content 0\.119\.9 from\s+`directive-update`[\s\S]{0,160}ignored deposit reports tag `v0\.119\.9`[\s\S]{0,120}direct project pin/i,
+      "content, deposit, and direct pin",
+    ],
+    [
+      /unqualified shell CLI reports\s+`@deftai\/directive \(engine: @deftai\/directive-core@0\.119\.9; package: @deftai\/directive@0\.119\.9\)`/i,
+      "CLI package and engine versions",
+    ],
+    [
+      /bootstrap availability,\s+while the disposable fixtures prove the exact four-package graph/i,
+      "bootstrap and exact-graph evidence boundary",
+    ],
+  ]) {
+    assert.match(
+      verificationContext,
+      currentPattern,
+      `SOURCE-NOTES verification context must describe the aligned current authoring context: ${detail}`,
+    );
+  }
   for (const [label, source, historicalPattern] of [
     ["COST-ESTIMATE prior review scope", costScope, /project remains pinned to Directive 0\.112\.0 for learner-facing claims/i],
     ["SOURCE-NOTES Module 12 validation", module12Notes, /learner baseline remains 0\.112\.0/i],

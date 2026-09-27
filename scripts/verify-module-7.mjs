@@ -54,8 +54,8 @@ function requireModule7Link(content, label) {
 }
 
 const EM_DASH = "\u2014";
-const POSIX_STARTING_BRANCH = `macOS/zsh ${EM_DASH} verified locally; Linux/bash ${EM_DASH} candidate`;
-const WINDOWS_STARTING_BRANCH = `Windows/PowerShell 7.4+ ${EM_DASH} candidate pending native evidence`;
+const POSIX_STARTING_BRANCH = `macOS/zsh and Linux/bash ${EM_DASH} candidate walkthroughs`;
+const WINDOWS_STARTING_BRANCH = `Windows/PowerShell 7.4+ ${EM_DASH} helper verified; walkthrough candidate`;
 
 function exactHeadingSlice(body, heading, level) {
   const marker = `${"#".repeat(level)} ${heading}`;
@@ -114,7 +114,7 @@ function assertWindowsStartingState(labPath, body, options) {
     new RegExp(`^### ${escapeHeading(WINDOWS_STARTING_BRANCH)}$`, "m"),
     `${labPath} Environment section is missing the Windows starting-state branch`,
   );
-  assert.match(beforeBranch, /not verified preflight/, `${labPath} starting-state check must not promote a candidate platform to verified preflight`);
+  assert.match(beforeBranch, /not verified\s+preflight/, `${labPath} starting-state check must not promote a candidate walkthrough to verified preflight`);
   assert.match(beforeBranch, /environment-blocked/, `${labPath} starting-state check must keep the environment-blocked stop`);
   const windows = exactHeadingSlice(environment, WINDOWS_STARTING_BRANCH, 3);
   const code = powershellText(windows);
@@ -141,10 +141,10 @@ function assertWindowsStartingState(labPath, body, options) {
     assert.ok(python < create, `${labPath} Windows starting-state must check Python before create`);
   }
   const route = exactHeadingSlice(body, "Native Windows PowerShell 7.4+ route", 2);
-  assert.match(route, /^## Native Windows PowerShell 7\.4\+ route$/m, `${labPath} must keep the Native Windows heading as the candidate whole-lab path`);
+  assert.match(route, /^## Native Windows PowerShell 7\.4\+ route$/m, `${labPath} must keep the Native Windows whole-lab heading`);
   assert.doesNotMatch(route, /verified starting-state/i, `${labPath} must not relabel the Native Windows route as the verified starting-state check`);
-  assert.match(route, /candidate whole-lab path/, `${labPath} must keep the Native Windows route as a candidate whole-lab path`);
-  assert.match(route, /not verified preflight/, `${labPath} must not promote the compressed route to verified preflight`);
+  assert.match(route, /helper operations[\s\S]{0,120}verified on Windows\/PowerShell[\s\S]{0,140}walkthrough remains a candidate/i, `${labPath} must separate verified helper evidence from the candidate walkthrough`);
+  assert.match(route, /unexecuted walkthrough\s+as verified practical-outcome coverage/i, `${labPath} must not promote the compressed route to verified practical-outcome coverage`);
   assert.match(route, /environment-blocked/, `${labPath} compressed route must keep the environment-blocked stop`);
   assert.match(route, options.relationship, `${labPath} must state how the compressed route relates to the ordered tasks`);
   assert.match(route, /alternative paths/, `${labPath} must state that starting-state and the whole-lab route are alternative paths`);
@@ -211,7 +211,7 @@ function assertWindowsStartingState(labPath, body, options) {
   assert.match(routeProse, /\*\*path\*\*[\s\S]{0,80}\*\*command\*\*[\s\S]{0,80}\*\*exit code\*\*[\s\S]{0,40}\*\*result\*\*/, `${labPath} pause must retain path, command, exit, and result evidence`);
   assert.match(routeProse, /grants no promotion,\s+no activation, and no implementation authority/, `${labPath} pause must grant no promotion, activation, or implementation authority`);
   assert.match(routeProse, /Do not promote or activate the authored\s+record/, `${labPath} pause must not promote or activate the authored record`);
-  assert.match(routeProse, /Windows route remains a candidate platform/, `${labPath} pause must keep Windows labeled as a candidate platform`);
+  assert.match(routeProse, /full learner walkthrough remains candidate\s+practical-outcome coverage/i, `${labPath} pause must keep the walkthrough labeled as candidate coverage`);
   assert.match(routeProse, /no copy-in verb/, `${labPath} pause must drop the helper-copy alternative`);
 }
 
@@ -332,7 +332,7 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   for (const token of ["mkdtempSync", "3ci-directive-lab07-", "assertNoGitRedirection", 'git(root, ["remote"])', "exact 0.119.9 pin required"]) assert.ok((helperBody + safetyBody).includes(token), `fixture is missing safety token: ${token}`);
   assert.match(safetyBody, /export function assertNoGitRedirection/, "fixture is missing the Git redirection guard");
   assert.match(safetyBody, /export function safePath/, "fixture is missing its path guard");
-  for (const task of ["deft:scope:promote", "deft:scope:activate", "deft:scope:cancel", "deft:session:start", "deft:verify:session-ritual", "deft:xbrief:preflight", "deft:scope:complete"]) assert.ok(helperBody.includes(task), `fixture is missing Task transition: ${task}`);
+  for (const task of ["deft:scope:promote", "deft:scope:activate", "deft:scope:cancel", "deft:session:start", "deft:verify:session-ritual", "deft:xbrief:preflight", "deft:scope:stamp-evidence", "deft:scope:complete"]) assert.ok(helperBody.includes(task), `fixture is missing Task transition: ${task}`);
   assert.match(helperBody, /proposedDirectivePreflight\.exitCode, 1/, "fixture must preserve exact pinned proposed-preflight exit 1");
   assert.match(helperBody, /return createAttempt\(\); \/\/ fresh-reset/, "fixture fresh-attempt reset must create a new root");
   assert.match(helperBody, /renameSync\(parent, destination\)/, "fixture cleanup must use recoverable exact-parent archive");
@@ -352,7 +352,7 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   const notes = content.get("references/SOURCE-NOTES.md");
   assert.match(notes, /^## Module 7 (?:source validation|verification)\s*$/m, "SOURCE-NOTES is missing the Module 7 source validation record");
   const baseline = content.get("references/SOURCE-BASELINE.md");
-  for (const [platform, expected] of [["macos-zsh", "verified"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
+  for (const [platform, expected] of [["macos-zsh", "candidate"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
     const matches = [...baseline.matchAll(new RegExp(`teaching-platform-proof:${platform} status=(verified|candidate) date=(\\d{4}-\\d{2}-\\d{2}) evidence=([^\\s\x60]+)`, "g"))];
     assert.equal(matches.length, 1, `SOURCE-BASELINE must contain exactly one current proof marker for ${platform}`);
     assert.equal(matches[0][1], expected, `${platform}: unsupported current Module 7 platform claim`);
@@ -364,22 +364,23 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   }
 
   const course = content.get("curriculum/README.md");
-  assert.match(course, /0\.119\.9 executable path is verified locally on[\s\S]{0,100}macOS\/zsh/i, "course overview must retain current macOS/zsh evidence");
-  assert.match(course, /Linux\/bash and Windows\/PowerShell remain candidates/i, "course overview must keep Linux and Windows as candidates");
+  assert.match(course, /0\.119\.9 non-symlink executable fixtures are[\s\S]{0,100}verified locally on Windows\/PowerShell/i, "course overview must retain current Windows fixture evidence");
+  assert.match(course, /Published macOS\/zsh, Linux\/bash, and Windows\/PowerShell\s+walkthroughs remain candidates/i, "course overview must keep published walkthroughs as candidates");
+  assert.match(course, /linked-path lane remains[\s\S]{0,60}capability-gated/i, "course overview must retain the Windows linked-path capability boundary");
   const module7Row = courseModuleRow(course, 7);
   assert.match(module7Row, /07-scope-lifecycle\.md/, "Module 7 course row must link the lesson");
   assert.doesNotMatch(module7Row, /\|\s*Planned\s*\|/i, "Module 7 must no longer be planned");
-  assert.match(module7Row, /verified on macOS\/zsh; Linux and Windows candidates/i, "Module 7 course row must retain current platform boundaries");
+  assert.match(module7Row, /0\.119\.9 fixture verified on Windows; published shell walkthroughs candidate/i, "Module 7 course row must retain current platform boundaries");
   assert.match(courseModuleRow(course, 8), /08-session-and-work-selection\.md/, "Module 8 course row must retain its lesson link");
   for (const path of ["README.md", "curriculum/README.md", "labs/README.md", "solutions/README.md", "assessments/README.md"]) {
     requireModule7Link(content.get(path), path);
     verifyLinks(root, path, markdownParts(content.get(path)).prose);
   }
   const labsIndex = content.get("labs/README.md");
-  assert.match(labsIndex, /^\| \[Lab 7[^\n]*\]\(07-scope-lifecycle\.md\) \| Learner-ready draft;[^\n]*macOS\/zsh; Linux and Windows candidates[^\n]*\|/m, "labs/README.md must list Lab 7 with the current platform boundary");
+  assert.match(labsIndex, /^\| \[Lab 7[^\n]*\]\(07-scope-lifecycle\.md\) \| Learner-ready draft;[^\n]*0\.119\.9 fixture verified on Windows; published shell walkthroughs candidate[^\n]*\|/m, "labs/README.md must list Lab 7 with the current platform boundary");
   assert.doesNotMatch(labsIndex, /Labs for Modules? 6(?:[–-]| through )11/, "labs/README.md must not classify Lab 7 inside an unavailable Modules 6–11 range");
   for (const term of ["promotion", "activation", "live implementation intent", "lifecycle evidence"]) assert.match(content.get("references/GLOSSARY.md"), new RegExp(term, "i"), `glossary is missing Module 7 term: ${term}`);
-  for (const phrase of ["task deft:scope:promote", "task deft:scope:activate", "task deft:xbrief:preflight", "live implementation intent"]) assert.match(content.get("references/QUICK-REFERENCE.md"), new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"), `quick reference is missing Module 7 guidance: ${phrase}`);
+  for (const phrase of ["task deft:scope:promote", "task deft:scope:activate", "task deft:xbrief:preflight", "task deft:scope:stamp-evidence", "live implementation intent"]) assert.match(content.get("references/QUICK-REFERENCE.md"), new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"), `quick reference is missing Module 7 guidance: ${phrase}`);
   assert.match(content.get("references/SOURCE-BASELINE.md"), /^## Module 7 (?:source boundary|lifecycle validation)\s*$/m, "source baseline is missing Module 7 lifecycle validation");
 
   // The lab ends at local closeout, so its Done statement must name the gate that decides tracked closeout.

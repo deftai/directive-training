@@ -18,7 +18,7 @@ Scoped work, ranked queue, and tracked bugs live in authoritative sources — no
 
 (Optional) Ephemeral shell quirks or uncommitted local artifacts only — not tracked work state.
 
-<!-- deft:managed-section v3 sha=0.119.5 refreshed=2026-09-25T17:59:08Z session=2552e9b60a3f -->
+<!-- deft:managed-section v3 sha=0.119.9 refreshed=2026-09-26T23:45:36Z session=6626a5472779 -->
 # Deft — AI Development Framework
 
 Deft is installed in .deft/core/. Full guidelines: .deft/core/main.md
