@@ -48,3 +48,22 @@ test("rejects learner-visible README drift while the package pin stays current",
   assert.notEqual(stale, current);
   assert.throws(() => assertTeachingBaselinePin(pkg, stale), /declared teaching baseline 0\.0\.0/);
 });
+
+test("keeps the managed Cursor planning hooks exact", () => {
+  const cursorHooks = JSON.parse(
+    readFileSync(new URL("../.cursor/hooks.json", import.meta.url), "utf8"),
+  );
+
+  assert.deepEqual(cursorHooks.hooks.beforeSubmitPrompt, [
+    {
+      command: "deft-hook --host cursor --event prompt.submit",
+      timeout: 5,
+    },
+  ]);
+  assert.deepEqual(cursorHooks.hooks.afterAgentResponse, [
+    {
+      command: "deft-hook --host cursor --event agent.response",
+      timeout: 5,
+    },
+  ]);
+});
