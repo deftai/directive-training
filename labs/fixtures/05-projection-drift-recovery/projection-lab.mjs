@@ -95,7 +95,11 @@ function verifyAttemptIdentity(input = process.cwd()) {
   assert.equal(git(parent, ["rev-parse", "--show-toplevel"], [0, 128]).trim(), "", "Stop: temporary parent is inside another Git repository.");
   const marker = JSON.parse(read(safePath(parent, "lab-state.json")));
   assert.ok(marker.lab === "module-05" && marker.root === root, "Stop: lab marker mismatch.");
-  for (const path of [".git", ".git/config", ".git/index", ".git/hooks", ".git/objects", ".git/refs", ".git/HEAD"]) safePath(root, path);
+  for (const path of [
+    ".git", ".git/config", ".git/index", ".git/hooks", ".git/objects", ".git/refs", ".git/HEAD",
+    ".gitattributes", "xbrief/.gitattributes", ".gitignore", ".npmrc", "package.json", "package-lock.json",
+    "projection-lab.mjs", "safety.mjs", "src/stop-code.js", sourcePath, mapPath, "node_modules", ".npm-cache",
+  ]) safePath(root, path);
   assert.ok(lstatSync(join(root, ".git")).isDirectory(), "Stop: expected a local .git directory.");
   assertPlainTree(root, ".git");
   assert.equal(realpathSync(git(root, ["rev-parse", "--show-toplevel"]).trim()), root, "Stop: Git root differs from the lab.");
@@ -107,7 +111,6 @@ function verifyAttemptIdentity(input = process.cwd()) {
 /** Return the canonical lab root after identity, path, Git, and source-boundary checks; otherwise throw. */
 export function guardAttempt(input = process.cwd()) {
   const { root, marker } = verifyAttemptIdentity(input);
-  for (const path of [".gitattributes", "xbrief/.gitattributes", ".gitignore", ".npmrc", "package.json", "package-lock.json", "projection-lab.mjs", "safety.mjs", "src/stop-code.js", sourcePath, mapPath, "node_modules", ".npm-cache"]) safePath(root, path);
   assert.ok(lstatSync(join(root, ".gitattributes")).isFile(), "Stop: source attributes must be a regular file.");
   assert.equal(read(join(root, ".gitattributes")), sourceAttributes, "Stop: source attributes must retain the exact normalization rule.");
   const attributes = git(root, ["check-attr", "text", "eol", "whitespace", "--", sourcePath]);
