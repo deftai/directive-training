@@ -18,6 +18,11 @@
 
 ### Fixed
 
+- Module 6 Part B now presents a labeled one-item field-identity skeleton before
+  learners author O6.2 proposed scope. Its legend separates schema-required,
+  schema-legal-optional, worksheet-rubric, and later-gate fields while retaining
+  the two-to-five traced-item rubric and no-implementation-authority boundary
+  (#99).
 - Lab 2 helper PASS now matches `acceptAttempt`: the PASS table keeps version,
   doctor, toolchain, Git cleanliness, ignore, branch, and empty-remote rows, and
   written chooser, anatomy, and five-field recovery move onto Module 2's

@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #99",
-    "updated": "2026-09-28T12:15:06Z"
+    "updated": "2026-09-28T13:22:09Z"
   },
   "plan": {
     "title": "Module 6 Part B requires authoring a schema-0.8 scope JSON, but no module shows a scope xBRIEF shape; the solution is the only template",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "Give Module 6 learners a labeled field-identity skeleton before they must author a schema-0.8 proposed scope, while keeping the complete worked artifact in the solution. The specimen must distinguish schema requirements, legal optional fields, worksheet rubric requirements, and later swarm or evidence gates so passing validation is not mistaken for completing O6.2.",
       "UserStory": "As a Directive learner, I want a minimal labeled scope xBRIEF specimen before the Module 6 exercise, so that I can author the required artifact without reverse-engineering the answer key.",
@@ -374,6 +374,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5586668254",
-    "updated": "2026-09-28T12:15:06Z"
+    "updated": "2026-09-28T13:22:09Z"
   }
 }

@@ -242,10 +242,10 @@
       {
         "id": "2026-09-28-99-module-6-part-b-requires-authoring-a-schema-08-scope-json-bu",
         "title": "Module 6 Part B requires authoring a schema-0.8 scope JSON, but no module shows a scope xBRIEF shape; the solution is the only template",
-        "status": "pending",
+        "status": "running",
         "metadata": {
-          "source_path": "pending/2026-09-28-99-module-6-part-b-requires-authoring-a-schema-08-scope-json-bu.xbrief.json",
-          "lifecycle_folder": "pending",
+          "source_path": "active/2026-09-28-99-module-6-part-b-requires-authoring-a-schema-08-scope-json-bu.xbrief.json",
+          "lifecycle_folder": "active",
           "references": [
             {
               "uri": "https://github.com/deftai/directive-training/issues/99",

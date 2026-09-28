@@ -100,12 +100,50 @@ function fixture(t) {
       "Command choice, invocation, output interpretation, and recovery are not assessed here, so no outcome is added or recut.",
     ].join("\n"),
     "Starting-state check": "Pass: identify a horizontal plan. Recovery: review Module 5. " + outcomes,
+    "Walkthrough": "The walkthrough records one illustrative item as a shaping sketch; Part B's two-to-five-item rubric controls the completed O6.2 artifact.",
     "Exercise": [
       "### Fictional scenario",
       "Northstar has fictional work only.",
       "### Your task",
       "Record a bounded strategy choice, a testable specification statement, and one vertical slice in a schema-0.8 proposed-scope artifact.",
       "Record two to five criteria under plan.items[].narrative.Acceptance with evidence and traces.",
+      "#### Part B — trace the idea into proposed scope",
+      "##### Field-identity skeleton",
+      "This one-item field-identity skeleton identifies fields only; it is a shaping sketch, and Part B's two-to-five-item rubric wins for O6.2.",
+      "",
+      "```json",
+      "{",
+      '  "xBRIEFInfo": { "version": "0.8" },',
+      '  "plan": {',
+      '    "id": "northstar.delayed-route-preview",',
+      '    "title": "Preview one delayed route",',
+      '    "status": "proposed",',
+      '    "items": [',
+      '      {',
+      '        "title": "Show the delayed-route preview",',
+      '        "status": "proposed",',
+      '        "narrative": {',
+      '          "Acceptance": "Given delayed route R-17, the preview shows its code, delay, and reason.",',
+      '          "Traces": "Northstar Transit idea: help dispatchers manage service disruptions."',
+      "        }",
+      "      }",
+      "    ]",
+      "  }",
+      "}",
+      "```",
+      "",
+      "| Field or value | Identity | Meaning here |",
+      "| --- | --- | --- |",
+      "| `xBRIEFInfo.version`, `plan.title`, `plan.status`, `plan.items`, item `title`, and item `status` | schema-required (verify-enforced) | The fields must exist; this worksheet separately requires version `0.8` and `proposed`. |",
+      "| `plan.id` | schema-legal-optional | It is the worksheet story ID but is optional for `xbrief:verify`. |",
+      "| `narrative.Acceptance` and `narrative.Traces` | this-worksheet (O6.2 rubric) | Every O6.2 item needs one string Acceptance and one trace. |",
+      "| `narrative.Evidence` | schema-legal-optional | It may be a string, but it is a different field from `x-directive/evidence`. |",
+      "| item `effort`, `plan.metadata.kind`, and `plan.metadata.swarm` | schema-legal-optional | They are optional for this proposed candidate; `kind: \"story\"` is the story-taxonomy value when present. |",
+      "| `plan.metadata.swarm.readiness: \"ready\"` and item `x-directive/evidence` | later-gate | They belong to later allocation and completion gates, not this proposed candidate. |",
+      "",
+      "Item status `pending` is schema-legal, but this worksheet uses `proposed` to match `plan.status`.",
+      "O6.2 still requires two to five items, each with one string `Acceptance` and one string `Traces`, schema `0.8`, and `plan.status: proposed`.",
+      "This proposal is reviewable candidate state, not implementation authority.",
       "### Evidence to keep",
       "Artifact | User-visible outcome | Exclusions | Literal inspection",
       "",
@@ -133,6 +171,11 @@ function fixture(t) {
       "| O6.2 | Strategy decision and the Lab 7 Task 5 structural record naming the artifact path, the exact command, the exit code, and the result | `xbrief:verify` exits `0` against that exact artifact path. A green structural result grants no promotion, activation, or implementation authority. |",
     ].join("\n"),
     "Self-assessment": outcomes,
+    "Expected failures and recovery": [
+      "| Symptom | Likely cause | Confirm with | Recovery | Retry evidence |",
+      "| --- | --- | --- | --- | --- |",
+      "| `narrative.Acceptance must be a string, got list` | Acceptance is a list. | Compare the item with the field-identity skeleton above. | Give each item one Acceptance string and add items instead of list entries. | Exit `0` with two to five items. |",
+    ].join("\n"),
     "Explained solution": "Use the [explained solution](../../solutions/module-06-creating-well-shaped-work.md).",
     "Navigation": "Previous: [Module 5](05-sources-versus-projections.md). Next: [Module 7](07-scope-lifecycle.md); see the [course map](../README.md).",
     "Official sources": "See the [source baseline](../../references/SOURCE-BASELINE.md) and [Module 6 source validation](../../references/SOURCE-NOTES.md#module-6-source-validation).",
@@ -341,6 +384,135 @@ test("rejects loss of the two-to-five acceptance-criteria contract", (t) => {
   const files = fixture(t);
   files.change(module6, (body) => splice(body, "two to five criteria", "one criterion"));
   assert.throws(() => verifyModule6(files.root), /two to five acceptance criteria/i);
+});
+
+test("rejects a missing same-page field-identity skeleton", (t) => {
+  const files = fixture(t);
+  files.change(module6, (body) => splice(body, "##### Field-identity skeleton", "##### Unlabeled example"));
+  assert.throws(() => verifyModule6(files.root), /field-identity skeleton/i);
+});
+
+for (const [label, fragment, pattern] of [
+  ["schema version", '  "xBRIEFInfo": { "version": "0.8" },\n', /skeleton.*xBRIEFInfo\.version/i],
+  ["plan id", '    "id": "northstar.delayed-route-preview",\n', /skeleton.*plan\.id/i],
+  ["plan title", '    "title": "Preview one delayed route",\n', /skeleton.*plan\.title/i],
+  ["proposed plan status", '    "status": "proposed",\n', /skeleton.*plan\.status/i],
+  ["item title", '        "title": "Show the delayed-route preview",\n', /skeleton.*item title/i],
+  ["item status", '        "status": "proposed",\n', /skeleton.*item status/i],
+  ["string Acceptance", '          "Acceptance": "Given delayed route R-17, the preview shows its code, delay, and reason.",\n', /skeleton.*Acceptance/i],
+  ["string Traces", '          "Traces": "Northstar Transit idea: help dispatchers manage service disruptions."\n', /skeleton.*Traces/i],
+]) {
+  test(`rejects a field-identity skeleton without ${label}`, (t) => {
+    const files = fixture(t);
+    files.change(module6, (body) => splice(body, fragment));
+    assert.throws(() => verifyModule6(files.root), pattern);
+  });
+}
+
+test("rejects more than one illustrative item in the field-identity skeleton", (t) => {
+  const files = fixture(t);
+  files.change(module6, (body) => splice(
+    body,
+    '    "items": [\n',
+    '    "items": [\n      { "title": "A second item", "status": "proposed", "narrative": { "Acceptance": "Visible result", "Traces": "Fictional idea" } },\n',
+  ));
+  assert.throws(() => verifyModule6(files.root), /exactly one illustrative item/i);
+});
+
+for (const [label, search, addition] of [
+  ["item effort", '        "status": "proposed",\n', '        "status": "proposed",\n        "effort": "S",\n'],
+  ["plan metadata", '    "items": [\n', '    "metadata": { "kind": "story" },\n    "items": [\n'],
+]) {
+  test(`rejects optional ${label} inside the field-identity JSON`, (t) => {
+    const files = fixture(t);
+    files.change(module6, (body) => splice(body, search, addition));
+    assert.throws(() => verifyModule6(files.root), /optional effort, kind, and swarm metadata out of the JSON fence/i);
+  });
+}
+
+test("rejects a second Module 6 JSON fence beside the field-identity skeleton", (t) => {
+  const files = fixture(t);
+  files.change(module6, (body) => splice(
+    body,
+    "##### Field-identity skeleton",
+    "```json\n{}\n```\n\n##### Field-identity skeleton",
+  ));
+  assert.throws(() => verifyModule6(files.root), /one Module 6 JSON fence/i);
+});
+
+for (const [label, search, replacement, pattern] of [
+  ["schema-required fields", "schema-required (verify-enforced)", "schema-legal-optional", /schema-required.*verify-enforced/i],
+  ["schema-legal optional plan id", "| `plan.id` | schema-legal-optional |", "| `plan.id` | schema-required (verify-enforced) |", /plan\.id.*schema-legal-optional/i],
+  ["worksheet Acceptance and Traces", "| `narrative.Acceptance` and `narrative.Traces` | this-worksheet (O6.2 rubric) |", "| `narrative.Acceptance` and `narrative.Traces` | schema-legal-optional |", /Acceptance.*Traces.*this-worksheet/i],
+  ["later-gate readiness and evidence", "| `plan.metadata.swarm.readiness: \"ready\"` and item `x-directive/evidence` | later-gate |", "| `plan.metadata.swarm.readiness: \"ready\"` and item `x-directive/evidence` | schema-legal-optional |", /readiness.*x-directive\/evidence.*later-gate/i],
+]) {
+  test(`rejects a legend that misclassifies ${label}`, (t) => {
+    const files = fixture(t);
+    files.change(module6, (body) => splice(body, search, replacement));
+    assert.throws(() => verifyModule6(files.root), pattern);
+  });
+}
+
+test("rejects a legend that conflates narrative.Evidence with x-directive/evidence", (t) => {
+  const files = fixture(t);
+  files.change(module6, (body) => splice(body, "it is a different field from `x-directive/evidence`", "it becomes `x-directive/evidence`"));
+  assert.throws(() => verifyModule6(files.root), /different field from.*x-directive\/evidence/i);
+});
+
+for (const field of ["item `effort`", "`plan.metadata.kind`", "`plan.metadata.swarm`"]) {
+  test(`rejects an optional-field legend without ${field}`, (t) => {
+    const files = fixture(t);
+    files.change(module6, (body) => splice(body, field, "an omitted optional field"));
+    assert.throws(() => verifyModule6(files.root), /effort.*plan\.metadata\.kind.*plan\.metadata\.swarm.*optional/i);
+  });
+}
+
+test("rejects loss of the story taxonomy and later readiness boundary", (t) => {
+  const files = fixture(t);
+  files.change(module6, (body) => splice(body, '`kind: "story"` is the story-taxonomy value', '`kind: "scope"` is required'));
+  assert.throws(() => verifyModule6(files.root), /kind.*story.*story-taxonomy/i);
+  files.change(module6, (body) => splice(body, '`kind: "scope"` is required', '`kind: "story"` is the story-taxonomy value'));
+  files.change(module6, (body) => splice(body, '`plan.metadata.swarm.readiness: "ready"`', '`plan.metadata.swarm.readiness: "needs_refinement"`'));
+  assert.throws(() => verifyModule6(files.root), /readiness.*ready.*later-gate/i);
+});
+
+test("rejects a one-item skeleton presented as the completed O6.2 artifact", (t) => {
+  const files = fixture(t);
+  files.change(module6, (body) => splice(
+    body,
+    "This one-item field-identity skeleton identifies fields only; it is a shaping sketch, and Part B's two-to-five-item rubric wins for O6.2.",
+    "Copy this one-item artifact to complete O6.2.",
+  ));
+  assert.throws(() => verifyModule6(files.root), /shaping sketch.*two-to-five-item rubric/i);
+});
+
+test("rejects walkthrough guidance that lets one illustrative item override Part B", (t) => {
+  const files = fixture(t);
+  files.change(module6, (body) => splice(
+    body,
+    "The walkthrough records one illustrative item as a shaping sketch; Part B's two-to-five-item rubric controls the completed O6.2 artifact.",
+    "The walkthrough's one item completes O6.2.",
+  ));
+  assert.throws(() => verifyModule6(files.root), /walkthrough.*shaping sketch.*Part B.*two-to-five-item rubric/i);
+});
+
+test("rejects field-identity guidance without the O6.2 item count, trace, status, schema, or authority boundary", (t) => {
+  const files = fixture(t);
+  files.change(module6, (body) => splice(
+    body,
+    "O6.2 still requires two to five items, each with one string `Acceptance` and one string `Traces`, schema `0.8`, and `plan.status: proposed`.",
+    "O6.2 accepts the one shown item.",
+  ));
+  assert.throws(() => verifyModule6(files.root), /O6\.2.*two to five.*Acceptance.*Traces.*0\.8.*plan\.status.*proposed/i);
+  files.change(module6, (body) => splice(body, "O6.2 accepts the one shown item.", "O6.2 still requires two to five items, each with one string `Acceptance` and one string `Traces`, schema `0.8`, and `plan.status: proposed`."));
+  files.change(module6, (body) => splice(body, "This proposal is reviewable candidate state, not implementation authority.", "This proposal is ready to implement."));
+  assert.throws(() => verifyModule6(files.root), /field-identity.*not implementation authority/i);
+});
+
+test("rejects recovery that sends learners to the worked solution instead of the same-page skeleton", (t) => {
+  const files = fixture(t);
+  files.change(module6, (body) => splice(body, "Compare the item with the field-identity skeleton above.", "Compare the item with the worked solution."));
+  assert.throws(() => verifyModule6(files.root), /recovery.*field-identity skeleton/i);
 });
 
 test("rejects a missing O6.4 routing matrix", (t) => {
