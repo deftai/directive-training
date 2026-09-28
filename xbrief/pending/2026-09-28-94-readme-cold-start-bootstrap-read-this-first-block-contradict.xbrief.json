@@ -1,0 +1,361 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #94",
+    "updated": "2026-09-28T12:13:29Z"
+  },
+  "plan": {
+    "title": "README 'Cold-start bootstrap (read this first)' block contradicts the learner pin boundary taught in Module 2",
+    "status": "pending",
+    "narratives": {
+      "Description": "The byte-zero managed cold-start block is labeled read-this-first and currently reaches `directive doctor` and a global install before any learner-only guidance, contradicting the disposable pin boundary taught later in the course. This story inserts a learner audience intercept inside that managed block while preserving the agent bootstrap ladder and locking the distinction in focused portability checks.",
+      "ImplementationPlan": "1. Update the managed cold-start block in `README.md` with an in-block, learner-prefixed audience intercept before any learner could follow the doctor or global-install rungs, while retaining the byte-zero marker and agent ladder.\n2. Keep `curriculum/README.md` consistent with the disposable project-local pin boundary without adding a global Directive prerequisite or a new `START-HERE.md` route.\n3. Extend `scripts/verify-cold-start-readme.mjs` and its `scripts/verify-text-portability.test.mjs` mutations so LF and CRLF evidence rejects removal, after-title placement, or loss of the learner identity gate.",
+      "UserStory": "As a course learner, I want the first README block to identify which instructions are only for maintainers and agents, so that I do not run global or repository-mutating bootstrap commands before starting the disposable course path.",
+      "Traces": "GitHub issue #94 and its ingested design-critique Bound remedy require an in-block learner intercept, preserve the byte-zero agent ladder, and bind focused cold-start plus text-portability verification while excluding a new learner entry file.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/94",
+      "Overview": "\n\n- Keep the skip-sentence identity. Put the intercepting line inside the managed cold-start block: a Learners-prefixed audience line, a retitle of \"read this first\", or both. Byte 0 stays the #2273 agent ladder. Do not bind an after-title skip as the intercept.\n- The bound sentence names learners, or an equivalent audience gate, so agents still follow the global-first ladder (`main-002`).\n- Extend `scripts/verify-cold-start-readme.mjs` and the existing `scripts/verify-text-portability.test.mjs` mutations that already call it so the intercepting audience line cannot drop while CI stays green.\n- Leave `curriculum/README.md` prerequisites and a new `START-HERE.md` out of this harvest; those branches already match the tree.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "Keep the skip-sentence identity. Put the intercepting line inside the managed cold-start block: a Learners-prefixed audience line, a retitle of \"read this first\", or both. Byte 0 stays the #2273 agent ladder. Do not bind an after-title skip as the intercept.",
+        "status": "proposed",
+        "id": "clause.1",
+        "narrative": {
+          "Acceptance": "The managed cold-start block begins at byte zero and presents an explicit learner audience intercept before the doctor and global-install rungs, while a line placed only after the project title fails verification."
+        }
+      },
+      {
+        "title": "The bound sentence names learners, or an equivalent audience gate, so agents still follow the global-first ladder (`main-002`).",
+        "status": "proposed",
+        "id": "clause.2",
+        "narrative": {
+          "Acceptance": "When the managed block is rendered, the intercept names learners or an equivalent audience identity, tells them to use the disposable project-local path, and leaves the complete global-first bootstrap ladder available to repository agents."
+        }
+      },
+      {
+        "title": "Extend `scripts/verify-cold-start-readme.mjs` and the existing `scripts/verify-text-portability.test.mjs` mutations that already call it so the intercepting audience line cannot drop while CI stays green.",
+        "status": "proposed",
+        "id": "clause.3",
+        "narrative": {
+          "Acceptance": "When the focused cold-start verifier runs under LF and CRLF, the intended README passes and mutations fail if the audience line is removed, moved outside the managed block, or stripped of its learner identity."
+        }
+      },
+      {
+        "title": "Leave `curriculum/README.md` prerequisites and a new `START-HERE.md` out of this harvest; those branches already match the tree.",
+        "status": "proposed",
+        "id": "clause.4",
+        "narrative": {
+          "Acceptance": "When the final course-entry diff is reviewed, the course map requires only disposable project-local Directive evidence and introduces neither a global Directive prerequisite nor a new `START-HERE.md` entry path."
+        }
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/94",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #94: README 'Cold-start bootstrap (read this first)' block contradicts the learner pin boundary taught in Module 2"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "sentences": [
+        "Keep the skip-sentence identity. Put the intercepting line inside the managed cold-start block: a Learners-prefixed audience line, a retitle of \"read this first\", or both. Byte 0 stays the #2273 agent ladder. Do not bind an after-title skip as the intercept.",
+        "The bound sentence names learners, or an equivalent audience gate, so agents still follow the global-first ladder (`main-002`).",
+        "Extend `scripts/verify-cold-start-readme.mjs` and the existing `scripts/verify-text-portability.test.mjs` mutations that already call it so the intercepting audience line cannot drop while CI stays green.",
+        "Leave `curriculum/README.md` prerequisites and a new `START-HERE.md` out of this harvest; those branches already match the tree."
+      ],
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Keep the skip-sentence identity. Put the intercepting line inside the managed cold-start block: a Learners-prefixed audience line, a retitle of \"read this first\", or both. Byte 0 stays the #2273 agent ladder. Do not bind an after-title skip as the intercept.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "The bound sentence names learners, or an equivalent audience gate, so agents still follow the global-first ladder (`main-002`).",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Extend `scripts/verify-cold-start-readme.mjs` and the existing `scripts/verify-text-portability.test.mjs` mutations that already call it so the intercepting audience line cannot drop while CI stays green.",
+          "artifact_path": "scripts/verify-cold-start-readme.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Leave `curriculum/README.md` prerequisites and a new `START-HERE.md` out of this harvest; those branches already match the tree.",
+          "artifact_path": "curriculum/README.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "README.md",
+          "curriculum/README.md",
+          "scripts/verify-cold-start-readme.mjs",
+          "scripts/verify-text-portability.test.mjs",
+          "xbrief/active/2026-09-28-94-readme-cold-start-bootstrap-read-this-first-block-contradict.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:cold-start-readme",
+          "npm run test:portability"
+        ],
+        "expected_outputs": [
+          "The byte-zero managed block intercepts learners before any doctor or global-install rung while preserving the agent bootstrap ladder",
+          "Course-map prerequisite language remains aligned with disposable project-local evidence and does not introduce a global Directive requirement",
+          "Focused LF and CRLF mutations fail when the learner audience gate is absent, outside the managed block, or placed only after the title"
+        ],
+        "depends_on": [],
+        "conflict_group": "course-entry-agent-boundary",
+        "size": "small",
+        "file_scope_confidence": "high",
+        "model_tier": "medium"
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the README cold-start bootstrap block contradicts the learner pin boundary taught in Module 2.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: resolved\nstop-2: charter=open critique; spend=N=1 because parseOperatorSpend resolved n=1 on the operator chat utterance; this is a closed identity recut of a learner skip sentence after the title and before Start here\npain: P1\nP1: README.md:1-14 managed cold-start block, rung 1 says any running directive doctor is bootstrapped and rung 3 is npm i -g @deftai/directive@0.119.5; labs/02-disposable-initialization.md:81 and :231 never accept a host-global binary; curriculum/modules/02-installation-and-anatomy.md:232-233 classifies npm i -g as outside the disposable boundary; scripts/verify-cold-start-readme.mjs requires the project title immediately after the closing marker; no learner skip sentence between that title and README.md:26 ## Start here.\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5838827351,
+          "html_url": "https://github.com/deftai/directive-training/issues/94#issuecomment-5838827351",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:07:49Z",
+          "updated_at": "2026-09-25T20:07:49Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh critic, seat family grok, open critique. In-envelope: issue 94 body and comment 5838827351. Tree reads via `git show aea1e77017962e2e7186ef64ad8d7e82329da77b:`. Verifier probes were throwaway `/tmp` copies. Process-only.\n\nStop 1 identity: one learner skip sentence after `# directive-training` and before `## Start here`. P1's named learner path is following the README's first heading, \"read this first\", through rung 1 and rung 3.\n\n## 1. The skip has to intercept the first heading\n\nclass: blocks-the-design\n\nEvidence, re-measured at `aea1e770`:\n\n- `README.md:2` titles the managed block \"Cold-start bootstrap (read this first)\".\n- `README.md:6` rung 1: a running `directive doctor` means the reader is bootstrapped and should follow `Next command:`.\n- `README.md:8` rung 3: `npm i -g @deftai/directive@0.119.5`.\n- `labs/02-disposable-initialization.md:81` and `:231` tell the learner never to accept a host-global binary. `curriculum/modules/02-installation-and-anatomy.md:232-233` classifies `npm i -g` as outside the disposable boundary.\n- `node scripts/verify-cold-start-readme.mjs` on a SHA snapshot prints `README cold-start bootstrap: ok`.\n- The same verifier on mutated `/tmp` READMEs: a skip before byte 0 fails (`the cold-start marker must begin at byte 0`); a skip between the close marker and the title fails (`the project title must immediately follow the closing marker`); a skip after the title passes; a Learners audience line inside the managed block passes; retitling the first heading inside the block passes.\n- `README.md:21-22`, already after the title, says this repository is the course source and also a Directive consumer. That is the after-title identity prose the reporter still had to reason past.\n\nFailure mode: the harvest lands a skip between the title and `## Start here`. The first imperative on the page still sends a learner through `directive doctor` and `npm i -g` before that skip. That is the path P1 names and the reporter ran.\n\nDisposition: this recut cannot bind with after-title placement. Keep the skip-sentence identity. Put the intercepting line inside the managed block: a Learners-prefixed audience line, a retitle of \"read this first\", or both. The existing cold-start verifier already accepts those edits. Byte 0 stays the #2273 agent ladder. The harvest stays on `README.md`.\n\n## 2. \"Learners\" on that sentence is load-bearing\n\nclass: sharpens-framing\n\nEvidence: `.deft/core/packs/rules/rules-pack-0.1.json` `main-002` requires agents to follow the README cold-start block before any other instruction. Completed issue 2 placed that block at byte 0 so AGENTS.md recovery still works when `.deft/core/` is missing.\n\nFailure mode: harvest text that says \"skip this block\" with no audience gate. Agents recovering from README then skip the ladder that `main-002` and #2273 require.\n\nDisposition: the bound sentence names learners, or an equivalent audience gate. Agents keep the global-first ladder.\n\n## 3. Lock the intercepting line on the existing verifier\n\nclass: sharpens-framing\n\nEvidence: `scripts/verify-cold-start-readme.mjs` locks byte 0, title adjacency, rungs 1–6, and the pinned rung-3 commands. `scripts/verify-text-portability.test.mjs` already spawns that verifier under LF and CRLF, including a separated-title mutation. Neither asserts an audience line. `assertTeachingBaselinePin` still returns `0.119.5` with a skip inserted after the title in `/tmp`.\n\nFailure mode: the next managed-block refresh or README edit drops the audience line and CI stays green.\n\nDisposition: extend `scripts/verify-cold-start-readme.mjs` and the existing portability mutations that already call it.\n\n## 4. Course map and START-HERE.md\n\nclass: footnote\n\n`curriculum/README.md` prerequisites list Node, Git, gh, npm, Task, uv, Python, and a coding-agent host. They already omit a global `directive`. `START-HERE.md` is absent at this SHA. Those two issue-body branches already match the tree; the recut left them out.\n\n## Existing mechanism inventory\n\n- Managed block plus `scripts/verify-cold-start-readme.mjs` (byte 0, title adjacency, rung pin). In-block prose is already a legal edit; issue 63 already edited rung 3 inside the same markers.\n- Teaching-baseline HTML comments around `0.119.5` under `## Start here`.\n- `README.md:21-22` consumer-versus-course identity, after the title.\n- `## Safety boundary` at `README.md:72`, after Start here, too late for \"read this first\".\n- Lab 2 runtime refusal and Module 2 `npm i -g` boundary, which teach the rule after the README has already offered the opposite command.\n- `main-002` agent recovery through this same README block.\n\n## Injection / identity lens\n\nThe target changes reader identity on shared README state: agents take the #2273 ladder; learners skip it. An unscoped skip is a prompt collision with `main-002`. The deterministic control is an audience-gated line inside the block the first heading names, locked by the existing verifier.\n\n## Road not taken\n\nAfter-title skip keeps the managed ladder byte-for-byte for agents and survives a later rewrite of the marked block. That is the strongest case for the recut placement. It flips when the first heading is an imperative the learner executes before the title, which is the report on this issue.\n\n",
+          "id": 5838994141,
+          "html_url": "https://github.com/deftai/directive-training/issues/94#issuecomment-5838994141",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:19:12Z",
+          "updated_at": "2026-09-25T20:19:12Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe README cold-start block still sends a learner through doctor and npm i -g before any after-title skip. Confirming this map would put a Learners-gated intercept inside the managed block, keep the agent ladder at byte 0, and lock that line on the existing cold-start verifier.\n\nParent forward verdict: P1 holds; after-title placement cannot bind; the intercept belongs inside the managed block.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838827351 and these takes; the evidence is critic 5838994141.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5838994141\nsupersedes: 5838827351\nTarget-digest: sha256:f8f1116d528c49d3f049d3c617af63320aba92b73506f68f504fe7865612d4c5\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### The skip has to intercept the first heading\ntake: accept-into-contract\ncritic: 5838994141\nheading: The skip has to intercept the first heading\n### \"Learners\" on that sentence is load-bearing\ntake: accept-into-contract\ncritic: 5838994141\nheading: \"Learners\" on that sentence is load-bearing\n### Lock the intercepting line on the existing verifier\ntake: accept-into-contract\ncritic: 5838994141\nheading: Lock the intercepting line on the existing verifier\n### footnote — Course map and START-HERE.md\ntake: accept-into-contract\ncritic: 5838994141\nheading: Course map and START-HERE.md\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5838994141 reading=asserted\n\n## Bound remedy\n\n- Keep the skip-sentence identity. Put the intercepting line inside the managed cold-start block: a Learners-prefixed audience line, a retitle of \"read this first\", or both. Byte 0 stays the #2273 agent ladder. Do not bind an after-title skip as the intercept.\n- The bound sentence names learners, or an equivalent audience gate, so agents still follow the global-first ladder (`main-002`).\n- Extend `scripts/verify-cold-start-readme.mjs` and the existing `scripts/verify-text-portability.test.mjs` mutations that already call it so the intercepting audience line cannot drop while CI stays green.\n- Leave `curriculum/README.md` prerequisites and a new `START-HERE.md` out of this harvest; those branches already match the tree.\n\n",
+          "id": 5847299556,
+          "html_url": "https://github.com/deftai/directive-training/issues/94#issuecomment-5847299556",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:03:04Z",
+          "updated_at": "2026-09-26T15:03:04Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5847299556. Stop 1 write-back 5838827351. Round-1 critic 5838994141. Input ceiling 5847299556 inclusive. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Process-only. Marker `pain-P1` only. Parsers from `@deftai/directive-core@0.119.5`. Tree reads via `git show aea1e77017962e2e7186ef64ad8d7e82329da77b:`. Verifier probes were throwaway `/tmp` copies.\n\nCensus: 0 `blocks-the-design`, 0 `sharpens-framing`, 1 `footnote`.\n\n## Verdict\n\n`relieves: P1` is independently supported. Bound-remedy on lean 5847299556 covers P1 as Stop 1 named it. `scanPainCites` emits one operative cite for `P1`.\n\n## 1. Asserted relieves of P1 covers Stop 1 P1; lean cite is well-formed\n\nclass: footnote\n\nEvidence, measured at `aea1e77017962e2e7186ef64ad8d7e82329da77b` against Stop 1 5838827351 and lean 5847299556:\n\n- `scanPainList` on Stop 1: present, ids `[P1]`, duplicates empty, malformed false.\n- Stop 1 names `README.md:1-14` (rung 1 any running `directive doctor` is bootstrapped; rung 3 `npm i -g @deftai/directive@0.119.5`), `labs/02-disposable-initialization.md:81` and `:231` never accept a host-global binary, `curriculum/modules/02-installation-and-anatomy.md:232-233` classifies `npm i -g` as outside the disposable boundary, `scripts/verify-cold-start-readme.mjs` title-adjacency, and no learner skip between the project title and `README.md:26` `## Start here`.\n- Re-read at the pin: `README.md:2` titles the managed block \"Cold-start bootstrap (read this first)\"; `:6` is rung 1; `:8` is rung 3 at `0.119.5`. Lab 2 `:81` is the runtime-refusal row; `:231` names the project-local paths. Module 2 `:232-233` puts `npm i -g` outside the disposable boundary. `node scripts/verify-cold-start-readme.mjs` on the SHA snapshot prints `README cold-start bootstrap: ok`.\n- Same verifier on `/tmp` mutations: skip before byte 0 fails (`the cold-start marker must begin at byte 0`); skip between the close marker and the title fails (title must immediately follow); skip after the title passes; a Learners audience line inside the managed block, both immediately after the heading and after rung 6, passes; retitling the first heading passes. `assertTeachingBaselinePin` still returns `0.119.5` with an after-title skip. `scripts/verify-text-portability.test.mjs` already spawns that verifier under LF and CRLF and does not assert an audience line.\n- `curriculum/README.md:20-36` prerequisites omit a global `directive`. `START-HERE.md` is absent at this SHA. Payload `main-002` requires agents to follow the README cold-start block before any other instruction.\n- `extractBoundRemedyHarvest` returns four list items: intercept inside the managed block (Learners-prefixed audience line, retitle of \"read this first\", or both; byte 0 stays; do not bind an after-title skip); audience-gate the bound sentence; extend the cold-start verifier and the existing portability mutations; leave the course-map prerequisites and a new `START-HERE.md` out.\n- `scanPainCites` on the lean as posted: one cite `{painId: P1, disposition: relieves, deferredIssueNumber: null}`, `rejected: []`. Raw closed-form match count is 1, line 38 `` relieves: P1 ``, `classifyPosition` null. The summary run `P1 holds` and the token `audit:pain-P1` sit outside `PAIN_CITE_RE` as dispositions. Take-map headings are not cite forms. `does-not-relieve` and `operator-deferred` are absent. `evaluateBoundRemedyCites` with `coveredIds: [P1]` returns `{ ok: true }`. `parseAuditToken` on the deposit line returns marker `pain-P1`, sha `aea1e77017962e2e7186ef64ad8d7e82329da77b`, pointer `comment:5838994141`, reading `asserted`.\n\nFailure mode: a heading or prose closed-form would emit a second disposition for `P1`, or Bound-remedy would leave rungs 1 and 3 as the first learner imperatives. Neither holds on this body.\n\nDisposition: footnote only. The bind map stays bindable on this marker. No harvest change.\n\n## Injection / identity lens\n\nThe harvest splits reader identity on shared README state. The Bound-remedy audience gate keeps `main-002` / #2273 for agents while intercepting learners inside the block the first heading names.\n\n## Road not taken\n\nTreat the unharvested after-title gap as unrelieved P1. That is Stop 1's first recut placement, and it leaves the named path (first heading through rung 1 and rung 3) intact. It flips if the in-block intercept still left those rungs as the first learner imperatives. Harvest item 1 names the intercept as a Learners line inside that block or a retitle of \"read this first\".\n\n",
+          "id": 5847369688,
+          "html_url": "https://github.com/deftai/directive-training/issues/94#issuecomment-5847369688",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:13:10Z",
+          "updated_at": "2026-09-26T15:13:10Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5847369688 is footnote-only. Bind remains successor lean 5847299556. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5847369688\nsupersedes: 5847299556\n\n",
+          "id": 5847425697,
+          "html_url": "https://github.com/deftai/directive-training/issues/94#issuecomment-5847425697",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:14Z",
+          "updated_at": "2026-09-26T15:21:14Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| README cold-start first heading still sends learners through doctor and `npm i -g` | verified | `git show` README.md:2,6,8 at dest SHA |\n| After-title skip fails P1; in-block Learners line is a legal edit | verified | `scripts/verify-cold-start-readme.mjs` byte-0 and title-adjacency probes on `/tmp` mutations |\n| Bound-remedy covers Stop 1 P1; lean cite is one `relieves` | verified | harvest; `scanPainCites` on 5847299556; pain-audit 5847369688 footnote-only |\n\n",
+          "id": 5847426967,
+          "html_url": "https://github.com/deftai/directive-training/issues/94#issuecomment-5847426967",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:25Z",
+          "updated_at": "2026-09-26T15:21:25Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nThe README cold-start first heading still sends learners through doctor and npm i -g. The harvest puts a Learners-gated intercept inside the managed block and locks it on the existing verifier.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5847299556\nverified-claims table 5847426967\npain-audit 5847369688\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5847427095,
+          "html_url": "https://github.com/deftai/directive-training/issues/94#issuecomment-5847427095",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:26Z",
+          "updated_at": "2026-09-26T15:21:26Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "issueBody": "## Course context\n\nI noticed this as a mid/senior learner. The pre-check before Module 1 found a global `directive` **0.119.9** on my `PATH`, while the course pins **0.119.5**. The machine runs Windows 11 ARM64 and PowerShell 7.6.6.\n\n## What happened\n\nThe first thing on `README.md` is a callout titled **\"⚡ Cold-start bootstrap (read this first)\"**. It says:\n\n1. \"**Already installed?** Run `directive doctor` ... If it runs, you're bootstrapped — skip the rest and follow its `Next command:`.\"\n2. \"**Global install (canonical).** `npm i -g @deftai/directive@0.119.5` ...\"\n\nThat block is Directive-managed bootstrap guidance for agents working **in this repository** (the maintainer workspace). Nothing marks it as not for learners. It is followed by `## Start here`, which is the learner path.\n\nThe block contradicts what the course teaches:\n\n- Rung 1 tells a learner with **any** global version that they are \"bootstrapped\". Module 2 and Lab 2 teach that a host-global executable never proves the pin (\"never accept a host-global binary instead\").\n- Rung 3 calls a host-global install canonical. Module 2 (§4) and Lab 2 Task 2 teach learners to **refuse** `npm i -g` because it mutates host-global state outside the disposable boundary.\n- \"Follow its `Next command:`\" invites learners to act on doctor's recommendations in the training repository. That repository is the one place the course says never to run Directive commands.\n\n## Learner pain\n\nA learner who does what the page says, \"read this first\", before \"Start here\", will either:\n\n- run `directive doctor` in the curriculum clone and act on its next command, which mutates the training repo; or\n- run `npm i -g @deftai/directive@0.119.5`, which downgrades or changes their global tool. Module 2 later calls that exact action outside the boundary.\n\nFor me, rung 1 would have declared a mismatched 0.119.9 install \"bootstrapped\". I had to reason out that the block was not for me, and that the labs install their own exact project-local graph.\n\n## Reproduction\n\n1. Open `README.md` with a global `directive` of a different version installed.\n2. Follow the \"read this first\" block top-down.\n\n## Proposed fix\n\n- Add a sentence at the top of the managed block, or directly under it, before `## Start here`. For example: \"**Learners:** skip this block. It is maintainer/agent bootstrap for this repository. You do not need a global `directive`; every lab installs its own exact project-local 0.119.5 graph in a disposable repository. Do not run Directive commands in this clone.\"\n- In the course map's prerequisites, say whether a global `directive` is needed. As far as I can tell it is not. Also say that a global CLI of a different version is harmless but must not be used as lab evidence.\n- If the managed block cannot be edited because the installer owns it, move the learner guidance above it or into a learner-only `START-HERE.md`.\n\n",
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5586606699,
+        "origin": "deftai/directive-training#94",
+        "id": "github.issue.5586606699"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "f8f1116d528c49d3f049d3c617af63320aba92b73506f68f504fe7865612d4c5"
+      }
+    },
+    "id": "github.issue.5586606699",
+    "updated": "2026-09-28T12:13:29Z"
+  }
+}
