@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Project definition for the 3Ci Directive training curriculum",
     "created": "2026-09-05T14:54:49Z",
-    "updated": "2026-09-28T12:56:56Z",
+    "updated": "2026-09-28T15:05:15Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -109,22 +109,6 @@
         "metadata": {
           "source_path": "proposed/2026-09-05-version-drift-and-maintenance-process.xbrief.json",
           "lifecycle_folder": "proposed"
-        }
-      },
-      {
-        "id": "2026-09-28-100-lab-attempts-accumulate-unbounded-in-os-temp-14-gb-enospc-ha",
-        "title": "Lab attempts accumulate unbounded in OS temp (14 GB); ENOSPC halts the course mid-run with no sanctioned reclamation",
-        "status": "pending",
-        "metadata": {
-          "source_path": "pending/2026-09-28-100-lab-attempts-accumulate-unbounded-in-os-temp-14-gb-enospc-ha.xbrief.json",
-          "lifecycle_folder": "pending",
-          "references": [
-            {
-              "uri": "https://github.com/deftai/directive-training/issues/100",
-              "type": "x-xbrief/github-issue",
-              "title": "Issue #100: Lab attempts accumulate unbounded in OS temp (14 GB); ENOSPC halts the course mid-run with no sanctioned reclamation"
-            }
-          ]
         }
       },
       {
@@ -235,6 +219,22 @@
               "uri": "https://github.com/deftai/directive-training/issues/98",
               "type": "x-xbrief/github-issue",
               "title": "Issue #98: Module 3 Card E solution requires Module 8 work-selection knowledge; the rubric fails the answer Modules 1–3 support"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-28-100-lab-attempts-accumulate-unbounded-in-os-temp-14-gb-enospc-ha",
+        "title": "Lab attempts accumulate unbounded in OS temp (14 GB); ENOSPC halts the course mid-run with no sanctioned reclamation",
+        "status": "running",
+        "metadata": {
+          "source_path": "active/2026-09-28-100-lab-attempts-accumulate-unbounded-in-os-temp-14-gb-enospc-ha.xbrief.json",
+          "lifecycle_folder": "active",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/100",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #100: Lab attempts accumulate unbounded in OS temp (14 GB); ENOSPC halts the course mid-run with no sanctioned reclamation"
             }
           ]
         }

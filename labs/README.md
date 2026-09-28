@@ -43,20 +43,137 @@ If you cannot prove the current directory is the disposable repository named by 
 
 ## Environment model
 
-Each attempt has one isolated directory under the operating system's temporary area:
+Each attempt has one isolated directory under the operating system's temporary area.
+Recoverable archives have three deliberately different identity classes:
 
 ```text
 OS temporary directory/
-├── 3ci-directive-labs/
-│   └── module-XX-<unique-id>/       # one active disposable Git repository
-└── 3ci-directive-lab-archive/
-    └── module-XX-<unique-id>/       # recoverable, inactive prior attempt
+├── 3ci-directive-module-02.<unique>/          # live Module 2 parent
+├── 3ci-directive-lab05-<unique>/repo          # representative live shared-lab shape
+├── 3ci-directive-capstone-<unique>/repo        # live capstone shape
+├── 3ci-directive-module-02-archive.<unique>/
+│   └── lab-parent/                  # one complete Module 2 parent
+├── 3ci-directive-lab-archive/
+│   ├── 3ci-directive-lab05-<unique>/
+│   ├── 3ci-directive-lab07-<unique>/
+│   ├── 3ci-directive-lab10-<unique>/
+│   └── 3ci-directive-lab11-<unique>/
+└── 3ci-directive-capstone-archive/
+    └── 3ci-directive-capstone-<unique>/
 ```
+
+Module 2 reclaims the unique archive root itself. Labs 5, 7, 10, and 11
+reclaim only children of the shared lab archive whose module prefix matches the
+invoked helper. The capstone reclaims only capstone children of its separate
+archive. A helper never crosses these classes.
 
 The lab instructions either create the fictional fixture in the active directory or copy a
 named fixture read-only from this curriculum clone. They never copy from a business
 repository. A fixture must be reconstructible from checked-in instructions and fictional
 data.
+
+## Disk capacity and ENOSPC recovery
+
+Capacity is an environment prerequisite, not a fixed course number. On a
+representative successful run, measure the fully installed current attempt and
+one fully installed reset attempt on the same temporary volume. Then measure
+the reset attempt's `.npm-cache` and `node_modules`; use the larger as
+conservative npm extraction slack. Required headroom is:
+
+```text
+current attempt + one reset attempt + npm extraction slack
+```
+
+Before a first run, estimate from a recorded representative successful run on
+the same environment class. A matching record must name its date, pinned
+Directive version and package graph, filesystem, OS and architecture, runtime,
+registry route, and all three measured terms.
+
+If there is no matching record, use an approved bootstrap run on the intended
+temporary volume: first reclaim or clear that volume through the documented
+process, record its starting free bytes, then run one current install and one
+reset install while monitoring free space after every command. Stop immediately
+on `ENOSPC` and use the recovery below. The bootstrap does not verify the
+capacity prerequisite until both installed trees and extraction slack have been
+measured. If there is no matching record and no approved bootstrap volume with
+recoverable headroom, remain environment-blocked until the workstation owner
+provides one. Never treat a missing path as zero.
+
+For Labs 5, 7, 10, 11, and the capstone, measure each attempt parent so its
+marker and evidence are included. For Module 2, measure the two individual
+`attempt-*` roots because they share one parent. These commands make the
+measurement repeatable after the representative reset has been installed:
+
+```sh
+du -sk "$CURRENT_TREE" "$RESET_TREE"
+du -sk "$RESET_ROOT/.npm-cache" "$RESET_ROOT/node_modules"
+```
+
+```powershell
+function Get-LabTreeBytes([string]$Path) {
+  if (-not (Test-Path -LiteralPath $Path)) { throw "Measure only an existing installed tree: $Path" }
+  $sum = (Get-ChildItem -LiteralPath $Path -File -Recurse -Force |
+    Measure-Object -Property Length -Sum).Sum
+  if ($null -eq $sum) { return 0 }
+  return [int64]$sum
+}
+$CurrentBytes = Get-LabTreeBytes $CurrentTree
+$ResetBytes = Get-LabTreeBytes $ResetTree
+$NpmSlackBytes = [Math]::Max(
+  (Get-LabTreeBytes (Join-Path $ResetRoot '.npm-cache')),
+  (Get-LabTreeBytes (Join-Path $ResetRoot 'node_modules'))
+)
+$RequiredBytes = $CurrentBytes + $ResetBytes + $NpmSlackBytes
+$RequiredBytes
+```
+
+Record the three measured terms with the environment evidence. Filesystem,
+runtime, registry route, and package graph affect them, so there is no universal
+20 GB minimum.
+
+`ENOSPC` or “no space left on device” is an environment stop. Do not retry
+`create`, `reset`, or Route A while the volume is full: each can require a new
+directory and npm extraction space. Each executable helper instead supports:
+
+```text
+node <helper> reclaim
+node <helper> reclaim --confirm <exact-older-archive-path-printed-by-preview>
+```
+
+The first command is read-only, creates no archive directory, and is safe when
+the volume has no writable space. If it prints nothing, there is no helper-owned
+archive to reclaim; remain environment-blocked until an operator makes space.
+Review the output, then confirm only exact older archive destinations it
+printed. Apply revalidates immediately before deletion and refuses a live
+attempt, this curriculum clone, a repository with a remote, a symlink, an
+identity mismatch, a relative path, or a path from another archive class.
+An invalid matching entry is omitted instead of blocking other valid archive
+destinations; confirming that omitted path is still refused.
+
+After capacity returns, archive the live failed parent with the lab's
+same-volume `archive` rename. Then use `reset <validated-archive-destination>`
+or the lab's documented `create` path to allocate the fresh attempt.
+
+The live failed parent here is one whose `create` command completed and printed
+its repository root. `create` does not run package installation, so an ENOSPC
+from the later `install` leaves the marker and Git identity that `archive`
+validates even when the package tree is partial. If `create` itself stops before
+returning a root, do not guess a temporary path or pass a partial directory to
+`archive`; it contains no package-install payload. Reclaim a valid older archive
+and, after capacity returns, rerun the documented `create` path. An approved OS
+temporary cleanup can retire that incomplete launcher later.
+
+Module 2 also seeds a reset sibling transactionally. If that seed stops before
+Git initialization completes, the helper removes only the exact unpublished
+sibling that it just created and preserves the previous valid marker. The
+printed previous root can then be archived and reclaimed normally. If the
+helper reports that rollback itself could not complete, do not archive the
+parent; use the approved temporary-file cleanup on the named incomplete sibling
+first.
+
+Reclaim removes the confirmed archive and its contained cache only.
+It never deletes a live cache. Every npm cache remains attempt-local.
+Empty launcher directories are negligible bookkeeping and are not the primary remedy.
 
 ## Create a disposable repository
 
@@ -191,7 +308,7 @@ in-place reset adds value.
 4. Reapply the fictional fixture.
 5. Run the full starting-state check.
 
-This route replaces the attempt without deleting it. It is the safest choice when the current state or path is uncertain.
+This route replaces the attempt without deleting it. It is the safest choice when the current state or path is uncertain, except during an `ENOSPC` / no-space-left environment stop. Route A allocates another tree, so reclaim must restore capacity first.
 
 ### Route B — bounded in-place reset (only when the lab supplies it)
 
@@ -263,7 +380,7 @@ Write-Output "Archived lab at $archivedPath"
 Remove-Variable labDir
 ```
 
-These routes move one exact directory; they do not permanently delete it. Use the operating system's managed temporary-file cleanup or your workstation's approved deletion process later. Review the exact archived path before permanent deletion.
+These routes move one exact directory; they do not permanently delete it. For the six executable helpers, the bounded `reclaim` preview and exact confirmed apply above are the sanctioned in-course way to retire an older helper archive. For other labs, use the operating system's managed temporary-file cleanup or your workstation's approved deletion process later. Never substitute a broad temporary-directory deletion for either route.
 
 A lab that starts a process, container, or local service must name an exact stop command and a command that proves the process stopped. “Close anything you started” is not sufficient.
 
@@ -287,11 +404,12 @@ When a lab does not behave as documented:
 
 1. Confirm the repository path, remote boundary, shell, runtime, and Directive baseline.
 2. Read the exact error. Keep the command and exit code.
-3. Use Hint 1, then Hint 2, then Hint 3.
-4. Match the symptom to the lab's recovery table.
-5. Retry only the affected checkpoint.
-6. If state remains uncertain, use Route A and start fresh.
-7. After the suggested first attempt, open the explained solution.
+3. If the error is `ENOSPC` or “no space left on device,” stop before any Route A, `reset`, or `create`. Run the matching helper's read-only reclaim preview and confirm only an exact older archive if one is available. If a completed `create` printed the failed live root, archive the failed live parent after capacity returns and then reset. If `create` stopped before returning a root, do not guess a path; rerun `create` after reclaim restores capacity, as described above. Restart this order at step 1 with the fresh root.
+4. For any other error, use Hint 1, then Hint 2, then Hint 3.
+5. Match the symptom to the lab's recovery table.
+6. Retry only the affected checkpoint.
+7. If non-ENOSPC state remains uncertain, use Route A and start fresh.
+8. After the suggested first attempt, open the explained solution.
 
 No instructor or review bot is required. If the documented recovery still cannot reproduce the start state, record the environment as blocked rather than treating it as a knowledge failure.
 

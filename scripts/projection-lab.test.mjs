@@ -1,16 +1,51 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, symlinkSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { test } from "node:test";
-import { archiveAttempt, checkpoint, createAttempt, guardAttempt, injectDrift, main, verifyPin, verifyResult } from "../labs/fixtures/05-projection-drift-recovery/projection-lab.mjs";
+import { after, test } from "node:test";
+import { archiveAttempt as archiveAttemptRaw, checkpoint, createAttempt as createAttemptRaw, guardAttempt, injectDrift, main, previewReclaim, reclaimArchives, resetAttempt as resetAttemptRaw, verifyPin, verifyResult } from "../labs/fixtures/05-projection-drift-recovery/projection-lab.mjs";
 import { git, safePath } from "../labs/fixtures/05-projection-drift-recovery/safety.mjs";
 
 const read = (path) => readFileSync(path, "utf8");
 const originalHelper = fileURLToPath(new URL("../labs/fixtures/05-projection-drift-recovery/projection-lab.mjs", import.meta.url));
+const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const windowsShims = JSON.parse(read(new URL("./fixtures/windows-directive-shims.json", import.meta.url))).files;
+const hostTemporaryRoot = realpathSync(tmpdir());
+const suiteTemporaryRoot = realpathSync(mkdtempSync(join(hostTemporaryRoot, "3ci-lab05-suite-")));
+const originalTemporaryEnvironment = new Map(["TEMP", "TMP", "TMPDIR"].map((key) => [key, process.env[key]]));
+for (const key of originalTemporaryEnvironment.keys()) process.env[key] = suiteTemporaryRoot;
+const archivedForCleanup = new Set();
+const parentsForCleanup = new Set();
+function createAttempt(...args) {
+  const root = createAttemptRaw(...args);
+  parentsForCleanup.add(dirname(root));
+  return root;
+}
+function resetAttempt(...args) {
+  const root = resetAttemptRaw(...args);
+  parentsForCleanup.add(dirname(root));
+  return root;
+}
+function archiveAttempt(...args) {
+  const archived = archiveAttemptRaw(...args);
+  archivedForCleanup.add(archived);
+  return archived;
+}
+after(() => {
+  try {
+    const remaining = [...archivedForCleanup].filter((path) => existsSync(path));
+    if (remaining.length > 0) reclaimArchives(remaining, { confirmed: true });
+    for (const parent of parentsForCleanup) rmSync(parent, { force: true, recursive: true });
+  } finally {
+    for (const [key, value] of originalTemporaryEnvironment) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+    rmSync(suiteTemporaryRoot, { force: true, recursive: true });
+  }
+});
 function runCli(cwd, args, helper = originalHelper) {
   return spawnSync(process.execPath, [helper, ...args], { cwd, encoding: "utf8", timeout: 30_000 });
 }
@@ -56,8 +91,9 @@ test("guard refuses an installed graph with missing launchers and a partial inst
   const partial = createAttempt();
   mkdirSync(join(partial, "node_modules"));
   assert.throws(() => guardAttempt(partial), /ENOENT/);
-  renameSync(join(partial, "node_modules"), join(partial, "../partial-install-retained"));
-  archiveAttempt(partial);
+  writeFileSync(join(partial, "node_modules/partial-install.txt"), "preserve\n");
+  const archivedPartial = archiveAttempt(partial);
+  assert.equal(read(join(archivedPartial, "repo/node_modules/partial-install.txt")), "preserve\n");
 });
 test("create guards a no-remote feature-branch repo; archive preserves sources", () => {
   const root = createAttempt();
@@ -83,6 +119,67 @@ test("fresh reset leaves earlier attempt and evidence intact", () => {
   assert.equal(read(join(first, "../evidence.md")), "failure evidence\n");
   archiveAttempt(first);
   archiveAttempt(second);
+});
+test("reclaim preview is read-only and confirmed apply removes only an archived Module 5 attempt", (t) => {
+  const emptyTemporaryRoot = realpathSync(mkdtempSync(join(tmpdir(), "3ci-lab05-reclaim-empty-")));
+  t.after(() => rmSync(emptyTemporaryRoot, { force: true, recursive: true }));
+  assert.deepEqual(previewReclaim(emptyTemporaryRoot), []);
+  assert.equal(existsSync(join(emptyTemporaryRoot, "3ci-directive-lab-archive")), false);
+
+  const live = createAttempt();
+  mkdirSync(join(live, ".npm-cache"));
+  writeFileSync(join(live, ".npm-cache", "live.txt"), "keep\n");
+  const retired = createAttempt();
+  mkdirSync(join(retired, ".npm-cache"));
+  writeFileSync(join(retired, ".npm-cache", "retired.txt"), "remove\n");
+  const archived = archiveAttempt(retired);
+
+  assert.ok(previewReclaim().includes(archived));
+  assert.ok(main(["reclaim"]).split(/\r?\n/).includes(archived));
+  assert.throws(() => reclaimArchives([archived]), /explicit confirmation/);
+  assert.throws(() => reclaimArchives([live], { confirmed: true }), /archive destination/);
+  assert.throws(() => reclaimArchives([repositoryRoot], { confirmed: true }), /archive destination/);
+  assert.equal(main(["reclaim", "--confirm", archived]), "reclaimed=" + archived);
+  assert.equal(existsSync(archived), false);
+  assert.equal(read(join(live, ".npm-cache", "live.txt")), "keep\n");
+
+  const liveArchive = archiveAttempt(live);
+  const replacement = resetAttempt(liveArchive);
+  assert.equal(guardAttempt(replacement), replacement);
+  assert.equal(read(join(liveArchive, "repo/.npm-cache/live.txt")), "keep\n");
+  reclaimArchives([liveArchive], { confirmed: true });
+  assert.equal(existsSync(join(liveArchive, "repo/.npm-cache")), false);
+  reclaimArchives([archiveAttempt(replacement)], { confirmed: true });
+});
+test("reclaim refuses an archived remote or mismatched identity without deleting evidence", () => {
+  const root = createAttempt();
+  const archived = archiveAttempt(root);
+  const healthy = archiveAttempt(createAttempt());
+  const configPath = join(archived, "repo/.git/config");
+  const originalConfig = read(configPath);
+  try {
+    writeFileSync(configPath, originalConfig + '\n[remote "unexpected"]\n\turl = https://example.invalid/fictional.git\n');
+    assert.ok(previewReclaim().includes(healthy), "an invalid sibling must not hide a healthy reclaim target");
+    assert.equal(previewReclaim().includes(archived), false);
+    assert.throws(() => reclaimArchives([archived], { confirmed: true }), /archive destination/);
+    assert.equal(existsSync(join(archived, "evidence.md")), true);
+  } finally {
+    writeFileSync(configPath, originalConfig);
+  }
+
+  const markerPath = join(archived, "lab-state.json");
+  const originalMarker = read(markerPath);
+  try {
+    writeFileSync(markerPath, originalMarker.replace('"module-05"', '"other-lab"'));
+    assert.ok(previewReclaim().includes(healthy), "a mismatched marker must not hide a healthy reclaim target");
+    assert.equal(previewReclaim().includes(archived), false);
+    assert.throws(() => reclaimArchives([archived], { confirmed: true }), /archive destination/);
+    assert.equal(existsSync(join(archived, "evidence.md")), true);
+  } finally {
+    writeFileSync(markerPath, originalMarker);
+  }
+  reclaimArchives([archived], { confirmed: true });
+  reclaimArchives([healthy], { confirmed: true });
 });
 test("guard rejects curriculum and arbitrary roots before writes", () => {
   assert.throws(() => guardAttempt(new URL("../", import.meta.url).pathname), /temporary lab/);
@@ -176,6 +273,7 @@ test("command interface validates operands and routes guarded fixture actions", 
   assert.throws(() => main([]), /one verb/);
   assert.throws(() => main(["unknown"]), /Unknown lab verb/);
   const root = main(["create"]);
+  parentsForCleanup.add(dirname(root));
   const previous = process.cwd();
   try {
     process.chdir(root);
@@ -192,7 +290,9 @@ test("command interface validates operands and routes guarded fixture actions", 
   } finally {
     process.chdir(previous);
   }
-  assert.match(main(["archive", root]), /3ci-directive-lab-archive/);
+  const archived = main(["archive", root]);
+  assert.match(archived, /3ci-directive-lab-archive/);
+  archivedForCleanup.add(archived);
 });
 
 test("archive rejects caller cwd anywhere in the attempt parent before moving evidence", () => {
@@ -236,6 +336,7 @@ test("actual CLI requires an explicit canonical target and refuses cwd inside th
   const success = runCli(process.cwd(), ["archive", root]);
   assert.equal(success.status, 0, success.stderr);
   const archived = success.stdout.trim();
+  archivedForCleanup.add(archived);
   assert.equal(existsSync(root), false);
   assert.equal(read(join(archived, "repo/xbrief/PROJECT-DEFINITION.xbrief.json")), source);
   assert.equal(existsSync(join(archived, "evidence.md")), true);
@@ -249,7 +350,9 @@ test("actual archive CLI handles an external helper path containing spaces", () 
   for (const file of ["projection-lab.mjs", "safety.mjs"]) copyFileSync(join(dirname(originalHelper), file), join(folder, file));
   const result = runCli(folder, ["archive", root], join(folder, "projection-lab.mjs"));
   assert.equal(result.status, 0, result.stderr);
-  assert.equal(existsSync(join(result.stdout.trim(), "repo/package.json")), true);
+  const archived = result.stdout.trim();
+  archivedForCleanup.add(archived);
+  assert.equal(existsSync(join(archived, "repo/package.json")), true);
   assert.equal(existsSync(join(folder, "projection-lab.mjs")), true);
 });
 
@@ -278,13 +381,14 @@ test("archive rejects missing, extra, relative, noncanonical and foreign targets
   archiveAttempt(root);
 });
 
-test("archive refuses an existing destination and preserves both source and destination", () => {
+test("archive refuses an existing destination and preserves both source and destination", (t) => {
   const root = createAttempt();
   const parent = dirname(root);
   const archive = join(dirname(parent), "3ci-directive-lab-archive");
   mkdirSync(archive, { recursive: true });
   const destination = join(archive, basename(parent));
   mkdirSync(destination);
+  t.after(() => rmSync(destination, { force: true, recursive: true }));
   writeFileSync(join(destination, "keep.txt"), "existing destination\n");
   const evidence = read(join(parent, "evidence.md"));
   assert.throws(() => archiveAttempt(root), /destination already exists/);

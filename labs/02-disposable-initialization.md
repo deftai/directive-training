@@ -55,6 +55,10 @@ gh --version
 **Pass:** every command exits 0 and Node reports 22 or newer. If a command is missing, use
 your organization's approved tool installation path before continuing.
 
+Before `create`, apply the [per-environment capacity recipe](README.md#disk-capacity-and-enospc-recovery)
+on this temporary volume: measured current attempt + one reset attempt + npm
+extraction slack. There is no universal 20 GB floor.
+
 ### How this lab runs
 
 Every command block below runs in its own shell. Nothing is carried between blocks: no shell
@@ -68,9 +72,9 @@ two values you supply and one course helper that re-reads its own state from dis
 
 The helper lives at `labs/fixtures/02-disposable-initialization/init-lab.mjs` inside the
 curriculum clone. Its verbs are `create`, `guard`, `install`, `diagnose`, `accept`, `reset`,
-`archive`, and `recovery-npmrc`. Every verb after `create` takes that one absolute root and
-nothing else, so a coding-agent host that starts a fresh shell per block runs this lab
-exactly as written.
+`archive`, `reclaim`, and `recovery-npmrc`. Attempt verbs take the one absolute root;
+`reclaim` is the exception described under disk-full recovery because its preview has no
+target and its apply accepts only exact paths printed by that preview.
 
 This also means different things can go wrong, and the lab keeps them apart on purpose:
 
@@ -624,6 +628,7 @@ required.
 | A block prints `Paste refusal:` or `lab-02: Usage refusal:` | Read which value is missing: the curriculum clone path, or the one printed attempt root | Nothing was inspected and nothing was mutated, so this is not a root-guard failure. Re-export `DIRECTIVE_TRAINING_ROOT` or `LAB_ROOT` and re-run the same block unchanged. | The same block prints its normal result |
 | A block prints `lab-02: Runtime refusal:` | Test the exact `node_modules/.bin` path named in the message | Do not put a host-global binary on `PATH` to satisfy it. Re-install into a fresh attempt. | The named local launcher exists and is executable |
 | A block prints `lab-02: Stop:` for the root guard or the no-remote check | Print only the canonical lab path and remote names | Stop every mutation. Preserve the directory; start from a new temporary parent with `create`. | Guard and empty-remote checks pass before retry |
+| `ENOSPC` or “no space left on device” | Confirm the temporary volume is full; do not retry allocation | Treat this as an environment stop. Use the bounded archive-reclaim sequence below; `create`, `reset`, and Route A remain blocked until capacity returns. | An older archive is reclaimed, the failed parent is archived, and a fresh guarded root is created |
 
 Recoveries replace the attempt unless explicitly marked “continue”; none depends on an instructor or hidden file.
 
@@ -664,6 +669,47 @@ The helper derives the probe file's parent from the printed root, writes an empt
 configuration there, and runs `npm config get registry` against it. The printed registry host
 must match the route your organization approved. Do not record npm configuration contents or
 credentials.
+
+### Disk-full recovery
+
+The Module 2 reclaim class is one exact
+`3ci-directive-module-02-archive.<unique>` root containing `lab-parent`. From
+outside every live parent, run the read-only preview first:
+
+```sh
+helper="${DIRECTIVE_TRAINING_ROOT:?}/labs/fixtures/02-disposable-initialization/init-lab.mjs"
+test -f "$helper"
+node "$helper" reclaim
+```
+
+Preview creates no archive directory and works with zero writable space. If it
+prints nothing, stay environment-blocked until an operator frees capacity. If
+it prints an older archive you intend to retire, copy that exact absolute path
+without shortening, globbing, or substituting the live root:
+
+```sh
+helper="${DIRECTIVE_TRAINING_ROOT:?}/labs/fixtures/02-disposable-initialization/init-lab.mjs"
+test -f "$helper"
+lab_root="${LAB_ROOT:?}"
+older_archive="/exact/older/archive/path/printed/by/reclaim"
+node "$helper" reclaim --confirm "$older_archive"
+archive_result="$(node "$helper" archive "$lab_root")"
+failed_archive="${archive_result#archived=}"
+test "$failed_archive" != "$archive_result"
+next_root="$(node "$helper" reset "$failed_archive")"
+node "$helper" guard "$next_root"
+```
+
+PowerShell uses the same `reclaim`, `reclaim --confirm`, `archive`, and `reset`
+arguments with `$Helper`; strip the helper's literal `archived=` label before
+passing the absolute destination to `reset`. Apply revalidates immediately before deletion and
+accepts only exact previewed older archives. It rejects a live attempt, the
+curriculum clone, a remote-bearing repository, a symlink, or an identity
+mismatch. Reclaim deletes the confirmed archive and its contained cache only;
+the live failed parent's `.npm-cache` remains isolated and untouched until the
+same-volume `archive` rename succeeds. Only then does `reset` validate the
+archive destination and allocate the new attempt. Do not introduce a shared npm
+cache, and do not treat empty launcher directories as meaningful recovery.
 
 ## Reset to start
 

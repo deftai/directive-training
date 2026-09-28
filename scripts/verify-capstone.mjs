@@ -3,6 +3,9 @@ import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+  assertDiskCapacityGuideContract,
+  assertEnospcLabContract,
+  assertReclaimHelperContract,
   courseModuleRow,
   markdownParts,
   section,
@@ -448,6 +451,11 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   const assessment = content.get(assessmentPath);
   const solution = content.get(solutionPath);
   const courseMap = content.get("curriculum/README.md");
+  assertDiskCapacityGuideContract(courseMap, content.get("labs/README.md"));
+  assertEnospcLabContract(content.get(labPath), {
+    label: "Capstone lab",
+    archiveClass: "3ci-directive-capstone-archive/3ci-directive-capstone-<unique>",
+  });
   const courseEntry = section(markdownParts(courseMap).prose, "Audience and prerequisites");
   assert.match(
     courseEntry,
@@ -550,6 +558,11 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.match(labSafety, /reset`? only while identity[\s\S]{0,120}new[\s\S]{0,40}safe launcher/i, "lab must use identity-sensitive reset recovery");
 
   const helper = content.get(fixtureHelperPath);
+  assertReclaimHelperContract(helper, {
+    label: "Capstone helper",
+    archiveDirectoryName: "3ci-directive-capstone-archive",
+    archivePrefix: "3ci-directive-capstone-",
+  });
   const pythonResolverStart = helper.indexOf("export function findPythonExecutable(");
   const pythonResolverEnd = helper.indexOf("\n}", pythonResolverStart);
   assert.ok(pythonResolverStart >= 0 && pythonResolverEnd > pythonResolverStart, "capstone helper must expose its Python resolver");
@@ -575,7 +588,9 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   const helperStages = [...helperStageBlock.matchAll(/"([A-Z_]+)"/g)].map((match) => match[1]);
   assert.deepEqual(helperStages, stageOrder, "fixture helper stage order changed");
   const mainBlock = helper.match(/export function main\([\s\S]*?throw new Error/)?.[0] ?? "";
-  const actualVerbs = [...mainBlock.matchAll(/verb === "([^"]+)"/g)].map((match) => match[1]);
+  const actualVerbs = [...mainBlock.matchAll(/verb === "([^"]+)"/g)]
+    .map((match) => match[1])
+    .filter((verb) => verb !== "reclaim");
   assert.deepEqual(actualVerbs, helperVerbs, "fixture helper verb order changed");
   const helperEvidence = [...helper.matchAll(/writeEvidence\(root, "([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(helperEvidence, evidenceFiles, "fixture helper evidence order changed");

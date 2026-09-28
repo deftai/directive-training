@@ -2,7 +2,16 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { courseModuleRow, markdownParts, moduleHeadings, section, solutionHeadings, verifyLinks } from "./verify-modules-4-5.mjs";
+import {
+  assertEnospcLabContract,
+  assertReclaimHelperContract,
+  courseModuleRow,
+  markdownParts,
+  moduleHeadings,
+  section,
+  solutionHeadings,
+  verifyLinks,
+} from "./verify-modules-4-5.mjs";
 import { assertTeachingBaselinePin } from "./teaching-baseline.mjs";
 
 const module11 = "curriculum/modules/11-testing-gates-and-evidence.md";
@@ -642,6 +651,15 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
     "realpathSync(tmpdir())", 'git(root, ["remote"])', "const allowedWorkFiles = [qualityPath, sourcePath, testPath]",
     "redTestDigest", "greenSourceDigest", "refactorSourceDigest", 'firstFailingSubcheck: "quality:record"', "gateDefinitionsUnchanged",
   ]) assert.ok(helper.includes(invariant), `Module 11 helper is missing guard invariant: ${invariant}`);
+  assertEnospcLabContract(content.get(lab11), {
+    label: "Lab 11",
+    archiveClass: "3ci-directive-lab11-<unique>",
+  });
+  assertReclaimHelperContract(helper, {
+    label: "Lab 11 helper",
+    archiveDirectoryName: "3ci-directive-lab-archive",
+    archivePrefix: "3ci-directive-lab11-",
+  });
 
   const taskfile = content.get("labs/fixtures/11-testing-gates-and-evidence/Taskfile.yml");
   const ordered = ["- npm run test:focused", "- task: literal", "- task: forward-coverage", "- task: quality:record"].map((line) => taskfile.indexOf(line));

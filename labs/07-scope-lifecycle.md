@@ -55,6 +55,10 @@ proof. This starting-state check is not verified preflight for a published route
 may stop as environment-blocked instead of treating an unexecuted shell route as verified.
 See the [course map](../curriculum/README.md).
 
+Before `create`, use the [shared capacity recipe](README.md#disk-capacity-and-enospc-recovery)
+on this temporary volume. Measure the current attempt, one reset attempt, and npm
+extraction slack for this environment; there is no universal 20 GB floor.
+
 ### macOS/zsh and Linux/bash — candidate walkthroughs
 
 Use a dedicated zsh terminal at the root of this curriculum repository.
@@ -466,6 +470,39 @@ versions, lifecycle filenames, statuses, and diagnostics intact.
 | Task 5 reports `narrative.Acceptance must be a string, got list` | Acceptance was written as a list | Give each item one Acceptance string; add items rather than list entries. |
 | Task 5 reports `missing required top-level key` | The record lacks `xBRIEFInfo` | Add the envelope from the Module 6 worksheet; do not invent other keys. |
 | Task 5 exits `0` but the record says `running` | Structure passed; the rubric did not | Restore `proposed`. The structural surface never inspects status, and a green result grants no authority. |
+| `ENOSPC` or “no space left on device” | The temporary volume cannot allocate the next write | Treat this as an environment stop. Do not retry `create`, `reset`, or Route A; use the bounded archive-reclaim sequence below. |
+
+### Disk-full recovery
+
+Lab 7 shares the `3ci-directive-lab-archive` container but its helper previews
+only exact `3ci-directive-lab07-<unique>` children. Preview is read-only,
+creates no archive directory, and works with zero writable space:
+
+```sh
+node "$helper" reclaim
+```
+
+If preview prints nothing, remain environment-blocked until an operator frees
+capacity. Otherwise copy one intended older destination exactly, then preserve
+the live failed parent before allocating its replacement:
+
+```sh
+older_archive="/exact/older/lab07/archive/printed/by/reclaim"
+failed_root="$lab_root"
+node "$helper" reclaim --confirm "$older_archive"
+failed_archive="$(node "$helper" archive "$failed_root")"
+fresh_root="$(node "$helper" reset "$failed_archive")"
+node "$helper" guard "$fresh_root"
+```
+
+PowerShell uses the same verb order and exact paths with `$Helper`. Confirmed
+apply revalidates immediately before deletion and rejects a live attempt, the
+curriculum clone, a remote-bearing repository, a symlink, or an identity
+mismatch. It deletes only the confirmed archive and that archive's local npm
+cache. The live cache remains isolated and untouched until the same-volume
+`archive` rename succeeds; only then does `reset` validate that archived
+destination and allocate the fresh attempt. Never use a shared npm cache or an
+empty launcher directory as the remedy.
 
 ## Reset to start
 
@@ -481,10 +518,11 @@ Reset never mutates or removes the old attempt. Install the fresh root only if y
 repeat the lifecycle. A partial install is evidence; do not convert it into an unknown state
 through incremental repair.
 
-For recovery, reset authenticates only the exact canonical temporary target, marker binding,
-Git root, `training/module-07` branch, and empty remote. It deliberately does not require a
-healthy package graph, fixture digest, or lifecycle pair before preserving the old attempt
-and creating a new one.
+For ordinary recovery, reset authenticates the exact canonical live target, marker binding,
+Git root, `training/module-07` branch, and empty remote. The disk-full form performs the same
+identity checks against the exact archive destination returned by `archive`. Neither form
+requires a healthy package graph, fixture digest, or lifecycle pair before creating a new
+attempt.
 
 ## Cleanup
 

@@ -1,28 +1,67 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
-import { test } from "node:test";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { dirname, join } from "node:path";
+import { after, test } from "node:test";
 import { fileURLToPath } from "node:url";
 import {
-  archiveAttempt,
+  archiveAttempt as archiveAttemptRaw,
   assertLearnerReadyPlatform,
-  createAttempt,
+  createAttempt as createAttemptRaw,
   guardAttempt,
   installAttempt,
+  main,
+  previewReclaim,
+  reclaimArchives,
   recordGreen,
   recordRed,
   recordRefactor,
-  resetAttempt,
+  resetAttempt as resetAttemptRaw,
   runAggregate,
   runLiteralAcceptance,
   verifyFinal,
   verifyPin,
 } from "../labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs";
 import { git } from "../labs/fixtures/11-testing-gates-and-evidence/safety.mjs";
+
+const archivedForCleanup = new Set();
+const parentsForCleanup = new Set();
+function createAttempt(...args) {
+  const root = createAttemptRaw(...args);
+  parentsForCleanup.add(dirname(root));
+  return root;
+}
+function resetAttempt(...args) {
+  const root = resetAttemptRaw(...args);
+  parentsForCleanup.add(dirname(root));
+  return root;
+}
+function archiveAttempt(...args) {
+  const archived = archiveAttemptRaw(...args);
+  archivedForCleanup.add(archived);
+  return archived;
+}
+after(() => {
+  try {
+    const remaining = [...archivedForCleanup].filter((path) => existsSync(path));
+    if (remaining.length > 0) reclaimArchives(remaining, { confirmed: true });
+    for (const parent of parentsForCleanup) rmSync(parent, { force: true, recursive: true });
+  } finally {
+    for (const [key, value] of originalTemporaryEnvironment) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+    rmSync(suiteTemporaryRoot, { force: true, recursive: true });
+  }
+});
 import { lab11RetainedLiteralStdoutTokens } from "./verify-module-11.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(path, "utf8");
+const hostTemporaryRoot = realpathSync(tmpdir());
+const suiteTemporaryRoot = realpathSync(mkdtempSync(join(hostTemporaryRoot, "3ci-lab11-suite-")));
+const originalTemporaryEnvironment = new Map(["TEMP", "TMP", "TMPDIR"].map((key) => [key, process.env[key]]));
+for (const key of originalTemporaryEnvironment.keys()) process.env[key] = suiteTemporaryRoot;
 
 test("Windows command path keeps the exact local install contract", () => {
   const root = createAttempt();
@@ -151,4 +190,39 @@ test("reset creates a new guarded attempt and archive requires one explicit root
   assert.equal(guardAttempt(first), first);
   assert.equal(guardAttempt(second), second);
   assert.throws(() => archiveAttempt(), /explicit absolute canonical lab root/);
+});
+
+test("reclaim previews at zero-allocation and removes only a confirmed Module 11 archive", (t) => {
+  const emptyTemporaryRoot = realpathSync(mkdtempSync(join(tmpdir(), "3ci-lab11-reclaim-empty-")));
+  t.after(() => rmSync(emptyTemporaryRoot, { force: true, recursive: true }));
+  assert.deepEqual(previewReclaim(emptyTemporaryRoot), []);
+  assert.equal(existsSync(join(emptyTemporaryRoot, "3ci-directive-lab-archive")), false);
+
+  const live = createAttempt();
+  mkdirSync(join(live, ".npm-cache"));
+  writeFileSync(join(live, ".npm-cache", "live.txt"), "keep\n");
+  const retired = createAttempt();
+  mkdirSync(join(retired, ".npm-cache"));
+  const archived = archiveAttempt(retired);
+  const invalidArchive = join(dirname(archived), "3ci-directive-lab11-BAD001");
+  mkdirSync(invalidArchive);
+
+  assert.ok(previewReclaim().includes(archived));
+  assert.equal(previewReclaim().includes(invalidArchive), false, "preview must skip an invalid matching archive without hiding valid targets");
+  assert.throws(() => reclaimArchives([invalidArchive], { confirmed: true }), /archive destination/);
+  rmSync(invalidArchive, { recursive: true });
+  assert.ok(main(["reclaim"]).split(/\r?\n/).includes(archived));
+  assert.throws(() => reclaimArchives([archived]), /explicit confirmation/);
+  assert.throws(() => reclaimArchives([live], { confirmed: true }), /archive destination/);
+  assert.equal(main(["reclaim", "--confirm", archived]), "reclaimed=" + archived);
+  assert.equal(existsSync(archived), false);
+  assert.equal(read(join(live, ".npm-cache", "live.txt")), "keep\n");
+
+  const liveArchive = archiveAttempt(live);
+  const replacement = resetAttempt(liveArchive);
+  assert.equal(guardAttempt(replacement), replacement);
+  assert.equal(read(join(liveArchive, "repo/.npm-cache/live.txt")), "keep\n");
+  reclaimArchives([liveArchive], { confirmed: true });
+  assert.equal(existsSync(join(liveArchive, "repo/.npm-cache")), false);
+  reclaimArchives([archiveAttempt(replacement)], { confirmed: true });
 });

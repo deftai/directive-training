@@ -3,16 +3,19 @@ import { spawnSync } from "node:child_process";
 import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { delimiter, dirname, join, resolve } from "node:path";
-import { test } from "node:test";
+import { after, test } from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import {
-  archiveAttempt,
+  archiveAttempt as archiveAttemptRaw,
   createLocalDirectiveShims,
-  createAttempt,
+  createAttempt as createAttemptRaw,
   findPythonExecutable,
   guardAttempt,
   isolatedEnv,
   main,
+  previewReclaim,
+  reclaimArchives,
+  resetAttempt as resetAttemptRaw,
   verifyPin,
 } from "../labs/fixtures/capstone-end-to-end/capstone-lab.mjs";
 import { assertNoGitRedirection, git, safePath, sameFileSystemEntry } from "../labs/fixtures/capstone-end-to-end/safety.mjs";
@@ -24,6 +27,40 @@ import {
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const read = (path) => readFileSync(path, "utf8");
+const hostTemporaryRoot = realpathSync(tmpdir());
+const suiteTemporaryRoot = realpathSync(mkdtempSync(join(hostTemporaryRoot, "3ci-capstone-suite-")));
+const originalTemporaryEnvironment = new Map(["TEMP", "TMP", "TMPDIR"].map((key) => [key, process.env[key]]));
+for (const key of originalTemporaryEnvironment.keys()) process.env[key] = suiteTemporaryRoot;
+const archivedForCleanup = new Set();
+const parentsForCleanup = new Set();
+function createAttempt(...args) {
+  const root = createAttemptRaw(...args);
+  parentsForCleanup.add(dirname(root));
+  return root;
+}
+function resetAttempt(...args) {
+  const root = resetAttemptRaw(...args);
+  parentsForCleanup.add(dirname(root));
+  return root;
+}
+function archiveAttempt(...args) {
+  const archived = archiveAttemptRaw(...args);
+  archivedForCleanup.add(archived);
+  return archived;
+}
+after(() => {
+  try {
+    const remaining = [...archivedForCleanup].filter((path) => existsSync(path));
+    if (remaining.length > 0) reclaimArchives(remaining, { confirmed: true });
+    for (const parent of parentsForCleanup) rmSync(parent, { force: true, recursive: true });
+  } finally {
+    for (const [key, value] of originalTemporaryEnvironment) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+    rmSync(suiteTemporaryRoot, { force: true, recursive: true });
+  }
+});
 const readEvidence = (root, name) => JSON.parse(read(join(dirname(root), "evidence", name)));
 
 function makeLauncher(prefix = "3ci-capstone-launch-") {
@@ -296,11 +333,12 @@ test("create produces one unique guarded no-remote capstone repository", () => {
   try {
     process.chdir(makeLauncher());
     cliRoot = main(["create"]);
+    parentsForCleanup.add(dirname(cliRoot));
   } finally {
     process.chdir(originalDirectory);
   }
   assert.equal(main(["guard", cliRoot]), cliRoot);
-  main(["archive", cliRoot]);
+  archivedForCleanup.add(main(["archive", cliRoot]));
   assert.throws(() => main(["unknown"]), /Use: create/);
 });
 
@@ -351,14 +389,51 @@ test("reset preserves the failed attempt and archive requires one exact root", (
   const first = createAttempt({ callerRoot: makeLauncher() });
   writeFileSync(join(dirname(first), "evidence", "failure.txt"), "preserved failure\n");
   const second = main(["reset", first]);
+  parentsForCleanup.add(dirname(second));
 
   assert.notEqual(first, second);
   assert.equal(read(join(dirname(first), "evidence", "failure.txt")), "preserved failure\n");
   assert.equal(guardAttempt(first), first);
   assert.equal(guardAttempt(second), second);
   assert.throws(() => archiveAttempt(), /one explicit absolute canonical capstone root/);
-  main(["archive", first]);
-  main(["archive", second]);
+  archivedForCleanup.add(main(["archive", first]));
+  archivedForCleanup.add(main(["archive", second]));
+});
+
+test("reclaim preview is allocation-free and confirmed apply preserves a live capstone cache", (t) => {
+  const emptyTemporaryRoot = realpathSync(mkdtempSync(join(tmpdir(), "3ci-capstone-reclaim-empty-")));
+  t.after(() => rmSync(emptyTemporaryRoot, { force: true, recursive: true }));
+  assert.deepEqual(previewReclaim(emptyTemporaryRoot), []);
+  assert.equal(existsSync(join(emptyTemporaryRoot, "3ci-directive-capstone-archive")), false);
+
+  const live = createAttempt({ callerRoot: makeLauncher() });
+  mkdirSync(join(live, ".npm-cache"));
+  writeFileSync(join(live, ".npm-cache", "live.txt"), "keep\n");
+  const retired = createAttempt({ callerRoot: makeLauncher() });
+  mkdirSync(join(retired, ".npm-cache"));
+  const archived = archiveAttempt(retired);
+  const invalidArchive = join(dirname(archived), "3ci-directive-capstone-BAD001");
+  mkdirSync(invalidArchive);
+
+  assert.ok(previewReclaim().includes(archived));
+  assert.equal(previewReclaim().includes(invalidArchive), false, "preview must skip an invalid matching archive without hiding valid targets");
+  assert.throws(() => reclaimArchives([invalidArchive], { confirmed: true }), /archive destination/);
+  rmSync(invalidArchive, { recursive: true });
+  assert.ok(main(["reclaim"]).split(/\r?\n/).includes(archived));
+  assert.throws(() => reclaimArchives([archived]), /explicit confirmation/);
+  assert.throws(() => reclaimArchives([live], { confirmed: true }), /archive destination/);
+  assert.throws(() => reclaimArchives([repositoryRoot], { confirmed: true }), /archive destination/);
+  assert.equal(main(["reclaim", "--confirm", archived]), "reclaimed=" + archived);
+  assert.equal(existsSync(archived), false);
+  assert.equal(read(join(live, ".npm-cache", "live.txt")), "keep\n");
+
+  const liveArchive = archiveAttempt(live);
+  const replacement = resetAttempt(liveArchive);
+  assert.equal(guardAttempt(replacement), replacement);
+  assert.equal(read(join(liveArchive, "repo/.npm-cache/live.txt")), "keep\n");
+  reclaimArchives([liveArchive], { confirmed: true });
+  assert.equal(existsSync(join(liveArchive, "repo/.npm-cache")), false);
+  reclaimArchives([archiveAttempt(replacement)], { confirmed: true });
 });
 
 test("full rehearsal enforces ordered evidence through local closeout", { timeout: 600_000 }, () => {
@@ -434,5 +509,5 @@ test("full rehearsal enforces ordered evidence through local closeout", { timeou
   assert.equal(closed.gate.status, "local_pass");
   assert.equal(closed.proof_status, "n/a-no-remote-claim");
   assert.equal(git(root, ["remote"]).trim(), "");
-  main(["archive", root]);
+  archivedForCleanup.add(main(["archive", root]));
 });

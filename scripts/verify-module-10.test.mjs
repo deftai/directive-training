@@ -78,6 +78,22 @@ test("verifier rejects a stale or ranged learner baseline", () => {
   assert.throws(() => verifyModule10(root), /stale or ranged Directive baseline/);
 });
 
+test("verifier rejects routing an ENOSPC stop back to allocation", () => {
+  const root = changedCopy("labs/10-implementation-golden-path.md", (body) => body.replace(
+    "Do not retry `create`, `reset`, or Route A; use the bounded archive-reclaim sequence below.",
+    "Retry `create` or Route A before reclaim.",
+  ));
+  assert.throws(() => verifyModule10(root), /ENOSPC.*block create, reset, and Route A/);
+});
+
+test("verifier rejects a reclaim apply that drops explicit confirmation", () => {
+  const root = changedCopy("labs/fixtures/10-implementation-golden-path/implementation-lab.mjs", (body) => body.replace(
+    "assert.equal(confirmed, true, reclaimConfirmationRefusal);",
+    "assert.equal(confirmed, false, reclaimConfirmationRefusal);",
+  ));
+  assert.throws(() => verifyModule10(root), /explicit confirmation/);
+});
+
 test("verifier rejects loss of the unique OS-temporary no-remote boundary", () => {
   const root = changedCopy("labs/10-implementation-golden-path.md", (body) => body.replace(
     "unique OS-temporary repository with no remote",

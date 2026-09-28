@@ -45,6 +45,17 @@ Do not install or initialize lab tooling in this training
 repository. Each lab that changes files supplies a disposable starting
 repository and reset path.
 
+Before a command-based lab, measure storage headroom on the same temporary
+volume and with the same runtime and package-manager route you will use. Budget
+for the current attempt, one fresh reset attempt, and npm extraction slack; do
+not substitute a universal 20 GB floor. The
+[disposable-lab environment guide](../labs/README.md#disk-capacity-and-enospc-recovery)
+gives the repeatable measurement and disk-full recovery. Each attempt keeps its
+own npm cache; a shared cache is outside the lab boundary.
+`ENOSPC` or “no space left on device” is an environment stop: `create`,
+`reset`, and Route A remain blocked until the documented reclaim restores
+capacity.
+
 ## How to take the course
 
 Complete the core modules in numeric order. Each completed module begins with a
@@ -146,8 +157,9 @@ simulated review finding, and makes an evidence-bounded closeout decision.
 Use its [lab](../labs/capstone-end-to-end.md),
 [assessment](../assessments/capstone-end-to-end.md), and
 [explained solution](../solutions/capstone-end-to-end.md).
-The capstone does not use a business repository, remote
-mutation, real deployment, or destructive cleanup.
+The capstone does not use a business repository, remote mutation, real
+deployment, or broad or live-tree destructive cleanup. Its only deletion is
+the bounded, confirmed reclaim of an older validated capstone archive.
 
 ## Future advanced electives
 

@@ -34,6 +34,177 @@ const readText = (path) => readFileSync(path, "utf8").replace(/\r\n/g, "\n");
 const read = (relativePath) => readText(resolve(root, relativePath));
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
+// Keep this verifier self-contained: the portability suite copies it without the later-module
+// verifiers, so Module 2's reclaim contract cannot depend on verify-modules-4-5.mjs.
+function markdownParts(content) {
+  const prose = [];
+  const blocks = [];
+  let fence;
+  for (const line of content.split(/\r?\n/)) {
+    const marker = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+    if (!fence && marker) {
+      fence = { marker: marker[1], language: marker[2].trim().toLowerCase(), lines: [] };
+    } else if (fence && marker && marker[1][0] === fence.marker[0] && marker[1].length >= fence.marker.length && !marker[2].trim()) {
+      blocks.push({ language: fence.language, content: fence.lines.join("\n") });
+      fence = undefined;
+    } else if (fence) {
+      fence.lines.push(line);
+    } else {
+      prose.push(line);
+    }
+  }
+  assert.ok(!fence, "unclosed Markdown code fence");
+  return { prose: prose.join("\n"), blocks };
+}
+
+function headingSection(markdown, heading) {
+  const normalized = markdown.replace(/\r\n?/g, "\n");
+  const headings = [...normalized.matchAll(/^(#{2,4}) (.+?)[ \t]*#*[ \t]*$/gm)];
+  const start = headings.find((match) => match[2] === heading);
+  assert.ok(start, `missing heading: ${heading}`);
+  const level = start[1].length;
+  const end = headings.find((match) => match.index > start.index && match[1].length <= level);
+  return normalized.slice(start.index + start[0].length, end?.index ?? normalized.length);
+}
+
+function declaredFunction(source, name, label) {
+  const start = source.indexOf(`function ${name}(`);
+  assert.ok(start >= 0, `${label} must define ${name}`);
+  const signature = /\)\s*\{/.exec(source.slice(start));
+  assert.ok(signature, `${label} has a malformed ${name} declaration`);
+  const open = start + signature.index + signature[0].lastIndexOf("{");
+  let depth = 0;
+  for (let index = open; index < source.length; index += 1) {
+    if (source[index] === "{") depth += 1;
+    else if (source[index] === "}" && --depth === 0) return source.slice(start, index + 1);
+  }
+  assert.fail(`${label} has an unterminated ${name} declaration`);
+}
+
+function assertModule2ReclaimHelperContract(helper) {
+  const label = "Lab 2 helper";
+  const preview = declaredFunction(helper, "previewReclaim", label);
+  const reclaim = declaredFunction(helper, "reclaimArchives", label);
+  const archivedIdentity = declaredFunction(helper, "verifyArchivedModule02", label);
+  const archive = declaredFunction(helper, "archiveAttempt", label);
+  const reset = declaredFunction(helper, "resetAttempt", label);
+  const rollback = declaredFunction(helper, "rollbackIncompleteSeed", label);
+
+  assert.match(helper, /3ci-directive-module-02-archive\./, `${label} is missing its exact archive class`);
+  assert.match(preview, /3ci-directive-module-02-archive\.|startsWith\(archivePrefix\)/, `${label} preview must filter its exact archive prefix`);
+  assert.doesNotMatch(preview, /\b(?:mkdirSync|mkdtempSync)\s*\(/, `${label} reclaim preview must create no directories`);
+  assert.match(helper, /\bisAbsolute\([^)]*\)[\s\S]{0,160}\bresolve\([^)]*\)\s*===/, `${label} reclaim must require absolute canonical targets`);
+  assert.match(helper, /\bisSymbolicLink\(\)/, `${label} reclaim must reject symlinks`);
+  assert.match(helper, /\b(?:realpathSync|canonicalPath)\s*\(/, `${label} reclaim must recheck canonical identity`);
+  assert.match(archivedIdentity, /marker\.lab/, `${label} reclaim must verify the archive marker lab identity`);
+  assert.match(archivedIdentity, /marker\.root/, `${label} reclaim must verify the archive marker root identity`);
+  assert.match(archivedIdentity, /\["remote"\]/, `${label} reclaim must reject archived repositories with remotes`);
+  assert.match(archivedIdentity, /\.git/, `${label} reclaim must verify the archived Git identity`);
+  assert.match(reclaim, /assert\.equal\(confirmed,\s*true\b/, `${label} reclaim apply requires explicit confirmation`);
+  assert.match(reclaim, /new Set\(previewReclaim\(/, `${label} reclaim apply must use a fresh preview`);
+  assert.match(reclaim, /previewed\.has\(target\)/, `${label} reclaim apply must accept only exact previewed targets`);
+  assert.match(reclaim, /\bisAbsolute\(target\)[\s\S]{0,100}\bresolve\(target\)\s*===\s*target/, `${label} reclaim apply must reject relative or noncanonical targets`);
+  const revalidate = reclaim.lastIndexOf("verifyArchivedModule02(target");
+  const remove = reclaim.indexOf("rmSync(target");
+  assert.ok(revalidate >= 0 && remove > revalidate, `${label} reclaim apply must revalidate immediately before deletion`);
+  assert.match(rollback, /dirname\(root\)[\s\S]{0,100}parent/, `${label} rollback must bind deletion to the captured direct parent`);
+  assert.match(rollback, /attemptPattern\.test\(basename\(root\)\)/, `${label} rollback must require the helper-created attempt identity`);
+  assert.match(rollback, /isDirectory\(\)[\s\S]{0,100}!lstatSync\(root\)\.isSymbolicLink\(\)/, `${label} rollback must require a plain non-linked directory`);
+  assert.match(rollback, /canonicalPath\(root\)[\s\S]{0,60}root/, `${label} rollback must recheck the exact canonical root`);
+  assert.match(rollback, /rmSync\(root,\s*\{\s*force:\s*true,\s*recursive:\s*true\s*\}\)/, `${label} rollback may remove only the exact unpublished root`);
+  assert.equal((helper.match(/\brmSync\s*\(/g) ?? []).length, 2, `${label} may delete only an exact unpublished seed and a validated archive`);
+  assert.equal((rollback.match(/\brmSync\s*\(/g) ?? []).length, 1, `${label} rollback must own exactly one bounded tree deletion`);
+  assert.equal((reclaim.match(/\brmSync\s*\(/g) ?? []).length, 1, `${label} validated reclaim apply must own exactly one archive deletion`);
+  assert.match(archive, /renameSync\(parent,\s*(?:destination|archiveTarget)\)/, `${label} archive must remain a same-volume rename`);
+  const resetValidation = reset.indexOf("verifyArchivedModule02(");
+  const resetCreate = reset.indexOf("createAttempt(");
+  assert.ok(resetValidation >= 0 && resetCreate > resetValidation, `${label} reset must validate the post-archive destination before fresh-attempt reset creation`);
+  assert.match(helper, /(?:verb|args\[0\])\s*===\s*"reclaim"[\s\S]{0,160}previewReclaim\(/, `${label} CLI must expose read-only reclaim preview`);
+  assert.match(helper, /"--confirm"[\s\S]{0,180}reclaimArchives\([^;]+confirmed:\s*true/, `${label} CLI must expose exact confirmed reclaim apply`);
+}
+
+function assertModule2EnospcContract(lab) {
+  const label = "Lab 2";
+  const expectedFailures = headingSection(markdownParts(lab).prose, "Expected failures and recovery");
+  assert.match(expectedFailures, /ENOSPC[\s\S]{0,100}no space left on device/i, `${label} must name ENOSPC and no-space-left`);
+  assert.match(expectedFailures, /environment stop/i, `${label} must classify ENOSPC as an environment stop`);
+  assert.match(
+    expectedFailures,
+    /(?:(?:Do not retry|remain blocked)[\s\S]{0,180}\bcreate\b[\s\S]{0,80}\breset\b[\s\S]{0,80}Route A[\s\S]{0,140}\breclaim\b|archive-reclaim[\s\S]{0,120}\bcreate\b[\s\S]{0,80}\breset\b[\s\S]{0,80}Route A[\s\S]{0,100}remain blocked until capacity returns)/i,
+    `${label} ENOSPC recovery must block create, reset, and Route A until reclaim`,
+  );
+  assert.match(lab, /current attempt(?: parent)?[\s\S]{0,100}one (?:fresh |fully installed )?reset attempt(?: parent)?[\s\S]{0,100}npm\s+extraction\s+slack/i, `${label} must teach the per-environment peak-space recipe`);
+  assert.match(lab, /no universal\s+20 GB floor/i, `${label} must not turn the reported 20 GB into a universal floor`);
+
+  const recovery = headingSection(lab, "Disk-full recovery");
+  assert.ok(recovery.includes("3ci-directive-module-02-archive.<unique>"), `${label} must name its exact archive destination class`);
+  assert.match(recovery, /read-only[\s\S]{0,600}creates no archive directory[\s\S]{0,120}zero\s+(?:writable|free)\s+space/i, `${label} reclaim preview must be read-only and zero-space safe`);
+  assert.match(recovery, /^\s*node [^\n]*\breclaim\s*$/m, `${label} must show the read-only reclaim preview command`);
+  assert.match(recovery, /^\s*[^\n]*node [^\n]*\breclaim --confirm [^\n]+$/m, `${label} must show exact confirmed reclaim apply`);
+  const confirmed = recovery.indexOf("reclaim --confirm");
+  const afterConfirmed = recovery.slice(confirmed);
+  const archive = afterConfirmed.search(/\barchive\b/);
+  const reset = afterConfirmed.search(/\breset\b/);
+  assert.ok(confirmed >= 0 && archive > 0 && reset > archive, `${label} disk-full recovery must reclaim, then archive, then reset`);
+  assert.match(recovery, /same-volume[\s\x60]*archive[\s\x60]*rename|same-volume[\s\S]{0,40}rename/i, `${label} must preserve archive as a same-volume rename`);
+  const normalizedRecovery = recovery.toLowerCase().replace(/\s+/g, " ");
+  for (const unsafe of ["live attempt", "curriculum clone", "remote-bearing repository", "symlink", "identity mismatch"]) {
+    assert.ok(normalizedRecovery.includes(unsafe), `${label} reclaim must reject ${unsafe}`);
+  }
+  assert.match(recovery, /(?:only the confirmed[\s\S]{0,80}archive[\s\S]{0,100}(?:contained|local\s+npm)\s+cache|confirmed archive[\s\S]{0,80}(?:contained|local\s+npm)\s+cache only)/i, `${label} reclaim must delete only the confirmed archive and its cache`);
+  assert.match(recovery, /live[\s\S]{0,80}cache[\s\S]{0,100}isolated[\s\S]{0,100}untouched|live cache remains isolated and untouched|does not touch the live failed attempt or its\s+cache/i, `${label} reclaim must preserve the live isolated cache`);
+  assert.match(recovery, /(?:Never use|Do not introduce) a shared npm\s+cache/i, `${label} must not introduce a shared npm cache`);
+  assert.match(recovery, /(?:(?:Never use|do not treat)[\s\S]{0,100}empty launcher\s+director(?:y|ies)[\s\S]{0,80}(?:remedy|recovery|workaround)|empty launcher\s+director(?:y|ies)[\s\S]{0,80}(?:not|no)[\s\S]{0,80}(?:remedy|recovery|workaround))/i, `${label} must reject empty-launcher cleanup as the remedy`);
+}
+
+function assertDiskCapacityGuideContract(courseMap, labsGuide) {
+  assert.match(courseMap, /current attempt[\s\S]{0,100}one fresh reset attempt[\s\S]{0,100}npm\s+extraction\s+slack/i, "course map must teach the per-environment peak-space recipe");
+  assert.match(courseMap, /(?:no universal|not substitute a universal)\s+20 GB floor/i, "course map must not teach a universal 20 GB floor");
+  assert.match(courseMap, /ENOSPC[\s\S]{0,80}no space left on device[\s\S]{0,100}environment stop[\s\S]{0,120}\bcreate\b[\s\S]{0,80}\breset\b[\s\S]{0,80}Route A[\s\S]{0,100}blocked[\s\S]{0,100}reclaim/i, "course map must block create, reset, and Route A during an ENOSPC environment stop until reclaim");
+  assert.match(courseMap, /Each attempt keeps its\s+own npm cache[\s\S]{0,80}shared cache is outside/i, "course map must require attempt-local npm caches");
+  for (const archiveClass of [
+    "3ci-directive-module-02-archive.<unique>",
+    "3ci-directive-lab-archive/",
+    "3ci-directive-capstone-archive/",
+  ]) {
+    assert.ok(labsGuide.includes(archiveClass), `lab environment guide is missing archive class: ${archiveClass}`);
+  }
+  assert.match(labsGuide, /A helper never crosses these classes/i, "lab environment guide must keep the three archive classes disjoint");
+  const capacity = headingSection(labsGuide, "Disk capacity and ENOSPC recovery");
+  assert.match(capacity, /representative successful run[\s\S]{0,120}fully installed current attempt[\s\S]{0,120}one fully installed reset attempt/i, "lab environment guide must size from representative installed attempts");
+  assert.match(capacity, /Before a first run[\s\S]{0,120}estimate[\s\S]{0,180}representative successful\s+run[\s\S]{0,180}same\s+environment/i, "lab environment guide must distinguish first-run estimation from measured capacity");
+  assert.match(capacity, /matching record[\s\S]{0,260}(?:version|package graph)[\s\S]{0,260}(?:measured terms|three terms)/i, "a first-run record must carry enough applicability evidence to be actionable");
+  assert.match(capacity, /no matching record[\s\S]{0,260}approved bootstrap[\s\S]{0,260}monitor/i, "the first-run guide must supply a safe bootstrap path when no matching record exists");
+  assert.match(capacity, /no matching record[\s\S]{0,500}no approved bootstrap[\s\S]{0,160}environment-blocked/i, "the first-run guide must stop when neither evidence path is available");
+  assert.match(capacity, /if \(-not \(Test-Path -LiteralPath \$Path\)\) \{ throw /, "PowerShell capacity measurement must reject a missing tree instead of counting it as zero");
+  assert.match(capacity, /current attempt \+ one reset attempt \+ npm extraction slack/i, "lab environment guide is missing the exact peak-space recipe");
+  assert.match(capacity, /no universal\s+20 GB minimum/i, "lab environment guide must reject a universal 20 GB minimum");
+  assert.match(capacity, /ENOSPC[\s\S]{0,80}no space left on device[\s\S]{0,100}environment stop/i, "lab environment guide must classify ENOSPC as an environment stop");
+  assert.match(capacity, /Do not retry[\s\S]{0,100}\bcreate\b[\s\S]{0,80}\breset\b[\s\S]{0,80}Route A[\s\S]{0,180}reclaim/i, "lab environment guide must block allocation until reclaim");
+  assert.match(capacity, /^node <helper> reclaim\s*$/m, "lab environment guide must show read-only reclaim preview");
+  assert.match(capacity, /^node <helper> reclaim --confirm <exact-older-archive-path-printed-by-preview>\s*$/m, "lab environment guide must show exact confirmed reclaim apply");
+  assert.match(capacity, /read-only[\s\S]{0,80}creates no archive directory[\s\S]{0,120}no writable space/i, "lab environment guide must make preview zero-space safe");
+  assert.match(capacity, /confirm only exact older archive destinations[\s\S]{0,180}revalidates immediately before deletion/i, "lab environment guide must constrain confirmed deletion to a fresh preview");
+  const normalizedCapacity = capacity.toLowerCase().replace(/\s+/g, " ");
+  for (const unsafe of ["live attempt", "curriculum clone", "repository with a remote", "symlink", "identity mismatch", "relative path", "another archive class"]) {
+    assert.ok(normalizedCapacity.includes(unsafe), `lab environment guide reclaim must reject ${unsafe}`);
+  }
+  assert.match(capacity, /After capacity returns[\s\S]{0,120}archive the live failed parent[\s\S]{0,120}(?:reset|create)[\s\S]{0,80}fresh attempt/i, "lab environment guide must reclaim, archive, then replace the attempt");
+  assert.match(capacity, /live failed parent[\s\S]{0,120}\bcreate\b[\s\S]{0,100}printed[\s\S]{0,80}repository root/i, "lab environment guide must identify an archivable failed parent by the printed create root");
+  assert.match(capacity, /\bcreate\b[\s\S]{0,80}does not run package installation[\s\S]{0,140}later\s+`install`[\s\S]{0,180}package tree is partial/i, "lab environment guide must distinguish a partial install from create");
+  assert.match(capacity, /create`? itself stops before[\s\S]{0,80}returning a root[\s\S]{0,220}reclaim a valid older archive[\s\S]{0,140}rerun[\s\S]{0,80}\bcreate\b/i, "lab environment guide must route an interrupted create without guessing a partial path");
+  assert.match(capacity, /Module 2[\s\S]{0,100}reset sibling transactionally[\s\S]{0,180}exact unpublished[\s\S]{0,120}previous valid marker[\s\S]{0,180}previous root[\s\S]{0,80}archived and reclaimed/i, "Module 2 reset failure must preserve a reclaimable prior attempt");
+  assert.match(capacity, /confirmed archive[\s\S]{0,80}contained cache only[\s\S]{0,100}never deletes a\s+live cache/i, "lab environment guide must bound deletion to the confirmed archive and its cache");
+  assert.match(capacity, /Every npm cache remains attempt-local/i, "lab environment guide must prohibit shared npm caches");
+  assert.match(capacity, /Empty launcher directories[\s\S]{0,100}not the primary remedy/i, "lab environment guide must reject empty-launcher cleanup as the remedy");
+  const independent = headingSection(labsGuide, "Independent recovery order");
+  const enospc = independent.indexOf("If the error is `ENOSPC`");
+  const otherError = independent.indexOf("For any other error");
+  const routeA = independent.indexOf("If non-ENOSPC state remains uncertain");
+  assert.ok(enospc >= 0 && otherError > enospc && routeA > otherError, "independent recovery must route ENOSPC before ordinary Route A recovery");
+  assert.match(independent, /read-only reclaim preview[\s\S]{0,100}exact older archive[\s\S]{0,120}archive the failed live parent[\s\S]{0,80}then reset/i, "independent recovery must reclaim an older archive, archive the live parent, then reset");
+}
+
 const courseMarkdownRoots = ["assessments", "curriculum", "labs", "maintainers", "references", "solutions", "templates"];
 const courseSourceFiles = ["README.md", "xbrief/PROJECT-DEFINITION.xbrief.json"];
 const collectMarkdown = (directory) => {
@@ -178,6 +349,10 @@ const module3Solution = read("solutions/module-03-authority-and-context.md");
 const assessments = read("assessments/README.md");
 const module1 = read("curriculum/modules/01-what-directive-is.md");
 const module1Solution = read("solutions/module-01-what-directive-is.md");
+
+assertDiskCapacityGuideContract(read("curriculum/README.md"), read("labs/README.md"));
+assertModule2EnospcContract(lab2);
+assertModule2ReclaimHelperContract(initHelper);
 
 const executableFencePattern = /^\s*```(?:sh|bash|zsh|powershell|pwsh)\s*\n([\s\S]*?)^\s*```\s*$/gim;
 // A learner-executable fence may never mutate host-global state, leave the course pin, or

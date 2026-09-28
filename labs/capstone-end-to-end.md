@@ -56,6 +56,11 @@ directories and both attempt parents. The helper does not assert or record
 `process.version`, so the wrapper commands below must perform the Node major
 version check before `create`.
 
+Before `create`, use the [shared capacity recipe](README.md#disk-capacity-and-enospc-recovery)
+on this temporary volume. Measure the current attempt parent, one reset attempt
+parent, and npm extraction slack for this environment; there is no universal
+20 GB floor.
+
 ### macOS and Linux
 
 ```sh
@@ -441,6 +446,40 @@ unlock is required.
 | Pre-PR says finding already resolved | Source was repaired before classification | Preserve the attempt and reset; stop at zero-change classification first | `diffUnchanged: true` |
 | Review says duplicate remains | Normalized duplicate check is absent | Change only source and rerun `review` | `currentHeadReview: CLEAN` for the current-product digest |
 | Archive refuses the caller | The shell is still inside the attempt parent or root is not exact/canonical | Return to the dedicated launcher, then pass exactly the printed absolute root | Attempt moved under temp archive |
+| `ENOSPC` or “no space left on device” | The temporary volume cannot allocate the next write | Treat this as an environment stop. Do not retry `create`, `reset`, or Route A; use the bounded capstone archive-reclaim sequence below. | An older capstone archive is reclaimed, the failed parent is archived, and a fresh guarded root is created |
+
+### Disk-full recovery
+
+The capstone helper previews only exact
+`3ci-directive-capstone-archive/3ci-directive-capstone-<unique>` destinations.
+Its preview is read-only, creates no archive directory, and works with zero
+writable space:
+
+```sh
+node "$CAPSTONE_HELPER" reclaim
+```
+
+If preview prints nothing, remain environment-blocked until an operator frees
+capacity. Otherwise copy one intended older destination exactly, then preserve
+the live failed parent before allocating its replacement:
+
+```sh
+older_archive="/exact/older/capstone/archive/printed/by/reclaim"
+node "$CAPSTONE_HELPER" reclaim --confirm "$older_archive"
+failed_archive="$(node "$CAPSTONE_HELPER" archive "$CAPSTONE_ROOT")"
+RESET_CAPSTONE_ROOT="$(node "$CAPSTONE_HELPER" reset "$failed_archive")"
+node "$CAPSTONE_HELPER" guard "$RESET_CAPSTONE_ROOT"
+```
+
+PowerShell uses the same verb order and exact paths with `$CapstoneHelper`.
+Confirmed apply revalidates immediately before deletion and rejects a live
+attempt, the curriculum clone, a remote-bearing repository, a symlink, or an
+identity mismatch. It deletes only the confirmed archive and that archive's
+local npm cache. The live cache remains isolated and untouched until the
+same-volume `archive` rename succeeds; only then does `reset` validate that
+archived destination and allocate the fresh attempt. Never use a shared npm
+cache. The intentionally empty launcher directories contain no attempt data and
+are not the primary disk-space remedy.
 
 ## Reset to start
 

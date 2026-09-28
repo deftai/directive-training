@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync, lstatSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, realpathSync, renameSync, writeFileSync } from "node:fs";
+import { existsSync, lstatSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, realpathSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { tmpdir } from "node:os";
@@ -15,6 +15,10 @@ const sourceAttributes = "/xbrief/PROJECT-DEFINITION.xbrief.json text eol=lf\n";
 const tracked = [".gitattributes", ".gitignore", ".npmrc", "package.json", "package-lock.json", "projection-lab.mjs", "safety.mjs", "src/stop-code.js", sourcePath];
 const ignorePaths = ["node_modules/example", ".npm-cache/example", ".planning/codebase/MAP.md", ".deft/core/VERSION", ".deft/.cli/example", ".deft-cache/example", ".deft/ritual-state.json", "xbrief/.triage-cache/example", "USER.md", ".deft/USER.md"];
 const archiveUsage = "Archive requires exactly one explicit absolute canonical lab root: archive <root>. Run the original course helper from outside the attempt parent.";
+const reclaimConfirmationRefusal = "Stop: reclaim apply requires explicit confirmation. Run reclaim to preview exact archive paths, then pass --confirm followed by only those paths.";
+const reclaimTargetRefusal = "Stop: reclaim accepts only exact absolute canonical Module 5 archive destinations printed by the current preview.";
+const archiveDirectoryName = "3ci-directive-lab-archive";
+const archivedParentPattern = /^3ci-directive-lab05-[A-Za-z0-9]{6}$/;
 
 // cmd-shim@8.0.0, #!/usr/bin/env node, exact ../@deftai/directive/dist/bin.js target.
 // Independently generated reference programs: scripts/fixtures/windows-directive-shims.json.
@@ -79,8 +83,8 @@ export function createAttempt() {
   return root;
 }
 
-/** Return the canonical lab root after identity, path, Git, and source-boundary checks; otherwise throw. */
-export function guardAttempt(input = process.cwd()) {
+/** Verify immutable path, marker, Git-root, branch, and no-remote identity without trusting install health. */
+function verifyAttemptIdentity(input = process.cwd()) {
   assertNoGitRedirection();
   const root = resolve(input);
   const parent = dirname(root);
@@ -91,9 +95,22 @@ export function guardAttempt(input = process.cwd()) {
   assert.equal(git(parent, ["rev-parse", "--show-toplevel"], [0, 128]).trim(), "", "Stop: temporary parent is inside another Git repository.");
   const marker = JSON.parse(read(safePath(parent, "lab-state.json")));
   assert.ok(marker.lab === "module-05" && marker.root === root, "Stop: lab marker mismatch.");
-  for (const path of [".git", ".git/config", ".git/index", ".git/hooks", ".git/objects", ".git/refs", ".git/HEAD", ".gitattributes", "xbrief/.gitattributes", ".gitignore", ".npmrc", "package.json", "package-lock.json", "projection-lab.mjs", "safety.mjs", "src/stop-code.js", sourcePath, mapPath, "node_modules", ".npm-cache"]) safePath(root, path);
+  for (const path of [
+    ".git", ".git/config", ".git/index", ".git/hooks", ".git/objects", ".git/refs", ".git/HEAD",
+    ".gitattributes", "xbrief/.gitattributes", ".gitignore", ".npmrc", "package.json", "package-lock.json",
+    "projection-lab.mjs", "safety.mjs", "src/stop-code.js", sourcePath, mapPath, "node_modules", ".npm-cache",
+  ]) safePath(root, path);
   assert.ok(lstatSync(join(root, ".git")).isDirectory(), "Stop: expected a local .git directory.");
   assertPlainTree(root, ".git");
+  assert.equal(realpathSync(git(root, ["rev-parse", "--show-toplevel"]).trim()), root, "Stop: Git root differs from the lab.");
+  assert.equal(git(root, ["branch", "--show-current"]).trim(), "training/module-05", "Stop: expected training/module-05.");
+  assert.equal(git(root, ["remote"]).trim(), "", "Stop: lab must have no remote.");
+  return { root, parent, marker };
+}
+
+/** Return the canonical lab root after identity, path, Git, and source-boundary checks; otherwise throw. */
+export function guardAttempt(input = process.cwd()) {
+  const { root, marker } = verifyAttemptIdentity(input);
   assert.ok(lstatSync(join(root, ".gitattributes")).isFile(), "Stop: source attributes must be a regular file.");
   assert.equal(read(join(root, ".gitattributes")), sourceAttributes, "Stop: source attributes must retain the exact normalization rule.");
   const attributes = git(root, ["check-attr", "text", "eol", "whitespace", "--", sourcePath]);
@@ -104,8 +121,6 @@ export function guardAttempt(input = process.cwd()) {
   assert.ok(typeof purpose === "string" && purpose.trim(), "Stop: source purpose must be a nonempty string.");
   expected.plan.architecture.codeStructure.modules[0].purpose = purpose;
   assert.deepEqual(actual, expected, "Stop: only the source purpose may change; preserve authored globs and projection path.");
-  assert.equal(realpathSync(git(root, ["rev-parse", "--show-toplevel"]).trim()), root, "Stop: Git root differs from the lab.");
-  assert.equal(git(root, ["remote"]).trim(), "", "Stop: lab must have no remote.");
   // An installed or partial package tree must not evade identity checks by losing a launcher.
   if (existsSync(join(root, "node_modules"))) verifyLocalBinary(root);
   return root;
@@ -184,12 +199,12 @@ export function verifyResult(root = process.cwd()) {
 export function archiveAttempt(root) {
   assert.equal(arguments.length, 1, archiveUsage);
   assert.ok(typeof root === "string" && isAbsolute(root) && resolve(root) === root, archiveUsage);
-  guardAttempt(root);
+  ({ root } = verifyAttemptIdentity(root));
   const parent = dirname(root);
   const cwdFromParent = relative(parent, realpathSync(process.cwd()));
   assert.ok(isAbsolute(cwdFromParent) || cwdFromParent === ".." || cwdFromParent.startsWith(".." + sep), "Stop: caller and helper must leave the attempt parent before archive; run the original course helper from outside " + parent + ".");
   const temporaryRoot = dirname(parent);
-  const archive = safePath(temporaryRoot, "3ci-directive-lab-archive");
+  const archive = safePath(temporaryRoot, archiveDirectoryName);
   if (!existsSync(archive)) mkdirSync(archive);
   const destination = safePath(archive, basename(parent));
   assert.ok(!existsSync(destination), "Stop: archive destination already exists.");
@@ -199,13 +214,99 @@ export function archiveAttempt(root) {
   return destination;
 }
 
+function canonicalReclaimDirectory(input) {
+  assert.ok(typeof input === "string" && isAbsolute(input) && resolve(input) === input && existsSync(input), reclaimTargetRefusal);
+  const stat = lstatSync(input);
+  assert.ok(stat.isDirectory() && !stat.isSymbolicLink(), "Stop: reclaim archive path is a symlink or is not a directory: " + input + ".");
+  assert.equal(realpathSync(input), input, reclaimTargetRefusal);
+  return input;
+}
+
+function verifyArchivedAttempt(destination, temporaryRoot) {
+  const archiveRoot = join(temporaryRoot, archiveDirectoryName);
+  assert.ok(
+    typeof destination === "string" && isAbsolute(destination) && resolve(destination) === destination &&
+      dirname(destination) === archiveRoot && archivedParentPattern.test(basename(destination)),
+    reclaimTargetRefusal,
+  );
+  canonicalReclaimDirectory(archiveRoot);
+  canonicalReclaimDirectory(destination);
+  const root = canonicalReclaimDirectory(join(destination, "repo"));
+  const markerPath = join(destination, "lab-state.json");
+  assert.ok(existsSync(markerPath) && lstatSync(markerPath).isFile() && !lstatSync(markerPath).isSymbolicLink(), "Stop: Module 5 archive marker mismatch.");
+  const marker = JSON.parse(read(markerPath));
+  assert.ok(marker.lab === "module-05" && marker.root === join(temporaryRoot, basename(destination), "repo"), "Stop: Module 5 archive marker mismatch.");
+  const gitDirectory = join(root, ".git");
+  assert.ok(existsSync(gitDirectory) && lstatSync(gitDirectory).isDirectory() && !lstatSync(gitDirectory).isSymbolicLink(), "Stop: archived Module 5 attempt lacks a plain .git directory.");
+  assertPlainTree(root, ".git");
+  assert.equal(realpathSync(git(root, ["rev-parse", "--show-toplevel"]).trim()), root, "Stop: archived Git root differs from the Module 5 attempt.");
+  assert.equal(git(root, ["branch", "--show-current"]).trim(), "training/module-05", "Stop: archived Module 5 attempt is on the wrong branch.");
+  assert.equal(git(root, ["remote"]).trim(), "", "Stop: archived Module 5 attempt has a Git remote.");
+  return destination;
+}
+
+/** List exact existing Module 5 archive destinations without creating the shared archive directory. */
+export function previewReclaim(temporaryRoot = realpathSync(tmpdir())) {
+  temporaryRoot = canonicalReclaimDirectory(temporaryRoot);
+  const archiveRoot = join(temporaryRoot, archiveDirectoryName);
+  if (!existsSync(archiveRoot)) return [];
+  canonicalReclaimDirectory(archiveRoot);
+  return readdirSync(archiveRoot, { withFileTypes: true })
+    .filter((entry) => entry.name.startsWith("3ci-directive-lab05-"))
+    .flatMap((entry) => {
+      if (!entry.isDirectory() || entry.isSymbolicLink()) return [];
+      try {
+        return [verifyArchivedAttempt(join(archiveRoot, entry.name), temporaryRoot)];
+      } catch {
+        return [];
+      }
+    })
+    .sort();
+}
+
+/** Delete only exact previewed Module 5 archives after explicit confirmation. */
+export function reclaimArchives(targets, { confirmed = false, temporaryRoot = realpathSync(tmpdir()) } = {}) {
+  assert.equal(confirmed, true, reclaimConfirmationRefusal);
+  assert.ok(Array.isArray(targets) && targets.length > 0 && new Set(targets).size === targets.length, reclaimTargetRefusal);
+  temporaryRoot = canonicalReclaimDirectory(temporaryRoot);
+  const previewed = new Set(previewReclaim(temporaryRoot));
+  for (const target of targets) {
+    assert.ok(typeof target === "string" && isAbsolute(target) && resolve(target) === target && previewed.has(target), reclaimTargetRefusal);
+  }
+  for (const target of targets) {
+    verifyArchivedAttempt(target, temporaryRoot);
+    rmSync(target, { recursive: true });
+    assert.equal(existsSync(target), false, "Stop: reclaim did not remove the confirmed Module 5 archive: " + target + ".");
+  }
+  return [...targets];
+}
+
+/** Create a fresh attempt after validating either a live root or its same-volume archive destination. */
+export function resetAttempt(root = process.cwd()) {
+  const temporaryRoot = realpathSync(tmpdir());
+  if (
+    typeof root === "string" && isAbsolute(root) && resolve(root) === root &&
+    dirname(root) === join(temporaryRoot, archiveDirectoryName) && archivedParentPattern.test(basename(root))
+  ) verifyArchivedAttempt(root, temporaryRoot);
+  else verifyAttemptIdentity(root);
+  return createAttempt();
+}
+
 /** Dispatch one documented lab verb and return its message; throw on bad arguments or failed guards. */
 export function main(args = process.argv.slice(2)) {
+  if (args[0] === "reclaim" && args.length === 1) return previewReclaim().join("\n");
+  if (args[0] === "reclaim" && args[1] === "--confirm" && args.length >= 3) {
+    return reclaimArchives(args.slice(2), { confirmed: true }).map((path) => "reclaimed=" + path).join("\n");
+  }
   if (args[0] === "archive") {
     assert.equal(args.length, 2, archiveUsage);
     return archiveAttempt(args[1]);
   }
-  assert.equal(args.length, 1, "Use one verb: create, guard, verify-pin, checkpoint, inject-drift, verify-result. Archive uses: archive <absolute-canonical-lab-root>.");
+  if (args[0] === "reset") {
+    assert.equal(args.length, 2, "Reset uses: reset <absolute-canonical-live-or-archived-root>.");
+    return resetAttempt(args[1]);
+  }
+  assert.equal(args.length, 1, "Use one verb: create, guard, verify-pin, checkpoint, inject-drift, verify-result. Archive uses: archive <absolute-canonical-lab-root>. Reclaim uses: reclaim [--confirm <absolute-archive>...].");
   const [verb] = args;
   if (verb === "create") return createAttempt();
   if (verb === "guard") return guardAttempt();
