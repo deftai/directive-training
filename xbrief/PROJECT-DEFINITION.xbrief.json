@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Project definition for the 3Ci Directive training curriculum",
     "created": "2026-09-05T14:54:49Z",
-    "updated": "2026-09-21T02:50:39Z",
+    "updated": "2026-09-28T12:56:56Z",
     "author": "agent:deft-directive-setup"
   },
   "plan": {
@@ -112,24 +112,145 @@
         }
       },
       {
-        "id": "2026-09-20-directive-0-119-5-teaching-baseline-upgrade",
-        "title": "Directive 0.119.5 Teaching Baseline Upgrade",
-        "status": "completed",
+        "id": "2026-09-28-100-lab-attempts-accumulate-unbounded-in-os-temp-14-gb-enospc-ha",
+        "title": "Lab attempts accumulate unbounded in OS temp (14 GB); ENOSPC halts the course mid-run with no sanctioned reclamation",
+        "status": "pending",
         "metadata": {
-          "source_path": "completed/2026-09-20-directive-0-119-5-teaching-baseline-upgrade.xbrief.json",
-          "lifecycle_folder": "completed",
+          "source_path": "pending/2026-09-28-100-lab-attempts-accumulate-unbounded-in-os-temp-14-gb-enospc-ha.xbrief.json",
+          "lifecycle_folder": "pending",
           "references": [
             {
-              "uri": "urn:deftai:directive-training:user-request:2026-09-20:directive-0.119.5-upgrade",
-              "type": "x-xbrief/user-request",
-              "title": "David's request to complete the Directive upgrade, push the branch, and open a pull request",
-              "TrustLevel": "internal"
-            },
+              "uri": "https://github.com/deftai/directive-training/issues/100",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #100: Lab attempts accumulate unbounded in OS temp (14 GB); ENOSPC halts the course mid-run with no sanctioned reclamation"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-28-101-lab-7-and-lab-11-starting-state-checks-omit-python-and-uv-fo",
+        "title": "Lab 7 and Lab 11 starting-state checks omit Python (and uv for Lab 7) that their helpers hard-require",
+        "status": "pending",
+        "metadata": {
+          "source_path": "pending/2026-09-28-101-lab-7-and-lab-11-starting-state-checks-omit-python-and-uv-fo.xbrief.json",
+          "lifecycle_folder": "pending",
+          "references": [
             {
-              "uri": "../../references/SOURCE-BASELINE.md",
-              "type": "x-xbrief/spec-section",
-              "title": "Maintained Directive source and runtime baseline",
-              "TrustLevel": "internal"
+              "uri": "https://github.com/deftai/directive-training/issues/101",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #101: Lab 7 and Lab 11 starting-state checks omit Python (and uv for Lab 7) that their helpers hard-require"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-28-93-opening-a-coding-agent-in-the-course-clone-subjects-it-to-th",
+        "title": "Opening a coding agent in the course clone subjects it to the repo's Directive hooks; the offered recovery mutates the training repo",
+        "status": "pending",
+        "metadata": {
+          "source_path": "pending/2026-09-28-93-opening-a-coding-agent-in-the-course-clone-subjects-it-to-th.xbrief.json",
+          "lifecycle_folder": "pending",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/93",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #93: Opening a coding agent in the course clone subjects it to the repo's Directive hooks; the offered recovery mutates the training repo"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-28-94-readme-cold-start-bootstrap-read-this-first-block-contradict",
+        "title": "README 'Cold-start bootstrap (read this first)' block contradicts the learner pin boundary taught in Module 2",
+        "status": "pending",
+        "metadata": {
+          "source_path": "pending/2026-09-28-94-readme-cold-start-bootstrap-read-this-first-block-contradict.xbrief.json",
+          "lifecycle_folder": "pending",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/94",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #94: README 'Cold-start bootstrap (read this first)' block contradicts the learner pin boundary taught in Module 2"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-28-95-lab-2-solution-says-01195-init-does-not-create-the-package-p",
+        "title": "Lab 2 solution says 0.119.5 init does not create the package pin, contradicting Module 2 and SOURCE-BASELINE",
+        "status": "pending",
+        "metadata": {
+          "source_path": "pending/2026-09-28-95-lab-2-solution-says-01195-init-does-not-create-the-package-p.xbrief.json",
+          "lifecycle_folder": "pending",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/95",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #95: Lab 2 solution says 0.119.5 init does not create the package pin, contradicting Module 2 and SOURCE-BASELINE"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-28-96-lab-2-task-1-requires-a-concrete-maintainer-only-surface-tha",
+        "title": "Lab 2 Task 1 requires a concrete maintainer-only surface that Module 2 never names; solution grades against an unseen command",
+        "status": "pending",
+        "metadata": {
+          "source_path": "pending/2026-09-28-96-lab-2-task-1-requires-a-concrete-maintainer-only-surface-tha.xbrief.json",
+          "lifecycle_folder": "pending",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/96",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #96: Lab 2 Task 1 requires a concrete maintainer-only surface that Module 2 never names; solution grades against an unseen command"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-28-97-lab-2-task-3-do-not-resolve-usermd-conflicts-with-diagnose-w",
+        "title": "Lab 2 Task 3: 'do not resolve USER.md' conflicts with diagnose writing the resolved path to evidence; .deft-cache/ absent after init",
+        "status": "pending",
+        "metadata": {
+          "source_path": "pending/2026-09-28-97-lab-2-task-3-do-not-resolve-usermd-conflicts-with-diagnose-w.xbrief.json",
+          "lifecycle_folder": "pending",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/97",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #97: Lab 2 Task 3: 'do not resolve USER.md' conflicts with diagnose writing the resolved path to evidence; .deft-cache/ absent after init"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-28-98-module-3-card-e-solution-requires-module-8-work-selection-kn",
+        "title": "Module 3 Card E solution requires Module 8 work-selection knowledge; the rubric fails the answer Modules 1–3 support",
+        "status": "pending",
+        "metadata": {
+          "source_path": "pending/2026-09-28-98-module-3-card-e-solution-requires-module-8-work-selection-kn.xbrief.json",
+          "lifecycle_folder": "pending",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/98",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #98: Module 3 Card E solution requires Module 8 work-selection knowledge; the rubric fails the answer Modules 1–3 support"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-28-99-module-6-part-b-requires-authoring-a-schema-08-scope-json-bu",
+        "title": "Module 6 Part B requires authoring a schema-0.8 scope JSON, but no module shows a scope xBRIEF shape; the solution is the only template",
+        "status": "pending",
+        "metadata": {
+          "source_path": "pending/2026-09-28-99-module-6-part-b-requires-authoring-a-schema-08-scope-json-bu.xbrief.json",
+          "lifecycle_folder": "pending",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/99",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #99: Module 6 Part B requires authoring a schema-0.8 scope JSON, but no module shows a scope xBRIEF shape; the solution is the only template"
             }
           ]
         }
@@ -767,6 +888,495 @@
         }
       },
       {
+        "id": "2026-09-20-15-nine-of-twelve-modules-have-a-self-assessment-gate-with-no-a",
+        "title": "Nine of twelve modules have a self-assessment gate with no answer key",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-20-15-nine-of-twelve-modules-have-a-self-assessment-gate-with-no-a.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/15",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #15: Nine of twelve modules have a self-assessment gate with no answer key"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-20-16-module-6-part-d-proposed-mechanism-revision-column-contradic",
+        "title": "Module 6 Part D: 'Proposed mechanism revision' column contradicts its own rubric and needs Module 9 knowledge",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-20-16-module-6-part-d-proposed-mechanism-revision-column-contradic.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/16",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #16: Module 6 Part D: 'Proposed mechanism revision' column contradicts its own rubric and needs Module 9 knowledge"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-20-17-module-9-grades-a-closed-finding-classification-vocabulary-i",
+        "title": "Module 9 grades a closed finding-classification vocabulary it never defines",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-20-17-module-9-grades-a-closed-finding-classification-vocabulary-i.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/17",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #17: Module 9 grades a closed finding-classification vocabulary it never defines"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-20-19-lab-2s-documented-doctor-known-false-negative-does-not-repro",
+        "title": "Lab 2's documented doctor 'known false negative' does not reproduce on 0.119.2; the warning that does appear is undocumented",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-20-19-lab-2s-documented-doctor-known-false-negative-does-not-repro.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/19",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #19: Lab 2's documented doctor 'known false negative' does not reproduce on 0.119.2; the warning that does appear is undocumented"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-20-20-scope-authoring-o62-is-the-one-core-outcome-with-no-executab",
+        "title": "Scope authoring (O6.2) is the one core outcome with no executable verification anywhere in the course",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-20-20-scope-authoring-o62-is-the-one-core-outcome-with-no-executab.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/20",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #20: Scope authoring (O6.2) is the one core outcome with no executable verification anywhere in the course"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-20-directive-0-119-5-teaching-baseline-upgrade",
+        "title": "Directive 0.119.5 Teaching Baseline Upgrade",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-20-directive-0-119-5-teaching-baseline-upgrade.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "urn:deftai:directive-training:user-request:2026-09-20:directive-0.119.5-upgrade",
+              "type": "x-xbrief/user-request",
+              "title": "David's request to complete the Directive upgrade, push the branch, and open a pull request",
+              "TrustLevel": "internal"
+            },
+            {
+              "uri": "../../references/SOURCE-BASELINE.md",
+              "type": "x-xbrief/spec-section",
+              "title": "Maintained Directive source and runtime baseline",
+              "TrustLevel": "internal"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-20-lab-02-stateless-helper",
+        "title": "Lab 2 runs from a coding-agent host without live shell state",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-20-lab-02-stateless-helper.xbrief.json",
+          "lifecycle_folder": "completed"
+        }
+      },
+      {
+        "id": "2026-09-20-leftover-completion-gates",
+        "title": "Module 12 reaches tracked lifecycle closeout",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-20-leftover-completion-gates.xbrief.json",
+          "lifecycle_folder": "completed"
+        }
+      },
+      {
+        "id": "2026-09-21-35-lab-7-explained-solution-is-stale-after-task-5-and-module-8",
+        "title": "Lab 7 explained solution is stale after Task 5 and Module 8 became available",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-21-35-lab-7-explained-solution-is-stale-after-task-5-and-module-8.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/35",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #35: Lab 7 explained solution is stale after Task 5 and Module 8 became available"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-21-36-capstone-solution-emits-invalid-wi-1000-after-valid-wi-999",
+        "title": "Capstone solution emits invalid WI-1000 after valid WI-999",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-21-36-capstone-solution-emits-invalid-wi-1000-after-valid-wi-999.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/36",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #36: Capstone solution emits invalid WI-1000 after valid WI-999"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-21-38-capstone-assessment-never-names-the-wi-nnn-exhaustion-bound",
+        "title": "Capstone assessment never names the WI-NNN exhaustion bound",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-21-38-capstone-assessment-never-names-the-wi-nnn-exhaustion-bound.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/38",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #38: Capstone assessment never names the WI-NNN exhaustion bound"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-22-49-lab-2-accept-prints-pass-without-checking-the-written-choose",
+        "title": "Lab 2 accept prints PASS without checking the written chooser, anatomy, or recovery evidence",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-22-49-lab-2-accept-prints-pass-without-checking-the-written-choose.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/49",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #49: Lab 2 accept prints PASS without checking the written chooser, anatomy, or recovery evidence"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-22-50-lab-2-still-tells-learners-to-export-a-private-curriculum-cl",
+        "title": "Lab 2 still tells learners to export a private curriculum clone after the public deftai move",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-22-50-lab-2-still-tells-learners-to-export-a-private-curriculum-cl.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/50",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #50: Lab 2 still tells learners to export a private curriculum clone after the public deftai move"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-22-51-first-live-doctor-report-says-current-vbrief-document-model",
+        "title": "First live doctor report says current vBRIEF document model after Module 1 forbids old names",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-22-51-first-live-doctor-report-says-current-vbrief-document-model.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/51",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #51: First live doctor report says current vBRIEF document model after Module 1 forbids old names"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-22-52-module-6-solution-and-lab-7-task-5-disagree-on-the-proposed",
+        "title": "Module 6 solution and Lab 7 Task 5 disagree on the proposed-scope filename",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-22-52-module-6-solution-and-lab-7-task-5-disagree-on-the-proposed.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/52",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #52: Module 6 solution and Lab 7 Task 5 disagree on the proposed-scope filename"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-22-53-lab-7-proposed-preflight-tells-learners-to-activate-a-propos",
+        "title": "Lab 7 proposed preflight tells learners to activate a proposed file, skipping promotion",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-22-53-lab-7-proposed-preflight-tells-learners-to-activate-a-propos.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/53",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #53: Lab 7 proposed preflight tells learners to activate a proposed file, skipping promotion"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-22-54-lab-11-quality-record-final-check-uses-unpublished-exact-tok",
+        "title": "Lab 11 quality-record final check uses unpublished exact tokens the lab page never names",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-22-54-lab-11-quality-record-final-check-uses-unpublished-exact-tok.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/54",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #54: Lab 11 quality-record final check uses unpublished exact tokens the lab page never names"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-22-55-capstone-lab-task-1-runs-activate-immediately-skipping-the-r",
+        "title": "Capstone lab Task 1 runs activate immediately, skipping the required CAP-DC-01 checkpoint",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-22-55-capstone-lab-task-1-runs-activate-immediately-skipping-the-r.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/55",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #55: Capstone lab Task 1 runs activate immediately, skipping the required CAP-DC-01 checkpoint"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-22-56-passing-verifyac-still-prints-0-verified-1-unverifiable-with",
+        "title": "Passing verify:ac still prints 0 verified, 1 unverifiable with no course explanation",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-22-56-passing-verifyac-still-prints-0-verified-1-unverifiable-with.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/56",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #56: Passing verify:ac still prints 0 verified, 1 unverifiable with no course explanation"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-23-59-lab-11-starting-state-check-does-not-verify-its-required-too",
+        "title": "Lab 11 starting-state check does not verify its required tools",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-23-59-lab-11-starting-state-check-does-not-verify-its-required-too.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/59",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #59: Lab 11 starting-state check does not verify its required tools"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-23-60-labs-7-and-10-start-with-zsh-only-preflight-despite-later-wi",
+        "title": "Labs 7 and 10 start with zsh-only preflight despite later Windows routes",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-23-60-labs-7-and-10-start-with-zsh-only-preflight-despite-later-wi.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/60",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #60: Labs 7 and 10 start with zsh-only preflight despite later Windows routes"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-23-61-capstone-powershell-74-block-does-not-enforce-the-shell-vers",
+        "title": "Capstone PowerShell 7.4+ block does not enforce the shell version",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-23-61-capstone-powershell-74-block-does-not-enforce-the-shell-vers.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/61",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #61: Capstone PowerShell 7.4+ block does not enforce the shell version"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-23-62-capstone-windows-python-prerequisite-has-no-supported-versio",
+        "title": "Capstone Windows Python prerequisite has no supported version contract",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-23-62-capstone-windows-python-prerequisite-has-no-supported-versio.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/62",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #62: Capstone Windows Python prerequisite has no supported version contract"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-23-63-exact-01195-bootstrap-can-resolve-core-01196-after-a-compati",
+        "title": "Exact 0.119.5 bootstrap can resolve core 0.119.6 after a compatible release",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-23-63-exact-01195-bootstrap-can-resolve-core-01196-after-a-compati.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/63",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #63: Exact 0.119.5 bootstrap can resolve core 0.119.6 after a compatible release"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-23-64-lab-7-windows-route-cannot-complete-task-5-as-one-pasted-blo",
+        "title": "Lab 7 Windows route cannot complete Task 5 as one pasted block",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-23-64-lab-7-windows-route-cannot-complete-task-5-as-one-pasted-blo.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/64",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #64: Lab 7 Windows route cannot complete Task 5 as one pasted block"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-23-65-lab-10-windows-route-cannot-pause-for-the-required-greeting",
+        "title": "Lab 10 Windows route cannot pause for the required greeting edit",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-23-65-lab-10-windows-route-cannot-pause-for-the-required-greeting.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/65",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #65: Lab 10 Windows route cannot pause for the required greeting edit"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-23-66-lab-11-windows-route-cannot-pause-for-its-three-required-edi",
+        "title": "Lab 11 Windows route cannot pause for its three required edits",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-23-66-lab-11-windows-route-cannot-pause-for-its-three-required-edi.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/66",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #66: Lab 11 Windows route cannot pause for its three required edits"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-23-67-lab-11-quotes-clause-walk-evidence-absent-from-a-passing-win",
+        "title": "Lab 11 quotes clause-walk evidence absent from a passing Windows 0.119.5 run",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-23-67-lab-11-quotes-clause-walk-evidence-absent-from-a-passing-win.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/67",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #67: Lab 11 quotes clause-walk evidence absent from a passing Windows 0.119.5 run"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-23-68-capstone-uv-prerequisite-blurs-verified-context-and-required",
+        "title": "Capstone uv prerequisite blurs verified context and required version",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-23-68-capstone-uv-prerequisite-blurs-verified-context-and-required.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/68",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #68: Capstone uv prerequisite blurs verified context and required version"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-23-69-visible-01195-bootstrap-still-resolves-a-newer-core-after-a",
+        "title": "Visible 0.119.5 bootstrap still resolves a newer core after a compatible release",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-23-69-visible-01195-bootstrap-still-resolves-a-newer-core-after-a.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/69",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #69: Visible 0.119.5 bootstrap still resolves a newer core after a compatible release"
+            }
+          ]
+        }
+      },
+      {
+        "id": "2026-09-26-102-upgrade-directive-teaching-baseline-to-01199",
+        "title": "Upgrade Directive teaching baseline to 0.119.9",
+        "status": "completed",
+        "metadata": {
+          "source_path": "completed/2026-09-26-102-upgrade-directive-teaching-baseline-to-01199.xbrief.json",
+          "lifecycle_folder": "completed",
+          "references": [
+            {
+              "uri": "https://github.com/deftai/directive-training/issues/102",
+              "type": "x-xbrief/github-issue",
+              "title": "Issue #102: Upgrade Directive teaching baseline to 0.119.9"
+            }
+          ]
+        }
+      },
+      {
         "id": "2026-09-12-56-lab-2-npm-auth-and-path-placeholder-traps-are-inconsistent-w",
         "title": "Lab 2 npm auth and path-placeholder traps are inconsistent with later isolated labs",
         "status": "cancelled",
@@ -810,83 +1420,6 @@
               "uri": "https://github.com/3Ci-Consulting/directive-training/issues/58",
               "type": "x-xbrief/github-issue",
               "title": "Issue #58: Exact Node 24.20.0, --help side effects, and mixed version notes confuse the golden path"
-            }
-          ]
-        }
-      },
-      {
-        "id": "2026-09-20-15-nine-of-twelve-modules-have-a-self-assessment-gate-with-no-a",
-        "title": "Nine of twelve modules have a self-assessment gate with no answer key",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-20-15-nine-of-twelve-modules-have-a-self-assessment-gate-with-no-a.xbrief.json",
-          "lifecycle_folder": "completed"
-        }
-      },
-      {
-        "id": "2026-09-20-16-module-6-part-d-proposed-mechanism-revision-column-contradic",
-        "title": "Module 6 Part D: 'Proposed mechanism revision' column contradicts its own rubric and needs Module 9 knowledge",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-20-16-module-6-part-d-proposed-mechanism-revision-column-contradic.xbrief.json",
-          "lifecycle_folder": "completed"
-        }
-      },
-      {
-        "id": "2026-09-20-17-module-9-grades-a-closed-finding-classification-vocabulary-i",
-        "title": "Module 9 grades a closed finding-classification vocabulary it never defines",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-20-17-module-9-grades-a-closed-finding-classification-vocabulary-i.xbrief.json",
-          "lifecycle_folder": "completed"
-        }
-      },
-      {
-        "id": "2026-09-20-19-lab-2s-documented-doctor-known-false-negative-does-not-repro",
-        "title": "Lab 2's documented doctor 'known false negative' does not reproduce on 0.119.2; the warning that does appear is undocumented",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-20-19-lab-2s-documented-doctor-known-false-negative-does-not-repro.xbrief.json",
-          "lifecycle_folder": "completed"
-        }
-      },
-      {
-        "id": "2026-09-20-20-scope-authoring-o62-is-the-one-core-outcome-with-no-executab",
-        "title": "Scope authoring (O6.2) is the one core outcome with no executable verification anywhere in the course",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-20-20-scope-authoring-o62-is-the-one-core-outcome-with-no-executab.xbrief.json",
-          "lifecycle_folder": "completed"
-        }
-      },
-      {
-        "id": "2026-09-20-lab-02-stateless-helper",
-        "title": "Lab 2 runs from a coding-agent host without live shell state",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-20-lab-02-stateless-helper.xbrief.json",
-          "lifecycle_folder": "completed",
-          "references": [
-            {
-              "uri": "https://github.com/deftai/directive-training/issues/18",
-              "type": "x-xbrief/github-issue",
-              "title": "Issue #18: Lab 2 requires persistent shell state, unlike every other lab"
-            }
-          ]
-        }
-      },
-      {
-        "id": "2026-09-20-leftover-completion-gates",
-        "title": "Module 12 reaches tracked lifecycle closeout",
-        "status": "completed",
-        "metadata": {
-          "source_path": "completed/2026-09-20-leftover-completion-gates.xbrief.json",
-          "lifecycle_folder": "completed",
-          "references": [
-            {
-              "uri": "https://github.com/deftai/directive-training/issues/22",
-              "type": "x-xbrief/github-issue",
-              "title": "Issue #22: Module 12 stops one step short of tracked lifecycle closeout"
             }
           ]
         }

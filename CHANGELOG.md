@@ -4,6 +4,9 @@
 
 ### Changed
 
+- Register issues #93 through #101 as swarm-ready pending xBRIEFs, refresh the
+  derived roadmap and project registry, and clarify issue #100's zero-free-space
+  reclaim ordering and per-attempt cache lifecycle.
 - Upgrade the current Directive teaching baseline to 0.119.9 across generated project
   metadata, all six exact disposable package graphs, curriculum, labs, solutions,
   assessments, references, workflows, and executable verification. Rebind immutable

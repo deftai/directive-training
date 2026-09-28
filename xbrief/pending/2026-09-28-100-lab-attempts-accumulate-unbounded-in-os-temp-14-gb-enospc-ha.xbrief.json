@@ -2,18 +2,18 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #100",
-    "updated": "2026-09-28T12:13:42Z"
+    "updated": "2026-09-28T12:49:52Z"
   },
   "plan": {
     "title": "Lab attempts accumulate unbounded in OS temp (14 GB); ENOSPC halts the course mid-run with no sanctioned reclamation",
     "status": "pending",
     "narratives": {
-      "Description": "Executable lab attempts and their per-attempt npm caches accumulate in OS temporary storage until an ENOSPC failure can stop the course without a recognized recovery. This story adds a measured disk-capacity contract and a guarded preview-then-apply reclaim path that removes only previously archived attempts while preserving live attempts, the curriculum clone, remotes, symlinks, and the existing archive-as-rename behavior.",
-      "ImplementationPlan": "1. Add the ENOSPC environment-stop classification, peak-live-install measurement recipe, and reclaim-before-reset ordering to `curriculum/README.md`, `labs/README.md`, and each executable lab page.\n2. Extend the six lab helper scripts with a consistent reclaim preview/apply verb over their exact archive destination classes, retaining existing identity, no-remote, clone, and symlink guards.\n3. Expand the focused lab, content-verifier, and linked-path test suites so evidence proves preview output, confirmation, exact deletion boundaries, ENOSPC routing, and rejection of unsafe targets.",
+      "Description": "Executable lab attempts and their per-attempt npm caches accumulate in OS temporary storage until an ENOSPC failure can stop the course without a recognized recovery. This story adds a measured disk-capacity contract and a guarded preview-then-apply reclaim path that can remove a confirmed older archive before any new archive directory is created, while preserving live attempts, the curriculum clone, remotes, symlinks, and the existing archive-as-rename behavior. Live attempts retain isolated caches; reclaim removes an archived attempt together with its contained cache.",
+      "ImplementationPlan": "1. Add the ENOSPC environment-stop classification, peak-live-install measurement recipe, and reclaim-before-archive-before-reset ordering to `curriculum/README.md`, `labs/README.md`, and each executable lab page.\n2. Extend the six lab helper scripts with a consistent, read-only reclaim preview and confirmed apply verb over their exact existing archive destination classes. The preview must not create an archive directory; apply can reclaim a confirmed older archive first when the volume is full, after which the helper archives the live failed parent by same-volume rename and resets. Retain the existing identity, no-remote, clone, and symlink guards.\n3. Expand the focused lab, content-verifier, and linked-path test suites so evidence proves zero-free-space preview behavior, confirmation, exact deletion and cache-lifecycle boundaries, ENOSPC routing, and rejection of unsafe targets.",
       "UserStory": "As a course learner, I want a bounded and guarded way to reclaim archived lab attempts after an ENOSPC stop, so that I can continue the course without deleting a live attempt or the training repository.",
       "Traces": "GitHub issue #100 and its ingested design-critique Bound remedy define the ENOSPC environment-stop ordering, measured capacity guidance, three archive destination classes, preview/apply confirmation, and unsafe-target refusals.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/100",
-      "Overview": "\n\n- Add an environment-stop ENOSPC / no-space-left row to `labs/README.md` Independent recovery and to each executable lab's Expected failures, including Lab 11 `:242-251`. While the volume reports that stop, Route A / reset / create do not run; reclaim runs first; then the existing reset path, because `installAttempt` still refuses the partial tree. Recut Independent recovery step 6 so unmatched ENOSPC does not Route A.\n- The disk prerequisite binds as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Do not harvest 20 GB as the course-entry floor.\n- Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Print the exact paths and apply only after that preview matches. Same-volume `archive` of the live failed parent, then confirmed delete of already-archived destinations, then reset. Keep `archive` as rename. Leftover empty launchers are not the 14 GB.\n- Leave shared npm cache off this harvest.\n\n",
+      "Overview": "\n\n- Add an environment-stop ENOSPC / no-space-left row to `labs/README.md` Independent recovery and to each executable lab's Expected failures, including Lab 11 `:242-251`. While the volume reports that stop, Route A / reset / create do not run; reclaim runs first; then the existing reset path, because `installAttempt` still refuses the partial tree. Recut Independent recovery step 6 so unmatched ENOSPC does not Route A.\n- The disk prerequisite binds as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Do not harvest 20 GB as the course-entry floor.\n- Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Preview is read-only and creates no archive directory. If ENOSPC leaves no room to create one, preview and confirm deletion of an already-archived destination first; only after capacity is reclaimed, archive the live failed parent by same-volume rename and then reset. Leftover empty launchers are not the 14 GB.\n- Leave shared npm cache off this harvest. Each live attempt keeps its isolated cache; reclaim deletes an archived attempt together with its contained cache.\n\n",
       "Labels": "bug, documentation, design-critique:ingest-ready"
     },
     "items": [
@@ -34,19 +34,19 @@
         }
       },
       {
-        "title": "Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Print the exact paths and apply only after that preview matches. Same-volume `archive` of the live failed parent, then confirmed delete of already-archived destinations, then reset. Keep `archive` as rename. Leftover empty launchers are not the 14 GB.",
+        "title": "Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Preview is read-only and creates no archive directory. If ENOSPC leaves no room to create one, preview and confirm deletion of an already-archived destination first; only after capacity is reclaimed, archive the live failed parent by same-volume rename and then reset. Leftover empty launchers are not the 14 GB.",
         "status": "proposed",
         "id": "clause.3",
         "narrative": {
-          "Acceptance": "When reclaim preview runs, each helper prints only archive destinations it could have created, and apply deletes only the confirmed archived paths while rejecting live attempt roots, the curriculum clone, remotes, symlinks, and mismatched identities."
+          "Acceptance": "Given a full temporary volume, reclaim preview creates no directories and prints only existing archive destinations the helper could have created; apply deletes only the confirmed archived paths while rejecting live attempt roots, the curriculum clone, remotes, symlinks, and mismatched identities, and leaves the live failed parent untouched until space exists for archive-as-rename before reset."
         }
       },
       {
-        "title": "Leave shared npm cache off this harvest.",
+        "title": "Leave shared npm cache off this harvest. Each live attempt keeps its isolated cache; reclaim deletes an archived attempt together with its contained cache.",
         "status": "proposed",
         "id": "clause.4",
         "narrative": {
-          "Acceptance": "Given a reclaim run, the helpers preserve per-attempt npm caches and archive-as-rename behavior; then focused tests reject a shared npm-cache mechanism and reject empty-launcher deletion as the primary remedy."
+          "Acceptance": "Given a reclaim run, each live attempt retains its isolated npm cache, deleting a confirmed archived attempt also deletes that archive's contained cache, archive remains a same-volume rename, and focused tests reject a shared npm-cache mechanism and reject empty-launcher deletion as the primary remedy."
         }
       }
     ],
@@ -70,8 +70,8 @@
       "sentences": [
         "Add an environment-stop ENOSPC / no-space-left row to `labs/README.md` Independent recovery and to each executable lab's Expected failures, including Lab 11 `:242-251`. While the volume reports that stop, Route A / reset / create do not run; reclaim runs first; then the existing reset path, because `installAttempt` still refuses the partial tree. Recut Independent recovery step 6 so unmatched ENOSPC does not Route A.",
         "The disk prerequisite binds as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Do not harvest 20 GB as the course-entry floor.",
-        "Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Print the exact paths and apply only after that preview matches. Same-volume `archive` of the live failed parent, then confirmed delete of already-archived destinations, then reset. Keep `archive` as rename. Leftover empty launchers are not the 14 GB.",
-        "Leave shared npm cache off this harvest."
+        "Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Preview is read-only and creates no archive directory. If ENOSPC leaves no room to create one, preview and confirm deletion of an already-archived destination first; only after capacity is reclaimed, archive the live failed parent by same-volume rename and then reset. Leftover empty launchers are not the 14 GB.",
+        "Leave shared npm cache off this harvest. Each live attempt keeps its isolated cache; reclaim deletes an archived attempt together with its contained cache."
       ],
       "clauses": [
         {
@@ -90,14 +90,14 @@
         },
         {
           "id": 3,
-          "text": "Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Print the exact paths and apply only after that preview matches. Same-volume `archive` of the live failed parent, then confirmed delete of already-archived destinations, then reset. Keep `archive` as rename. Leftover empty launchers are not the 14 GB.",
+          "text": "Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Preview is read-only and creates no archive directory. If ENOSPC leaves no room to create one, preview and confirm deletion of an already-archived destination first; only after capacity is reclaimed, archive the live failed parent by same-volume rename and then reset. Leftover empty launchers are not the 14 GB.",
           "artifact_path": null,
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 4,
-          "text": "Leave shared npm cache off this harvest.",
+          "text": "Leave shared npm cache off this harvest. Each live attempt keeps its isolated cache; reclaim deletes an archived attempt together with its contained cache.",
           "artifact_path": null,
           "ambiguous": false,
           "provenance": "statement"
@@ -156,8 +156,8 @@
         ],
         "expected_outputs": [
           "Every executable lab identifies ENOSPC as an environment stop and routes reclaim before any reset or create action",
-          "Each helper previews exact eligible archive destinations and deletes only after matching confirmation while refusing live, clone, remote, symlink, or identity-mismatched targets",
-          "Focused helper, content, and linked-path tests cover all three archive destination classes and preserve archive-as-rename plus per-attempt npm caches"
+          "Each helper previews exact existing archive destinations without creating directories, can delete a confirmed older archive before archiving the live failed parent, and refuses live, clone, remote, symlink, or identity-mismatched targets",
+          "Focused helper, content, and linked-path tests cover all three archive destination classes, preserve isolated caches for live attempts, reclaim caches contained in deleted archives, and preserve archive-as-rename"
         ],
         "depends_on": [],
         "conflict_group": "lab-archive-reclamation",
@@ -390,6 +390,6 @@
       }
     },
     "id": "github.issue.5587628552",
-    "updated": "2026-09-28T12:13:42Z"
+    "updated": "2026-09-28T12:49:52Z"
   }
 }
