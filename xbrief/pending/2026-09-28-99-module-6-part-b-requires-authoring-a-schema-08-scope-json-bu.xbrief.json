@@ -1,0 +1,379 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #99",
+    "updated": "2026-09-28T12:15:06Z"
+  },
+  "plan": {
+    "title": "Module 6 Part B requires authoring a schema-0.8 scope JSON, but no module shows a scope xBRIEF shape; the solution is the only template",
+    "status": "pending",
+    "narratives": {
+      "Description": "Give Module 6 learners a labeled field-identity skeleton before they must author a schema-0.8 proposed scope, while keeping the complete worked artifact in the solution. The specimen must distinguish schema requirements, legal optional fields, worksheet rubric requirements, and later swarm or evidence gates so passing validation is not mistaken for completing O6.2.",
+      "UserStory": "As a Directive learner, I want a minimal labeled scope xBRIEF specimen before the Module 6 exercise, so that I can author the required artifact without reverse-engineering the answer key.",
+      "ImplementationPlan": "1. Add a labeled JSON field-identity skeleton and adjacent legend to Part B of `curriculum/modules/06-creating-well-shaped-work.md`, then point the recovery row at that specimen while preserving the two-to-five-item rubric and no-authority warning. 2. Extend `scripts/verify-module-6.mjs` and `scripts/verify-module-6.test.mjs` with focused checks for the specimen's required fields, field classifications, recovery link, item-count distinction, trace guidance, and optional swarm metadata; verify with `npm run check:module-6` and `npm run test:module-6`.",
+      "Traces": "GitHub issue #99 and its accepted Bound remedy; implementation is traced by clauses clause.1 through clause.4 and the focused Module 6 verifier and unit-test evidence.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/99",
+      "Overview": "\n\n- Land one labeled JSON fence (or a JSON fence plus a field-legend table) in Module 6 Part B / the worksheet the recovery row cites. Keep Module 4 on card-level facts. Keep the solution's two-item JSON as the complete worked artifact. Point Module 6:524 at that worksheet specimen.\n- Label each shown field as one of: schema-required (verify-enforced), schema-legal-optional, this-worksheet (O6.2 rubric), or later-gate (swarm-ready / `x-directive/evidence`). Item `pending` stays schema-legal; this worksheet can prefer item `proposed` to match `plan.status`. String `narrative.Traces` is the course home for the required trace; string `narrative.Evidence` is schema-legal and is a different field from `x-directive/evidence`. Keep the existing verify-versus-rubric table.\n- Caption the new fence as a field-identity skeleton. State on the same page that O6.2 still needs two to five items, each with a string `Acceptance` and a trace, `plan.status: proposed`, schema `0.8`, and the no-authority sentence. Align the walkthrough's \"one item\" line with that rubric, or mark the walkthrough as a shaping sketch whose Part B count wins.\n- On the Part B skeleton: `plan.id` (worksheet story ID; optional for verify), `plan.title`, `plan.status: proposed`, one shown item with `title`, `status`, and string `narrative.Acceptance` plus `narrative.Traces`, and a legend that `effort` and `plan.metadata.kind` / `swarm` are optional for this proposed candidate. `kind: \"story\"` is the story-taxonomy value when present. Swarm-ready `readiness: \"ready\"` stays the later allocation contract. The solution may keep its `needs_refinement` block as unreadiness pedagogy in the answer key.\n\n",
+      "Labels": "documentation, enhancement, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "Land one labeled JSON fence (or a JSON fence plus a field-legend table) in Module 6 Part B / the worksheet the recovery row cites. Keep Module 4 on card-level facts. Keep the solution's two-item JSON as the complete worked artifact. Point Module 6:524 at that worksheet specimen.",
+        "status": "proposed",
+        "id": "clause.1",
+        "narrative": {
+          "Acceptance": "Given Module 6 Part B, when a learner follows the recovery row, then it redirects to a labeled same-page JSON field-identity skeleton, Module 4 remains untouched, and focused Module 6 tests fail if the specimen or recovery link disappears."
+        }
+      },
+      {
+        "title": "Label each shown field as one of: schema-required (verify-enforced), schema-legal-optional, this-worksheet (O6.2 rubric), or later-gate (swarm-ready / `x-directive/evidence`). Item `pending` stays schema-legal; this worksheet can prefer item `proposed` to match `plan.status`. String `narrative.Traces` is the course home for the required trace; string `narrative.Evidence` is schema-legal and is a different field from `x-directive/evidence`. Keep the existing verify-versus-rubric table.",
+        "status": "proposed",
+        "id": "clause.2",
+        "narrative": {
+          "Acceptance": "Given the specimen and legend, when each shown field is inspected, then it displays one of the four required identity layers, distinguishes `narrative.Evidence` from `x-directive/evidence`, locates the required trace in string `narrative.Traces`, and preserves the verify-versus-rubric table."
+        }
+      },
+      {
+        "title": "Caption the new fence as a field-identity skeleton. State on the same page that O6.2 still needs two to five items, each with a string `Acceptance` and a trace, `plan.status: proposed`, schema `0.8`, and the no-authority sentence. Align the walkthrough's \"one item\" line with that rubric, or mark the walkthrough as a shaping sketch whose Part B count wins.",
+        "status": "proposed",
+        "id": "clause.3",
+        "narrative": {
+          "Acceptance": "Given the one-item shaping specimen, when a learner reads its caption and adjacent rubric, then the page shows that O6.2 still requires schema 0.8, proposed status, two-to-five traced items, string Acceptance, and the no-authority boundary."
+        }
+      },
+      {
+        "title": "On the Part B skeleton: `plan.id` (worksheet story ID; optional for verify), `plan.title`, `plan.status: proposed`, one shown item with `title`, `status`, and string `narrative.Acceptance` plus `narrative.Traces`, and a legend that `effort` and `plan.metadata.kind` / `swarm` are optional for this proposed candidate. `kind: \"story\"` is the story-taxonomy value when present. Swarm-ready `readiness: \"ready\"` stays the later allocation contract. The solution may keep its `needs_refinement` block as unreadiness pedagogy in the answer key.",
+        "status": "proposed",
+        "id": "clause.4",
+        "narrative": {
+          "Acceptance": "Given the focused Module 6 checks, when the skeleton is verified, then it shows plan id, title, proposed status, and one item with title, status, string Acceptance, and Traces while the legend marks effort, kind, and swarm as optional and reserves readiness `ready` for later allocation."
+        }
+      }
+    ],
+    "tags": [
+      "documentation",
+      "enhancement",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/99",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #99: Module 6 Part B requires authoring a schema-0.8 scope JSON, but no module shows a scope xBRIEF shape; the solution is the only template"
+      }
+    ],
+    "metadata": {
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "plan.status: proposed",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L7"
+        },
+        {
+          "command": "kind: \"story\"",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L8"
+        },
+        {
+          "command": "readiness: \"ready\"",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L8"
+        }
+      ],
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "curriculum/modules/06-creating-well-shaped-work.md",
+          "scripts/verify-module-6.mjs",
+          "scripts/verify-module-6.test.mjs",
+          "xbrief/active/2026-09-28-99-module-6-part-b-requires-authoring-a-schema-08-scope-json-bu.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:module-6",
+          "npm run test:module-6"
+        ],
+        "expected_outputs": [
+          "Module 6 Part B presents a labeled field-identity skeleton before the learner authors the O6.2 scope",
+          "The specimen and legend distinguish schema-required, schema-legal-optional, worksheet-rubric, and later-gate fields while preserving the two-to-five-item rubric",
+          "Focused Module 6 verifier and unit tests reject missing fields, classifications, recovery linkage, or count and authority guidance"
+        ],
+        "depends_on": [],
+        "conflict_group": "curriculum-module-06",
+        "size": "medium",
+        "file_scope_confidence": "high",
+        "model_tier": "high"
+      },
+      "kind": "story",
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because Module 6 Part B requires authoring a schema-0.8 scope JSON whose shape first appears in the explained solution.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: resolved\nstop-2: charter=open critique; spend=N=1 because parseOperatorSpend resolved n=1 on the operator chat utterance; this is a closed identity recut of a small annotated minimal scope xBRIEF in Module 4 or Module 6\npain: P1\nP1: curriculum/modules/06-creating-well-shaped-work.md:367-384 Part B requires a schema-0.8 proposed-scope artifact with story ID/title, plan.status proposed, and 2-5 narrative.Acceptance strings; curriculum/modules/04-xbrief-as-durable-state.md shows path names and no complete scope-item JSON; Module 6:524 recovery Compare your item narrative with the worked solution; solutions/module-06-creating-well-shaped-work.md introduces item status proposed, effort, and plan.metadata.kind/swarm fields the modules never showed.\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5838828591,
+          "html_url": "https://github.com/deftai/directive-training/issues/99#issuecomment-5838828591",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:07:55Z",
+          "updated_at": "2026-09-25T20:07:55Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh open critique of issue 99. Id ceiling 5838828591 inclusive. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Process-only; dest unread for product edits.\n\n## Re-verification of P1\n\nThe Stop 1 pain holds at the pinned tree.\n\n- Module 6 Part B (`curriculum/modules/06-creating-well-shaped-work.md` lines 367–384) requires a schema-0.8 proposed-scope artifact with one story ID and title, `plan.status: proposed`, two to five `plan.items[].narrative.Acceptance` strings, expected evidence and a trace per criterion, and the no-authority sentence.\n- Module 4 cards (`curriculum/modules/04-xbrief-as-durable-state.md` lines 249–251) are \"complete facts for a classification exercise, not complete JSON files.\" The only JSON fence in `curriculum/modules/` is the Module 2 package pin. Lab 5's `PROJECT-DEFINITION` has `\"items\": []`.\n- Recovery row at Module 6 line 524 still says \"Compare your item narrative with the worked solution.\"\n- The explained solution JSON introduces item `\"status\": \"proposed\"`, `\"effort\"`, and `plan.metadata.kind` / `swarm` fields the modules never showed.\n\n`scripts/verify-module-6.mjs` already locks the solution to exactly one schema-0.8 proposed JSON with two to five items, each carrying string `narrative.Acceptance` and `narrative.Traces`. That lock is why the answer key can be a complete specimen while the lesson still has no pre-solution shape.\n\n## Inventory (existing mechanisms)\n\nThrowaway 0.119.5 `xbrief:verify -- --format json --style scope --project-root <lab>` (the Lab 7 Task 5 command) against synthetic files:\n\n| Shape | exit |\n| --- | --- |\n| Solution JSON (effort + kind/story + swarm `needs_refinement`) | 0 |\n| Learner first attempt from the issue (`plan.id`, item `status: pending`, `narrative.Evidence` + `Traces`) | 0 |\n| Issue-body \"minimal\" (envelope + one item with `Acceptance` only) | 0 |\n| Schema spine only (`xBRIEFInfo` + `plan.title`/`status`/`items: []`) | 0 |\n| One item with `title`+`status` and no `narrative` | 0 |\n| Lab 7 `story()` helper (empty `items`, `metadata.kind: story`, no swarm) | 0 |\n| `xbrief:create --style scope` default (`status: draft`, empty `items`, `metadata.kind: scope`) | 0 |\n| Missing `plan.id` | 0 |\n| `xBRIEFInfo.version: \"0.6\"` | 0 |\n| `plan.status: running` | 0 |\n| `narrative.Acceptance` as a list | 1 (`must be a string, got list`) |\n| Item missing `status` | 1 |\n| Item missing `title` | 1 |\n\n`validateVbriefSchema` in `@deftai/directive-core@0.119.5` is what that command runs for JSON. For `--format json`, `--style scope` is unused. Required: info block (`xBRIEFInfo` or `vBRIEFInfo`) with version in `{0.6, 0.8}`; `plan.title`; `plan.status` in the plan-status enum; `plan.items` as an array; each item `title` and `status` (item enum includes `pending` and `auto`). `plan.id` is optional. `narrative` / `narratives` values, when present, must be strings. `plan.metadata` is an untyped object.\n\nOther already-shipped shapes:\n\n- Schema `xbrief/schemas/xbrief-core-0.8.schema.json`: Plan requires `title`, `status`, `items`; PlanItem requires `title`, `status`; `plan.id` optional with dotted-id pattern; item `effort` optional enum; narratives `additionalProperties: string`.\n- `xbrief:create --style scope` (`styles.js` `buildStyleDocument`): empty `items`, default status `draft`, `metadata.kind: \"scope\"`.\n- Lab 7 `lifecycle-lab.mjs` `story()`: empty `items`, `kind: \"story\"`, no swarm block. Both supplied lab scopes stay that shape; Task 5 is the first learner-authored file.\n- Swarm-ready contract in `.deft/core/vbrief/vbrief.md`: `kind: \"story\"` plus `swarm.readiness: \"ready\"` is the concurrent-allocation gate (2-5 acceptance items, traces, non-empty `file_scope` / `verify_commands`). `needs_refinement` is explicit unreadiness.\n- Later complete-gate evidence in `.deft/core/commands.md` (#3240 / #3305 / #1620): `plan.items[].x-directive/evidence` (typed object). Bare `evidence` keys fail conformance. String `narrative.Evidence` is a different field.\n- Module 6 already publishes a two-surface table (verify vs comparison rubric) at lines 82-86. Lab 7 Task 5 recovery already says \"Add the envelope from the Module 6 worksheet.\" `verify-module-6.mjs` does not lock the \"worked solution\" recovery phrase.\n\n## Findings\n\n### 1. sharpens-framing — Bind three identity layers on the specimen, not a verify-versus-conventional pair\n\n**Evidence.** The issue's proposed fix asks to mark which fields `xbrief:verify` requires and which are conventional, and to \"state the valid item status values for a proposed scope.\" The 0.119.5 probe shows the learner's `pending` + `Evidence` + `Traces` file exits 0, as does empty `items`, version `0.6`, and `running`. Module 6 lines 82-86 already name that verify does not prove version `0.8`, status `proposed`, observable acceptance, or traces. Schema item statuses include `draft`, `proposed`, `approved`, `pending`, `running`, `completed`, `blocked`, `failed`, `cancelled`, and `auto`.\n\n**Failure mode.** A two-bucket legend still leaves the original pain: a learner cannot tell whether `pending` is a defect, a legal schema value, or a course convention. \"Valid for a proposed scope\" collapses schema membership, Lab 7 structural exit 0, the O6.2 rubric, and later swarm-ready / complete-gate rules.\n\n**Disposition.** The annotated specimen can bind if each shown field is labeled with one of: schema-required (verify-enforced), schema-legal-optional, this-worksheet (O6.2 rubric), or later-gate (swarm-ready / `x-directive/evidence`). Item `pending` stays schema-legal; this worksheet can prefer item `proposed` to match `plan.status`. String `narrative.Traces` is the course home for the required trace; string `narrative.Evidence` is schema-legal and is a different field from `x-directive/evidence`. Keep the existing verify-versus-rubric table; the missing piece is a labeled document, not a second required-field list that disagrees with that table.\n\n### 2. sharpens-framing — Put the labeled specimen on Module 6 Part B\n\n**Evidence.** Module 4 lines 249-251 forbid treating the cards as complete JSON files. O4.1 inspects path-plus-field classification. Part B is the first authoring task; Lab 7 Task 5 already points recovery at \"the Module 6 worksheet.\" `scripts/verify-module-6.mjs` requires the explained solution to contain exactly one schema-0.8 proposed JSON with two to five traced items.\n\n**Failure mode.** A complete JSON specimen under Module 4 recuts that module's classification contract. A second JSON fence in the solution trips the \"exactly one\" lock. Leaving the specimen only in Module 4 leaves Lab 7's worksheet pointer empty.\n\n**Disposition.** Land one labeled JSON fence (or a JSON fence plus a field-legend table) in Module 6 Part B / the worksheet the recovery row cites. Keep Module 4 on card-level facts. Keep the solution's two-item JSON as the complete worked artifact. Point Module 6 line 524 at that worksheet specimen. Lab 7's existing pointer then resolves.\n\n### 3. sharpens-framing — Show field identity on a skeleton; keep Part B's two-to-five traced items as the rubric\n\n**Evidence.** The issue's proposed \"minimal\" names the envelope plus one item with `narrative.Acceptance`. The walkthrough (Module 6 lines 322-324) also records \"one item.\" Part B and O6.2 inspection require two to five traced acceptance criteria. The solution lock requires two to five items with both `Acceptance` and `Traces`. The one-item issue-body specimen exits 0 on verify, as does a zero-item file.\n\n**Failure mode.** Publishing the one-item skeleton as the Part B reference teaches a verify-green file that still fails the rubric and the solution lock. Learners copy one `Acceptance` string and treat Lab 7 exit 0 as O6.2 complete.\n\n**Disposition.** Caption the new fence as a field-identity skeleton. State on the same page that O6.2 still needs two to five items, each with a string `Acceptance` and a trace, `plan.status: proposed`, schema `0.8`, and the no-authority sentence. Align the walkthrough's \"one item\" line with that rubric on the same recut, or mark the walkthrough as a shaping sketch whose Part B count wins.\n\n### 4. sharpens-framing — Keep create-defaults and solution extras off the required legend\n\n**Evidence.** `xbrief:create --style scope` emits empty `items`, `status: draft`, and `metadata.kind: \"scope\"`. Lab 7 `story()` emits empty `items` and `kind: \"story\"` with no swarm block. The solution adds `effort`, `kind: \"story\"`, and a `swarm` object with `readiness: \"needs_refinement\"` and empty `verify_commands`. Verify accepts all of those files. `--style scope` on Lab 7's command is the create/verify P0 style flag; it is not `plan.metadata.kind`.\n\n**Failure mode.** Copying the solution swarm block or `effort` onto the \"minimal\" specimen teaches concurrent-allocation metadata and effort estimates as ordinary proposed authoring. Copying create's empty `items` / `draft` / `kind: scope` teaches a legal create default that fails Part B. Equating CLI `--style scope` with `metadata.kind` mislabels story taxonomy.\n\n**Disposition.** On the Part B skeleton: `plan.id` (worksheet story ID; optional for verify), `plan.title`, `plan.status: proposed`, one shown item with `title`, `status`, and string `narrative.Acceptance` plus `narrative.Traces`, and a legend that `effort` and `plan.metadata.kind` / `swarm` are optional for this proposed candidate. `kind: \"story\"` is the story-taxonomy value when present. Swarm-ready `readiness: \"ready\"` stays the later allocation contract. The solution may keep its `needs_refinement` block as unreadiness pedagogy in the answer key.\n\n## Road not taken\n\nTwo other specimens were considered.\n\n- Module 4 as the home for the JSON fence, because that is first contact with field names. That holds only if Module 4's \"not complete JSON files\" contract is deliberately recut and O4.1 gains a non-authoring specimen without becoming an authoring outcome. The authoring task and Lab 7 pointer already sit on Module 6.\n- Shipping `xbrief:create --style scope` output as the reference, because it is the engine's generated scope document. That holds only if that default gained non-empty string `Acceptance` items and `proposed` status, and Module 6 were allowed that command. Today's default is empty `items` and `draft`, and Part B is command-free.\n\n## Injection / swarm lens\n\nThe recut names identity of `plan.metadata.kind` and `swarm` on a proposed-scope teaching artifact. It does not change live authority, untrusted input, envelopes, worktrees, or shared state. The swarm-relevant miss is teaching allocation metadata as required proposed shape; finding 4 is that miss. Lab 7's supplied scopes and `xbrief:create` already omit `plan.metadata.swarm` on proposed candidates.\n\n## Census\n\n- `blocks-the-design`: none\n- `sharpens-framing`: 4 (identity layers; Module 6 Part B placement; skeleton vs 2-5 rubric; optional extras / style-vs-kind)\n- `footnote`: none\n\n",
+          "id": 5839020492,
+          "html_url": "https://github.com/deftai/directive-training/issues/99#issuecomment-5839020492",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:21:02Z",
+          "updated_at": "2026-09-25T20:21:02Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nModule 6 Part B still requires a schema-0.8 scope JSON whose shape first appears in the explained solution. Confirming this map would land a labeled field-identity skeleton on Module 6 Part B, keep two-to-five traced items as the rubric, and leave create-defaults and swarm extras off the required legend.\n\nParent forward verdict: P1 holds; the missing piece is a labeled Module 6 specimen, not a second required-field list.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838828591 and these takes; the evidence is critic 5839020492.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5839020492\nsupersedes: 5838828591\nTarget-digest: sha256:2fdcf41314d19098c2ed2aff12996ec6bd454184a4ec9e81a8da35a966c3125a\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Bind three identity layers on the specimen, not a verify-versus-conventional pair\ntake: accept-into-contract\ncritic: 5839020492\nheading: Bind three identity layers on the specimen, not a verify-versus-conventional pair\n### Put the labeled specimen on Module 6 Part B\ntake: accept-into-contract\ncritic: 5839020492\nheading: Put the labeled specimen on Module 6 Part B\n### Show field identity on a skeleton; keep Part B's two-to-five traced items as the rubric\ntake: accept-into-contract\ncritic: 5839020492\nheading: Show field identity on a skeleton; keep Part B's two-to-five traced items as the rubric\n### Keep create-defaults and solution extras off the required legend\ntake: accept-into-contract\ncritic: 5839020492\nheading: Keep create-defaults and solution extras off the required legend\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5839020492 reading=asserted\n\n## Bound remedy\n\n- Land one labeled JSON fence (or a JSON fence plus a field-legend table) in Module 6 Part B / the worksheet the recovery row cites. Keep Module 4 on card-level facts. Keep the solution's two-item JSON as the complete worked artifact. Point Module 6:524 at that worksheet specimen.\n- Label each shown field as one of: schema-required (verify-enforced), schema-legal-optional, this-worksheet (O6.2 rubric), or later-gate (swarm-ready / `x-directive/evidence`). Item `pending` stays schema-legal; this worksheet can prefer item `proposed` to match `plan.status`. String `narrative.Traces` is the course home for the required trace; string `narrative.Evidence` is schema-legal and is a different field from `x-directive/evidence`. Keep the existing verify-versus-rubric table.\n- Caption the new fence as a field-identity skeleton. State on the same page that O6.2 still needs two to five items, each with a string `Acceptance` and a trace, `plan.status: proposed`, schema `0.8`, and the no-authority sentence. Align the walkthrough's \"one item\" line with that rubric, or mark the walkthrough as a shaping sketch whose Part B count wins.\n- On the Part B skeleton: `plan.id` (worksheet story ID; optional for verify), `plan.title`, `plan.status: proposed`, one shown item with `title`, `status`, and string `narrative.Acceptance` plus `narrative.Traces`, and a legend that `effort` and `plan.metadata.kind` / `swarm` are optional for this proposed candidate. `kind: \"story\"` is the story-taxonomy value when present. Swarm-ready `readiness: \"ready\"` stays the later allocation contract. The solution may keep its `needs_refinement` block as unreadiness pedagogy in the answer key.\n\n",
+          "id": 5847300265,
+          "html_url": "https://github.com/deftai/directive-training/issues/99#issuecomment-5847300265",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:03:10Z",
+          "updated_at": "2026-09-26T15:03:10Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5847300265 against Stop 1 write-back 5838828591. Round-1 critic 5839020492 is in-envelope input. Id ceiling 5847300265 inclusive. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Process-only. Parsers from `@deftai/directive-core@0.119.5`. File reads via `git show aea1e77017962e2e7186ef64ad8d7e82329da77b:`. Throwaway `/tmp` probes.\n\n## Verdict\n\nSuccessor lean 5847300265's `relieves: P1` holds. Bound-remedy covers P1 as Stop 1 named it. `scanPainCites` on this lean body emits one disposition for `P1`: `relieves`.\n\nFinding census: **0 `blocks-the-design`**, **0 `sharpens-framing`**, **1 `footnote`**.\n\n## 1. Asserted relieves:P1 covers Stop 1 P1; lean cite is well-formed — footnote\n\nEvidence, measured at `aea1e77017962e2e7186ef64ad8d7e82329da77b` against Stop 1 5838828591 and lean 5847300265:\n\n- `scanPainList` on Stop 1: present, ids `[P1]`, duplicates empty, malformed false.\n- Stop 1 P1 names Module 6 Part B `curriculum/modules/06-creating-well-shaped-work.md:367-384` (schema-0.8 proposed-scope with story ID/title, `plan.status: proposed`, two-to-five `narrative.Acceptance` strings), Module 4 path names without a complete scope-item JSON (`curriculum/modules/04-xbrief-as-durable-state.md:249-251`), recovery at Module 6:524 (\"Compare your item narrative with the worked solution\"), and `solutions/module-06-creating-well-shaped-work.md` introducing item `status: proposed`, `effort`, and `plan.metadata.kind` / `swarm`.\n- Those file anchors hold at this SHA. Module 6 has no JSON fence. The only `curriculum/modules/` JSON fence is Module 2's package pin. Lab 5 `PROJECT-DEFINITION` has `\"items\": []`. The explained-solution JSON fence carries item `\"status\": \"proposed\"`, `\"effort\": \"M\"` / `\"S\"`, and `metadata.kind: \"story\"` plus `swarm.readiness: \"needs_refinement\"`. `scripts/verify-module-6.mjs:528-536` locks that solution to exactly one schema-0.8 proposed JSON with two to five items each carrying string `Acceptance` and `Traces`. Lab 7 Task 5 recovery at `labs/07-scope-lifecycle.md:464` already points at \"the Module 6 worksheet.\"\n- Bound-remedy harvest lands a labeled JSON fence on Module 6 Part B / the worksheet line 524 cites, keeps Module 4 on card-level facts, keeps the solution's two-item JSON as the complete worked artifact, points 524 at that specimen, labels each shown field with the four identity layers, captions the fence as a field-identity skeleton while keeping the two-to-five traced-item rubric on the same page, and puts `effort` / `plan.metadata.kind` / `swarm` on the optional legend. That is P1 as Stop 1 named it.\n- 0.119.5 `validateVbriefSchema` / `verifyXbrief` (`--format json --style scope`): solution, learner first-attempt (`pending` + `Evidence` + `Traces`), one-item harvest skeleton, empty `items`, version `0.6`, `plan.status: running`, and missing `plan.id` are schema-legal. `narrative.Acceptance` as a list fails `must be a string, got list`. Item missing `status` or `title` fails. `buildStyleDocument({style: \"scope\"})` emits empty `items`, `status: draft`, `metadata.kind: \"scope\"`. Item statuses include `pending` and `proposed`.\n- `scanPainCites` on the lean as posted: one cite `{painId: P1, disposition: relieves, deferredIssueNumber: null}`, `rejected: []`. `classifyPosition` on `relieves: P1` (offset 1801, line 38) is `null`. Headings are take-map titles. The line-10 `P1 holds` run and the `audit:pain-P1` token sit outside `PAIN_CITE_RE`. Keyword counts: `relieves` 1, `does-not-relieve` 0, `operator-deferred` 0. `dispositions.size` for `P1` is 1. `evaluateBoundRemedyCites` with `coveredIds: [P1]` returns `{ok: true}`. `evaluatePainCitePlacement` kind bind: allowed, operativeCiteCount 1. Stop 1 predecessor carries zero `relieves` cites (`bindLeanPredecessorValid` true). `hashIssueBodyBytes` of the live REST issue body equals lean digest `sha256:2fdcf41314d19098c2ed2aff12996ec6bd454184a4ec9e81a8da35a966c3125a`.\n\nFailure mode. None on this marker. This body emits one disposition for `P1`: `relieves`. A heading `### relieves: P1` or an added operative `does-not-relieve: P1` would set `dispositions.size > 1` (`malformed-pain`).\n\nDisposition consequence. Marker `pain-P1` is independently reproduced. The bind map stays the cited lean. Harvest is unchanged.\n\n## Road not taken\n\nThe live fork was the one-item skeleton versus Part B's two-to-five count. Publishing the skeleton as the artifact-to-copy would leave a verify-green one-item file that still fails O6.2 and the solution lock. Harvest item 3 captions the fence as a field-identity skeleton and keeps the two-to-five traced-item rubric on the same page, matching the count Part B already states at lines 377-378. That keeps `relieves: P1`. The verdict flips if the harvest publishes the one-item fence as the Part B copy target, or drops the same-page count caption.\n\n## Injection / swarm lens\n\nThe harvest names identity of `plan.metadata.kind` and `swarm` on a proposed-scope teaching artifact. Live authority, untrusted input, envelopes, worktrees, and shared state stay as they are. Harvest item 4 keeps allocation metadata on the optional legend. Lab 7 `story()` already emits `kind: \"story\"` with empty `items` and no swarm block.\n\n## Census\n\n- `blocks-the-design`: none\n- `sharpens-framing`: none\n- `footnote`: 1 (asserted `relieves: P1` covers Stop 1 P1; lean cite well-formed)\n\n",
+          "id": 5847368628,
+          "html_url": "https://github.com/deftai/directive-training/issues/99#issuecomment-5847368628",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:13:02Z",
+          "updated_at": "2026-09-26T15:13:02Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5847368628 is footnote-only. Bind remains successor lean 5847300265. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5847368628\nsupersedes: 5847300265\n\n",
+          "id": 5847426084,
+          "html_url": "https://github.com/deftai/directive-training/issues/99#issuecomment-5847426084",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:17Z",
+          "updated_at": "2026-09-26T15:21:17Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Module 6 Part B requires schema-0.8 proposed scope with no pre-solution specimen | verified | `git show` Module 6:367-384; Module 4:249-251; recovery :524 |\n| Bound-remedy lands a labeled Module 6 skeleton and keeps 2-5 traced items as the rubric | verified | harvest; `scanPainCites` on 5847300265; pain-audit 5847368628 footnote-only |\n\n",
+          "id": 5847427793,
+          "html_url": "https://github.com/deftai/directive-training/issues/99#issuecomment-5847427793",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:31Z",
+          "updated_at": "2026-09-26T15:21:31Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nModule 6 Part B still requires a scope JSON whose shape first appears in the solution. The harvest lands a labeled field-identity skeleton on Module 6 Part B.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5847300265\nverified-claims table 5847427793\npain-audit 5847368628\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5847427929,
+          "html_url": "https://github.com/deftai/directive-training/issues/99#issuecomment-5847427929",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:33Z",
+          "updated_at": "2026-09-26T15:21:33Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "issueBody": "## Course context\n\nModule 6 Part B, and Module 4 before it, taken in order by a mid/senior learner using only course material (Windows 11 ARM64). The Part B artifact is later checked by `xbrief:verify` in Lab 7 Task 5.\n\n## What happened\n\nModule 6 Part B asks me to **author a real schema-0.8 proposed-scope JSON file** that Lab 7 later structurally verifies. It must contain \"one story ID and title\", `plan.status: proposed`, 2–5 `plan.items[].narrative.Acceptance` criteria, and \"expected static evidence and a trace back to the fictional idea for **every criterion**.\"\n\nAt that point, the course has shown no complete xBRIEF document:\n\n- Module 4 (\"xBRIEF as Durable State\") teaches roles and names paths such as `plan.status`, `plan.items`, `plan.narratives`, and `planRef`, but contains no JSON example.\n- The only full xBRIEF a learner has seen is the Lab 5 fixture `PROJECT-DEFINITION`, which has `\"items\": []`. It shows nothing about item shape.\n- Module 6 never says **where** the story ID goes (`plan.id`? an item id?), what an item needs besides `narrative.Acceptance` (`id`, `title`, `status`?), which item `status` values are valid for a proposed scope, or where per-criterion evidence and traces live.\n- Module 6 mentions `plan.metadata.swarm.depends_on` but never shows the `metadata` block.\n- The module's own recovery table says: \"`narrative.Acceptance must be a string, got list` … **Compare your item narrative with the worked solution**.\" In other words, the solution is the only template.\n\nThe worked solution then introduces keys and values the module never taught: `plan.narratives.Description` / `UserStory` / `Traces`, item `\"status\": \"proposed\"`, item `\"effort\"`, and a whole `plan.metadata` block with `kind: \"story\"` and `swarm.readiness / parallel_safe / file_scope / verify_commands / expected_outputs / depends_on`.\n\n## Learner pain\n\nI had to reverse-engineer the shape from an unrelated fixture and guess the placement of the ID, evidence, and traces. My first attempt used `plan.id`, item `status: \"pending\"`, and narrative keys `Evidence` and `Traces`. I cannot tell whether that shape is valid Directive practice or only happens to pass the minimal structural check. For an engineer who must \"start developing software with Directive\" afterwards, the most important hands-on authoring skill in the course, writing a scope, has no reference shape before the answer key.\n\n## Reproduction\n\nComplete Modules 4–6 in order, then try Module 6 Part B without opening the solution.\n\n## Proposed fix\n\n- Add a small annotated **minimal** scope xBRIEF to Module 4 or Module 6 (the envelope, `plan.id`/`title`/`status`/`narratives`, and one item with `id`/`title`/`status`/`narrative.Acceptance`). Mark which fields `xbrief:verify` requires and which are conventional.\n- State the valid item `status` values for a proposed scope, and whether `plan.metadata.kind` / `swarm` are required, recommended, or optional for a story.\n- Say explicitly where \"expected evidence\" and \"trace\" belong (for example, `narrative.Traces`), or say that they may live in the worksheet only.\n- Change the recovery row so it points to that reference instead of the solution.\n\n",
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5586668254,
+        "origin": "deftai/directive-training#99",
+        "id": "github.issue.5586668254"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "2fdcf41314d19098c2ed2aff12996ec6bd454184a4ec9e81a8da35a966c3125a"
+      }
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "sentences": [
+        "Land one labeled JSON fence (or a JSON fence plus a field-legend table) in Module 6 Part B / the worksheet the recovery row cites. Keep Module 4 on card-level facts. Keep the solution's two-item JSON as the complete worked artifact. Point Module 6:524 at that worksheet specimen.",
+        "Label each shown field as one of: schema-required (verify-enforced), schema-legal-optional, this-worksheet (O6.2 rubric), or later-gate (swarm-ready / `x-directive/evidence`). Item `pending` stays schema-legal; this worksheet can prefer item `proposed` to match `plan.status`. String `narrative.Traces` is the course home for the required trace; string `narrative.Evidence` is schema-legal and is a different field from `x-directive/evidence`. Keep the existing verify-versus-rubric table.",
+        "Caption the new fence as a field-identity skeleton. State on the same page that O6.2 still needs two to five items, each with a string `Acceptance` and a trace, `plan.status: proposed`, schema `0.8`, and the no-authority sentence. Align the walkthrough's \"one item\" line with that rubric, or mark the walkthrough as a shaping sketch whose Part B count wins.",
+        "On the Part B skeleton: `plan.id` (worksheet story ID; optional for verify), `plan.title`, `plan.status: proposed`, one shown item with `title`, `status`, and string `narrative.Acceptance` plus `narrative.Traces`, and a legend that `effort` and `plan.metadata.kind` / `swarm` are optional for this proposed candidate. `kind: \"story\"` is the story-taxonomy value when present. Swarm-ready `readiness: \"ready\"` stays the later allocation contract. The solution may keep its `needs_refinement` block as unreadiness pedagogy in the answer key."
+      ],
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Land one labeled JSON fence (or a JSON fence plus a field-legend table) in Module 6 Part B / the worksheet the recovery row cites. Keep Module 4 on card-level facts. Keep the solution's two-item JSON as the complete worked artifact. Point Module 6:524 at that worksheet specimen.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Label each shown field as one of: schema-required (verify-enforced), schema-legal-optional, this-worksheet (O6.2 rubric), or later-gate (swarm-ready / `x-directive/evidence`). Item `pending` stays schema-legal; this worksheet can prefer item `proposed` to match `plan.status`. String `narrative.Traces` is the course home for the required trace; string `narrative.Evidence` is schema-legal and is a different field from `x-directive/evidence`. Keep the existing verify-versus-rubric table.",
+          "artifact_path": "curriculum/modules/06-creating-well-shaped-work.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Caption the new fence as a field-identity skeleton. State on the same page that O6.2 still needs two to five items, each with a string `Acceptance` and a trace, `plan.status: proposed`, schema `0.8`, and the no-authority sentence. Align the walkthrough's \"one item\" line with that rubric, or mark the walkthrough as a shaping sketch whose Part B count wins.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "On the Part B skeleton: `plan.id` (worksheet story ID; optional for verify), `plan.title`, `plan.status: proposed`, one shown item with `title`, `status`, and string `narrative.Acceptance` plus `narrative.Traces`, and a legend that `effort` and `plan.metadata.kind` / `swarm` are optional for this proposed candidate. `kind: \"story\"` is the story-taxonomy value when present. Swarm-ready `readiness: \"ready\"` stays the later allocation contract. The solution may keep its `needs_refinement` block as unreadiness pedagogy in the answer key.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5586668254",
+    "updated": "2026-09-28T12:15:06Z"
+  }
+}

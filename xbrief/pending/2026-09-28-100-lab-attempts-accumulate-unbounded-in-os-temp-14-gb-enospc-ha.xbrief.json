@@ -1,0 +1,395 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #100",
+    "updated": "2026-09-28T12:49:52Z"
+  },
+  "plan": {
+    "title": "Lab attempts accumulate unbounded in OS temp (14 GB); ENOSPC halts the course mid-run with no sanctioned reclamation",
+    "status": "pending",
+    "narratives": {
+      "Description": "Executable lab attempts and their per-attempt npm caches accumulate in OS temporary storage until an ENOSPC failure can stop the course without a recognized recovery. This story adds a measured disk-capacity contract and a guarded preview-then-apply reclaim path that can remove a confirmed older archive before any new archive directory is created, while preserving live attempts, the curriculum clone, remotes, symlinks, and the existing archive-as-rename behavior. Live attempts retain isolated caches; reclaim removes an archived attempt together with its contained cache.",
+      "ImplementationPlan": "1. Add the ENOSPC environment-stop classification, peak-live-install measurement recipe, and reclaim-before-archive-before-reset ordering to `curriculum/README.md`, `labs/README.md`, and each executable lab page.\n2. Extend the six lab helper scripts with a consistent, read-only reclaim preview and confirmed apply verb over their exact existing archive destination classes. The preview must not create an archive directory; apply can reclaim a confirmed older archive first when the volume is full, after which the helper archives the live failed parent by same-volume rename and resets. Retain the existing identity, no-remote, clone, and symlink guards.\n3. Expand the focused lab, content-verifier, and linked-path test suites so evidence proves zero-free-space preview behavior, confirmation, exact deletion and cache-lifecycle boundaries, ENOSPC routing, and rejection of unsafe targets.",
+      "UserStory": "As a course learner, I want a bounded and guarded way to reclaim archived lab attempts after an ENOSPC stop, so that I can continue the course without deleting a live attempt or the training repository.",
+      "Traces": "GitHub issue #100 and its ingested design-critique Bound remedy define the ENOSPC environment-stop ordering, measured capacity guidance, three archive destination classes, preview/apply confirmation, and unsafe-target refusals.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/100",
+      "Overview": "\n\n- Add an environment-stop ENOSPC / no-space-left row to `labs/README.md` Independent recovery and to each executable lab's Expected failures, including Lab 11 `:242-251`. While the volume reports that stop, Route A / reset / create do not run; reclaim runs first; then the existing reset path, because `installAttempt` still refuses the partial tree. Recut Independent recovery step 6 so unmatched ENOSPC does not Route A.\n- The disk prerequisite binds as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Do not harvest 20 GB as the course-entry floor.\n- Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Preview is read-only and creates no archive directory. If ENOSPC leaves no room to create one, preview and confirm deletion of an already-archived destination first; only after capacity is reclaimed, archive the live failed parent by same-volume rename and then reset. Leftover empty launchers are not the 14 GB.\n- Leave shared npm cache off this harvest. Each live attempt keeps its isolated cache; reclaim deletes an archived attempt together with its contained cache.\n\n",
+      "Labels": "bug, documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "Add an environment-stop ENOSPC / no-space-left row to `labs/README.md` Independent recovery and to each executable lab's Expected failures, including Lab 11 `:242-251`. While the volume reports that stop, Route A / reset / create do not run; reclaim runs first; then the existing reset path, because `installAttempt` still refuses the partial tree. Recut Independent recovery step 6 so unmatched ENOSPC does not Route A.",
+        "status": "proposed",
+        "id": "clause.1",
+        "narrative": {
+          "Acceptance": "When an executable lab reports ENOSPC or no space left, the course classifies it as an environment stop and blocks Route A, reset, and create until reclaim runs; focused verifiers reject restoration of the harmful routing."
+        }
+      },
+      {
+        "title": "The disk prerequisite binds as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Do not harvest 20 GB as the course-entry floor.",
+        "status": "proposed",
+        "id": "clause.2",
+        "narrative": {
+          "Acceptance": "Given the current attempt, one reset attempt, and npm extraction slack, the course displays a repeatable peak-space measurement recipe and does not present the reporter's 20 GB observation as a universal prerequisite floor."
+        }
+      },
+      {
+        "title": "Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Preview is read-only and creates no archive directory. If ENOSPC leaves no room to create one, preview and confirm deletion of an already-archived destination first; only after capacity is reclaimed, archive the live failed parent by same-volume rename and then reset. Leftover empty launchers are not the 14 GB.",
+        "status": "proposed",
+        "id": "clause.3",
+        "narrative": {
+          "Acceptance": "Given a full temporary volume, reclaim preview creates no directories and prints only existing archive destinations the helper could have created; apply deletes only the confirmed archived paths while rejecting live attempt roots, the curriculum clone, remotes, symlinks, and mismatched identities, and leaves the live failed parent untouched until space exists for archive-as-rename before reset."
+        }
+      },
+      {
+        "title": "Leave shared npm cache off this harvest. Each live attempt keeps its isolated cache; reclaim deletes an archived attempt together with its contained cache.",
+        "status": "proposed",
+        "id": "clause.4",
+        "narrative": {
+          "Acceptance": "Given a reclaim run, each live attempt retains its isolated npm cache, deleting a confirmed archived attempt also deletes that archive's contained cache, archive remains a same-volume rename, and focused tests reject a shared npm-cache mechanism and reject empty-launcher deletion as the primary remedy."
+        }
+      }
+    ],
+    "tags": [
+      "bug",
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/100",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #100: Lab attempts accumulate unbounded in OS temp (14 GB); ENOSPC halts the course mid-run with no sanctioned reclamation"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "sentences": [
+        "Add an environment-stop ENOSPC / no-space-left row to `labs/README.md` Independent recovery and to each executable lab's Expected failures, including Lab 11 `:242-251`. While the volume reports that stop, Route A / reset / create do not run; reclaim runs first; then the existing reset path, because `installAttempt` still refuses the partial tree. Recut Independent recovery step 6 so unmatched ENOSPC does not Route A.",
+        "The disk prerequisite binds as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Do not harvest 20 GB as the course-entry floor.",
+        "Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Preview is read-only and creates no archive directory. If ENOSPC leaves no room to create one, preview and confirm deletion of an already-archived destination first; only after capacity is reclaimed, archive the live failed parent by same-volume rename and then reset. Leftover empty launchers are not the 14 GB.",
+        "Leave shared npm cache off this harvest. Each live attempt keeps its isolated cache; reclaim deletes an archived attempt together with its contained cache."
+      ],
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Add an environment-stop ENOSPC / no-space-left row to `labs/README.md` Independent recovery and to each executable lab's Expected failures, including Lab 11 `:242-251`. While the volume reports that stop, Route A / reset / create do not run; reclaim runs first; then the existing reset path, because `installAttempt` still refuses the partial tree. Recut Independent recovery step 6 so unmatched ENOSPC does not Route A.",
+          "artifact_path": "labs/README.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "The disk prerequisite binds as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Do not harvest 20 GB as the course-entry floor.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Preview is read-only and creates no archive directory. If ENOSPC leaves no room to create one, preview and confirm deletion of an already-archived destination first; only after capacity is reclaimed, archive the live failed parent by same-volume rename and then reset. Leftover empty launchers are not the 14 GB.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Leave shared npm cache off this harvest. Each live attempt keeps its isolated cache; reclaim deletes an archived attempt together with its contained cache.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "kind": "story",
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "curriculum/README.md",
+          "labs/README.md",
+          "labs/02-disposable-initialization.md",
+          "labs/05-projection-drift-recovery.md",
+          "labs/07-scope-lifecycle.md",
+          "labs/10-implementation-golden-path.md",
+          "labs/11-testing-gates-and-evidence.md",
+          "labs/capstone-end-to-end.md",
+          "labs/fixtures/02-disposable-initialization/init-lab.mjs",
+          "labs/fixtures/05-projection-drift-recovery/projection-lab.mjs",
+          "labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs",
+          "labs/fixtures/10-implementation-golden-path/implementation-lab.mjs",
+          "labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs",
+          "labs/fixtures/capstone-end-to-end/capstone-lab.mjs",
+          "scripts/init-lab.test.mjs",
+          "scripts/projection-lab.test.mjs",
+          "scripts/lifecycle-lab.test.mjs",
+          "scripts/implementation-lab.test.mjs",
+          "scripts/gates-lab.test.mjs",
+          "scripts/capstone-lab.test.mjs",
+          "scripts/verify-modules-2-3.mjs",
+          "scripts/verify-modules-4-5.mjs",
+          "scripts/verify-modules-4-5.test.mjs",
+          "scripts/verify-module-7.mjs",
+          "scripts/verify-module-7.test.mjs",
+          "scripts/verify-module-10.mjs",
+          "scripts/verify-module-10.test.mjs",
+          "scripts/verify-module-11.mjs",
+          "scripts/verify-module-11.test.mjs",
+          "scripts/verify-capstone.mjs",
+          "scripts/verify-capstone.test.mjs",
+          "scripts/linked-path-safety.test.mjs",
+          "xbrief/active/2026-09-28-100-lab-attempts-accumulate-unbounded-in-os-temp-14-gb-enospc-ha.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run test:module-2",
+          "npm run test:modules-4-5",
+          "npm run test:module-7",
+          "npm run test:module-10",
+          "npm run test:module-11",
+          "npm run test:capstone",
+          "npm run test:portability"
+        ],
+        "expected_outputs": [
+          "Every executable lab identifies ENOSPC as an environment stop and routes reclaim before any reset or create action",
+          "Each helper previews exact existing archive destinations without creating directories, can delete a confirmed older archive before archiving the live failed parent, and refuses live, clone, remote, symlink, or identity-mismatched targets",
+          "Focused helper, content, and linked-path tests cover all three archive destination classes, preserve isolated caches for live attempts, reclaim caches contained in deleted archives, and preserve archive-as-rename"
+        ],
+        "depends_on": [],
+        "conflict_group": "lab-archive-reclamation",
+        "size": "medium",
+        "file_scope_confidence": "high",
+        "model_tier": "high"
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because lab attempts accumulate unbounded in OS temp with no disk-space prerequisite and no sanctioned ENOSPC reclamation.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: resolved\nstop-2: charter=open critique; spend=N=1 because parseOperatorSpend resolved n=1 on the operator chat utterance; this is a closed identity recut of a disk-space prerequisite, an ENOSPC recovery row that does not send the learner to reset/create, and a bounded reclaim of previously archived attempts\npain: P1\nP1: curriculum/README.md Audience and prerequisites lists Node, Git, gh, npm, Task, uv, Python, OS/shell and no free-disk figure; labs/README.md:266 Recoverable cleanup moves one exact directory and does not permanently delete it; labs/11-testing-gates-and-evidence.md:242-251 Expected failures has no ENOSPC row and reset :255-261 creates a distinct guarded root; gates-lab.mjs:394 and NPM_CONFIG_CACHE :210 keep a per-attempt .npm-cache.\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5838828930,
+          "html_url": "https://github.com/deftai/directive-training/issues/100#issuecomment-5838828930",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:07:56Z",
+          "updated_at": "2026-09-25T20:07:56Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh open critique of issue 100 at dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Input ceiling 5838828930 (Stop 1 write-back).\n\nStop 1 anchors re-ran at that SHA and hold: `curriculum/README.md` Audience and prerequisites lists Node, Git, gh, npm, Task, uv, Python, OS/shell and no free-disk figure (lines 20–36); `labs/README.md:266` Recoverable cleanup moves one exact directory and does not permanently delete it; `labs/11-testing-gates-and-evidence.md:242-251` Expected failures has no ENOSPC row; reset at 253–261 creates a distinct guarded root; `gates-lab.mjs:210` and `:394` keep a per-attempt `.npm-cache`. Grep of the dest tree at this SHA has no `ENOSPC`, `no space left`, or free-disk prerequisite string.\n\nInventory before any new verb: Route A (`labs/README.md:186-194`) leaves the failed tree and creates another; Independent recovery step 6 (`labs/README.md:293`) sends uncertain state to Route A; Lab 7 `:458` and Lab 10 `:301` already map partial install to reset; every executable helper’s `installAttempt` refuses an existing `node_modules` and names reset/create; `resetAttempt` is `createAttempt()` (Lab 2 seeds a second attempt under the same parent); archive is `renameSync` into one of three destination schemes; capstone verifier locks “Archive is a recoverable move; it is not deletion”; leftover launchers stay empty (`verify-capstone.mjs` launcher cleanup); lab-template forbids a glob whose resolved paths were not previewed; `Blocked by environment` already exists on the capstone assessment card.\n\n## 1. The ENOSPC row cannot forbid reset/create\n\nclass: blocks-the-design\n\nEvidence. `requireSuccess` in `gates-lab.mjs:141-143` concatenates npm stderr/stdout, and `main` prefixes `Lab 11 stopped: ` (`:620`), so the author’s tar `ENOSPC` string is a wrapped install failure, not a fixture-named stop. Retry on the same root hits `:393` (`Stop: install requires a fresh attempt; use reset after a partial install.`). `resetAttempt` at `:576-578` is a new `createAttempt()`. Lab 7 Expected failures “Install stops partway” recovers with reset; Lab 10 “Install is partial” recovers with reset; Lab 7 Reset to start says a partial install is evidence and must not be repaired in place. Independent recovery step 6 still Route-A’s unmatched or uncertain state. Those rows and stop strings are the current ENOSPC path.\n\nFailure mode. A learner who follows the written order creates another fully installed attempt on a full volume. A new table row whose closed identity is “does not send the learner to reset/create” also cannot finish the lab after space exists: `installAttempt` still refuses the partial tree. Two rows then disagree (partial-install → reset versus ENOSPC → never reset).\n\nDisposition consequence. That closed phrase cannot bind. The environment-stop row has to recut the existing partial-install recoveries and Independent recovery step 6 so that while the volume reports `ENOSPC` / `no space left`, Route A / reset / create do not run; reclaim runs first; then the existing reset path, because the partial-install guard remains. Per-lab table copies that leave step 6 and the helper stop strings unchanged leave the harmful path live.\n\n## 2. The disk figure is unreclaimed lifetime residue\n\nclass: sharpens-framing\n\nEvidence. The issue body’s ~20 GB floor is the 14.09 GB residue at 0 bytes free plus margin. The same recut adds reclaim, which exists to retire that residue. A conforming pass still grows unreclaimed archives: Labs 5, 7, 10, 11 and the capstone mandate a reset drill (two installed trees per lab) and `labs/README.md:266` keeps every archive. The course-map prerequisite list (`curriculum/README.md:20-36`) is tools, not a measured peak. This dest did not install those trees, so 14.09 GB stays author-asserted; the growth mechanism is in the helpers.\n\nFailure mode. Binding 20 GB together with reclaim-as-completeness states two quantities. A machine that can hold two live installs plus extract slack still looks “unqualified” under a lifetime floor, and a machine that meets 20 GB never learns when to reclaim.\n\nDisposition consequence. The prerequisite can bind as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Do not harvest 20 GB as the course-entry floor.\n\n## 3. Reclaim has to use the archive identities the helpers already write\n\nclass: sharpens-framing\n\nEvidence. Helpers already write three archive destination classes, not the environment-model diagram at `labs/README.md:49-53` (`3ci-directive-labs/module-XX-…`, which create() does not emit):\n\n- Labs 5/7/10/11: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (`gates-lab.mjs:590-594` and the same shape in lifecycle/implementation/projection helpers).\n- Capstone: `3ci-directive-capstone-archive` (`capstone-lab.mjs:959-963`).\n- Lab 2: `mkdtempSync(join(temporaryRoot, \"3ci-directive-module-02-archive.\"))` (`init-lab.mjs:27`, `:504-507`).\n\nThe issue body’s example `Get-ChildItem … -Filter '3ci-directive-*-archive'` matches the first two names and does not match `3ci-directive-module-02-archive.<id>`. Live ENOSPC trees are `3ci-directive-lab11-*` / `3ci-directive-module-02.*` parents, not archives. PowerShell launchers (`3ci-lab11-launch-*`) and capstone reset launchers (`3ci-capstone-launch-reset-`, `capstone-lab.mjs:939`) remain as empty temp dirs after archive. `renameSync` on the same volume does not need free bytes once the shared archive parent exists; Lab 2’s `mkdtempSync` of a new archive root can fail at 0 bytes free. `scripts/verify-capstone.mjs:794` locks archive as a move. `templates/lab-template.md:223` and `templates/solution-template.md:161` already require preview of exact named paths and refuse broad deletion.\n\nFailure mode. A glob reclaim leaves Lab 2 residue and never touches the live failed tree. Recutting `archive` into delete breaks the capstone verifier and the preserve-evidence contract. A Lab 2 archive at 0 bytes free cannot create its destination.\n\nInjection / swarm lens. Reclaim is destructive shared OS-temp state, path identity, and learner-supplied paths as untrusted input. Deterministic control: a new verb over paths the matching helper would have written as archive destinations; refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks (`safety.mjs` `safePath` / `assertPlainTree`); print the exact paths and apply only after that preview matches (existing Route B / lab-template shape). Same-volume `archive` of the live failed parent, then confirmed delete of already-archived destinations, then reset. Do not use a `3ci-*` live-prefix wipe.\n\nDisposition consequence. Reclaim binds as that new verb and sequence. Keep `archive` as rename. Name all three destination classes. Leftover empty launchers are not the 14 GB.\n\n## 4. Shared npm cache stays outside this identity\n\nclass: footnote\n\nPer-attempt `NPM_CONFIG_CACHE` / `--cache .npm-cache` is the isolation the helpers already teach (`withoutHostNpmConfig` plus attempt-local cache). A shared cache is cross-attempt mutable state. Stop 1 already dropped it from the closed recut. Leave it there.\n\n## 5. 98-directory and ~50-package counts were not re-derived here\n\nclass: footnote\n\nDest has no lab `package-lock.json` (lockfile is created at install). Registry unpacked sizes for `@deftai/directive` / `directive-core` / `directive-content` / `directive-types` 0.119.5 sum to about 17 MB of published files, which is not a `node_modules` plus `.npm-cache` measurement. The 98 top-level `%TEMP%\\3ci-*` directories and 14.09 GB remain the author’s Windows observation. Unique Lab 2 archive prefixes plus leftover launchers explain extra top-level names without 98 full installs. Windows Storage Sense not reclaiming `%TEMP%` is outside this tree.\n\nRoad-not-taken. A 20 GB warn-only prerequisite with no reclaim leaves the out-of-band cleanup the root README forbids (`README.md:94`). An in-place wipe of the live attempt’s `node_modules` / `.npm-cache` would make “never reset” literally true; it is a new destructive recovery on an active tree, which the lab contract already prefers not to do. Archive-then-reclaim-then-reset uses archive as it exists and deletes only inactive archive destinations.\n\nSteelman. Keep “never reset on ENOSPC” and add Route B preview-then-remove of the live `node_modules` and `.npm-cache` so install can retry on the same root. That would flip this seat if reclaim of archives were shown insufficient and the partial-install guard were recut to allow that named wipe. Under the reported residue (prior labs still on disk) the live partial tree is not the 14 GB, so live wipe is not the primary lever.\n\n",
+          "id": 5839015650,
+          "html_url": "https://github.com/deftai/directive-training/issues/100#issuecomment-5839015650",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:20:41Z",
+          "updated_at": "2026-09-25T20:20:41Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLab attempts still accumulate in OS temp with no disk-space recipe and no ENOSPC reclaim. Confirming this map would add a peak-concurrent measurement recipe, recut ENOSPC recovery so reclaim runs before reset/create while the volume is full, and add a preview-then-delete verb over the three archive destination classes the helpers already write.\n\nParent forward verdict: P1 holds; a row whose identity is never-reset-on-ENOSPC cannot bind while install still refuses the partial tree.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838828930 and these takes; the evidence is critic 5839015650.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5839015650\nsupersedes: 5838828930\nTarget-digest: sha256:290b65c78d0abb90629340e74dd873e510c0717ac1f69ac16b75b0fa511ba007\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### The ENOSPC row cannot forbid reset/create\ntake: accept-into-contract\ncritic: 5839015650\nheading: The ENOSPC row cannot forbid reset/create\n### The disk figure is unreclaimed lifetime residue\ntake: accept-into-contract\ncritic: 5839015650\nheading: The disk figure is unreclaimed lifetime residue\n### Reclaim has to use the archive identities the helpers already write\ntake: accept-into-contract\ncritic: 5839015650\nheading: Reclaim has to use the archive identities the helpers already write\n### footnote — Shared npm cache stays outside this identity\ntake: accept-into-contract\ncritic: 5839015650\nheading: Shared npm cache stays outside this identity\n### footnote — 98-directory and ~50-package counts were not re-derived here\ntake: accept-into-contract\ncritic: 5839015650\nheading: 98-directory and ~50-package counts were not re-derived here\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5839015650 reading=asserted\n\n## Bound remedy\n\n- Add an environment-stop ENOSPC / no-space-left row to `labs/README.md` Independent recovery and to each executable lab's Expected failures, including Lab 11 `:242-251`. While the volume reports that stop, Route A / reset / create do not run; reclaim runs first; then the existing reset path, because `installAttempt` still refuses the partial tree. Recut Independent recovery step 6 so unmatched ENOSPC does not Route A.\n- The disk prerequisite binds as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Do not harvest 20 GB as the course-entry floor.\n- Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Print the exact paths and apply only after that preview matches. Same-volume `archive` of the live failed parent, then confirmed delete of already-archived destinations, then reset. Keep `archive` as rename. Leftover empty launchers are not the 14 GB.\n- Leave shared npm cache off this harvest.\n\n",
+          "id": 5847300515,
+          "html_url": "https://github.com/deftai/directive-training/issues/100#issuecomment-5847300515",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:03:12Z",
+          "updated_at": "2026-09-26T15:03:12Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5847300515 asserted `relieves: P1`. In-envelope: issue 100 body, Stop 1 write-back 5838828930, round-1 critic 5839015650, lean 5847300515. Ceiling 5847300515 inclusive. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Process-only. File reads via `git show aea1e77017962e2e7186ef64ad8d7e82329da77b:`. Scanners: `@deftai/directive-core@0.119.5` `scanPainList`, `scanPainCites`, `classifyPosition`, `evaluateBoundRemedyCites`, `extractBoundRemedyHarvest`, `parseAuditToken`.\n\n## Verdict\n\n`relieves: P1` is independently supported. Bound-remedy covers P1 as Stop 1 named it. Lean 5847300515 is well-formed for `scanPainCites`: one `relieves` for `P1`, and no heading or prose emits a second disposition for that id.\n\n## Re-verification\n\nChecks at dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. In-envelope input is the issue body plus comments `5838828930`, `5839015650`, and `5847300515`.\n\n| Anchor | Result | Check |\n|---|---|---|\n| Stop 1 `pain: P1` | holds | `scanPainList` on 5838828930 → present, ids `[P1]`, duplicates empty, malformed false |\n| Course-map prerequisites omit a free-disk figure | holds | `curriculum/README.md:12-36` lists Node, Git, gh, npm, Task, uv, Python, OS/shell, host notes |\n| Recoverable cleanup moves and keeps the tree | holds | `labs/README.md:266` |\n| Lab 11 Expected failures omits ENOSPC; reset creates a new root | holds | `labs/11-testing-gates-and-evidence.md:242-251`, reset `:255-261` |\n| Per-attempt `.npm-cache` | holds | `gates-lab.mjs:210` `NPM_CONFIG_CACHE`; `:394` `--cache` |\n| Tree has no ENOSPC / no-space-left string | holds | `git grep` at this SHA, zero matches |\n| Independent recovery step 6 is Route A | holds | `labs/README.md:293`; Route A `:186-194` leaves the failed tree and creates another |\n| Partial install already recovers with reset | holds | Lab 7 `:458`; Lab 10 `:301`; `gates-lab.mjs:393` refuses an existing `node_modules`; `resetAttempt` `:576-578` is `createAttempt()` |\n| Three archive destination classes | holds | Labs 5/7/10/11 `safePath(tmpdir, \"3ci-directive-lab-archive\")` plus parent basename; capstone `3ci-directive-capstone-archive` (`capstone-lab.mjs:959-963`); Lab 2 `mkdtempSync(join(temporaryRoot, \"3ci-directive-module-02-archive.\"))` (`init-lab.mjs:27`, `:504-507`) |\n| Archive stays a rename | holds | helpers `renameSync`; `scripts/verify-capstone.mjs:794` locks \"Archive is a recoverable move; it is not deletion.\" |\n| `relieves: P1` cite | holds | `scanPainCites` on 5847300515 → one cite `{painId: P1, disposition: relieves, deferredIssueNumber: null}`, `rejected: []`. `classifyPosition` on `relieves: P1` (offset 1913) is `null`. Raw `PAIN_CITE_RE` matches: one |\n| Bound-remedy harvest | holds | `extractBoundRemedyHarvest` → 4 proposed items. `evaluateBoundRemedyCites` with `coveredIds: [P1]` → `{ok: true}` |\n| Target-digest | holds | lean pin `sha256:290b65c78d0abb90629340e74dd873e510c0717ac1f69ac16b75b0fa511ba007` equals `hashIssueBodyBytes` of the live REST issue body |\n| Audit token | holds | `parseAuditToken` on `audit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5839015650 reading=asserted` |\n\n## 1. Bound-remedy covers Stop 1 P1 as named\n\nclass: footnote\n\nEvidence. Stop 1 P1 names four measurements that still hold at this SHA, and the closed recut on that write-back is a disk-space prerequisite, an ENOSPC recovery row, and bounded reclaim of previously archived attempts. Harvest item 1 adds an environment-stop ENOSPC / no-space-left row to Independent recovery and each executable lab's Expected failures, including Lab 11 `:242-251`, with reclaim first while the volume reports that stop, then the existing reset path because `installAttempt` still refuses the partial tree, and recuts Independent recovery step 6 so unmatched ENOSPC does not Route A. Harvest item 2 binds the disk prerequisite as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Harvest item 3 binds reclaim as a new helper verb over the three archive destination classes the helpers already write, with preview-then-delete, refuse of live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks (`safety.mjs` `safePath` / `assertPlainTree`), same-volume archive of the live failed parent, then confirmed delete of already-archived destinations, then reset, keeping `archive` as rename. Harvest item 4 leaves shared npm cache off this harvest, matching Stop 1's closed recut.\n\nFailure mode. An implementer following that four-item harvest recuts the named missing figure, the missing ENOSPC row, the Route A / reset path while the volume is full, and the missing sanctioned reclaim. The per-attempt `.npm-cache` stays as isolation; reclaim retires residue.\n\nDisposition consequence. Census only. `relieves: P1` can stand on this lean.\n\n## 2. scanPainCites emits one relieves for P1\n\nclass: footnote\n\nEvidence. `scanPainCites` on the posted lean returns one cite: `P1` / `relieves` / `deferredIssueNumber: null`, `rejected: []`. Keyword inventory on this body: `relieves` 1, `does-not-relieve` 0, `operator-deferred` 0. Headings are take-map titles. The plain-English `P1 holds` run sits outside `PAIN_CITE_RE`. `audit:pain-P1` is the substantiation token (`parseAuditToken` succeeds) and is not a pain cite.\n\nFailure mode. A heading `### relieves: P1` would dedupe on the same-disposition key. An added operative `does-not-relieve: P1` would set `dispositions.size > 1` (`malformed-pain`). Neither form is on this body.\n\nDisposition consequence. Census only. The lean is well-formed for `scanPainCites`.\n\n",
+          "id": 5847362544,
+          "html_url": "https://github.com/deftai/directive-training/issues/100#issuecomment-5847362544",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:12:10Z",
+          "updated_at": "2026-09-26T15:12:10Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5847362544 is footnote-only. Bind remains successor lean 5847300515. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5847362544\nsupersedes: 5847300515\n\n",
+          "id": 5847426218,
+          "html_url": "https://github.com/deftai/directive-training/issues/100#issuecomment-5847426218",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:18Z",
+          "updated_at": "2026-09-26T15:21:18Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| No free-disk figure, archive-not-delete, no ENOSPC row, per-attempt `.npm-cache` | verified | curriculum/README.md:20-36; labs/README.md:266; Lab 11:242-261; gates-lab.mjs:210,394 |\n| Bound-remedy covers Stop 1 P1 as reclaim-then-reset plus a peak-concurrent recipe | verified | harvest; `scanPainCites` on 5847300515; pain-audit 5847362544 footnote-only |\n\n",
+          "id": 5847428046,
+          "html_url": "https://github.com/deftai/directive-training/issues/100#issuecomment-5847428046",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:34Z",
+          "updated_at": "2026-09-26T15:21:34Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nLab attempts still accumulate in OS temp with no ENOSPC reclaim. The harvest adds a peak-concurrent disk recipe and reclaim-then-reset over the helpers' archive identities.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5847300515\nverified-claims table 5847428046\npain-audit 5847362544\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5847428159,
+          "html_url": "https://github.com/deftai/directive-training/issues/100#issuecomment-5847428159",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:35Z",
+          "updated_at": "2026-09-26T15:21:35Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "issueBody": "## Course context\n\nTaking the full course as a mid/senior engineer, in order, on Windows 11 ARM64, PowerShell 7.6.6, Node v26.8.1, project-local Directive 0.119.5. I had completed Modules 1–10 and Labs 2, 5, 7, and 10 (all passing), and was starting Lab 11.\n\n## What happened\n\nLab 11 Phase A failed during `gates-lab.mjs install`:\n\n```\nLab 11 stopped: npm install failed (1): npm warn tar TAR_ENTRY_ERROR ENOSPC: no space left on device, write\n...\nnpm warn tar TAR_ENTRY_ERROR ENOSPC: no space left on device, open '...\\node_modules\\@deftai\\directive-core\\dist\\verify-env\\agent-hooks.js'\n```\n\nThe C: drive was at **0 bytes free**. The cause was the course's own lab artifacts:\n\n- 98 top-level `%TEMP%\\3ci-*` directories\n- **14.09 GB** total\n\nEvery executable lab installs its own ~50-package `node_modules` plus a lab-local `.npm-cache` per attempt. Labs 5, 7, 10, 11 and the capstone each additionally *mandate a reset drill*, so a conforming learner creates at least two fully installed attempts per lab. Nothing is ever reclaimed: `labs/README.md` § Recoverable cleanup says cleanup \"moves one exact directory; they do not permanently delete it,\" and defers reclamation to \"the operating system's managed temporary-file cleanup or your workstation's approved deletion process later.\"\n\n## Learner pain\n\n1. The course cannot be completed in one pass on a machine with modest free space, and nothing warns you. No page states a disk-space prerequisite. The course map's \"Audience and prerequisites\" lists Node, Git, gh, npm, Task, uv, Python, OS/shell — not free disk.\n2. The failure is opaque and is not a lab-recognized stop. It surfaces as an npm tar error wrapped in `Lab 11 stopped:`, which reads like a fixture or registry problem. Lab 11's **Expected failures and recovery** table has no row for it, so the documented recovery order sends you to Route A — *create another fully installed attempt*, which makes the condition strictly worse.\n3. Deleting is explicitly discouraged everywhere in the lab contract, so a learner following the written guidance has no sanctioned in-course way to reclaim space. I had to stop the course and do an out-of-band cleanup, which is exactly the \"undocumented help\" the root README says completion must not depend on.\n4. The accumulation is invisible: archives move to a *different* temp parent (`3ci-directive-lab-archive`, `3ci-directive-capstone-archive`) than the attempts, so no single directory shows the true footprint.\n\n## Reproduction\n\n1. Complete Labs 2, 5, 7, 10 including each lab's mandated reset drill and archive step.\n2. Measure: `Get-ChildItem $env:TEMP -Directory -Filter '3ci-*'` and sum recursive file length.\n3. Observe multi-GB growth with no reclamation step anywhere in the lab pages.\n4. On a machine without tens of GB free, Lab 11 or the capstone install fails with `ENOSPC`.\n\n## Proposed fix\n\n- **Add a disk-space prerequisite** to `curriculum/README.md` § Audience and prerequisites and to `labs/README.md`, with a concrete number. My run needed >14 GB for Modules 1–12 plus the capstone; ~20 GB free is a safe floor.\n- **Add an `ENOSPC` row to each executable lab's recovery table**, naming it as an environment stop (not a fixture defect) and pointing at a reclamation step rather than Route A. Route A is actively harmful here.\n- **Give the lab contract a bounded reclamation verb.** `labs/README.md` § Recoverable cleanup should name an explicit, reviewed command that removes *previously archived* attempts only, after the learner confirms the exact paths — e.g. a `reclaim` verb on the helpers, or a documented `Get-ChildItem $env:TEMP -Directory -Filter '3ci-directive-*-archive'` review-then-remove pair. Today the guidance is \"leave it to the OS,\" and Windows does not reclaim `%TEMP%` on its own.\n- **Optionally shrink the footprint**: a shared npm cache across attempts (instead of per-attempt `.npm-cache`) would cut most of the duplication while preserving install isolation.\n\n## Evidence\n\n- Failure: Lab 11 `gates-lab.mjs install`, exit 1, `ENOSPC` from npm tar extraction.\n- Footprint at failure: 98 `%TEMP%\\3ci-*` directories, 14.09 GB, C: free 0 MB.\n- After removing them: C: free 22 GB; Lab 11 then completed to `PASS` on the first retry with no other change.\n\n",
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5587628552,
+        "origin": "deftai/directive-training#100",
+        "id": "github.issue.5587628552"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "290b65c78d0abb90629340e74dd873e510c0717ac1f69ac16b75b0fa511ba007"
+      }
+    },
+    "id": "github.issue.5587628552",
+    "updated": "2026-09-28T12:49:52Z"
+  }
+}

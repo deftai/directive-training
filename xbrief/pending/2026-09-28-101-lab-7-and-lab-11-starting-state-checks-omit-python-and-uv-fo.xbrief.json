@@ -1,0 +1,404 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #101",
+    "updated": "2026-09-28T12:14:59Z"
+  },
+  "plan": {
+    "title": "Lab 7 and Lab 11 starting-state checks omit Python (and uv for Lab 7) that their helpers hard-require",
+    "status": "pending",
+    "narratives": {
+      "Description": "Lab 11's starting-state routes can create an attempt before proving that a usable Python executable exists, even though the helper requires Python during install. This story adds presence-only Python probes in the established POSIX and Native Windows lookup orders, distinguishes a pre-create probe miss from a post-create install failure, and deliberately leaves Lab 7, Lab 10 POSIX, and helper behavior outside the change.",
+      "ImplementationPlan": "1. Update `labs/11-testing-gates-and-evidence.md` so the POSIX and Native Windows starting-state blocks resolve Python in the established order before `create`, and split the Expected failures guidance by whether an attempt exists.\n2. Recut `scripts/verify-module-11.mjs` to recognize the Python presence probes while preserving Task and uv as resolution-only checks and retaining the existing helper error wrapper.\n3. Add focused positive and mutation cases to `scripts/verify-module-11.test.mjs` that prove ordering, presence-only semantics, and the two distinct recovery paths.",
+      "UserStory": "As a Lab 11 learner, I want Python checked before an attempt is created, so that I can repair a missing prerequisite without confusing it with an install-time partial attempt.",
+      "Traces": "GitHub issue #101 and its ingested design-critique Bound remedy narrow the change to Lab 11, specify the POSIX and Windows lookup orders, and preserve Lab 7, Lab 10 POSIX, and helper behavior as explicit non-goals.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/101",
+      "Overview": "\n\n- Add a Python presence probe after `uv --version` and before create in `labs/11-testing-gates-and-evidence.md` POSIX starting-state. Use Lab 7's PATH walk (order `python3`, then `python`) plus `--version`. Update the Environment sentence on lab line 30 in the same edit.\n- Place Lab 10/capstone `Get-Command` order `python`, `python3`, `py` in Native Windows Phase A before `create`.\n- Recut `scripts/verify-module-11.mjs` `requireStartingStateGate` and `scripts/verify-module-11.test.mjs` so a presence probe may sit after `uv --version` and before create. Keep Task/uv as resolution checks. Python stays presence-only.\n- Split the Expected failures row: a start-check probe miss (probe sits before `create`, so no attempt yet: install Python, re-run the fence) versus a helper throw during `install` (`Required executable not found` leftover install-time token plus `reset`, because `node_modules` already exists). Do not bind \"do not create a new attempt\" after an install-time throw.\n- Keep this harvest on Lab 11. Do not recut Lab 7 starting-state. Lab 10 POSIX starting-state still omits Python and stays leftover next-build, outside this Bound-remedy.\n- Keep helpers out of this identity; `Lab 11 stopped:` wrapping already exists.\n\n",
+      "Labels": "bug, documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "Add a Python presence probe after `uv --version` and before create in `labs/11-testing-gates-and-evidence.md` POSIX starting-state. Use Lab 7's PATH walk (order `python3`, then `python`) plus `--version`. Update the Environment sentence on lab line 30 in the same edit.",
+        "status": "proposed",
+        "id": "clause.1",
+        "narrative": {
+          "Acceptance": "When the Lab 11 POSIX starting-state fence runs, it resolves `python3` before `python`, executes the selected command with `--version` after `uv --version`, and the verifier rejects a missing or post-create probe."
+        }
+      },
+      {
+        "title": "Place Lab 10/capstone `Get-Command` order `python`, `python3`, `py` in Native Windows Phase A before `create`.",
+        "status": "proposed",
+        "id": "clause.2",
+        "narrative": {
+          "Acceptance": "When the Lab 11 Native Windows Phase A runs, `Get-Command` checks `python`, `python3`, then `py` before `create`, and focused tests reject a changed order or a probe placed after mutation."
+        }
+      },
+      {
+        "title": "Recut `scripts/verify-module-11.mjs` `requireStartingStateGate` and `scripts/verify-module-11.test.mjs` so a presence probe may sit after `uv --version` and before create. Keep Task/uv as resolution checks. Python stays presence-only.",
+        "status": "proposed",
+        "id": "clause.3",
+        "narrative": {
+          "Acceptance": "The Module 11 verifier accepts a presence-only Python probe between uv resolution and create while continuing to reject Task or uv version pins, and mutation tests fail when those boundaries drift."
+        }
+      },
+      {
+        "title": "Split the Expected failures row: a start-check probe miss (probe sits before `create`, so no attempt yet: install Python, re-run the fence) versus a helper throw during `install` (`Required executable not found` leftover install-time token plus `reset`, because `node_modules` already exists). Do not bind \"do not create a new attempt\" after an install-time throw.",
+        "status": "proposed",
+        "id": "clause.4",
+        "narrative": {
+          "Acceptance": "Given a Python probe miss before create, the recovery installs Python and reruns the fence without reset; when install later emits `Required executable not found`, the recovery records the partial attempt and routes reset instead."
+        }
+      },
+      {
+        "title": "Keep this harvest on Lab 11. Do not recut Lab 7 starting-state. Lab 10 POSIX starting-state still omits Python and stays leftover next-build, outside this Bound-remedy.",
+        "status": "proposed",
+        "id": "clause.5",
+        "narrative": {
+          "Acceptance": "The final diff updates only the Lab 11 page and its focused verifier tests, and review evidence records Lab 7 and the Lab 10 POSIX starting-state gap as excluded follow-up work."
+        }
+      },
+      {
+        "title": "Keep helpers out of this identity; `Lab 11 stopped:` wrapping already exists.",
+        "status": "proposed",
+        "id": "clause.6",
+        "narrative": {
+          "Acceptance": "The Lab 11 helper remains unchanged and install-time missing-executable failures continue to emit the existing `Lab 11 stopped:` wrapper, which the focused verifier validates."
+        }
+      }
+    ],
+    "tags": [
+      "bug",
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/101",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #101: Lab 7 and Lab 11 starting-state checks omit Python (and uv for Lab 7) that their helpers hard-require"
+      }
+    ],
+    "metadata": {
+      "kind": "story",
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "uv --version",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L7"
+        }
+      ],
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "labs/11-testing-gates-and-evidence.md",
+          "scripts/verify-module-11.mjs",
+          "scripts/verify-module-11.test.mjs",
+          "xbrief/active/2026-09-28-101-lab-7-and-lab-11-starting-state-checks-omit-python-and-uv-fo.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:module-11",
+          "npm run test:module-11"
+        ],
+        "expected_outputs": [
+          "POSIX and Native Windows Lab 11 starting-state routes prove Python presence before create without introducing a Python version floor",
+          "Expected-failure guidance separates a pre-create probe miss from an install-time partial attempt and assigns the correct recovery to each",
+          "Focused Module 11 tests reject missing, reordered, post-create, or version-pinned Python probes while preserving the existing helper wrapper"
+        ],
+        "depends_on": [
+          "github.issue.5587628552"
+        ],
+        "conflict_group": "lab11-starting-state",
+        "size": "small",
+        "file_scope_confidence": "high",
+        "model_tier": "medium",
+        "acceptance_criteria_justification": "Six clauses preserve the issue's separate POSIX, Windows, verifier, recovery, scope-boundary, and helper-boundary requirements without combining independently observable behaviors."
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because Lab 11 starting-state omits the Python probe its helper hard-requires.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: resolved\nstop-2: charter=open critique; spend=N=1 because parseOperatorSpend resolved n=1 on the operator chat utterance; this is a closed identity recut of adding the Lab 10/capstone Python probe and a missing-prerequisite recovery row to Lab 11; Lab 7 starting-state already matches the helper at this SHA\npain: P1\nP1: labs/11-testing-gates-and-evidence.md:30 and :38-45 starting-state check node, npm, git, task, uv only; labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs:161-178 findPythonExecutable plus findExecutable(uv) throw Required executable not found; Lab 11 Expected failures :242-251 has no that row; labs/07-scope-lifecycle.md:67-98 and :150-159 already run uv --version and a Python probe at dispatch-sha aea1e77017962e2e7186ef64ad8d7e82329da77b. Do not recut Lab 7 starting-state.\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5838829252,
+          "html_url": "https://github.com/deftai/directive-training/issues/101#issuecomment-5838829252",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:07:57Z",
+          "updated_at": "2026-09-25T20:07:57Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 open critique of the closed Lab 11 identity: add a Python presence probe to the starting-state check, and add a missing-prerequisite recovery row.\n\nP1 line cites re-checked at dispatch-sha `aea1e77017962e2e7186ef64ad8d7e82329da77b`. They hold. `findExecutable(\"uv\")` sits on gates-lab.mjs:179, one line after the cited 161-178 range.\n\n## 1. Specified recovery text fights the helper throw site\n\nclass: `blocks-the-design`\n\nEvidence. `createAttempt` (gates-lab.mjs:304-343) returns at stage `CREATED`. `installAttempt` runs `npm install`, then `createIsolatedTools` (388-397), which calls `findPythonExecutable` (161-178). The POSIX starting-state fence (labs/11-testing-gates-and-evidence.md:38-45) already runs `create` and leaves `install` to Starting checkpoint. Native Windows Phase A (284-294) runs `create`, `guard`, `install` with no Python probe. A missing interpreter therefore throws after `node_modules` exists. Empty-PATH replica of the helper resolver printed `Required executable not found: python3 or python`. The CLI catch prefixes that as `Lab 11 stopped: ` (gates-lab.mjs:620). The next `install` on that root is `Stop: install requires a fresh attempt; use reset after a partial install.` (393).\n\nThe issue body's recovery text for `Required executable not found: …` is: install the tool via the organization's approved path, re-run the starting-state check, and do not create a new attempt.\n\nFailure mode. A learner who hits the helper throw retries `install` in place and gets the partial-install stop. Re-running the POSIX fence runs `create` again and leaves the partial attempt in place. The table then documents a recovery the helper refuses.\n\nDisposition consequence. This identity cannot bind that recovery sentence. The row has to split two times: a start-check probe miss (probe sits before `create`, so no attempt yet: install Python, re-run the fence) versus a helper throw during `install` (missing prerequisite plus `reset`, because `node_modules` already exists). The primary table token after a POSIX probe is the probe's own refusal string; `Required executable not found` remains the leftover install-time token.\n\n## 2. Exact seven-line starting-state prefix is already a gate\n\nclass: `sharpens-framing`\n\nEvidence. `scripts/verify-module-11.mjs` `requireStartingStateGate` requires `gateLines.slice(0, 7)` to equal `set -eu`, `node --version`, `npm --version`, `git --version`, `task --version`, `uv --version`, then the bare create command (129-133). Live `verifyModule11` at this SHA passed (`artifactCount=29`). A throwaway copy that inserted `python3 --version` before create failed with `starting-state gate must keep the exact fail-closed command prefix through create`. `scripts/verify-module-11.test.mjs` rebuilds that same prefix (22-28, 108-140) and mutates the Environment prose that currently lists Node.js 20 or later, npm, Git, Task, and uv (158-180).\n\nFailure mode. A Lab 7 or capstone multi-line Python probe pasted into the existing `sh` fence turns that verifier red. A markdown-only story cannot land.\n\nDisposition consequence. Put `requireStartingStateGate` and those tests in the bound file set. Recut the prefix so a presence probe may sit after `uv --version` and before create. Keep Task/uv as resolution checks (the existing pin refusal). Python stays presence-only, matching curriculum/README.md:38-40. Update the Environment sentence on lab line 30 in the same edit, because the pin-refusal tests search that exact string.\n\n## 3. \"Lab 10/capstone Python probe\" names three mechanisms\n\nclass: `sharpens-framing`\n\nEvidence. Lab 10 POSIX starting-state (labs/10-implementation-golden-path.md:57-62) is node/npm/git/task/uv then create. Lab 10 Windows (109-113) uses `Get-Command` `@('python', 'python3', 'py')` before create, locked by `scripts/verify-module-10.mjs` `assertWindowsStartingState` (198-200). Capstone POSIX (labs/capstone-end-to-end.md:73-85) runs `env python3 -c` then `env python -c` and requires `-f` and `-x` on `sys.executable`, locked by `scripts/verify-capstone.mjs`. Lab 7 POSIX (labs/07-scope-lifecycle.md:72-98) walks `PATH` for `python3` then `python` with `[ -e ]`, then `--version` — the same existence rule as helper `existsSync` (gates-lab.mjs:146-162). Lab 11 Environment is one unbranched `sh` fence. Its PowerShell surface is Native Windows Phase A (274-294), a whole-lab route.\n\nFailure mode. Copying Lab 10's POSIX fence adds no Python check. Copying the capstone execute-and-executable-bit probe refuses hosts the helper would accept via `existsSync`. Adding a Lab 10-style Windows starting-state subsection is a larger Environment recut than this identity names.\n\nDisposition consequence. Name the POSIX source as Lab 7's PATH walk (order `python3`, `python`) in the existing `sh` fence before create. Name the Windows source as Lab 10/capstone `Get-Command` order `python`, `python3`, `py`, placed in Native Windows Phase A before `create`.\n\n## 4. Lab 10 POSIX starting-state still omits Python\n\nclass: `sharpens-framing`\n\nEvidence. Stop 1 measured Lab 7:67-98 and :150-159 and closed Lab 7 for this SHA. Lab 10 POSIX fence 57-62 still omits Python. `implementation-lab.mjs` `installAttempt` calls `createIsolatedTools` at line 337 after npm install, the same throw. curriculum/README.md:30-33 still names Labs 7, 10, 11, and the capstone.\n\nFailure mode. Reading \"Lab 10/capstone Python probe\" as an already-complete pattern leaves the same learner miss on Lab 10 POSIX.\n\nDisposition consequence. Keep this arc on Lab 11. Record Lab 10 POSIX as leftover on the successor map (`operator-deferred` to a different issue, or widen identity).\n\n## 5. Helper Stop-class wrapping is already present\n\nclass: `footnote`\n\ngates-lab.mjs:620 already prints `Lab 11 stopped: ` plus `error.message`. The sentence \"Only `Stop:` is a boundary failure\" lives in labs/02-disposable-initialization.md:84. Keep helpers out of this identity.\n\n## Road not taken\n\nCapstone's `env python3 -c` probe plus `-x` is the stricter locked course-entry pattern. This issue's gap is helper `existsSync` while constructing the isolated PATH. Lab 7's `[ -e ]` walk matches that resolver. Flip to the capstone probe if a later identity recuts the Lab 11 helper onto a preflight interpreter path.\n\n## Re-verification\n\n- `git rev-parse HEAD` = `aea1e77017962e2e7186ef64ad8d7e82329da77b`\n- `verifyModule11` pass, `artifactCount=29`\n- /tmp insert of `python3 --version` before create → exact-prefix refusal\n- empty-PATH replica of `findPythonExecutable` → `Required executable not found: python3 or python`\n\n",
+          "id": 5839023306,
+          "html_url": "https://github.com/deftai/directive-training/issues/101#issuecomment-5839023306",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:21:14Z",
+          "updated_at": "2026-09-25T20:21:14Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLab 11 starting-state still omits the Python probe its helper hard-requires. Confirming this map would add Lab 7's PATH walk to the POSIX fence before create, add Lab 10's Get-Command order to Native Windows Phase A, recut the Module 11 starting-state verifier prefix, and split recovery into a pre-create probe miss versus an install-time helper throw that needs reset.\n\nParent forward verdict: P1 holds as Lab 11 Python starting-state. Lab 10 POSIX remains leftover next-build, outside this harvest.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838829252 and these takes; the evidence is critic 5839023306.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5839023306\nsupersedes: 5838829252\nTarget-digest: sha256:26b4dc693cb14bb9cfee4cb2f7f7a557f627c669a1fc6840887572dfc5f46199\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Specified recovery text fights the helper throw site\ntake: accept-into-contract\ncritic: 5839023306\nheading: Specified recovery text fights the helper throw site\n### Exact seven-line starting-state prefix is already a gate\ntake: accept-into-contract\ncritic: 5839023306\nheading: Exact seven-line starting-state prefix is already a gate\n### \"Lab 10/capstone Python probe\" names three mechanisms\ntake: accept-into-contract\ncritic: 5839023306\nheading: \"Lab 10/capstone Python probe\" names three mechanisms\n### Lab 10 POSIX starting-state still omits Python\ntake: accept-into-contract\ncritic: 5839023306\nheading: Lab 10 POSIX starting-state still omits Python\n### footnote — Helper Stop-class wrapping is already present\ntake: accept-into-contract\ncritic: 5839023306\nheading: Helper Stop-class wrapping is already present\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5839023306 reading=asserted\n\n## Bound remedy\n\n- Add a Python presence probe after `uv --version` and before create in `labs/11-testing-gates-and-evidence.md` POSIX starting-state. Use Lab 7's PATH walk (order `python3`, then `python`) plus `--version`. Update the Environment sentence on lab line 30 in the same edit.\n- Place Lab 10/capstone `Get-Command` order `python`, `python3`, `py` in Native Windows Phase A before `create`.\n- Recut `scripts/verify-module-11.mjs` `requireStartingStateGate` and `scripts/verify-module-11.test.mjs` so a presence probe may sit after `uv --version` and before create. Keep Task/uv as resolution checks. Python stays presence-only.\n- Split the Expected failures row: a start-check probe miss (probe sits before `create`, so no attempt yet: install Python, re-run the fence) versus a helper throw during `install` (`Required executable not found` leftover install-time token plus `reset`, because `node_modules` already exists). Do not bind \"do not create a new attempt\" after an install-time throw.\n- Keep this harvest on Lab 11. Do not recut Lab 7 starting-state. Lab 10 POSIX starting-state still omits Python and stays leftover next-build, outside this Bound-remedy.\n- Keep helpers out of this identity; `Lab 11 stopped:` wrapping already exists.\n\n",
+          "id": 5847300639,
+          "html_url": "https://github.com/deftai/directive-training/issues/101#issuecomment-5847300639",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:03:13Z",
+          "updated_at": "2026-09-26T15:03:13Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5847300639. Stop 1 write-back 5838829252. Round-1 critic 5839023306. Input ceiling 5847300639. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Process-only. File reads via `git show aea1e77017962e2e7186ef64ad8d7e82329da77b:`. Parsers from `@deftai/directive-core@0.119.5`. Throwaway `/tmp` probes this session.\n\n## Verdict\n\n`relieves: P1` is independently supported. Bound-remedy covers P1 as Stop 1 named it. `scanPainCites` on this lean body emits one disposition for `P1`: `relieves`. No heading or prose emits a second disposition for that id.\n\nFinding census: **0 `blocks-the-design`**, **0 `sharpens-framing`**, **0 `footnote`**.\n\n## Re-verification\n\nChecks at dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. In-envelope input is the issue body plus comments 5838829252, 5839023306, and 5847300639.\n\n| Anchor | Result | Check |\n|---|---|---|\n| Stop 1 `pain: P1` | holds | `scanPainList` on 5838829252 → present, ids `[P1]`, duplicates `[]`, malformed `false` |\n| Lab 11 Environment `:30` | holds | `Use Node.js 20 or later, npm, Git, Task, and \\`uv\\`.` No Python token |\n| POSIX fence `:38-45` | holds | `node`, `npm`, `git`, `task`, `uv --version`, then `gates-lab.mjs create` |\n| Helper Python throw | holds | `findPythonExecutable` `gates-lab.mjs:161-163` → `findExecutable([\"python3\",\"python\"])`; Map python at `:178`; `uv` at `:179`. Empty-PATH replica: `Required executable not found: python3 or python` |\n| Throw site after start-check | holds | `createAttempt` returns `CREATED` (`:304-343`). `installAttempt` calls `createIsolatedTools` (`:397`). POSIX fence runs create only. Native Windows Phase A `:284-294` runs create, guard, install with no Python probe |\n| Expected failures `:242-251` | holds | table has no Python / `Required executable not found` row |\n| Lab 7 already probed | holds | `:67-98` PATH walk `python3` then `python` plus `--version`; Windows `:150-159` `Get-Command` `@('python','python3','py')`. Bound-remedy does not recut Lab 7 |\n| Exact seven-line prefix gate | holds | `requireStartingStateGate` `scripts/verify-module-11.mjs:129-133`. Live `verifyModule11` pass, `artifactCount=29`. `/tmp` insert of `python3 --version` before create → `starting-state gate must keep the exact fail-closed command prefix through create` |\n| Lean cite well-formed | holds | `scanPainCites` → one cite `{painId:P1, disposition:relieves, deferredIssueNumber:null}`, `rejected: []`. Sole `PAIN_CITE_RE` hit is `relieves: P1` at offset 1904; `classifyPosition` `null`. Plain-English `P1 holds` is outside the closed cite forms |\n| Target-digest | holds | `evaluateTargetDigestAdmission` status `match`; live REST body sha256 `26b4dc693cb14bb9cfee4cb2f7f7a557f627c669a1fc6840887572dfc5f46199` |\n\nStop 1 P1 names five clauses. Bound-remedy covers each:\n\n1. Environment `:30` — harvest updates that sentence in the same edit.\n2. POSIX `:38-45` — harvest puts Lab 7's PATH walk (order `python3`, then `python`) plus `--version` after `uv --version` and before create, and recuts `requireStartingStateGate` plus `verify-module-11.test.mjs` so that probe may sit in that slot. Task/uv stay resolution checks. Python stays presence-only, matching `curriculum/README.md:38-40`.\n3. Helper throw — the POSIX probe sits before create, so a missing interpreter fails the start check before mutation. `uv --version` is already in that fence. Helpers stay out of this identity; `Lab 11 stopped:` wrapping already exists at `gates-lab.mjs:620`.\n4. Expected failures `:242-251` — harvest splits a start-check probe miss (no attempt yet: install Python, re-run the fence) versus a leftover `install`-time helper throw (`Required executable not found` plus `reset`, because `node_modules` already exists). It does not bind \"do not create a new attempt\" after that throw.\n5. Do not recut Lab 7 — harvest item 5 keeps the work on Lab 11.\n\nNative Windows Phase A `Get-Command` order `python`, `python3`, `py` before create is extra harvest from accepted round-1 heading 3. The Phase A verifier (`:402-406`) requires install then `Write-Output $LabRoot` and does not lock an exact prefix, so that probe can land. It does not un-cover POSIX P1.\n\nLab 10 POSIX `:57-62` still omits Python. That is leftover next-build on this map, not a Stop 1 pain id, and it is outside this Bound-remedy.\n\n`evaluateBoundRemedyCites` with `coveredIds: [P1]`, `unmetIds: []`, issue 101 returns `{ok: true}`. The same fixture with `coveredIds: []` returns `{ok: false}`. The engine does not grade Bound-remedy English; the coverage judgment above is this critic's.\n\n## Road not taken\n\nCapstone `env python3 -c` plus `-f`/`-x` on `sys.executable` is the stricter course-entry lock. This gap is helper `existsSync` while building the isolated PATH. Lab 7's `[ -e ]` walk matches that resolver. Flip to the capstone probe if a later identity recuts the Lab 11 helper onto a preflight interpreter path.\n\n",
+          "id": 5847401162,
+          "html_url": "https://github.com/deftai/directive-training/issues/101#issuecomment-5847401162",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:17:39Z",
+          "updated_at": "2026-09-26T15:17:39Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5847401162 is footnote-only. Empty classified census; relieves is independently supported. Bind remains successor lean 5847300639. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5847401162\nsupersedes: 5847300639\n\n",
+          "id": 5847426354,
+          "html_url": "https://github.com/deftai/directive-training/issues/101#issuecomment-5847426354",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:19Z",
+          "updated_at": "2026-09-26T15:21:19Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Lab 11 POSIX starting-state omits Python; helper throws at install | verified | labs/11-testing-gates-and-evidence.md:30,38-45; gates-lab.mjs:161-179; `verifyModule11` prefix lock |\n| Bound-remedy covers Stop 1 P1 as Lab 11 Python probe plus split recovery; Lab 10 POSIX stays leftover | verified | harvest; `scanPainCites` on 5847300639; pain-audit 5847401162 empty classified census |\n\n",
+          "id": 5847428268,
+          "html_url": "https://github.com/deftai/directive-training/issues/101#issuecomment-5847428268",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:36Z",
+          "updated_at": "2026-09-26T15:21:36Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nLab 11 starting-state still omits the Python probe its helper hard-requires. The harvest adds Lab 7's PATH walk before create and splits recovery into a pre-create miss versus an install-time reset.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5847300639\nverified-claims table 5847428268\npain-audit 5847401162\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5847428415,
+          "html_url": "https://github.com/deftai/directive-training/issues/101#issuecomment-5847428415",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:37Z",
+          "updated_at": "2026-09-26T15:21:37Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "issueBody": "## Course context\n\nFull course walkthrough as a mid/senior engineer, Windows 11 ARM64, PowerShell 7.6.6, Node v26.8.1, project-local Directive 0.119.5. Found while reconciling each lab's starting-state check against what its helper actually resolves.\n\n## What happened\n\n`curriculum/README.md` § Audience and prerequisites states:\n\n> a resolvable Python interpreter on every supported operating system before Module 1. **Labs 7, 10, 11, and the capstone require it** because their helpers construct an isolated `PATH`.\n\nThat is accurate about the helpers. `labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs` builds its isolated tool directory from:\n\n```js\n[\"node\", ...], [\"task\", findExecutable(\"task\")], [\"npm\", ...], [\"git\", ...],\n[\"python\", findPythonExecutable()], [\"uv\", findExecutable(\"uv\")],\n```\n\nand `findExecutable` ends in `throw new Error(\\`Required executable not found: ${names.join(\" or \")}\\`)`. `lifecycle-lab.mjs` (Lab 7) and `implementation-lab.mjs` (Lab 10) do the same.\n\nBut the labs' own starting-state checks do not verify those tools:\n\n| Lab | Starting-state check verifies | Helper hard-requires | Gap |\n| --- | --- | --- | --- |\n| Lab 7 | `node`, `npm`, `git`, `task` | + `uv`, `python` | **uv and Python unverified** |\n| Lab 10 (Windows) | `node`, `npm`, `git`, `task`, `uv`, Python | same | none |\n| Lab 11 | `node`, `npm`, `git`, `task`, `uv` | + `python` | **Python unverified** |\n| Capstone | `node`, `npm`, `git`, `task`, `uv`, Python | same (uv optional) | none |\n\nSo Lab 10 and the capstone check Python explicitly; Labs 7 and 11 do not, even though their helpers throw without it.\n\n## Learner pain\n\nA learner without a resolvable `python`/`python3`/`py` passes Lab 7's or Lab 11's documented starting-state check cleanly, then gets a bare `Error: Required executable not found: python or python3 or py` thrown from inside the helper during `create`/`install`.\n\nThat failure is not a `Stop:` and has no row in either lab's **Expected failures and recovery** table, so the documented recovery order gives no route. It reads like a fixture bug rather than a missing prerequisite. The whole point of a starting-state check — per `labs/README.md`, \"A start check is a gate\" — is to catch this before mutation, and here it does not. Lab 7 has the same gap for `uv`, which Module 7's own prerequisite row names (\"Node.js 20+, npm, Git, Task, `uv`\").\n\nThis is adjacent to #59 (\"Lab 11 starting-state check does not verify its required tools\"), which was closed by adding `node`/`npm`/`git`/`task`/`uv` to Lab 11 — but Python, the one tool the course map singles out for a course-entry check, was not included.\n\n## Reproduction\n\n1. Read `curriculum/README.md` § Audience and prerequisites: Python is required for Labs 7, 10, 11, and the capstone.\n2. Read `labs/07-scope-lifecycle.md` § Environment and starting-state check and `labs/11-testing-gates-and-evidence.md` § Environment and starting-state check.\n3. Compare with `findPythonExecutable()` / `findExecutable(\"uv\")` in each lab's helper.\n4. On a host with no resolvable Python, both starting-state checks pass and the helper then throws.\n\n## Proposed fix\n\n- Add the Python probe already used by Lab 10's Windows block and the capstone to **Lab 7** and **Lab 11** starting-state checks, in both the zsh/bash and PowerShell variants. The capstone's resolution order is the documented one: `python`, `python3`, `py` on Windows; `python3`, `python` elsewhere.\n- Add `uv --version` to **Lab 7**'s starting-state check, matching Module 7's stated prerequisites and Lab 11's existing block.\n- Add a recovery row to both labs: `Required executable not found: …` means a missing course prerequisite, not a fixture defect — install it via your organization's approved path and re-run the starting-state check. Do not create a new attempt.\n- Consider having the helpers surface this as a `Stop:`-class refusal with the lab's own prefix, so the refusal taxonomy each lab documents (\"Only `Stop:` is a boundary failure\") actually covers it.\n\n",
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5587629788,
+        "origin": "deftai/directive-training#101",
+        "id": "github.issue.5587629788"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "26b4dc693cb14bb9cfee4cb2f7f7a557f627c669a1fc6840887572dfc5f46199"
+      }
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 6 independently testable clauses from the task statement before product edit (#3323)",
+      "sentences": [
+        "Add a Python presence probe after `uv --version` and before create in `labs/11-testing-gates-and-evidence.md` POSIX starting-state. Use Lab 7's PATH walk (order `python3`, then `python`) plus `--version`. Update the Environment sentence on lab line 30 in the same edit.",
+        "Place Lab 10/capstone `Get-Command` order `python`, `python3`, `py` in Native Windows Phase A before `create`.",
+        "Recut `scripts/verify-module-11.mjs` `requireStartingStateGate` and `scripts/verify-module-11.test.mjs` so a presence probe may sit after `uv --version` and before create. Keep Task/uv as resolution checks. Python stays presence-only.",
+        "Split the Expected failures row: a start-check probe miss (probe sits before `create`, so no attempt yet: install Python, re-run the fence) versus a helper throw during `install` (`Required executable not found` leftover install-time token plus `reset`, because `node_modules` already exists). Do not bind \"do not create a new attempt\" after an install-time throw.",
+        "Keep this harvest on Lab 11. Do not recut Lab 7 starting-state. Lab 10 POSIX starting-state still omits Python and stays leftover next-build, outside this Bound-remedy.",
+        "Keep helpers out of this identity; `Lab 11 stopped:` wrapping already exists."
+      ],
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Add a Python presence probe after `uv --version` and before create in `labs/11-testing-gates-and-evidence.md` POSIX starting-state. Use Lab 7's PATH walk (order `python3`, then `python`) plus `--version`. Update the Environment sentence on lab line 30 in the same edit.",
+          "artifact_path": "labs/11-testing-gates-and-evidence.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Place Lab 10/capstone `Get-Command` order `python`, `python3`, `py` in Native Windows Phase A before `create`.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Recut `scripts/verify-module-11.mjs` `requireStartingStateGate` and `scripts/verify-module-11.test.mjs` so a presence probe may sit after `uv --version` and before create. Keep Task/uv as resolution checks. Python stays presence-only.",
+          "artifact_path": "scripts/verify-module-11.test.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Split the Expected failures row: a start-check probe miss (probe sits before `create`, so no attempt yet: install Python, re-run the fence) versus a helper throw during `install` (`Required executable not found` leftover install-time token plus `reset`, because `node_modules` already exists). Do not bind \"do not create a new attempt\" after an install-time throw.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Keep this harvest on Lab 11. Do not recut Lab 7 starting-state. Lab 10 POSIX starting-state still omits Python and stays leftover next-build, outside this Bound-remedy.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "Keep helpers out of this identity; `Lab 11 stopped:` wrapping already exists.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5587629788",
+    "updated": "2026-09-28T12:14:59Z"
+  }
+}

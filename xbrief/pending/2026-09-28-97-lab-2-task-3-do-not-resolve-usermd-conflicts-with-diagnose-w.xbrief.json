@@ -1,0 +1,387 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #97",
+    "updated": "2026-09-28T12:15:04Z"
+  },
+  "plan": {
+    "title": "Lab 2 Task 3: 'do not resolve USER.md' conflicts with diagnose writing the resolved path to evidence; .deft-cache/ absent after init",
+    "status": "pending",
+    "narratives": {
+      "Description": "Clarify Lab 2's privacy boundary so learners can recognize both USER.md doctor outcomes without copying host-specific paths into evidence. Also explain that init installs the `.deft-cache/` ignore rule while the directory itself appears only after a later cache, queue, or session-event write.",
+      "UserStory": "As a Directive learner, I want Lab 2 to distinguish expected USER.md diagnostics and deferred cache creation, so that I can complete the disposable initialization exercise without leaking host data or chasing a directory that should not exist yet.",
+      "ImplementationPlan": "1. Update `labs/02-disposable-initialization.md` and `solutions/lab-02-disposable-initialization.md` with the two measured USER.md outcomes, their skip/info classification, the no-open/no-copy boundary, and the later-write explanation for `.deft-cache/`. 2. Extend `scripts/verify-modules-2-3.mjs` with focused assertions for both diagnostic variants, the privacy language, the retained `.deft-cache/example` ignore probe, and the explicit statement that Lab 2 doctor does not create `.deft-cache/`; verify with `npm run check:modules-2-3`.",
+      "Traces": "GitHub issue #97 and its accepted Bound remedy; implementation is traced by clauses clause.1 and clause.2 plus focused assertions in scripts/verify-modules-2-3.mjs.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/97",
+      "Overview": "\n\n- Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent. Say they are skip/info, not warnings. Recut Task 3 to do not open or copy USER.md. Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule. Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts. Do not add helper redaction of `doctor-full.txt`.\n- Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`. State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write. Do not replace the inspect path with `xbrief/.triage-cache/`.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent. Say they are skip/info, not warnings. Recut Task 3 to do not open or copy USER.md. Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule. Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts. Do not add helper redaction of `doctor-full.txt`.",
+        "status": "proposed",
+        "id": "clause.1",
+        "narrative": {
+          "Acceptance": "Both Lab 2 documents name the found and absent USER.md doctor strings as skip/info outcomes, forbid opening or copying USER.md and its host path into evidence or public posts, and add no helper redaction; scripts/verify-modules-2-3.mjs fails if any part of that contract is removed."
+        }
+      },
+      {
+        "title": "Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`. State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write. Do not replace the inspect path with `xbrief/.triage-cache/`.",
+        "status": "proposed",
+        "id": "clause.2",
+        "narrative": {
+          "Acceptance": "The lab keeps `.deft-cache/` and `git check-ignore -v -- .deft-cache/example`, states that init installs only the ignore rule and Lab 2 doctor is not the creating write, and scripts/verify-modules-2-3.mjs rejects replacement with `xbrief/.triage-cache/`."
+        }
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/97",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #97: Lab 2 Task 3: 'do not resolve USER.md' conflicts with diagnose writing the resolved path to evidence; .deft-cache/ absent after init"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 2 independently testable clauses from the task statement before product edit (#3323)",
+      "sentences": [
+        "Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent. Say they are skip/info, not warnings. Recut Task 3 to do not open or copy USER.md. Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule. Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts. Do not add helper redaction of `doctor-full.txt`.",
+        "Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`. State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write. Do not replace the inspect path with `xbrief/.triage-cache/`."
+      ],
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent. Say they are skip/info, not warnings. Recut Task 3 to do not open or copy USER.md. Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule. Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts. Do not add helper redaction of `doctor-full.txt`.",
+          "artifact_path": "solutions/lab-02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`. State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write. Do not replace the inspect path with `xbrief/.triage-cache/`.",
+          "artifact_path": "labs/02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "kind": "story",
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "labs/02-disposable-initialization.md",
+          "solutions/lab-02-disposable-initialization.md",
+          "scripts/verify-modules-2-3.mjs",
+          "xbrief/active/2026-09-28-97-lab-2-task-3-do-not-resolve-usermd-conflicts-with-diagnose-w.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:modules-2-3"
+        ],
+        "expected_outputs": [
+          "Lab 2 names both USER.md doctor outcomes as skip/info while preserving the no-open, no-copy, and no-helper-redaction boundary",
+          "Lab 2 keeps the `.deft-cache/example` ignore probe and explains that a later cache, queue, or session-event write creates `.deft-cache/`, not init or Lab 2 doctor",
+          "The modules 2-3 verifier fails when either documentation contract regresses"
+        ],
+        "depends_on": [
+          "github.issue.5586607332"
+        ],
+        "conflict_group": "curriculum-modules-2-3",
+        "size": "medium",
+        "file_scope_confidence": "high",
+        "model_tier": "high"
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because Lab 2 Task 3 forbids resolving USER.md while diagnose writes the resolved host path into evidence, and it lists .deft-cache/ as present after init.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: resolved\nstop-2: charter=open critique; spend=N=1 because parseOperatorSpend resolved n=1 on the operator chat utterance; this is a closed identity recut of naming the USER.md resolved doctor line and classifying .deft-cache/ as first-use not init\npain: P1\nP1: labs/02-disposable-initialization.md:430 USER.md conceptual external row, do not resolve or copy it in this lab; diagnose at :361-366 runs directive doctor --full into doctor-full.txt; :427 lists .deft-cache/ among inspect paths and :440 requires git check-ignore -v -- .deft-cache/example; init does not create that directory; solutions/lab-02-disposable-initialization.md:227 classifies .deft-cache/ as present runtime cache state and :232-233 repeats do not resolve USER.md.\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5838828100,
+          "html_url": "https://github.com/deftai/directive-training/issues/97#issuecomment-5838828100",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:07:53Z",
+          "updated_at": "2026-09-25T20:07:53Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh open critique of issue 97. In-envelope: issue body plus comment 5838828100. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. I did not read later comments.\n\nThe closed recut can bind: name the doctor USER.md resolution line as expected output, and classify `.deft-cache/` as created on a later first write, not by init. Two body forks would un-close that recut if harvested.\n\n## Re-verification\n\nPinned curriculum reads used `git show <sha>:<path>`. Doctor and init behavior used `@deftai/directive-core@0.119.5` on this host (`package.json` version 0.119.5), which is the Lab 2 pin. A `/tmp` git repo probed `check-ignore` on missing paths. Dest `.deft/core/docs/SUPPORT.md` is not in the dispatch SHA; the no-paste rule is cited from `@deftai/directive-content@0.119.5` `docs/SUPPORT.md`.\n\n| Anchor | Result | Check |\n| --- | --- | --- |\n| Lab 2 Task 3 USER.md row | `do not resolve or copy it in this lab` at :430; checkpoint forbids location and contents | `git show` lab :430, :451-457 |\n| diagnose capture | helper writes `directive doctor --full --project-root .` stdout+stderr to parent `doctor-full.txt` with no transform | `git show` lab :361-366; helper `diagnoseAttempt` |\n| Task 2 expected doctor lines | Pre-cutover and xBrief migration banners already named as expected output, not warnings; record classifications without copying unrelated environment data | `git show` lab :369-378, :410 |\n| doctor USER.md found | `Checking USER.md resolution...` then success `USER.md resolved (${rung}): ${path}`; skip-severity; never fails doctor | core `dist/doctor/main.js` `runUserMdResolutionCheck` |\n| doctor USER.md absent | info `USER.md: no USER.md found; using defaults (searched: ...)`; still skip, not a warning; searched list includes workspace and platform paths | core `resolve-user-md.js` `NO_USER_MD_DIAGNOSTIC`; same check |\n| Windows path shape | win32 platform rung is `%APPDATA%\\deft\\USER.md` | `platformUserConfigDir` |\n| doctor has no redaction flag | content SUPPORT.md: do not paste raw `--full`; payload includes absolute project and USER.md paths | `@deftai/directive-content@0.119.5` `docs/SUPPORT.md` |\n| `.deft-cache/` after init | canonical gitignore baseline includes `.deft-cache/`; init-deposit does not mkdir it | core `CANONICAL_GITIGNORE_BASELINE`; no mkdir under `init-deposit/` |\n| doctor throttle write | `--full` still `persist`s `xbrief/.triage-cache/doctor-state.json` via `resolveTriageCachePath` | core `doctor/main.js` persist; `triage/cache-path.js` file list |\n| check-ignore without the directory | exit 0 on missing `.deft-cache/example`, `USER.md`, and `xbrief/.triage-cache/candidates.jsonl`; `git status --short --ignored` does not list absent `.deft-cache/` | `/tmp` probe |\n| solution table | `.deft-cache/` row is `runtime cache state`; it does not say the directory is present | `git show` solution :227-233 |\n| verifier lock | `verify-modules-2-3.mjs` requires `git check-ignore -v -- .deft-cache/example` | `git show` script :447-458 |\n| Module 2 anatomy | ignored runtime examples already list both `.deft-cache/` and `xbrief/.triage-cache/`; USER.md is \"resolved shared\" / read in place; doctor may write ignored throttle metadata | `git show` module :107-124 |\n| Module 8 | `.deft-cache/` is ranked-queue content cache; `xbrief/.triage-cache/candidates.jsonl` is the audit log | `git show` module 8 :78-84 |\n\n### 1. Name both measured USER.md doctor lines; keep the existing no-copy path (`sharpens-framing`)\n\nEvidence: Task 3 forbids resolving USER.md while `diagnoseAttempt` stores a doctor report that always runs the USER.md resolution check. Found output is `USER.md resolved (platform-config): <host path>` on a typical Windows learner box, matching the issue quote. Absent output is `USER.md: no USER.md found; using defaults (searched: <attempt>/.deft/USER.md, <platform path>)`. Both are skip/info. Task 2 already names other doctor banners as expected output and already says not to copy unrelated environment data. Content SUPPORT.md already says doctor has no redaction flag. The helper does not transform the capture.\n\nFailure mode: harvesting only the success line leaves a no-USER.md learner with an unnamed line that still prints searched host paths, so they still cannot tell expected output from a privacy break. Harvesting \"make diagnose redact it\" creates a second diagnostic: `doctor-full.txt` would no longer be doctor output, and it fights the shipped no-redaction rule. Leaving the body's \"redact or redact in the helper\" fork in the next-build contract makes the recut open again.\n\nDisposition: bind naming. Add both measured strings to the Task 2 expected-output list, say they are skip/info not warnings, and recut Task 3 to do not open or copy USER.md. Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts. Do not add helper redaction.\n\n### 2. First-write for `.deft-cache/` is not diagnose (`sharpens-framing`)\n\nEvidence: init adds a directory ignore for `.deft-cache/` and does not create the directory. Lab 2 `diagnose` runs doctor `--full`, which writes throttle state under `xbrief/.triage-cache/`, so that tree can appear in `git status --short --ignored` after Task 2 while `.deft-cache/` stays absent. Module 8 already splits those two caches. The seven `check-ignore -v` probes, including `.deft-cache/example`, are the ignore evidence and already work when the path is missing (`/tmp` probe exit 0). `verify-modules-2-3.mjs` locks that `.deft-cache/example` probe. The inspect list naming `.deft-cache/` with no absence note is what makes a PASS look unfinished. The solution table classifies role, not existence.\n\nFailure mode: \"created on first use, not by init\" after the learner just ran doctor reads as \"doctor should have created it.\" They still hunt for the directory. Taking the body's replace-with-`xbrief/.triage-cache/` fork drops the ranked-cache class Module 2 lists, duplicates a path already in the ignore probes, and points at a directory diagnose may have just created.\n\nDisposition: keep `.deft-cache/` on the inspect list and keep the `.deft-cache/example` probe. State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write. Drop the replace fork from harvest.\n\n### 3. \"Present runtime state\" is the issue's paraphrase (`footnote`)\n\nThe solution row is `runtime cache state`. The existence expectation is the inspect list, already covered in finding 2.\n\n## Identity lens\n\nThe target discloses host identity (resolved USER.md path, and searched paths when the file is missing). Doctor already sanitizes newlines on that path (CWE-116) and emits skip-severity. The lab already forbids copying USER.md contents and unrelated environment data. The remaining hole is treating the helper's full `doctor-full.txt` as retainable identity. Naming the line plus the no-copy rule closes it. A helper that rewrites doctor bytes would be a new authority over diagnostics.\n\nWorktrees, envelopes, and concurrency are out of scope.\n\n## Road not taken\n\nHelper redaction of `doctor-full.txt` would make the retained file match Keep-as-evidence without asking a beginner to edit a diagnostic. What would flip: a shipped doctor redaction flag. Until then the capture should stay doctor output.\n\nReplacing `.deft-cache/` in the inspect list with `xbrief/.triage-cache/` would match the directories `git status --ignored` shows after diagnose. What would flip: Module 2 dropping `.deft-cache/` as a Lab 2 runtime example, and the verifier dropping the `.deft-cache/example` probe.\n\n",
+          "id": 5838984921,
+          "html_url": "https://github.com/deftai/directive-training/issues/97#issuecomment-5838984921",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:18:37Z",
+          "updated_at": "2026-09-25T20:18:37Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLab 2 diagnose writes the USER.md resolved host path into evidence while Task 3 forbids resolving it, and the inspect list names `.deft-cache/` after init. Confirming this map would name both measured doctor USER.md lines as expected skip/info output, recut Task 3 to do not open or copy USER.md, and say `.deft-cache/` appears on a later write, not from Lab 2 doctor.\n\nParent forward verdict: P1 holds; bind naming plus first-write classification. Helper redaction and replacing `.deft-cache/` with `xbrief/.triage-cache/` stay off the harvest.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838828100 and these takes; the evidence is critic 5838984921.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5838984921\nsupersedes: 5838828100\nTarget-digest: sha256:88a8ffb617091e7a9ff50b8e7cfcc05985c94a2526a17e59dfa626ac9cc6eec5\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Name both measured USER.md doctor lines; keep the existing no-copy path\ntake: accept-into-contract\ncritic: 5838984921\nheading: Name both measured USER.md doctor lines; keep the existing no-copy path\n### First-write for `.deft-cache/` is not diagnose\ntake: accept-into-contract\ncritic: 5838984921\nheading: First-write for `.deft-cache/` is not diagnose\n### footnote — \"Present runtime state\" is the issue's paraphrase\ntake: accept-into-contract\ncritic: 5838984921\nheading: \"Present runtime state\" is the issue's paraphrase\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5838984921 reading=asserted\n\n## Bound remedy\n\n- Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent. Say they are skip/info, not warnings. Recut Task 3 to do not open or copy USER.md. Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts. Do not add helper redaction of `doctor-full.txt`.\n- Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`. State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write. Do not replace the inspect path with `xbrief/.triage-cache/`.\n\n",
+          "id": 5847299956,
+          "html_url": "https://github.com/deftai/directive-training/issues/97#issuecomment-5847299956",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:03:08Z",
+          "updated_at": "2026-09-26T15:03:08Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5847299956. Stop 1 write-back 5838828100. Round-1 critic 5838984921. Input ceiling 5847299956. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Process-only. File reads via `git show aea1e77017962e2e7186ef64ad8d7e82329da77b:`. Parsers from `@deftai/directive-core@0.119.5`. Throwaway `/tmp` probes this session.\n\n## Verdict\n\n`relieves: P1` covers the Lab 2 page loci Stop 1 named. Bound-remedy adds both measured doctor USER.md strings to the Task 2 expected-output list as skip/info, recuts Task 3 to do not open or copy USER.md, keeps `.deft-cache/` and `git check-ignore -v -- .deft-cache/example`, and states that init installs the ignore rule while the directory appears on a later cache/queue/session-event write. Lab 2 doctor persist is `xbrief/.triage-cache/doctor-state.json`.\n\n`scanPainCites` on lean 5847299956 as posted returns one cite: `P1` / `relieves` / `deferredIssueNumber: null`, `rejected: []`. `classifyPosition` on that `relieves: P1` line (offset 1654) is `null`.\n\nStop 1 also names `solutions/lab-02-disposable-initialization.md:232-233`. Bound-remedy item 1 recuts Lab 2 Task 3 on the lab page. The posted harvest list names no `solutions/` path, so Spec-path capture leaves that solution sentence in place.\n\nFinding census: **0 `blocks-the-design`**, **1 `sharpens-framing`**, **1 `footnote`**.\n\n## Re-verification\n\nChecks at dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. In-envelope input is the issue body plus comments 5838828100, 5838984921, and 5847299956. Host CLI on this box is 0.119.9; USER.md doctor strings were re-read from `@deftai/directive-core@0.119.5` (`runUserMdResolutionCheck`, `resolveUserMdPath`), which match the 0.119.9 copies.\n\n| Anchor | Result | Check |\n|---|---|---|\n| Stop 1 `pain: P1` | holds | `scanPainList` → present, ids `[P1]`, duplicates `[]`, malformed `false` |\n| Lean shape | holds | `isSuccessorLeanBody` true; `extractOperativeTargetDigest` `sha256:88a8ffb617091e7a9ff50b8e7cfcc05985c94a2526a17e59dfa626ac9cc6eec5`; `evaluateTargetDigestAdmission` `match` against live REST body |\n| Lab 2 Task 3 USER.md row | holds | `labs/02-disposable-initialization.md:430` conceptual external row, do not resolve or copy it in this lab; checkpoint :451-457 forbids location and contents |\n| diagnose capture | holds | lab :361-366; helper `diagnoseAttempt` writes `doctor.stdout + doctor.stderr` to parent `doctor-full.txt` with no transform |\n| doctor USER.md found | holds | 0.119.5 `sink.success` payload `USER.md resolved (<rung>): <path>`; skip-severity; newline sanitize CWE-116 |\n| doctor USER.md absent | holds | 0.119.5 `sink.info` payload `USER.md: no USER.md found; using defaults (searched: ...)`; skip-severity |\n| doctor prefixes | holds | `createPlainSink` info `ℹ`, success `✓`; Task 2 already lists banner payloads without those prefixes, and Bound-remedy follows that shape |\n| doctor persist | holds | `statePath` / `resolveTriageCachePath` target `xbrief/.triage-cache/doctor-state.json` |\n| `.deft-cache/` after init | holds | `CANONICAL_GITIGNORE_BASELINE` includes `.deft-cache/`; init-deposit `mkdirSync` targets are host `userConfigDir` and project `.deft` |\n| check-ignore without the directory | holds | `/tmp` git repo with that ignore line: `git check-ignore -v -- .deft-cache/example` exit 0; `git status --short --ignored` omits the absent directory |\n| solution table | holds | `solutions/lab-02-disposable-initialization.md:227` is `runtime cache state`; :232-233 repeats do not resolve or copy location or contents |\n| verifier lock | holds | `verify-modules-2-3.mjs` requires `git check-ignore -v -- .deft-cache/example`; the solution USER.md sentence is outside that lock |\n| Module 8 split | holds | ranked cache `.deft-cache/`; audit log `xbrief/.triage-cache/candidates.jsonl` |\n| SUPPORT.md | holds | `@deftai/directive-content@0.119.5` `docs/SUPPORT.md:33`: doctor has no redaction flag; raw `--full` includes USER.md paths |\n| `scanPainCites` | holds | one operative cite; keyword `relieves` once; `does-not-relieve` / `operator-deferred` zero; prose `P1 holds` and token `audit:pain-P1` sit outside `PAIN_CITE_RE` |\n| audit token | holds | `parseAuditToken` → `pain-P1` / sha `aea1e77017962e2e7186ef64ad8d7e82329da77b` / `pointer=comment:5838984921` / `reading=asserted` |\n| `evaluateBoundRemedyCites` | fixture only | `{ok:true}` when `coveredIds` includes `P1`; Bound-remedy English is ungraded by that fixture |\n\n## 1. Bound-remedy harvest omits the solution USER.md recut\n\nsharpens-framing\n\nEvidence. Stop 1 P1 names `solutions/lab-02-disposable-initialization.md:232-233` as a repeat of the USER.md forbid. At this SHA those lines are: \"The `USER.md` row is based on the project rule and its external authority class. Resolution is taught in Module 3; do not resolve or copy its location or contents in this lab.\" Bound-remedy item 1 recuts Lab 2 Task 3 on `labs/02-disposable-initialization.md` to do not open or copy USER.md, and it names no `solutions/` path. `verify-modules-2-3.mjs` locks the `.deft-cache/example` probe and omits that solution sentence.\n\nFailure mode. Spec-path harvest of the posted two bullets recuts the lab page. The explained solution still forbids resolve while Task 2 lists `USER.md resolved (<rung>): <path>` as expected skip/info output. A learner or grader who opens the solution meets the original privacy doubt, and CI stays green.\n\nDisposition consequence. The lean can bind. Extend Bound-remedy item 1 so harvest recuts `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule. Keep `relieves: P1`. That harvest change wants a new successor lean and another pain-audit.\n\n## 2. Lean cite is well-formed; lab-page P1 is covered\n\nfootnote\n\n`scanPainCites` emits one `relieves` for `P1`. Headings and the plain-English `P1 holds` line do not emit a second disposition. Lab-page coverage matches Stop 1: both doctor USER.md strings, Task 3 recut, `.deft-cache/` kept with first-write classification, Lab 2 doctor persist under `xbrief/.triage-cache/`, helper capture unredacted.\n\n## Identity lens\n\nThe target discloses host identity (resolved USER.md path, and searched paths when the file is missing). Doctor already sanitizes newlines on that path and emits skip-severity. Content SUPPORT.md records no redaction flag. Bound-remedy keeps `doctor-full.txt` as doctor output and forbids copying the host path into `evidence.md` or public posts. Naming both measured strings plus that no-copy rule is the close. Helper rewrite of doctor bytes would be a new authority over diagnostics.\n\nWorktrees, envelopes, and concurrency are out of scope.\n\n",
+          "id": 5847404408,
+          "html_url": "https://github.com/deftai/directive-training/issues/97#issuecomment-5847404408",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:18:07Z",
+          "updated_at": "2026-09-26T15:18:07Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLab 2 diagnose writes the USER.md resolved host path into evidence while Task 3 forbids resolving it. Confirming this map would name both measured doctor USER.md lines as expected skip/info output, recut Task 3 and the explained-solution USER.md sentence to do not open or copy USER.md, and say `.deft-cache/` appears on a later write, not from Lab 2 doctor.\n\nParent forward verdict: P1 holds; the harvest now includes the solution USER.md sentence the first bind lean omitted.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838828100, prior map 5847299956, and these takes; the evidence is critics 5838984921 and 5847404408.\nThis arc does not ingest and does not dest-place.\n\nround: 2\nsiblings: 1\ncritics: 5838984921, 5847404408\nsupersedes: 5847299956\nTarget-digest: sha256:88a8ffb617091e7a9ff50b8e7cfcc05985c94a2526a17e59dfa626ac9cc6eec5\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Name both measured USER.md doctor lines; keep the existing no-copy path\ntake: accept-into-contract\ncritic: 5838984921\nheading: Name both measured USER.md doctor lines; keep the existing no-copy path\n\n### First-write for `.deft-cache/` is not diagnose\ntake: accept-into-contract\ncritic: 5838984921\nheading: First-write for `.deft-cache/` is not diagnose\n\n### footnote — \"Present runtime state\" is the issue's paraphrase\ntake: accept-into-contract\ncritic: 5838984921\nheading: \"Present runtime state\" is the issue's paraphrase\n\n### Bound-remedy harvest omits the solution USER.md recut\ntake: accept-into-contract\ncritic: 5847404408\nheading: Bound-remedy harvest omits the solution USER.md recut\n\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5847404408 reading=asserted\n\n## Bound remedy\n\n- Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent. Say they are skip/info, not warnings. Recut Task 3 to do not open or copy USER.md. Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule. Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts. Do not add helper redaction of `doctor-full.txt`.\n- Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`. State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write. Do not replace the inspect path with `xbrief/.triage-cache/`.\n\n",
+          "id": 5847426469,
+          "html_url": "https://github.com/deftai/directive-training/issues/97#issuecomment-5847426469",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:21Z",
+          "updated_at": "2026-09-26T15:21:21Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 3 fresh pain-audit of successor lean 5847426469. Stop 1 write-back 5838828100. Round-1 critic 5838984921. Round-2 pain-audit 5847404408. Input ceiling 5847426469. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Process-only. File reads via `git show aea1e77017962e2e7186ef64ad8d7e82329da77b:`. Parsers from `@deftai/directive-core@0.119.5` (`citation-grammar.js` sha matches the 0.119.9 nested copy). Throwaway `/tmp` probes this session.\n\n## Verdict\n\n`relieves: P1` is independently supported. Bound-remedy covers P1 as Stop 1 named it. `scanPainCites` emits one disposition for `P1`.\n\nFinding census: **0 `blocks-the-design`**, **0 `sharpens-framing`**, **1 `footnote`**.\n\n## Re-verification\n\nChecks at dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. In-envelope input is the issue body plus comments 5838828100, 5838984921, 5847299956, 5847404408, and 5847426469.\n\n| Anchor | Result | Check |\n|---|---|---|\n| Stop 1 `pain: P1` | holds | `scanPainList` → present, ids `[P1]`, duplicates `[]`, malformed `false` |\n| Lean shape | holds | `isSuccessorLeanBody` true; `extractOperativeTargetDigest` `sha256:88a8ffb617091e7a9ff50b8e7cfcc05985c94a2526a17e59dfa626ac9cc6eec5`; `evaluateTargetDigestAdmission` `match` against live REST body |\n| Lab 2 Task 3 USER.md row | holds | `labs/02-disposable-initialization.md:430` conceptual external row, do not resolve or copy it in this lab; checkpoint :451-457 forbids location and contents |\n| diagnose capture | holds | lab :361-366; helper `diagnoseAttempt` writes `doctor.stdout + doctor.stderr` to parent `doctor-full.txt` with no transform |\n| doctor USER.md found | holds | 0.119.5 `sink.success` payload `USER.md resolved (<rung>): <path>`; skip-severity; newline sanitize CWE-116 |\n| doctor USER.md absent | holds | 0.119.5 `sink.info` payload `USER.md: no USER.md found; using defaults (searched: ...)`; skip-severity |\n| doctor persist | holds | `persist` / `writeState` / `resolveTriageCachePath` target `xbrief/.triage-cache/doctor-state.json` |\n| `.deft-cache/` after init | holds | `CANONICAL_GITIGNORE_BASELINE` includes `.deft-cache/`; init-deposit `mkdirSync` targets host `userConfigDir` |\n| check-ignore without the directory | holds | `/tmp` git repo with that ignore line: `git check-ignore -v -- .deft-cache/example` exit 0; `git status --short --ignored` omits the absent directory |\n| solution table | holds | `solutions/lab-02-disposable-initialization.md:227` is `runtime cache state`; :232-233 repeats do not resolve or copy location or contents |\n| verifier lock | holds | `verify-modules-2-3.mjs` requires `git check-ignore -v -- .deft-cache/example`; the solution USER.md sentence is outside that lock |\n| harvest | holds | `extractBoundRemedyHarvest` two items; item 1 names `solutions/lab-02-disposable-initialization.md:232-233` |\n| `scanPainCites` | holds | one operative cite `{painId: P1, disposition: relieves, deferredIssueNumber: null}`; `rejected: []`; `classifyPosition` on offset 1809 is `null` |\n| keyword counts | holds | `relieves` 1, `does-not-relieve` 0, `operator-deferred` 0; three `P1` runs: prose `P1 holds`, the cite, token `audit:pain-P1` |\n| audit token | holds | `parseAuditToken` → `pain-P1` / sha `aea1e77017962e2e7186ef64ad8d7e82329da77b` / `pointer=comment:5847404408` / `reading=asserted` |\n| `evaluateBoundRemedyCites` | fixture only | `{ok:true}` when `coveredIds` includes `P1`; Bound-remedy English is ungraded by that fixture |\n| `evaluatePainCitePlacement` | holds | bind kind `allowed: true`, `operativeCiteCount: 1` |\n| SUPPORT.md | holds | `@deftai/directive-content@0.119.5` `docs/SUPPORT.md:33`: doctor has no redaction flag; raw `--full` includes USER.md paths |\n\n## 1. Bound-remedy covers Stop 1 P1; lean cite is well-formed\n\nfootnote\n\nEvidence. Stop 1 P1 names the Task 3 USER.md forbid at lab :430, diagnose capture at :361-366, inspect `.deft-cache/` at :427 with `git check-ignore -v -- .deft-cache/example` at :440, init not creating that directory, solution `:227` role class, and solution `:232-233` repeating the USER.md forbid. Bound-remedy item 1 adds both measured doctor strings to the Task 2 expected-output list as skip/info, recuts Task 3 to do not open or copy USER.md, recuts `solutions/lab-02-disposable-initialization.md:232-233` to that same forbid plus resolved-versus-defaulted keep-as-evidence, and keeps `doctor-full.txt` unredacted. Item 2 keeps the inspect path and the `.deft-cache/example` probe, and states that init installs the ignore rule while the directory appears on a later cache/queue/session-event write. Solution `:227` is `runtime cache state` (role), not an existence claim.\n\n`scanPainCites` on this lean body emits one `relieves` for `P1`. Headings and the plain-English `P1 holds` line do not emit a second disposition. A heading `### relieves: P1` would dedupe on the same-disposition key; a conflicting closed form would be `malformed-pain`. Neither is present.\n\nDisposition. The bind map stays bindable. No harvest change.\n\n## Identity lens\n\nThe target discloses host identity (resolved USER.md path, and searched paths when the file is missing). Doctor already sanitizes newlines on that path and emits skip-severity. Content SUPPORT.md records no redaction flag. Bound-remedy keeps `doctor-full.txt` as doctor output and forbids copying the host path into `evidence.md` or public posts. Naming both measured strings, recutting the lab page and the solution sentence to open-or-copy, plus that no-copy rule, is the close.\n\nWorktrees, envelopes, and concurrency are out of scope.\n\n",
+          "id": 5847489033,
+          "html_url": "https://github.com/deftai/directive-training/issues/97#issuecomment-5847489033",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:30:33Z",
+          "updated_at": "2026-09-26T15:30:33Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5847489033 is footnote-only. Bind remains successor lean 5847426469. Harvest unchanged.\n\nround: 3\nsiblings: 1\ncritic: 5847489033\nsupersedes: 5847426469\n\n",
+          "id": 5847495125,
+          "html_url": "https://github.com/deftai/directive-training/issues/97#issuecomment-5847495125",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:31:25Z",
+          "updated_at": "2026-09-26T15:31:25Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Task 3 forbids resolving USER.md while diagnose writes the resolved host path | verified | `git show` labs/02-disposable-initialization.md:430, :361-366; helper `diagnoseAttempt` |\n| Bound-remedy now recuts lab Task 3 and solution `:232-233` to open-or-copy; `.deft-cache/` stays first-write | verified | harvest on lean 5847426469; `scanPainCites` one `relieves`; pain-audit 5847489033 footnote-only |\n\n",
+          "id": 5847495256,
+          "html_url": "https://github.com/deftai/directive-training/issues/97#issuecomment-5847495256",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:31:27Z",
+          "updated_at": "2026-09-26T15:31:27Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nLab 2 diagnose writes the USER.md resolved host path into evidence. The harvest names both doctor lines as expected skip/info output, recuts Task 3 and the explained-solution USER.md sentence to do not open or copy USER.md, and classifies `.deft-cache/` as a later first write.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5847426469\nverified-claims table 5847495256\npain-audit 5847489033\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5847495392,
+          "html_url": "https://github.com/deftai/directive-training/issues/97#issuecomment-5847495392",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:31:28Z",
+          "updated_at": "2026-09-26T15:31:28Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "issueBody": "## Course context\n\nLab 2, Tasks 2 and 3, on the Windows/PowerShell candidate route (Windows 11 ARM64, PowerShell 7.6.6, Node 26.8.1, project-local Directive 0.119.5). The run passed `module_02_accept=PASS`.\n\n## What happened\n\nTwo parts of Task 3's inspection contract do not match what the lab itself produces.\n\n**1. USER.md \"do not resolve\" vs. the helper's own doctor capture.** Task 3 says: \"USER.md (conceptual external row; **do not resolve or copy it in this lab**)\". The solution adds: \"Resolution is taught in Module 3; do not resolve or copy its location or contents in this lab.\"\n\nHowever, `diagnose` runs `directive doctor --full`, and the helper saves the output to `doctor-full.txt` in the evidence bundle. That output resolves and prints the learner's real host path:\n\n```text\nℹ Checking USER.md resolution...\n✓ USER.md resolved (platform-config): C:\\Users\\<me>\\AppData\\Roaming\\deft\\USER.md\n```\n\nSo the lab resolves the location and writes it into evidence, even though the page tells learners not to. The lab does not mention this line or say what a learner **without** a USER.md will see. Nothing in Modules 1–2 tells them to create one.\n\n**2. `.deft-cache/` is listed as a path to inspect, but init does not create it.** After a successful init, `git status --short --ignored` shows only `.deft/core/`, `.npm-cache/`, `node_modules/`, and `xbrief/.triage-cache/`. `.deft-cache/` does not exist. `git check-ignore -v -- .deft-cache/example` still matches, but a learner told to \"inspect\" the directory finds nothing. The solution's table then classifies it as present runtime state.\n\n## Learner pain\n\n- I was unsure whether I had broken a privacy rule, since my evidence bundle now contains my real profile path. I was also unsure whether to redact the doctor report I was told to keep.\n- Looking for `.deft-cache/` and not finding it made me doubt that init had finished, right after a PASS.\n\n## Reproduction\n\nRun Lab 2 through `diagnose`, then open `doctor-full.txt` and run `git status --short --ignored` in the attempt.\n\n## Proposed fix\n\n- In Task 2, name the `USER.md resolved` doctor line as expected output. Say that it discloses the host path, and either tell learners to redact it from retained evidence or make `diagnose` redact it. Say what the line looks like when no USER.md exists, and whether that is a warning. Reword Task 3 to \"do not open or copy USER.md\".\n- For `.deft-cache/`, say that it is created on first use, not by init, and that the `check-ignore` probe is the evidence. Or replace it in the inspect list with a runtime path that exists after init, such as `xbrief/.triage-cache/`.\n\n",
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5586607590,
+        "origin": "deftai/directive-training#97",
+        "id": "github.issue.5586607590"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "88a8ffb617091e7a9ff50b8e7cfcc05985c94a2526a17e59dfa626ac9cc6eec5"
+      }
+    },
+    "id": "github.issue.5586607590",
+    "updated": "2026-09-28T12:15:04Z"
+  }
+}

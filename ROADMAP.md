@@ -5,9 +5,197 @@
 
 # Roadmap
 
-## Active
+## Lab attempts accumulate unbounded in OS temp (14 GB); ENOSPC halts the course mid-run with no sanctioned reclamation (#100)
 
-- **#102** -- Upgrade Directive teaching baseline to 0.119.9 -- `[running]`
+
+
+- Add an environment-stop ENOSPC / no-space-left row to `labs/README.md` Independent recovery and to each executable lab's Expected failures, including Lab 11 `:242-251`. While the volume reports that stop, Route A / reset / create do not run; reclaim runs first; then the existing reset path, because `installAttempt` still refuses the partial tree. Recut Independent recovery step 6 so unmatched ENOSPC does not Route A.
+- The disk prerequisite binds as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Do not harvest 20 GB as the course-entry floor.
+- Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Preview is read-only and creates no archive directory. If ENOSPC leaves no room to create one, preview and confirm deletion of an already-archived destination first; only after capacity is reclaimed, archive the live failed parent by same-volume rename and then reset. Leftover empty launchers are not the 14 GB.
+- Leave shared npm cache off this harvest. Each live attempt keeps its isolated cache; reclaim deletes an archived attempt together with its contained cache.
+
+
+
+### clause.1: Add an environment-stop ENOSPC / no-space-left row to `labs/README.md` Independent recovery and to each executable lab's Expected failures, including Lab 11 `:242-251`. While the volume reports that stop, Route A / reset / create do not run; reclaim runs first; then the existing reset path, because `installAttempt` still refuses the partial tree. Recut Independent recovery step 6 so unmatched ENOSPC does not Route A. `[proposed]`
+
+### clause.2: The disk prerequisite binds as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Do not harvest 20 GB as the course-entry floor. `[proposed]`
+
+### clause.3: Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Preview is read-only and creates no archive directory. If ENOSPC leaves no room to create one, preview and confirm deletion of an already-archived destination first; only after capacity is reclaimed, archive the live failed parent by same-volume rename and then reset. Leftover empty launchers are not the 14 GB. `[proposed]`
+
+### clause.4: Leave shared npm cache off this harvest. Each live attempt keeps its isolated cache; reclaim deletes an archived attempt together with its contained cache. `[proposed]`
+
+---
+
+## Lab 7 and Lab 11 starting-state checks omit Python (and uv for Lab 7) that their helpers hard-require (#101)
+
+
+
+- Add a Python presence probe after `uv --version` and before create in `labs/11-testing-gates-and-evidence.md` POSIX starting-state. Use Lab 7's PATH walk (order `python3`, then `python`) plus `--version`. Update the Environment sentence on lab line 30 in the same edit.
+- Place Lab 10/capstone `Get-Command` order `python`, `python3`, `py` in Native Windows Phase A before `create`.
+- Recut `scripts/verify-module-11.mjs` `requireStartingStateGate` and `scripts/verify-module-11.test.mjs` so a presence probe may sit after `uv --version` and before create. Keep Task/uv as resolution checks. Python stays presence-only.
+- Split the Expected failures row: a start-check probe miss (probe sits before `create`, so no attempt yet: install Python, re-run the fence) versus a helper throw during `install` (`Required executable not found` leftover install-time token plus `reset`, because `node_modules` already exists). Do not bind "do not create a new attempt" after an install-time throw.
+- Keep this harvest on Lab 11. Do not recut Lab 7 starting-state. Lab 10 POSIX starting-state still omits Python and stays leftover next-build, outside this Bound-remedy.
+- Keep helpers out of this identity; `Lab 11 stopped:` wrapping already exists.
+
+
+
+### clause.1: Add a Python presence probe after `uv --version` and before create in `labs/11-testing-gates-and-evidence.md` POSIX starting-state. Use Lab 7's PATH walk (order `python3`, then `python`) plus `--version`. Update the Environment sentence on lab line 30 in the same edit. `[proposed]`
+
+### clause.2: Place Lab 10/capstone `Get-Command` order `python`, `python3`, `py` in Native Windows Phase A before `create`. `[proposed]`
+
+### clause.3: Recut `scripts/verify-module-11.mjs` `requireStartingStateGate` and `scripts/verify-module-11.test.mjs` so a presence probe may sit after `uv --version` and before create. Keep Task/uv as resolution checks. Python stays presence-only. `[proposed]`
+
+### clause.4: Split the Expected failures row: a start-check probe miss (probe sits before `create`, so no attempt yet: install Python, re-run the fence) versus a helper throw during `install` (`Required executable not found` leftover install-time token plus `reset`, because `node_modules` already exists). Do not bind "do not create a new attempt" after an install-time throw. `[proposed]`
+
+### clause.5: Keep this harvest on Lab 11. Do not recut Lab 7 starting-state. Lab 10 POSIX starting-state still omits Python and stays leftover next-build, outside this Bound-remedy. `[proposed]`
+
+### clause.6: Keep helpers out of this identity; `Lab 11 stopped:` wrapping already exists. `[proposed]`
+
+---
+
+## Opening a coding agent in the course clone subjects it to the repo's Directive hooks; the offered recovery mutates the training repo (#93)
+
+
+
+- Recut the next-build contract to a course-entry warning plus a named non-mutating recovery. Park option 3 (learner/maintainer tree split or path-aware hooks, including an upstream OS-temp write recut) off this harvest.
+- Put the warning on `curriculum/README.md` Audience and prerequisites and on `README.md` Safety boundary, or a Start here bullet that points there. Put the named recovery on `README.md` Resume or recover.
+- Keep `labs/02-disposable-initialization.md:70-73`. In the example, name `LAB_ROOT` as the coding-agent workspace and `DIRECTIVE_TRAINING_ROOT` as the helper path only.
+- Closed recovery list: keep using paper or a personal untracked note (`curriculum/modules/01-what-directive-is.md:40`); for labs, open the coding-agent host on `LAB_ROOT`; when a clone-hook deny appears, leave the deny in place and treat it as maintainer governance of this consumer, not a course step.
+- Closed forbid list for this clone: `deft verify:hooks-installed --scope=agent --repair`, `deft update` / `directive init`, `deft policy:disable-host-hooks`, `deft session:ready` / occupancy mint. Name pin/engine skew as expected when the global CLI and the teaching pin differ.
+- One sentence on the warning: the product-signal consent prompt is optional partner signal, not a course step, and the learner may skip it. Do not recut `plan.policy.productSignal`.
+- Keep `.deft-directive-disable` off the learner recovery list.
+
+
+
+### clause.1: Recut the next-build contract to a course-entry warning plus a named non-mutating recovery. Park option 3 (learner/maintainer tree split or path-aware hooks, including an upstream OS-temp write recut) off this harvest. `[proposed]`
+
+### clause.2: Put the warning on `curriculum/README.md` Audience and prerequisites and on `README.md` Safety boundary, or a Start here bullet that points there. Put the named recovery on `README.md` Resume or recover. `[proposed]`
+
+### clause.3: Keep `labs/02-disposable-initialization.md:70-73`. In the example, name `LAB_ROOT` as the coding-agent workspace and `DIRECTIVE_TRAINING_ROOT` as the helper path only. `[proposed]`
+
+### clause.4: Closed recovery list: keep using paper or a personal untracked note (`curriculum/modules/01-what-directive-is.md:40`); for labs, open the coding-agent host on `LAB_ROOT`; when a clone-hook deny appears, leave the deny in place and treat it as maintainer governance of this consumer, not a course step. `[proposed]`
+
+### clause.5: Closed forbid list for this clone: `deft verify:hooks-installed --scope=agent --repair`, `deft update` / `directive init`, `deft policy:disable-host-hooks`, `deft session:ready` / occupancy mint. Name pin/engine skew as expected when the global CLI and the teaching pin differ. `[proposed]`
+
+### clause.6: One sentence on the warning: the product-signal consent prompt is optional partner signal, not a course step, and the learner may skip it. Do not recut `plan.policy.productSignal`. `[proposed]`
+
+### clause.7: Keep `.deft-directive-disable` off the learner recovery list. `[proposed]`
+
+---
+
+## README 'Cold-start bootstrap (read this first)' block contradicts the learner pin boundary taught in Module 2 (#94)
+
+
+
+- Keep the skip-sentence identity. Put the intercepting line inside the managed cold-start block: a Learners-prefixed audience line, a retitle of "read this first", or both. Byte 0 stays the #2273 agent ladder. Do not bind an after-title skip as the intercept.
+- The bound sentence names learners, or an equivalent audience gate, so agents still follow the global-first ladder (`main-002`).
+- Extend `scripts/verify-cold-start-readme.mjs` and the existing `scripts/verify-text-portability.test.mjs` mutations that already call it so the intercepting audience line cannot drop while CI stays green.
+- Leave `curriculum/README.md` prerequisites and a new `START-HERE.md` out of this harvest; those branches already match the tree.
+
+
+
+### clause.1: Keep the skip-sentence identity. Put the intercepting line inside the managed cold-start block: a Learners-prefixed audience line, a retitle of "read this first", or both. Byte 0 stays the #2273 agent ladder. Do not bind an after-title skip as the intercept. `[proposed]`
+
+### clause.2: The bound sentence names learners, or an equivalent audience gate, so agents still follow the global-first ladder (`main-002`). `[proposed]`
+
+### clause.3: Extend `scripts/verify-cold-start-readme.mjs` and the existing `scripts/verify-text-portability.test.mjs` mutations that already call it so the intercepting audience line cannot drop while CI stays green. `[proposed]`
+
+### clause.4: Leave `curriculum/README.md` prerequisites and a new `START-HERE.md` out of this harvest; those branches already match the tree. `[proposed]`
+
+---
+
+## Lab 2 solution says 0.119.5 init does not create the package pin, contradicting Module 2 and SOURCE-BASELINE (#95)
+
+
+
+- Recut all three cells of `solutions/lab-02-disposable-initialization.md:354` onto 0.119.5 init-writes-CLI-pin. Keep fixture pre-seed as the reason the lab still copies `package.json` before install (`:82-84`, Module 2:168-170), not as a replacement misconception. Point Source at `references/SOURCE-BASELINE.md` Modules 2-3 released disagreements and Module 2 §2. Leave `references/SOURCE-NOTES.md:993` labeled historical 0.112.0.
+- Add a phrase lock on `scripts/verify-modules-2-3.mjs` so the solution table cannot keep `0.119.5 did not` and must state 0.119.5 init-writes-CLI-pin. Do not add a new generic solution-versus-SOURCE-BASELINE checker.
+- Align `solutions/lab-02-disposable-initialization.md:262` to the recorded 24.20.0 run, or label that tuple as the 0.112.0 dated probe from `SOURCE-NOTES.md:133`. Do not treat toolchain patch versions as a second reconstitution pin.
+
+
+
+### clause.1: Recut all three cells of `solutions/lab-02-disposable-initialization.md:354` onto 0.119.5 init-writes-CLI-pin. Keep fixture pre-seed as the reason the lab still copies `package.json` before install (`:82-84`, Module 2:168-170), not as a replacement misconception. Point Source at `references/SOURCE-BASELINE.md` Modules 2-3 released disagreements and Module 2 §2. Leave `references/SOURCE-NOTES.md:993` labeled historical 0.112.0. `[proposed]`
+
+### clause.2: Add a phrase lock on `scripts/verify-modules-2-3.mjs` so the solution table cannot keep `0.119.5 did not` and must state 0.119.5 init-writes-CLI-pin. Do not add a new generic solution-versus-SOURCE-BASELINE checker. `[proposed]`
+
+### clause.3: Align `solutions/lab-02-disposable-initialization.md:262` to the recorded 24.20.0 run, or label that tuple as the 0.112.0 dated probe from `SOURCE-NOTES.md:133`. Do not treat toolchain patch versions as a second reconstitution pin. `[proposed]`
+
+---
+
+## Lab 2 Task 1 requires a concrete maintainer-only surface that Module 2 never names; solution grades against an unseen command (#96)
+
+
+
+- Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.
+- Name that command in Module 2 §3. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.
+- Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.
+- Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks.
+
+
+
+### clause.1: Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`. `[proposed]`
+
+### clause.2: Name that command in Module 2 §3. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence. `[proposed]`
+
+### clause.3: Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name. `[proposed]`
+
+### clause.4: Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks. `[proposed]`
+
+---
+
+## Lab 2 Task 3: 'do not resolve USER.md' conflicts with diagnose writing the resolved path to evidence; .deft-cache/ absent after init (#97)
+
+
+
+- Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent. Say they are skip/info, not warnings. Recut Task 3 to do not open or copy USER.md. Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule. Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts. Do not add helper redaction of `doctor-full.txt`.
+- Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`. State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write. Do not replace the inspect path with `xbrief/.triage-cache/`.
+
+
+
+### clause.1: Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent. Say they are skip/info, not warnings. Recut Task 3 to do not open or copy USER.md. Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule. Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts. Do not add helper redaction of `doctor-full.txt`. `[proposed]`
+
+### clause.2: Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`. State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write. Do not replace the inspect path with `xbrief/.triage-cache/`. `[proposed]`
+
+---
+
+## Module 3 Card E solution requires Module 8 work-selection knowledge; the rubric fails the answer Modules 1–3 support (#98)
+
+
+
+- Bind Option 2. Recut `solutions/module-03-authority-and-context.md` so "ask which proposed scope should be approved and activated" is a full pass for Card E, covering Step 1 row E Decision cell, operator cell, and additional context (`:107`), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`.
+- Do not add a Module 3 paragraph that a deterministic work-selection surface exists unless Card E also lists plan/queue facts and O3.3 scores inspection. That expansion is outside this envelope.
+- Leave inspect-first as the existing Module 8 Snapshot 2 / Case C teaching.
+
+
+
+### clause.1: Bind Option 2. Recut `solutions/module-03-authority-and-context.md` so "ask which proposed scope should be approved and activated" is a full pass for Card E, covering Step 1 row E Decision cell, operator cell, and additional context (`:107`), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`. `[proposed]`
+
+### clause.2: Do not add a Module 3 paragraph that a deterministic work-selection surface exists unless Card E also lists plan/queue facts and O3.3 scores inspection. That expansion is outside this envelope. `[proposed]`
+
+### clause.3: Leave inspect-first as the existing Module 8 Snapshot 2 / Case C teaching. `[proposed]`
+
+---
+
+## Module 6 Part B requires authoring a schema-0.8 scope JSON, but no module shows a scope xBRIEF shape; the solution is the only template (#99)
+
+
+
+- Land one labeled JSON fence (or a JSON fence plus a field-legend table) in Module 6 Part B / the worksheet the recovery row cites. Keep Module 4 on card-level facts. Keep the solution's two-item JSON as the complete worked artifact. Point Module 6:524 at that worksheet specimen.
+- Label each shown field as one of: schema-required (verify-enforced), schema-legal-optional, this-worksheet (O6.2 rubric), or later-gate (swarm-ready / `x-directive/evidence`). Item `pending` stays schema-legal; this worksheet can prefer item `proposed` to match `plan.status`. String `narrative.Traces` is the course home for the required trace; string `narrative.Evidence` is schema-legal and is a different field from `x-directive/evidence`. Keep the existing verify-versus-rubric table.
+- Caption the new fence as a field-identity skeleton. State on the same page that O6.2 still needs two to five items, each with a string `Acceptance` and a trace, `plan.status: proposed`, schema `0.8`, and the no-authority sentence. Align the walkthrough's "one item" line with that rubric, or mark the walkthrough as a shaping sketch whose Part B count wins.
+- On the Part B skeleton: `plan.id` (worksheet story ID; optional for verify), `plan.title`, `plan.status: proposed`, one shown item with `title`, `status`, and string `narrative.Acceptance` plus `narrative.Traces`, and a legend that `effort` and `plan.metadata.kind` / `swarm` are optional for this proposed candidate. `kind: "story"` is the story-taxonomy value when present. Swarm-ready `readiness: "ready"` stays the later allocation contract. The solution may keep its `needs_refinement` block as unreadiness pedagogy in the answer key.
+
+
+
+### clause.1: Land one labeled JSON fence (or a JSON fence plus a field-legend table) in Module 6 Part B / the worksheet the recovery row cites. Keep Module 4 on card-level facts. Keep the solution's two-item JSON as the complete worked artifact. Point Module 6:524 at that worksheet specimen. `[proposed]`
+
+### clause.2: Label each shown field as one of: schema-required (verify-enforced), schema-legal-optional, this-worksheet (O6.2 rubric), or later-gate (swarm-ready / `x-directive/evidence`). Item `pending` stays schema-legal; this worksheet can prefer item `proposed` to match `plan.status`. String `narrative.Traces` is the course home for the required trace; string `narrative.Evidence` is schema-legal and is a different field from `x-directive/evidence`. Keep the existing verify-versus-rubric table. `[proposed]`
+
+### clause.3: Caption the new fence as a field-identity skeleton. State on the same page that O6.2 still needs two to five items, each with a string `Acceptance` and a trace, `plan.status: proposed`, schema `0.8`, and the no-authority sentence. Align the walkthrough's "one item" line with that rubric, or mark the walkthrough as a shaping sketch whose Part B count wins. `[proposed]`
+
+### clause.4: On the Part B skeleton: `plan.id` (worksheet story ID; optional for verify), `plan.title`, `plan.status: proposed`, one shown item with `title`, `status`, and string `narrative.Acceptance` plus `narrative.Traces`, and a legend that `effort` and `plan.metadata.kind` / `swarm` are optional for this proposed candidate. `kind: "story"` is the story-taxonomy value when present. Swarm-ready `readiness: "ready"` stays the later allocation contract. The solution may keep its `needs_refinement` block as unreadiness pedagogy in the answer key. `[proposed]`
+
+---
 
 ## Proposed
 
@@ -24,8 +212,9 @@ _Scopes not yet promoted to pending. Orientation only — not a substitute for `
 
 ## Completed
 
-_Showing 25 of 59 completed scopes (newest first). Full history: lifecycle `completed/` (or `task report` when available)._
+_Showing 25 of 60 completed scopes (newest first). Full history: lifecycle `completed/` (or `task report` when available)._
 
+- **#102** -- Upgrade Directive teaching baseline to 0.119.9 -- `[completed]`
 - **#69** -- Visible 0.119.5 bootstrap still resolves a newer core after a compatible release -- `[completed]`
 - **#68** -- Capstone uv prerequisite blurs verified context and required version -- `[completed]`
 - **#67** -- Lab 11 quotes clause-walk evidence absent from a passing Windows 0.119.5 run -- `[completed]`
@@ -50,5 +239,4 @@ _Showing 25 of 59 completed scopes (newest first). Full history: lifecycle `comp
 - **#36** -- Capstone solution emits invalid WI-1000 after valid WI-999 -- `[completed]`
 - Module 12 reaches tracked lifecycle closeout -- `[completed]`
 - Lab 2 runs from a coding-agent host without live shell state -- `[completed]`
-- **#19** -- Lab 2's documented doctor 'known false negative' does not reproduce on 0.119.2; the warning that does appear is undocumented -- `[completed]`
 

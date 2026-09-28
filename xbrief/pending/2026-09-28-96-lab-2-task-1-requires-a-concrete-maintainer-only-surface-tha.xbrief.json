@@ -1,0 +1,368 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #96",
+    "updated": "2026-09-28T12:15:02Z"
+  },
+  "plan": {
+    "title": "Lab 2 Task 1 requires a concrete maintainer-only surface that Module 2 never names; solution grades against an unseen command",
+    "status": "pending",
+    "narratives": {
+      "Description": "Lab 2 Task 1 asks learners to identify a concrete maintainer-only verification surface, but Module 2 never names the command that the explained solution grades as correct. This story teaches the pinned `task check:framework-source` example with a do-not-run boundary and extends the existing Modules 2-3 verifier to keep the lesson and solution aligned.",
+      "ImplementationPlan": "1. Update `curriculum/modules/02-installation-and-anatomy.md` §3 to name `task check:framework-source` as the pinned maintainer-only example, cite the official `Taskfile.yml` source at the recorded commit, and forbid running it in the consumer lab.\n2. Recut the surrounding copy warning so one pinned boundary example is teachable without inviting learners to copy or execute maintainer commands.\n3. Extend `scripts/verify-modules-2-3.mjs` with a focused teaching-string assertion that preserves the solution's named command and do-not-run sentence without widening the answer contract to a generic class name.",
+      "UserStory": "As a Lab 2 learner, I want Module 2 to name the maintainer-only command used by the assessment, so that I can answer from taught material without executing that command in my disposable consumer lab.",
+      "Traces": "GitHub issue #96 and its ingested design-critique Bound remedy select the named-example arm, preserve `task check:framework-source`, pin its official source, retain the do-not-run boundary, and reject the broader class-sufficient recut.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/96",
+      "Overview": "\n\n- Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.\n- Name that command in Module 2 §3. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.\n- Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.\n- Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.",
+        "status": "proposed",
+        "id": "clause.1",
+        "narrative": {
+          "Acceptance": "When a learner reads Module 2, it names `task check:framework-source` as the concrete maintainer-only example already required by the Lab 2 solution, and the existing solution command remains unchanged."
+        }
+      },
+      {
+        "title": "Name that command in Module 2 §3. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.",
+        "status": "proposed",
+        "id": "clause.2",
+        "narrative": {
+          "Acceptance": "When the lesson presents the named example, it cites `Taskfile.yml` at commit `75e7d33f114b0e2e67741257813c095e74d9668f`, permits inspection, and explicitly forbids copying or running the command in the consumer lab."
+        }
+      },
+      {
+        "title": "Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.",
+        "status": "proposed",
+        "id": "clause.3",
+        "narrative": {
+          "Acceptance": "`npm run check:modules-2-3` passes when Module 2 contains the named command, pinned source, and do-not-run boundary, and fails when any of those teaching strings is removed."
+        }
+      },
+      {
+        "title": "Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks.",
+        "status": "proposed",
+        "id": "clause.4",
+        "narrative": {
+          "Acceptance": "When the final lesson and verifier are reviewed, they require the concrete `task check:framework-source` answer and do not broaden Q5, O2.1, or the Lab 2 done condition to accept an unnamed command class."
+        }
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/96",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #96: Lab 2 Task 1 requires a concrete maintainer-only surface that Module 2 never names; solution grades against an unseen command"
+      }
+    ],
+    "metadata": {
+      "kind": "story",
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "task check:framework-source",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L5"
+        }
+      ],
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "curriculum/modules/02-installation-and-anatomy.md",
+          "scripts/verify-modules-2-3.mjs",
+          "xbrief/active/2026-09-28-96-lab-2-task-1-requires-a-concrete-maintainer-only-surface-tha.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:modules-2-3"
+        ],
+        "expected_outputs": [
+          "Module 2 names `task check:framework-source` as a maintainer-only example and cites the pinned Taskfile source",
+          "The lesson permits inspection but forbids copying or executing the command in the disposable consumer lab",
+          "The focused Modules 2-3 verifier rejects a missing command, missing source pin, missing do-not-run boundary, or a broadened class-only answer"
+        ],
+        "depends_on": [
+          "github.issue.5586607023"
+        ],
+        "conflict_group": "module-2-contract-consistency",
+        "size": "small",
+        "file_scope_confidence": "high",
+        "model_tier": "medium"
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because Lab 2 Task 1 and Module 2 Q5 grade a concrete maintainer-only command that Module 2 never names.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: resolved\nstop-2: charter=open critique; spend=N=1 because parseOperatorSpend resolved n=1 on the operator chat utterance; this is a closed identity recut of either naming one pinned maintainer-only example in Module 2 or accepting the class name\npain: P1\nP1: labs/02-disposable-initialization.md:310 Task 1 requires one consumer command surface and one framework-maintainer-only surface; curriculum/modules/02-installation-and-anatomy.md:405 Q5 asks the same; Module 2:197-198 names contributor instructions, an unprefixed root Taskfile, package workspaces, and maintainer tasks and warns do not copy maintainer commands into a consumer lesson; solutions/lab-02-disposable-initialization.md:100 grades against task check:framework-source in the separate deftai/directive source checkout.\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5838827890,
+          "html_url": "https://github.com/deftai/directive-training/issues/96#issuecomment-5838827890",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:07:52Z",
+          "updated_at": "2026-09-25T20:07:52Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh critic of issue 96 at dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. In-envelope inputs: issue body plus comment 5838827890.\n\n## 1. Class-sufficient closing needs the surfaces that already grade a command name\n**sharpens-framing**\n\nEvidence: `scripts/verify-modules-2-3.mjs` currently passes (`Modules 2-3 content contract: ok`). It locks Q5 to `Name one consumer command surface and one maintainer-only surface` (module `02-installation-and-anatomy.md:405-406`) and locks the Lab 2 solution to the concrete pair `` `directive doctor` `` / `` `task check:framework-source` `` (`verify-modules-2-3.mjs:466-479`, `solutions/lab-02-disposable-initialization.md:98-101`). Lab 2's done-condition requires the written chooser rows to `match the explained solution` (`labs/02-disposable-initialization.md:24`). O2.1 inspection is `Compare with the walkthrough and solution reasoning` (`02-installation-and-anatomy.md:315`). A probe at this SHA: Module 2 and Lab 2 contain zero `check:framework-source`; the solution regex match is true.\n\nFailure mode: Recutting only Task 1 (`labs/02-disposable-initialization.md:309-316`) and the solution rubric leaves Q5, the Q5 verifier lock, and the match-the-solution done-condition still requiring the unseen command. A class-name answer that the new Task 1 accepts still fails the lab done-condition until the learner copies the solution command.\n\nDisposition: If this arm is the bind, include Q5, `scripts/verify-modules-2-3.mjs:466-479`, Lab 2:24, and O2.1 inspection in the recut set, and state that a class-name boundary answer satisfies those checks. Existing mechanism: recut that verifier; do not add a second content contract.\n\n## 2. Named-example closing needs the copy-warning recut, the Taskfile pin, and a do-not-run bound\n**sharpens-framing**\n\nEvidence: Module 2 §3 already teaches the class (`contributor instructions, an unprefixed root Taskfile, package workspaces, and maintainer tasks`) and says `Do not copy maintainer commands into a consumer lesson` (`02-installation-and-anatomy.md:196-199`). Official sources pin the boundary claim to the setup skill (`02-installation-and-anatomy.md:433`). At release commit `75e7d33f114b0e2e67741257813c095e74d9668f` that skill's contributor path names `deft-install --yes --upgrade --maintainer --repo-root . --json`. The same commit's root `Taskfile.yml` defines `check:framework-source` (task around line 418). `references/SOURCE-BASELINE.md:16,37` is that commit. This dest's consumer `Taskfile.yml:8-10` includes the deposit under namespace `deft`; the deposit still defines `check:framework-source`. The Lab 2 solution already carries `do not run or copy it into this training consumer lab` (`solutions/lab-02-disposable-initialization.md:100-101`). The verifier already requires that command in the solution.\n\nFailure mode: Adding `` `task check:framework-source` `` to §3 while leaving the copy-warning unchanged makes the same section both name and forbid naming a maintainer command. Citing the setup skill as the pin for this example identifies a different maintainer surface. Naming a runnable task in the lesson without the solution's do-not-run bound invites the learner to execute it in the disposable consumer (`task check:framework-source` missing at the unprefixed root, or `task deft:check:framework-source` running a framework-source gate on a consumer tree).\n\nDisposition: If this arm is the bind, keep `` `task check:framework-source` `` because the existing verifier already locks it, add Official sources to `Taskfile.yml` at `75e7d33f`, recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab, and keep the solution's do-not-run sentence. Reuse `verify-modules-2-3.mjs`; add a Module 2 teaching-string assertion there if the lesson is now the source of the name.\n\n## 3. Issue anchors re-measured\n**footnote**\n\nTask 1 at `labs/02-disposable-initialization.md:309-310` and Q5 at `02-installation-and-anatomy.md:405-406` ask for one consumer surface and one maintainer-only surface. Module 2:196-199 gives the class and the copy-warning. The solution at lines 98-101 grades `` `task check:framework-source` `` in the `deftai/directive` source checkout. GitHub GET of `Taskfile.yml` at `75e7d33f` shows that task exists. `node scripts/verify-modules-2-3.mjs` exits 0 on this dest. The identity split is real.\n\n## Inventory\n\nExisting surfaces that already speak to this identity, in harvest order if either arm binds: Module 2 §3, O2.1 (`02-installation-and-anatomy.md:26-29,315,405-406`), Lab 2 Task 1 and done-condition (`labs/02-disposable-initialization.md:24,309-316`), Lab 2 solution Reasoning 1 (`solutions/lab-02-disposable-initialization.md:98-101`), `scripts/verify-modules-2-3.mjs:466-479`, SOURCE-BASELINE consumer-versus-maintainer row (`references/SOURCE-BASELINE.md:85`), glossary `framework source repository` (`references/GLOSSARY.md:20-22`), QUICK-REFERENCE maintainer-outside-course lines (`references/QUICK-REFERENCE.md:60-61`), Official sources setup-skill row, and pinned `Taskfile.yml` `check:framework-source`.\n\n## Road not taken\n\nI considered closing Arm 1 on the setup skill's `deft-install --maintainer`, which Official sources already links. That would mint a second named example while `verify-modules-2-3.mjs` still requires `` `task check:framework-source` ``. Closing the identity already locked by that verifier reuses that command. Flip if the bind recuts the verifier onto a different pinned surface.\n\nSteelmanning the strongest rejected position: a solution may be more specific than the lesson, and comparing after the attempt is the teaching loop. That holds when inspection accepts a class-name boundary answer. Lab 2:24 and O2.1 inspection currently require a match to the solution's concrete command, so the unseen name is the bar. Flip finding 1 if those two lines are recut so a class-name answer completes O2.1.\n\n",
+          "id": 5838971414,
+          "html_url": "https://github.com/deftai/directive-training/issues/96#issuecomment-5838971414",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:17:43Z",
+          "updated_at": "2026-09-25T20:17:43Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLab 2 Task 1 and Module 2 Q5 still grade an unseen maintainer command. Confirming this map would name `task check:framework-source` in Module 2 §3 with a pinned Taskfile source, recut the copy-warning so the lesson may name one example while forbidding running it, and keep the solution's do-not-run sentence.\n\nParent forward verdict: P1 holds; bind the named-example arm on the existing verifier lock. Class-sufficient without recutting Q5 and the match-the-solution done-condition cannot bind.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838827890 and these takes; the evidence is critic 5838971414.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5838971414\nsupersedes: 5838827890\nTarget-digest: sha256:0d6d8bdda38355672d67e75da3c2e0d30b3bac96a511bc6a73f5d5f5f2da4878\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Class-sufficient closing needs the surfaces that already grade a command name\ntake: accept-into-contract\ncritic: 5838971414\nheading: Class-sufficient closing needs the surfaces that already grade a command name\n### Named-example closing needs the copy-warning recut, the Taskfile pin, and a do-not-run bound\ntake: accept-into-contract\ncritic: 5838971414\nheading: Named-example closing needs the copy-warning recut, the Taskfile pin, and a do-not-run bound\n### footnote — Issue anchors re-measured\ntake: accept-into-contract\ncritic: 5838971414\nheading: Issue anchors re-measured\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5838971414 reading=asserted\n\n## Bound remedy\n\n- Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.\n- Name that command in Module 2 §3. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.\n- Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.\n- Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks.\n\n",
+          "id": 5847299813,
+          "html_url": "https://github.com/deftai/directive-training/issues/96#issuecomment-5847299813",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:03:06Z",
+          "updated_at": "2026-09-26T15:03:06Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5847299813. Stop 1 write-back 5838827890. Round-1 critic 5838971414. Input ceiling 5847299813. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Process-only. Parsers from `@deftai/directive-core@0.119.5`.\n\n## Verdict\n\nBound-remedy on lean 5847299813 covers Stop 1 `P1`. `scanPainCites` on this lean body emits one disposition for `P1`: `relieves`.\n\nFinding census: 0 `blocks-the-design`, 0 `sharpens-framing`, 1 `footnote`.\n\n## 1. Bound-remedy covers Stop 1 P1; scanPainCites emits one P1 disposition\n**footnote**\n\nEvidence, measured at `aea1e77017962e2e7186ef64ad8d7e82329da77b` against Stop 1 5838827890 and lean 5847299813.\n\n`scanPainList` on Stop 1 returns `{ present: true, ids: [\"P1\"], duplicates: [], malformed: false }`. Stop 1 names Task 1 at `labs/02-disposable-initialization.md:310`, Q5 at `curriculum/modules/02-installation-and-anatomy.md:405`, the Module 2 class and copy-warning at 197-198 (measured 196-199), and solution grading at `solutions/lab-02-disposable-initialization.md:100`.\n\nAt this SHA, `git show` on Module 2 and Lab 2 yields zero `check:framework-source`. Solution 98-101 grades `` `task check:framework-source` `` for the separate `deftai/directive` source checkout and carries the do-not-run sentence. `scripts/verify-modules-2-3.mjs:466-479` locks that pair. `node scripts/verify-modules-2-3.mjs` exits 0 (20 artifacts). GitHub GET of `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f` defines `check:framework-source:` at line 418.\n\n`extractBoundRemedyHarvest` returns four list items: bind the named-example arm and keep that command under the existing verifier lock; name it in Module 2 §3, add Official sources to that Taskfile pin, recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it, and keep the solution's do-not-run sentence; reuse `scripts/verify-modules-2-3.mjs` and add a Module 2 teaching-string assertion when the lesson is the source of the name; keep class-sufficient off the harvest. `evaluateBoundRemedyCites` with `coveredIds: [\"P1\"]` returns `{ ok: true }`. Naming the currently unseen command in §3, with the copy-warning recut and the Taskfile pin, is P1 as Stop 1 named it.\n\n`scanPainCites` returns one cite `{ painId: \"P1\", disposition: \"relieves\", deferredIssueNumber: null }` and `rejected: []`. `PAIN_CITE_RE` matches once: line 34 `` relieves: P1 ``, `classifyPosition` null. Take-map headings and the summary `P1 holds` run sit outside `PAIN_CITE_RE`. `assertedPainIdsFromCites` returns `[\"P1\"]`. `evaluatePainCitePlacement` kind `bind` returns `{ allowed: true, operativeCiteCount: 1 }`.\n\nFailure mode: none observed on marker `pain-P1`.\n\nDisposition: the asserted `relieves` cite on lean 5847299813 stays independently supported.\n\n",
+          "id": 5847360340,
+          "html_url": "https://github.com/deftai/directive-training/issues/96#issuecomment-5847360340",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:11:51Z",
+          "updated_at": "2026-09-26T15:11:51Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5847360340 is footnote-only. Bind remains successor lean 5847299813. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5847360340\nsupersedes: 5847299813\n\n",
+          "id": 5847425950,
+          "html_url": "https://github.com/deftai/directive-training/issues/96#issuecomment-5847425950",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:16Z",
+          "updated_at": "2026-09-26T15:21:16Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Module 2 and Lab 2 never name `check:framework-source`; the solution grades it | verified | `git grep` on dest SHA; solution `:98-101`; `verify-modules-2-3.mjs:466-479` |\n| Named-example arm plus copy-warning recut covers Stop 1 P1 | verified | harvest; `scanPainCites` on 5847299813; pain-audit 5847360340 footnote-only |\n\n",
+          "id": 5847427520,
+          "html_url": "https://github.com/deftai/directive-training/issues/96#issuecomment-5847427520",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:29Z",
+          "updated_at": "2026-09-26T15:21:29Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nLab 2 Task 1 still grades an unseen maintainer command. The harvest names task check:framework-source in Module 2 with a do-not-run bound.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5847299813\nverified-claims table 5847427520\npain-audit 5847360340\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5847427663,
+          "html_url": "https://github.com/deftai/directive-training/issues/96#issuecomment-5847427663",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:30Z",
+          "updated_at": "2026-09-26T15:21:30Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "issueBody": "## Course context\n\nLab 2, Task 1, on Windows 11 ARM64 and PowerShell 7.6.6, with Directive 0.119.5 project-local. I completed it before opening the solution, as the course requires.\n\n## What happened\n\nTask 1 requires: \"Add one consumer command surface and one **framework-maintainer-only surface**, then state which repository each belongs to.\" Module 2's self-assessment Q5 asks the same thing.\n\nModule 2 describes the maintainer side only abstractly: \"contributor instructions, an unprefixed root Taskfile, package workspaces, and maintainer tasks\". It warns: \"Do not copy maintainer commands into a consumer lesson\". It never names a single maintainer-only command.\n\nThe explained solution then grades against a specific example the learner has never seen: \"`task check:framework-source` is a maintainer-only surface for the separate `deftai/directive` source checkout\".\n\n## Learner pain\n\nTo give a *concrete* maintainer-only surface, a learner has three options. They can invent one, which the course itself warns against. They can go looking in the `deftai/directive` source repo, which is outside the course and against \"use only course material\". Or they can answer vaguely (\"the unprefixed Taskfile\"). I chose the vague answer and was unsure whether it met the \"explicit boundary\" bar until I opened the solution.\n\n## Reproduction\n\nComplete Module 2 and Lab 2 Task 1 using only the module text, then compare with `solutions/lab-02-disposable-initialization.md` §Reasoning 1.\n\n## Proposed fix\n\nDo one of these:\n\n- name one concrete maintainer-only example in Module 2 §3 (for example, `task check:framework-source` in the `deftai/directive` source checkout) with its pinned source; or\n- change the Task 1 and solution rubric to say that naming the class (\"an unprefixed root task in the framework source repo\") is sufficient.\n\n",
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5586607332,
+        "origin": "deftai/directive-training#96",
+        "id": "github.issue.5586607332"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "0d6d8bdda38355672d67e75da3c2e0d30b3bac96a511bc6a73f5d5f5f2da4878"
+      }
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "sentences": [
+        "Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.",
+        "Name that command in Module 2 §3. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.",
+        "Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.",
+        "Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks."
+      ],
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.",
+          "artifact_path": "scripts/verify-modules-2-3.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Name that command in Module 2 §3. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.",
+          "artifact_path": "curriculum/modules/02-installation-and-anatomy.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.",
+          "artifact_path": "scripts/verify-modules-2-3.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5586607332",
+    "updated": "2026-09-28T12:15:02Z"
+  }
+}

@@ -1,0 +1,353 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #95",
+    "updated": "2026-09-28T12:13:47Z"
+  },
+  "plan": {
+    "title": "Lab 2 solution says 0.119.5 init does not create the package pin, contradicting Module 2 and SOURCE-BASELINE",
+    "status": "pending",
+    "narratives": {
+      "Description": "The Lab 2 solution currently says Directive 0.119.5 initialization does not create the package pin, contradicting Module 2 and the released source baseline. This story corrects the solution's three-part explanation and recorded toolchain evidence, then adds a focused verifier lock so the obsolete statement cannot return.",
+      "ImplementationPlan": "1. Recut the relevant table cells in `solutions/lab-02-disposable-initialization.md` to state that 0.119.5 initialization writes the CLI package pin, while retaining fixture pre-seeding as the lab's deterministic setup reason and citing the released baseline.\n2. Align the solution's observed Node tuple to the recorded 24.20.0 run and describe patch versions as observed evidence rather than a second reconstitution pin.\n3. Extend `scripts/verify-modules-2-3.mjs` with a focused phrase lock that rejects the obsolete `0.119.5 did not` claim and proves the corrected explanation without introducing a generic cross-document checker.",
+      "UserStory": "As a Lab 2 learner, I want the explained solution to match the released 0.119.5 initialization behavior, so that I can distinguish what init writes from why the disposable fixture is pre-seeded.",
+      "Traces": "GitHub issue #95 and its ingested design-critique Bound remedy identify the three solution cells, the released Modules 2-3 baseline, the historical 0.112.0 note, the 24.20.0 observed run, and the focused verifier boundary.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/95",
+      "Overview": "\n\n- Recut all three cells of `solutions/lab-02-disposable-initialization.md:354` onto 0.119.5 init-writes-CLI-pin. Keep fixture pre-seed as the reason the lab still copies `package.json` before install (`:82-84`, Module 2:168-170), not as a replacement misconception. Point Source at `references/SOURCE-BASELINE.md` Modules 2-3 released disagreements and Module 2 §2. Leave `references/SOURCE-NOTES.md:993` labeled historical 0.112.0.\n- Add a phrase lock on `scripts/verify-modules-2-3.mjs` so the solution table cannot keep `0.119.5 did not` and must state 0.119.5 init-writes-CLI-pin. Do not add a new generic solution-versus-SOURCE-BASELINE checker.\n- Align `solutions/lab-02-disposable-initialization.md:262` to the recorded 24.20.0 run, or label that tuple as the 0.112.0 dated probe from `SOURCE-NOTES.md:133`. Do not treat toolchain patch versions as a second reconstitution pin.\n\n",
+      "Labels": "bug, documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "Recut all three cells of `solutions/lab-02-disposable-initialization.md:354` onto 0.119.5 init-writes-CLI-pin. Keep fixture pre-seed as the reason the lab still copies `package.json` before install (`:82-84`, Module 2:168-170), not as a replacement misconception. Point Source at `references/SOURCE-BASELINE.md` Modules 2-3 released disagreements and Module 2 §2. Leave `references/SOURCE-NOTES.md:993` labeled historical 0.112.0.",
+        "status": "proposed",
+        "id": "clause.1",
+        "narrative": {
+          "Acceptance": "When the Lab 2 solution table is rendered, all three cells state that Directive 0.119.5 init writes the CLI package pin, distinguish deterministic fixture pre-seeding from product behavior, and cite the released Modules 2-3 baseline while leaving the 0.112.0 note historical."
+        }
+      },
+      {
+        "title": "Add a phrase lock on `scripts/verify-modules-2-3.mjs` so the solution table cannot keep `0.119.5 did not` and must state 0.119.5 init-writes-CLI-pin. Do not add a new generic solution-versus-SOURCE-BASELINE checker.",
+        "status": "proposed",
+        "id": "clause.2",
+        "narrative": {
+          "Acceptance": "`npm run check:modules-2-3` passes for the corrected solution and fails when the old `0.119.5 did not` claim returns or the required init-writes-CLI-pin statement is removed."
+        }
+      },
+      {
+        "title": "Align `solutions/lab-02-disposable-initialization.md:262` to the recorded 24.20.0 run, or label that tuple as the 0.112.0 dated probe from `SOURCE-NOTES.md:133`. Do not treat toolchain patch versions as a second reconstitution pin.",
+        "status": "proposed",
+        "id": "clause.3",
+        "narrative": {
+          "Acceptance": "The solution records Node 24.20.0 for the 0.119.5 run and presents the toolchain tuple only as observed evidence, not as an additional reconstitution pin."
+        }
+      }
+    ],
+    "tags": [
+      "bug",
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/95",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #95: Lab 2 solution says 0.119.5 init does not create the package pin, contradicting Module 2 and SOURCE-BASELINE"
+      }
+    ],
+    "metadata": {
+      "kind": "story",
+      "literal_acceptance_commands": [],
+      "literal_acceptance_rejected": [
+        {
+          "command": "0.119.5 did not",
+          "reason": "inline backtick in prose is a mention, not a stated acceptance command (#3721)",
+          "sourceSpan": "inline@L6"
+        }
+      ],
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "solutions/lab-02-disposable-initialization.md",
+          "scripts/verify-modules-2-3.mjs",
+          "xbrief/active/2026-09-28-95-lab-2-solution-says-01195-init-does-not-create-the-package-p.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:modules-2-3"
+        ],
+        "expected_outputs": [
+          "The Lab 2 solution consistently states that Directive 0.119.5 init writes the CLI package pin and explains fixture pre-seeding as deterministic lab setup",
+          "The solution cites the released baseline and records Node 24.20.0 as observed toolchain evidence rather than a second pin",
+          "The focused Modules 2-3 verifier rejects the obsolete `0.119.5 did not` wording and a missing init-writes-CLI-pin statement"
+        ],
+        "depends_on": [
+          "github.issue.5587628552"
+        ],
+        "conflict_group": "module-2-contract-consistency",
+        "size": "small",
+        "file_scope_confidence": "high",
+        "model_tier": "medium"
+      },
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the Lab 2 explained solution contradicts Module 2 and SOURCE-BASELINE on whether 0.119.5 init writes the package pin.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: resolved\nstop-2: charter=open critique; spend=N=1 because parseOperatorSpend resolved n=1 on the operator chat utterance; this is a closed identity recut of the Lab 2 misconception row onto 0.119.5 init-writes-CLI-pin\npain: P1\nP1: solutions/lab-02-disposable-initialization.md:354 says 0.119.5 init did not create the package pin; curriculum/modules/02-installation-and-anatomy.md:166-169 and references/SOURCE-BASELINE.md:140 say unpinned 0.119.5 disposable init creates a private package.json with the exact CLI pin; the same solution toolchain cell :262 lists Node 24.18.0 while references/SOURCE-BASELINE.md:381 records the verified run as 24.20.0.\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5838827622,
+          "html_url": "https://github.com/deftai/directive-training/issues/95#issuecomment-5838827622",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:07:50Z",
+          "updated_at": "2026-09-25T20:07:50Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh open critique of issue 95 at dispatch-sha `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Input ceiling 5838827622. File reads used `git show aea1e77017962e2e7186ef64ad8d7e82329da77b:`. Probes under `/tmp`. `node scripts/verify-modules-2-3.mjs` at this SHA printed `Modules 2-3 content contract: ok`.\n\nThe recut holds as a table-local identity repair of the Lab 2 misconception row onto 0.119.5 init-writes-CLI-pin. Bind needs the whole row kept on pin authorship, the existing Modules 2-3 contract as the lock, and an honest split of the Node toolchain leftover currently stuffed into P1.\n\n## Re-verification\n\nStop 1 P1 anchors reproduced at this SHA.\n\n- `curriculum/modules/02-installation-and-anatomy.md:166-169` — unpinned 0.119.5 disposable probe: init creates a private `package.json` with the exact CLI pin; that CLI pin is availability, not the four-package graph.\n- `references/SOURCE-BASELINE.md:140` — unpinned disposable init created a private `package.json` with exact `@deftai/directive: 0.119.5`; teach init ownership; the lab pre-seeds the fixture to lock the four-package graph before install, not to compensate for missing init behavior.\n- `references/SOURCE-BASELINE.md:18` and `references/SOURCE-NOTES.md:32-36` — 2026-09-20 unpinned `init --json` created that private CLI pin; an isolated install then resolved all four packages to 0.119.5 at bind time.\n- `solutions/lab-02-disposable-initialization.md:354` — `Init always creates the package pin | 0.119.5 did not; the exact fixture pin preceded init | Source notes and released runtime`.\n- Same file `:82-84` already states the 0.119.5 fact: released init creates an exact CLI package pin; the fixture seeds the CLI/core/content/types graph first.\n- Same file `:262` — toolchain evidence `Git 2.50.1, gh 2.88.1, Node 24.18.0, npm 11.16.0`. That tuple matches `references/SOURCE-NOTES.md:133` (historical 0.112.0 learner-baseline probe). Current host evidence is Node.js `24.20.0` (`SOURCE-NOTES.md:14`, `SOURCE-BASELINE.md:381`, `labs/02-disposable-initialization.md:36`).\n- `references/SOURCE-NOTES.md:993` still records the 0.112.0 decision: do not promise that init creates the pin. That row is historical notes, not the learner solution.\n\n`scripts/verify-modules-2-3.mjs` already locks `SOURCE-BASELINE.md:18` unpinned-init pin language and Module 2 CLI-pin-versus-overrides language. It has no lock on solution `:354`. The contract passed while `:354` still says `0.119.5 did not`.\n\n## 1. Recut all three cells of the pin-authorship row (sharpens-framing)\n\nclass: sharpens-framing\n\n**Evidence.** Issue proposed-fix example replaces the misconception `Init always creates the package pin` with `Init's pin is enough to lock the graph`. That second sentence is the Module 2 §2 / `SOURCE-BASELINE.md:33,140` graph-lock lesson, and it is the leftover identity already carried on issues 63/69. This row's identity at `:354` is whether init writes the package pin. Module 2 `Common misconceptions` (lines 377-390) does not carry a pin-authorship slot, so this table is the only learner misconception surface for that fact. The Source cell currently cites `Source notes and released runtime`; `SOURCE-NOTES.md:993` still teaches the 0.112.0 opposite.\n\n**Failure mode.** Binding the example as column 1 retargets the row onto graph-lock. A learner who believed the 0.112 leftover (`init does not write the pin`) no longer sees that error named. A learner who follows the Source cell still lands on `SOURCE-NOTES.md:993`. The solution would then teach three different stories: `:82` (init writes CLI pin), `:354` (graph-lock misconception), and SOURCE-NOTES (init does not write the pin).\n\n**Disposition.** Recut the misconception, evidence, and Source cells of that one row onto 0.119.5 init-writes-CLI-pin. Keep fixture pre-seed as the reason the lab still copies `package.json` before install (already at `:82-84` and Module 2:168-170), not as a replacement misconception. Point Source at `SOURCE-BASELINE.md` Modules 2-3 released disagreements and Module 2 §2. Leave `SOURCE-NOTES.md:993` labeled historical 0.112.0.\n\nRoad-not-taken: retarget column 1 onto graph-lock because after 0.119.5 `init always creates the pin` is no longer false for the CLI pin, and the live leftover is mixed-graph resolution. That would flip if this arc's recorded identity were graph-lock rather than init-writes-CLI-pin.\n\n## 2. Lock the recut on verify-modules-2-3 (sharpens-framing)\n\nclass: sharpens-framing\n\n**Evidence.** Existing mechanism: `scripts/verify-modules-2-3.mjs`, already on `package.json` `check:modules-2-3` / `test:content`. Measured at this SHA: the script exits 0 while `:354` still says `0.119.5 did not`. It already requires SOURCE-BASELINE unpinned-init pin text (script lines 1185-1187) and Module 2 overrides plus `CLI pin is availability|not the four-package graph` (script lines 320-327). The issue's third bullet considers a new `verify-*` that fails when a solution states baseline behavior that differs from `SOURCE-BASELINE.md`.\n\n**Failure mode.** A generic solution-versus-SOURCE-BASELINE checker has no dated-replay or historical-notes carve-out. `SOURCE-NOTES.md` is allowed to disagree with SOURCE-BASELINE as labeled 0.112.0 evidence. Harvesting a new checker also duplicates the Modules 2-3 contract this path already uses for Lab 2 solution recuts.\n\n**Disposition.** Harvest a phrase lock on `scripts/verify-modules-2-3.mjs` that the solution table cannot keep `0.119.5 did not` and must state 0.119.5 init-writes-CLI-pin. Leave a new generic checker off Bound-remedy.\n\nRoad-not-taken: a new cross-file checker to catch the next 0.112 leftover without another issue. That would flip if solutions were a second source of truth for current baseline behavior rather than paraphrases already gated by per-module contracts.\n\n## 3. P1 names two leftover cells (sharpens-framing)\n\nclass: sharpens-framing\n\n**Evidence.** Stop 1 `pain: P1` names both solution `:354` (init-writes-CLI-pin contradiction) and solution `:262` (Node 24.18.0 versus recorded 24.20.0). The `:262` tuple is the 0.112.0 toolchain probe at `SOURCE-NOTES.md:133`, unlabeled, inside a solution whose record says Last verified 2026-09-21 on fixture-local 0.119.5. Lab 2 itself already records 24.20.0. The solution also says tool versions may differ while the Directive core version may not (`:266-267`).\n\n**Failure mode.** A Bound-remedy that recuts only `:354` and then `relieves: P1` leaves the toolchain cell unrelieved while the pain id looks closed. Treating the Node row as the same identity as init-writes-CLI-pin also pulls dated host-toolchain evidence into a pin-authorship recut.\n\n**Disposition.** Name both cells on the harvest, or cite the Node row as a separate leftover with its own relieve/defer. Align `:262` to the 2026-09-20 24.20.0 run, or label it as the 0.112.0 dated probe. Do not treat toolchain patch versions as a second reconstitution pin.\n\n## 4. Table leftover, not a missing concept (footnote)\n\nclass: footnote\n\nSolution `:82-84` already states 0.119.5 init-writes-CLI-pin and why the fixture still pre-seeds. Lab 2 never runs unpinned init: `init-lab.mjs` `seedAttempt` copies the fixture `package.json` (CLI pin plus overrides) before install, and `verifyManifestPin` requires those overrides. The graded contradiction is `:354` against Module 2 / SOURCE-BASELINE, not an absent Module 2 lesson.\n\n",
+          "id": 5838968564,
+          "html_url": "https://github.com/deftai/directive-training/issues/95#issuecomment-5838968564",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:17:33Z",
+          "updated_at": "2026-09-25T20:17:33Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe Lab 2 misconception row still teaches that 0.119.5 init did not write the package pin. Confirming this map would recut all three cells of that row onto init-writes-CLI-pin, lock the phrase on the existing Modules 2-3 verifier, and align or date-label the Node 24.18.0 toolchain cell.\n\nParent forward verdict: P1 holds as two leftover cells on one pain id; both cells are in the harvest.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838827622 and these takes; the evidence is critic 5838968564.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5838968564\nsupersedes: 5838827622\nTarget-digest: sha256:f89556c0aed2c27845726cbf79b81dc6841a6ca4e53ecfb96a53f326e5dbcb9e\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Recut all three cells of the pin-authorship row\ntake: accept-into-contract\ncritic: 5838968564\nheading: Recut all three cells of the pin-authorship row\n### Lock the recut on verify-modules-2-3\ntake: accept-into-contract\ncritic: 5838968564\nheading: Lock the recut on verify-modules-2-3\n### P1 names two leftover cells\ntake: accept-into-contract\ncritic: 5838968564\nheading: P1 names two leftover cells\n### footnote — Table leftover, not a missing concept\ntake: accept-into-contract\ncritic: 5838968564\nheading: Table leftover, not a missing concept\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5838968564 reading=asserted\n\n## Bound remedy\n\n- Recut all three cells of `solutions/lab-02-disposable-initialization.md:354` onto 0.119.5 init-writes-CLI-pin. Keep fixture pre-seed as the reason the lab still copies `package.json` before install (`:82-84`, Module 2:168-170), not as a replacement misconception. Point Source at `references/SOURCE-BASELINE.md` Modules 2-3 released disagreements and Module 2 §2. Leave `references/SOURCE-NOTES.md:993` labeled historical 0.112.0.\n- Add a phrase lock on `scripts/verify-modules-2-3.mjs` so the solution table cannot keep `0.119.5 did not` and must state 0.119.5 init-writes-CLI-pin. Do not add a new generic solution-versus-SOURCE-BASELINE checker.\n- Align `solutions/lab-02-disposable-initialization.md:262` to the recorded 24.20.0 run, or label that tuple as the 0.112.0 dated probe from `SOURCE-NOTES.md:133`. Do not treat toolchain patch versions as a second reconstitution pin.\n\n",
+          "id": 5847299696,
+          "html_url": "https://github.com/deftai/directive-training/issues/95#issuecomment-5847299696",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:03:05Z",
+          "updated_at": "2026-09-26T15:03:05Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5847299696. Stop 1 write-back 5838827622. Round-1 critic 5838968564. Input ceiling 5847299696. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Process-only. File reads via `git show aea1e77017962e2e7186ef64ad8d7e82329da77b:`. Parsers from `@deftai/directive-core@0.119.5`. Throwaway `/tmp` probes this session.\n\n## Verdict\n\n`relieves: P1` holds. Bound-remedy covers P1 as Stop 1 named it. `scanPainCites` on this lean body emits one disposition for `P1`: `relieves`.\n\nFinding census: **0 `blocks-the-design`**, **0 `sharpens-framing`**, **1 `footnote`**.\n\n## Re-verification\n\nChecks at dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. In-envelope input is the issue body plus comments 5838827622, 5838968564, and 5847299696.\n\n| Anchor | Result | Check |\n|---|---|---|\n| Stop 1 `pain: P1` | holds | `scanPainList` → present, ids `[P1]`, duplicates `[]`, malformed `false` |\n| `:354` leftover | holds | `solutions/lab-02-disposable-initialization.md:354` is `Init always creates the package pin` / `0.119.5 did not; the exact fixture pin preceded init` / `Source notes and released runtime` |\n| Module 2 and SOURCE-BASELINE pin | holds | `curriculum/modules/02-installation-and-anatomy.md:166-169` unpinned 0.119.5 init writes the exact CLI pin; `references/SOURCE-BASELINE.md:140` records the same observed private `@deftai/directive: 0.119.5` pin |\n| `:262` leftover | holds | solution `:262` `Node 24.18.0` matches `references/SOURCE-NOTES.md:133`; `references/SOURCE-BASELINE.md:381` and `labs/02-disposable-initialization.md:36` record `24.20.0` |\n| Verifier lock gap | holds | `node scripts/verify-modules-2-3.mjs` prints `Modules 2-3 content contract: ok`; script lines 1185-1187 lock SOURCE-BASELINE unpinned-init pin text; lines 320-327 lock Module 2 CLI-pin-versus-overrides language; no phrase lock on solution-table `0.119.5 did not` |\n| Bound-remedy harvest | holds | three list items recut `:354` onto init-writes-CLI-pin with Source at SOURCE-BASELINE, phrase-lock `scripts/verify-modules-2-3.mjs`, and align-or-date-label `:262` from `SOURCE-NOTES.md:133` |\n| `scanPainCites` | holds | one cite `{painId: P1, disposition: relieves, deferredIssueNumber: null}`, `rejected: []`; `classifyPosition` on `relieves: P1` offset 1522 line 38 is `null`; heading `### P1 names two leftover cells` and prose `P1 holds` sit outside `PAIN_CITE_RE` |\n| `evaluateBoundRemedyCites` | holds | `{ ok: true }` for critic-claimed `coveredIds: [P1]`, `unmetIds: []`, issue 95 |\n\n## 1. Bound-remedy covers Stop 1 P1; lean cite is well-formed\n\nclass: footnote\n\nStop 1 packed two leftover cells into `P1`. Bound-remedy harvest names both. Item 1 recuts all three cells of `:354` onto 0.119.5 init-writes-CLI-pin, keeps fixture pre-seed at `:82-84` and Module 2:168-170 as the reason the lab still copies `package.json` before install, points Source at `references/SOURCE-BASELINE.md` Modules 2-3 released disagreements, and leaves `references/SOURCE-NOTES.md:993` labeled historical 0.112.0. Item 2 harvests a phrase lock on the existing `scripts/verify-modules-2-3.mjs` contract. Item 3 harvests `:262` to the recorded 24.20.0 run, or as the dated 0.112.0 probe at `SOURCE-NOTES.md:133`. That is P1 as Stop 1 named it.\n\n`scanPainCites` emits that one `relieves` disposition. `audit:pain-P1` parses as a substantiation token (`parseAuditToken` succeeds: marker `pain-P1`, sha `aea1e77017962e2e7186ef64ad8d7e82329da77b`, pointer `comment:5838968564`, reading `asserted`). Keyword counts on this body: `relieves` 1, `does-not-relieve` 0, `operator-deferred` 0. `evaluatePainCitePlacement` bind: allowed, operativeCiteCount 1.\n\nDisposition: footnote. Harvest unchanged.\n\n",
+          "id": 5847354966,
+          "html_url": "https://github.com/deftai/directive-training/issues/95#issuecomment-5847354966",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:11:05Z",
+          "updated_at": "2026-09-26T15:11:05Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5847354966 is footnote-only. Bind remains successor lean 5847299696. Harvest unchanged.\n\nround: 2\nsiblings: 1\ncritic: 5847354966\nsupersedes: 5847299696\n\n",
+          "id": 5847425824,
+          "html_url": "https://github.com/deftai/directive-training/issues/95#issuecomment-5847425824",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:15Z",
+          "updated_at": "2026-09-26T15:21:15Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Solution `:354` still says 0.119.5 init did not write the pin | verified | `git show` solutions/lab-02-disposable-initialization.md:354 versus Module 2:166-169 and SOURCE-BASELINE.md:140 |\n| `verify-modules-2-3.mjs` is green while `:354` is stale | verified | `node scripts/verify-modules-2-3.mjs` exit 0 at dest SHA |\n| Bound-remedy recuts the pin-authorship row, locks the phrase, and dates the Node cell | verified | harvest; `scanPainCites` on 5847299696; pain-audit 5847354966 footnote-only |\n\n",
+          "id": 5847427258,
+          "html_url": "https://github.com/deftai/directive-training/issues/95#issuecomment-5847427258",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:27Z",
+          "updated_at": "2026-09-26T15:21:27Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nThe Lab 2 misconception row still teaches that 0.119.5 init did not write the package pin. The harvest recuts that row onto init-writes-CLI-pin and locks the phrase on verify-modules-2-3.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5847299696\nverified-claims table 5847427258\npain-audit 5847354966\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5847427370,
+          "html_url": "https://github.com/deftai/directive-training/issues/95#issuecomment-5847427370",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:28Z",
+          "updated_at": "2026-09-26T15:21:28Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "issueBody": "## Course context\n\nI found this while comparing my Lab 2 evidence with the explained solution. I had completed Module 2 and Lab 2 on Windows 11 ARM64, PowerShell 7.6.6, Node 26.8.1, with project-local Directive 0.119.5. `module_02_accept=PASS`.\n\n## What happened\n\nThe solution contradicts the module and the course's own source baseline on a fact that is graded:\n\n- `curriculum/modules/02-installation-and-anatomy.md` §2 \"Pin before initialization\": \"The unpinned 0.119.5 disposable probe confirmed that init creates a private `package.json` with the exact CLI pin.\"\n- `references/SOURCE-BASELINE.md` (Command probes row, and the table at line ~140): \"Unpinned disposable init created a private `package.json` with exact `@deftai/directive: 0.119.5`. Teach init ownership.\"\n- `solutions/lab-02-disposable-initialization.md`, \"Misconceptions exposed by this exercise\": \"**Init always creates the package pin** | **0.119.5 did not**; the exact fixture pin preceded init\".\n\nThe solution row appears to be left over from the 0.112.0 baseline. `SOURCE-NOTES.md` line ~993 says the shipped **0.112.0** init did not write the pin.\n\nA smaller inconsistency in the same solution: the acceptance table lists toolchain evidence as \"Git 2.50.1, gh 2.88.1, **Node 24.18.0**, npm 11.16.0\". The lab record, module, and capstone all say the verified 0.119.5 run used **Node 24.20.0**.\n\n## Learner pain\n\nThe module teaches one fact and the solution \"corrects\" the learner with the opposite. I could not tell which to believe without reading the maintainer-facing source baseline. A learner who stops at the solution leaves with the wrong model of who writes the reconstitution anchor. That undercuts O2.3, \"reconstitution anchor\", and the explanation of why the fixture pre-seeds `overrides`.\n\n## Reproduction\n\nRead Module 2 §2, then the Lab 2 solution's \"Misconceptions\" table, then `references/SOURCE-BASELINE.md` \"Command probes\".\n\n## Proposed fix\n\n- Replace the misconception row with the 0.119.5 behaviour. For example: \"Init's pin is enough to lock the graph | 0.119.5 init writes only the exact CLI pin; the fixture pre-seeds `overrides` so core/content/types are locked **before** install\".\n- Align the toolchain evidence row with the recorded 24.20.0 run, or label it as a different, dated replay.\n- Consider a `verify-*` content check that fails when a solution states baseline behaviour that differs from `SOURCE-BASELINE.md`.\n\n",
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5586607023,
+        "origin": "deftai/directive-training#95",
+        "id": "github.issue.5586607023"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "f89556c0aed2c27845726cbf79b81dc6841a6ca4e53ecfb96a53f326e5dbcb9e"
+      }
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 3 independently testable clauses from the task statement before product edit (#3323)",
+      "sentences": [
+        "Recut all three cells of `solutions/lab-02-disposable-initialization.md:354` onto 0.119.5 init-writes-CLI-pin. Keep fixture pre-seed as the reason the lab still copies `package.json` before install (`:82-84`, Module 2:168-170), not as a replacement misconception. Point Source at `references/SOURCE-BASELINE.md` Modules 2-3 released disagreements and Module 2 §2. Leave `references/SOURCE-NOTES.md:993` labeled historical 0.112.0.",
+        "Add a phrase lock on `scripts/verify-modules-2-3.mjs` so the solution table cannot keep `0.119.5 did not` and must state 0.119.5 init-writes-CLI-pin. Do not add a new generic solution-versus-SOURCE-BASELINE checker.",
+        "Align `solutions/lab-02-disposable-initialization.md:262` to the recorded 24.20.0 run, or label that tuple as the 0.112.0 dated probe from `SOURCE-NOTES.md:133`. Do not treat toolchain patch versions as a second reconstitution pin."
+      ],
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Recut all three cells of `solutions/lab-02-disposable-initialization.md:354` onto 0.119.5 init-writes-CLI-pin. Keep fixture pre-seed as the reason the lab still copies `package.json` before install (`:82-84`, Module 2:168-170), not as a replacement misconception. Point Source at `references/SOURCE-BASELINE.md` Modules 2-3 released disagreements and Module 2 §2. Leave `references/SOURCE-NOTES.md:993` labeled historical 0.112.0.",
+          "artifact_path": "solutions/lab-02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Add a phrase lock on `scripts/verify-modules-2-3.mjs` so the solution table cannot keep `0.119.5 did not` and must state 0.119.5 init-writes-CLI-pin. Do not add a new generic solution-versus-SOURCE-BASELINE checker.",
+          "artifact_path": "scripts/verify-modules-2-3.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Align `solutions/lab-02-disposable-initialization.md:262` to the recorded 24.20.0 run, or label that tuple as the 0.112.0 dated probe from `SOURCE-NOTES.md:133`. Do not treat toolchain patch versions as a second reconstitution pin.",
+          "artifact_path": "solutions/lab-02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "id": "github.issue.5586607023",
+    "updated": "2026-09-28T12:13:47Z"
+  }
+}
