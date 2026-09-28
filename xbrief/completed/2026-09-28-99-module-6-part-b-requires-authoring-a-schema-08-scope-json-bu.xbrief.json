@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #99",
-    "updated": "2026-09-28T13:22:09Z"
+    "updated": "2026-09-28T16:33:11Z"
   },
   "plan": {
     "title": "Module 6 Part B requires authoring a schema-0.8 scope JSON, but no module shows a scope xBRIEF shape; the solution is the only template",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Give Module 6 learners a labeled field-identity skeleton before they must author a schema-0.8 proposed scope, while keeping the complete worked artifact in the solution. The specimen must distinguish schema requirements, legal optional fields, worksheet rubric requirements, and later swarm or evidence gates so passing validation is not mistaken for completing O6.2.",
       "UserStory": "As a Directive learner, I want a minimal labeled scope xBRIEF specimen before the Module 6 exercise, so that I can author the required artifact without reverse-engineering the answer key.",
@@ -19,34 +19,58 @@
     "items": [
       {
         "title": "Land one labeled JSON fence (or a JSON fence plus a field-legend table) in Module 6 Part B / the worksheet the recovery row cites. Keep Module 4 on card-level facts. Keep the solution's two-item JSON as the complete worked artifact. Point Module 6:524 at that worksheet specimen.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.1",
         "narrative": {
           "Acceptance": "Given Module 6 Part B, when a learner follows the recovery row, then it redirects to a labeled same-page JSON field-identity skeleton, Module 4 remains untouched, and focused Module 6 tests fail if the specimen or recovery link disappears."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-module-6.test.mjs",
+          "recorded_at": "2026-09-28T16:33:02Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
         "title": "Label each shown field as one of: schema-required (verify-enforced), schema-legal-optional, this-worksheet (O6.2 rubric), or later-gate (swarm-ready / `x-directive/evidence`). Item `pending` stays schema-legal; this worksheet can prefer item `proposed` to match `plan.status`. String `narrative.Traces` is the course home for the required trace; string `narrative.Evidence` is schema-legal and is a different field from `x-directive/evidence`. Keep the existing verify-versus-rubric table.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.2",
         "narrative": {
           "Acceptance": "Given the specimen and legend, when each shown field is inspected, then it displays one of the four required identity layers, distinguishes `narrative.Evidence` from `x-directive/evidence`, locates the required trace in string `narrative.Traces`, and preserves the verify-versus-rubric table."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "curriculum/modules/06-creating-well-shaped-work.md",
+          "recorded_at": "2026-09-28T16:33:02Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
         "title": "Caption the new fence as a field-identity skeleton. State on the same page that O6.2 still needs two to five items, each with a string `Acceptance` and a trace, `plan.status: proposed`, schema `0.8`, and the no-authority sentence. Align the walkthrough's \"one item\" line with that rubric, or mark the walkthrough as a shaping sketch whose Part B count wins.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.3",
         "narrative": {
           "Acceptance": "Given the one-item shaping specimen, when a learner reads its caption and adjacent rubric, then the page shows that O6.2 still requires schema 0.8, proposed status, two-to-five traced items, string Acceptance, and the no-authority boundary."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-module-6.test.mjs",
+          "recorded_at": "2026-09-28T16:33:02Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
         "title": "On the Part B skeleton: `plan.id` (worksheet story ID; optional for verify), `plan.title`, `plan.status: proposed`, one shown item with `title`, `status`, and string `narrative.Acceptance` plus `narrative.Traces`, and a legend that `effort` and `plan.metadata.kind` / `swarm` are optional for this proposed candidate. `kind: \"story\"` is the story-taxonomy value when present. Swarm-ready `readiness: \"ready\"` stays the later allocation contract. The solution may keep its `needs_refinement` block as unreadiness pedagogy in the answer key.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.4",
         "narrative": {
           "Acceptance": "Given the focused Module 6 checks, when the skeleton is verified, then it shows plan id, title, proposed status, and one item with title, status, string Acceptance, and Traces while the legend marks effort, kind, and swarm as optional and reserves readiness `ready` for later allocation."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-module-6.test.mjs",
+          "recorded_at": "2026-09-28T16:33:02Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       }
     ],
@@ -328,6 +352,30 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "2fdcf41314d19098c2ed2aff12996ec6bd454184a4ec9e81a8da35a966c3125a"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 107,
+        "prBase": "master",
+        "mergeCommit": "2fb0ba145a67154ecddef7633f51a9c191266c74",
+        "deliveryBranch": "master",
+        "deliveryCommit": "2fb0ba145a67154ecddef7633f51a9c191266c74",
+        "verifiedAt": "2026-09-28T16:33:11Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "01a0e58a-5f52-7cd0-bb49-952e46176e93"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-28T16:33:11Z",
+      "completedSessionId": "01a0e58a-5f52-7cd0-bb49-952e46176e93",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-28T16:33:11Z"
       }
     },
     "acceptance": {
@@ -345,7 +393,7 @@
         {
           "id": 1,
           "text": "Land one labeled JSON fence (or a JSON fence plus a field-legend table) in Module 6 Part B / the worksheet the recovery row cites. Keep Module 4 on card-level facts. Keep the solution's two-item JSON as the complete worked artifact. Point Module 6:524 at that worksheet specimen.",
-          "artifact_path": null,
+          "artifact_path": "scripts/verify-module-6.test.mjs",
           "ambiguous": false,
           "provenance": "statement"
         },
@@ -359,14 +407,14 @@
         {
           "id": 3,
           "text": "Caption the new fence as a field-identity skeleton. State on the same page that O6.2 still needs two to five items, each with a string `Acceptance` and a trace, `plan.status: proposed`, schema `0.8`, and the no-authority sentence. Align the walkthrough's \"one item\" line with that rubric, or mark the walkthrough as a shaping sketch whose Part B count wins.",
-          "artifact_path": null,
+          "artifact_path": "scripts/verify-module-6.test.mjs",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 4,
           "text": "On the Part B skeleton: `plan.id` (worksheet story ID; optional for verify), `plan.title`, `plan.status: proposed`, one shown item with `title`, `status`, and string `narrative.Acceptance` plus `narrative.Traces`, and a legend that `effort` and `plan.metadata.kind` / `swarm` are optional for this proposed candidate. `kind: \"story\"` is the story-taxonomy value when present. Swarm-ready `readiness: \"ready\"` stays the later allocation contract. The solution may keep its `needs_refinement` block as unreadiness pedagogy in the answer key.",
-          "artifact_path": null,
+          "artifact_path": "scripts/verify-module-6.test.mjs",
           "ambiguous": false,
           "provenance": "statement"
         }
@@ -374,6 +422,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5586668254",
-    "updated": "2026-09-28T13:22:09Z"
+    "updated": "2026-09-28T16:33:11Z"
   }
 }
