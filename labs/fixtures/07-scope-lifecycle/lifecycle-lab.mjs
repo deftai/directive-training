@@ -464,9 +464,13 @@ export function previewReclaim(temporaryRoot = realpathSync(tmpdir())) {
   canonicalReclaimDirectory(archiveRoot);
   return readdirSync(archiveRoot, { withFileTypes: true })
     .filter((entry) => entry.name.startsWith("3ci-directive-lab07-"))
-    .map((entry) => {
-      assert.ok(entry.isDirectory() && !entry.isSymbolicLink(), "Stop: reclaim archive path is a symlink: " + join(archiveRoot, entry.name) + ".");
-      return verifyArchivedAttempt(join(archiveRoot, entry.name), temporaryRoot);
+    .flatMap((entry) => {
+      if (!entry.isDirectory() || entry.isSymbolicLink()) return [];
+      try {
+        return [verifyArchivedAttempt(join(archiveRoot, entry.name), temporaryRoot)];
+      } catch {
+        return [];
+      }
     })
     .sort();
 }

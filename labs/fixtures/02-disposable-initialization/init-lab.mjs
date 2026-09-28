@@ -13,6 +13,7 @@ import {
   realpathSync,
   renameSync,
   rmSync,
+  unlinkSync,
   writeFileSync,
 } from "node:fs";
 import { devNull, tmpdir } from "node:os";
@@ -324,25 +325,80 @@ export function createAttempt() {
  * fence must re-derive. Caller PATH and npm user configuration are deliberately absent: nothing about
  * the creating shell may be replayed into a later attempt.
  */
-function seedAttempt(parent, attemptPrefix) {
+function seedAttempt(parent, attemptPrefix, { beforeGitInit } = {}) {
+  assert.ok(beforeGitInit === undefined || typeof beforeGitInit === "function", "Stop: invalid attempt-seeding callback.");
   const fixture = join(fixtureDirectory, "package.json");
   assert.ok(existsSync(fixture), "Stop: run create from the original course fixture, not from an edited attempt.");
   const root = canonicalPath(mkdtempSync(join(parent, attemptPrefix)));
-  copyFileSync(fixture, join(root, "package.json"));
-  writeFileSync(join(root, ".gitignore"), gitignoreText, { flag: "wx" });
-  writeFileSync(join(root, ".npmrc"), npmrcText, { flag: "wx" });
-  writeFileSync(
-    join(parent, "lab-state.json"),
-    JSON.stringify({ schema: "3ci.training.module02.lab-state.v1", lab: labId, root, fixtureDigest: digest(readText(fixture)) }, null, 2) + "\n",
-  );
-  runGit(root, ["init", "--initial-branch=main"]);
-  runGit(root, ["switch", "-c", labBranch]);
-  guardAttempt(root);
-  return root;
+  const markerPath = join(parent, "lab-state.json");
+  try {
+    copyFileSync(fixture, join(root, "package.json"));
+    writeFileSync(join(root, ".gitignore"), gitignoreText, { flag: "wx" });
+    writeFileSync(join(root, ".npmrc"), npmrcText, { flag: "wx" });
+    beforeGitInit?.(root);
+    runGit(root, ["init", "--initial-branch=main"]);
+    runGit(root, ["switch", "-c", labBranch]);
+    verifyAttemptRepository(root);
+    writeLabMarker(markerPath, root, fixture);
+    return root;
+  } catch (error) {
+    try {
+      rollbackIncompleteSeed(root, parent);
+    } catch (rollbackError) {
+      throw new AggregateError(
+        [error, rollbackError],
+        "Stop: reset rollback could not remove the incomplete attempt at " + root + ". Do not archive the parent until approved cleanup removes that exact path.",
+      );
+    }
+    throw error;
+  }
 }
 
-/** Verify only the immutable identity a reset or recoverable archive needs, without the pin or fixture digest. */
-function verifyAttemptIdentity(input) {
+function rollbackIncompleteSeed(root, parent) {
+  assert.equal(dirname(root), parent, "Stop: reset rollback escaped the guarded Module 2 parent.");
+  assert.ok(attemptPattern.test(basename(root)), "Stop: reset rollback received an invalid attempt identity.");
+  assert.ok(existsSync(root), "Stop: reset rollback could not find its incomplete attempt.");
+  assert.ok(lstatSync(root).isDirectory() && !lstatSync(root).isSymbolicLink(), "Stop: reset rollback refuses a linked attempt.");
+  assert.equal(canonicalPath(root), root, "Stop: reset rollback refuses a reshaped attempt path.");
+  rmSync(root, { force: true, recursive: true });
+  assert.equal(existsSync(root), false, "Stop: reset rollback did not remove its incomplete attempt.");
+}
+
+function writeFileAtomically(path, text) {
+  const candidate = path + "." + randomUUID() + ".tmp";
+  try {
+    writeFileSync(candidate, text, { flag: "wx" });
+    renameSync(candidate, path);
+  } finally {
+    if (existsSync(candidate)) unlinkSync(candidate);
+  }
+}
+
+function writeLabMarker(markerPath, root, fixture) {
+  writeFileAtomically(
+    markerPath,
+    JSON.stringify({ schema: "3ci.training.module02.lab-state.v1", lab: labId, root, fixtureDigest: digest(readText(fixture)) }, null, 2) + "\n",
+  );
+}
+
+function readPlainMarker(parent) {
+  const markerPath = join(parent, "lab-state.json");
+  assert.ok(existsSync(markerPath), "Stop: the Module 2 lab marker is missing.");
+  const markerStat = lstatSync(markerPath);
+  assert.ok(markerStat.isFile() && !markerStat.isSymbolicLink(), "Stop: the Module 2 lab marker must be a plain file.");
+  return readJson(markerPath);
+}
+
+function verifyPlainEvidence(parent) {
+  const evidencePath = join(parent, "evidence.md");
+  assert.ok(existsSync(evidencePath), "Stop: the Module 2 evidence note is missing.");
+  const evidenceStat = lstatSync(evidencePath);
+  assert.ok(evidenceStat.isFile() && !evidenceStat.isSymbolicLink(), "Stop: the Module 2 evidence note must be a plain file.");
+  return evidencePath;
+}
+
+/** Verify the plain no-remote repository identity without consulting the parent's current marker. */
+function verifyAttemptRepository(input) {
   const root = canonicalRoot(input);
   const parent = dirname(root);
   const temporaryRoot = canonicalPath(tmpdir());
@@ -354,8 +410,6 @@ function verifyAttemptIdentity(input) {
   assert.ok(!lstatSync(parent).isSymbolicLink() && !lstatSync(root).isSymbolicLink(), "Stop: the lab parent or lab root is a symlink.");
   assert.ok(!isInside(courseRoot, root), "Stop: the lab is inside the curriculum clone.");
   assertNotInsideGitRepository(parent);
-  const marker = readJson(join(parent, "lab-state.json"));
-  assert.ok(marker.lab === labId, "Stop: lab marker mismatch.");
   assert.ok(existsSync(join(root, ".git")) && lstatSync(join(root, ".git")).isDirectory(), "Stop: .git is missing.");
   assert.equal(
     canonicalPath(runGit(root, ["rev-parse", "--show-toplevel"]).trim()),
@@ -364,6 +418,14 @@ function verifyAttemptIdentity(input) {
   );
   assert.equal(runGit(root, ["remote"]).trim(), "", "Stop: the disposable repository has a Git remote.");
   assert.equal(runGit(root, ["branch", "--show-current"]).trim(), labBranch, "Stop: expected " + labBranch + ".");
+  return { root, parent };
+}
+
+/** Verify only the immutable identity a reset or recoverable archive needs, without the pin or fixture digest. */
+function verifyAttemptIdentity(input) {
+  const { root, parent } = verifyAttemptRepository(input);
+  const marker = readPlainMarker(parent);
+  assert.ok(marker.lab === labId, "Stop: lab marker mismatch.");
   return { root, parent, marker };
 }
 
@@ -377,7 +439,7 @@ export function guardAttempt(input) {
 }
 
 /** Create the next attempt beside the preserved failed one, inside the same guarded parent. */
-export function resetAttempt(input) {
+export function resetAttempt(input, seedOptions) {
   if (
     typeof input === "string" && isAbsolute(input) && resolve(input) === input &&
     basename(input) === "lab-parent" && archivePattern.test(basename(dirname(input)))
@@ -391,7 +453,7 @@ export function resetAttempt(input) {
     .map((entry) => Number.parseInt(entry.name.slice("attempt-".length, "attempt-".length + 2), 10));
   const next = Math.max(0, ...used) + 1;
   assert.ok(next <= 99, "Stop: this guarded parent already holds 99 attempts; create a new parent.");
-  return seedAttempt(parent, "attempt-" + String(next).padStart(2, "0") + ".");
+  return seedAttempt(parent, "attempt-" + String(next).padStart(2, "0") + ".", seedOptions);
 }
 
 /** Install the exact pin, prove the project-local launchers, initialize, inspect staging, and commit. */
@@ -514,29 +576,23 @@ export function acceptAttempt(input) {
 
 /** Move the exact lab parent into a new temporary archive and verify every archived attempt. */
 export function archiveAttempt(input) {
-  const { parent } = verifyAttemptIdentity(input);
+  const { parent, marker } = verifyAttemptIdentity(input);
   const temporaryRoot = dirname(parent);
   assert.ok(!isInside(parent, canonicalPath(process.cwd())), "Stop: run archive from outside the attempt parent.");
+  verifyPlainEvidence(parent);
+  const attemptRoots = readdirSync(parent, { withFileTypes: true })
+    .filter((entry) => attemptPattern.test(entry.name))
+    .map((entry) => {
+      assert.ok(entry.isDirectory() && !entry.isSymbolicLink(), "Stop: the Module 2 parent contains an invalid attempt entry: " + entry.name + ".");
+      return verifyAttemptRepository(join(parent, entry.name)).root;
+    });
+  assert.ok(attemptRoots.length >= 1 && attemptRoots.includes(marker.root), "Stop: the Module 2 parent marker does not name a valid attempt.");
   const archiveRoot = canonicalPath(mkdtempSync(join(temporaryRoot, archivePrefix)));
   const archiveTarget = join(archiveRoot, "lab-parent");
   assert.ok(!existsSync(archiveTarget), "Stop: archive destination already exists.");
   renameSync(parent, archiveTarget);
   assert.ok(!existsSync(parent) && existsSync(archiveTarget), "Stop: the archive move did not complete.");
-  assert.ok(existsSync(join(archiveTarget, "evidence.md")), "Stop: archived evidence note is missing.");
-  let attemptCount = 0;
-  for (const entry of readdirSync(archiveTarget, { withFileTypes: true })) {
-    if (!entry.isDirectory() || !attemptPattern.test(entry.name)) continue;
-    const archivedAttempt = join(archiveTarget, entry.name);
-    assert.ok(existsSync(join(archivedAttempt, ".git")), "Stop: archived attempt lacks .git: " + archivedAttempt + ".");
-    assert.equal(
-      canonicalPath(runGit(archivedAttempt, ["rev-parse", "--show-toplevel"]).trim()),
-      canonicalPath(archivedAttempt),
-      "Stop: archived Git root differs from the attempt path.",
-    );
-    assert.equal(runGit(archivedAttempt, ["remote"]).trim(), "", "Stop: archived attempt has a remote: " + archivedAttempt + ".");
-    attemptCount += 1;
-  }
-  assert.ok(attemptCount >= 1, "Stop: no archived attempts found.");
+  verifyArchivedModule02(archiveRoot, temporaryRoot);
   return archiveTarget;
 }
 
@@ -560,9 +616,7 @@ function verifyArchivedModule02(archiveRoot, temporaryRoot) {
   assert.deepEqual(entries.map((entry) => entry.name), ["lab-parent"], "Stop: Module 2 archive identity mismatch.");
   assert.ok(entries[0].isDirectory() && !entries[0].isSymbolicLink(), "Stop: Module 2 archived parent is a symlink.");
   const archivedParent = canonicalReclaimRoot(join(archiveRoot, "lab-parent"));
-  const markerPath = join(archivedParent, "lab-state.json");
-  assert.ok(existsSync(markerPath) && lstatSync(markerPath).isFile() && !lstatSync(markerPath).isSymbolicLink(), "Stop: Module 2 archive marker mismatch.");
-  const marker = readJson(markerPath);
+  const marker = readPlainMarker(archivedParent);
   assert.equal(marker.lab, labId, "Stop: Module 2 archive marker mismatch.");
   assert.ok(typeof marker.root === "string" && isAbsolute(marker.root) && resolve(marker.root) === marker.root, "Stop: Module 2 archive marker mismatch.");
   const originalParent = dirname(marker.root);
@@ -581,11 +635,12 @@ function verifyArchivedModule02(archiveRoot, temporaryRoot) {
     const gitDirectory = join(archivedAttempt, ".git");
     assert.ok(existsSync(gitDirectory) && lstatSync(gitDirectory).isDirectory() && !lstatSync(gitDirectory).isSymbolicLink(), "Stop: Module 2 archived attempt lacks a plain .git directory.");
     assert.equal(canonicalPath(runGit(archivedAttempt, ["rev-parse", "--show-toplevel"]).trim()), archivedAttempt, "Stop: archived Git root differs from the attempt path.");
-    assert.equal(runGit(archivedAttempt, ["remote"]).trim(), "", "Stop: archived Module 2 attempt has a Git remote.");
+    assert.equal(runGit(archivedAttempt, ["remote"]).trim(), "", "Stop: archived attempt has a remote: " + archivedAttempt + ".");
     assert.equal(runGit(archivedAttempt, ["branch", "--show-current"]).trim(), labBranch, "Stop: archived Module 2 attempt is on the wrong branch.");
     attemptCount += 1;
   }
-  assert.ok(attemptCount >= 1 && existsSync(join(archivedParent, "evidence.md")), "Stop: Module 2 archive identity mismatch.");
+  verifyPlainEvidence(archivedParent);
+  assert.ok(attemptCount >= 1, "Stop: Module 2 archive identity mismatch.");
   return archiveRoot;
 }
 
@@ -594,9 +649,13 @@ export function previewReclaim(temporaryRoot = canonicalPath(tmpdir())) {
   temporaryRoot = canonicalReclaimRoot(temporaryRoot);
   return readdirSync(temporaryRoot, { withFileTypes: true })
     .filter((entry) => entry.name.startsWith(archivePrefix))
-    .map((entry) => {
-      assert.ok(entry.isDirectory() && !entry.isSymbolicLink(), "Stop: reclaim archive path is a symlink: " + join(temporaryRoot, entry.name) + ".");
-      return verifyArchivedModule02(join(temporaryRoot, entry.name), temporaryRoot);
+    .flatMap((entry) => {
+      if (!entry.isDirectory() || entry.isSymbolicLink()) return [];
+      try {
+        return [verifyArchivedModule02(join(temporaryRoot, entry.name), temporaryRoot)];
+      } catch {
+        return [];
+      }
     })
     .sort();
 }

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, writeFileSync } from "node:fs";
+import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, dirname, join } from "node:path";
 import { after, afterEach, test } from "node:test";
@@ -202,6 +202,45 @@ test("reset preserves the failed attempt and seeds the next one in the same guar
   assert.equal(existsSync(dirname(first)), false);
 });
 
+test("reset rolls back a helper-created sibling when seeding stops before Git initialization", () => {
+  const first = createAttempt();
+  const parent = dirname(first);
+  const markerBefore = read(join(parent, "lab-state.json"));
+  let incompleteRoot;
+
+  assert.throws(
+    () => resetAttemptRaw(first, {
+      beforeGitInit(root) {
+        incompleteRoot = root;
+        assert.equal(existsSync(join(root, ".git")), false, "the fault seam must run before Git initialization");
+        assert.equal(read(join(parent, "lab-state.json")), markerBefore, "the new root must not be published before Git initialization");
+        const error = new Error("simulated ENOSPC before Git initialization");
+        error.code = "ENOSPC";
+        throw error;
+      },
+    }),
+    (error) => error.code === "ENOSPC" && /simulated ENOSPC/.test(error.message),
+  );
+
+  assert.ok(incompleteRoot, "the fault seam must expose the exact helper-created sibling");
+  assert.equal(existsSync(incompleteRoot), false, "reset must remove only the exact unpublished sibling");
+  assert.equal(read(join(parent, "lab-state.json")), markerBefore, "a failed reset must preserve the last valid marker");
+  assert.deepEqual(
+    readdirSync(parent, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && entry.name.startsWith("attempt-"))
+      .map((entry) => entry.name),
+    [basename(first)],
+    "a failed reset must remove only its own incomplete sibling",
+  );
+  assert.equal(guardAttempt(first), first);
+  assert.equal(existsSync(join(parent, "evidence.md")), true, "reset rollback must preserve retained evidence");
+
+  const archiveRoot = dirname(archiveAttempt(first));
+  assert.ok(previewReclaim().includes(archiveRoot), "the preserved installed attempt must remain reclaimable");
+  reclaimArchives([archiveRoot], { confirmed: true });
+  assert.equal(existsSync(archiveRoot), false, "confirmed reclaim must remove the archived prior attempt");
+});
+
 test("archive refuses to move the parent out from under the caller", () => {
   const root = createAttempt();
   const previous = process.cwd();
@@ -212,6 +251,21 @@ test("archive refuses to move the parent out from under the caller", () => {
     process.chdir(previous);
   }
   assert.equal(guardAttempt(root), root);
+  archiveAttempt(root);
+});
+
+test("archive validates retained evidence before moving the Module 2 parent", () => {
+  const root = createAttempt();
+  const parent = dirname(root);
+  const evidence = join(parent, "evidence.md");
+  const retainedEvidence = join(parent, "evidence.retained.md");
+  renameSync(evidence, retainedEvidence);
+
+  assert.throws(() => archiveAttempt(root), /evidence note is missing/);
+  assert.equal(existsSync(parent), true, "an evidence refusal must leave the live parent in place");
+  assert.equal(guardAttempt(root), root, "an evidence refusal must preserve the valid printed root");
+
+  renameSync(retainedEvidence, evidence);
   archiveAttempt(root);
 });
 
@@ -232,8 +286,13 @@ test("reclaim previews without creating storage and deletes only a confirmed Mod
   mkdirSync(join(retired, ".npm-cache"));
   writeFileSync(join(retired, ".npm-cache", "retired.txt"), "remove\n");
   const archiveRoot = dirname(archiveAttempt(retired));
+  const invalidArchive = join(dirname(archiveRoot), "3ci-directive-module-02-archive.BAD001");
+  mkdirSync(invalidArchive);
 
   assert.ok(previewReclaim().includes(archiveRoot));
+  assert.equal(previewReclaim().includes(invalidArchive), false, "preview must skip an invalid matching archive without hiding valid targets");
+  assert.throws(() => reclaimArchives([invalidArchive], { confirmed: true }), /archive destination/);
+  rmSync(invalidArchive, { recursive: true });
   assert.match(main(["reclaim"]), /3ci-directive-module-02-archive\./);
   assert.throws(() => reclaimArchives([archiveRoot]), /explicit confirmation/);
   assert.throws(() => reclaimArchives([live], { confirmed: true }), /archive destination/);

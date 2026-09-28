@@ -84,6 +84,21 @@ conservative npm extraction slack. Required headroom is:
 current attempt + one reset attempt + npm extraction slack
 ```
 
+Before a first run, estimate from a recorded representative successful run on
+the same environment class. A matching record must name its date, pinned
+Directive version and package graph, filesystem, OS and architecture, runtime,
+registry route, and all three measured terms.
+
+If there is no matching record, use an approved bootstrap run on the intended
+temporary volume: first reclaim or clear that volume through the documented
+process, record its starting free bytes, then run one current install and one
+reset install while monitoring free space after every command. Stop immediately
+on `ENOSPC` and use the recovery below. The bootstrap does not verify the
+capacity prerequisite until both installed trees and extraction slack have been
+measured. If there is no matching record and no approved bootstrap volume with
+recoverable headroom, remain environment-blocked until the workstation owner
+provides one. Never treat a missing path as zero.
+
 For Labs 5, 7, 10, 11, and the capstone, measure each attempt parent so its
 marker and evidence are included. For Module 2, measure the two individual
 `attempt-*` roots because they share one parent. These commands make the
@@ -96,7 +111,7 @@ du -sk "$RESET_ROOT/.npm-cache" "$RESET_ROOT/node_modules"
 
 ```powershell
 function Get-LabTreeBytes([string]$Path) {
-  if (-not (Test-Path -LiteralPath $Path)) { return 0 }
+  if (-not (Test-Path -LiteralPath $Path)) { throw "Measure only an existing installed tree: $Path" }
   $sum = (Get-ChildItem -LiteralPath $Path -File -Recurse -Force |
     Measure-Object -Property Length -Sum).Sum
   if ($null -eq $sum) { return 0 }
@@ -132,13 +147,33 @@ Review the output, then confirm only exact older archive destinations it
 printed. Apply revalidates immediately before deletion and refuses a live
 attempt, this curriculum clone, a repository with a remote, a symlink, an
 identity mismatch, a relative path, or a path from another archive class.
+An invalid matching entry is omitted instead of blocking other valid archive
+destinations; confirming that omitted path is still refused.
 
 After capacity returns, archive the live failed parent with the lab's
 same-volume `archive` rename. Then use `reset <validated-archive-destination>`
-or the lab's documented `create` path to allocate the fresh attempt. Reclaim
-removes the confirmed archive and its contained cache only; it never deletes a
-live cache. Every npm cache remains attempt-local. Empty launcher directories
-are negligible bookkeeping and are not the primary remedy.
+or the lab's documented `create` path to allocate the fresh attempt.
+
+The live failed parent here is one whose `create` command completed and printed
+its repository root. `create` does not run package installation, so an ENOSPC
+from the later `install` leaves the marker and Git identity that `archive`
+validates even when the package tree is partial. If `create` itself stops before
+returning a root, do not guess a temporary path or pass a partial directory to
+`archive`; it contains no package-install payload. Reclaim a valid older archive
+and, after capacity returns, rerun the documented `create` path. An approved OS
+temporary cleanup can retire that incomplete launcher later.
+
+Module 2 also seeds a reset sibling transactionally. If that seed stops before
+Git initialization completes, the helper removes only the exact unpublished
+sibling that it just created and preserves the previous valid marker. The
+printed previous root can then be archived and reclaimed normally. If the
+helper reports that rollback itself could not complete, do not archive the
+parent; use the approved temporary-file cleanup on the named incomplete sibling
+first.
+
+Reclaim removes the confirmed archive and its contained cache only.
+It never deletes a live cache. Every npm cache remains attempt-local.
+Empty launcher directories are negligible bookkeeping and are not the primary remedy.
 
 ## Create a disposable repository
 
@@ -369,7 +404,7 @@ When a lab does not behave as documented:
 
 1. Confirm the repository path, remote boundary, shell, runtime, and Directive baseline.
 2. Read the exact error. Keep the command and exit code.
-3. If the error is `ENOSPC` or “no space left on device,” stop before any Route A, `reset`, or `create`. Run the matching helper's read-only reclaim preview, confirm only an exact older archive if one is available, archive the failed live parent after capacity returns, and then reset. Restart this order at step 1 with the fresh root.
+3. If the error is `ENOSPC` or “no space left on device,” stop before any Route A, `reset`, or `create`. Run the matching helper's read-only reclaim preview and confirm only an exact older archive if one is available. If a completed `create` printed the failed live root, archive the failed live parent after capacity returns and then reset. If `create` stopped before returning a root, do not guess a path; rerun `create` after reclaim restores capacity, as described above. Restart this order at step 1 with the fresh root.
 4. For any other error, use Hint 1, then Hint 2, then Hint 3.
 5. Match the symptom to the lab's recovery table.
 6. Retry only the affected checkpoint.

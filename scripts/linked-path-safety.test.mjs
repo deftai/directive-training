@@ -16,6 +16,11 @@ import { basename, dirname, join } from "node:path";
 import { after, test } from "node:test";
 import { fileURLToPath } from "node:url";
 import {
+  archiveAttempt as archiveModule02Attempt,
+  createAttempt as createModule02Attempt,
+  reclaimArchives as reclaimModule02Archives,
+} from "../labs/fixtures/02-disposable-initialization/init-lab.mjs";
+import {
   archiveAttempt as archiveAttemptRaw,
   checkpoint,
   createAttempt as createAttemptRaw,
@@ -150,6 +155,25 @@ linkedPathTest("Windows launcher and target symbolic links are rejected", () => 
   assert.throws(() => verifyLocalBinary(second, "win32"), /symlink/);
 });
 
+linkedPathTest("Module 2 archive rejects a linked marker before moving its live parent", () => {
+  const root = createModule02Attempt();
+  const parent = dirname(root);
+  const marker = join(parent, "lab-state.json");
+  const retainedMarker = join(parent, "lab-state.retained.json");
+  renameSync(marker, retainedMarker);
+  symlinkSync(retainedMarker, marker, "file");
+  try {
+    assert.throws(() => archiveModule02Attempt(root), /marker must be a plain file/);
+    assert.equal(existsSync(parent), true, "a linked marker refusal must leave the live parent in place");
+    assert.equal(existsSync(root), true, "a linked marker refusal must preserve the printed attempt");
+  } finally {
+    rmSync(marker, { force: true });
+    renameSync(retainedMarker, marker);
+  }
+  const archivedParent = archiveModule02Attempt(root);
+  reclaimModule02Archives([dirname(archivedParent)], { confirmed: true });
+});
+
 linkedPathTest("projection guard rejects symbolic source ancestors", () => {
   const root = createAttempt();
   renameSync(join(root, "xbrief"), join(root, "xbrief-original"));
@@ -205,8 +229,8 @@ linkedPathTest("reclaim revalidates archive candidates and their shared ancestor
   renameSync(archived, retainedCandidate);
   symlinkSync(retainedCandidate, archived, process.platform === "win32" ? "junction" : "dir");
   try {
-    assert.throws(() => previewReclaim(), /symlink/);
-    assert.throws(() => reclaimArchives([archived], { confirmed: true }), /symlink/);
+    assert.equal(previewReclaim().includes(archived), false, "preview must omit a linked archive candidate");
+    assert.throws(() => reclaimArchives([archived], { confirmed: true }), /archive destination/);
     assert.equal(existsSync(retainedCandidate), true, "reclaim must not follow a swapped candidate link");
   } finally {
     rmSync(archived, { force: true });

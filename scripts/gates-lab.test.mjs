@@ -204,8 +204,13 @@ test("reclaim previews at zero-allocation and removes only a confirmed Module 11
   const retired = createAttempt();
   mkdirSync(join(retired, ".npm-cache"));
   const archived = archiveAttempt(retired);
+  const invalidArchive = join(dirname(archived), "3ci-directive-lab11-BAD001");
+  mkdirSync(invalidArchive);
 
   assert.ok(previewReclaim().includes(archived));
+  assert.equal(previewReclaim().includes(invalidArchive), false, "preview must skip an invalid matching archive without hiding valid targets");
+  assert.throws(() => reclaimArchives([invalidArchive], { confirmed: true }), /archive destination/);
+  rmSync(invalidArchive, { recursive: true });
   assert.ok(main(["reclaim"]).split(/\r?\n/).includes(archived));
   assert.throws(() => reclaimArchives([archived]), /explicit confirmation/);
   assert.throws(() => reclaimArchives([live], { confirmed: true }), /archive destination/);

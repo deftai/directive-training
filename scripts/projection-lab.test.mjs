@@ -154,20 +154,32 @@ test("reclaim preview is read-only and confirmed apply removes only an archived 
 test("reclaim refuses an archived remote or mismatched identity without deleting evidence", () => {
   const root = createAttempt();
   const archived = archiveAttempt(root);
+  const healthy = archiveAttempt(createAttempt());
   const configPath = join(archived, "repo/.git/config");
   const originalConfig = read(configPath);
-  writeFileSync(configPath, originalConfig + '\n[remote "unexpected"]\n\turl = https://example.invalid/fictional.git\n');
-  assert.throws(() => previewReclaim(), /Git remote/);
-  assert.equal(existsSync(join(archived, "evidence.md")), true);
-  writeFileSync(configPath, originalConfig);
+  try {
+    writeFileSync(configPath, originalConfig + '\n[remote "unexpected"]\n\turl = https://example.invalid/fictional.git\n');
+    assert.ok(previewReclaim().includes(healthy), "an invalid sibling must not hide a healthy reclaim target");
+    assert.equal(previewReclaim().includes(archived), false);
+    assert.throws(() => reclaimArchives([archived], { confirmed: true }), /archive destination/);
+    assert.equal(existsSync(join(archived, "evidence.md")), true);
+  } finally {
+    writeFileSync(configPath, originalConfig);
+  }
 
   const markerPath = join(archived, "lab-state.json");
   const originalMarker = read(markerPath);
-  writeFileSync(markerPath, originalMarker.replace('"module-05"', '"other-lab"'));
-  assert.throws(() => reclaimArchives([archived], { confirmed: true }), /marker mismatch/);
-  assert.equal(existsSync(join(archived, "evidence.md")), true);
-  writeFileSync(markerPath, originalMarker);
+  try {
+    writeFileSync(markerPath, originalMarker.replace('"module-05"', '"other-lab"'));
+    assert.ok(previewReclaim().includes(healthy), "a mismatched marker must not hide a healthy reclaim target");
+    assert.equal(previewReclaim().includes(archived), false);
+    assert.throws(() => reclaimArchives([archived], { confirmed: true }), /archive destination/);
+    assert.equal(existsSync(join(archived, "evidence.md")), true);
+  } finally {
+    writeFileSync(markerPath, originalMarker);
+  }
   reclaimArchives([archived], { confirmed: true });
+  reclaimArchives([healthy], { confirmed: true });
 });
 test("guard rejects curriculum and arbitrary roots before writes", () => {
   assert.throws(() => guardAttempt(new URL("../", import.meta.url).pathname), /temporary lab/);

@@ -256,6 +256,11 @@ export function assertDiskCapacityGuideContract(courseMap, labsGuide) {
 
   const capacity = rawHeadingSection(labsGuide, "Disk capacity and ENOSPC recovery");
   assert.match(capacity, /representative successful run[\s\S]{0,120}fully installed current attempt[\s\S]{0,120}one fully installed reset attempt/i, "lab environment guide must size from representative installed attempts");
+  assert.match(capacity, /Before a first run[\s\S]{0,120}estimate[\s\S]{0,180}representative successful\s+run[\s\S]{0,180}same\s+environment/i, "lab environment guide must distinguish first-run estimation from measured capacity");
+  assert.match(capacity, /matching record[\s\S]{0,260}(?:version|package graph)[\s\S]{0,260}(?:measured terms|three terms)/i, "a first-run record must carry enough applicability evidence to be actionable");
+  assert.match(capacity, /no matching record[\s\S]{0,260}approved bootstrap[\s\S]{0,260}monitor/i, "the first-run guide must supply a safe bootstrap path when no matching record exists");
+  assert.match(capacity, /no matching record[\s\S]{0,500}no approved bootstrap[\s\S]{0,160}environment-blocked/i, "the first-run guide must stop when neither evidence path is available");
+  assert.match(capacity, /if \(-not \(Test-Path -LiteralPath \$Path\)\) \{ throw /, "PowerShell capacity measurement must reject a missing tree instead of counting it as zero");
   assert.match(capacity, /current attempt \+ one reset attempt \+ npm extraction slack/i, "lab environment guide is missing the exact peak-space recipe");
   assert.match(capacity, /no universal\s+20 GB minimum/i, "lab environment guide must reject a universal 20 GB minimum");
   assert.match(capacity, /ENOSPC[\s\S]{0,80}no space left on device[\s\S]{0,100}environment stop/i, "lab environment guide must classify ENOSPC as an environment stop");
@@ -269,6 +274,9 @@ export function assertDiskCapacityGuideContract(courseMap, labsGuide) {
     assert.ok(normalizedCapacity.includes(unsafe), `lab environment guide reclaim must reject ${unsafe}`);
   }
   assert.match(capacity, /After capacity returns[\s\S]{0,120}archive the live failed parent[\s\S]{0,120}(?:reset|create)[\s\S]{0,80}fresh attempt/i, "lab environment guide must reclaim, archive, then replace the attempt");
+  assert.match(capacity, /live failed parent[\s\S]{0,120}\bcreate\b[\s\S]{0,100}printed[\s\S]{0,80}repository root/i, "lab environment guide must identify an archivable failed parent by the printed create root");
+  assert.match(capacity, /\bcreate\b[\s\S]{0,80}does not run package installation[\s\S]{0,140}later\s+`install`[\s\S]{0,180}package tree is partial/i, "lab environment guide must distinguish a partial install from create");
+  assert.match(capacity, /create`? itself stops before[\s\S]{0,80}returning a root[\s\S]{0,220}reclaim a valid older archive[\s\S]{0,140}rerun[\s\S]{0,80}\bcreate\b/i, "lab environment guide must route an interrupted create without guessing a partial path");
   assert.match(capacity, /confirmed archive[\s\S]{0,80}contained cache only[\s\S]{0,100}never deletes a\s+live cache/i, "lab environment guide must bound deletion to the confirmed archive and its cache");
   assert.match(capacity, /Every npm cache remains attempt-local/i, "lab environment guide must prohibit shared npm caches");
   assert.match(capacity, /Empty launcher directories[\s\S]{0,100}not the primary remedy/i, "lab environment guide must reject empty-launcher cleanup as the remedy");
