@@ -2,7 +2,16 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { courseModuleRow, markdownParts, moduleHeadings, section, solutionHeadings, verifyLinks } from "./verify-modules-4-5.mjs";
+import {
+  assertEnospcLabContract,
+  assertReclaimHelperContract,
+  courseModuleRow,
+  markdownParts,
+  moduleHeadings,
+  section,
+  solutionHeadings,
+  verifyLinks,
+} from "./verify-modules-4-5.mjs";
 import { assertTeachingBaselinePin } from "./teaching-baseline.mjs";
 
 const module7 = "curriculum/modules/07-scope-lifecycle.md";
@@ -34,7 +43,8 @@ const outcomes = ["O7.1", "O7.2", "O7.3", "O7.4"];
 const hasExactIdentifier = (text, identifier) => (text.match(/[A-Za-z0-9]+(?:[_.-][A-Za-z0-9]+)*/g) ?? []).includes(identifier);
 const unfinished = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
 const forbiddenShell = /\b(?:git\s+(?:push\b|remote\s+(?:add|remove|rename|set-url|prune|update)\b|reset\s+--hard\b|clean\b|branch\s+-D\b)|gh\s+(?:pr|issue|api|repo)\b|npm\s+publish\b|(?:directive|deft)\s+(?:deploy|publish|release)\b|rm\s+-[\w-]*r|Remove-Item\b|(?:del|rmdir)\s+\/s\b|curl\b|wget\b|Invoke-WebRequest\b|Invoke-RestMethod\b)/i;
-const forbiddenFixture = /\bgit\s+push\b|\bgh\s+(?:pr|issue|api|repo)\b|\brmSync\s*\(|\bunlinkSync\s*\(/i;
+// Reclaim owns one narrowly validated rmSync call; every other destructive primitive stays banned.
+const forbiddenFixture = /\bgit\s+push\b|\bgh\s+(?:pr|issue|api|repo)\b|\bunlinkSync\s*\(/i;
 
 function exactBaseline(path, prose, heading) {
   const row = section(prose, heading).match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
@@ -323,12 +333,21 @@ export function verifyModule7(root = fileURLToPath(new URL("../", import.meta.ur
   assert.match(labBlocks, /\[ -n "\$python_directory" \] \|\| continue\s+python_candidate="\$python_directory\/\$python_name"\s+if \[ -e "\$python_candidate" \]; then\s+python_command="\$python_candidate"\s+break 2[\s\S]*"\$python_command" --version/, pythonPreflightMessage);
   assert.doesNotMatch(labBlocks, /command -v python(?:3)?/, "Lab 7 Python preflight must not use shell-only resolution");
   assert.match(labBlocks, /helper="[^"\n]*lifecycle-lab\.mjs"/, `${lab7} must bind the supplied lifecycle helper`);
-  for (const command of ["create", "install", "run", "reset", "archive"]) assert.match(labBlocks, new RegExp(`node\\s+"\\$helper"\\s+${command}\\b`), `${lab7} must include the ${command} helper command`);
+  for (const command of ["create", "install", "run", "reset", "archive", "reclaim"]) assert.match(labBlocks, new RegExp(`node\\s+"\\$helper"\\s+${command}\\b`), `${lab7} must include the ${command} helper command`);
   assert.match(labBlocks, /run[^\n]*--intent=implement/, `${lab7} run must carry explicit live implementation intent`);
 
   const helperBody = content.get(helper);
   const safetyBody = content.get(safety);
   assert.doesNotMatch(helperBody + "\n" + safetyBody, forbiddenFixture, "fixture contains a forbidden remote or destructive command");
+  assertEnospcLabContract(content.get(lab7), {
+    label: "Lab 7",
+    archiveClass: "3ci-directive-lab07-<unique>",
+  });
+  assertReclaimHelperContract(helperBody, {
+    label: "Lab 7 helper",
+    archiveDirectoryName: "3ci-directive-lab-archive",
+    archivePrefix: "3ci-directive-lab07-",
+  });
   for (const token of ["mkdtempSync", "3ci-directive-lab07-", "assertNoGitRedirection", 'git(root, ["remote"])', "exact 0.119.9 pin required"]) assert.ok((helperBody + safetyBody).includes(token), `fixture is missing safety token: ${token}`);
   assert.match(safetyBody, /export function assertNoGitRedirection/, "fixture is missing the Git redirection guard");
   assert.match(safetyBody, /export function safePath/, "fixture is missing its path guard");

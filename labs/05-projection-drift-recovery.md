@@ -43,6 +43,10 @@ curriculum repository's root. The first helper reads course fixtures and creates
 repository in the operating system temporary directory. It does not initialize or edit the
 curriculum checkout. Use the command blocks for your shell throughout the lab.
 
+Before `create`, use the [shared capacity recipe](README.md#disk-capacity-and-enospc-recovery)
+on this temporary volume. Measure the current attempt, one reset attempt, and npm
+extraction slack for this environment; there is no universal 20 GB floor.
+
 ### Create the exact disposable fixture
 
 ```sh
@@ -465,9 +469,43 @@ description, change only the source purpose before repeating that sequence.
 | MAP is stale after simulated edit or source edit | Released freshness exits 1 | Guard, render, rerun the same check | Freshness exits 0 |
 | MAP remains stale immediately after rendering | Inspect source globs and compare the starting fixture | Preserve the failure and reset; never widen the glob to include the whole repository | Bounded `src/*.js` fixture has one file and freshness passes |
 | Helper rejects unexpected staged/untracked files or other source changes | Read the printed status/diff | Preserve evidence and reset; do not force-stage or weaken the helper | Clean checkpoint or purpose-only final diff |
+| `ENOSPC` or “no space left on device” | Confirm the temporary volume is full; do not retry allocation | Treat this as an environment stop. Use the bounded archive-reclaim sequence below; `create`, `reset`, and Route A remain blocked until capacity returns. | An older Lab 5 archive is reclaimed, the failed parent is archived, and a fresh guarded root is created |
 
 Expected stale exits are part of the exercise. Any other exit means the relevant checkpoint
 has not passed. The helpers do not erase a broken attempt.
+
+### Disk-full recovery
+
+Lab 5 shares the `3ci-directive-lab-archive` container but its helper previews
+only exact `3ci-directive-lab05-<unique>` children. Preview is read-only,
+creates no archive directory, and works with zero writable space:
+
+```sh
+helper="$fixture_dir/projection-lab.mjs"
+node "$helper" reclaim
+```
+
+If preview prints nothing, remain environment-blocked until an operator frees
+capacity. Otherwise review one older destination and use its exact printed
+absolute path:
+
+```sh
+helper="$fixture_dir/projection-lab.mjs"
+older_archive="/exact/older/lab05/archive/printed/by/reclaim"
+node "$helper" reclaim --confirm "$older_archive"
+failed_archive="$(node "$helper" archive "$lab_root")"
+lab_root="$(node "$helper" reset "$failed_archive")"
+node "$helper" guard "$lab_root"
+```
+
+The confirmed apply revalidates immediately before deletion and rejects a live
+attempt, the curriculum clone, a remote-bearing repository, a symlink, or an
+identity mismatch. It removes only the confirmed older archive, including that
+archive's local npm cache. It does not touch the live failed attempt or its
+cache. After capacity returns, `archive` preserves that failed parent by
+same-volume rename; only then does `reset` validate the archived identity and
+allocate the replacement. Never use a shared npm cache or empty launcher
+directory as a disk-space workaround.
 
 ## Reset to start
 

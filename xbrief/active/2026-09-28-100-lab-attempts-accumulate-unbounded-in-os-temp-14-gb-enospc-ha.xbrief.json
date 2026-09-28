@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #100",
-    "updated": "2026-09-28T12:49:52Z"
+    "updated": "2026-09-28T13:22:08Z"
   },
   "plan": {
     "title": "Lab attempts accumulate unbounded in OS temp (14 GB); ENOSPC halts the course mid-run with no sanctioned reclamation",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "Executable lab attempts and their per-attempt npm caches accumulate in OS temporary storage until an ENOSPC failure can stop the course without a recognized recovery. This story adds a measured disk-capacity contract and a guarded preview-then-apply reclaim path that can remove a confirmed older archive before any new archive directory is created, while preserving live attempts, the curriculum clone, remotes, symlinks, and the existing archive-as-rename behavior. Live attempts retain isolated caches; reclaim removes an archived attempt together with its contained cache.",
       "ImplementationPlan": "1. Add the ENOSPC environment-stop classification, peak-live-install measurement recipe, and reclaim-before-archive-before-reset ordering to `curriculum/README.md`, `labs/README.md`, and each executable lab page.\n2. Extend the six lab helper scripts with a consistent, read-only reclaim preview and confirmed apply verb over their exact existing archive destination classes. The preview must not create an archive directory; apply can reclaim a confirmed older archive first when the volume is full, after which the helper archives the live failed parent by same-volume rename and resets. Retain the existing identity, no-remote, clone, and symlink guards.\n3. Expand the focused lab, content-verifier, and linked-path test suites so evidence proves zero-free-space preview behavior, confirmation, exact deletion and cache-lifecycle boundaries, ENOSPC routing, and rejection of unsafe targets.",
@@ -23,6 +23,12 @@
         "id": "clause.1",
         "narrative": {
           "Acceptance": "When an executable lab reports ENOSPC or no space left, the course classifies it as an environment stop and blocks Route A, reset, and create until reclaim runs; focused verifiers reject restoration of the harmful routing."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "labs/README.md",
+          "recorded_at": "2026-09-28T14:52:39Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
@@ -31,6 +37,12 @@
         "id": "clause.2",
         "narrative": {
           "Acceptance": "Given the current attempt, one reset attempt, and npm extraction slack, the course displays a repeatable peak-space measurement recipe and does not present the reporter's 20 GB observation as a universal prerequisite floor."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "curriculum/README.md",
+          "recorded_at": "2026-09-28T14:52:39Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
@@ -39,6 +51,12 @@
         "id": "clause.3",
         "narrative": {
           "Acceptance": "Given a full temporary volume, reclaim preview creates no directories and prints only existing archive destinations the helper could have created; apply deletes only the confirmed archived paths while rejecting live attempt roots, the curriculum clone, remotes, symlinks, and mismatched identities, and leaves the live failed parent untouched until space exists for archive-as-rename before reset."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "labs/fixtures/02-disposable-initialization/init-lab.mjs",
+          "recorded_at": "2026-09-28T14:52:39Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
@@ -47,6 +65,12 @@
         "id": "clause.4",
         "narrative": {
           "Acceptance": "Given a reclaim run, each live attempt retains its isolated npm cache, deleting a confirmed archived attempt also deletes that archive's contained cache, archive remains a same-volume rename, and focused tests reject a shared npm-cache mechanism and reject empty-launcher deletion as the primary remedy."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/init-lab.test.mjs",
+          "recorded_at": "2026-09-28T14:52:39Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       }
     ],
@@ -84,21 +108,21 @@
         {
           "id": 2,
           "text": "The disk prerequisite binds as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Do not harvest 20 GB as the course-entry floor.",
-          "artifact_path": null,
+          "artifact_path": "curriculum/README.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 3,
           "text": "Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Preview is read-only and creates no archive directory. If ENOSPC leaves no room to create one, preview and confirm deletion of an already-archived destination first; only after capacity is reclaimed, archive the live failed parent by same-volume rename and then reset. Leftover empty launchers are not the 14 GB.",
-          "artifact_path": null,
+          "artifact_path": "labs/fixtures/02-disposable-initialization/init-lab.mjs",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 4,
           "text": "Leave shared npm cache off this harvest. Each live attempt keeps its isolated cache; reclaim deletes an archived attempt together with its contained cache.",
-          "artifact_path": null,
+          "artifact_path": "scripts/init-lab.test.mjs",
           "ambiguous": false,
           "provenance": "statement"
         }
@@ -390,6 +414,6 @@
       }
     },
     "id": "github.issue.5587628552",
-    "updated": "2026-09-28T12:49:52Z"
+    "updated": "2026-09-28T13:22:08Z"
   }
 }

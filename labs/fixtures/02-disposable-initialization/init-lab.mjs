@@ -12,6 +12,7 @@ import {
   readdirSync,
   realpathSync,
   renameSync,
+  rmSync,
   writeFileSync,
 } from "node:fs";
 import { devNull, tmpdir } from "node:os";
@@ -25,6 +26,8 @@ const labId = "module-02";
 const labBranch = "training/module-02";
 const parentPrefix = "3ci-directive-module-02.";
 const archivePrefix = "3ci-directive-module-02-archive.";
+const parentPattern = /^3ci-directive-module-02\.[A-Za-z0-9]{6}$/;
+const archivePattern = /^3ci-directive-module-02-archive\.[A-Za-z0-9]{6}$/;
 const attemptPattern = /^attempt-\d{2}\.[A-Za-z0-9]{6}$/;
 const checkpointSubject = "checkpoint: initialize fictional Directive consumer";
 const defaultChildTimeout = 180_000;
@@ -40,7 +43,11 @@ const rootArgumentRefusal =
   "Nothing was inspected and no boundary check ran, so this is a missing or relative paste, not a boundary stop.";
 const helperUsage =
   "Usage refusal: use create | guard <absolute-root> | install <absolute-root> | diagnose <absolute-root> | " +
-  "accept <absolute-root> | reset <absolute-root> | archive <absolute-root> | recovery-npmrc <absolute-root>.";
+  "accept <absolute-root> | reset <absolute-root> | archive <absolute-root> | reclaim [--confirm <absolute-archive>...] | recovery-npmrc <absolute-root>.";
+const reclaimConfirmationRefusal =
+  "Stop: reclaim apply requires explicit confirmation. Run reclaim to preview exact archive paths, then pass --confirm followed by only those paths.";
+const reclaimTargetRefusal =
+  "Stop: reclaim accepts only exact absolute canonical Module 2 archive destinations printed by the current preview.";
 const runtimeRefusal = (path) =>
   "Runtime refusal: the project-local binary is missing or not executable at " +
   path +
@@ -341,7 +348,7 @@ function verifyAttemptIdentity(input) {
   const temporaryRoot = canonicalPath(tmpdir());
   assert.ok(attemptPattern.test(basename(root)), "Stop: unsafe lab root: " + root + ".");
   assert.ok(
-    basename(parent).startsWith(parentPrefix) && dirname(parent) === temporaryRoot,
+    parentPattern.test(basename(parent)) && dirname(parent) === temporaryRoot,
     "Stop: unsafe lab parent: " + parent + ".",
   );
   assert.ok(!lstatSync(parent).isSymbolicLink() && !lstatSync(root).isSymbolicLink(), "Stop: the lab parent or lab root is a symlink.");
@@ -371,6 +378,13 @@ export function guardAttempt(input) {
 
 /** Create the next attempt beside the preserved failed one, inside the same guarded parent. */
 export function resetAttempt(input) {
+  if (
+    typeof input === "string" && isAbsolute(input) && resolve(input) === input &&
+    basename(input) === "lab-parent" && archivePattern.test(basename(dirname(input)))
+  ) {
+    verifyArchivedModule02(dirname(input), canonicalPath(tmpdir()));
+    return createAttempt();
+  }
   const { parent } = verifyAttemptIdentity(input);
   const used = readdirSync(parent, { withFileTypes: true })
     .filter((entry) => entry.isDirectory() && attemptPattern.test(entry.name))
@@ -526,6 +540,84 @@ export function archiveAttempt(input) {
   return archiveTarget;
 }
 
+function canonicalReclaimRoot(input) {
+  assert.ok(typeof input === "string" && isAbsolute(input) && resolve(input) === input, reclaimTargetRefusal);
+  assert.ok(existsSync(input), reclaimTargetRefusal);
+  assert.ok(!lstatSync(input).isSymbolicLink(), "Stop: reclaim archive path is a symlink: " + input + ".");
+  assert.ok(lstatSync(input).isDirectory(), reclaimTargetRefusal);
+  const canonical = canonicalPath(input);
+  assert.equal(canonical, input, reclaimTargetRefusal);
+  return canonical;
+}
+
+function verifyArchivedModule02(archiveRoot, temporaryRoot) {
+  assert.ok(
+    dirname(archiveRoot) === temporaryRoot && archivePattern.test(basename(archiveRoot)),
+    reclaimTargetRefusal,
+  );
+  canonicalReclaimRoot(archiveRoot);
+  const entries = readdirSync(archiveRoot, { withFileTypes: true });
+  assert.deepEqual(entries.map((entry) => entry.name), ["lab-parent"], "Stop: Module 2 archive identity mismatch.");
+  assert.ok(entries[0].isDirectory() && !entries[0].isSymbolicLink(), "Stop: Module 2 archived parent is a symlink.");
+  const archivedParent = canonicalReclaimRoot(join(archiveRoot, "lab-parent"));
+  const markerPath = join(archivedParent, "lab-state.json");
+  assert.ok(existsSync(markerPath) && lstatSync(markerPath).isFile() && !lstatSync(markerPath).isSymbolicLink(), "Stop: Module 2 archive marker mismatch.");
+  const marker = readJson(markerPath);
+  assert.equal(marker.lab, labId, "Stop: Module 2 archive marker mismatch.");
+  assert.ok(typeof marker.root === "string" && isAbsolute(marker.root) && resolve(marker.root) === marker.root, "Stop: Module 2 archive marker mismatch.");
+  const originalParent = dirname(marker.root);
+  assert.ok(
+    dirname(originalParent) === temporaryRoot && parentPattern.test(basename(originalParent)) && attemptPattern.test(basename(marker.root)),
+    "Stop: Module 2 archive marker mismatch.",
+  );
+  assert.equal(marker.root, join(originalParent, basename(marker.root)), "Stop: Module 2 archive marker mismatch.");
+  assert.ok(existsSync(join(archivedParent, basename(marker.root))), "Stop: Module 2 archive marker root is not present in the archive.");
+  assert.equal(basename(archivedParent), "lab-parent", "Stop: Module 2 archive identity mismatch.");
+  let attemptCount = 0;
+  for (const entry of readdirSync(archivedParent, { withFileTypes: true })) {
+    if (!attemptPattern.test(entry.name)) continue;
+    assert.ok(entry.isDirectory() && !entry.isSymbolicLink(), "Stop: Module 2 archived attempt is a symlink.");
+    const archivedAttempt = canonicalReclaimRoot(join(archivedParent, entry.name));
+    const gitDirectory = join(archivedAttempt, ".git");
+    assert.ok(existsSync(gitDirectory) && lstatSync(gitDirectory).isDirectory() && !lstatSync(gitDirectory).isSymbolicLink(), "Stop: Module 2 archived attempt lacks a plain .git directory.");
+    assert.equal(canonicalPath(runGit(archivedAttempt, ["rev-parse", "--show-toplevel"]).trim()), archivedAttempt, "Stop: archived Git root differs from the attempt path.");
+    assert.equal(runGit(archivedAttempt, ["remote"]).trim(), "", "Stop: archived Module 2 attempt has a Git remote.");
+    assert.equal(runGit(archivedAttempt, ["branch", "--show-current"]).trim(), labBranch, "Stop: archived Module 2 attempt is on the wrong branch.");
+    attemptCount += 1;
+  }
+  assert.ok(attemptCount >= 1 && existsSync(join(archivedParent, "evidence.md")), "Stop: Module 2 archive identity mismatch.");
+  return archiveRoot;
+}
+
+/** List exact existing Module 2 archive roots without creating any directory. */
+export function previewReclaim(temporaryRoot = canonicalPath(tmpdir())) {
+  temporaryRoot = canonicalReclaimRoot(temporaryRoot);
+  return readdirSync(temporaryRoot, { withFileTypes: true })
+    .filter((entry) => entry.name.startsWith(archivePrefix))
+    .map((entry) => {
+      assert.ok(entry.isDirectory() && !entry.isSymbolicLink(), "Stop: reclaim archive path is a symlink: " + join(temporaryRoot, entry.name) + ".");
+      return verifyArchivedModule02(join(temporaryRoot, entry.name), temporaryRoot);
+    })
+    .sort();
+}
+
+/** Delete only exact previewed Module 2 archives after an explicit confirmation token. */
+export function reclaimArchives(targets, { confirmed = false, temporaryRoot = canonicalPath(tmpdir()) } = {}) {
+  assert.equal(confirmed, true, reclaimConfirmationRefusal);
+  assert.ok(Array.isArray(targets) && targets.length > 0 && new Set(targets).size === targets.length, reclaimTargetRefusal);
+  temporaryRoot = canonicalReclaimRoot(temporaryRoot);
+  const previewed = new Set(previewReclaim(temporaryRoot));
+  for (const target of targets) {
+    assert.ok(typeof target === "string" && isAbsolute(target) && resolve(target) === target && previewed.has(target), reclaimTargetRefusal);
+  }
+  for (const target of targets) {
+    verifyArchivedModule02(target, temporaryRoot);
+    rmSync(target, { recursive: true });
+    assert.equal(existsSync(target), false, "Stop: reclaim did not remove the confirmed Module 2 archive: " + target + ".");
+  }
+  return [...targets];
+}
+
 /**
  * Task 4's optional registry drill. The npmrc parent is derived from the printed root as
  * `dirname(root)`, never from a caller variable, so the probe file stays beside the attempt.
@@ -547,6 +639,10 @@ export function recoveryNpmrc(input) {
 /** Dispatch one documented verb. Every verb after create takes the one printed absolute root. */
 export function main(args = process.argv.slice(2)) {
   const [verb, root] = args;
+  if (verb === "reclaim" && args.length === 1) return previewReclaim().join("\n");
+  if (verb === "reclaim" && args[1] === "--confirm" && args.length >= 3) {
+    return reclaimArchives(args.slice(2), { confirmed: true }).map((path) => "reclaimed=" + path).join("\n");
+  }
   if (verb === "create" && args.length === 1) return createAttempt();
   if (verb === "guard" && args.length === 2) return "module_02_guard=ready root=" + guardAttempt(root);
   if (verb === "install" && args.length === 2) return "module_02_install=ready commit=" + installAttempt(root).commit;

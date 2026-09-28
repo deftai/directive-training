@@ -45,6 +45,10 @@ preflight for a published route. A learner may stop as environment-blocked inste
 treating an unexecuted walkthrough as verified. See
 the [course map](../curriculum/README.md).
 
+Before `create`, use the [shared capacity recipe](README.md#disk-capacity-and-enospc-recovery)
+on this temporary volume. Measure the current attempt, one reset attempt, and npm
+extraction slack for this environment; there is no universal 20 GB floor.
+
 ### macOS/zsh and Linux/bash — candidate walkthroughs
 
 Use a dedicated zsh terminal at the root of this curriculum checkout.
@@ -300,6 +304,7 @@ environment dumps, credentials, business code, client data, and unrelated reposi
 | `verify` reports another changed file | Work exceeded active scope | Do not widen the allowlist; preserve and reset. |
 | Guard reports wrong branch, remote, pin, or immutable file | Safety identity drifted | Stop. Do not repair an uncertain attempt in place. |
 | Install is partial | Exact local graph was not established | Preserve sanitized output; reset instead of using a global CLI. |
+| `ENOSPC` or “no space left on device” | The temporary volume cannot allocate the next write | Treat this as an environment stop. Do not retry `create`, `reset`, or Route A; use the bounded archive-reclaim sequence below. |
 
 To create a fresh attempt while preserving the failed one:
 
@@ -309,6 +314,37 @@ node "$helper" guard "$new_lab_root"
 ```
 
 This is the `implementation-lab.mjs reset` path. The original `lab_root` remains readable.
+
+### Disk-full recovery
+
+Lab 10 shares the `3ci-directive-lab-archive` container but its helper previews
+only exact `3ci-directive-lab10-<unique>` children. Preview is read-only,
+creates no archive directory, and works with zero writable space:
+
+```sh
+node "$helper" reclaim
+```
+
+If preview prints nothing, remain environment-blocked until an operator frees
+capacity. Otherwise copy one intended older destination exactly, then preserve
+the live failed parent before allocating its replacement:
+
+```sh
+older_archive="/exact/older/lab10/archive/printed/by/reclaim"
+node "$helper" reclaim --confirm "$older_archive"
+failed_archive="$(node "$helper" archive "$lab_root")"
+new_lab_root="$(node "$helper" reset "$failed_archive")"
+node "$helper" guard "$new_lab_root"
+```
+
+PowerShell uses the same verb order and exact paths with `$Helper`. Confirmed
+apply revalidates immediately before deletion and rejects a live attempt, the
+curriculum clone, a remote-bearing repository, a symlink, or an identity
+mismatch. It deletes only the confirmed archive and that archive's local npm
+cache. The live cache remains isolated and untouched until the same-volume
+`archive` rename succeeds; only then does `reset` validate that archived
+destination and allocate the fresh attempt. Never use a shared npm cache or an
+empty launcher directory as the remedy.
 
 ## Reset to start
 

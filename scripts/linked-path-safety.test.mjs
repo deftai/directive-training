@@ -1,24 +1,28 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import {
+  existsSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
   realpathSync,
   renameSync,
+  rmSync,
   symlinkSync,
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { basename, join } from "node:path";
-import { test } from "node:test";
+import { basename, dirname, join } from "node:path";
+import { after, test } from "node:test";
 import { fileURLToPath } from "node:url";
 import {
-  archiveAttempt,
+  archiveAttempt as archiveAttemptRaw,
   checkpoint,
-  createAttempt,
+  createAttempt as createAttemptRaw,
   guardAttempt,
   injectDrift,
+  previewReclaim,
+  reclaimArchives,
   verifyLocalBinary,
   verifyPin,
 } from "../labs/fixtures/05-projection-drift-recovery/projection-lab.mjs";
@@ -37,6 +41,38 @@ const helpers = [
   "labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs",
   "labs/fixtures/capstone-end-to-end/capstone-lab.mjs",
 ];
+const hostTemporaryRoot = realpathSync(tmpdir());
+const suiteTemporaryRoot = realpathSync(mkdtempSync(join(hostTemporaryRoot, "3ci-linked-path-suite-")));
+const originalTemporaryEnvironment = new Map(["TEMP", "TMP", "TMPDIR"].map((key) => [key, process.env[key]]));
+for (const key of originalTemporaryEnvironment.keys()) process.env[key] = suiteTemporaryRoot;
+const archivedForCleanup = new Set();
+const parentsForCleanup = new Set();
+
+function createAttempt(...args) {
+  const root = createAttemptRaw(...args);
+  parentsForCleanup.add(dirname(root));
+  return root;
+}
+
+function archiveAttempt(...args) {
+  const archived = archiveAttemptRaw(...args);
+  archivedForCleanup.add(archived);
+  return archived;
+}
+
+after(() => {
+  try {
+    const remaining = [...archivedForCleanup].filter((path) => existsSync(path));
+    if (remaining.length > 0) reclaimArchives(remaining, { confirmed: true });
+    for (const parent of parentsForCleanup) rmSync(parent, { force: true, recursive: true });
+  } finally {
+    for (const [key, value] of originalTemporaryEnvironment) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+    rmSync(suiteTemporaryRoot, { force: true, recursive: true });
+  }
+});
 
 let capabilitySkipReason = null;
 try {
@@ -158,4 +194,36 @@ linkedPathTest("verifyPin rejects a symbolic package graph", () => {
   renameSync(join(root, "node_modules"), join(root, "node_modules-link"));
   renameSync(join(root, "node_modules-original"), join(root, "node_modules"));
   archiveAttempt(root);
+});
+
+linkedPathTest("reclaim revalidates archive candidates and their shared ancestor before deletion", () => {
+  const root = createAttempt();
+  const archived = archiveAttempt(root);
+  assert.ok(previewReclaim().includes(archived));
+
+  const retainedCandidate = archived + ".retained";
+  renameSync(archived, retainedCandidate);
+  symlinkSync(retainedCandidate, archived, process.platform === "win32" ? "junction" : "dir");
+  try {
+    assert.throws(() => previewReclaim(), /symlink/);
+    assert.throws(() => reclaimArchives([archived], { confirmed: true }), /symlink/);
+    assert.equal(existsSync(retainedCandidate), true, "reclaim must not follow a swapped candidate link");
+  } finally {
+    rmSync(archived, { force: true });
+    renameSync(retainedCandidate, archived);
+  }
+
+  const archiveRoot = join(archived, "..");
+  const retainedArchiveRoot = archiveRoot + ".retained";
+  renameSync(archiveRoot, retainedArchiveRoot);
+  symlinkSync(retainedArchiveRoot, archiveRoot, process.platform === "win32" ? "junction" : "dir");
+  try {
+    assert.throws(() => previewReclaim(), /symlink|canonical/);
+    assert.equal(existsSync(join(retainedArchiveRoot, basename(archived))), true, "ancestor-link refusal must preserve the archive");
+  } finally {
+    rmSync(archiveRoot, { force: true });
+    renameSync(retainedArchiveRoot, archiveRoot);
+  }
+
+  reclaimArchives([archived], { confirmed: true });
 });

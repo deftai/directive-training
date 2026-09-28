@@ -202,6 +202,22 @@ test("verifier rejects reset that reuses the failed root", () => {
   assert.throws(() => verifyModule7(root), /fresh-attempt reset/);
 });
 
+test("verifier rejects routing an ENOSPC stop back to allocation", () => {
+  const root = changedCopy("labs/07-scope-lifecycle.md", (body) => body.replace(
+    "Do not retry `create`, `reset`, or Route A; use the bounded archive-reclaim sequence below.",
+    "Retry `create` or Route A before reclaim.",
+  ));
+  assert.throws(() => verifyModule7(root), /ENOSPC.*block create, reset, and Route A/);
+});
+
+test("verifier rejects a reclaim apply that bypasses exact preview membership", () => {
+  const root = changedCopy("labs/fixtures/07-scope-lifecycle/lifecycle-lab.mjs", (body) => body.replace(
+    "previewed.has(target)",
+    "true",
+  ));
+  assert.throws(() => verifyModule7(root), /exact previewed targets/);
+});
+
 test("verifier rejects promoting full Windows platform support from fixture-only evidence", () => {
   const root = changedCopy("references/SOURCE-BASELINE.md", (body) => body.replace(
     "teaching-platform-proof:windows-pwsh7 status=candidate",

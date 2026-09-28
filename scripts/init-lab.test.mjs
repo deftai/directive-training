@@ -1,24 +1,69 @@
 import assert from "node:assert/strict";
-import { chmodSync, existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { test } from "node:test";
+import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { basename, dirname, join } from "node:path";
+import { after, afterEach, test } from "node:test";
 import { fileURLToPath } from "node:url";
 import {
   acceptAttempt,
-  archiveAttempt,
-  createAttempt,
+  archiveAttempt as archiveAttemptRaw,
+  createAttempt as createAttemptRaw,
   diagnoseAttempt,
   governingEnv,
   guardAttempt,
   installAttempt,
   main,
+  previewReclaim,
+  reclaimArchives,
   recoveryNpmrc,
-  resetAttempt,
+  resetAttempt as resetAttemptRaw,
   withoutHostNpmConfig,
 } from "../labs/fixtures/02-disposable-initialization/init-lab.mjs";
 
 const read = (path) => readFileSync(path, "utf8");
 const courseRoot = dirname(dirname(fileURLToPath(import.meta.url)));
+const hostTemporaryRoot = realpathSync(tmpdir());
+const suiteTemporaryRoot = realpathSync(mkdtempSync(join(hostTemporaryRoot, "3ci-module02-suite-")));
+const originalTemporaryEnvironment = new Map(
+  ["TEMP", "TMP", "TMPDIR"].map((key) => [key, process.env[key]]),
+);
+for (const key of originalTemporaryEnvironment.keys()) process.env[key] = suiteTemporaryRoot;
+const archivedForCleanup = new Set();
+const parentsForCleanup = new Set();
+
+function createAttempt(...args) {
+  const root = createAttemptRaw(...args);
+  parentsForCleanup.add(dirname(root));
+  return root;
+}
+
+function resetAttempt(...args) {
+  const root = resetAttemptRaw(...args);
+  parentsForCleanup.add(dirname(root));
+  return root;
+}
+
+function archiveAttempt(...args) {
+  const archived = archiveAttemptRaw(...args);
+  archivedForCleanup.add(dirname(archived));
+  return archived;
+}
+
+afterEach(() => {
+  const remaining = [...archivedForCleanup].filter((path) => existsSync(path));
+  if (remaining.length > 0) reclaimArchives(remaining, { confirmed: true });
+  for (const parent of parentsForCleanup) rmSync(parent, { force: true, recursive: true });
+  archivedForCleanup.clear();
+  parentsForCleanup.clear();
+});
+
+after(() => {
+  for (const [key, value] of originalTemporaryEnvironment) {
+    if (value === undefined) delete process.env[key];
+    else process.env[key] = value;
+  }
+  rmSync(suiteTemporaryRoot, { force: true, recursive: true });
+});
 
 /** Replace the first occurrence positionally; the fixture is spliced, never rewritten by pattern. */
 const splice = (text, find, replacement) => {
@@ -168,6 +213,48 @@ test("archive refuses to move the parent out from under the caller", () => {
   }
   assert.equal(guardAttempt(root), root);
   archiveAttempt(root);
+});
+
+test("reclaim previews without creating storage and deletes only a confirmed Module 2 archive", (t) => {
+  const emptyTemporaryRoot = realpathSync(mkdtempSync(join(tmpdir(), "3ci-module02-reclaim-empty-")));
+  t.after(() => rmSync(emptyTemporaryRoot, { force: true, recursive: true }));
+  assert.deepEqual(previewReclaim(emptyTemporaryRoot), []);
+  assert.equal(
+    existsSync(join(emptyTemporaryRoot, "3ci-directive-module-02-archive.missing")),
+    false,
+    "preview must not create an archive destination",
+  );
+
+  const live = createAttempt();
+  mkdirSync(join(live, ".npm-cache"));
+  writeFileSync(join(live, ".npm-cache", "live.txt"), "keep\n");
+  const retired = createAttempt();
+  mkdirSync(join(retired, ".npm-cache"));
+  writeFileSync(join(retired, ".npm-cache", "retired.txt"), "remove\n");
+  const archiveRoot = dirname(archiveAttempt(retired));
+
+  assert.ok(previewReclaim().includes(archiveRoot));
+  assert.match(main(["reclaim"]), /3ci-directive-module-02-archive\./);
+  assert.throws(() => reclaimArchives([archiveRoot]), /explicit confirmation/);
+  assert.throws(() => reclaimArchives([live], { confirmed: true }), /archive destination/);
+  assert.throws(() => reclaimArchives([courseRoot], { confirmed: true }), /archive destination/);
+  assert.equal(main(["reclaim", "--confirm", archiveRoot]), "reclaimed=" + archiveRoot);
+  assert.equal(existsSync(archiveRoot), false);
+  assert.equal(read(join(live, ".npm-cache", "live.txt")), "keep\n");
+
+  const archiveOutput = main(["archive", live]);
+  assert.match(archiveOutput, /^archived=/);
+  const liveArchive = archiveOutput.slice("archived=".length);
+  archivedForCleanup.add(dirname(liveArchive));
+  const replacement = main(["reset", liveArchive]);
+  parentsForCleanup.add(dirname(replacement));
+  assert.equal(guardAttempt(replacement), replacement);
+  const liveArchiveRoot = dirname(liveArchive);
+  const archivedLiveCache = join(liveArchive, basename(live), ".npm-cache");
+  assert.equal(read(join(archivedLiveCache, "live.txt")), "keep\n");
+  reclaimArchives([liveArchiveRoot], { confirmed: true });
+  assert.equal(existsSync(archivedLiveCache), false);
+  reclaimArchives([dirname(archiveAttempt(replacement))], { confirmed: true });
 });
 
 test("the pinned learner path installs, diagnoses, and accepts from separate helper invocations", { timeout: 600_000 }, () => {

@@ -30,11 +30,15 @@ All names and values are fictional. No remote service, business repository, cred
 
 Use Node.js 22 or later, npm, Git, Task, and `uv`. Run these commands from the curriculum repository only to invoke the supplied helper; all exercise mutation occurs in the unique OS-temporary repository with no remote that it creates.
 
+Before `create`, use the [shared capacity recipe](README.md#disk-capacity-and-enospc-recovery)
+on this temporary volume. Measure the current attempt, one reset attempt, and npm
+extraction slack for this environment; there is no universal 20 GB floor.
+
 The guarded interface is `gates-lab.mjs create`, `gates-lab.mjs install`,
 `gates-lab.mjs red`, `gates-lab.mjs green`, `gates-lab.mjs refactor`,
 `gates-lab.mjs literal`, `gates-lab.mjs aggregate`, `gates-lab.mjs final`,
-`gates-lab.mjs reset`, and `gates-lab.mjs archive`. Use only the complete paths
-shown below when invoking those verbs.
+`gates-lab.mjs reset`, `gates-lab.mjs archive`, and `gates-lab.mjs reclaim`.
+Use only the complete paths shown below when invoking those verbs.
 
 ```sh
 set -eu
@@ -250,6 +254,41 @@ Review the smallest relevant fields; do not publish full environment output.
 | Aggregate fails before `quality:record` | Focused, literal, or forward evidence regressed | Repair that work and rerun its stage before aggregate |
 | `gate definition changed` | A comparison file or pinned gate changed | Preserve the attempt and start fresh; never copy the altered gate |
 | Final quality mismatch | The record does not match the Task 4 field table | Repair `quality-record.json` only, using the published completed tokens; do not copy `finalStatus` from the six files |
+| `ENOSPC` or “no space left on device” | The temporary volume cannot allocate the next write | Treat this as an environment stop. Do not retry `create`, `reset`, or Route A; use the bounded archive-reclaim sequence below. |
+
+### Disk-full recovery
+
+Lab 11 shares the `3ci-directive-lab-archive` container but its helper previews
+only exact `3ci-directive-lab11-<unique>` children. From the curriculum root,
+run the read-only preview; it creates no archive directory and works with zero
+writable space:
+
+```sh
+helper="labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs"
+node "$helper" reclaim
+```
+
+If preview prints nothing, remain environment-blocked until an operator frees
+capacity. Otherwise copy one intended older destination exactly, then preserve
+the live failed parent before allocating its replacement:
+
+```sh
+helper="labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs"
+older_archive="/exact/older/lab11/archive/printed/by/reclaim"
+node "$helper" reclaim --confirm "$older_archive"
+failed_archive="$(node "$helper" archive "$LAB11_ROOT")"
+fresh_root="$(node "$helper" reset "$failed_archive")"
+node "$helper" guard "$fresh_root"
+```
+
+PowerShell uses the same verb order and exact paths with `$Helper`. Confirmed
+apply revalidates immediately before deletion and rejects a live attempt, the
+curriculum clone, a remote-bearing repository, a symlink, or an identity
+mismatch. It deletes only the confirmed archive and that archive's local npm
+cache. The live cache remains isolated and untouched until the same-volume
+`archive` rename succeeds; only then does `reset` validate that archived
+destination and allocate the fresh attempt. Never use a shared npm cache or an
+empty launcher directory as the remedy.
 
 ## Reset to start
 

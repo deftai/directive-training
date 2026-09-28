@@ -7,9 +7,11 @@ import {
   lstatSync,
   mkdirSync,
   mkdtempSync,
+  readdirSync,
   readFileSync,
   realpathSync,
   renameSync,
+  rmSync,
   symlinkSync,
   writeFileSync,
 } from "node:fs";
@@ -25,6 +27,10 @@ const deliveryFile = "2026-01-15-fictional-delivery.xbrief.json";
 const cancellationFile = "2026-01-15-fictional-cancel.xbrief.json";
 const lifecycleFolders = ["proposed", "pending", "active", "completed", "cancelled"];
 const archiveUsage = "Archive requires one explicit absolute canonical lab root. Run the original course helper from outside the attempt parent.";
+const reclaimConfirmationRefusal = "Stop: reclaim apply requires explicit confirmation. Run reclaim to preview exact archive paths, then pass --confirm followed by only those paths.";
+const reclaimTargetRefusal = "Stop: reclaim accepts only exact absolute canonical Module 7 archive destinations printed by the current preview.";
+const archiveDirectoryName = "3ci-directive-lab-archive";
+const archivedParentPattern = /^3ci-directive-lab07-[A-Za-z0-9]{6}$/;
 const fixtureFiles = ["package.json", "lifecycle-lab.mjs", "safety.mjs"];
 const gitignore = [
   "/node_modules/", "/.npm-cache/", "/.lab-tools/", "/.deft/", "/.deft-cache/",
@@ -392,7 +398,12 @@ export function runLifecycle(root = process.cwd(), options = {}) {
 
 /** Create a unique fresh attempt while preserving the named failed attempt and evidence. */
 export function resetAttempt(root = process.cwd()) {
-  verifyAttemptIdentity(root);
+  const temporaryRoot = realpathSync(tmpdir());
+  if (
+    typeof root === "string" && isAbsolute(root) && resolve(root) === root &&
+    dirname(root) === join(temporaryRoot, archiveDirectoryName) && archivedParentPattern.test(basename(root))
+  ) verifyArchivedAttempt(root, temporaryRoot);
+  else verifyAttemptIdentity(root);
   return createAttempt(); // fresh-reset
 }
 
@@ -405,7 +416,7 @@ export function archiveAttempt(root) {
   const cwdFromParent = relative(parent, realpathSync(process.cwd()));
   assert.ok(isAbsolute(cwdFromParent) || cwdFromParent === ".." || cwdFromParent.startsWith(".." + sep), "Stop: caller and helper must leave the attempt parent before archive.");
   const temporaryRoot = dirname(parent);
-  const archive = safePath(temporaryRoot, "3ci-directive-lab-archive");
+  const archive = safePath(temporaryRoot, archiveDirectoryName);
   if (!existsSync(archive)) mkdirSync(archive);
   const destination = safePath(archive, basename(parent));
   assert.ok(!existsSync(destination), "Stop: archive destination already exists.");
@@ -414,16 +425,83 @@ export function archiveAttempt(root) {
   return destination;
 }
 
+function canonicalReclaimDirectory(input) {
+  assert.ok(typeof input === "string" && isAbsolute(input) && resolve(input) === input && existsSync(input), reclaimTargetRefusal);
+  const stat = lstatSync(input);
+  assert.ok(stat.isDirectory() && !stat.isSymbolicLink(), "Stop: reclaim archive path is a symlink or is not a directory: " + input + ".");
+  assert.equal(realpathSync(input), input, reclaimTargetRefusal);
+  return input;
+}
+
+function verifyArchivedAttempt(destination, temporaryRoot) {
+  const archiveRoot = join(temporaryRoot, archiveDirectoryName);
+  assert.ok(
+    typeof destination === "string" && isAbsolute(destination) && resolve(destination) === destination &&
+      dirname(destination) === archiveRoot && archivedParentPattern.test(basename(destination)),
+    reclaimTargetRefusal,
+  );
+  canonicalReclaimDirectory(archiveRoot);
+  canonicalReclaimDirectory(destination);
+  const root = canonicalReclaimDirectory(join(destination, "repo"));
+  const markerPath = join(destination, "lab-state.json");
+  assert.ok(existsSync(markerPath) && lstatSync(markerPath).isFile() && !lstatSync(markerPath).isSymbolicLink(), "Stop: Module 7 archive marker mismatch.");
+  const marker = readJson(markerPath);
+  assert.ok(marker.lab === "module-07" && marker.root === join(temporaryRoot, basename(destination), "repo"), "Stop: Module 7 archive marker mismatch.");
+  const gitDirectory = join(root, ".git");
+  assert.ok(existsSync(gitDirectory) && lstatSync(gitDirectory).isDirectory() && !lstatSync(gitDirectory).isSymbolicLink(), "Stop: archived Module 7 attempt lacks a plain .git directory.");
+  assertPlainTree(root, ".git");
+  assert.ok(sameFileSystemEntry(root, git(root, ["rev-parse", "--show-toplevel"]).trim()), "Stop: archived Git root differs from the Module 7 attempt.");
+  assert.equal(git(root, ["branch", "--show-current"]).trim(), "training/module-07", "Stop: archived Module 7 attempt is on the wrong branch.");
+  assert.equal(git(root, ["remote"]).trim(), "", "Stop: archived Module 7 attempt has a Git remote.");
+  return destination;
+}
+
+/** List exact existing Module 7 archive destinations without creating the shared archive directory. */
+export function previewReclaim(temporaryRoot = realpathSync(tmpdir())) {
+  temporaryRoot = canonicalReclaimDirectory(temporaryRoot);
+  const archiveRoot = join(temporaryRoot, archiveDirectoryName);
+  if (!existsSync(archiveRoot)) return [];
+  canonicalReclaimDirectory(archiveRoot);
+  return readdirSync(archiveRoot, { withFileTypes: true })
+    .filter((entry) => entry.name.startsWith("3ci-directive-lab07-"))
+    .map((entry) => {
+      assert.ok(entry.isDirectory() && !entry.isSymbolicLink(), "Stop: reclaim archive path is a symlink: " + join(archiveRoot, entry.name) + ".");
+      return verifyArchivedAttempt(join(archiveRoot, entry.name), temporaryRoot);
+    })
+    .sort();
+}
+
+/** Delete only exact previewed Module 7 archives after explicit confirmation. */
+export function reclaimArchives(targets, { confirmed = false, temporaryRoot = realpathSync(tmpdir()) } = {}) {
+  assert.equal(confirmed, true, reclaimConfirmationRefusal);
+  assert.ok(Array.isArray(targets) && targets.length > 0 && new Set(targets).size === targets.length, reclaimTargetRefusal);
+  temporaryRoot = canonicalReclaimDirectory(temporaryRoot);
+  const previewed = new Set(previewReclaim(temporaryRoot));
+  for (const target of targets) {
+    assert.ok(typeof target === "string" && isAbsolute(target) && resolve(target) === target && previewed.has(target), reclaimTargetRefusal);
+  }
+  for (const target of targets) {
+    verifyArchivedAttempt(target, temporaryRoot);
+    rmSync(target, { recursive: true });
+    assert.equal(existsSync(target), false, "Stop: reclaim did not remove the confirmed Module 7 archive: " + target + ".");
+  }
+  return [...targets];
+}
+
 /** Dispatch one documented CLI verb. */
 export function main(args = process.argv.slice(2)) {
   const [verb, root, option] = args;
+  if (verb === "reclaim" && args.length === 1) return previewReclaim().join("\n");
+  if (verb === "reclaim" && args[1] === "--confirm" && args.length >= 3) {
+    return reclaimArchives(args.slice(2), { confirmed: true }).map((path) => "reclaimed=" + path).join("\n");
+  }
   if (verb === "create" && args.length === 1) return createAttempt();
   if (verb === "guard" && args.length === 2) return guardAttempt(root);
   if (verb === "install" && args.length === 2) return `OK: installed Directive ${verifyPin(installAttempt(root))}`;
   if (verb === "run" && args.length === 3 && option === "--intent=implement") return JSON.stringify(runLifecycle(root, { intent: "implement" }).final);
   if (verb === "reset" && args.length === 2) return resetAttempt(root);
   if (verb === "archive" && args.length === 2) return archiveAttempt(root);
-  throw new Error("Use: create | guard <absolute-root> | install <absolute-root> | run <absolute-root> --intent=implement | reset <absolute-root> | archive <absolute-root>.");
+  throw new Error("Use: create | guard <absolute-root> | install <absolute-root> | run <absolute-root> --intent=implement | reset <absolute-live-or-archived-root> | archive <absolute-root> | reclaim [--confirm <absolute-archive>...].");
 }
 
 if (process.argv[1] && realpathSync(resolve(process.argv[1])) === realpathSync(fileURLToPath(import.meta.url))) {

@@ -2,7 +2,16 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { courseModuleRow, markdownParts, moduleHeadings, section, solutionHeadings, verifyLinks } from "./verify-modules-4-5.mjs";
+import {
+  assertEnospcLabContract,
+  assertReclaimHelperContract,
+  courseModuleRow,
+  markdownParts,
+  moduleHeadings,
+  section,
+  solutionHeadings,
+  verifyLinks,
+} from "./verify-modules-4-5.mjs";
 import { assertTeachingBaselinePin } from "./teaching-baseline.mjs";
 
 const module10 = "curriculum/modules/10-implementation-golden-path.md";
@@ -365,6 +374,15 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
   for (const invariant of ["realpathSync(tmpdir())", 'git(root, ["remote"])', 'const allowedProductFiles = ["src/greeting.mjs"]', 'finalStatus: "READY"', 'finalStatus: "PASS"']) {
     assert.ok(helper.includes(invariant), `Module 10 helper is missing guard invariant: ${invariant}`);
   }
+  assertEnospcLabContract(content.get(lab10), {
+    label: "Lab 10",
+    archiveClass: "3ci-directive-lab10-<unique>",
+  });
+  assertReclaimHelperContract(helper, {
+    label: "Lab 10 helper",
+    archiveDirectoryName: "3ci-directive-lab-archive",
+    archivePrefix: "3ci-directive-lab10-",
+  });
 
   const project = JSON.parse(content.get("xbrief/PROJECT-DEFINITION.xbrief.json"));
   const projectItems = project.plan.items.filter((item) => item.id === historicalLineage.projectItemId);

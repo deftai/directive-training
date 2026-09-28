@@ -119,6 +119,33 @@ test("capstone content contract accepts CRLF-authored Markdown", () => {
   assert.ok(verifyCapstone(root).artifactCount >= 30);
 });
 
+test("verifier rejects routing an ENOSPC stop back to allocation", () => {
+  const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
+    body,
+    "Do not retry `create`, `reset`, or Route A;",
+    "Retry `create`, `reset`, or Route A;",
+  ));
+  assert.throws(() => verifyCapstone(root), /ENOSPC recovery must block create, reset, and Route A until reclaim/);
+});
+
+test("verifier rejects reclaim apply without explicit confirmation", () => {
+  const root = changedCopy("labs/fixtures/capstone-end-to-end/capstone-lab.mjs", (body) => replaceFirst(
+    body,
+    "assert.equal(confirmed, true, reclaimConfirmationRefusal);",
+    "assert.equal(true, true, reclaimConfirmationRefusal);",
+  ));
+  assert.throws(() => verifyCapstone(root), /reclaim apply requires explicit confirmation/);
+});
+
+test("verifier rejects collapsing the dedicated capstone archive class", () => {
+  const root = changedCopy("labs/README.md", (body) => replaceFirst(
+    body,
+    "3ci-directive-capstone-archive/",
+    "3ci-directive-capstone-trash/",
+  ));
+  assert.throws(() => verifyCapstone(root), /missing archive class: 3ci-directive-capstone-archive\//);
+});
+
 test("verifier rejects one Task 1 fence of orient then activate", () => {
   const root = changedCopy("labs/capstone-end-to-end.md", (body) => replaceFirst(
     body,

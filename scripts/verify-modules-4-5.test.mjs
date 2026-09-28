@@ -11,6 +11,7 @@ const module6 = "curriculum/modules/06-creating-well-shaped-work.md";
 const lab5 = "labs/05-projection-drift-recovery.md";
 const solution4 = "solutions/module-04-xbrief-as-durable-state.md";
 const solution5 = "solutions/lab-05-projection-drift-recovery.md";
+const lab5Helper = "labs/fixtures/05-projection-drift-recovery/projection-lab.mjs";
 
 // Deliberately short independent examples: prose volume is not an acceptance signal.
 const moduleHeadings = ["Module record", "Learning outcomes", "Starting-state check", "Why this matters", "Terminology", "Mental model", "Guided explanation", "Walkthrough", "Exercise", "Completion evidence", "Progressive hints", "Expected failures and recovery", "Common misconceptions", "Self-assessment", "Explained solution", "Navigation", "Official sources"];
@@ -49,10 +50,59 @@ function fixture(t) {
   write(module6, "# Module 6\n");
   write(lab5, document(labHeadings, outcomes5, {
     "Lab record": record + "\n| Verified environment | fixture verified on Windows/PowerShell |\n| Candidate platforms | macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs are candidates |",
+    "Environment and starting-state check": "Before create, measure the current attempt + one reset attempt + npm extraction slack. There is no universal 20 GB floor.",
     "Literal acceptance commands": `\`\`\`zsh\n"$directive_path" codebase:map\n"$directive_path" verify:codebase-map-fresh\nnode projection-lab.mjs verify-result\n\`\`\`\n\n\`\`\`powershell\nnode projection-lab.mjs create\nnode projection-lab.mjs guard\nnpm.cmd install\nnode projection-lab.mjs verify-pin\nnode projection-lab.mjs checkpoint\nnode projection-lab.mjs inject-drift\n& .\\node_modules\\.bin\\directive.cmd codebase:map\n& .\\node_modules\\.bin\\directive.cmd verify:codebase-map-fresh\nnode projection-lab.mjs verify-result\nnode projection-lab.mjs archive C:\\temp\\lab\\repo\n\`\`\`\n\n${outcomes5}`,
     "Safety boundary": "Use a disposable repository with no remote. Mutations cannot touch the curriculum repository or a business repository.",
+    "Expected failures and recovery": `| Symptom | Recovery |\n| --- | --- |\n| ENOSPC or no space left on device | Treat this as an environment stop. Do not retry create, reset, or Route A; reclaim first. |\n\n### Disk-full recovery\n\nThe helper previews only exact \`3ci-directive-lab05-<unique>\` children. Preview is read-only, creates no archive directory, and works with zero writable space. It rejects a live attempt, the curriculum clone, a remote-bearing repository, a symlink, or an identity mismatch.\n\n\`\`\`sh\nnode "$helper" reclaim\nnode "$helper" reclaim --confirm "$older_archive"\nfailed_archive="$(node "$helper" archive "$lab_root")"\nlab_root="$(node "$helper" reset "$failed_archive")"\n\`\`\`\n\nApply deletes only the confirmed older archive and its contained cache. The live cache remains isolated and untouched until the same-volume archive rename. Never use a shared npm cache or an empty launcher directory as the remedy.`,
     "Done statement": "Record the actual operating system and shell used for the successful run. O5.1 O5.2 O5.3",
   }));
+  write(lab5Helper, `
+const archiveDirectoryName = "3ci-directive-lab-archive";
+const archivedParentPattern = /^3ci-directive-lab05-[A-Za-z0-9]{6}$/;
+function canonicalReclaimDirectory(input) {
+  const stat = lstatSync(input);
+  assert.ok(isAbsolute(input) && resolve(input) === input && !stat.isSymbolicLink());
+  assert.equal(realpathSync(input), input);
+  return input;
+}
+function verifyArchivedAttempt(destination, temporaryRoot) {
+  assert.ok(dirname(destination) === join(temporaryRoot, archiveDirectoryName) && archivedParentPattern.test(basename(destination)));
+  const marker = readJson(join(destination, "lab-state.json"));
+  assert.ok(marker.lab === "module-05" && marker.root === join(temporaryRoot, basename(destination), "repo"));
+  assert.ok(lstatSync(join(destination, "repo/.git")).isDirectory());
+  assert.equal(git(join(destination, "repo"), ["remote"]).trim(), "");
+  return destination;
+}
+export function previewReclaim(temporaryRoot) {
+  const archiveRoot = join(temporaryRoot, archiveDirectoryName);
+  if (!existsSync(archiveRoot)) return [];
+  return readdirSync(archiveRoot, { withFileTypes: true })
+    .filter((entry) => entry.name.startsWith("3ci-directive-lab05-"))
+    .map((entry) => verifyArchivedAttempt(join(archiveRoot, entry.name), temporaryRoot));
+}
+export function reclaimArchives(targets, { confirmed = false, temporaryRoot } = {}) {
+  assert.equal(confirmed, true);
+  const previewed = new Set(previewReclaim(temporaryRoot));
+  for (const target of targets) assert.ok(isAbsolute(target) && resolve(target) === target && previewed.has(target));
+  for (const target of targets) {
+    verifyArchivedAttempt(target, temporaryRoot);
+    rmSync(target, { recursive: true });
+  }
+  return [...targets];
+}
+export function resetAttempt(root) {
+  verifyArchivedAttempt(root, temporaryRoot);
+  return createAttempt();
+}
+export function archiveAttempt(root) {
+  renameSync(parent, destination);
+  return destination;
+}
+export function main(args) {
+  if (args[0] === "reclaim" && args.length === 1) return previewReclaim().join("\\n");
+  if (args[0] === "reclaim" && args[1] === "--confirm") return reclaimArchives(args.slice(2), { confirmed: true });
+}
+`);
   write(solution4, document(solutionHeadings, outcomes4, { "Solution record": record }));
   write(solution5, document(solutionHeadings, outcomes5, { "Solution record": record + "\n| Platform status | Windows/PowerShell fixture verified; macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs are candidates |" }));
   write("README.md", "# Course\n\n2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.9<!-- /directive-training:teaching-baseline --> with xBRIEF schema 0.8.\n");
@@ -68,7 +118,22 @@ function fixture(t) {
 
 test("accepts a concise complete contract without executing learner commands", (t) => {
   const { root } = fixture(t);
-  assert.equal(verifyModules45(root).artifactCount, 10);
+  assert.equal(verifyModules45(root).artifactCount, 11);
+});
+
+test("rejects routing ENOSPC back to allocation", (t) => {
+  const files = fixture(t);
+  files.change(lab5, (body) => body.replace(
+    "Do not retry create, reset, or Route A; reclaim first.",
+    "Retry create or Route A before reclaim.",
+  ));
+  assert.throws(() => verifyModules45(files.root), /ENOSPC.*block create, reset, and Route A/);
+});
+
+test("rejects a reclaim apply that drops explicit confirmation", (t) => {
+  const files = fixture(t);
+  files.change(lab5Helper, (body) => body.replace("assert.equal(confirmed, true);", "assert.equal(confirmed, false);"));
+  assert.throws(() => verifyModules45(files.root), /explicit confirmation/);
 });
 
 for (const [path, heading] of [[module4, "Self-assessment"], [module5, "Completion evidence"], [lab5, "Reset to start"], [solution4, "Valid alternatives"], [solution5, "Acceptance evidence"]]) {
