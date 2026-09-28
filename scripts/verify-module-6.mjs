@@ -116,6 +116,195 @@ function requireSectionOutcomes(path, prose, headings) {
 }
 
 /**
+ * Verify the same-page O6.2 field-identity skeleton without turning its one shown item into
+ * the completed worksheet artifact. The JSON proves field placement; the adjacent legend
+ * keeps schema, worksheet, and later-gate identities distinct.
+ * @param {string} moduleProse Module 6 prose with code fences removed.
+ * @param {{language: string, content: string}[]} moduleBlocks Module 6 fenced blocks.
+ * @returns {void}
+ */
+function requireFieldIdentitySkeleton(moduleProse, moduleBlocks) {
+  const exercise = section(moduleProse, "Exercise");
+  const heading = "##### Field-identity skeleton";
+  const headingAt = exercise.indexOf(heading);
+  assert.ok(headingAt >= 0, "Module 6 Exercise must include a same-page field-identity skeleton");
+  const afterHeading = exercise.slice(headingAt + heading.length);
+  const nextHeadingAt = afterHeading.search(/\n#{2,5}\s+/);
+  const skeletonProse = nextHeadingAt < 0 ? afterHeading : afterHeading.slice(0, nextHeadingAt);
+
+  const jsonBlocks = moduleBlocks.filter(({ language }) => language === "json");
+  assert.equal(jsonBlocks.length, 1, "the field-identity skeleton must be the one Module 6 JSON fence");
+  let skeleton;
+  try {
+    skeleton = JSON.parse(jsonBlocks[0].content);
+  } catch {
+    assert.fail(
+      "the field-identity skeleton JSON must parse before checking xBRIEFInfo.version, plan.id, plan.title, plan.status, item title, item status, Acceptance, and Traces",
+    );
+  }
+
+  assert.equal(
+    skeleton?.xBRIEFInfo?.version,
+    "0.8",
+    "the field-identity skeleton requires xBRIEFInfo.version 0.8",
+  );
+  assert.ok(
+    typeof skeleton?.plan?.id === "string" && skeleton.plan.id.trim(),
+    "the field-identity skeleton requires a non-empty plan.id worksheet story ID",
+  );
+  assert.ok(
+    typeof skeleton?.plan?.title === "string" && skeleton.plan.title.trim(),
+    "the field-identity skeleton requires a non-empty plan.title",
+  );
+  assert.equal(
+    skeleton?.plan?.status,
+    "proposed",
+    "the field-identity skeleton requires plan.status proposed",
+  );
+  assert.equal(
+    skeleton?.plan?.items?.length,
+    1,
+    "the field-identity skeleton must show exactly one illustrative item, not the completed O6.2 artifact",
+  );
+  const [item] = skeleton.plan.items;
+  assert.ok(
+    typeof item?.title === "string" && item.title.trim(),
+    "the field-identity skeleton requires a non-empty item title",
+  );
+  assert.equal(item?.status, "proposed", "the field-identity skeleton requires item status proposed");
+  assert.ok(
+    typeof item?.narrative?.Acceptance === "string" && item.narrative.Acceptance.trim(),
+    "the field-identity skeleton requires one string Acceptance",
+  );
+  assert.ok(
+    typeof item?.narrative?.Traces === "string" && item.narrative.Traces.trim(),
+    "the field-identity skeleton requires one string Traces",
+  );
+  assert.ok(
+    !("effort" in item) && !("metadata" in skeleton.plan),
+    "the field-identity skeleton must keep optional effort, kind, and swarm metadata out of the JSON fence",
+  );
+
+  const rows = tableRows(
+    skeletonProse,
+    ["Field or value", "Identity", "Meaning here"],
+    "Module 6 field-identity legend",
+  );
+  const rowWith = (token) => rows.find(([field]) => field.includes(token));
+
+  const requiredRow = rowWith("xBRIEFInfo.version");
+  assert.equal(
+    requiredRow?.[1],
+    "schema-required (verify-enforced)",
+    "the field-identity legend must label schema-required (verify-enforced) fields",
+  );
+  for (const field of ["plan.title", "plan.status", "plan.items", "item `title`", "item `status`"]) {
+    assert.ok(requiredRow?.[0].includes(field), `the schema-required legend row is missing ${field}`);
+  }
+
+  const idRow = rowWith("plan.id");
+  assert.equal(
+    idRow?.[1],
+    "schema-legal-optional",
+    "the field-identity legend must classify plan.id as schema-legal-optional",
+  );
+  assert.match(
+    idRow?.[2] ?? "",
+    /worksheet story ID[\s\S]*optional for `xbrief:verify`/i,
+    "the plan.id legend must distinguish the worksheet story ID from verify requirements",
+  );
+
+  const rubricRow = rowWith("narrative.Acceptance");
+  assert.ok(
+    rubricRow?.[0].includes("narrative.Traces") && rubricRow?.[1] === "this-worksheet (O6.2 rubric)",
+    "the field-identity legend must classify Acceptance and Traces as this-worksheet (O6.2 rubric)",
+  );
+  assert.match(
+    rubricRow?.[2] ?? "",
+    /string Acceptance[\s\S]*trace/i,
+    "the O6.2 rubric legend must require string Acceptance and a trace",
+  );
+
+  const narrativeEvidenceRow = rowWith("narrative.Evidence");
+  assert.equal(
+    narrativeEvidenceRow?.[1],
+    "schema-legal-optional",
+    "the field-identity legend must classify narrative.Evidence as schema-legal-optional",
+  );
+  assert.match(
+    narrativeEvidenceRow?.[2] ?? "",
+    /different field from `x-directive\/evidence`/i,
+    "the field-identity legend must state narrative.Evidence is a different field from x-directive/evidence",
+  );
+
+  const optionalRow = rows.find(([field]) =>
+    ["effort", "plan.metadata.kind", "plan.metadata.swarm"].some((token) => field.includes(token))
+  );
+  assert.ok(
+    optionalRow
+      && ["effort", "plan.metadata.kind", "plan.metadata.swarm"].every((token) => optionalRow[0].includes(token))
+      && optionalRow[1] === "schema-legal-optional"
+      && /optional for this proposed candidate/i.test(optionalRow[2]),
+    "the field-identity legend must classify effort, plan.metadata.kind, and plan.metadata.swarm as optional",
+  );
+  assert.match(
+    optionalRow?.[2] ?? "",
+    /`kind: [“\"]?story[”\"]?`[\s\S]*story-taxonomy value/i,
+    "the field-identity legend must state kind story is the story-taxonomy value",
+  );
+
+  const laterGateRow = rowWith("plan.metadata.swarm.readiness");
+  assert.ok(
+    laterGateRow?.[0].includes('readiness: "ready"')
+      && laterGateRow[0].includes("x-directive/evidence")
+      && laterGateRow[1] === "later-gate",
+    "the field-identity legend must classify readiness ready and x-directive/evidence as later-gate",
+  );
+  assert.match(
+    laterGateRow?.[2] ?? "",
+    /later allocation and completion gates/i,
+    "the later-gate legend row must reserve readiness and evidence for later gates",
+  );
+
+  assert.match(
+    skeletonProse,
+    /Item status `pending` is schema-legal[\s\S]*worksheet uses `proposed` to match\s+`plan\.status`/i,
+    "the field-identity skeleton must distinguish schema-legal pending from this worksheet's proposed status",
+  );
+  assert.match(
+    skeletonProse,
+    /one-item field-identity skeleton[\s\S]*shaping sketch[\s\S]*Part B's two-to-five-item rubric wins/i,
+    "the field-identity skeleton must be a shaping sketch whose two-to-five-item rubric wins",
+  );
+  assert.match(
+    skeletonProse,
+    /O6\.2 still requires two to five items[\s\S]*string `Acceptance`[\s\S]*string `Traces`[\s\S]*schema `0\.8`[\s\S]*`plan\.status: proposed`/i,
+    "O6.2 field identity must retain two to five items, Acceptance, Traces, 0.8, and plan.status proposed",
+  );
+  assert.match(
+    skeletonProse,
+    /This proposal is reviewable candidate state, not implementation authority\./,
+    "the field-identity skeleton must retain the sentence: not implementation authority",
+  );
+
+  const walkthrough = section(moduleProse, "Walkthrough");
+  assert.match(
+    walkthrough,
+    /one illustrative item[\s\S]*shaping sketch[\s\S]*Part B's\s+two-to-five-item rubric/i,
+    "the walkthrough must mark one item as a shaping sketch and say Part B's two-to-five-item rubric controls",
+  );
+
+  const recovery = section(moduleProse, "Expected failures and recovery");
+  const acceptanceRecovery = recovery.split("\n").find((line) =>
+    line.includes("narrative.Acceptance must be a string, got list")
+  );
+  assert.ok(
+    acceptanceRecovery?.includes("field-identity skeleton") && !/worked solution/i.test(acceptanceRecovery),
+    "the Module 6 recovery row must point to the same-page field-identity skeleton, not the worked solution",
+  );
+}
+
+/**
  * Verify the O6.2 structural-evidence contract: O6.2 keeps its wording, its completion
  * evidence records a positive structural result over the exact learner-authored artifact,
  * the vehicle recut is named, and structural proof stays separate from the rubric.
@@ -430,6 +619,7 @@ export function verifyModule6(root = fileURLToPath(new URL("../", import.meta.ur
 
   const moduleProse = parsed.get(module6).prose;
   const solutionProse = parsed.get(solution6).prose;
+  requireFieldIdentitySkeleton(moduleProse, parsed.get(module6).blocks);
   requireSectionOutcomes(module6, moduleProse, ["Learning outcomes", "Exercise acceptance", "Completion evidence", "Self-assessment"]);
   requireSectionOutcomes(solution6, solutionProse, ["Outcome map", "Acceptance evidence"]);
 

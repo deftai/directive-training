@@ -320,8 +320,9 @@ are fictional examples; do not create them in this repository or a business repo
    **Meaning:** Strategy choice and acceptance remove named uncertainties without granting
    implementation authority.
 3. **Action:** Record a schema-0.8 proposed-scope artifact with ID
-   `northstar.delayed-route-preview`, one item carrying that acceptance, and
-   `plan.status: proposed`.
+   `northstar.delayed-route-preview`, one illustrative item carrying that acceptance, and
+   `plan.status: proposed`. This one-item example is a shaping sketch; Part B's
+   two-to-five-item rubric controls the completed O6.2 artifact.
    **Observe:** The record is reviewable candidate state.
    **Meaning:** Shaping is complete; promotion, activation, live intent, and implementation
    evidence are deliberately absent.
@@ -368,6 +369,49 @@ canonical xBRIEF keys. Your slice must cross only the layers relevant to its one
 
 Record a bounded strategy choice, why it matches the remaining uncertainty, and what it does
 not decide. Then write one testable/observable specification statement for the slice.
+
+##### Field-identity skeleton
+
+This one-item field-identity skeleton identifies fields only; it is a shaping sketch, and
+Part B's two-to-five-item rubric wins for O6.2.
+
+```json
+{
+  "xBRIEFInfo": {
+    "version": "0.8"
+  },
+  "plan": {
+    "id": "northstar.delayed-route-preview",
+    "title": "Preview one delayed route",
+    "status": "proposed",
+    "items": [
+      {
+        "title": "Show the delayed-route preview",
+        "status": "proposed",
+        "narrative": {
+          "Acceptance": "Given delayed route R-17, the preview shows its code, delay, and reason.",
+          "Traces": "Northstar Transit idea: help dispatchers manage service disruptions."
+        }
+      }
+    ]
+  }
+}
+```
+
+| Field or value | Identity | Meaning here |
+| --- | --- | --- |
+| `xBRIEFInfo.version`, `plan.title`, `plan.status`, `plan.items`, item `title`, and item `status` | schema-required (verify-enforced) | The fields must exist; this worksheet separately requires version `0.8` and `proposed`. |
+| `plan.id` | schema-legal-optional | It is the worksheet story ID but is optional for `xbrief:verify`. |
+| `narrative.Acceptance` and `narrative.Traces` | this-worksheet (O6.2 rubric) | Every O6.2 item needs one string Acceptance and one trace. |
+| `narrative.Evidence` | schema-legal-optional | It may be a string, but it is a different field from `x-directive/evidence`. |
+| item `effort`, `plan.metadata.kind`, and `plan.metadata.swarm` | schema-legal-optional | They are optional for this proposed candidate; `kind: "story"` is the story-taxonomy value when present. |
+| `plan.metadata.swarm.readiness: "ready"` and item `x-directive/evidence` | later-gate | They belong to later allocation and completion gates, not this proposed candidate. |
+
+Item status `pending` is schema-legal, but this worksheet uses `proposed` to match
+`plan.status`. O6.2 still requires two to five items, each with one string `Acceptance` and
+one string `Traces`, schema `0.8`, and `plan.status: proposed`.
+
+This proposal is reviewable candidate state, not implementation authority.
 
 Create a proposed-scope artifact in your scratch note. It must name:
 
@@ -521,7 +565,7 @@ evidence`, name what is missing, and require the routing decision to be repeated
 | The routing row says only `route`. | The disposition keyword replaced semantic evidence. | Ask which supplied fact changes a mechanism and what happens next. | Add the scenario-specific fact, target revision, and bounded safe action. | The full `M6-ROUTE-01` row passes every rubric clause. |
 | “Make intake safer” is marked `no route`. | Missing evidence was mistaken for evidence of absence. | Look for a proposed mechanism and target revision. | Choose `insufficient evidence`, name both missing facts, and require re-evaluation. | The row stops without inventing a mechanism or advancing lifecycle. |
 | `xbrief:verify` reports `invalid JSON`. | The artifact was hand-edited into a non-parsing state. | Re-read the reported position in your own file. | Repair the JSON, rerun the same command against the same path, and retain both exit codes. | Exit `0` on the unchanged artifact path. |
-| `xbrief:verify` reports `narrative.Acceptance must be a string, got list`. | Acceptance was written as a list instead of one string. | Compare your item narrative with the worked solution. | Give each item one Acceptance string; add items rather than list entries. | Exit `0` with two to five items. |
+| `xbrief:verify` reports `narrative.Acceptance must be a string, got list`. | Acceptance was written as a list instead of one string. | Compare the item with the field-identity skeleton above. | Give each item one Acceptance string; add items rather than list entries. | Exit `0` with two to five items. |
 | `xbrief:verify` exits `0` while the record says `running`. | A structural pass was mistaken for rubric completion. | Compare the two evidence surfaces. | Restore `proposed`; the structural surface never inspected status. | Both surfaces pass separately. |
 | The route row proceeds to promotion. | Routing was confused with clearance or implementation authority. | Compare the safe action with the proposal boundary. | Keep the scope proposed and hold promotion, activation, and implementation pending critique. | The safe action names every held transition. |
 
