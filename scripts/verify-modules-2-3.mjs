@@ -1072,6 +1072,16 @@ for (const [label, content] of [
   );
 }
 assert.doesNotMatch(
+  workflow,
+  /@deftai\/directive-core@0\\\.119\\\.9(?!\d)/,
+  "platform workflow must not retain a leftover 0.119.9 current-pin assertion",
+);
+assert.match(
+  workflow,
+  /@deftai\/directive-core@0\\\.119\\\.11/,
+  "windows-pwsh7 current-pin assertion must match the 0.119.11 teaching baseline",
+);
+assert.doesNotMatch(
   lab2,
   /0\\\.111\\\.0/,
   "Module 2 lab must not retain a stale escaped 0.111.0 command assertion",

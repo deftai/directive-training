@@ -207,7 +207,7 @@ jobs:
           if (-not (Test-Path -LiteralPath $directivePath -PathType Leaf)) { throw "project-local Directive CLI is missing" }
           if (-not (Test-Path -LiteralPath $deftPath -PathType Leaf)) { throw "project-local Deft hook runtime is missing" }
           $versionOutput = (& $directivePath --version | Out-String)
-          if ($versionOutput -notmatch '@deftai/directive-core@0\.119\.9') { throw "wrong Directive version: $versionOutput" }
+          if ($versionOutput -notmatch '@deftai/directive-core@0\.119\.11') { throw "wrong Directive version: $versionOutput" }
           $subject = (& git -C $labRoot log -1 --format=%s | Out-String).Trim()
           if ($subject -ne 'checkpoint: initialize fictional Directive consumer') { throw "unexpected checkpoint subject: $subject" }
           if ((& git -C $labRoot branch --show-current | Out-String).Trim() -ne 'training/module-02') { throw "wrong lab branch" }

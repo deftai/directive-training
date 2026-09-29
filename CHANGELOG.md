@@ -24,6 +24,8 @@
 
 ### Fixed
 
+- Recut the leftover Lab 2 Windows PowerShell 7 CI current-pin assertion from
+  0.119.9 to 0.119.11 after the teaching-baseline rebind (#118).
 - Lab 11 starting-state now proves a resolvable Python interpreter before
   `create`: POSIX walks `PATH` for `python3` then `python`, and Native Windows
   Phase A uses `Get-Command` order `python`, `python3`, then `py`. Expected
