@@ -18,6 +18,12 @@
 
 ### Fixed
 
+- The Lab 2 explained solution recuts the pin-authorship misconception row onto
+  init-writes-CLI-pin, cites SOURCE-BASELINE Modules 2–3 released disagreements
+  and Module 2 §2 for the recorded unpinned 0.119.9 CLI pin, and records the
+  0.119.9 toolchain tuple (Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0) as
+  observed evidence. `scripts/verify-modules-2-3.mjs` rejects the obsolete
+  `0.119.5 did not` claim without freezing the whole Markdown row (#95).
 - Module 6 Part B now presents a labeled one-item field-identity skeleton before
   learners author O6.2 proposed scope. Its legend separates schema-required,
   schema-legal-optional, worksheet-rubric, and later-gate fields while retaining
