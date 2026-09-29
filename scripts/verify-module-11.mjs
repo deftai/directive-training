@@ -135,10 +135,34 @@ function requireStartingStateGate(page) {
     assert.ok(index > previousIndex && index < createIndex, `${lab11} starting-state gate must run ${command} in order before create`);
     previousIndex = index;
   }
+  const uvIndex = gateLines.indexOf("uv --version");
   assert.deepEqual(
-    gateLines.slice(0, 7),
-    ["set -eu", "node --version", "npm --version", "git --version", "task --version", "uv --version", createCommand],
-    `${lab11} starting-state gate must keep the exact fail-closed command prefix through create`,
+    gateLines.slice(0, uvIndex + 1),
+    ["set -eu", "node --version", "npm --version", "git --version", "task --version", "uv --version"],
+    `${lab11} starting-state gate must keep the exact fail-closed command prefix through uv --version`,
+  );
+  assert.ok(
+    createIndex > uvIndex + 1,
+    `${lab11} starting-state gate must place a presence probe after uv --version and before create`,
+  );
+  const fenceBody = fences[0][1];
+  const probe = fenceBody.slice(fenceBody.indexOf("uv --version") + "uv --version".length, fenceBody.indexOf(createCommand));
+  const pythonPreflightMessage = `${lab11} Python preflight must mirror the helper PATH scan and selected candidate`;
+  assert.match(probe, /for python_name in python3 python; do\s+python_search=\$PATH\s+while \[ -n "\$python_search" \]; do/, pythonPreflightMessage);
+  assert.match(probe, /case "\$python_search" in\s+\*:\*\)\s+python_directory=\$\{python_search%%:\*\}\s+python_search=\$\{python_search#\*:\}\s+;;\s+\*\)\s+python_directory=\$python_search\s+python_search=\s+;;\s+esac/, pythonPreflightMessage);
+  assert.match(probe, /\[ -n "\$python_directory" \] \|\| continue\s+python_candidate="\$python_directory\/\$python_name"\s+if \[ -e "\$python_candidate" \]; then\s+python_command="\$python_candidate"\s+break 2[\s\S]*"\$python_command" --version/, pythonPreflightMessage);
+  assert.match(probe, /Python is required for the Lab 11 isolated PATH\./, `${lab11} starting-state probe miss must print the Lab 11 isolated PATH refusal`);
+  assert.doesNotMatch(probe, /command -v python(?:3)?/, `${lab11} Python preflight must not use shell-only resolution`);
+  assert.doesNotMatch(probe, /\bgrep\b|\|\s*awk\b/, `${lab11} Python stays presence-only; do not add a Python version floor`);
+  assert.match(
+    environment,
+    /resolvable Python interpreter \(presence only; no version floor\)/,
+    `${lab11} Environment sentence must name a presence-only Python interpreter`,
+  );
+  assert.doesNotMatch(
+    environment,
+    /\bPython \d+\.\d+/,
+    `${lab11} Python stays presence-only; do not add a Python version floor`,
   );
   assert.doesNotMatch(fences[0][1], /LAB11_ROOT\s*=/, `${lab11} create must print its path before the separate LAB11_ROOT copy step`);
   assert.ok(
@@ -149,6 +173,32 @@ function requireStartingStateGate(page) {
     environment,
     /\b(?:Task|uv)\b`?\s+(?:(?:version\s*:\s*)|(?:version\s+)|(?:[~^<>=]+\s*))?v?\d+\.\d+(?:\.\d+)?|\b(?:supported\s+)?variance\b|^\|[^\n]*(?:Task|uv)[^\n]*\|$/im,
     `${lab11} starting-state commands are resolution checks only; do not add Task or uv pins or a variance table`,
+  );
+}
+
+function expectedFailureRows(page) {
+  const expected = exactHeadingSlice(page, "Expected failures and recovery", 2);
+  return expected.split(/\r?\n/).filter((line) => (
+    line.startsWith("|")
+    && !/^\|\s*---/.test(line)
+    && !/^\|\s*Failure\s*\|/.test(line)
+  ));
+}
+
+function requirePythonFailureRows(page) {
+  const rows = expectedFailureRows(page);
+  const probeRow = rows.find((line) => line.includes("Python is required for the Lab 11 isolated PATH."));
+  assert.ok(probeRow, `${lab11} Expected failures must include the start-check Python probe miss`);
+  assert.match(probeRow, /re-run the starting-state fence/, `${lab11} probe-miss recovery must re-run the starting-state fence`);
+  assert.match(probeRow, /Do not reset/, `${lab11} probe-miss recovery must not reset; no attempt exists yet`);
+  const installRow = rows.find((line) => line.includes("Required executable not found"));
+  assert.ok(installRow, `${lab11} Expected failures must keep Required executable not found as the leftover install-time token`);
+  assert.match(installRow, /node_modules/, `${lab11} install-time recovery must name the existing node_modules leftover`);
+  assert.match(installRow, /`reset`/, `${lab11} install-time recovery must route reset`);
+  assert.doesNotMatch(
+    installRow,
+    /do not create a new attempt/i,
+    `${lab11} must not bind "do not create a new attempt" after an install-time throw`,
   );
 }
 
@@ -409,6 +459,16 @@ function assertWindowsRoutePauses(labPath, body) {
   assert.ok(resetFence >= finalFence, `${labPath} Native Windows reset must not precede final`);
   assert.ok(archiveFence >= resetFence, `${labPath} Native Windows archive must not precede reset`);
   const phaseA = routeFences[createFence].content;
+  const python = phaseA.search(/@\('python', 'python3', 'py'\)/);
+  const create = phaseA.search(/node \$Helper create\b/);
+  assert.ok(python >= 0, `${labPath} Phase A must check Python as python, python3, then py`);
+  assert.ok(create >= 0, `${labPath} Phase A must create the unique first root`);
+  assert.ok(python < create, `${labPath} Phase A must check Python before create`);
+  assert.match(
+    phaseA,
+    /Get-Command \$_ -CommandType Application -ErrorAction SilentlyContinue/,
+    `${labPath} Phase A must resolve Python with Get-Command`,
+  );
   const install = phaseA.search(/node \$Helper install \$LabRoot/);
   const printedRoot = phaseA.search(/Write-Output \$LabRoot\b/);
   assert.ok(install >= 0, `${labPath} Phase A must install the unique first root`);
@@ -562,6 +622,7 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   }
   const labPage = content.get(lab11);
   requireStartingStateGate(labPage);
+  requirePythonFailureRows(labPage);
   const tableRecords = parseTask4QualityRecordTable(labPage);
   assert.deepEqual(
     tableRecords.starter,
@@ -651,6 +712,10 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
     "realpathSync(tmpdir())", 'git(root, ["remote"])', "const allowedWorkFiles = [qualityPath, sourcePath, testPath]",
     "redTestDigest", "greenSourceDigest", "refactorSourceDigest", 'firstFailingSubcheck: "quality:record"', "gateDefinitionsUnchanged",
   ]) assert.ok(helper.includes(invariant), `Module 11 helper is missing guard invariant: ${invariant}`);
+  assert.ok(
+    helper.includes('console.error("Lab 11 stopped: " + error.message)'),
+    "Lab 11 helper must keep Lab 11 stopped wrapping",
+  );
   assertEnospcLabContract(content.get(lab11), {
     label: "Lab 11",
     archiveClass: "3ci-directive-lab11-<unique>",

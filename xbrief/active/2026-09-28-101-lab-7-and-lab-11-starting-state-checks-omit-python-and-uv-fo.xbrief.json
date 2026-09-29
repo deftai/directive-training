@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #101",
-    "updated": "2026-09-28T12:14:59Z"
+    "updated": "2026-09-29T00:28:29Z"
   },
   "plan": {
     "title": "Lab 7 and Lab 11 starting-state checks omit Python (and uv for Lab 7) that their helpers hard-require",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "Lab 11's starting-state routes can create an attempt before proving that a usable Python executable exists, even though the helper requires Python during install. This story adds presence-only Python probes in the established POSIX and Native Windows lookup orders, distinguishes a pre-create probe miss from a post-create install failure, and deliberately leaves Lab 7, Lab 10 POSIX, and helper behavior outside the change.",
       "ImplementationPlan": "1. Update `labs/11-testing-gates-and-evidence.md` so the POSIX and Native Windows starting-state blocks resolve Python in the established order before `create`, and split the Expected failures guidance by whether an attempt exists.\n2. Recut `scripts/verify-module-11.mjs` to recognize the Python presence probes while preserving Task and uv as resolution-only checks and retaining the existing helper error wrapper.\n3. Add focused positive and mutation cases to `scripts/verify-module-11.test.mjs` that prove ordering, presence-only semantics, and the two distinct recovery paths.",
@@ -399,6 +399,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5587629788",
-    "updated": "2026-09-28T12:14:59Z"
+    "updated": "2026-09-29T00:28:29Z"
   }
 }

@@ -18,6 +18,13 @@
 
 ### Fixed
 
+- Lab 11 starting-state now proves a resolvable Python interpreter before
+  `create`: POSIX walks `PATH` for `python3` then `python`, and Native Windows
+  Phase A uses `Get-Command` order `python`, `python3`, then `py`. Expected
+  failures split a pre-create probe miss (install Python and re-run the fence)
+  from an install-time `Required executable not found` leftover that needs
+  `reset`. Python stays presence-only. Lab 7 and Lab 10 POSIX are unchanged
+  (#101).
 - README cold-start bootstrap now names learners inside the managed block and
   retitles the first heading, so the global-first ladder stays for agents while
   course learners skip `directive doctor` and `npm i -g`. The cold-start

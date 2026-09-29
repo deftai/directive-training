@@ -28,7 +28,7 @@ All names and values are fictional. No remote service, business repository, cred
 
 ## Environment and starting-state check
 
-Use Node.js 22 or later, npm, Git, Task, and `uv`. Run these commands from the curriculum repository only to invoke the supplied helper; all exercise mutation occurs in the unique OS-temporary repository with no remote that it creates.
+Use Node.js 22 or later, npm, Git, Task, `uv`, and a resolvable Python interpreter (presence only; no version floor). Run these commands from the curriculum repository only to invoke the supplied helper; all exercise mutation occurs in the unique OS-temporary repository with no remote that it creates.
 
 Before `create`, use the [shared capacity recipe](README.md#disk-capacity-and-enospc-recovery)
 on this temporary volume. Measure the current attempt, one reset attempt, and npm
@@ -47,6 +47,33 @@ npm --version
 git --version
 task --version
 uv --version
+python_command=
+for python_name in python3 python; do
+  python_search=$PATH
+  while [ -n "$python_search" ]; do
+    case "$python_search" in
+      *:*)
+        python_directory=${python_search%%:*}
+        python_search=${python_search#*:}
+        ;;
+      *)
+        python_directory=$python_search
+        python_search=
+        ;;
+    esac
+    [ -n "$python_directory" ] || continue
+    python_candidate="$python_directory/$python_name"
+    if [ -e "$python_candidate" ]; then
+      python_command="$python_candidate"
+      break 2
+    fi
+  done
+done
+if [ -z "$python_command" ]; then
+  printf '%s\n' "Python is required for the Lab 11 isolated PATH." >&2
+  exit 1
+fi
+"$python_command" --version
 node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs create
 ```
 
@@ -248,6 +275,8 @@ Review the smallest relevant fields; do not publish full environment output.
 
 | Failure | Cause | Recovery |
 | --- | --- | --- |
+| `Python is required for the Lab 11 isolated PATH.` | The starting-state probe found no resolvable `python3` or `python` before `create` | Install Python through the organization's approved path and re-run the starting-state fence. Do not reset; no attempt exists yet. |
+| `Required executable not found` | The helper threw during `install` after `create`, so `node_modules` already exists | Preserve the leftover install-time token (the helper prefixes `Lab 11 stopped:`) and `reset`. Do not retry `install` in place. |
 | `source changed before red evidence` | Implementation began before meaningful red | Preserve the attempt and use the reset helper for a fresh root |
 | `focused test changed after the red checkpoint` | The comparison moved | Preserve the evidence and retry from a fresh attempt with the red test frozen |
 | Literal safety refusal | The active command is not from the allowed test/check family | Use the untouched supplied active contract; do not alter the allowlist |
@@ -328,6 +357,11 @@ $Helper = Join-Path $CourseRoot "labs/fixtures/11-testing-gates-and-evidence/gat
 $Launcher = Join-Path ([IO.Path]::GetTempPath()) ("3ci-lab11-launch-" + [guid]::NewGuid().ToString("N"))
 [void](New-Item -ItemType Directory -Path $Launcher)
 Set-Location -LiteralPath $Launcher
+$PythonCommand = @('python', 'python3', 'py') | ForEach-Object {
+  Get-Command $_ -CommandType Application -ErrorAction SilentlyContinue
+} | Select-Object -First 1
+if ($null -eq $PythonCommand) { throw 'Python is required for the Lab 11 isolated PATH.' }
+& $PythonCommand.Source --version
 $LabRoot = ((& node $Helper create) | Out-String).Trim()
 & node $Helper guard $LabRoot
 & node $Helper install $LabRoot
