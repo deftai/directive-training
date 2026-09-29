@@ -23,6 +23,12 @@
         "id": "clause.1",
         "narrative": {
           "Acceptance": "When the Lab 2 solution table is rendered, all three cells state that Directive 0.119.5 init writes the CLI package pin, distinguish deterministic fixture pre-seeding from product behavior, and cite the released Modules 2-3 baseline while leaving the 0.112.0 note historical."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "solutions/lab-02-disposable-initialization.md",
+          "recorded_at": "2026-09-29T01:32:07Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
@@ -31,6 +37,12 @@
         "id": "clause.2",
         "narrative": {
           "Acceptance": "`npm run check:modules-2-3` passes for the corrected solution and fails when the old `0.119.5 did not` claim returns or the required init-writes-CLI-pin statement is removed."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-09-29T01:32:07Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
@@ -39,6 +51,12 @@
         "id": "clause.3",
         "narrative": {
           "Acceptance": "The solution records Node 24.20.0 for the 0.119.5 run and presents the toolchain tuple only as observed evidence, not as an additional reconstitution pin."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "solutions/lab-02-disposable-initialization.md",
+          "recorded_at": "2026-09-29T01:32:07Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       }
     ],
