@@ -1,6 +1,10 @@
-// Shared assertion for the Modules 2-3 platform proofs: the pin-matched Lab 2 `directive
-// doctor --full` run must emit exactly one warning, and that warning must be the
-// `canonical-vendored-npm-signpost` provenance row (deftai/directive-training#19).
+// Shared assertion for the Modules 2-3 platform proofs: bind doctor warning identities,
+// not mere presence (deftai/directive-training#19 / #118).
+//
+// Default learner / linux / macos set: exactly `canonical-vendored-npm-signpost`.
+// Windows learner-path 0.119.11 also emits `agent-hooks-live-probe` under Restricted
+// PowerShell (#4654). windows-pwsh7 CI passes that pair via --expected-id; linux/macos
+// keep the default one-id set.
 //
 // Identity, not presence. An earlier revision only required the check id to appear somewhere
 // in the output and separately required the summary to report one warning. A run where the
@@ -15,7 +19,14 @@
 import { readFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 
-const EXPECTED_WARNING_IDS = ["canonical-vendored-npm-signpost"];
+export const LEARNER_WARNING_IDS = ["canonical-vendored-npm-signpost"];
+export const WINDOWS_LEARNER_WARNING_IDS = [
+  "canonical-vendored-npm-signpost",
+  "agent-hooks-live-probe",
+];
+const EXPECTED_WARNING_IDS = LEARNER_WARNING_IDS;
+const USAGE =
+  "usage: node scripts/assert-doctor-warning-set.mjs [--expected-id <id> ...] <captured-doctor-output>";
 
 const ANSI = /\u001b\[[0-9;]*m/g;
 const SUMMARY = /^(.*?)System check completed with (\d+) warning/;
@@ -32,7 +43,7 @@ export function checkDoctorWarningSet(rawText, expectedWarningIds = EXPECTED_WAR
   const lines = text.split("\n");
   const problems = [];
 
-  // The pinned 0.119.9 engine cannot emit this row; seeing it means the dead string was
+  // The pinned 0.119.11 engine cannot emit this row; seeing it means the dead string was
   // reintroduced somewhere upstream of the proof.
   if (/Missing directory: *`?xbrief\//.test(text)) {
     problems.push("doctor emitted the retired xbrief false negative");
@@ -66,7 +77,7 @@ export function checkDoctorWarningSet(rawText, expectedWarningIds = EXPECTED_WAR
   const warningRows = lines.filter((line, index) => isWarningRow(line, index));
   const warningIds = warningRows.map((line) => {
     const remainder = line.slice(marker.length).trim();
-    // Directive 0.119.9 renders signpost warnings with a human-facing category before the
+    // Directive 0.119.11 renders signpost warnings with a human-facing category before the
     // stable check id. Strip only that known category; the exact identity comparison below
     // still rejects renamed, missing, or additional warning checks.
     const identityText = remainder.replace(SIGNPOST_LABEL, "");
@@ -89,17 +100,52 @@ export function checkDoctorWarningSet(rawText, expectedWarningIds = EXPECTED_WAR
   return problems;
 }
 
+/**
+ * Parse CLI argv for the doctor-warning checker.
+ * @param {string[]} argv tokens after the script path
+ * @returns {{ path: string, expectedWarningIds: string[] }}
+ */
+export function parseDoctorWarningSetArgs(argv) {
+  const expectedIds = [];
+  const positional = [];
+  for (let index = 0; index < argv.length; index += 1) {
+    const token = argv[index];
+    if (token === "--expected-id") {
+      const id = argv[index + 1];
+      if (!id || id.startsWith("-")) {
+        throw new Error(USAGE);
+      }
+      expectedIds.push(id);
+      index += 1;
+      continue;
+    }
+    if (token.startsWith("-")) {
+      throw new Error(`unrecognized flag: ${token}`);
+    }
+    positional.push(token);
+  }
+  if (positional.length !== 1) {
+    throw new Error(USAGE);
+  }
+  return {
+    path: positional[0],
+    expectedWarningIds: expectedIds.length > 0 ? expectedIds : [...LEARNER_WARNING_IDS],
+  };
+}
+
 const invokedDirectly = Boolean(process.argv[1]) && pathToFileURL(process.argv[1]).href === import.meta.url;
 if (invokedDirectly) {
-  const path = process.argv[2];
-  if (!path) {
-    console.error("usage: node scripts/assert-doctor-warning-set.mjs <captured-doctor-output>");
+  let parsed;
+  try {
+    parsed = parseDoctorWarningSetArgs(process.argv.slice(2));
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : USAGE);
     process.exit(2);
   }
-  const problems = checkDoctorWarningSet(readFileSync(path, "utf8"));
+  const problems = checkDoctorWarningSet(readFileSync(parsed.path, "utf8"), parsed.expectedWarningIds);
   if (problems.length) {
     for (const problem of problems) console.error(problem);
     process.exit(2);
   }
-  console.log(`doctor warning set verified: exactly ${EXPECTED_WARNING_IDS.join(", ")}`);
+  console.log(`doctor warning set verified: exactly ${parsed.expectedWarningIds.join(", ")}`);
 }

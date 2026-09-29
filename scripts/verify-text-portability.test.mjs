@@ -205,6 +205,15 @@ for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
     assertRejected(runVerifier(`modules-permissions-${label}`, modulesVerifier, files, eol), /must grant only read-only repository contents/);
   });
 
+  test(`Modules 2-3 verifier rejects a leftover 0.119.9 windows-pwsh7 pin with ${label}`, () => {
+    const files = changed(modulesFiles, workflowPath, (text) =>
+      text.replace("@deftai/directive-core@0\\.119\\.11", "@deftai/directive-core@0\\.119\\.9"));
+    assertRejected(
+      runVerifier(`modules-pwsh7-pin-${label}`, modulesVerifier, files, eol),
+      /leftover 0\.119\.9 current-pin/,
+    );
+  });
+
   test(`Modules 2-3 verifier rejects a broken heading link with ${label}`, () => {
     const files = changed(modulesFiles, "README.md", (text) => text + "\n[Missing heading](references/GLOSSARY.md#missing-portability-heading)\n");
     assertRejected(runVerifier(`modules-heading-${label}`, modulesVerifier, files, eol), /broken local heading link/);

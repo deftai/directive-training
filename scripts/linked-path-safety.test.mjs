@@ -103,7 +103,7 @@ function fakeGraph(root) {
   for (const name of ["directive", "directive-core", "directive-content", "directive-types"]) {
     const directory = join(root, "node_modules", "@deftai", name);
     mkdirSync(directory, { recursive: true });
-    writeFileSync(join(directory, "package.json"), JSON.stringify({ version: "0.119.9" }));
+    writeFileSync(join(directory, "package.json"), JSON.stringify({ version: "0.119.11" }));
   }
   mkdirSync(join(root, "node_modules/.bin"));
   mkdirSync(join(root, "node_modules/@deftai/directive/dist"));
@@ -211,7 +211,7 @@ linkedPathTest("MAP symbolic link is refused before mutation reaches evidence", 
 linkedPathTest("verifyPin rejects a symbolic package graph", () => {
   const root = createAttempt();
   fakeGraph(root);
-  assert.equal(verifyPin(root), "0.119.9");
+  assert.equal(verifyPin(root), "0.119.11");
   renameSync(join(root, "node_modules"), join(root, "node_modules-original"));
   symlinkSync(join(root, "node_modules-original"), join(root, "node_modules"), "dir");
   assert.throws(() => verifyPin(root), /symlink/);

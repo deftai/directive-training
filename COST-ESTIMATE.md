@@ -3,7 +3,72 @@
 
 # Cost & Budget Estimate
 
-## Current scope — Directive 0.119.9 teaching-baseline upgrade (2026-09-26)
+## Current scope — Directive 0.119.11 teaching-baseline upgrade (2026-09-29)
+
+Currency: **USD**. This scope upgrades the complete Directive teaching baseline
+from 0.119.9 to 0.119.11, revalidates exact release identity and taught behavior,
+runs the repository and pull-request gates, and opens a pull request. It
+introduces no hosting service, paid account, publishing platform, production
+runtime, credential, or business-repository exercise.
+
+### TL;DR
+
+For one public curriculum repository using existing tooling, expected incremental
+service cost is **low $0 / typical $0 / high $0 per month**. The meaningful cost
+is approximately **16–40 hours** of release-proof collection, fixture and
+verifier updates, curriculum revalidation, disposable probes, and pull-request
+evidence. Ongoing maintenance is approximately **1–3 hours per
+month**, plus focused revalidation after a future material Directive release.
+
+### Assumptions and scale considerations
+
+- The scale is one public curriculum repository and six maintained disposable
+  learner fixtures, using existing GitHub, coding-agent, workstation, Node.js,
+  npm, and GitHub Actions access.
+- All mutation probes run in unique disposable repositories with no remote. The
+  training checkout and business repositories are not learner-probe targets.
+- Release identity is frozen to the verified 0.119.11 package graph for this run;
+  a later publication is follow-up work unless it invalidates a probed surface.
+  0.119.10 is an intermediate publication and is not a learner pin.
+- The scope includes current learner and executable surfaces. Historical 0.119.9
+  and older evidence stays explicitly historical.
+- Delivery includes feature-branch push and a pull request. Parent-retained closer
+  owns Greptile wait and squash-merge after exact-head CLEAN.
+
+### What you will need to sign up for
+
+No new account is expected. Contributors use the repository's existing GitHub,
+coding-agent, Git, Node.js, npm, and GitHub Actions access.
+
+### Hosting, infrastructure, and third-party fees
+
+None are expected. This work changes repository-authored content, fixtures,
+tests, and CI assertions; it does not deploy, publish, call a paid API, or create
+a hosted learner service.
+
+### Build and maintenance time
+
+- **Release identity and command-surface proof**: about **2–5 hours**
+- **Fixture graphs, workflow assertions, and verifier updates**: about **4–10 hours**
+- **Curriculum, solutions, references, and maintenance guidance**: about **6–15 hours**
+- **Disposable probes, aggregate gates, and pull-request evidence**: about **4–10 hours**
+- **Total build**: about **16–40 hours**
+- **Maintenance**: about **1–3 hours per month**, plus focused revalidation after
+  a material Directive release
+
+### Decision recorded — current scope
+
+- **Decision**: Build
+- **Date**: 2026-09-29
+- **Recorded by**: dest implement worker for issue #118
+- **Selection**: Approved full upgrade through stop-at pr-open
+- **Confirmation**: issue #118 active xBRIEF
+- **Reason**: Issue #118 authorizes the 0.119.11 deposit refresh, teaching
+  rebind, fixture graph pin, disposable probes, Unreleased changelog, and
+  feature-branch pull request. Parent-retained closer owns Greptile wait and
+  squash-merge after exact-head CLEAN.
+
+## Prior scope — Directive 0.119.9 teaching-baseline upgrade (2026-09-26)
 
 Currency: **USD**. This scope upgrades the complete Directive teaching baseline
 from 0.119.5 to 0.119.9, revalidates exact release identity and taught behavior,
@@ -56,7 +121,7 @@ a hosted learner service.
 - **Maintenance**: about **1–3 hours per month**, plus focused revalidation after
   a material Directive release
 
-### Decision recorded — current scope
+### Decision recorded — prior 0.119.9 scope
 
 - **Decision**: Build
 - **Date**: 2026-09-26

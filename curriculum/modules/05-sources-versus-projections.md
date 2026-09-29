@@ -8,10 +8,10 @@ repair drift there, and prove the view reflects the intended change.
 | Field | Value |
 | --- | --- |
 | Stable ID | `module-05-sources-versus-projections` |
-| Status | Learner-ready draft; 0.119.9 executable fixture verified on Windows/PowerShell; published shell walkthroughs candidate |
+| Status | Learner-ready draft; 0.119.11 executable fixture verified on Windows/PowerShell; published shell walkthroughs candidate |
 | Last content update | 2026-09-12 |
-| Last verified | 2026-09-26 |
-| Directive baseline | fixture-local package and engine 0.119.9; xBRIEF 0.8; [source baseline](../../references/SOURCE-BASELINE.md) |
+| Last verified | 2026-09-29 |
+| Directive baseline | fixture-local package and engine 0.119.11; xBRIEF 0.8; [source baseline](../../references/SOURCE-BASELINE.md) |
 | Platform evidence | Windows/PowerShell fixture verified; published macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs candidate |
 | Estimated duration | 45–60 minutes, including Lab 5 and self-assessment |
 | Prerequisites | Modules 1–4; Git, Node.js 22+, npm; zsh on macOS or PowerShell 7.4+ on Windows |
@@ -129,7 +129,7 @@ that behavior in the fictional source code.
 
 ### 3. Combine evidence
 
-Directive 0.119.9 permits an absent MAP in its freshness
+Directive 0.119.11 permits an absent MAP in its freshness
 check. A successful freshness command therefore does not prove a MAP exists.
 An existing tampered or stale MAP is rejected.
 
@@ -295,11 +295,11 @@ the instrument that scores this module.
 
 | Claim | Source | Verified date | Boundary |
 | --- | --- | --- | --- |
-| Generated-document ownership | [0.119.9 command families][commands] | 2026-09-26 | Commands serve different artifacts |
-| MAP source and renderer | [Released MAP source][map-source] | 2026-09-26 | Maintainer traceability; learners use public CLI |
-| Missing/tampered/stale MAP behavior | [Released freshness source][fresh-source] and [course probes](../../references/SOURCE-NOTES.md) | 2026-09-26 | Proof is limited to executed environments |
-| Disposable-only boundary | [Lab safety policy](../../labs/README.md) | 2026-09-26 | Course requirement |
+| Generated-document ownership | [0.119.11 command families][commands] | 2026-09-29 | Commands serve different artifacts |
+| MAP source and renderer | [Released MAP source][map-source] | 2026-09-29 | Maintainer traceability; learners use public CLI |
+| Missing/tampered/stale MAP behavior | [Released freshness source][fresh-source] and [course probes](../../references/SOURCE-NOTES.md) | 2026-09-29 | Proof is limited to executed environments |
+| Disposable-only boundary | [Lab safety policy](../../labs/README.md) | 2026-09-29 | Course requirement |
 
-[commands]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md
-[map-source]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/packages/core/src/codebase/map.ts
-[fresh-source]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/packages/core/src/codebase/map-fresh.ts
+[commands]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/commands.md
+[map-source]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/packages/core/src/codebase/map.ts
+[fresh-source]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/packages/core/src/codebase/map-fresh.ts

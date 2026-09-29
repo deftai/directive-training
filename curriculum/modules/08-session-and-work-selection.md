@@ -4,7 +4,7 @@
 
 | Field | Value |
 | --- | --- |
-| Directive baseline | fixture-local 0.119.9 |
+| Directive baseline | fixture-local 0.119.11 |
 | Estimated time | 45 minutes |
 | Prerequisite | [Module 7 — Scope lifecycle and implementation authorization](07-scope-lifecycle.md) |
 | Exercise model | Command-free analysis of fixed fictional state |
@@ -80,7 +80,7 @@ a bare “what next?” or “proceed.” Its canonical state file is
 `.deft-cache/`.
 
 **Audit log** is the append-only triage decision record exposed by
-`deft triage:audit`. Its 0.119.9 canonical path is
+`deft triage:audit`. Its 0.119.11 canonical path is
 `xbrief/.triage-cache/candidates.jsonl`.
 
 ## Mental model

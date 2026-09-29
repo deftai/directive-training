@@ -73,8 +73,8 @@ test("create produces a unique guarded no-remote Module 10 fixture", () => {
   assert.equal(story.plan.status, "running");
   assert.deepEqual(story.plan.metadata.file_scope, ["src/greeting.mjs"]);
   const manifest = JSON.parse(read(join(root, "package.json")));
-  assert.equal(manifest.devDependencies["@deftai/directive"], "0.119.9");
-  assert.equal(manifest.overrides["@deftai/directive-core"], "0.119.9");
+  assert.equal(manifest.devDependencies["@deftai/directive"], "0.119.11");
+  assert.equal(manifest.overrides["@deftai/directive-core"], "0.119.11");
   archiveAttempt(root);
 });
 
@@ -89,8 +89,8 @@ test("guard rejects the curriculum, a remote, and an altered exact pin", () => {
   writeFileSync(configPath, originalConfig);
   const packagePath = join(root, "package.json");
   const originalPackage = read(packagePath);
-  writeFileSync(packagePath, originalPackage.replace('"0.119.9"', '"0.119.3"'));
-  assert.throws(() => guardAttempt(root), /0\.119\.9/);
+  writeFileSync(packagePath, originalPackage.replace('"0.119.11"', '"0.119.3"'));
+  assert.throws(() => guardAttempt(root), /0\.119\.11/);
   writeFileSync(packagePath, originalPackage);
   archiveAttempt(root);
 });
@@ -154,7 +154,7 @@ test("reclaim is preview-first and deletes a confirmed Module 10 archive without
 test("readiness must precede the one-file implementation and final evidence", { timeout: 180_000 }, () => {
   const root = createAttempt();
   installAttempt(root);
-  assert.equal(verifyPin(root), "0.119.9");
+  assert.equal(verifyPin(root), "0.119.11");
   assert.throws(() => verifyImplementation(root), /readiness evidence/);
 
   const greetingPath = join(root, "src/greeting.mjs");

@@ -935,9 +935,9 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.equal(packageJson.scripts?.["test:linked-path-safety"], "node scripts/verify-symlink-capability.mjs && node --test scripts/linked-path-safety.test.mjs", "test:linked-path-safety changed");
 
   const fixturePackage = JSON.parse(content.get(fixturePackagePath));
-  assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.119.9", "fixture package must retain the exact Directive pin");
+  assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.119.11", "fixture package must retain the exact Directive pin");
   for (const dependency of ["directive-core", "directive-content", "directive-types"]) {
-    assert.equal(fixturePackage.overrides?.["@deftai/" + dependency], "0.119.9", "fixture package must retain exact " + dependency + " override");
+    assert.equal(fixturePackage.overrides?.["@deftai/" + dependency], "0.119.11", "fixture package must retain exact " + dependency + " override");
   }
   for (const path of [curriculumPath, labPath, assessmentPath, solutionPath]) {
     const body = content.get(path);
@@ -998,9 +998,9 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.deepEqual(
     markers,
     [
-      { proof: "macos-zsh", status: "candidate", date: "2026-09-26", evidence: "not-run-at-0.119.9" },
-      { proof: "linux-bash", status: "candidate", date: "2026-09-26", evidence: "not-run-at-0.119.9" },
-      { proof: "windows-pwsh7", status: "candidate", date: "2026-09-26", evidence: "baseline-upgrade-69-pass-6-skip-dedicated-linked-path-preflight-eperm" },
+      { proof: "macos-zsh", status: "candidate", date: "2026-09-29", evidence: "not-run-at-0.119.11" },
+      { proof: "linux-bash", status: "candidate", date: "2026-09-29", evidence: "not-run-at-0.119.11" },
+      { proof: "windows-pwsh7", status: "candidate", date: "2026-09-29", evidence: "baseline-upgrade-78-pass-8-skip-dedicated-linked-path-preflight-eperm" },
     ],
     "SOURCE-BASELINE current platform proof marker set is incorrect",
   );
@@ -1014,7 +1014,7 @@ export function verifyCapstone(root = fileURLToPath(new URL("../", import.meta.u
   assert.match(notes, /^## Capstone source validation\s*$/m, "SOURCE-NOTES is missing capstone source validation");
   const baselineCapstone = section(markdownParts(baseline).prose, "Capstone end-to-end validation");
   const notesCapstone = section(markdownParts(notes).prose, "Capstone source validation");
-  assert.match(baselineCapstone, /0\.119\.9/, "current capstone source record is missing learner pin");
+  assert.match(baselineCapstone, /0\.119\.11/, "current capstone source record is missing learner pin");
   assert.match(notesCapstone, /0\.112\.0/, "historical capstone source record is missing its learner pin");
   for (const source of [baselineCapstone, notesCapstone]) assert.match(source, /Node\.js\s+20-compatible/, "capstone source record is missing application compatibility");
   assert.match(baselineCapstone, /Node\.js 22 or newer/i, "learner baseline must state the capability-based runtime");

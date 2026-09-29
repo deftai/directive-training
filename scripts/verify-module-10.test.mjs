@@ -72,8 +72,8 @@ test("Module 10 content contract accepts the completed lifecycle state", () => {
 
 test("verifier rejects a stale or ranged learner baseline", () => {
   const root = changedCopy("curriculum/modules/10-implementation-golden-path.md", (body) => body.replace(
-    "| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
-    "| Directive baseline | fixture-local `@deftai/directive@0.119.9–0.114.0`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
+    "| Directive baseline | fixture-local `@deftai/directive@0.119.11`, engine `@deftai/directive-core@0.119.11`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
+    "| Directive baseline | fixture-local `@deftai/directive@0.119.11–0.114.0`, engine `@deftai/directive-core@0.119.11`; see the [source baseline](../../references/SOURCE-BASELINE.md) |",
   ));
   assert.throws(() => verifyModule10(root), /stale or ranged Directive baseline/);
 });
@@ -152,7 +152,7 @@ test("verifier rejects promoting full Windows platform support from fixture-only
 
 test("verifier rejects a course index that drops the fixture-versus-walkthrough boundary", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Implement one test-backed active scope |",
+    "| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Learner-ready; 0.119.11 fixture verified on Windows; published shell walkthroughs candidate | Implement one test-backed active scope |",
     "| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Learner-ready; Windows verified | Implement one test-backed active scope |",
   ));
   assert.throws(() => verifyModule10(root), /current platform boundary/);
@@ -160,7 +160,7 @@ test("verifier rejects a course index that drops the fixture-versus-walkthrough 
 
 test("verifier rejects Module 11 regressing to planned after release", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Red-green-refactor and diagnose a gate failure |",
+    "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; 0.119.11 fixture verified on Windows; published shell walkthroughs candidate | Red-green-refactor and diagnose a gate failure |",
     "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Planned | Red-green-refactor and diagnose a gate failure |",
   ));
   assert.throws(() => verifyModule10(root), /Module 11 must remain learner-ready/);

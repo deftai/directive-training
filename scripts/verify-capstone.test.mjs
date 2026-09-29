@@ -668,7 +668,7 @@ test("verifier rejects an unsupported verified platform", () => {
 
 test("verifier rejects a ranged learner pin", () => {
   const root = changedCopy("package.json", (body) =>
-    body.replace('"@deftai/directive": "0.119.9"', '"@deftai/directive": "^0.119.9"'));
+    body.replace('"@deftai/directive": "0.119.11"', '"@deftai/directive": "^0.119.11"'));
   assert.throws(() => verifyCapstone(root), /must pin @deftai\/directive exactly/);
 });
 

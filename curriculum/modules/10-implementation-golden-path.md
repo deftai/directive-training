@@ -5,9 +5,9 @@
 | Field | Value |
 | --- | --- |
 | Stable ID | `module-10-implementation-golden-path` |
-| Status | Learner-ready draft; 0.119.9 executable fixture verified on Windows/PowerShell |
-| Last verified | 2026-09-26 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Status | Learner-ready draft; 0.119.11 executable fixture verified on Windows/PowerShell |
+| Last verified | 2026-09-29 |
+| Directive baseline | fixture-local `@deftai/directive@0.119.11`, engine `@deftai/directive-core@0.119.11`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Duration | 70 minutes, including the disposable lab |
 | Prerequisites | Modules 1–9; Node.js 22+, npm, Git, Task, `uv`, and a dedicated terminal |
 | Native platform evidence | Windows/PowerShell executable fixture verified; published shell walkthroughs remain candidates |
@@ -166,7 +166,7 @@ the following checkpoints:
 | Checkpoint | Expected state |
 | --- | --- |
 | Create | Unique OS-temporary no-remote Git repository on `training/module-10` |
-| Install | Exact CLI/core/content/types 0.119.9 graph and clean local checkpoint |
+| Install | Exact CLI/core/content/types 0.119.11 graph and clean local checkpoint |
 | Readiness | Four start gates green; focused test red; `readiness.json` says `READY` |
 | Implement | Only `src/greeting.mjs` differs |
 | Verify | Focused and CLI behavior green; diff check green; `implementation.json` says `PASS` |
@@ -192,7 +192,7 @@ and proof precise.
 ## Completion evidence
 
 - **O10.5:** `readiness.json` names the clean checkpoint, active scope, empty remote, branch,
-  exact 0.119.9 baseline, and four successful start gates.
+  exact 0.119.11 baseline, and four successful start gates.
 - **O10.6:** the readiness record retains focused exit `1`; the final record retains focused
   exit `0` after the smallest coherent change.
 - **O10.7:** the active scope and final diff each list only `src/greeting.mjs`.
@@ -263,5 +263,5 @@ Use it to diagnose the smallest gap, then retry from a known state.
 | Gate integrity | [Directive main][main] | 2026-09-10 |
 | Exact runtime observations | [Module 10 source validation](../../references/SOURCE-NOTES.md#module-10-source-validation) | 2026-09-10 |
 
-[commands]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md
-[main]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/main.md
+[commands]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/commands.md
+[main]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/main.md

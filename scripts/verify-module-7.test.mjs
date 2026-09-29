@@ -178,8 +178,8 @@ test("verifier rejects presence-only O6.4 admission", () => {
 
 test("verifier rejects attributing mechanism-shaped judgment to Directive", () => {
   const root = changedCopy("curriculum/modules/07-scope-lifecycle.md", (body) => body.replace(
-    "Directive 0.119.9 does not compute whether work\nis mechanism-shaped, and `scope:promote` is not fail-closed on that judgment.",
-    "Directive 0.119.9 computes whether work\nis mechanism-shaped, and `scope:promote` is fail-closed on that judgment.",
+    "Directive 0.119.11 does not compute whether work\nis mechanism-shaped, and `scope:promote` is not fail-closed on that judgment.",
+    "Directive 0.119.11 computes whether work\nis mechanism-shaped, and `scope:promote` is fail-closed on that judgment.",
   ));
   assert.throws(() => verifyModule7(root), /mechanism-shaped judgment to Directive/);
 });
@@ -228,7 +228,7 @@ test("verifier rejects promoting full Windows platform support from fixture-only
 
 test("verifier rejects a course index that drops the fixture-versus-walkthrough boundary", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Fail, promote, activate, establish current readiness, stamp evidence, complete, and cancel |",
+    "| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; 0.119.11 fixture verified on Windows; published shell walkthroughs candidate | Fail, promote, activate, establish current readiness, stamp evidence, complete, and cancel |",
     "| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; Windows verified | Fail, promote, activate, establish current readiness, stamp evidence, complete, and cancel |",
   ));
   assert.throws(() => verifyModule7(root), /current platform boundaries/);

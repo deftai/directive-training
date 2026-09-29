@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 import { governingEnv, withoutHostNpmConfig } from "../labs/fixtures/02-disposable-initialization/init-lab.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
-const pin = "0.119.9";
+const pin = "0.119.11";
 const pinnedSpec = `@deftai/directive@${pin}`;
 const nestedNames = ["directive-core", "directive-content", "directive-types"];
 const workspace = mkdtempSync(join(tmpdir(), "directive-bootstrap-runtime-"));
@@ -185,8 +185,8 @@ test("prereleases are not treated as newer compatible releases", () => {
   assert.equal(isExactRelease("0.119.10"), true);
   assert.equal(isExactRelease("0.119.10-rc.1"), false);
   assert.deepEqual(
-    ["0.119.9", "0.119.10-rc.1", "0.119.10"].filter(isExactRelease).filter(isNewerCompatible),
-    ["0.119.10"],
+    ["0.119.11", "0.119.12-rc.1", "0.119.12"].filter(isExactRelease).filter(isNewerCompatible),
+    ["0.119.12"],
   );
 });
 
@@ -199,7 +199,7 @@ test("isolated pinned global-prefix install characterizes mixed nested resolutio
   runNpm(["install", "--global", "--prefix", pinnedPrefix, pinnedSpec], 300_000);
   const graph = nestedGraph(pinnedPrefix);
   t.diagnostic(`pinned nested graph: ${JSON.stringify(graph)}`);
-  assert.equal(graph.directive, pin, "pinned install must select CLI 0.119.9");
+  assert.equal(graph.directive, pin, "pinned install must select CLI 0.119.11");
   const nested = nestedNames.map((name) => graph[name]);
   assert.ok(
     nested.some((version) => version !== pin),

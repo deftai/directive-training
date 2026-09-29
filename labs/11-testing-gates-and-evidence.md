@@ -7,14 +7,14 @@
 | Stable ID | `lab-11-testing-gates-and-evidence` |
 | Status | Learner-ready draft |
 | Suggested first attempt | 35 minutes |
-| Directive baseline | `@deftai/directive@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | `@deftai/directive@0.119.11`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source module | [Module 11 — Testing, Gates, and Evidence](../curriculum/modules/11-testing-gates-and-evidence.md) |
 | Fixture | [`fixtures/11-testing-gates-and-evidence`](fixtures/11-testing-gates-and-evidence/) |
-| Verified environment | 0.119.9 fixture verified on Windows/PowerShell on 2026-09-26; published shell walkthroughs, Linux/bash, and macOS/zsh remain candidates |
+| Verified environment | 0.119.11 fixture verified on Windows/PowerShell on 2026-09-29; published shell walkthroughs, Linux/bash, and macOS/zsh remain candidates |
 
 The guarded fixture suite ran on Windows/PowerShell at the current baseline. The published
 Windows command path remains a walkthrough candidate until a learner completes the full
-0.119.9 route; Linux/bash and macOS/zsh also remain candidates.
+0.119.11 route; Linux/bash and macOS/zsh also remain candidates.
 
 ## Goal and done condition
 
@@ -90,7 +90,7 @@ Expected: guard succeeds, the branch is `training/module-11`, and the remote com
 
 ## Safety boundary
 
-The helper refuses mutation unless the target is the canonical `repo` inside one unique OS-temporary no-remote attempt, the branch is `training/module-11`, exactly one xBRIEF 0.8 story is active/running, and the exact Directive graph is 0.119.9 after install.
+The helper refuses mutation unless the target is the canonical `repo` inside one unique OS-temporary no-remote attempt, the branch is `training/module-11`, exactly one xBRIEF 0.8 story is active/running, and the exact Directive graph is 0.119.11 after install.
 
 Stage-specific work paths are:
 
@@ -109,7 +109,7 @@ node labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs install "$LAB11_R
 git -C "$LAB11_ROOT" status --short --branch
 ```
 
-Expected: the helper prints `OK: installed Directive 0.119.9`, the branch is `training/module-11`, and the worktree is clean. Installation uses a project-local npm cache and writes retained evidence outside the Git repository.
+Expected: the helper prints `OK: installed Directive 0.119.11`, the branch is `training/module-11`, and the worktree is clean. Installation uses a project-local npm cache and writes retained evidence outside the Git repository.
 
 ## Tasks
 
@@ -172,7 +172,7 @@ unbounded budget — dual-stop still applies; bank is optional discipline
 Classify that fragment:
 
 - The two stored npm commands ran verbatim and exited 0. That is the literal-acceptance proof.
-- `[rung=derived]` and the AC-pass-bank dual-stop lines are upstream 0.119.9 diagnostics, not
+- `[rung=derived]` and the AC-pass-bank dual-stop lines are upstream 0.119.11 diagnostics, not
   Lab 11 closeout axes.
 
 ### Task 4 — Diagnose the seeded aggregate failure
@@ -245,11 +245,11 @@ npm run test:focused
 npm run check:behavior
 ```
 
-The pinned `verify:ac` runner executes these safe commands verbatim. The lab's helper invokes it through the project-local 0.119.9 binary. The aggregate `task check` is deliberately separate and broader.
+The pinned `verify:ac` runner executes these safe commands verbatim. The lab's helper invokes it through the project-local 0.119.11 binary. The aggregate `task check` is deliberately separate and broader.
 
 The same PASS fragment lives in `literal.json.literalAcceptance.stdout`. Reuse the Task 3
 quoted-evidence classification: the two npm commands are the literal-acceptance proof;
-`[rung=derived]` and the AC-pass-bank dual-stop lines are upstream 0.119.9 diagnostics.
+`[rung=derived]` and the AC-pass-bank dual-stop lines are upstream 0.119.11 diagnostics.
 
 ## Evidence bundle
 

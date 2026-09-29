@@ -7,9 +7,9 @@
 | Stable ID | `solution-lab-07-scope-lifecycle` |
 | Solves | [Lab 7 — Scope Lifecycle](../labs/07-scope-lifecycle.md) |
 | Outcomes covered | O7.1, O7.2, O7.3, O7.4 |
-| Status | Learner-ready draft; 0.119.9 executable fixture verified on Windows/PowerShell |
-| Last verified | 2026-09-26 |
-| Directive baseline | CLI/core/content/types `0.119.9`; [source baseline](../references/SOURCE-BASELINE.md) |
+| Status | Learner-ready draft; 0.119.11 executable fixture verified on Windows/PowerShell |
+| Last verified | 2026-09-29 |
+| Directive baseline | CLI/core/content/types `0.119.11`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Platform limit | The published shell walkthrough remains a candidate; Linux/bash and macOS/zsh have no current-release native replay |
 
 The lab helper is course tooling around released commands; it is not itself a
@@ -94,7 +94,7 @@ The helper invokes both the exact local Directive binary and the consumer Task s
 engine exits `1`. On the verified go-task 3.50.0 host, the Task process returns `201` while
 reporting its child exit `1`.
 
-Retain both. Use `1` for the Directive 0.119.9 behavior claim. Use the
+Retain both. Use `1` for the Directive 0.119.11 behavior claim. Use the
 Task result as environment evidence and require only that it is nonzero on an unverified Task
 version or platform. Hiding one exit loses useful diagnostic context; treating `201` as an
 engine guarantee overclaims it.
@@ -119,11 +119,11 @@ Run the lab's environment block from the course root. A correct start has:
 ```text
 .../3ci-directive-lab07-<unique>/repo
 training/module-07
-@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)
+@deftai/directive (engine: @deftai/directive-core@0.119.11; package: @deftai/directive@0.119.11)
 ```
 
 The empty `git remote` output is evidence, not missing setup. The helper verifies the exact
-CLI/core/content/types graph and the deposited 0.119.9 version. Its isolated Task PATH keeps
+CLI/core/content/types graph and the deposited 0.119.11 version. Its isolated Task PATH keeps
 another installed Directive version from taking precedence.
 
 The generated workspace-local USER.md is fictional attempt state. It is ignored and never
@@ -249,7 +249,7 @@ artifact **path**, the exact `xbrief:verify` **command**, the **exit code** `0`,
 Lab 7 outcome, so this table keeps its four O7 rows, and the four Task 5 boundary clauses in
 Step 5 govern how the green result may be read.
 
-Also retain the exact 0.119.9 package graph and empty remote value. A screenshot of final
+Also retain the exact 0.119.11 package graph and empty remote value. A screenshot of final
 folders alone does not prove O7.1 or O7.3.
 
 ## Compare with your attempt
@@ -349,8 +349,8 @@ Task 5 boundary clauses in Step 5 hold across both routes.
 
 - [Module 7 source validation](../references/SOURCE-NOTES.md#module-7-source-validation)
 - [Directive source baseline](../references/SOURCE-BASELINE.md#module-7-lifecycle-validation)
-- [Pinned Commands source](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md)
-- [Pinned Main source](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/main.md)
+- [Pinned Commands source](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/commands.md)
+- [Pinned Main source](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/main.md)
 
 ## Continue
 

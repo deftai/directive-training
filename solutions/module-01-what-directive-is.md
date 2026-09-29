@@ -13,7 +13,7 @@ outcomes that your evidence does not yet demonstrate.
 | Status | `learner-ready draft` |
 | Last content update | 2026-09-07 |
 | Last verified | 2026-09-07 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.11`, engine `@deftai/directive-core@0.119.11`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Classify the Northstar stack](../curriculum/modules/01-what-directive-is.md#exercise-classify-the-northstar-stack) |
 
 ## Before you use this solution
@@ -205,7 +205,7 @@ If you have not met the rubric:
 4. Re-answer the missed item without product names.
 5. Compare again. If your rationale now names the job, boundary, and observed evidence, the recovery is complete.
 
-If the same distinction remains unclear after two attempts, reread the module’s [mental model](../curriculum/modules/01-what-directive-is.md#mental-model) and the pinned official [What Directive is not](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/CATEGORY.md#what-directive-is-not) section, then try one new example from your own tooling.
+If the same distinction remains unclear after two attempts, reread the module’s [mental model](../curriculum/modules/01-what-directive-is.md#mental-model) and the pinned official [What Directive is not](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/docs/CATEGORY.md#what-directive-is-not) section, then try one new example from your own tooling.
 
 ## Source note
 

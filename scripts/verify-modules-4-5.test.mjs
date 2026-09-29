@@ -34,7 +34,7 @@ function fixture(t) {
     mkdirSync(dirname(join(root, path)), { recursive: true });
     writeFileSync(join(root, path), content);
   };
-  const record = "| Directive baseline | @deftai/directive 0.119.9; engine 0.119.9 |";
+  const record = "| Directive baseline | @deftai/directive 0.119.11; engine 0.119.11 |";
   write(module4, document(moduleHeadings, outcomes4, {
     "Module record": record,
     "Guided explanation": "xBRIEF 0.8 uses xBRIEFInfo. PROJECT-DEFINITION.xbrief.json specification.xbrief.json scope plan.xbrief.json continue.xbrief.json. proposed/ pending/ active/ completed/ cancelled/. Chat is context; completed scope records delivered work.",
@@ -105,11 +105,11 @@ export function main(args) {
 `);
   write(solution4, document(solutionHeadings, outcomes4, { "Solution record": record }));
   write(solution5, document(solutionHeadings, outcomes5, { "Solution record": record + "\n| Platform status | Windows/PowerShell fixture verified; macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs are candidates |" }));
-  write("README.md", "# Course\n\n2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.9<!-- /directive-training:teaching-baseline --> with xBRIEF schema 0.8.\n");
+  write("README.md", "# Course\n\n2. Note the current teaching baseline: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.119.11<!-- /directive-training:teaching-baseline --> with xBRIEF schema 0.8.\n");
   write("curriculum/README.md", "# Course\n\n| [Module 4](modules/04-xbrief-as-durable-state.md) | Learner-ready draft |\n| [Module 5](modules/05-sources-versus-projections.md) | Learner-ready draft — macOS/zsh |\n| [Module 6](modules/06-creating-well-shaped-work.md) | Learner-ready draft; command-free |\n| Module 7 | Learner-ready draft |\n");
   write("references/SOURCE-NOTES.md", "# Proof\n\n- `lab05-platform-proof:macos-zsh status=verified date=2026-09-07 evidence=local-disposable-lab5-full`\n- `lab05-platform-proof:linux-bash status=candidate date=2026-09-07 evidence=not-run`\n- `lab05-platform-proof:windows-pwsh7 status=verified date=2026-09-12 evidence=issue-65-reported-native-walkthrough`\n");
-  write("references/SOURCE-BASELINE.md", "# Current proof\n\n- `teaching-platform-proof:macos-zsh status=candidate date=2026-09-26 evidence=not-run-at-0.119.9`\n- `teaching-platform-proof:linux-bash status=candidate date=2026-09-26 evidence=not-run-at-0.119.9`\n- `teaching-platform-proof:windows-pwsh7 status=candidate date=2026-09-26 evidence=baseline-upgrade-69-pass-6-skip-dedicated-linked-path-preflight-eperm`\n");
-  write("package.json", JSON.stringify({ private: true, devDependencies: { "@deftai/directive": "0.119.9" } }));
+  write("references/SOURCE-BASELINE.md", "# Current proof\n\n- `teaching-platform-proof:macos-zsh status=candidate date=2026-09-29 evidence=not-run-at-0.119.11`\n- `teaching-platform-proof:linux-bash status=candidate date=2026-09-29 evidence=not-run-at-0.119.11`\n- `teaching-platform-proof:windows-pwsh7 status=candidate date=2026-09-29 evidence=baseline-upgrade-78-pass-8-skip-dedicated-linked-path-preflight-eperm`\n");
+  write("package.json", JSON.stringify({ private: true, devDependencies: { "@deftai/directive": "0.119.11" } }));
   return {
     root, write,
     change(path, transform) { write(path, transform(readFileSync(join(root, path), "utf8"))); },
@@ -207,16 +207,16 @@ test("permits a prose warning naming a forbidden command", (t) => {
 
 test("rejects stale baseline and legacy xBRIEF write versions", (t) => {
   const files = fixture(t);
-  files.change(lab5, (body) => body.replaceAll("0.119.9", "0.111.0"));
+  files.change(lab5, (body) => body.replaceAll("0.119.11", "0.111.0"));
   assert.throws(() => verifyModules45(files.root), /baseline/);
-  files.change(lab5, (body) => body.replaceAll("0.111.0", "0.119.9"));
+  files.change(lab5, (body) => body.replaceAll("0.111.0", "0.119.11"));
   files.change(module4, (body) => body + '\n```json\n{"xBRIEFInfo":{"version":"0.6"}}\n```\n');
   assert.throws(() => verifyModules45(files.root), /legacy xBRIEF/);
 });
 
 test("rejects an unpinned package version", (t) => {
   const files = fixture(t);
-  files.change("package.json", (body) => body.replace("0.119.9", "^0.119.9"));
+  files.change("package.json", (body) => body.replace("0.119.11", "^0.119.11"));
   assert.throws(() => verifyModules45(files.root), /must pin @deftai\/directive exactly/);
 });
 

@@ -4,7 +4,7 @@ This is the navigation source for a 13-hour-15-minute (795-minute), self-directe
 11 hours 15 minutes (675 minutes) of core modules followed by a two-hour disposable capstone. Modules 1–12 and
 the capstone are implemented and learner-ready. The course remains an internal
 alpha pending representative learner pilots; that maturity label is separate
-from authored-content completeness. The 0.119.9 non-symlink executable fixtures are
+from authored-content completeness. The 0.119.11 non-symlink executable fixtures are
 verified locally on Windows/PowerShell; the dedicated linked-path lane remains
 capability-gated on this host. Modules 4, 6, 8, 9, and 12 are command-free and use fixed
 fictional state where applicable. Published macOS/zsh, Linux/bash, and Windows/PowerShell
@@ -78,16 +78,16 @@ No step requires a live demonstration or an instructor's private knowledge.
 | ID | Module | Time | Status | Primary practice |
 | --- | --- | ---: | --- | --- |
 | 01 | [What Directive is](modules/01-what-directive-is.md) | 45 min | Learner-ready | Classify tools and scenarios by responsibility |
-| 02 | [Installation and project anatomy](modules/02-installation-and-anatomy.md) | 60 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Initialize and inspect a disposable consumer repository |
+| 02 | [Installation and project anatomy](modules/02-installation-and-anatomy.md) | 60 min | Learner-ready; 0.119.11 fixture verified on Windows; published shell walkthroughs candidate | Initialize and inspect a disposable consumer repository |
 | 03 | [Authority and context](modules/03-authority-and-context.md) | 45 min | Learner-ready | Resolve conflicting sample rules |
 | 04 | [xBRIEF as durable state](modules/04-xbrief-as-durable-state.md) | 45 min | Learner-ready; command-free | Classify project and work-state artifacts |
-| 05 | [Sources versus projections](modules/05-sources-versus-projections.md) | 50 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Repair projection drift through its source |
+| 05 | [Sources versus projections](modules/05-sources-versus-projections.md) | 50 min | Learner-ready; 0.119.11 fixture verified on Windows; published shell walkthroughs candidate | Repair projection drift through its source |
 | 06 | [Creating well-shaped work](modules/06-creating-well-shaped-work.md) | 55 min | Learner-ready; command-free | Shape vertical slices and route proposed mechanisms with evidence |
-| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Fail, promote, activate, establish current readiness, stamp evidence, complete, and cancel |
+| 07 | [Scope lifecycle and implementation authorization](modules/07-scope-lifecycle.md) | 65 min | Learner-ready; 0.119.11 fixture verified on Windows; published shell walkthroughs candidate | Fail, promote, activate, establish current readiness, stamp evidence, complete, and cancel |
 | 08 | [Session start and authorized work selection](modules/08-session-and-work-selection.md) | 45 min | Learner-ready; command-free fixed-state exercise | Trace posture and intake decisions |
 | 09 | [Design-critique arcs and verified synthesis](modules/09-design-critique-arcs.md) | 75 min | Learner-ready; command-free fixed-state practicum | Route a mechanism-shaped proposal, fill an N=1 envelope, map findings, and decide bind or halt |
-| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Implement one test-backed active scope |
-| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Red-green-refactor and diagnose a gate failure |
+| 10 | [The implementation golden path](modules/10-implementation-golden-path.md) | 70 min | Learner-ready; 0.119.11 fixture verified on Windows; published shell walkthroughs candidate | Implement one test-backed active scope |
+| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; 0.119.11 fixture verified on Windows; published shell walkthroughs candidate | Red-green-refactor and diagnose a gate failure |
 | 12 | [PR, review, and actual completion](modules/12-review-and-completion.md) | 55 min | Learner-ready; command-free fixed-state exercise | Resolve simulated findings and classify completion evidence |
 
 The times total 11 hours 15 minutes (675 minutes). Exercise time is included. Different hosts may add a

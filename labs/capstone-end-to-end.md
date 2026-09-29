@@ -7,12 +7,12 @@
 | Stable ID | `lab-capstone-end-to-end` |
 | Supports | `CAP.1`, `CAP.2`, `CAP.3`, `CAP.4` |
 | Status | Learner-ready |
-| Last verified | 2026-09-26 |
+| Last verified | 2026-09-29 |
 | Suggested first attempt | 45 minutes before opening the solution |
-| Directive baseline | `@deftai/directive@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
+| Directive baseline | `@deftai/directive@0.119.11`; see the [source baseline](../references/SOURCE-BASELINE.md#capstone-end-to-end-validation) |
 | Directive runtime | Node.js `22 or newer`; the current Windows fixture run used `26.8.1`; Node.js 20-compatible application source is a source-level design constraint, not a separate Node.js 20 execution claim |
 | Fixture | [`fixtures/capstone-end-to-end`](fixtures/capstone-end-to-end/) |
-| Platform evidence | Guarded 0.119.9 fixture passed 9 tests on Windows/PowerShell with 1 documented POSIX-only skip; published walkthroughs, Linux/bash, and macOS/zsh remain candidates |
+| Platform evidence | Guarded 0.119.11 fixture passed 9 tests on Windows/PowerShell with 1 documented POSIX-only skip; published walkthroughs, Linux/bash, and macOS/zsh remain candidates |
 
 ## Goal and done condition
 
@@ -41,7 +41,7 @@ use. The current Windows/PowerShell fixture proof used Node.js `26.8.1`; that pa
 version describes bounded evidence, not the Node.js learner requirement. Published
 walkthroughs, Linux/bash, and macOS/zsh remain candidates.
 
-Directive 0.119.9 imports `node:fs` `globSync`, which is unavailable before
+Directive 0.119.11 imports `node:fs` `globSync`, which is unavailable before
 Node.js 22. The complete Directive proof therefore requires Node.js 22 or
 newer. The fictional application files remain Node.js
 20-compatible as a source-level design constraint; no isolated Node.js 20 run
@@ -216,7 +216,7 @@ if (@(& git -C $CapstoneRoot status --porcelain --untracked-files=all).Count -ne
 if (@(& git -C $CapstoneRoot remote).Count -ne 0) { throw "Capstone must have no remote." }
 ```
 
-Expected: `OK: installed Directive 0.119.9`, branch `training/capstone`, and a
+Expected: `OK: installed Directive 0.119.11`, branch `training/capstone`, and a
 clean worktree. Your earlier `node --version` check is the runtime evidence;
 the helper verifies the exact installed Directive CLI/core/content/types graph.
 
@@ -337,7 +337,7 @@ demonstrated until the fresh root and both recoverable archives are recorded.
 | Helper verb | Stage afterward | Helper output | Retained proof |
 | --- | --- | --- | --- |
 | `create` | `CREATED` | Absolute repository root | Sibling `lab-state.json`; `evidence/README.md` |
-| `install` | `CHECKPOINT` | `OK: installed Directive 0.119.9` | Clean checkpoint commit; no separate install JSON |
+| `install` | `CHECKPOINT` | `OK: installed Directive 0.119.11` | Clean checkpoint commit; no separate install JSON |
 | `orient` | `ORIENTED` | `"PASS"` | `orientation.json` (`CAP.1`) |
 | — | — | command-free | private `CAP-DC-01` row in `$CAPSTONE_ASSESSMENT_NOTE` / `$CapstoneAssessmentNote` (`CAP.1`) |
 | `activate` | `SCOPED` | `"PASS"` | `scope.json` (`CAP.1`) |
@@ -385,7 +385,7 @@ Classify that fragment:
 - The two stored npm commands ran verbatim and exited 0. That is the literal-acceptance proof.
 - `unverifiable` here means an acceptance sentence has no bound artifact path, not that a
   focused test failed. The clause text is the capstone work-items Acceptance sentence.
-- `[rung=derived]` and the AC-pass-bank dual-stop line are upstream 0.119.9 diagnostics, not
+- `[rung=derived]` and the AC-pass-bank dual-stop line are upstream 0.119.11 diagnostics, not
   capstone closeout axes.
 
 
@@ -562,7 +562,7 @@ fresh reset root to produce new evidence for any unmet outcome.
 
 ## Done statement
 
-> I demonstrated `CAP.1`–`CAP.4` against `@deftai/directive@0.119.9` on my
+> I demonstrated `CAP.1`–`CAP.4` against `@deftai/directive@0.119.11` on my
 > recorded Node.js 22-or-newer runtime. I preserved ordered readiness,
 > red/green, focused, literal,
 > aggregate, zero-change review, repair, current-product review, and closeout

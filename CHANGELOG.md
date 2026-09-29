@@ -4,6 +4,12 @@
 
 ### Changed
 
+- Upgrade the current Directive teaching baseline to 0.119.11 across generated project
+  metadata, all six exact disposable package graphs, curriculum, labs, solutions,
+  assessments, references, workflows, and executable verification. Rebind immutable
+  release identity and version-output evidence, recut the Lab 2 doctor signpost onto
+  the migrate-only provenance stamp, and keep 0.119.10 as an intermediate publication
+  rather than a learner pin (#118).
 - Register issues #93 through #101 as swarm-ready pending xBRIEFs, refresh the
   derived roadmap and project registry, and clarify issue #100's zero-free-space
   reclaim ordering and per-attempt cache lifecycle.
@@ -18,6 +24,11 @@
 
 ### Fixed
 
+- Recut the leftover Lab 2 windows-pwsh7 doctor warning set for 0.119.11: the
+  Windows learner-path doctor prints `canonical-vendored-npm-signpost` and
+  `agent-hooks-live-probe`; linux/macos stay signpost-only (#118).
+- Recut the leftover Lab 2 Windows PowerShell 7 CI current-pin assertion from
+  0.119.9 to 0.119.11 after the teaching-baseline rebind (#118).
 - Lab 11 starting-state now proves a resolvable Python interpreter before
   `create`: POSIX walks `PATH` for `python3` then `python`, and Native Windows
   Phase A uses `Get-Command` order `python`, `python3`, then `py`. Expected

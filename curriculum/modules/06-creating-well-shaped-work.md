@@ -12,7 +12,7 @@ required route / no route / insufficient-evidence decision before lifecycle auth
 | Status | `learner-ready draft; command-free` |
 | Last content update | 2026-09-17 |
 | Last verified | 2026-09-17 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.11`, engine `@deftai/directive-core@0.119.11`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | O6.2 structural check | Lab 7 Task 5, an adjacent practical step in a disposable guarded repository; this module stays command-free |
 | Estimated duration | 50–60 minutes |
 | Prerequisites | Complete [Module 5's](05-sources-versus-projections.md) conceptual outcomes; its practical outcome may remain environment-blocked as documented in the [course map](../README.md) |
@@ -113,7 +113,7 @@ candidate state and does not authorize implementation.
 
 **Recovery:** Revisit [Module 5's source-and-evidence model](05-sources-versus-projections.md#mental-model).
 Rewrite each activity as “a person can observe …” and retry. This module uses the pinned
-0.119.9 course sources, not an installed version on your computer.
+0.119.11 course sources, not an installed version on your computer.
 
 Keep the exercise fictional and in a scratch note. Do not inspect a real
 backlog, client requirement, repository, or shared `USER.md`. Do not run a command or make
@@ -282,7 +282,7 @@ shared-state behavior needs adversarial design judgment. Use `no route` when the
 the work to an ordinary change without such a mechanism. Use `insufficient evidence` when a
 pain is named but no mechanism or target revision is available to judge.
 
-Directive 0.119.9 records the judgment and its clearance shape; it does not compute whether
+Directive 0.119.11 records the judgment and its clearance shape; it does not compute whether
 work is mechanism-shaped or score the reason. `scope:promote` is not fail-closed on that
 semantic judgment. This course therefore requires a self-checkable routing artifact before
 the Module 7 lifecycle lab. The artifact is curricular evidence, not a new Directive gate.
@@ -582,7 +582,7 @@ then recheck all four acceptance rows. No repository reset or cleanup is require
 | Independently verifiable means no dependencies. | A slice may depend on a predecessor while keeping its own outcome and proof. | Verify acknowledgement after a preview supplies the event identity. |
 | Exclusions and literal inspection are required xBRIEF keys. | They are explicit course worksheet evidence in this exercise. | Compare the worksheet with the schema and story acceptance fields. |
 | Static inspection proves a future program works. | It proves only this planning artifact's contents. | Name the behavioral test still required after implementation. |
-| Directive decides whether a proposal is mechanism-shaped. | The semantic call is human judgment; 0.119.9 records its shape but does not compute it. | Compare the supplied facts with the design-critique Stop 1 boundary. |
+| Directive decides whether a proposal is mechanism-shaped. | The semantic call is human judgment; 0.119.11 records its shape but does not compute it. | Compare the supplied facts with the design-critique Stop 1 boundary. |
 | A green `xbrief:verify` means the proposal is approved. | It proves parse and lifecycle-record structure only. | Read the command's own note that verify is not a lifecycle move, then check that nothing was promoted. |
 | `no route` and `insufficient evidence` are interchangeable. | `no route` is a supported negative decision; insufficient evidence means the decision cannot yet be made. | Ask whether a concrete mechanism and target revision were supplied. |
 
@@ -661,21 +661,21 @@ and [glossary](../../references/GLOSSARY.md).
 - O6.2 completion evidence names the artifact path, command, exit code, and result of its
   structural check, and the vehicle recut is stated as the Lab 7 Task 5 adjacent step.
 - Every epic slice has its own outcome, evidence, dependency rationale, and boundary rationale.
-- Version-sensitive claims trace to the immutable 0.119.9 release and recorded disagreements.
+- Version-sensitive claims trace to the immutable 0.119.11 release and recorded disagreements.
 - Navigation and local source links pass the focused content verifier.
 - An independent learner pilot remains a separate course milestone.
 
-[lifecycle]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/docs/directive-lifecycle.md
-[strategies]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/strategies/README.md
-[interview]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/strategies/interview.md
-[setup]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/skills/deft-directive-setup/SKILL.md
-[decompose]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/skills/deft-directive-decompose/SKILL.md
-[taxonomy]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/vbrief/vbrief.md
-[verification]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/verification/verification.md
-[plan-checking]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/verification/plan-checking.md
-[upstream-glossary]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/glossary.md
-[gh-slice]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/skills/deft-directive-gh-slice/SKILL.md
-[commands]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md
-[main]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/main.md
-[design-critique-contract]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/contracts/design-critique.md#stop-1--gate
-[adr-005]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/decisions/ADR-005-design-critique-judgment-gate.md
+[lifecycle]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/docs/directive-lifecycle.md
+[strategies]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/strategies/README.md
+[interview]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/strategies/interview.md
+[setup]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/skills/deft-directive-setup/SKILL.md
+[decompose]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/skills/deft-directive-decompose/SKILL.md
+[taxonomy]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/vbrief/vbrief.md
+[verification]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/verification/verification.md
+[plan-checking]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/verification/plan-checking.md
+[upstream-glossary]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/glossary.md
+[gh-slice]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/skills/deft-directive-gh-slice/SKILL.md
+[commands]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/commands.md
+[main]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/main.md
+[design-critique-contract]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/contracts/design-critique.md#stop-1--gate
+[adr-005]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/docs/decisions/ADR-005-design-critique-judgment-gate.md

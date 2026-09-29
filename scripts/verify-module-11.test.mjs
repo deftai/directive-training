@@ -121,8 +121,8 @@ test("Module 11 content contract accepts active and completed lifecycle states",
 
 test("verifier rejects a stale or ranged learner baseline", () => {
   const root = changedCopy("curriculum/modules/11-testing-gates-and-evidence.md", (body) => body.replaceAll(
-    "@deftai/directive@0.119.9",
-    "@deftai/directive@0.119.9–0.114.0",
+    "@deftai/directive@0.119.11",
+    "@deftai/directive@0.119.11–0.114.0",
   ));
   assert.throws(() => verifyModule11(root), /stale or ranged Directive baseline/);
 });
@@ -340,7 +340,7 @@ test("verifier rejects promoting full Windows platform support from fixture-only
 
 test("verifier rejects a course index that drops the fixture-versus-walkthrough boundary", () => {
   const root = changedCopy("curriculum/README.md", (body) => body.replace(
-    "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; 0.119.9 fixture verified on Windows; published shell walkthroughs candidate | Red-green-refactor and diagnose a gate failure |",
+    "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; 0.119.11 fixture verified on Windows; published shell walkthroughs candidate | Red-green-refactor and diagnose a gate failure |",
     "| 11 | [Testing, gates, and evidence](modules/11-testing-gates-and-evidence.md) | 65 min | Learner-ready; Windows verified | Red-green-refactor and diagnose a gate failure |",
   ));
   assert.throws(() => verifyModule11(root), /current platform boundary/);
@@ -416,7 +416,7 @@ test("verifier rejects a Lab 11 Task 3 inspect fragment missing a retained stdou
     `  ${retainedFocusedCommand}\n`,
     "",
   ));
-  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.9 stdout/);
+  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.11 stdout/);
 });
 
 test("verifier rejects an explained-solution inspect fragment missing a retained stdout token", () => {
@@ -425,7 +425,7 @@ test("verifier rejects an explained-solution inspect fragment missing a retained
     `${retainedBankedLine}\n`,
     "",
   ));
-  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.9 stdout/);
+  assert.throws(() => verifyModule11(root), /inspect fragment must lock retained 0\.119\.11 stdout/);
 });
 
 test("verifier rejects swapping or inserting between the two retained command lines", () => {
@@ -470,7 +470,7 @@ test("verifier rejects dropping literal-acceptance classification from Lab 11 Ta
     "That is the literal-acceptance proof.",
     "That is the overall pass signal.",
   ));
-  assert.throws(() => verifyModule11(root), /must classify retained 0\.119\.9 stdout: literal-acceptance proof/);
+  assert.throws(() => verifyModule11(root), /must classify retained 0\.119\.11 stdout: literal-acceptance proof/);
 });
 
 test("verifier rejects a missing Module 11 outcome mapping", () => {
@@ -479,7 +479,7 @@ test("verifier rejects a missing Module 11 outcome mapping", () => {
 });
 
 test("verifier rejects an altered exact fixture pin", () => {
-  const root = changedCopy("labs/fixtures/11-testing-gates-and-evidence/package.json", (body) => body.replaceAll("0.119.9", "^0.119.9"));
+  const root = changedCopy("labs/fixtures/11-testing-gates-and-evidence/package.json", (body) => body.replaceAll("0.119.11", "^0.119.11"));
   assert.throws(() => verifyModule11(root), /exact Directive pin/);
 });
 

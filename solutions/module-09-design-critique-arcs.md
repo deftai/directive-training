@@ -13,7 +13,7 @@ implementation authority.
 | Outcomes covered | O9.6, O9.7, O9.8, O9.9 |
 | Status | `learner-ready draft; command-free fixed-state practicum` |
 | Last verified | 2026-09-18 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md#module-9-design-critique-validation) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.11`, engine `@deftai/directive-core@0.119.11`; see the [source baseline](../references/SOURCE-BASELINE.md#module-9-design-critique-validation) |
 | Source exercise | [Module 9 fixed packet](../curriculum/modules/09-design-critique-arcs.md#exercise) |
 
 ## Before you use this solution
@@ -306,12 +306,12 @@ there is no fixture directory or live arc to delete.
 ## Sources
 
 - [Module 9 lesson](../curriculum/modules/09-design-critique-arcs.md)
-- [Directive 0.119.9 source baseline](../references/SOURCE-BASELINE.md#module-9-design-critique-validation)
+- [Directive 0.119.11 source baseline](../references/SOURCE-BASELINE.md#module-9-design-critique-validation)
 - [Module 9 source notes](../references/SOURCE-NOTES.md#module-9-design-critique-source-validation)
-- [Design-critique contract at the pinned commit](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/contracts/design-critique.md)
-- [Critic brief template at the pinned commit](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/templates/design-critique-brief.md)
-- [ADR-005](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/decisions/ADR-005-design-critique-judgment-gate.md)
-- [ADR-006](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/decisions/ADR-006-parent-side-substantiation.md)
+- [Design-critique contract at the pinned commit](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/contracts/design-critique.md)
+- [Critic brief template at the pinned commit](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/templates/design-critique-brief.md)
+- [ADR-005](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/docs/decisions/ADR-005-design-critique-judgment-gate.md)
+- [ADR-006](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/docs/decisions/ADR-006-parent-side-substantiation.md)
 
 ## Continue
 

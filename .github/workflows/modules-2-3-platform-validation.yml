@@ -7,6 +7,8 @@ on:
       - "curriculum/modules/02-installation-and-anatomy.md"
       - "labs/02-disposable-initialization.md"
       - "labs/fixtures/02-disposable-initialization/**"
+      - "scripts/assert-doctor-warning-set.mjs"
+      - "scripts/assert-doctor-warning-set.test.mjs"
       - "scripts/init-lab.test.mjs"
       - "solutions/lab-02-disposable-initialization.md"
       - "references/SOURCE-NOTES.md"
@@ -89,7 +91,7 @@ jobs:
           test "$(git -C "$lab_root" log -1 --format=%s)" = 'checkpoint: initialize fictional Directive consumer'
           test "$(git -C "$lab_root" branch --show-current)" = training/module-02
 
-          # Capture doctor output and assert the expected 0.119.9 warning identity set (#19).
+          # Capture doctor output and assert the expected 0.119.11 warning identity set (#19).
           node "$helper" diagnose "$lab_root"
           doctor_output="$(dirname "$lab_root")/doctor-full.txt"
           cat "$doctor_output"
@@ -149,7 +151,7 @@ jobs:
           test "$(git -C "$lab_root" log -1 --format=%s)" = 'checkpoint: initialize fictional Directive consumer'
           test "$(git -C "$lab_root" branch --show-current)" = training/module-02
 
-          # Capture doctor output and assert the expected 0.119.9 warning identity set (#19).
+          # Capture doctor output and assert the expected 0.119.11 warning identity set (#19).
           node "$helper" diagnose "$lab_root"
           doctor_output="$(dirname "$lab_root")/doctor-full.txt"
           cat "$doctor_output"
@@ -207,16 +209,17 @@ jobs:
           if (-not (Test-Path -LiteralPath $directivePath -PathType Leaf)) { throw "project-local Directive CLI is missing" }
           if (-not (Test-Path -LiteralPath $deftPath -PathType Leaf)) { throw "project-local Deft hook runtime is missing" }
           $versionOutput = (& $directivePath --version | Out-String)
-          if ($versionOutput -notmatch '@deftai/directive-core@0\.119\.9') { throw "wrong Directive version: $versionOutput" }
+          if ($versionOutput -notmatch '@deftai/directive-core@0\.119\.11') { throw "wrong Directive version: $versionOutput" }
           $subject = (& git -C $labRoot log -1 --format=%s | Out-String).Trim()
           if ($subject -ne 'checkpoint: initialize fictional Directive consumer') { throw "unexpected checkpoint subject: $subject" }
           if ((& git -C $labRoot branch --show-current | Out-String).Trim() -ne 'training/module-02') { throw "wrong lab branch" }
 
-          # Capture doctor output and assert the expected 0.119.9 warning identity set (#19).
+          # Capture doctor output and assert the Windows 0.119.11 warning identity set (#19 / #118).
+          # Restricted GHA Windows still requires the signpost and the #4654 live-probe extra.
           & node $helper diagnose $labRoot
           $doctorOutput = Join-Path (Split-Path -Parent $labRoot) "doctor-full.txt"
           Get-Content -LiteralPath $doctorOutput
-          & node (Join-Path $env:GITHUB_WORKSPACE "scripts/assert-doctor-warning-set.mjs") $doctorOutput
+          & node (Join-Path $env:GITHUB_WORKSPACE "scripts/assert-doctor-warning-set.mjs") --expected-id canonical-vendored-npm-signpost --expected-id agent-hooks-live-probe $doctorOutput
 
           & node $helper accept $labRoot
           & node $helper recovery-npmrc $labRoot
