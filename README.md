@@ -1,5 +1,7 @@
 <!-- deft:cold-start-bootstrap v1 (#2273) -->
-> ## ⚡ Cold-start bootstrap (read this first)
+> ## ⚡ Cold-start bootstrap (agents and maintainers)
+>
+> **Learners:** skip this block. It is maintainer and agent bootstrap for this repository. You do not need a global `directive`; every lab installs its own exact project-local graph in a disposable repository. Do not run Directive commands in this clone.
 >
 > **New clone, or `deft` / `directive` won't run?** Directive runs from an npm-installed engine — there is no committed shell shim, so *you* (agent or human) are the interpreter. Work the **global-first ladder** below top-down and stop at the first rung that yields a working `directive`. The version to install is always the one pinned in the project's committed `package.json`.
 >

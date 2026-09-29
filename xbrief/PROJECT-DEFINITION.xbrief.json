@@ -146,10 +146,10 @@
       {
         "id": "2026-09-28-94-readme-cold-start-bootstrap-read-this-first-block-contradict",
         "title": "README 'Cold-start bootstrap (read this first)' block contradicts the learner pin boundary taught in Module 2",
-        "status": "pending",
+        "status": "running",
         "metadata": {
-          "source_path": "pending/2026-09-28-94-readme-cold-start-bootstrap-read-this-first-block-contradict.xbrief.json",
-          "lifecycle_folder": "pending",
+          "source_path": "active/2026-09-28-94-readme-cold-start-bootstrap-read-this-first-block-contradict.xbrief.json",
+          "lifecycle_folder": "active",
           "references": [
             {
               "uri": "https://github.com/deftai/directive-training/issues/94",

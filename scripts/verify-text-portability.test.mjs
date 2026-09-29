@@ -13,6 +13,7 @@ const coldStartVerifier = "scripts/verify-cold-start-readme.mjs";
 const modulesVerifier = "scripts/verify-modules-2-3.mjs";
 const teachingBaseline = "scripts/teaching-baseline.mjs";
 const closeMarker = "<!-- /deft:cold-start-bootstrap v1 -->";
+const learnerAudienceRe = /^> \*\*Learners:\*\* .+$/m;
 
 // Keep the exact subprocess inputs and outputs available for cross-platform diagnosis.
 after(() => console.log(`Text portability fixtures retained at ${evidenceRoot}`));
@@ -92,6 +93,16 @@ function withPinnedGlobalInstalls(text) {
     .replace(/pnpm add -g @deftai\/directive(?:@[^\s`]+)?/, expectedPnpmGlobalInstall);
 }
 
+function audienceLine(text) {
+  const match = text.match(learnerAudienceRe);
+  assert.ok(match, "fixture README must contain a Learners-prefixed audience line");
+  return match[0];
+}
+
+function withoutAudienceLine(text) {
+  return text.replace(/^> \*\*Learners:\*\* .+\n(?:>\n)?/m, "");
+}
+
 for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
   test(`cold-start verifier accepts ${label} content`, () => {
     const result = runVerifier(`cold-start-valid-${label}`, coldStartVerifier, coldStartFiles, eol);
@@ -144,6 +155,34 @@ for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
   test(`cold-start verifier rejects separated title with ${label}`, () => {
     const files = changed(coldStartFiles, "README.md", (text) => text.replace(closeMarker + "\n\n", closeMarker + "\n\n\n"));
     assertRejected(runVerifier(`cold-start-title-${label}`, coldStartVerifier, files, eol), /project title must immediately follow/);
+  });
+
+  test(`cold-start verifier rejects a missing Learners audience line with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", withoutAudienceLine);
+    assertRejected(
+      runVerifier(`cold-start-audience-missing-${label}`, coldStartVerifier, files, eol),
+      /Learners-prefixed audience line/,
+    );
+  });
+
+  test(`cold-start verifier rejects an after-title Learners skip with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", (text) => {
+      const line = audienceLine(text);
+      const stripped = withoutAudienceLine(text);
+      return stripped.replace(/(# directive-training\n)/, `$1\n${line.replace(/^> /, "")}\n`);
+    });
+    assertRejected(
+      runVerifier(`cold-start-audience-after-title-${label}`, coldStartVerifier, files, eol),
+      /Learners-prefixed audience line/,
+    );
+  });
+
+  test(`cold-start verifier rejects a Learners line stripped of learner identity with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", (text) => text.replace("**Learners:**", "**Note:**"));
+    assertRejected(
+      runVerifier(`cold-start-audience-identity-${label}`, coldStartVerifier, files, eol),
+      /Learners-prefixed audience line/,
+    );
   });
 
   test(`cold-start verifier rejects duplicate marker with ${label}`, () => {

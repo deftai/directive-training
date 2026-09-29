@@ -18,6 +18,10 @@
 
 ### Fixed
 
+- README cold-start bootstrap now names learners inside the managed block and
+  retitles the first heading, so the global-first ladder stays for agents while
+  course learners skip `directive doctor` and `npm i -g`. The cold-start
+  verifier and LF/CRLF portability mutations lock that audience line (#94).
 - The Lab 2 explained solution recuts the pin-authorship misconception row onto
   init-writes-CLI-pin, cites SOURCE-BASELINE Modules 2–3 released disagreements
   and Module 2 §2 for the recorded unpinned 0.119.9 CLI pin, and records the
