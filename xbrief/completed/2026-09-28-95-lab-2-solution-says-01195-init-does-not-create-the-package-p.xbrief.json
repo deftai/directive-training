@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #95",
-    "updated": "2026-09-29T00:28:28Z"
+    "updated": "2026-09-29T03:01:34Z"
   },
   "plan": {
     "title": "Lab 2 solution says 0.119.5 init does not create the package pin, contradicting Module 2 and SOURCE-BASELINE",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "The Lab 2 solution currently says Directive 0.119.5 initialization does not create the package pin, contradicting Module 2 and the released source baseline. This story corrects the solution's three-part explanation and recorded toolchain evidence, then adds a focused verifier lock so the obsolete statement cannot return.",
       "ImplementationPlan": "1. Recut the relevant table cells in `solutions/lab-02-disposable-initialization.md` to state that 0.119.5 initialization writes the CLI package pin, while retaining fixture pre-seeding as the lab's deterministic setup reason and citing the released baseline.\n2. Align the solution's Consumer toolchain check to the recorded 0.119.9 observed tuple (Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0) as observed evidence rather than a second reconstitution pin, or label a different tuple as a dated probe.\n3. Extend `scripts/verify-modules-2-3.mjs` with a focused phrase lock that rejects the obsolete `0.119.5 did not` claim and proves the corrected explanation without introducing a generic cross-document checker.",
@@ -19,7 +19,7 @@
     "items": [
       {
         "title": "Recut all three cells of `solutions/lab-02-disposable-initialization.md:354` onto 0.119.5 init-writes-CLI-pin. Keep fixture pre-seed as the reason the lab still copies `package.json` before install (`:82-84`, Module 2:168-170), not as a replacement misconception. Point Source at `references/SOURCE-BASELINE.md` Modules 2-3 released disagreements and Module 2 §2. Leave `references/SOURCE-NOTES.md:993` labeled historical 0.112.0.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.1",
         "narrative": {
           "Acceptance": "When the Lab 2 solution table is rendered, all three cells state that Directive 0.119.5 init writes the CLI package pin, distinguish deterministic fixture pre-seeding from product behavior, and cite the released Modules 2-3 baseline while leaving the 0.112.0 note historical."
@@ -33,7 +33,7 @@
       },
       {
         "title": "Add a phrase lock on `scripts/verify-modules-2-3.mjs` so the solution table cannot keep `0.119.5 did not` and must state 0.119.5 init-writes-CLI-pin. Do not add a new generic solution-versus-SOURCE-BASELINE checker.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.2",
         "narrative": {
           "Acceptance": "`npm run check:modules-2-3` passes for the corrected solution and fails when the old `0.119.5 did not` claim returns or the required init-writes-CLI-pin statement is removed."
@@ -47,7 +47,7 @@
       },
       {
         "title": "Align `solutions/lab-02-disposable-initialization.md` Consumer toolchain check to the recorded 0.119.9 observed tuple (Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0), or label that tuple as a dated probe. Do not treat toolchain patch versions as a second reconstitution pin.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.3",
         "narrative": {
           "Acceptance": "The solution records Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0 for the 0.119.9 course baseline and presents the toolchain tuple only as observed evidence, not as an additional reconstitution pin."
@@ -328,6 +328,28 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "f89556c0aed2c27845726cbf79b81dc6841a6ca4e53ecfb96a53f326e5dbcb9e"
+      },
+      "completionProvenance": {
+        "repository": "deftai/directive-training",
+        "implementationCommit": "245e790c8a69af4235d7186380d70887769a20d0",
+        "prNumber": 111,
+        "prBase": "master",
+        "mergeCommit": "105c317f6d09b7786d21777285070fe007384008",
+        "deliveryBranch": "master",
+        "deliveryCommit": "513e6e0e64550860c567c4ffdca72511d5907568",
+        "verifiedAt": "2026-09-29T03:01:34Z",
+        "verifier": "swarm:finalize-cohort",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-29T03:01:34Z",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-29T03:01:34Z"
       }
     },
     "acceptance": {
@@ -366,6 +388,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5586607023",
-    "updated": "2026-09-29T00:28:28Z"
+    "updated": "2026-09-29T03:01:34Z"
   }
 }
