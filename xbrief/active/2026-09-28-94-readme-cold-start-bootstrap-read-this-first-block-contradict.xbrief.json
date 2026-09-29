@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #94",
-    "updated": "2026-09-28T12:13:29Z"
+    "updated": "2026-09-29T02:17:31Z"
   },
   "plan": {
     "title": "README 'Cold-start bootstrap (read this first)' block contradicts the learner pin boundary taught in Module 2",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "The byte-zero managed cold-start block is labeled read-this-first and currently reaches `directive doctor` and a global install before any learner-only guidance, contradicting the disposable pin boundary taught later in the course. This story inserts a learner audience intercept inside that managed block while preserving the agent bootstrap ladder and locking the distinction in focused portability checks.",
       "ImplementationPlan": "1. Update the managed cold-start block in `README.md` with an in-block, learner-prefixed audience intercept before any learner could follow the doctor or global-install rungs, while retaining the byte-zero marker and agent ladder.\n2. Keep `curriculum/README.md` consistent with the disposable project-local pin boundary without adding a global Directive prerequisite or a new `START-HERE.md` route.\n3. Extend `scripts/verify-cold-start-readme.mjs` and its `scripts/verify-text-portability.test.mjs` mutations so LF and CRLF evidence rejects removal, after-title placement, or loss of the learner identity gate.",
@@ -23,6 +23,12 @@
         "id": "clause.1",
         "narrative": {
           "Acceptance": "The managed cold-start block begins at byte zero and presents an explicit learner audience intercept before the doctor and global-install rungs, while a line placed only after the project title fails verification."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "README.md",
+          "recorded_at": "2026-09-29T02:18:15Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
@@ -31,6 +37,12 @@
         "id": "clause.2",
         "narrative": {
           "Acceptance": "When the managed block is rendered, the intercept names learners or an equivalent audience identity, tells them to use the disposable project-local path, and leaves the complete global-first bootstrap ladder available to repository agents."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "README.md",
+          "recorded_at": "2026-09-29T02:18:15Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
@@ -39,6 +51,12 @@
         "id": "clause.3",
         "narrative": {
           "Acceptance": "When the focused cold-start verifier runs under LF and CRLF, the intended README passes and mutations fail if the audience line is removed, moved outside the managed block, or stripped of its learner identity."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-cold-start-readme.mjs",
+          "recorded_at": "2026-09-29T02:18:15Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
@@ -47,6 +65,12 @@
         "id": "clause.4",
         "narrative": {
           "Acceptance": "When the final course-entry diff is reviewed, the course map requires only disposable project-local Directive evidence and introduces neither a global Directive prerequisite nor a new `START-HERE.md` entry path."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "curriculum/README.md",
+          "recorded_at": "2026-09-29T02:18:15Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       }
     ],
@@ -76,14 +100,14 @@
         {
           "id": 1,
           "text": "Keep the skip-sentence identity. Put the intercepting line inside the managed cold-start block: a Learners-prefixed audience line, a retitle of \"read this first\", or both. Byte 0 stays the #2273 agent ladder. Do not bind an after-title skip as the intercept.",
-          "artifact_path": null,
+          "artifact_path": "README.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 2,
           "text": "The bound sentence names learners, or an equivalent audience gate, so agents still follow the global-first ladder (`main-002`).",
-          "artifact_path": null,
+          "artifact_path": "README.md",
           "ambiguous": false,
           "provenance": "statement"
         },
@@ -356,6 +380,6 @@
       }
     },
     "id": "github.issue.5586606699",
-    "updated": "2026-09-28T12:13:29Z"
+    "updated": "2026-09-29T02:17:31Z"
   }
 }
