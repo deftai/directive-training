@@ -162,10 +162,10 @@
       {
         "id": "2026-09-28-95-lab-2-solution-says-01195-init-does-not-create-the-package-p",
         "title": "Lab 2 solution says 0.119.5 init does not create the package pin, contradicting Module 2 and SOURCE-BASELINE",
-        "status": "running",
+        "status": "completed",
         "metadata": {
-          "source_path": "active/2026-09-28-95-lab-2-solution-says-01195-init-does-not-create-the-package-p.xbrief.json",
-          "lifecycle_folder": "active",
+          "source_path": "completed/2026-09-28-95-lab-2-solution-says-01195-init-does-not-create-the-package-p.xbrief.json",
+          "lifecycle_folder": "completed",
           "references": [
             {
               "uri": "https://github.com/deftai/directive-training/issues/95",
