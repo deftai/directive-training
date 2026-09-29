@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #101",
-    "updated": "2026-09-29T00:28:29Z"
+    "updated": "2026-09-29T03:24:48Z"
   },
   "plan": {
     "title": "Lab 7 and Lab 11 starting-state checks omit Python (and uv for Lab 7) that their helpers hard-require",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Lab 11's starting-state routes can create an attempt before proving that a usable Python executable exists, even though the helper requires Python during install. This story adds presence-only Python probes in the established POSIX and Native Windows lookup orders, distinguishes a pre-create probe miss from a post-create install failure, and deliberately leaves Lab 7, Lab 10 POSIX, and helper behavior outside the change.",
       "ImplementationPlan": "1. Update `labs/11-testing-gates-and-evidence.md` so the POSIX and Native Windows starting-state blocks resolve Python in the established order before `create`, and split the Expected failures guidance by whether an attempt exists.\n2. Recut `scripts/verify-module-11.mjs` to recognize the Python presence probes while preserving Task and uv as resolution-only checks and retaining the existing helper error wrapper.\n3. Add focused positive and mutation cases to `scripts/verify-module-11.test.mjs` that prove ordering, presence-only semantics, and the two distinct recovery paths.",
@@ -19,50 +19,86 @@
     "items": [
       {
         "title": "Add a Python presence probe after `uv --version` and before create in `labs/11-testing-gates-and-evidence.md` POSIX starting-state. Use Lab 7's PATH walk (order `python3`, then `python`) plus `--version`. Update the Environment sentence on lab line 30 in the same edit.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.1",
         "narrative": {
           "Acceptance": "When the Lab 11 POSIX starting-state fence runs, it resolves `python3` before `python`, executes the selected command with `--version` after `uv --version`, and the verifier rejects a missing or post-create probe."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "labs/11-testing-gates-and-evidence.md",
+          "recorded_at": "2026-09-29T03:24:34Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
         "title": "Place Lab 10/capstone `Get-Command` order `python`, `python3`, `py` in Native Windows Phase A before `create`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.2",
         "narrative": {
           "Acceptance": "When the Lab 11 Native Windows Phase A runs, `Get-Command` checks `python`, `python3`, then `py` before `create`, and focused tests reject a changed order or a probe placed after mutation."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "labs/11-testing-gates-and-evidence.md",
+          "recorded_at": "2026-09-29T03:24:34Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
         "title": "Recut `scripts/verify-module-11.mjs` `requireStartingStateGate` and `scripts/verify-module-11.test.mjs` so a presence probe may sit after `uv --version` and before create. Keep Task/uv as resolution checks. Python stays presence-only.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.3",
         "narrative": {
           "Acceptance": "The Module 11 verifier accepts a presence-only Python probe between uv resolution and create while continuing to reject Task or uv version pins, and mutation tests fail when those boundaries drift."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-module-11.test.mjs",
+          "recorded_at": "2026-09-29T03:24:34Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
         "title": "Split the Expected failures row: a start-check probe miss (probe sits before `create`, so no attempt yet: install Python, re-run the fence) versus a helper throw during `install` (`Required executable not found` leftover install-time token plus `reset`, because `node_modules` already exists). Do not bind \"do not create a new attempt\" after an install-time throw.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.4",
         "narrative": {
           "Acceptance": "Given a Python probe miss before create, the recovery installs Python and reruns the fence without reset; when install later emits `Required executable not found`, the recovery records the partial attempt and routes reset instead."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "labs/11-testing-gates-and-evidence.md",
+          "recorded_at": "2026-09-29T03:24:34Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
         "title": "Keep this harvest on Lab 11. Do not recut Lab 7 starting-state. Lab 10 POSIX starting-state still omits Python and stays leftover next-build, outside this Bound-remedy.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.5",
         "narrative": {
           "Acceptance": "The final diff updates only the Lab 11 page and its focused verifier tests, and review evidence records Lab 7 and the Lab 10 POSIX starting-state gap as excluded follow-up work."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "labs/11-testing-gates-and-evidence.md",
+          "recorded_at": "2026-09-29T03:24:34Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
         "title": "Keep helpers out of this identity; `Lab 11 stopped:` wrapping already exists.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.6",
         "narrative": {
           "Acceptance": "The Lab 11 helper remains unchanged and install-time missing-executable failures continue to emit the existing `Lab 11 stopped:` wrapper, which the focused verifier validates."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "labs/11-testing-gates-and-evidence.md",
+          "recorded_at": "2026-09-29T03:24:34Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       }
     ],
@@ -337,6 +373,30 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "26b4dc693cb14bb9cfee4cb2f7f7a557f627c669a1fc6840887572dfc5f46199"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 113,
+        "prBase": null,
+        "mergeCommit": "e2bc5cdc1f657f71ad5451bc7dea376c67502388",
+        "deliveryBranch": "master",
+        "deliveryCommit": "e2bc5cdc1f657f71ad5451bc7dea376c67502388",
+        "verifiedAt": "2026-09-29T03:24:48Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:grok:v1:MDFhMGViMmYtZjExOS03OGEzLWFlNzctZDU2NjE0MmY3M2E5"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-29T03:24:48Z",
+      "completedSessionId": "host:grok:v1:MDFhMGViMmYtZjExOS03OGEzLWFlNzctZDU2NjE0MmY3M2E5",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-29T03:24:48Z"
       }
     },
     "acceptance": {
@@ -363,7 +423,7 @@
         {
           "id": 2,
           "text": "Place Lab 10/capstone `Get-Command` order `python`, `python3`, `py` in Native Windows Phase A before `create`.",
-          "artifact_path": null,
+          "artifact_path": "labs/11-testing-gates-and-evidence.md",
           "ambiguous": false,
           "provenance": "statement"
         },
@@ -377,21 +437,21 @@
         {
           "id": 4,
           "text": "Split the Expected failures row: a start-check probe miss (probe sits before `create`, so no attempt yet: install Python, re-run the fence) versus a helper throw during `install` (`Required executable not found` leftover install-time token plus `reset`, because `node_modules` already exists). Do not bind \"do not create a new attempt\" after an install-time throw.",
-          "artifact_path": null,
+          "artifact_path": "labs/11-testing-gates-and-evidence.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 5,
           "text": "Keep this harvest on Lab 11. Do not recut Lab 7 starting-state. Lab 10 POSIX starting-state still omits Python and stays leftover next-build, outside this Bound-remedy.",
-          "artifact_path": null,
+          "artifact_path": "labs/11-testing-gates-and-evidence.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 6,
           "text": "Keep helpers out of this identity; `Lab 11 stopped:` wrapping already exists.",
-          "artifact_path": null,
+          "artifact_path": "labs/11-testing-gates-and-evidence.md",
           "ambiguous": false,
           "provenance": "statement"
         }
@@ -399,6 +459,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5587629788",
-    "updated": "2026-09-29T00:28:29Z"
+    "updated": "2026-09-29T03:24:48Z"
   }
 }
