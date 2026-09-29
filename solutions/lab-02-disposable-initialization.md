@@ -260,7 +260,7 @@ evidence and the lab's fresh-directory reset.
 | Init plus no-remote guards | Exit 0; managed integration; no remote names | Brownfield classification, generation file, empty output | O2.2 |
 | Git tracking/ignore inspection | Required paths correctly classified | Tracked list, ignore matches, anatomy table | O2.3 |
 | Full doctor | Exit 0; each printed finding retained with its classification and single recommended action; no warning copied that the run did not print | `canonical-vendored-npm-signpost` recorded with its recommendation and out-of-boundary verdict | O2.4 |
-| Consumer toolchain check | Exit 0 | Git 2.50.1, gh 2.88.1, Node 24.20.0, npm 11.19.0, all required tools available | O2.2, O2.4 |
+| Consumer toolchain check | Exit 0 | Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0, all required tools available | O2.2, O2.4 |
 | Provided recovery decision | Five required fields; no forced failure or credential handling | Worked Step 5 table | O2.4 |
 | Archive inspection | Exact path exists; every attempt no-remote | Printed archive path and empty remote output | O2.4 |
 
@@ -352,7 +352,7 @@ paths and has host-integration exclusions that a beginner dry-run does not fully
 
 | Misconception | What the evidence shows | Source |
 | --- | --- | --- |
-| 0.119.5 init does not create the package pin | 0.119.5 init writes the exact CLI pin; the unpinned 0.119.9 probe still created its own private exact CLI pin. The fixture copies `package.json` before install to lock the four-package graph, not because init omits the pin. | `references/SOURCE-BASELINE.md` Modules 2–3 released disagreements and Module 2 §2 |
+| 0.119.5 init does not create the package pin | Released init writes the exact CLI pin; the unpinned 0.119.9 probe created a private exact CLI pin. The fixture copies `package.json` before install to lock the four-package graph, not because init omits the pin. | `references/SOURCE-BASELINE.md` Modules 2–3 released disagreements and Module 2 §2 |
 | Empty Git means scaffold | `.git` alone selected brownfield in 0.119.9 | Released classifier and init dispatch |
 | Doctor is literally zero-write | It can write ignored throttle state while leaving tracked product state and remotes unchanged | Released doctor state implementation |
 | Every verb accepts `--help` | `toolchain:check --help` prints usage and exits 2 | Recorded CLI probe |
