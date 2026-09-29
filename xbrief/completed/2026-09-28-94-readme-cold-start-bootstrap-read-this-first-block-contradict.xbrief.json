@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #94",
-    "updated": "2026-09-29T03:45:00Z"
+    "updated": "2026-09-29T02:40:12Z"
   },
   "plan": {
     "title": "README 'Cold-start bootstrap (read this first)' block contradicts the learner pin boundary taught in Module 2",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "The byte-zero managed cold-start block is labeled read-this-first and currently reaches `directive doctor` and a global install before any learner-only guidance, contradicting the disposable pin boundary taught later in the course. This story inserts a learner audience intercept inside that managed block while preserving the agent bootstrap ladder and locking the distinction in focused portability checks.",
       "ImplementationPlan": "1. Update the managed cold-start block in `README.md` with an in-block, learner-prefixed audience intercept before any learner could follow the doctor or global-install rungs, while retaining the byte-zero marker and agent ladder.\n2. Keep `curriculum/README.md` consistent with the disposable project-local pin boundary without adding a global Directive prerequisite or a new `START-HERE.md` route.\n3. Extend `scripts/verify-cold-start-readme.mjs` and its `scripts/verify-text-portability.test.mjs` mutations so LF and CRLF evidence rejects removal, after-title placement, or loss of the learner identity gate.",
@@ -19,7 +19,7 @@
     "items": [
       {
         "title": "The managed cold-start heading is titled \"(agents and maintainers)\" and the intercepting Learners skip sentence is \"**Learners:** skip this block.\" Byte 0 stays the #2273 agent ladder.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.1",
         "narrative": {
           "Acceptance": "The managed cold-start heading contains \"agents and maintainers\" and the Learners skip sentence \"**Learners:** skip this block.\""
@@ -33,7 +33,7 @@
       },
       {
         "title": "The bound Learners audience line is \"**Learners:** skip this block\" and sends learners to a \"project-local graph\" in a \"disposable repository\".",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.2",
         "narrative": {
           "Acceptance": "README.md contains \"**Learners:** skip this block\", \"project-local graph\", and \"disposable repository\" on the in-block audience line."
@@ -47,7 +47,7 @@
       },
       {
         "title": "The focused cold-start verifier requires \"the cold-start block must contain a Learners-prefixed audience line\" and \"the Learners audience line must keep the skip-sentence identity\".",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.3",
         "narrative": {
           "Acceptance": "scripts/verify-cold-start-readme.mjs asserts \"the cold-start block must contain a Learners-prefixed audience line\" and \"the Learners audience line must keep the skip-sentence identity\"."
@@ -61,7 +61,7 @@
       },
       {
         "title": "The course map still says \"Do not install or initialize lab tooling in this training\" and \"Each lab that changes files supplies a disposable starting\" and does not add START-HERE.md.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.4",
         "narrative": {
           "Acceptance": "curriculum/README.md contains \"Do not install or initialize lab tooling in this training\" and \"Each lab that changes files supplies a disposable starting\" and does not add START-HERE.md."
@@ -377,9 +377,33 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "f8f1116d528c49d3f049d3c617af63320aba92b73506f68f504fe7865612d4c5"
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 112,
+        "prBase": null,
+        "mergeCommit": "d7703ad33f175712dd9425e64e2808c0d658893f",
+        "deliveryBranch": "master",
+        "deliveryCommit": "d7703ad33f175712dd9425e64e2808c0d658893f",
+        "verifiedAt": "2026-09-29T02:40:12Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:grok:v1:MDFhMGVhZmMtOTQ4Yy03ZmUwLWE1M2QtYTkzYzZmNmUwZTg5"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-29T02:40:12Z",
+      "completedSessionId": "host:grok:v1:MDFhMGVhZmMtOTQ4Yy03ZmUwLWE1M2QtYTkzYzZmNmUwZTg5",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-29T02:40:12Z"
       }
     },
     "id": "github.issue.5586606699",
-    "updated": "2026-09-29T03:45:00Z"
+    "updated": "2026-09-29T02:40:12Z"
   }
 }
