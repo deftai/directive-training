@@ -30,6 +30,26 @@ assert.match(
 );
 
 const block = readme.slice(0, closeIndex + closeMarker.length);
+const audienceMatch = block.match(/^> \*\*Learners:\*\* .+$/m);
+assert.ok(audienceMatch, "the cold-start block must contain a Learners-prefixed audience line");
+const audienceLine = audienceMatch[0];
+assert.match(audienceLine, /\bskip\b/i, "the Learners audience line must keep the skip-sentence identity");
+assert.match(
+  audienceLine,
+  /disposable/i,
+  "the Learners audience line must send learners to the disposable project-local path",
+);
+assert.match(
+  audienceLine,
+  /project-local/i,
+  "the Learners audience line must name the project-local lab path",
+);
+const firstRungIndex = block.search(/^> 1\. /m);
+assert.ok(firstRungIndex >= 0, "the cold-start ladder must contain rung 1");
+assert.ok(
+  block.indexOf(audienceLine) < firstRungIndex,
+  "the Learners audience line must intercept before the doctor and global-install rungs",
+);
 const rungs = [...block.matchAll(/^> (\d+)\. /gm)].map((match) => Number(match[1]));
 assert.deepEqual(rungs, [1, 2, 3, 4, 5, 6], "the ladder must contain ordered rungs 1 through 6");
 assert.ok(block.includes(corporateMirrorUrl), "the corporate-mirror recovery link must be absolute");
