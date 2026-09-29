@@ -1,0 +1,975 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #118",
+    "updated": "2026-09-29T21:58:45Z"
+  },
+  "plan": {
+    "title": "Upgrade Directive teaching baseline to 0.119.11",
+    "status": "completed",
+    "narratives": {
+      "Description": "Upgrade the complete Directive training baseline from 0.119.9 to 0.119.11 and refresh the local framework deposit to match.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/118",
+      "Overview": "## Summary\n\nUpgrade the complete Directive training baseline from 0.119.9 to the latest published release, 0.119.11, and refresh the local framework deposit to match.\n\nThis is a course-wide rebind, not a metadata-only dependency bump. The root package pin is coupled to learner-facing content, fixtures, verification code, and release evidence.\n\n## Bound release identity\n\n- npm @deftai/directive integrity sha512-bOifUXvj+ITQ8GYGXQ+B4tCvmzEm/AFzZodr4QpGB58iNIrmyFJw2UqBUOn9fvNjX2AUaaWUNFcH4HI8TjQeRw==\n- npm @deftai/directive-core integrity sha512-Q48p4YBd9Pow7QfwYCAPRDoofg588Ty7CpaDmxEn08Pv8ZKvaEjK8Fw5Ttuaae2oFsHGtmaWR1df4CLE0cEfHg==\n- npm @deftai/directive-content integrity sha512-ZROZ6BHweez7z/2hne+w2v9rlPmRxA+PIyvSR7RpDENp3ywF28ylKzifUSGXsFu86FolHygAjSq4WvwkJO2ccg==\n- npm @deftai/directive-types integrity sha512-oJP1zEpDxweN3n40JKOuLCaGB6XTFXlP8YAURc80ZDitcBuiOIdkVAFalGJZr7b53YwJ44mVZcenCwAc16Nz3w==\n- npm gitHead / peeled release commit 3e47fe5f1fb34438f4a17784eb82d71dd9af5970\n- annotated tag object ad36c781b0142bc68c68b6e02b615ca381e42311\n\n0.119.10 gitHead 6dea8b59bc91dfda8f16cf2f77b443ae543e08bc is an intermediate publication. Bind current teaching to 0.119.11.\n\n## Current evidence\n\nGlobal CLI is already @deftai/directive@0.119.11. Consumer deposit and teaching pin remain 0.119.9. Doctor reports engine 0.119.11 ahead of pin 0.119.9; AGENTS.md managed section stale; missing verify:presentation-ceiling, verify:presentation-coverage, verify:durable-effect-acquisition in the 0.119.9 deposit. Next deposit command: deft update from this feature-branch worktree, then deft migrate (idempotent) and deft doctor.\n\n## Scope\n\nRun deft update and keep the generated 0.119.11 deposit, managed AGENTS section, and related framework paths. Re-probe 0.119.11 behavior and update current curriculum, labs, solutions, assessment, references, maintenance guidance, workflow assertions, fixtures, guards, and verification scripts. Pin all six disposable fixture graphs exactly to CLI/core/content/types 0.119.11. Classify each 0.119.9 occurrence as current evidence to update, explicitly historical evidence to preserve, or superseded material to remove. Do not mechanically relabel history. Keep 0.119.5 historical evidence historical. Add a Keep a Changelog entry under Unreleased. Deliver on a feature branch. Envelope is stop-at pr-open.\n\n## Safety boundary\n\nAll mutation probes run only in unique disposable repositories with no remote.\n\n## Acceptance commands\n\nnpm run test:teaching-baseline\nnpm run check:cold-start-readme\nnpm run test:baseline-upgrade\nnpm run test:portability\nnpm test\ngit diff --check\ndeft xbrief:validate\ndeft check\n",
+      "UserStory": "As a Directive learner or maintainer, I want the repository current guidance, executable examples, and lifecycle records to satisfy Directive 0.119.11, so that training follows one verified framework generation and the delivery gates remain trustworthy.",
+      "ImplementationPlan": "1. Refresh the dest deposit with deft update, deft migrate, and deft doctor, keeping generated 0.119.11 framework paths.\n2. Re-probe changed command behavior in unique disposable repositories, then rebind current learner, maintainer, fixture, workflow, and verifier surfaces while preserving explicitly historical evidence.\n3. Pin and verify all six disposable fixture graphs at CLI/core/content/types 0.119.11.\n4. Record Unreleased changelog, run focused and aggregate checks, open a PR, and stop-at pr-open.",
+      "Traces": "GitHub issue deftai/directive-training#118; bound 0.119.11 npm integrities, peeled commit 3e47fe5f1fb34438f4a17784eb82d71dd9af5970, annotated tag ad36c781b0142bc68c68b6e02b615ca381e42311; PROJECT-DEFINITION DirectiveBaseline and teaching-baseline markers.",
+      "QualityGate": "Run npm run test:teaching-baseline, npm run check:cold-start-readme, npm run test:baseline-upgrade, npm run test:portability, npm test, git diff --check, deft xbrief:validate, and deft check."
+    },
+    "items": [
+      {
+        "title": "npm run test:teaching-baseline exits 0",
+        "status": "completed",
+        "id": "clause.1",
+        "narrative": {
+          "Acceptance": "npm run test:teaching-baseline exits 0"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:51:46Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "title": "npm run check:cold-start-readme exits 0",
+        "status": "completed",
+        "id": "clause.2",
+        "narrative": {
+          "Acceptance": "npm run check:cold-start-readme exits 0"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/teaching-baseline.test.mjs",
+          "recorded_at": "2026-09-29T21:51:46Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "title": "npm run test:baseline-upgrade exits 0",
+        "status": "completed",
+        "id": "clause.3",
+        "narrative": {
+          "Acceptance": "npm run test:baseline-upgrade exits 0"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "labs/fixtures/02-disposable-initialization/package.json",
+          "recorded_at": "2026-09-29T21:51:46Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "title": "npm run test:portability exits 0",
+        "status": "completed",
+        "id": "clause.4",
+        "narrative": {
+          "Acceptance": "npm run test:portability exits 0"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/assert-doctor-warning-set.test.mjs",
+          "recorded_at": "2026-09-29T21:51:46Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "title": "git diff --check exits 0",
+        "status": "completed",
+        "id": "clause.5",
+        "narrative": {
+          "Acceptance": "git diff --check exits 0"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-text-portability.test.mjs",
+          "recorded_at": "2026-09-29T21:51:46Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "title": "deft xbrief:validate exits 0",
+        "status": "completed",
+        "id": "clause.6",
+        "narrative": {
+          "Acceptance": "deft xbrief:validate exits 0"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "xbrief/PROJECT-DEFINITION.xbrief.json",
+          "recorded_at": "2026-09-29T21:51:46Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "title": "deft check exits 0",
+        "status": "completed",
+        "id": "clause.7",
+        "narrative": {
+          "Acceptance": "deft check exits 0"
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": ".deft/GENERATION.json",
+          "recorded_at": "2026-09-29T21:51:46Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "title": "Required CI and Greptile on merged PR #119 head 042d7ec8104eaca1e6f3c68daeceb0a65f65eb08 / merge 0f1e6a69b1461017a6f9c526a5d08669c4442775 were CLEAN",
+        "status": "completed",
+        "id": "clause.8",
+        "narrative": {
+          "Acceptance": "Required CI and Greptile on merged PR #119 head 042d7ec8104eaca1e6f3c68daeceb0a65f65eb08 / merge 0f1e6a69b1461017a6f9c526a5d08669c4442775 were CLEAN"
+        },
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "0f1e6a69b1461017a6f9c526a5d08669c4442775",
+          "recorded_at": "2026-09-29T21:54:12Z",
+          "recorded_by": "leftover-complete-recut"
+        },
+        "x-directive/requires": "merge"
+      },
+      {
+        "id": "clause.9",
+        "title": "clause.9",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.10",
+        "title": "clause.10",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.11",
+        "title": "clause.11",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.12",
+        "title": "clause.12",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.13",
+        "title": "clause.13",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.14",
+        "title": "clause.14",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.15",
+        "title": "clause.15",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.16",
+        "title": "clause.16",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.17",
+        "title": "clause.17",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.18",
+        "title": "clause.18",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.19",
+        "title": "clause.19",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.20",
+        "title": "clause.20",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.21",
+        "title": "clause.21",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.22",
+        "title": "clause.22",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.23",
+        "title": "clause.23",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.24",
+        "title": "clause.24",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.25",
+        "title": "clause.25",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.26",
+        "title": "clause.26",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.27",
+        "title": "clause.27",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.28",
+        "title": "clause.28",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.29",
+        "title": "clause.29",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.30",
+        "title": "clause.30",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.31",
+        "title": "clause.31",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.32",
+        "title": "clause.32",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.33",
+        "title": "clause.33",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.34",
+        "title": "clause.34",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.35",
+        "title": "clause.35",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.36",
+        "title": "clause.36",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.37",
+        "title": "clause.37",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.38",
+        "title": "clause.38",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.39",
+        "title": "clause.39",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.40",
+        "title": "clause.40",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.41",
+        "title": "clause.41",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      },
+      {
+        "id": "clause.42",
+        "title": "clause.42",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "package.json",
+          "recorded_at": "2026-09-29T21:58:37Z",
+          "recorded_by": "leftover-complete-recut"
+        }
+      }
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/118",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #118: Upgrade Directive teaching baseline to 0.119.11"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 8 independently testable clauses from the task statement before product edit (#3323)",
+      "sentences": [
+        "npm run test:teaching-baseline exits 0",
+        "npm run check:cold-start-readme exits 0",
+        "npm run test:baseline-upgrade exits 0",
+        "npm run test:portability exits 0",
+        "git diff --check exits 0",
+        "deft xbrief:validate exits 0",
+        "deft check exits 0",
+        "Required CI and Greptile on merged PR #119 head 042d7ec8104eaca1e6f3c68daeceb0a65f65eb08 / merge 0f1e6a69b1461017a6f9c526a5d08669c4442775 were CLEAN"
+      ],
+      "admitted_source_sentences": [
+        "Summary Upgrade the complete Directive training baseline from 0.119.9 to the latest published release, 0.119.11, and refresh the local framework deposit to match.",
+        "This is a course-wide rebind, not a metadata-only dependency bump.",
+        "The root package pin is coupled to learner-facing content, fixtures, verification code, and release evidence.",
+        "Bound release identity | Surface | 0.119.11 identity | | --- | --- | | npm @deftai/directive integrity | sha512-bOifUXvj+ITQ8GYGXQ+B4tCvmzEm/AFzZodr4QpGB58iNIrmyFJw2UqBUOn9fvNjX2AUaaWUNFcH4HI8TjQeRw== | | npm @deftai/directive-core integrity | sha512-Q48p4YBd9Pow7QfwYCAPRDoofg588Ty7CpaDmxEn08Pv8ZKvaEjK8Fw5Ttuaae2oFsHGtmaWR1df4CLE0cEfHg== | | npm @deftai/directive-content integrity | sha512-ZROZ6BHweez7z/2hne+w2v9rlPmRxA+PIyvSR7RpDENp3ywF28ylKzifUSGXsFu86FolHygAjSq4WvwkJO2ccg== | | npm @deftai/directive-types integrity | sha512-oJP1zEpDxweN3n40JKOuLCaGB6XTFXlP8YAURc80ZDitcBuiOIdkVAFalGJZr7b53YwJ44mVZcenCwAc16Nz3w== | | npm gitHead / peeled release commit | 3e47fe5f1fb34438f4a17784eb82d71dd9af5970 | | annotated tag object | ^Gd36c781b0142bc68c68b6e02b615ca381e42311 | 0.119.10 (gitHead 6dea8b59bc91dfda8f16cf2f77b443ae543e08bc) is an intermediate publication.",
+        "Bind current teaching to 0.119.11.",
+        "Do not treat 0.119.10 as the learner pin.",
+        "Current evidence - Global CLI is already @deftai/directive@0.119.11.",
+        "Consumer deposit and teaching pin remain 0.119.9 (deft doctor: engine 0.119.11 ahead of pin 0.119.9; AGENTS.md managed section stale; missing erify:presentation-ceiling, erify:presentation-coverage, erify:durable-effect-acquisition in the 0.119.9 deposit).",
+        "Next deposit command: deft update from a feature-branch worktree, then deft migrate (idempotent) and deft doctor.",
+        "Scope - Run deft update and keep the generated 0.119.11 deposit / managed AGENTS section / related framework paths.",
+        "Re-probe 0.119.11 behavior and update current curriculum, labs, solutions, assessment, references, maintenance guidance, workflow assertions, fixtures, guards, and verification scripts.",
+        "Pin all six disposable fixture graphs exactly to CLI/core/content/types 0.119.11.",
+        "Classify each 0.119.9 occurrence as current evidence to update, explicitly historical evidence to preserve, or superseded material to remove.",
+        "Do not mechanically relabel history.",
+        "Keep 0.119.5 historical evidence historical.",
+        "Add a Keep a Changelog entry under [Unreleased].",
+        "Deliver on a feature branch through pull request review and CI.",
+        "Envelope is stop-at: pr-open.",
+        "Parent-retained closer owns Greptile wait and merge.",
+        "Safety boundary All mutation probes run only in unique disposable repositories with no remote.",
+        "Do not run learner mutation stages in the training checkout, publish a package, deploy, or modify the Directive source repository.",
+        "Acceptance - [ ] Release identity and package graph evidence identify only 0.119.11 for current claims.",
+        "[ ] Current learner and executable surfaces use 0.119.11; historical evidence remains explicitly historical.",
+        "[ ] Six fixture-local package graphs resolve CLI/core/content/types exactly to 0.119.11.",
+        "[ ] Changed command claims are re-probed and reflected in maintained examples.",
+        "[ ] pm run test:teaching-baseline passes.",
+        "[ ] pm run check:cold-start-readme passes.",
+        "[ ] pm run test:baseline-upgrade passes.",
+        "[ ] pm run test:portability passes.",
+        "[ ] pm test passes with no skipped or failed tests.",
+        "[ ] git diff --check passes.",
+        "[ ] deft xbrief:validate passes.",
+        "[ ] deft check passes at the merge chokepoint.",
+        "[ ] Required CI and review gates are clean on the PR head before squash merge."
+      ],
+      "admitted_source_digest": "8c4e12b51e1d315c838cd2ce20320a0631f1686ce3ac470f9bddceface72857a",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "npm run test:teaching-baseline exits 0",
+          "artifact_path": "package.json",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "npm run check:cold-start-readme exits 0",
+          "artifact_path": "AGENTS.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "npm run test:baseline-upgrade exits 0",
+          "artifact_path": "COST-ESTIMATE.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "npm run test:portability exits 0",
+          "artifact_path": "CHANGELOG.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "git diff --check exits 0",
+          "artifact_path": "README.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "deft xbrief:validate exits 0",
+          "artifact_path": "xbrief/PROJECT-DEFINITION.xbrief.json",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 7,
+          "text": "deft check exits 0",
+          "artifact_path": ".deft/GENERATION.json",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 8,
+          "text": "Required CI and Greptile on merged PR #119 head 042d7ec8104eaca1e6f3c68daeceb0a65f65eb08 / merge 0f1e6a69b1461017a6f9c526a5d08669c4442775 were CLEAN",
+          "artifact_path": "ROADMAP.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 9,
+          "text": "Summary Upgrade the complete Directive training baseline from 0.119.9 to the latest published release, 0.119.11, and refresh the local framework deposit to match.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 10,
+          "text": "This is a course-wide rebind, not a metadata-only dependency bump.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 11,
+          "text": "The root package pin is coupled to learner-facing content, fixtures, verification code, and release evidence.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 12,
+          "text": "Bound release identity | Surface | 0.119.11 identity | | --- | --- | | npm @deftai/directive integrity | sha512-bOifUXvj+ITQ8GYGXQ+B4tCvmzEm/AFzZodr4QpGB58iNIrmyFJw2UqBUOn9fvNjX2AUaaWUNFcH4HI8TjQeRw== | | npm @deftai/directive-core integrity | sha512-Q48p4YBd9Pow7QfwYCAPRDoofg588Ty7CpaDmxEn08Pv8ZKvaEjK8Fw5Ttuaae2oFsHGtmaWR1df4CLE0cEfHg== | | npm @deftai/directive-content integrity | sha512-ZROZ6BHweez7z/2hne+w2v9rlPmRxA+PIyvSR7RpDENp3ywF28ylKzifUSGXsFu86FolHygAjSq4WvwkJO2ccg== | | npm @deftai/directive-types integrity | sha512-oJP1zEpDxweN3n40JKOuLCaGB6XTFXlP8YAURc80ZDitcBuiOIdkVAFalGJZr7b53YwJ44mVZcenCwAc16Nz3w== | | npm gitHead / peeled release commit | 3e47fe5f1fb34438f4a17784eb82d71dd9af5970 | | annotated tag object | ^Gd36c781b0142bc68c68b6e02b615ca381e42311 | 0.119.10 (gitHead 6dea8b59bc91dfda8f16cf2f77b443ae543e08bc) is an intermediate publication.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 13,
+          "text": "Bind current teaching to 0.119.11.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 14,
+          "text": "Do not treat 0.119.10 as the learner pin.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 15,
+          "text": "Current evidence - Global CLI is already @deftai/directive@0.119.11.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 16,
+          "text": "Consumer deposit and teaching pin remain 0.119.9 (deft doctor: engine 0.119.11 ahead of pin 0.119.9; AGENTS.md managed section stale; missing erify:presentation-ceiling, erify:presentation-coverage, erify:durable-effect-acquisition in the 0.119.9 deposit).",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 17,
+          "text": "Next deposit command: deft update from a feature-branch worktree, then deft migrate (idempotent) and deft doctor.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 18,
+          "text": "Scope - Run deft update and keep the generated 0.119.11 deposit / managed AGENTS section / related framework paths.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 19,
+          "text": "Re-probe 0.119.11 behavior and update current curriculum, labs, solutions, assessment, references, maintenance guidance, workflow assertions, fixtures, guards, and verification scripts.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 20,
+          "text": "Pin all six disposable fixture graphs exactly to CLI/core/content/types 0.119.11.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 21,
+          "text": "Classify each 0.119.9 occurrence as current evidence to update, explicitly historical evidence to preserve, or superseded material to remove.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 22,
+          "text": "Do not mechanically relabel history.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 23,
+          "text": "Keep 0.119.5 historical evidence historical.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 24,
+          "text": "Add a Keep a Changelog entry under [Unreleased].",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 25,
+          "text": "Deliver on a feature branch through pull request review and CI.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 26,
+          "text": "Envelope is stop-at: pr-open.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 27,
+          "text": "Parent-retained closer owns Greptile wait and merge.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 28,
+          "text": "Safety boundary All mutation probes run only in unique disposable repositories with no remote.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 29,
+          "text": "Do not run learner mutation stages in the training checkout, publish a package, deploy, or modify the Directive source repository.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 30,
+          "text": "Acceptance - [ ] Release identity and package graph evidence identify only 0.119.11 for current claims.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 31,
+          "text": "[ ] Current learner and executable surfaces use 0.119.11; historical evidence remains explicitly historical.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 32,
+          "text": "[ ] Six fixture-local package graphs resolve CLI/core/content/types exactly to 0.119.11.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 33,
+          "text": "[ ] Changed command claims are re-probed and reflected in maintained examples.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 34,
+          "text": "[ ] pm run test:teaching-baseline passes.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 35,
+          "text": "[ ] pm run check:cold-start-readme passes.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 36,
+          "text": "[ ] pm run test:baseline-upgrade passes.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 37,
+          "text": "[ ] pm run test:portability passes.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 38,
+          "text": "[ ] pm test passes with no skipped or failed tests.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 39,
+          "text": "[ ] git diff --check passes.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 40,
+          "text": "[ ] deft xbrief:validate passes.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 41,
+          "text": "[ ] deft check passes at the merge chokepoint.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 42,
+          "text": "[ ] Required CI and review gates are clean on the PR head before squash merge.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found",
+      "confessions": [
+        "Upgrade Directive teaching baseline to 0.119.11",
+        "Summary Upgrade the complete Directive training baseline from 0.119.9 to the latest published release, 0.119.11, and refresh the local framework deposit to match.",
+        "This is a course-wide rebind, not a metadata-only dependency bump.",
+        "The root package pin is coupled to learner-facing content, fixtures, verification code, and release evidence.",
+        "Bound release identity | Surface | 0.119.11 identity | | --- | --- | | npm @deftai/directive integrity | sha512-bOifUXvj+ITQ8GYGXQ+B4tCvmzEm/AFzZodr4QpGB58iNIrmyFJw2UqBUOn9fvNjX2AUaaWUNFcH4HI8TjQeRw== | | npm @deftai/directive-core integrity | sha512-Q48p4YBd9Pow7QfwYCAPRDoofg588Ty7CpaDmxEn08Pv8ZKvaEjK8Fw5Ttuaae2oFsHGtmaWR1df4CLE0cEfHg== | | npm @deftai/directive-content integrity | sha512-ZROZ6BHweez7z/2hne+w2v9rlPmRxA+PIyvSR7RpDENp3ywF28ylKzifUSGXsFu86FolHygAjSq4WvwkJO2ccg== | | npm @deftai/directive-types integrity | sha512-oJP1zEpDxweN3n40JKOuLCaGB6XTFXlP8YAURc80ZDitcBuiOIdkVAFalGJZr7b53YwJ44mVZcenCwAc16Nz3w== | | npm gitHead / peeled release commit | 3e47fe5f1fb34438f4a17784eb82d71dd9af5970 | | annotated tag object | ^Gd36c781b0142bc68c68b6e02b615ca381e42311 | 0.119.10 (gitHead 6dea8b59bc91dfda8f16cf2f77b443ae543e08bc) is an intermediate publication.",
+        "Bind current teaching to 0.119.11.",
+        "Do not treat 0.119.10 as the learner pin.",
+        "Current evidence - Global CLI is already @deftai/directive@0.119.11.",
+        "Consumer deposit and teaching pin remain 0.119.9 (deft doctor: engine 0.119.11 ahead of pin 0.119.9; AGENTS.md managed section stale; missing erify:presentation-ceiling, erify:presentation-coverage, erify:durable-effect-acquisition in the 0.119.9 deposit).",
+        "Next deposit command: deft update from a feature-branch worktree, then deft migrate (idempotent) and deft doctor.",
+        "Scope - Run deft update and keep the generated 0.119.11 deposit / managed AGENTS section / related framework paths.",
+        "Re-probe 0.119.11 behavior and update current curriculum, labs, solutions, assessment, references, maintenance guidance, workflow assertions, fixtures, guards, and verification scripts.",
+        "Pin all six disposable fixture graphs exactly to CLI/core/content/types 0.119.11.",
+        "Classify each 0.119.9 occurrence as current evidence to update, explicitly historical evidence to preserve, or superseded material to remove.",
+        "Do not mechanically relabel history.",
+        "Keep 0.119.5 historical evidence historical.",
+        "Add a Keep a Changelog entry under [Unreleased].",
+        "Deliver on a feature branch through pull request review and CI.",
+        "Envelope is stop-at: pr-open.",
+        "Parent-retained closer owns Greptile wait and merge.",
+        "Safety boundary All mutation probes run only in unique disposable repositories with no remote.",
+        "Do not run learner mutation stages in the training checkout, publish a package, deploy, or modify the Directive source repository.",
+        "Acceptance - [ ] Release identity and package graph evidence identify only 0.119.11 for current claims.",
+        "[ ] Current learner and executable surfaces use 0.119.11; historical evidence remains explicitly historical.",
+        "[ ] Six fixture-local package graphs resolve CLI/core/content/types exactly to 0.119.11.",
+        "[ ] Changed command claims are re-probed and reflected in maintained examples.",
+        "[ ] pm run test:teaching-baseline passes.",
+        "[ ] pm run check:cold-start-readme passes.",
+        "[ ] pm run test:baseline-upgrade passes.",
+        "[ ] pm run test:portability passes.",
+        "[ ] pm test passes with no skipped or failed tests.",
+        "[ ] git diff --check passes.",
+        "[ ] deft xbrief:validate passes.",
+        "[ ] deft check passes at the merge chokepoint.",
+        "[ ] Required CI and review gates are clean on the PR head before squash merge."
+      ]
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5635039584,
+        "origin": "deftai/directive-training#118",
+        "id": "github.issue.5635039584"
+      },
+      "kind": "story",
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": false,
+        "file_scope": [
+          "AGENTS.md",
+          "CHANGELOG.md",
+          "README.md",
+          "package.json",
+          "ROADMAP.md",
+          "COST-ESTIMATE.md",
+          ".cursor/hooks.json",
+          ".deft/GENERATION.json",
+          ".github/workflows",
+          "assessments",
+          "curriculum",
+          "labs",
+          "maintainers",
+          "references",
+          "scripts",
+          "solutions",
+          "xbrief/PROJECT-DEFINITION.xbrief.json",
+          "xbrief/active/2026-09-29-118-upgrade-directive-teaching-baseline-to-011911.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run test:teaching-baseline",
+          "npm run check:cold-start-readme"
+        ],
+        "size": "large",
+        "file_scope_confidence": "high",
+        "depends_on": []
+      },
+      "completionProvenance": {
+        "repository": null,
+        "implementationCommit": null,
+        "prNumber": 119,
+        "prBase": null,
+        "mergeCommit": "0f1e6a69b1461017a6f9c526a5d08669c4442775",
+        "deliveryBranch": "master",
+        "deliveryCommit": "0f1e6a69b1461017a6f9c526a5d08669c4442775",
+        "verifiedAt": "2026-09-29T21:58:45Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:grok:v1:MDFhMGVmMGUtOTY4YS03YWEwLWIxM2ItZWNiMTEyMzU4ODY4"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-29T21:58:45Z",
+      "completedSessionId": "host:grok:v1:MDFhMGVmMGUtOTY4YS03YWEwLWIxM2ItZWNiMTEyMzU4ODY4",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-29T21:58:45Z"
+      }
+    },
+    "id": "github.issue.5635039584",
+    "updated": "2026-09-29T21:58:45Z"
+  }
+}
