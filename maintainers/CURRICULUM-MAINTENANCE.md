@@ -1,7 +1,7 @@
 # Curriculum maintenance contract
 
 This document governs the authored 3Ci Directive curriculum. It describes the
-0.119.9 internal-alpha baseline and must be reviewed whenever the project pin,
+0.119.11 internal-alpha baseline and must be reviewed whenever the project pin,
 how Directive behaves, course outcomes, or the publication target changes.
 
 ## Ownership and release status
@@ -200,7 +200,7 @@ separate learner walkthrough have evidence.
 
 Those conditions were met for the prior 0.112.0 baseline on 2026-09-15: the Windows 2022
 CI proof was green and an independent native PowerShell walkthrough completed each route.
-That historical evidence does not promote Windows on 0.119.9; rerun both evidence paths
+That historical evidence does not promote Windows on 0.119.11; rerun both evidence paths
 against the current exact graph before changing the candidate label.
 
 Run the aggregate Directive consumer gate separately after the literal commands:
@@ -216,7 +216,7 @@ with the evidence; a prior green run is not current proof.
 
 Modules 4–5 add classification and projection-recovery evidence. The two new
 focused commands supplement the active scope's literal conformance command;
-they do not replace it. Lab 5's 0.119.9 fixture is verified on Windows/PowerShell.
+they do not replace it. Lab 5's 0.119.11 fixture is verified on Windows/PowerShell.
 Keep the published Windows, Linux, and macOS walkthroughs as candidates until
 their current-release written paths have been executed natively.
 
@@ -233,17 +233,17 @@ and authority boundary together. It needs no platform execution or live critic. 
 fictional sources inert through the authored fixture and exercise procedure; do not claim
 that Directive guarantees runtime inertness.
 
-Module 10 adds an executable golden-path lab. Revalidate the exact 0.119.9 package graph,
+Module 10 adds an executable golden-path lab. Revalidate the exact 0.119.11 package graph,
 clean guarded checkpoint, session/story/active-preflight order, expected focused red,
 one-file `src/greeting.mjs` boundary, named/fallback behavior, patch check, retained JSON
-evidence, fresh reset, and recoverable archive together. The 0.119.9 fixture is verified
+evidence, fresh reset, and recoverable archive together. The 0.119.11 fixture is verified
 on Windows/PowerShell; published Windows, Linux, and macOS walkthroughs remain candidates.
 
-Module 11 adds an executable testing-and-gates lab. Revalidate the exact 0.119.9 graph,
+Module 11 adds an executable testing-and-gates lab. Revalidate the exact 0.119.11 graph,
 meaningful red, frozen test digest, passing green and source-only refactor, literal `verify:ac`,
 forward coverage, the seeded `quality:record` aggregate failure, the one-record repair, final
 three-file diff, unchanged gate fingerprints, fresh reset, and recoverable archive together.
-The 0.119.9 fixture is verified on Windows/PowerShell; published Windows, Linux, and macOS
+The 0.119.11 fixture is verified on Windows/PowerShell; published Windows, Linux, and macOS
 walkthroughs remain candidates.
 
 Module 12 is a command-free fixed-state exercise. Revalidate the complete H1
@@ -257,7 +257,7 @@ reset.
 
 The learner-ready
 [capstone](../curriculum/capstone-end-to-end.md) combines the course lifecycle
-in one guarded no-remote fixture. Revalidate the exact 0.119.9 graph on a supported
+in one guarded no-remote fixture. Revalidate the exact 0.119.11 graph on a supported
 Node.js runtime, the full stage and evidence order, meaningful red and intentional
 review-evidence aggregate failure, source-only green and P1 repair, simulated
 current-product review timing, implemented/local-pass closeout boundary, fresh
@@ -267,7 +267,7 @@ documented POSIX-only skip. The prior native matrix is historical evidence only;
 independent Windows, Linux, and macOS learner walkthrough pilots separately.
 
 The [native Windows revalidation handoff](WINDOWS-REVALIDATION.md) is a preserved
-historical 0.112.0 assignment, not a current 0.119.9 runbook. Do not reuse it without a new
+historical 0.112.0 assignment, not a current 0.119.11 runbook. Do not reuse it without a new
 explicit request and a rewritten, pin-matched target. Any replacement must preserve the old
 failed attempt, distinguish native evidence from cross-platform unit-test inputs, validate
 the real npm launchers, and restore only an absent verified deposit. Doctor must pass before

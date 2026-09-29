@@ -9,19 +9,19 @@ it, inspect its anatomy, and preserve evidence without touching a business repos
 | --- | --- |
 | Stable ID | `lab-02-disposable-initialization` |
 | Supports | Module 2 outcomes O2.1, O2.2, O2.3, and O2.4 |
-| Status | `learner-ready draft`; 0.119.9 fixture verified on Windows/PowerShell; published shell walkthroughs remain candidates |
-| Last verified | 2026-09-26 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Status | `learner-ready draft`; 0.119.11 fixture verified on Windows/PowerShell; published shell walkthroughs remain candidates |
+| Last verified | 2026-09-29 |
+| Directive baseline | fixture-local `@deftai/directive@0.119.11`, engine `@deftai/directive-core@0.119.11`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Estimated duration | 25–35 minutes |
 | Fixture | [Fictional Northstar package](fixtures/02-disposable-initialization/package.json) driven by the [stateless lab helper](fixtures/02-disposable-initialization/init-lab.mjs) |
 
-The guarded 0.119.9 fixture passed the current local Windows/PowerShell baseline-upgrade
+The guarded 0.119.11 fixture passed the current local Windows/PowerShell baseline-upgrade
 suite. Its Markdown shell walkthroughs remain separate candidate paths. These bounds do not
 prove pnpm, other images, or coding-host integration.
 
 ## Goal and done condition
 
-You are done when the project-local CLI reports Directive 0.119.9; init, doctor, and the consumer toolchain check return the expected exits; the repository remains no-remote; `module_02_accept=PASS` re-reads those executable checks; the written chooser, anatomy, and five-field recovery rows match the explained solution and the evidence bundle; and cleanup archives the exact lab parent.
+You are done when the project-local CLI reports Directive 0.119.11; init, doctor, and the consumer toolchain check return the expected exits; the repository remains no-remote; `module_02_accept=PASS` re-reads those executable checks; the written chooser, anatomy, and five-field recovery rows match the explained solution and the evidence bundle; and cleanup archives the exact lab parent.
 
 This demonstrates O2.1–O2.4 without creating application code, a remote, pull request, deployment, or published artifact.
 
@@ -33,13 +33,13 @@ Northstar Route Checker is a fictional future JavaScript route-validation tool; 
 
 ### Required environment
 
-- Node.js 22 or newer; the verified local 0.119.9 run used 24.20.0.
+- Node.js 22 or newer; the verified local 0.119.11 run used 24.20.0.
 - npm, Git, GitHub CLI, and either zsh, bash, or PowerShell 7.4 or newer.
 - A local clone of this curriculum repository, used only to read the fixture and run
   the lab helper. The public `deftai/directive-training` checkout is a valid
   `DIRECTIVE_TRAINING_ROOT` for that purpose. Do not point `LAB_ROOT` at the curriculum
   checkout; `LAB_ROOT` is the printed disposable attempt.
-- Access to the public npm registry for `@deftai/directive@0.119.9`. The normal
+- Access to the public npm registry for `@deftai/directive@0.119.11`. The normal
   path uses a project-local public-registry `.npmrc`; if organizational policy requires a
   different approved route, stop and use the recovery boundary instead.
 
@@ -196,7 +196,7 @@ Continue only after PowerShell prints `module_02_start=ready`.
 - Keep `git remote` empty; do not push, open a pull request, deploy, release, publish, or call production.
 - Do not put tokens, credentials, environment dumps, client data, proprietary code, production logs, or confidential issues in commands or evidence.
 - Mutations are limited to the exact temporary parent, its Git metadata, fixture files, dependency state, Directive integration/runtime state, and adjacent evidence lists.
-- Stop if the helper prints `Stop:` — the root guard failed, a remote appeared, the pin differs from 0.119.9, or a command requested unexpected credentials or external action.
+- Stop if the helper prints `Stop:` — the root guard failed, a remote appeared, the pin differs from 0.119.11, or a command requested unexpected credentials or external action.
 - A `Paste refusal:` or `Usage refusal:` is not a boundary stop. The helper inspected nothing and mutated nothing; re-export the missing value and re-run the same block unchanged.
 
 ## Starting checkpoint
@@ -230,7 +230,7 @@ node "$helper" guard "$lab_root"
 
 **Pass:** `install` prints `module_02_install=ready` with the checkpoint commit, both explicit
 project-local launchers exist and are executable, the version line reports
-`@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)`, and the checkpoint subject is exact. The two `test -x`
+`@deftai/directive (engine: @deftai/directive-core@0.119.11; package: @deftai/directive@0.119.11)`, and the checkpoint subject is exact. The two `test -x`
 checks are the learner-visible O2.2 proof: `$lab_root/node_modules/.bin/directive` and
 `$lab_root/node_modules/.bin/deft` are the exact paths that must answer, never a host-global
 `directive` or `deft` found on `PATH`.
@@ -385,27 +385,23 @@ xBrief migration: none -- xbrief active, vbrief removed.
 This banner's "vBRIEF" names post-pre-cutover document-model state. Learner-facing files stay
 xBRIEF 0.8, and new course writes stay `xbrief/` schema 0.8.
 
-The pin-matched 0.119.9 replay prints one named warning, the provenance check
+The pin-matched 0.119.11 replay prints one named product warning, the provenance check
 `canonical-vendored-npm-signpost`:
 
 ```text
-⚠ Signpost advisory: canonical-vendored-npm-signpost: Canonical-vendored install (.deft/core/) is not yet
-npm-managed. Post-freeze upgrades run via npm: install the engine with
-`npm i -g @deftai/directive@latest`, then run `directive migrate` to stamp provenance.
+⚠ Signpost advisory: canonical-vendored-npm-signpost: [deft] One-time: run `directive migrate` to stamp npm provenance (idempotent). See content/UPGRADING.md.
 ```
 
-Its single recommended next action is a host-global engine install followed by a provenance
-migration. The block below is quoted evidence, not a step — do not run it:
+Its recommended next action is a one-time local provenance stamp. The block below is quoted
+evidence, not a step — do not run it:
 
 ```text
-npm i -g @deftai/directive@latest
 directive migrate
 ```
 
-**Boundary verdict:** outside this lab, on two counts. `npm i -g` mutates host-global state
-outside the disposable temporary parent, and `@latest` would move the install off the 0.119.9
-course pin. Record the check id, the message, the recommended action, and this verdict; then
-refuse the action and continue.
+**Boundary verdict:** outside this lab's diagnose-and-classify task. Running migrate would
+change the attempt so the advisory disappears. Record the check id, the message, the
+recommended action, and this verdict; then refuse the action and continue.
 
 Record what your own run printed, not what this page predicts. Diagnostic severity does not
 follow from a warning count, so do not use one as your pass condition, and do not copy a
@@ -482,7 +478,7 @@ global npm configuration, or create a failed repository for this scenario.
 3. the required support boundary: use only the organization's approved npm setup;
 4. the next safe mutation: leave the attempt intact, create a new unique attempt under the
    guarded parent, and re-run the root and no-remote guards before installation; and
-5. the retry gate: the explicit project-local binary exists, reports Directive core 0.119.9,
+5. the retry gate: the explicit project-local binary exists, reports Directive core 0.119.11,
    install exits 0, and `git remote` remains empty.
 
 **Checkpoint:** all five fields follow from the provided facts, no credential handling is
@@ -554,7 +550,7 @@ git remote
 
 | Validation | Required exit/result | Observable signal | Outcomes |
 | --- | --- | --- | --- |
-| Exact local version | 0 | Reports `@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)` | O2.2 |
+| Exact local version | 0 | Reports `@deftai/directive (engine: @deftai/directive-core@0.119.11; package: @deftai/directive@0.119.11)` | O2.2 |
 | Full doctor | 0 | Health summary plus any classified warnings and one recommendation | O2.4 |
 | Consumer toolchain check | 0 | `All required tools available` | O2.2, O2.4 |
 | Git boundary checks | 0 | Clean tracked index, `.deft/core` ignored, no remote names | O2.2, O2.3 |
@@ -616,12 +612,12 @@ required.
 
 | Symptom | Confirm the cause | Recovery | Evidence after retry |
 | --- | --- | --- | --- |
-| `npm install` returns `E401`/`E403` | Record the status and registry host only; do not print config or tokens | Preserve the attempt. Restore the organization-approved registry/auth setup, then start a fresh attempt. If an approved public-registry route exists, use a fresh temporary npm config rather than editing global state. | Local binary exists and reports 0.119.9 |
+| `npm install` returns `E401`/`E403` | Record the status and registry host only; do not print config or tokens | Preserve the attempt. Restore the organization-approved registry/auth setup, then start a fresh attempt. If an approved public-registry route exists, use a fresh temporary npm config rather than editing global state. | Local binary exists and reports 0.119.11 |
 | Local binary is missing but another `directive` runs | Test the exact `node_modules/.bin` path | Do not accept the global result. Correct the install in a fresh attempt and use the explicit path. | Exact local path and version both pass |
 | Init reports `brownfield-install` | Confirm `.git` exists | Continue. This is expected released behavior for the lab's Git-first safety path. | Init exits 0 and managed integration appears |
 | Checkpoint commit is refused on `main` | Run `git branch --show-current`; the branch gate protects the default branch | Preserve the gate. Create a fresh attempt so the helper switches the unborn repository to `training/module-02`, then re-run `install`. | Commit succeeds on `training/module-02` |
 | Checkpoint commit prints `warning: LF will be replaced by CRLF` | Confirm the host uses `core.autocrlf=true`, then check the commit exit code and `git log -1 --format=%s` | Treat the line-ending notice as an expected warning, not a failed checkpoint. Do not change global Git configuration or bypass the hook. | Exit code is 0, the checkpoint subject is exact, and tracked status is clean |
-| Toolchain help exits 2 | Inspect `toolchain-help.txt` beside the attempt for the known unrecognized argument | Record the 0.119.9 defect; verify registration with `commands`, then run the tested consumer form. | Consumer toolchain command exits 0 |
+| Toolchain help exits 2 | Inspect `toolchain-help.txt` beside the attempt for the known unrecognized argument | Record the 0.119.11 defect; verify registration with `commands`, then run the tested consumer form. | Consumer toolchain command exits 0 |
 | Doctor exits 0 with warnings | Record severity and recommended action | Treat the result as evidence and classify the recommendation. Do not execute migration or another untaught recovery in this module. Use Task 4's provided failure for the required recovery decision. | Exit and warnings are both represented accurately |
 | Init prints generic push, PR, or merge next steps | The installer is describing an ordinary repository lifecycle, not granting this lab remote authority | Do not follow those steps. Re-run `guard` and continue only with the local lab. | `git remote` remains empty |
 | Allowlist rejects a path | Read the exact path and compare with the pinned baseline | Stop. Preserve the attempt and verify version/source drift before amending any allowlist. | A fresh attempt contains only expected paths |
@@ -814,7 +810,7 @@ archive later only through your normal local-data policy.
 
 After a good-faith first attempt, compare your route and evidence with the
 [explained solution](../solutions/lab-02-disposable-initialization.md). It covers the known
-0.119.9 warnings, provided authentication-failure decision drill, global-fallback hazard, and
+0.119.11 warnings, provided authentication-failure decision drill, global-fallback hazard, and
 valid alternate evidence. The solution is immediately available; no instructor or bot is
 required.
 
@@ -822,7 +818,7 @@ required.
 
 Fill this in only after acceptance and cleanup:
 
-> I completed `lab-02-disposable-initialization` against Directive 0.119.9 on my recorded
+> I completed `lab-02-disposable-initialization` against Directive 0.119.11 on my recorded
 > operating system and shell. The explicit local version, doctor, consumer toolchain, and Git
 > boundary checks passed as `module_02_accept=PASS`. The written chooser, anatomy, and
 > five-field recovery rows match the explained solution and the evidence bundle and cover

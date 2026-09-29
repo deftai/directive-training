@@ -32,7 +32,7 @@ export function checkDoctorWarningSet(rawText, expectedWarningIds = EXPECTED_WAR
   const lines = text.split("\n");
   const problems = [];
 
-  // The pinned 0.119.9 engine cannot emit this row; seeing it means the dead string was
+  // The pinned 0.119.11 engine cannot emit this row; seeing it means the dead string was
   // reintroduced somewhere upstream of the proof.
   if (/Missing directory: *`?xbrief\//.test(text)) {
     problems.push("doctor emitted the retired xbrief false negative");
@@ -66,7 +66,7 @@ export function checkDoctorWarningSet(rawText, expectedWarningIds = EXPECTED_WAR
   const warningRows = lines.filter((line, index) => isWarningRow(line, index));
   const warningIds = warningRows.map((line) => {
     const remainder = line.slice(marker.length).trim();
-    // Directive 0.119.9 renders signpost warnings with a human-facing category before the
+    // Directive 0.119.11 renders signpost warnings with a human-facing category before the
     // stable check id. Strip only that known category; the exact identity comparison below
     // still rejects renamed, missing, or additional warning checks.
     const identityText = remainder.replace(SIGNPOST_LABEL, "");

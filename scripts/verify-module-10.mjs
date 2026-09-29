@@ -56,10 +56,10 @@ const unfinished = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
 
 function exactBaseline(path, prose, heading) {
   const row = section(prose, heading).match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-  assert.ok(row?.includes("0.119.9"), `${path} must declare exact Directive 0.119.9`);
+  assert.ok(row?.includes("0.119.11"), `${path} must declare exact Directive 0.119.11`);
   assert.deepEqual(
     [...new Set(row.match(/\b\d+\.\d+\.\d+\b/g))],
-    ["0.119.9"],
+    ["0.119.11"],
     `${path} contains a stale or ranged Directive baseline`,
   );
 }
@@ -311,7 +311,7 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
 
   const labProse = parsed.get(lab10).prose;
   assert.match(labProse, /unique OS-temporary repository with no remote/, `${lab10} is missing its temporary no-remote boundary`);
-  assert.match(labProse, /0\.119\.9 executable fixture verified on Windows\/PowerShell[\s\S]{0,180}published shell walkthroughs candidate/i, `${lab10} must retain the current platform boundary`);
+  assert.match(labProse, /0\.119\.11 executable fixture verified on Windows\/PowerShell[\s\S]{0,180}published shell walkthroughs candidate/i, `${lab10} must retain the current platform boundary`);
   assert.match(labProse, /Only `src\/greeting\.mjs` is mutable/, `${lab10} is missing its one-file product allowlist`);
   for (const verb of ["create", "install", "readiness", "verify", "reset", "archive"]) {
     assert.match(labProse, new RegExp(`implementation-lab\\.mjs ${verb}`), `${lab10} is missing helper verb: ${verb}`);
@@ -329,7 +329,7 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
   const module10Row = courseModuleRow(course, 10);
   assert.match(module10Row, /10-implementation-golden-path\.md/, "Module 10 course row must link the lesson");
   assert.doesNotMatch(module10Row, /\|\s*Planned\s*\|/i, "Module 10 must no longer be planned");
-  assert.match(module10Row, /0\.119\.9 fixture verified on Windows; published shell walkthroughs candidate/i, "Module 10 course row must retain the current platform boundary");
+  assert.match(module10Row, /0\.119\.11 fixture verified on Windows; published shell walkthroughs candidate/i, "Module 10 course row must retain the current platform boundary");
   const module11Row = courseModuleRow(course, 11);
   assert.match(module11Row, /11-testing-gates-and-evidence\.md/, "Module 11 course row must link the lesson");
   assert.doesNotMatch(module11Row, /\|\s*Planned\s*\|/i, "Module 11 must remain learner-ready");
@@ -346,7 +346,7 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
   }
   assert.match(
     content.get("labs/README.md"),
-    /^\| \[Lab 10[^\n]*\]\(10-implementation-golden-path\.md\) \| Learner-ready draft;[^\n]*0\.119\.9 fixture verified on Windows; published shell walkthroughs candidate[^\n]*\|/m,
+    /^\| \[Lab 10[^\n]*\]\(10-implementation-golden-path\.md\) \| Learner-ready draft;[^\n]*0\.119\.11 fixture verified on Windows; published shell walkthroughs candidate[^\n]*\|/m,
     "labs/README.md must list Lab 10 with the current platform boundary",
   );
 
@@ -363,12 +363,12 @@ export function verifyModule10(root = fileURLToPath(new URL("../", import.meta.u
   for (const [platform, expected] of [["macos-zsh", "candidate"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
     assert.match(baseline, new RegExp(`teaching-platform-proof:${platform} status=${expected}`), `SOURCE-BASELINE Module 10 platform status is missing: ${platform}`);
   }
-  for (const token of ["exact CLI/core/content/types 0.119.9 package graph", "verify:story-ready"]) assert.ok(baseline.includes(token), `SOURCE-BASELINE implementation evidence is missing: ${token}`);
+  for (const token of ["exact CLI/core/content/types 0.119.11 package graph", "verify:story-ready"]) assert.ok(baseline.includes(token), `SOURCE-BASELINE implementation evidence is missing: ${token}`);
 
   const fixturePackage = JSON.parse(content.get("labs/fixtures/10-implementation-golden-path/package.json"));
-  assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.119.9", "Module 10 fixture must retain the exact Directive pin");
+  assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.119.11", "Module 10 fixture must retain the exact Directive pin");
   for (const name of ["directive-core", "directive-content", "directive-types"]) {
-    assert.equal(fixturePackage.overrides?.[`@deftai/${name}`], "0.119.9", `Module 10 fixture must pin ${name}`);
+    assert.equal(fixturePackage.overrides?.[`@deftai/${name}`], "0.119.11", `Module 10 fixture must pin ${name}`);
   }
   const helper = content.get("labs/fixtures/10-implementation-golden-path/implementation-lab.mjs");
   for (const invariant of ["realpathSync(tmpdir())", 'git(root, ["remote"])', 'const allowedProductFiles = ["src/greeting.mjs"]', 'finalStatus: "READY"', 'finalStatus: "PASS"']) {

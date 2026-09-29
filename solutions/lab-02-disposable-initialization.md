@@ -1,7 +1,7 @@
 # Explained solution — Lab 2: Initialize a Disposable Directive Consumer
 
 This solution explains the published macOS/zsh route and how to evaluate equivalent learner
-evidence. The 0.119.9 fixture is verified on Windows/PowerShell; published macOS/zsh,
+evidence. The 0.119.11 fixture is verified on Windows/PowerShell; published macOS/zsh,
 Linux/bash, and Windows/PowerShell walkthroughs remain candidate paths.
 
 ## Solution record
@@ -12,8 +12,8 @@ Linux/bash, and Windows/PowerShell walkthroughs remain candidate paths.
 | Solves | `lab-02-disposable-initialization` |
 | Outcomes covered | O2.1, O2.2, O2.3, O2.4 |
 | Status | `learner-ready draft` |
-| Last verified | 2026-09-26 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Last verified | 2026-09-29 |
+| Directive baseline | fixture-local `@deftai/directive@0.119.11`, engine `@deftai/directive-core@0.119.11`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Lab 2](../labs/02-disposable-initialization.md) |
 
 ## Before you use this solution
@@ -33,19 +33,19 @@ curriculum repository or a business repository.
 
 The valid route used `init` because the fictional repository had no Directive footprint,
 but it expected the released `brownfield-install` classification because Git already existed.
-The fixture established the exact 0.119.9 pin before installation, and every Directive
+The fixture established the exact 0.119.11 pin before installation, and every Directive
 command used the explicit project-local binary. The installed Git hook resolved its `deft`
 runtime from the same local `node_modules/.bin`. Git evidence separated
 authoritative sources from tracked managed integration and ignored runtime or reconstitutable
 state.
 
-Doctor exited 0 in the 2026-09-26 pin-matched 0.119.9 replay and printed the named
+Doctor exited 0 in the 2026-09-29 pin-matched 0.119.11 replay and printed the named
 provenance check `canonical-vendored-npm-signpost`. The solution records the warning and its
 recommendation; it does not redefine success as “no output,” and it does not score the
-result by counting warnings. That check recommends a host-global
-`npm i -g @deftai/directive@latest` followed by `directive migrate`. Module 2 records and
-classifies that recommendation and refuses it: it is outside the disposable boundary because
-`npm i -g` mutates host-global state and `@latest` would leave the course pin.
+result by counting warnings. That check recommends a one-time local
+`directive migrate` provenance stamp. Module 2 records and classifies that recommendation
+and refuses it: it is outside this lab's diagnose-and-classify task because running
+migrate would change the attempt so the advisory disappears.
 
 The same healthy doctor report also prints these two banner lines as expected output, in a
 separate sentence from that classified warning:
@@ -76,10 +76,10 @@ learner to manufacture a live failure.
 - `init` is the consumer entry path when no existing Directive
   footprint is present; `update` reconciles an initialized footprint; `doctor` classifies an
   unknown or unhealthy state. Sources: pinned Concepts, setup skill, and live help.
-- Directive 0.119.9 classifies an otherwise empty repository with
+- Directive 0.119.11 classifies an otherwise empty repository with
   `.git` as brownfield. The classification does not mean the learner selected the wrong
   command.
-- The released 0.119.9 init path creates an exact CLI package pin. The fixture
+- The released 0.119.11 init path creates an exact CLI package pin. The fixture
   seeds the exact CLI/core/content/types graph first so installation cannot resolve a mixed
   graph before the learner verifies it.
 - Executable exercises use a unique temporary no-remote repository, fictional
@@ -117,7 +117,7 @@ approach is `git add --all`; it bypasses inspection of the generated boundary.
 
 Before running the verified route, the expected observations were:
 
-- the explicit local version reports `@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)`;
+- the explicit local version reports `@deftai/directive (engine: @deftai/directive-core@0.119.11; package: @deftai/directive@0.119.11)`;
 - `command -v deft` resolves to the disposable repository's local binary before commit;
 - init exits 0 and may say brownfield because `.git` exists;
 - `.deft/core/VERSION` is present but ignored;
@@ -153,7 +153,7 @@ local `deft` runtime also proves the installed pre-commit hook does not depend o
 Directive installation.
 
 **Observe:** The verified attempt installed 48 packages and reported
-`@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)`.
+`@deftai/directive (engine: @deftai/directive-core@0.119.11; package: @deftai/directive@0.119.11)`.
 The number of packages is context, not an acceptance gate; both identities are the required
 version signal.
 
@@ -165,7 +165,7 @@ inventory, and init/update/doctor help through the project-local CLI. It capture
 interactive shell option, then runs init between two guard checks. The post-init assertions
 positively require tracked
 `AGENTS.md`, `Taskfile.yml`, `.deft/GENERATION.json`, `.githooks/pre-commit`, and
-`xbrief/PROJECT-DEFINITION.xbrief.json`; schema 0.8; generation 0.119.9; and
+`xbrief/PROJECT-DEFINITION.xbrief.json`; schema 0.8; generation 0.119.11; and
 `core.hooksPath=.githooks`.
 
 **Why:** Each taught verb is checked against the release. The known help failure is retained
@@ -179,7 +179,7 @@ add a remote.
 
 ### Step 3 — Inspect and commit only the accepted path set
 
-The same `install` invocation finishes the checkpoint. Directive 0.119.9 stages
+The same `install` invocation finishes the checkpoint. Directive 0.119.11 stages
 many installer-managed paths during init, so the helper unions the already-staged paths with
 remaining untracked paths, rejects anything outside the named
 patterns, stages only the paths written to `trackable-files.txt` beside the attempt, assigns
@@ -204,11 +204,11 @@ the seven explicit verbose `git check-ignore` commands listed in the lab to buil
 **Why:** Doctor and toolchain output answer different questions. Git inspection supplies
 tracking evidence; source ownership supplies the anatomy classification.
 
-**Observe:** The 2026-09-26 pin-matched replay recorded `doctor_exit=0 toolchain_exit=0`.
+**Observe:** The 2026-09-29 pin-matched replay recorded `doctor_exit=0 toolchain_exit=0`.
 Doctor printed the provenance check `canonical-vendored-npm-signpost` and reported
 `✓ Project-lifecycle: valid at <lab_root>/xbrief`. A correct record names the check id, its
-message, its single recommended action — host-global `npm i -g @deftai/directive@latest` then
-`directive migrate` — and the verdict that the action is outside this lab's boundary. Accept a
+message, its single recommended action — one-time local `directive migrate` to stamp npm
+provenance — and the verdict that the action is outside this lab's boundary. Accept a
 learner record that classifies whatever their run printed; reject one that copies an
 unobserved warning or that reports “no warnings” when the run produced one. The consumer check
 reported all required tools available.
@@ -244,7 +244,7 @@ instead of depending on an accidental environment failure. A correct five-field 
 | Diagnose | Classify the observation as registry authentication or configuration. It does not by itself prove a Directive lifecycle defect. |
 | Support boundary | Use only the organization's approved npm setup; do not invent credentials or silently edit global configuration. |
 | Next mutation | Leave the failed attempt intact, create a new unique attempt under the guarded temporary parent, then re-run the root and no-remote guards before installation. |
-| Retry gate | Require the explicit project-local binary, Directive core 0.119.9, install exit 0, and an empty `git remote` result. |
+| Retry gate | Require the explicit project-local binary, Directive core 0.119.11, install exit 0, and an empty `git remote` result. |
 
 This decision is observable, recoverable, and safe to compare without manufacturing an
 authentication failure. If a real command fails, use the same fields with the actual narrow
@@ -255,17 +255,17 @@ evidence and the lab's fresh-directory reset.
 | Validation or inspection | Required result | Relevant observed evidence | Outcome |
 | --- | --- | --- | --- |
 | Three-row chooser and boundary | `init`, `update`, and `doctor` tied to state; consumer and maintainer surfaces tied to their repositories | Table under Reasoning plus repository-boundary answer | O2.1 |
-| Explicit local `--version` | Exit 0; exact core 0.119.9 | Exact version line | O2.2 |
+| Explicit local `--version` | Exit 0; exact core 0.119.11 | Exact version line | O2.2 |
 | Project-local hook runtime | `deft` resolves inside the attempt; hooks path is `.githooks` | Exact resolved path and Git config | O2.2 |
 | Init plus no-remote guards | Exit 0; managed integration; no remote names | Brownfield classification, generation file, empty output | O2.2 |
 | Git tracking/ignore inspection | Required paths correctly classified | Tracked list, ignore matches, anatomy table | O2.3 |
 | Full doctor | Exit 0; each printed finding retained with its classification and single recommended action; no warning copied that the run did not print | `canonical-vendored-npm-signpost` recorded with its recommendation and out-of-boundary verdict | O2.4 |
-| Consumer toolchain check | Exit 0 | Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0, all required tools available | O2.2, O2.4 |
+| Consumer toolchain check | Exit 0 | Git 2.55.0, gh 2.92.0, Node 26.8.1, npm 11.19.0, all required tools available | O2.2, O2.4 |
 | Provided recovery decision | Five required fields; no forced failure or credential handling | Worked Step 5 table | O2.4 |
 | Archive inspection | Exact path exists; every attempt no-remote | Printed archive path and empty remote output | O2.4 |
 
 Your tool versions may differ while satisfying the minimum. Your Directive core version may
-not: it must be exactly 0.119.9 for this course baseline.
+not: it must be exactly 0.119.11 for this course baseline.
 
 ## Compare with your attempt
 
@@ -286,7 +286,7 @@ action].” Do not copy an expected warning into your evidence if your run did n
 
 | Alternative | Why it can pass | Evidence required | When it fails |
 | --- | --- | --- | --- |
-| Organization-approved npm mirror | It may supply the same public package through approved infrastructure | Exact local CLI/core/content 0.119.9 and no credential in evidence | The mirror resolves a different version or requires undocumented secret handling |
+| Organization-approved npm mirror | It may supply the same public package through approved infrastructure | Exact local CLI/core/content 0.119.11 and no credential in evidence | The mirror resolves a different version or requires undocumented secret handling |
 | Node.js 22+ version other than the verified 24 line | It satisfies this course's runtime floor | Toolchain check exit 0 and all lab commands pass | The runtime is unsupported by the organization or changes observed behavior |
 | A different recoverable temporary archive name | The path identity is not an assessed value | Canonical exact target, source moved, target exists, no remote | The target is broad, inside the lab parent, or overwrites existing data |
 | Equivalent written anatomy format | The outcomes assess classification, not table styling | Every named path has Git relation, owner, and class | It collapses tracked into authoritative or copies `USER.md` |
@@ -307,7 +307,7 @@ paths and has host-integration exclusions that a beginner dry-run does not fully
 - **Recover:** preserve the failed directory. Follow the organization's documented npm
   setup. If an approved public-registry route exists, use an empty temporary npm user config
   only for a new attempt; do not rewrite global configuration silently.
-- **Retry:** a fresh attempt creates the explicit local binary and its version reports 0.119.9.
+- **Retry:** a fresh attempt creates the explicit local binary and its version reports 0.119.11.
 
 ### A global executable masks the missing local install
 
@@ -345,15 +345,15 @@ paths and has host-integration exclusions that a beginner dry-run does not fully
 1. Capture the explicit local `--version`, `directive --help`, `directive commands`, and the
    relevant verb-help output.
 2. Compare them with the [course baseline](../references/SOURCE-BASELINE.md).
-3. Use the exact 0.119.9 fixture or stop and report the mismatch.
+3. Use the exact 0.119.11 fixture or stop and report the mismatch.
 4. Do not silently rewrite the lab around a newer release.
 
 ## Misconceptions exposed by this exercise
 
 | Misconception | What the evidence shows | Source |
 | --- | --- | --- |
-| 0.119.5 init does not create the package pin | Released init writes the exact CLI pin; the unpinned 0.119.9 probe created a private exact CLI pin. The fixture copies `package.json` before install to lock the four-package graph, not because init omits the pin. | `references/SOURCE-BASELINE.md` Modules 2–3 released disagreements and Module 2 §2 |
-| Empty Git means scaffold | `.git` alone selected brownfield in 0.119.9 | Released classifier and init dispatch |
+| 0.119.5 init does not create the package pin | Released init writes the exact CLI pin; the unpinned 0.119.11 probe created a private exact CLI pin. The fixture copies `package.json` before install to lock the four-package graph, not because init omits the pin. | `references/SOURCE-BASELINE.md` Modules 2–3 released disagreements and Module 2 §2 |
+| Empty Git means scaffold | `.git` alone selected brownfield in 0.119.11 | Released classifier and init dispatch |
 | Doctor is literally zero-write | It can write ignored throttle state while leaving tracked product state and remotes unchanged | Released doctor state implementation |
 | Every verb accepts `--help` | `toolchain:check --help` prints usage and exits 2 | Recorded CLI probe |
 | Tracked means authoritative | Managed adapters and generation metadata are tracked projections/integration | README and Concepts |
@@ -390,10 +390,10 @@ deletion, or a home-directory target.
 
 | Statement | Pinned source or policy | Verified date |
 | --- | --- | --- |
-| Consumer install and anatomy | [README — Getting Started and tracked/ignored](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/README.md); [Concepts — Installer Layout](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/CONCEPTS.md) | 2026-09-26 |
-| Consumer versus maintainer boundary | [Setup skill contract](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/skills/deft-directive-setup/SKILL.md) | 2026-09-26 |
-| Help, init, doctor, toolchain, package-pin, and brownfield observations | [Course source notes](../references/SOURCE-NOTES.md) tied to 0.119.9 | 2026-09-26 |
-| Disposable/no-remote/archive-only practice | [Lab safety model](../labs/README.md) and project definition | 2026-09-26 |
+| Consumer install and anatomy | [README — Getting Started and tracked/ignored](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/README.md); [Concepts — Installer Layout](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/docs/CONCEPTS.md) | 2026-09-29 |
+| Consumer versus maintainer boundary | [Setup skill contract](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/skills/deft-directive-setup/SKILL.md) | 2026-09-29 |
+| Help, init, doctor, toolchain, package-pin, and brownfield observations | [Course source notes](../references/SOURCE-NOTES.md) tied to 0.119.11 | 2026-09-29 |
+| Disposable/no-remote/archive-only practice | [Lab safety model](../labs/README.md) and project definition | 2026-09-29 |
 
 The solution paraphrases the official sources. Exact identifiers and short diagnostic text
 are retained for reproducibility.

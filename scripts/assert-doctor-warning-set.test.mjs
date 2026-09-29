@@ -21,16 +21,14 @@ function splice(body, search, replacement = "") {
 const WARN = "⚠ ";
 const PASS = "✓ ";
 const signpostMessage =
-  "Canonical-vendored install (.deft/core/) is not yet npm-managed. Post-freeze upgrades run"
-  + " via npm: install the engine with `npm i -g @deftai/directive@latest`, then run"
-  + " `directive migrate` to stamp provenance.";
+  "[deft] One-time: run `directive migrate` to stamp npm provenance (idempotent). See content/UPGRADING.md.";
 const signpostWarning = `${WARN}Signpost advisory: canonical-vendored-npm-signpost: ${signpostMessage}`;
 
-// The captured 0.119.9 replay recorded in references/SOURCE-NOTES.md, reduced to the rows the
+// The captured 0.119.11 replay recorded in references/SOURCE-NOTES.md, reduced to the rows the
 // assertion reads.
 const realCapture = [
   "Directive doctor (full)",
-  `${PASS}Engine deposit: @deftai/directive-core@0.119.9`,
+  `${PASS}Engine deposit: @deftai/directive-core@0.119.11`,
   `${PASS}Project-lifecycle: valid at /private/tmp/3ci-directive-module-02.ab12cd/attempt-02.ef34gh/xbrief`,
   signpostWarning,
   `${WARN}System check completed with 1 warning(s).`,
@@ -39,7 +37,7 @@ const realCapture = [
 
 const replays = [
   {
-    name: "real: the captured 0.119.9 replay passes",
+    name: "real: the captured 0.119.11 replay passes",
     text: realCapture,
     expectProblem: null,
   },

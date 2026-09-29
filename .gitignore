@@ -12,6 +12,7 @@
 /USER.md
 /.deft/USER.md
 .deft/occupancy.json
+.deft/child-occupancy/
 .deft/routing.local.json
 .deft/authz/
 .deft/delivery-attempts/

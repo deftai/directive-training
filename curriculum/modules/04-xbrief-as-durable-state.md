@@ -11,7 +11,7 @@ or a recovery point, and explain what that artifact can authorize.
 | Status | `learner-ready draft` |
 | Last content update | 2026-09-07 |
 | Last verified | 2026-09-07 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.11`, engine `@deftai/directive-core@0.119.11`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
 | Estimated duration | 45–55 minutes |
 | Prerequisites | Complete [Module 3](03-authority-and-context.md); distinguish product requirements, live authorization, and gate evidence |
 
@@ -47,7 +47,7 @@ absent; completed work has no authority over the next build; required gate evide
 controls mutation readiness.
 
 **Recovery:** Revisit [Module 3's authorization model](03-authority-and-context.md#authorization-is-a-conjunction),
-then retry in a fresh note. This module uses the stated 0.119.9 course baseline, not the
+then retry in a fresh note. This module uses the stated 0.119.11 course baseline, not the
 version installed on your computer. If your reference copy uses another release, reopen
 the pinned sources at the end of this page before comparing claims.
 
@@ -439,14 +439,14 @@ This lesson is an original paraphrase and fictional teaching adaptation. See the
 - Four outcomes have explicit exercise and solution evidence.
 - The walkthrough, card decisions, recovery, and self-assessment are inspectable from the
   stated fictional starting state; no shell behavior or live environment is claimed.
-- Source claims use the immutable 0.119.9 release and disclose the legacy taxonomy wording.
+- Source claims use the immutable 0.119.11 release and disclose the legacy taxonomy wording.
 - Navigation and source links are part of the curriculum's content verification.
 - An independent learner pilot remains a separate course milestone.
 
-[concepts]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/CONCEPTS.md#xbrief-is-the-durable-state
-[main]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/main.md#xbrief-persistence
-[taxonomy]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/vbrief/vbrief.md
-[schema]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/vbrief/schemas/xbrief-core-0.8.schema.json
-[commands]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md
-[continue]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/resilience/continue-here.md
-[lifecycle]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/docs/directive-lifecycle.md
+[concepts]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/docs/CONCEPTS.md#xbrief-is-the-durable-state
+[main]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/main.md#xbrief-persistence
+[taxonomy]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/vbrief/vbrief.md
+[schema]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/vbrief/schemas/xbrief-core-0.8.schema.json
+[commands]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/commands.md
+[continue]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/resilience/continue-here.md
+[lifecycle]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/docs/directive-lifecycle.md

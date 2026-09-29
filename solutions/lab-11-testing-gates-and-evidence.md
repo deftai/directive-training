@@ -7,8 +7,8 @@
 | Source | [Lab 11 — Testing, Gates, and Evidence](../labs/11-testing-gates-and-evidence.md) |
 | Stable ID | `solution-lab-11-testing-gates-and-evidence` |
 | Status | Available |
-| Verified | 2026-09-26 on Windows/PowerShell for the 0.119.9 fixture; published walkthroughs remain candidates |
-| Directive baseline | `@deftai/directive@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Verified | 2026-09-29 on Windows/PowerShell for the 0.119.11 fixture; published walkthroughs remain candidates |
+| Directive baseline | `@deftai/directive@0.119.11`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 
 ## Before you use this solution
 
@@ -49,7 +49,7 @@ The aggregate reached `quality:record` only after the earlier checks passed. Tha
 
 ### Step 1 — Create and install
 
-The helper created a canonical unique temporary root, branch `training/module-11`, and no remote, then installed the exact 0.119.9 package/core/content/types graph. The clean checkpoint contained the active/running story and unchanged gates.
+The helper created a canonical unique temporary root, branch `training/module-11`, and no remote, then installed the exact 0.119.11 package/core/content/types graph. The clean checkpoint contained the active/running story and unchanged gates.
 
 ### Step 2 — Add the red test
 
@@ -108,7 +108,7 @@ unbounded budget — dual-stop still applies; bank is optional discipline
 ```
 
 The two stored npm commands are the literal-acceptance proof. `[rung=derived]` and the AC-pass-bank
-dual-stop lines are upstream 0.119.9 diagnostics.
+dual-stop lines are upstream 0.119.11 diagnostics.
 
 ### Step 6 — Diagnose and repair the aggregate
 

@@ -4,6 +4,12 @@
 
 ### Changed
 
+- Upgrade the current Directive teaching baseline to 0.119.11 across generated project
+  metadata, all six exact disposable package graphs, curriculum, labs, solutions,
+  assessments, references, workflows, and executable verification. Rebind immutable
+  release identity and version-output evidence, recut the Lab 2 doctor signpost onto
+  the migrate-only provenance stamp, and keep 0.119.10 as an intermediate publication
+  rather than a learner pin (#118).
 - Register issues #93 through #101 as swarm-ready pending xBRIEFs, refresh the
   derived roadmap and project registry, and clarify issue #100's zero-free-space
   reclaim ordering and per-attempt cache lifecycle.

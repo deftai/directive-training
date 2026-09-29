@@ -8,11 +8,11 @@
     "summary": "node src/summary.mjs"
   },
   "devDependencies": {
-    "@deftai/directive": "0.119.9"
+    "@deftai/directive": "0.119.11"
   },
   "overrides": {
-    "@deftai/directive-core": "0.119.9",
-    "@deftai/directive-content": "0.119.9",
-    "@deftai/directive-types": "0.119.9"
+    "@deftai/directive-core": "0.119.11",
+    "@deftai/directive-content": "0.119.11",
+    "@deftai/directive-types": "0.119.11"
   }
 }

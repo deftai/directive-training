@@ -6,16 +6,16 @@
 | --- | --- |
 | Stable ID | `lab-07-scope-lifecycle` |
 | Supports | O7.1 proposed failure, O7.2 lifecycle transitions, O7.3 current readiness, O7.4 evidence and recovery, plus Module 6 O6.2 structural completion evidence in Task 5 |
-| Status | Learner-ready curriculum; the 0.119.9 executable helper is verified on Windows/PowerShell, while published shell walkthroughs remain candidate paths |
-| Last verified | 2026-09-26 |
-| Directive baseline | CLI/core/content/types `0.119.9`; [source baseline](../references/SOURCE-BASELINE.md) |
+| Status | Learner-ready curriculum; the 0.119.11 executable helper is verified on Windows/PowerShell, while published shell walkthroughs remain candidate paths |
+| Last verified | 2026-09-29 |
+| Directive baseline | CLI/core/content/types `0.119.11`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 45–50 minutes, including install, prediction, evidence review, your own scope check, reset, and archive |
 | Platforms verified | Windows/PowerShell executable fixture, 10 of 10 tests; go-task 3.50.0 |
 | Candidate platforms | The Markdown walkthrough is not a current-release native learner replay on macOS/zsh, Linux/bash, or Windows/PowerShell |
 
 The helper is course tooling; it does not add a new Directive feature.
 
-The 0.119.9 helper route passed on Windows, including installation, derivation, file-scope
+The 0.119.11 helper route passed on Windows, including installation, derivation, file-scope
 binding, evidence stamping, completion, reset, and archive. The tests do not execute the
 Markdown shell blocks, so the published learner walkthrough remains a separate candidate.
 
@@ -125,8 +125,8 @@ test -f "$lab_root/.deft/core/VERSION"
 test -z "$(git -C "$lab_root" remote)"
 ```
 
-**Pass:** install reports Directive 0.119.9 and the explicit local CLI reports package and
-engine 0.119.9. The helper uses the public npm registry, a lab-local cache, ignored runtime paths,
+**Pass:** install reports Directive 0.119.11 and the explicit local CLI reports package and
+engine 0.119.11. The helper uses the public npm registry, a lab-local cache, ignored runtime paths,
 and a fictional local Git identity. It never changes the course checkout or global npm
 configuration.
 
@@ -184,7 +184,7 @@ try {
 
 **Pass:** `$LabRoot` is an absolute canonical path ending in a unique
 `3ci-directive-lab07-<id>/repo` under the operating-system temporary directory. The branch
-is `training/module-07` and the remote list is empty. Install reports Directive 0.119.9
+is `training/module-07` and the remote list is empty. Install reports Directive 0.119.11
 through `dist/bin.js`. The helper operations are verified; this starting-state block alone
 is not practical-outcome coverage.
 
@@ -193,7 +193,7 @@ is not practical-outcome coverage.
 - Every mutation must stay inside the exact guarded temporary root or its
   named parent evidence directory.
 - The fixture must remain private, on `training/module-07`, with no remote
-  and exact CLI/core/content/types 0.119.9 pins.
+  and exact CLI/core/content/types 0.119.11 pins.
 - Do not use a business repository, client data, credentials, production
   logs, a remote action, deployment, publication, or release.
 - Run `guard` before install, lifecycle execution, reset, or archive. A
@@ -266,7 +266,7 @@ Open `../evidence/proposed-preflight.json` relative to `lab_root`. Confirm:
 - both command outputs name the proposed/active boundary; and
 - the file was written before the recorded promotion.
 
-The pinned 0.119.9 proposed-preflight stderr is:
+The pinned 0.119.11 proposed-preflight stderr is:
 
 ```text
 xBRIEF is in xbrief/proposed/ -- only xbrief/active/ (or legacy vbrief/active/) is eligible for implementation.
@@ -546,7 +546,7 @@ policy outside this course.
 
 ## Native Windows PowerShell 7.4+ route
 
-The 0.119.9 helper operations used by this route are verified on Windows/PowerShell. The
+The 0.119.11 helper operations used by this route are verified on Windows/PowerShell. The
 published two-phase walkthrough remains a candidate because the automated proof does not
 perform the human-authored Task 5 pause or execute these Markdown blocks.
 

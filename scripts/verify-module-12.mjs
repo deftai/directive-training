@@ -102,10 +102,10 @@ function requireOrdered(text, markers, label) {
 
 function exactBaseline(path, prose, heading) {
   const row = section(prose, heading).match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-  assert.ok(row?.includes("0.119.9"), `${path} must declare exact Directive 0.119.9`);
+  assert.ok(row?.includes("0.119.11"), `${path} must declare exact Directive 0.119.11`);
   assert.deepEqual(
     [...new Set(row.match(/\b\d+\.\d+\.\d+\b/g))],
-    ["0.119.9"],
+    ["0.119.11"],
     `${path} contains a stale or ranged Directive baseline`,
   );
 }
@@ -446,19 +446,19 @@ export function verifyModule12(root = fileURLToPath(new URL("../", import.meta.u
   const verificationContext = section(notes, "Verification context");
   const module12Notes = section(notes, "Module 12 source validation");
   for (const [label, source, currentPattern] of [
-    ["SOURCE-BASELINE release identity", releaseIdentity, /Consumer project pin[^\n]*@deftai\/directive: 0\.119\.9/i],
-    ["SOURCE-BASELINE Module 12 validation", baselineModule12, /learner pin and deposit resolve to 0\.119\.9[\s\S]{0,240}fixture-local/i],
-    ["SOURCE-NOTES verification context", verificationContext, /Project direct pin:[^\n]*0\.119\.9/i],
+    ["SOURCE-BASELINE release identity", releaseIdentity, /Consumer project pin[^\n]*@deftai\/directive: 0\.119\.11/i],
+    ["SOURCE-BASELINE Module 12 validation", baselineModule12, /learner pin and deposit resolve to 0\.119\.11[\s\S]{0,240}fixture-local/i],
+    ["SOURCE-NOTES verification context", verificationContext, /Project direct pin:[^\n]*0\.119\.11/i],
   ]) {
     assert.match(source, currentPattern, `${label} is missing the current Module 12 baseline role`);
   }
   for (const [currentPattern, detail] of [
     [
-      /Current authoring context:[\s\S]{0,200}tracked generation record reports content 0\.119\.9 from\s+`directive-update`[\s\S]{0,160}ignored deposit reports tag `v0\.119\.9`[\s\S]{0,120}direct project pin/i,
+      /Current authoring context:[\s\S]{0,200}tracked generation record reports content 0\.119\.11 from\s+`directive-update`[\s\S]{0,160}ignored deposit reports tag `v0\.119\.11`[\s\S]{0,120}direct project pin/i,
       "content, deposit, and direct pin",
     ],
     [
-      /unqualified shell CLI reports\s+`@deftai\/directive \(engine: @deftai\/directive-core@0\.119\.9; package: @deftai\/directive@0\.119\.9\)`/i,
+      /unqualified shell CLI reports\s+`@deftai\/directive \(engine: @deftai\/directive-core@0\.119\.11; package: @deftai\/directive@0\.119\.11\)`/i,
       "CLI package and engine versions",
     ],
     [

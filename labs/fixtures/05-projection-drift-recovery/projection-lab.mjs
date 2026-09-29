@@ -131,14 +131,14 @@ export function verifyPin(root = process.cwd()) {
   guardAttempt(root);
   const manifest = JSON.parse(read(safePath(root, "package.json")));
   assert.equal(manifest.private, true, "fixture must remain private");
-  assert.equal(manifest.devDependencies?.["@deftai/directive"], "0.119.9", "exact 0.119.9 pin required");
-  for (const name of ["directive-core", "directive-content", "directive-types"]) assert.equal(manifest.overrides?.["@deftai/" + name], "0.119.9", "exact 0.119.9 overrides required");
+  assert.equal(manifest.devDependencies?.["@deftai/directive"], "0.119.11", "exact 0.119.11 pin required");
+  for (const name of ["directive-core", "directive-content", "directive-types"]) assert.equal(manifest.overrides?.["@deftai/" + name], "0.119.11", "exact 0.119.11 overrides required");
   for (const name of ["directive", "directive-core", "directive-content", "directive-types"]) {
     const installed = JSON.parse(read(safePath(root, "node_modules/@deftai/" + name + "/package.json")));
-    assert.equal(installed.version, "0.119.9", name + " must resolve to 0.119.9");
+    assert.equal(installed.version, "0.119.11", name + " must resolve to 0.119.11");
   }
   verifyLocalBinary(root);
-  return "0.119.9";
+  return "0.119.11";
 }
 
 /** Inspect ignores and stage only the declared fixture, then create a local tag; throw on any mismatch. */

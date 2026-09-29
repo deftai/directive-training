@@ -7,9 +7,9 @@
 | Stable ID | `solution-lab-05-projection-drift-recovery` |
 | Solves | [Lab 5 — Projection drift recovery](../labs/05-projection-drift-recovery.md) |
 | Outcomes covered | O5.1, O5.2, O5.3 |
-| Status | Learner-ready draft; 0.119.9 fixture verified on Windows/PowerShell; published shell walkthroughs candidate |
-| Last verified | 2026-09-26 |
-| Directive baseline | CLI/core/content/types 0.119.9; [source baseline](../references/SOURCE-BASELINE.md) |
+| Status | Learner-ready draft; 0.119.11 fixture verified on Windows/PowerShell; published shell walkthroughs candidate |
+| Last verified | 2026-09-29 |
+| Directive baseline | CLI/core/content/types 0.119.11; [source baseline](../references/SOURCE-BASELINE.md) |
 | Verified environment | Windows/PowerShell with Node.js 26.8.1 |
 | Platform limit | Published macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs remain candidates |
 
@@ -51,7 +51,7 @@ unchanged, and no implementation scope, remote, PR, deployment, or publishing ac
 - The renderer combines authored module intent with observed files
   matched by `src/*.js`. The fixture matches one fictional JavaScript file.
 - A present MAP is compared against the current expected rendering.
-  An absent MAP is advisory and returns success in 0.119.9.
+  An absent MAP is advisory and returns success in 0.119.11.
 - All exercise mutations remain in the unique no-remote temporary attempt.
   The learner changes only its declared source purpose.
 - The simulated direct edit supplies a reproducible failure without
@@ -98,8 +98,8 @@ The scoped npm invocation leaves your caller and global configuration unchanged.
 Expected outputs include:
 
 ```text
-OK: CLI/core/content/types 0.119.9
-@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)
+OK: CLI/core/content/types 0.119.11
+@deftai/directive (engine: @deftai/directive-core@0.119.11; package: @deftai/directive@0.119.11)
 OK: lab-05-start checkpoint
 ```
 
@@ -201,7 +201,7 @@ git diff --check
 | Validation | Required result | Why it is needed | Outcome |
 | --- | --- | --- | --- |
 | Guard | 0; recorded canonical temp root | Bounds the environment and source/output paths | O5.3 |
-| Pin verification | 0; CLI/core/content/types 0.119.9 | Binds claims to the taught release | O5.3 |
+| Pin verification | 0; CLI/core/content/types 0.119.11 | Binds claims to the taught release | O5.3 |
 | Released freshness | 0; fresh MAP message | Compares present output with the current expected rendering | O5.2–O5.3 |
 | Exercise result | 0; existing MAP and bounded diff message | Requires meaningful output, exact source change, and no unexpected nonignored files | O5.1–O5.3 |
 | Diff check | 0; no whitespace error | Checks the narrow authored patch | O5.3 |
@@ -220,7 +220,7 @@ join O5.3. The key explains answers. It does not score the module.
 2. **O5.2:** the direct edit disappears because it is absent from the source used to render
    the map. The purpose-only source diff, new purpose in the regenerated module row, and
    passing freshness check prove the source correction propagates.
-3. **O5.3:** absent MAP output is advisory in 0.119.9, so a freshness exit 0 can accompany
+3. **O5.3:** absent MAP output is advisory in 0.119.11, so a freshness exit 0 can accompany
    no file. `node projection-lab.mjs verify-result` adds required existence, generated
    banner, source pointer, new purpose, bounded glob/file count, and diff checks.
 4. **O5.3:** keep the earlier attempt and `../evidence.md`; create a new unique directory
@@ -258,7 +258,7 @@ acceptance. That is the lab's fictional requirement, not a Directive-wide wordin
 ### “Fresh” with no output
 
 - **Symptom:** freshness returns 0 but the MAP file is missing.
-- **Cause:** 0.119.9 deliberately treats absent MAPs as advisory.
+- **Cause:** 0.119.11 deliberately treats absent MAPs as advisory.
 - **Confirm:** `test -f .planning/codebase/MAP.md` fails.
 - **Recover:** run the guarded renderer.
 - **Retry:** freshness and `verify-result` both pass with meaningful output present.
@@ -350,12 +350,12 @@ to `3ci-directive-lab-archive`.
 
 | Statement | Verified source |
 | --- | --- |
-| Authored structure, default extraction, generated MAP, and freshness | Pinned [command reference](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md), “Project And Architecture Commands”; observed 0.119.9 renderer and freshness commands |
-| Source authority and projection boundary | Pinned [Concepts](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/CONCEPTS.md), “Source Of Truth Vs Projection” |
-| Side-effecting help and advisory absent MAP | Disposable 0.119.9 probes recorded in [source notes](../references/SOURCE-NOTES.md) |
+| Authored structure, default extraction, generated MAP, and freshness | Pinned [command reference](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/commands.md), “Project And Architecture Commands”; observed 0.119.11 renderer and freshness commands |
+| Source authority and projection boundary | Pinned [Concepts](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/docs/CONCEPTS.md), “Source Of Truth Vs Projection” |
+| Side-effecting help and advisory absent MAP | Disposable 0.119.11 probes recorded in [source notes](../references/SOURCE-NOTES.md) |
 | Disposable paths, no credentials/remotes, recoverable reset | [Lab environment contract](../labs/README.md) and [Lab 5](../labs/05-projection-drift-recovery.md) |
 
-The 0.119.9 executable fixture was verified locally on Windows/PowerShell on 2026-09-26.
+The 0.119.11 executable fixture was verified locally on Windows/PowerShell on 2026-09-29.
 That automated proof does not promote a published Markdown walkthrough. Explanations are original teaching adaptations; exact
 names, commands, and short output fragments retain the released spelling.
 

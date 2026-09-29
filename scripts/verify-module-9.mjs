@@ -84,10 +84,10 @@ function tableRows(body, expectedHeader, label) {
 
 function exactBaseline(path, prose, heading) {
   const row = section(prose, heading).match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-  assert.ok(row?.includes("0.119.9"), `${path} must declare exact Directive 0.119.9`);
+  assert.ok(row?.includes("0.119.11"), `${path} must declare exact Directive 0.119.11`);
   assert.deepEqual(
     [...new Set(row.match(/\b\d+\.\d+\.\d+\b/g))],
-    ["0.119.9"],
+    ["0.119.11"],
     `${path} contains a stale or ranged Directive baseline`,
   );
 }

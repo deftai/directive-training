@@ -5,15 +5,15 @@ They are maintainer evidence, not a learner command reference.
 
 ## Verification context
 
-- Current-baseline verification date: 2026-09-26. The disposable init and doctor path was
-  replayed on Directive 0.119.9; see
-  [Current disposable doctor replay (0.119.9)](#current-disposable-doctor-replay-01199).
-  The dated 0.119.5 replay remains historical evidence below. Historical proofs retain
+- Current-baseline verification date: 2026-09-29. The disposable init and doctor path was
+  replayed on Directive 0.119.11; see
+  [Current disposable doctor replay (0.119.11)](#current-disposable-doctor-replay-011911).
+  The dated 0.119.9 and 0.119.5 replays remain historical evidence below. Historical proofs retain
   their original execution dates; each module section states its own source,
   content-contract, and runtime evidence boundary.
 - Host used for the current release bind and local probes: Windows with PowerShell and
   Node.js 26.8.1.
-- Project direct pin: `@deftai/directive` 0.119.9 in `devDependencies`.
+- Project direct pin: `@deftai/directive` 0.119.11 in `devDependencies`.
 - The training project had no project-local `node_modules` or lockfile; its exact direct pin
   is a reconstitution anchor, not proof of a local install.
 - Historical learner-baseline executable context: Modules 2–6 used a then-current global
@@ -23,19 +23,21 @@ They are maintainer evidence, not a learner command reference.
   resolved to 0.112.0 on each applicable learner-proof graph.
 - Historical learner-baseline deposit proof: reconstituted surfaces reported 0.112.0. This
   is preserved evidence, not a description of the current authoring deposit.
-- Current authoring context: the tracked generation record reports content 0.119.9 from
-  `directive-update`, and the ignored deposit reports tag `v0.119.9`. These match the
+- Current authoring context: the tracked generation record reports content 0.119.11 from
+  `directive-update`, and the ignored deposit reports tag `v0.119.11`. These match the
   direct project pin. The unqualified shell CLI reports
-  `@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)`;
+  `@deftai/directive (engine: @deftai/directive-core@0.119.11; package: @deftai/directive@0.119.11)`;
   it is bootstrap availability, while the disposable fixtures prove the exact four-package graph.
-- Official tag: `v0.119.9`; annotated tag object
-  `7b4ae5ebb8ecb338738c0a3095caadbec31fb174`; peeled commit and npm `gitHead`
-  `8c9108bfa106719ab340379d6b9c958c8f9a2523`.
-- A 2026-09-26 unpinned `directive init --yes --repo-root <temp> --json` probe ran in a
+- Official tag: `v0.119.11`; annotated tag object
+  `ad36c781b0142bc68c68b6e02b615ca381e42311`; peeled commit and npm `gitHead`
+  `3e47fe5f1fb34438f4a17784eb82d71dd9af5970`.
+- 0.119.10 gitHead `6dea8b59bc91dfda8f16cf2f77b443ae543e08bc` is an intermediate publication.
+  Current teaching binds 0.119.11.
+- A 2026-09-29 unpinned `directive init --yes --repo-root <temp> --json` probe ran in a
   unique no-remote Git repository. It created a private `package.json` with exact
-  `@deftai/directive: 0.119.9`, stamped generation 1 as `directive-init`, and created no
+  `@deftai/directive: 0.119.11`, stamped generation 1 as `directive-init`, and created no
   remote. The six isolated fixture manifests and their installed public-registry graphs
-  resolve directive, core, content, and types exactly to 0.119.9.
+  resolve directive, core, content, and types exactly to 0.119.11.
 - On the current CLI, `toolchain:check --help`, `verify:ac --help`, and
   `check --help` each still exited 2 with an unrecognized-argument diagnostic. Those defects
   remain recorded rather than normalized into invented help syntax.
@@ -43,7 +45,7 @@ They are maintainer evidence, not a learner command reference.
   [34080818120](https://github.com/3Ci-Consulting/directive-training/actions/runs/34080818120)
   used Node.js 24.20.0 on `macos-15`, `ubuntu-24.04`, and `windows-2022`; all three
   jobs passed at exact candidate head `3f2f996bcfb53c4361cc5c5e949d9c9cd2c83a39`. It is
-  historical evidence only and does not promote any platform on 0.119.9.
+  historical evidence only and does not promote any platform on 0.119.11.
 
 ## Historical 0.119.2 teaching baseline
 
@@ -51,7 +53,7 @@ The 2026-09-17 baseline used annotated tag `v0.119.2`, tag object
 `69b7e7c2ece41d5f330545c65ebf74a696706f41`, and peeled release commit
 `9038503ffac65e6d48e5ba34758c4e8e7077aba3`. Its CLI/core/content/types graph was exactly
 0.119.2. Those values remain historical evidence only; current curriculum and executable
-fixtures target 0.119.9.
+fixtures target 0.119.11.
 
 ## Historical 0.112.0 learner-baseline version and provenance probes
 
@@ -111,9 +113,10 @@ its syntax.
 
 This whole section is historical 0.112.0 evidence. Its doctor row records **two** warnings,
 including a missing `xbrief/` directory. That two-warning result does not describe the
-current 0.119.9 engine and must not be taught as current behavior; the current proof is
-[Current disposable doctor replay (0.119.9)](#current-disposable-doctor-replay-01199).
-The [0.119.5 replay](#lab-2-doctor-warning-replay-01195) below is also historical evidence.
+current 0.119.11 engine and must not be taught as current behavior; the current proof is
+[Current disposable doctor replay (0.119.11)](#current-disposable-doctor-replay-011911).
+The [0.119.9 replay](#historical-disposable-doctor-replay-01199) and
+[0.119.5 replay](#lab-2-doctor-warning-replay-01195) below are also historical evidence.
 
 The 2026-09-07 macOS/zsh proof `local-0.112.0-disposable-project-local-hook-full` used a fresh
 operating-system temporary parent, two Git repositories with no remotes, the fictional Module
@@ -188,7 +191,33 @@ PowerShell 7.6.5 on the macOS host supplied syntax inspection only. The bounded
 `windows-2022` job above proves the 0.112.0 baseline natively; the macOS-host inspection is
 separate and is not counted as native Windows evidence.
 
-## Current disposable doctor replay (0.119.9)
+## Current disposable doctor replay (0.119.11)
+
+Executed 2026-09-29 on Windows with PowerShell, Node.js 26.8.1, npm 11.19.0,
+Git 2.55.0, and GitHub CLI 2.92.0. The probe used a unique OS-temporary,
+Git-initialized repository on `training/probe` with no remote. It never ran in the training
+checkout or a business repository. The host-global CLI and deposited content were both
+0.119.11; exact CLI/core/content/types graph proof remains fixture-local.
+
+| Probe | Exit | Relevant result |
+| --- | ---: | --- |
+| `directive --version` | 0 | `@deftai/directive (engine: @deftai/directive-core@0.119.11; package: @deftai/directive@0.119.11)`. |
+| `directive init --yes --repo-root <temp> --json` | 0 | Classified the Git-first empty repository as brownfield, created a private exact `@deftai/directive: 0.119.11` pin, stamped generation 1 as `directive-init`, and created no remote. |
+| `directive doctor --full --project-root .` | 0 | Engine, content, and pin reconciled at 0.119.11; the lifecycle envelope was current; the taught Lab 2 advisory is `canonical-vendored-npm-signpost`. |
+| `directive toolchain:check --consumer --project-root .` | 0 | Git 2.55.0, GitHub CLI 2.92.0, Node.js 26.8.1, npm 11.19.0; all required tools available. |
+
+The doctor replay reported a current 0.8 xBRIEF envelope, valid project lifecycle, current
+managed AGENTS section, and a matching content deposit. The taught advisory is
+`canonical-vendored-npm-signpost` with the migrate-only message
+`[deft] One-time: run \`directive migrate\` to stamp npm provenance (idempotent). See content/UPGRADING.md.`
+The curriculum records that advisory rather than executing migrate inside a learner attempt.
+This host also printed `agent-hooks-live-probe` under Restricted PowerShell (#4654). That
+finding is host-specific and is not part of the taught Lab 2 warning set. CI
+linux/macos/windows-2022 captures remain the signpost-only identity. The consumer toolchain
+check also printed a gh advisory to upgrade past 2.92.0; that advisory is observed evidence,
+not a Lab 2 pass condition.
+
+## Historical disposable doctor replay (0.119.9)
 
 Executed 2026-09-26 on Windows with PowerShell, Node.js 26.8.1, npm 11.19.0,
 Git 2.54.0, and GitHub CLI 2.92.0. The probe used a unique OS-temporary,
@@ -203,10 +232,10 @@ checkout or a business repository. The host-global CLI and deposited content wer
 | `directive doctor --full --project-root .` | 0 | Engine, content, and pin reconciled at 0.119.9; the lifecycle envelope was current; exactly one advisory remained: `canonical-vendored-npm-signpost`. |
 | `directive toolchain:check --consumer --project-root .` | 0 | Git 2.54.0, GitHub CLI 2.92.0, Node.js 26.8.1, npm 11.19.0; all required tools available. |
 
-The doctor replay reported a current 0.8 xBRIEF envelope, valid project lifecycle, current
-managed AGENTS section, and a matching content deposit. Its one advisory recommends the
-host-global migration path; the curriculum records that advisory rather than executing it
-inside a learner attempt.
+The 0.119.9 doctor replay reported a current 0.8 xBRIEF envelope, valid project lifecycle,
+current managed AGENTS section, and a matching content deposit. Its one advisory recommended
+the then-current host-global migration path. That recommendation is historical; the 0.119.11
+signpost is migrate-only.
 
 ## Lab 2 doctor-warning replay (0.119.5)
 
@@ -721,9 +750,27 @@ temporary copies and reject instructions to inspect live project state.
 
 ## Module 9 design-critique source validation
 
-Validation date: 2026-09-26. The current learner contract is pinned to Directive 0.119.9
-release commit `8c9108bfa106719ab340379d6b9c958c8f9a2523`. The practicum remains
+Validation date: 2026-09-29. The current learner contract is pinned to Directive 0.119.11
+release commit `3e47fe5f1fb34438f4a17784eb82d71dd9af5970`. The practicum remains
 command-free: validation compares its fixed packet, outcome map, explained solution, and
+verifier assertions with immutable source contracts rather than running a live arc or
+mutating a GitHub thread.
+
+| Pinned 0.119.11 source | Contract used by Module 9 |
+| --- | --- |
+| [`content/contracts/design-critique.md`](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/contracts/design-critique.md) | Arc and round boundaries, independent charter/spend selection, ceiling semantics, finding classes, total successor-lean takes, independent parent audit, retry/halt, verified synthesis, and completed-arc clearance. |
+| [`content/templates/design-critique-brief.md`](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/templates/design-critique-brief.md) | Complete critic-envelope field set and forbidden-input boundary. |
+| [`docs/decisions/ADR-005-design-critique-judgment-gate.md`](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/docs/decisions/ADR-005-design-critique-judgment-gate.md) | Recording and authority checks do not compute the semantic mechanism-shaped judgment. |
+| [`docs/decisions/ADR-006-parent-side-substantiation.md`](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/docs/decisions/ADR-006-parent-side-substantiation.md) | A load-bearing premise introduced by the parent after criticism requires independent substantiation. |
+
+The 0.119.11 inspection preserves the fixed teaching packet and its trust boundaries. The
+earlier 0.119.9 and 0.119.5 validations remain below as dated release evidence.
+
+## Historical Module 9 design-critique source validation (0.119.9)
+
+Validation date: 2026-09-26. The learner contract was pinned to Directive 0.119.9
+release commit `8c9108bfa106719ab340379d6b9c958c8f9a2523`. The practicum remained
+command-free: validation compared its fixed packet, outcome map, explained solution, and
 verifier assertions with immutable source contracts rather than running a live arc or
 mutating a GitHub thread.
 
@@ -734,8 +781,8 @@ mutating a GitHub thread.
 | [`docs/decisions/ADR-005-design-critique-judgment-gate.md`](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/decisions/ADR-005-design-critique-judgment-gate.md) | Recording and authority checks do not compute the semantic mechanism-shaped judgment. |
 | [`docs/decisions/ADR-006-parent-side-substantiation.md`](https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/decisions/ADR-006-parent-side-substantiation.md) | A load-bearing premise introduced by the parent after criticism requires independent substantiation. |
 
-The 0.119.9 inspection preserves the fixed teaching packet and its trust boundaries. The
-earlier 0.119.5 validation remains below as dated release evidence.
+The 0.119.9 inspection is dated release evidence. The earlier 0.119.5 validation remains
+below.
 
 ## Historical Module 9 design-critique source validation (0.119.5)
 

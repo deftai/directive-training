@@ -6,16 +6,16 @@
 | --- | --- |
 | Stable ID | `lab-10-implementation-golden-path` |
 | Supports | O10.5 readiness, O10.6 red-green, O10.7 bounded scope, O10.8 paired evidence, O10.9 recovery |
-| Status | Learner-ready; 0.119.9 executable fixture verified on Windows/PowerShell; published shell walkthroughs candidate |
-| Last verified | 2026-09-26 |
-| Directive baseline | CLI/core/content/types `0.119.9`; [source baseline](../references/SOURCE-BASELINE.md) |
+| Status | Learner-ready; 0.119.11 executable fixture verified on Windows/PowerShell; published shell walkthroughs candidate |
+| Last verified | 2026-09-29 |
+| Directive baseline | CLI/core/content/types `0.119.11`; [source baseline](../references/SOURCE-BASELINE.md) |
 | Duration | 40–45 minutes, including install, implementation, evidence, and cleanup |
 | Platforms verified | Windows/PowerShell non-symlink baseline-upgrade suite; go-task 3.50.0 |
 | Candidate platforms | Published macOS/zsh, Linux/bash, and Windows/PowerShell walkthroughs |
 
 The helper is course tooling, not a new Directive command.
 
-The complete 0.119.9 helper route passed on Windows. The tests do not execute the Markdown
+The complete 0.119.11 helper route passed on Windows. The tests do not execute the Markdown
 shell blocks, so published learner walkthroughs remain separate candidates.
 
 ## Goal and done condition
@@ -82,8 +82,8 @@ node "$lab_root/node_modules/.bin/directive" --version
 git -C "$lab_root" status --short
 ```
 
-**Pass:** the helper reports Directive 0.119.9, the explicit local CLI reports
-`@deftai/directive (engine: @deftai/directive-core@0.119.9; package: @deftai/directive@0.119.9)`,
+**Pass:** the helper reports Directive 0.119.11, the explicit local CLI reports
+`@deftai/directive (engine: @deftai/directive-core@0.119.11; package: @deftai/directive@0.119.11)`,
 and status is empty. The fixture pins CLI/core/content/types exactly.
 
 The deposited Task surface belongs to that exact local install.
@@ -139,7 +139,7 @@ try {
 **Pass:** the printed root is canonical and looks like
 `<OS temp>/3ci-directive-lab10-<unique>/repo`. The branch is `training/module-10`, the
 remote list is empty, and status is empty after install. The explicit local CLI reports
-the 0.119.9 engine and package identities through `dist/bin.js`. This candidate branch is not verified
+the 0.119.11 engine and package identities through `dist/bin.js`. This candidate branch is not verified
 practical-outcome coverage.
 
 ## Safety boundary
@@ -147,7 +147,7 @@ practical-outcome coverage.
 - Work only in the exact guarded temporary attempt.
 - Only `src/greeting.mjs` is mutable after readiness. The helper, tests,
   manifest, active scope, CLI wrapper, Git metadata, and evidence contract stay unchanged.
-- Keep branch `training/module-10`, exact 0.119.9 pins, one active/running
+- Keep branch `training/module-10`, exact 0.119.11 pins, one active/running
   story, and an empty remote list.
 - Do not add a remote, use credentials, push, open a pull request, merge,
   deploy, publish, release, or copy business/client data.
@@ -269,7 +269,7 @@ node "$helper" verify "$lab_root"
 | `verify` | 0 | `"PASS"` | O10.5–O10.9 |
 
 Linux/bash and Windows/PowerShell remain candidate paths. The Windows/PowerShell acceptance
-route appears below for native 0.119.9 revalidation.
+route appears below for native 0.119.11 revalidation.
 
 ## Evidence bundle
 
@@ -374,7 +374,7 @@ each root you intentionally want to archive. Nothing is recursively deleted.
 
 ## Native Windows PowerShell 7.4+ route
 
-The 0.119.9 helper operations used by this route are verified on Windows/PowerShell. The
+The 0.119.11 helper operations used by this route are verified on Windows/PowerShell. The
 published walkthrough remains a candidate because the automated proof does not execute
 these Markdown blocks.
 

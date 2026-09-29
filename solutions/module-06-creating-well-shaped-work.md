@@ -13,7 +13,7 @@ and complete the evidence-backed mechanism-routing decision.
 | Outcomes covered | O6.1, O6.2, O6.3, O6.4 |
 | Status | `learner-ready draft; command-free` |
 | Last verified | 2026-09-17 |
-| Directive baseline | fixture-local `@deftai/directive@0.119.9`, engine `@deftai/directive-core@0.119.9`; see the [source baseline](../references/SOURCE-BASELINE.md) |
+| Directive baseline | fixture-local `@deftai/directive@0.119.11`, engine `@deftai/directive-core@0.119.11`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Module 6 shaping exercise](../curriculum/modules/06-creating-well-shaped-work.md#exercise) |
 
 ## Before you use this solution
@@ -102,7 +102,7 @@ a concrete mechanism revision that needs critique. `no route` means the supplied
 positively bound the work to an ordinary change. `insufficient evidence` means there is not
 yet a mechanism or target revision to judge.
 
-Directive 0.119.9 records the mechanism-shaped call and clearance line but does not compute
+Directive 0.119.11 records the mechanism-shaped call and clearance line but does not compute
 the semantic judgment. The routing matrix is therefore human-reviewed curriculum evidence.
 Its safe action can hold lifecycle movement, but the artifact is not itself a Directive gate
 or implementation authority.
@@ -359,7 +359,7 @@ An alternate does not pass if it requires a standalone specification file, inven
 | Proposed acceptance is implementation authority | The artifact remains candidate state | Commands and current-contract rule |
 | Dependencies prevent independent verification | Rows 2 and 3 have distinct proof after their predecessors | Decomposition DAG guidance |
 | Worksheet labels are schema requirements | `Exclusions` and `Literal inspection` sit outside the JSON | Verification guidance and exercise boundary |
-| Directive computes mechanism-shaped status | The O6.4 decision depends on supplied semantic facts; Directive 0.119.9 records but does not decide it | Design-critique Stop 1 and ADR-005 |
+| Directive computes mechanism-shaped status | The O6.4 decision depends on supplied semantic facts; Directive 0.119.11 records but does not decide it | Design-critique Stop 1 and ADR-005 |
 | No route means the same thing as insufficient evidence | The copy-only card supports a negative decision; the safety request lacks a judgeable target | O6.4 fixed packet |
 
 ## Self-assessment key
@@ -445,16 +445,16 @@ record how the course resolves those disagreements.
 - No instructor, repository mutation, command, or remote system is required.
 - Source claims and disagreements match the Module 6 source record.
 
-[lifecycle]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/docs/directive-lifecycle.md
-[strategies]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/strategies/README.md
-[interview]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/strategies/interview.md
-[setup]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/skills/deft-directive-setup/SKILL.md
-[decompose]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/skills/deft-directive-decompose/SKILL.md
-[taxonomy]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/vbrief/vbrief.md
-[verification]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/verification/verification.md
-[upstream-glossary]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/glossary.md
-[gh-slice]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/skills/deft-directive-gh-slice/SKILL.md
-[commands]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/commands.md
-[main]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/main.md
-[design-critique-contract]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/content/contracts/design-critique.md#stop-1--gate
-[adr-005]: https://github.com/deftai/directive/blob/8c9108bfa106719ab340379d6b9c958c8f9a2523/docs/decisions/ADR-005-design-critique-judgment-gate.md
+[lifecycle]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/docs/directive-lifecycle.md
+[strategies]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/strategies/README.md
+[interview]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/strategies/interview.md
+[setup]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/skills/deft-directive-setup/SKILL.md
+[decompose]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/skills/deft-directive-decompose/SKILL.md
+[taxonomy]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/vbrief/vbrief.md
+[verification]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/verification/verification.md
+[upstream-glossary]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/glossary.md
+[gh-slice]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/skills/deft-directive-gh-slice/SKILL.md
+[commands]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/commands.md
+[main]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/main.md
+[design-critique-contract]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/contracts/design-critique.md#stop-1--gate
+[adr-005]: https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/docs/decisions/ADR-005-design-critique-judgment-gate.md

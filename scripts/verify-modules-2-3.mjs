@@ -433,7 +433,7 @@ for (const allowed of [
   "npm install --globalconfig NUL --userconfig .npmrc",
   "npm --globalconfig /dev/null install",
   "npm install --ignore-scripts --no-audit --no-fund",
-  "npm install @deftai/directive@0.119.9",
+  "npm install @deftai/directive@0.119.11",
   "npm ls @deftai/directive",
   "npm config get registry",
   "gh --version",
@@ -486,13 +486,13 @@ for (const [label, content] of [
 }
 
 for (const content of [module2, lab2, lab2Solution]) {
-  assert.match(content, /0\.119\.9/, "Module 2 path must use the exact Directive pin");
+  assert.match(content, /0\.119\.11/, "Module 2 path must use the exact Directive pin");
   assert.match(content, /no[- ]remote/i, "Module 2 path must preserve the no-remote guard");
   assert.doesNotMatch(content, /doctor[^\n]*--repo-root/, "doctor must use the verified --project-root flag");
 }
 assert.match(
   module2,
-  /"overrides"[\s\S]*"@deftai\/directive-content": "0\.119\.9"[\s\S]*"@deftai\/directive-core": "0\.119\.9"[\s\S]*"@deftai\/directive-types": "0\.119\.9"/,
+  /"overrides"[\s\S]*"@deftai\/directive-content": "0\.119\.11"[\s\S]*"@deftai\/directive-core": "0\.119\.11"[\s\S]*"@deftai\/directive-types": "0\.119\.11"/,
   "Module 2 must show the Lab 2 overrides that lock core, content, and types",
 );
 assert.match(
@@ -864,7 +864,7 @@ assert.match(
   /verify:codebase-map-fresh --help[\s\S]{0,220}(?:runs|performs)[\s\S]{0,80}check/i,
   "Module 2 must warn that command-specific help can execute a verifier",
 );
-// The pinned 0.119.9 engine cannot emit `Missing directory: xbrief/`: that string is
+// The pinned 0.119.11 engine cannot emit `Missing directory: xbrief/`: that string is
 // reserved for framework-content and engine-deposit rows, and the lifecycle row has its own
 // wording. Teaching it -- even behind an "if it appears" hedge -- locks a false evidence
 // lesson into the first executable lab, so the three learner files must teach the warning a
@@ -891,17 +891,22 @@ for (const [relativePath, content] of [
 }
 
 // Lab 2 Task 2 carries the live warning as a classification exercise: check id, message,
-// recommended action, and boundary verdict. The recommended action is host-global and
-// pin-breaking, so it may only appear as quoted evidence.
+// recommended action, and boundary verdict. The 0.119.11 signpost recommends a one-time
+// local `directive migrate` provenance stamp, so it may only appear as quoted evidence.
 assert.match(
   lab2,
-  /canonical-vendored-npm-signpost[\s\S]{0,900}npm i -g @deftai\/directive@latest[\s\S]{0,400}directive migrate/i,
-  "Lab 2 must quote the signpost message with its recommended npm install and migrate action",
+  /canonical-vendored-npm-signpost[\s\S]{0,900}directive migrate[\s\S]{0,400}stamp npm provenance/i,
+  "Lab 2 must quote the signpost message with its recommended migrate action",
+);
+assert.doesNotMatch(
+  lab2,
+  /npm i -g @deftai\/directive@latest/,
+  "Lab 2 must not teach the superseded host-global @latest signpost recommendation",
 );
 assert.match(
   lab2,
   /Signpost advisory: canonical-vendored-npm-signpost:/,
-  "Lab 2 must quote the 0.119.9 signpost label before the stable warning identity",
+  "Lab 2 must quote the 0.119.11 signpost label before the stable warning identity",
 );
 assert.match(
   lab2,
@@ -912,6 +917,11 @@ assert.match(
   lab2Solution,
   /canonical-vendored-npm-signpost[\s\S]{0,900}outside/i,
   "the Lab 2 solution must classify the signpost recommendation as outside the lab boundary",
+);
+assert.doesNotMatch(
+  lab2Solution,
+  /npm i -g @deftai\/directive@latest/,
+  "the Lab 2 solution must not teach the superseded host-global @latest signpost recommendation",
 );
 
 // O2.4 stays classify-and-boundary-judge of whatever appeared: no file may make a warning
@@ -971,7 +981,7 @@ const fixture = JSON.parse(read("labs/fixtures/02-disposable-initialization/pack
 assert.equal(fixture.private, true, "the fictional lab fixture must be private");
 assert.equal(
   fixture.devDependencies?.["@deftai/directive"],
-  "0.119.9",
+  "0.119.11",
   "the lab fixture must pin @deftai/directive exactly",
 );
 assert.deepEqual(
@@ -982,9 +992,9 @@ assert.deepEqual(
 assert.deepEqual(
   fixture.overrides,
   {
-    "@deftai/directive-content": "0.119.9",
-    "@deftai/directive-core": "0.119.9",
-    "@deftai/directive-types": "0.119.9",
+    "@deftai/directive-content": "0.119.11",
+    "@deftai/directive-core": "0.119.11",
+    "@deftai/directive-types": "0.119.11",
   },
   "the lab fixture must pin the complete Directive package graph",
 );
@@ -1232,7 +1242,7 @@ const nodeRuntimeContracts = [
   [
     "README.md",
     read("README.md"),
-    /@deftai\/directive@0\.119\.9` \(Node ≥ 22 for this project/,
+    /@deftai\/directive@0\.119\.11` \(Node ≥ 22 for this project/,
   ],
   [
     "curriculum/README.md",
@@ -1257,7 +1267,7 @@ const nodeRuntimeContracts = [
   [
     "references/SOURCE-BASELINE.md",
     sourceBaseline,
-    /course requires Node\.js 22 or newer for the 0\.119\.9 consumer runtime/,
+    /course requires Node\.js 22 or newer for the 0\.119\.11 consumer runtime/,
   ],
 ];
 for (const [relativePath, content, expectedPrerequisite] of nodeRuntimeContracts) {
@@ -1287,8 +1297,8 @@ assert.match(
 );
 assert.match(
   lab2Solution,
-  /unpinned 0\.119\.9 probe[\s\S]{0,80}private exact CLI pin/,
-  "the Lab 2 solution must keep the unpinned 0.119.9 init-pin observation",
+  /unpinned 0\.119\.11 probe[\s\S]{0,80}private exact CLI pin/,
+  "the Lab 2 solution must keep the unpinned 0.119.11 init-pin observation",
 );
 assert.match(
   lab2Solution,
@@ -1308,9 +1318,9 @@ assert.doesNotMatch(
 assert.doesNotMatch(
   lab2Solution,
   /0\.119\.9 did not; the exact fixture pin preceded init/,
-  "the Lab 2 solution must not retain the old pre-0.119.9 init-pin behavior",
+  "the Lab 2 solution must not retain the old pre-0.119.11 init-pin behavior",
 );
-const releaseCommit = "8c9108bfa106719ab340379d6b9c958c8f9a2523";
+const releaseCommit = "3e47fe5f1fb34438f4a17784eb82d71dd9af5970";
 const normalizeReferenceId = (value) => value.trim().replace(/\s+/g, " ").toLowerCase();
 const normalizeReferenceDestination = (value) =>
   value.startsWith("<") && value.endsWith(">") ? value.slice(1, -1) : value;
@@ -1376,20 +1386,20 @@ assert.deepEqual(
   platformProof.get("macos-zsh"),
   {
     status: "candidate",
-    date: "2026-09-26",
-    evidence: "not-run-at-0.119.9",
+    date: "2026-09-29",
+    evidence: "not-run-at-0.119.11",
   },
-  "macOS/zsh must remain a candidate until a current 0.119.9 replay exists",
+  "macOS/zsh must remain a candidate until a current 0.119.11 replay exists",
 );
 assert.deepEqual(platformProof.get("linux-bash"), {
   status: "candidate",
-  date: "2026-09-26",
-  evidence: "not-run-at-0.119.9",
-}, "linux-bash must remain a candidate until a current 0.119.9 replay exists");
+  date: "2026-09-29",
+  evidence: "not-run-at-0.119.11",
+}, "linux-bash must remain a candidate until a current 0.119.11 replay exists");
 assert.deepEqual(platformProof.get("windows-pwsh7"), {
   status: "candidate",
-  date: "2026-09-26",
-  evidence: "baseline-upgrade-69-pass-6-skip-dedicated-linked-path-preflight-eperm",
+  date: "2026-09-29",
+  evidence: "baseline-upgrade-78-pass-8-skip-dedicated-linked-path-preflight-eperm",
 }, "windows-pwsh7 must distinguish fixture evidence from full platform support");
 assert.match(
   sourceBaseline,
@@ -1449,7 +1459,7 @@ assert.match(
 );
 assert.match(
   sourceBaseline,
-  /unpinned disposable no-remote `init --json` emitted parseable JSON and created the exact private package pin and 0\.119\.9 generation/,
+  /unpinned disposable no-remote `init --json` emitted parseable JSON and created the exact private package pin and 0\.119\.11 generation/,
   "SOURCE-BASELINE must record the successful current JSON init probe",
 );
 assert.doesNotMatch(

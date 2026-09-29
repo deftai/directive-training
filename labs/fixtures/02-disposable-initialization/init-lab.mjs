@@ -22,7 +22,7 @@ import { fileURLToPath } from "node:url";
 
 const fixtureDirectory = dirname(fileURLToPath(import.meta.url));
 const courseRoot = resolve(fixtureDirectory, "../../..");
-const exactVersion = "0.119.9";
+const exactVersion = "0.119.11";
 const labId = "module-02";
 const labBranch = "training/module-02";
 const parentPrefix = "3ci-directive-module-02.";

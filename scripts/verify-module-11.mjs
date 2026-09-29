@@ -63,10 +63,10 @@ const unfinished = /\{\{[^}]+\}\}|\b(?:TODO|TBD|FIXME)\b|Authoring template/i;
 
 function exactBaseline(path, prose, heading) {
   const row = section(prose, heading).match(/^\| Directive baseline\s*\|([^\n]+)$/m)?.[1];
-  assert.ok(row?.includes("0.119.9"), `${path} must declare exact Directive 0.119.9`);
+  assert.ok(row?.includes("0.119.11"), `${path} must declare exact Directive 0.119.11`);
   assert.deepEqual(
     [...new Set(row.match(/\b\d+\.\d+\.\d+\b/g))],
-    ["0.119.9"],
+    ["0.119.11"],
     `${path} contains a stale or ranged Directive baseline`,
   );
 }
@@ -319,12 +319,12 @@ function requireRetainedLiteralInspectFragment(path, fragment) {
   let cursor = 0;
   for (const token of lab11RetainedLiteralStdoutTokens) {
     const found = fragment.indexOf(token);
-    assert.ok(found !== -1, `${path} inspect fragment must lock retained 0.119.9 stdout: ${token}`);
+    assert.ok(found !== -1, `${path} inspect fragment must lock retained 0.119.11 stdout: ${token}`);
     const ordered = fragment.indexOf(token, cursor);
     const gap = ordered === -1 ? fragment.slice(cursor) : fragment.slice(cursor, ordered);
     assert.ok(
       ordered !== -1 && /^\s*$/.test(gap),
-      `${path} inspect fragment must keep retained 0.119.9 stdout as a contiguous ordered fragment`,
+      `${path} inspect fragment must keep retained 0.119.11 stdout as a contiguous ordered fragment`,
     );
     cursor = ordered + token.length;
   }
@@ -336,9 +336,9 @@ function requireSingleRetainedLiteralClassification(path, sectionBody) {
     "literal-acceptance proof",
     "[rung=derived]",
     "AC-pass-bank dual-stop",
-    "upstream 0.119.9 diagnostics",
+    "upstream 0.119.11 diagnostics",
   ]) {
-    assert.ok(normalized.includes(phrase), `${path} must classify retained 0.119.9 stdout: ${phrase}`);
+    assert.ok(normalized.includes(phrase), `${path} must classify retained 0.119.11 stdout: ${phrase}`);
   }
   assert.doesNotMatch(
     sectionBody,
@@ -682,7 +682,7 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   const module11Row = courseModuleRow(course, 11);
   assert.match(module11Row, /11-testing-gates-and-evidence\.md/, "Module 11 course row must link the lesson");
   assert.doesNotMatch(module11Row, /\|\s*Planned\s*\|/i, "Module 11 must no longer be planned");
-  assert.match(module11Row, /0\.119\.9 fixture verified on Windows; published shell walkthroughs candidate/i, "Module 11 course row must retain the current platform boundary");
+  assert.match(module11Row, /0\.119\.11 fixture verified on Windows; published shell walkthroughs candidate/i, "Module 11 course row must retain the current platform boundary");
   const module12Row = courseModuleRow(course, 12);
   assert.match(
     module12Row,
@@ -696,7 +696,7 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   }
   assert.match(
     content.get("labs/README.md"),
-    /^\| \[Lab 11[^\n]*\]\(11-testing-gates-and-evidence\.md\) \| Learner-ready draft;[^\n]*0\.119\.9 fixture verified on Windows; published shell walkthroughs candidate[^\n]*\|/m,
+    /^\| \[Lab 11[^\n]*\]\(11-testing-gates-and-evidence\.md\) \| Learner-ready draft;[^\n]*0\.119\.11 fixture verified on Windows; published shell walkthroughs candidate[^\n]*\|/m,
     "labs/README.md must list Lab 11 with the current platform boundary",
   );
 
@@ -713,12 +713,12 @@ export function verifyModule11(root = fileURLToPath(new URL("../", import.meta.u
   for (const [platform, expected] of [["macos-zsh", "candidate"], ["linux-bash", "candidate"], ["windows-pwsh7", "candidate"]]) {
     assert.match(baseline, new RegExp(`teaching-platform-proof:${platform} status=${expected}`), `SOURCE-BASELINE Module 11 platform status is missing: ${platform}`);
   }
-  for (const token of ["exact CLI/core/content/types 0.119.9 graph", "verify:ac"]) assert.ok(baseline.includes(token), `SOURCE-BASELINE Module 11 evidence is missing: ${token}`);
+  for (const token of ["exact CLI/core/content/types 0.119.11 graph", "verify:ac"]) assert.ok(baseline.includes(token), `SOURCE-BASELINE Module 11 evidence is missing: ${token}`);
 
   const fixturePackage = JSON.parse(content.get("labs/fixtures/11-testing-gates-and-evidence/package.json"));
-  assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.119.9", "Module 11 fixture must retain the exact Directive pin");
+  assert.equal(fixturePackage.devDependencies?.["@deftai/directive"], "0.119.11", "Module 11 fixture must retain the exact Directive pin");
   for (const name of ["directive-core", "directive-content", "directive-types"]) {
-    assert.equal(fixturePackage.overrides?.[`@deftai/${name}`], "0.119.9", `Module 11 fixture must pin ${name}`);
+    assert.equal(fixturePackage.overrides?.[`@deftai/${name}`], "0.119.11", `Module 11 fixture must pin ${name}`);
   }
   assert.equal(fixturePackage.scripts?.["test:focused"], "node --test test/summary.test.mjs", "Module 11 fixture must expose the focused test");
   assert.equal(fixturePackage.scripts?.["check:behavior"], "node src/summary.mjs 2 4 6", "Module 11 fixture must expose the literal behavior check");

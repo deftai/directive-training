@@ -7,9 +7,9 @@
 | Stable ID | `module-11-testing-gates-and-evidence` |
 | Status | Learner-ready draft |
 | Estimated time | 65 minutes |
-| Directive baseline | fixture-local `@deftai/directive@0.119.9`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
-| Last verified | 2026-09-26 |
-| Platform evidence | 0.119.9 fixture verified on Windows/PowerShell; published shell walkthroughs, Linux/bash, and macOS/zsh remain candidates |
+| Directive baseline | fixture-local `@deftai/directive@0.119.11`; see the [source baseline](../../references/SOURCE-BASELINE.md) |
+| Last verified | 2026-09-29 |
+| Platform evidence | 0.119.11 fixture verified on Windows/PowerShell; published shell walkthroughs, Linux/bash, and macOS/zsh remain candidates |
 | Prerequisite | [Module 10 — The Implementation Golden Path](10-implementation-golden-path.md) |
 | Practical work | [Lab 11 — Testing, Gates, and Evidence](../../labs/11-testing-gates-and-evidence.md) |
 
@@ -71,7 +71,7 @@ After the expected red result, freeze the focused test. Editing both the test an
 
 ### Literal acceptance answers a contract question
 
-On the pinned release, `task deft:verify:ac -- <active-xbrief>` reads the active contract and runs its accepted command list verbatim. Direct `node` commands and arbitrary npm scripts are safety-refused by the 0.119.9 literal-command allowlist; the lab therefore uses the allowed test/check script families. A safety refusal is not a product failure and must not be relabeled as one.
+On the pinned release, `task deft:verify:ac -- <active-xbrief>` reads the active contract and runs its accepted command list verbatim. Direct `node` commands and arbitrary npm scripts are safety-refused by the 0.119.11 literal-command allowlist; the lab therefore uses the allowed test/check script families. A safety refusal is not a product failure and must not be relabeled as one.
 
 ### Forward coverage answers a correspondence question
 
