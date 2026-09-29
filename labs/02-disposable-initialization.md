@@ -385,7 +385,7 @@ xBrief migration: none -- xbrief active, vbrief removed.
 This banner's "vBRIEF" names post-pre-cutover document-model state. Learner-facing files stay
 xBRIEF 0.8, and new course writes stay `xbrief/` schema 0.8.
 
-The pin-matched 0.119.11 replay prints one named product warning, the provenance check
+The pin-matched 0.119.11 replay prints the provenance check
 `canonical-vendored-npm-signpost`:
 
 ```text
@@ -402,6 +402,18 @@ directive migrate
 **Boundary verdict:** outside this lab's diagnose-and-classify task. Running migrate would
 change the attempt so the advisory disappears. Record the check id, the message, the
 recommended action, and this verdict; then refuse the action and continue.
+
+A Windows learner-path replay also prints `agent-hooks-live-probe` when Restricted
+PowerShell cannot reach `deft-hook` (#4654):
+
+```text
+⚠ agent-hooks-live-probe: PowerShell-visible deft-hook is not reachable under Restricted
+```
+
+Its recommended next action is a package postinstall change that removes the `deft-hook.ps1`
+shim so `Get-Command` under Restricted selects `deft-hook.cmd`. Do not set ExecutionPolicy
+Bypass. That action is also outside this lab. linux and macOS captures print the signpost
+only.
 
 Record what your own run printed, not what this page predicts. Diagnostic severity does not
 follow from a warning count, so do not use one as your pass condition, and do not copy a

@@ -203,19 +203,19 @@ checkout or a business repository. The host-global CLI and deposited content wer
 | --- | ---: | --- |
 | `directive --version` | 0 | `@deftai/directive (engine: @deftai/directive-core@0.119.11; package: @deftai/directive@0.119.11)`. |
 | `directive init --yes --repo-root <temp> --json` | 0 | Classified the Git-first empty repository as brownfield, created a private exact `@deftai/directive: 0.119.11` pin, stamped generation 1 as `directive-init`, and created no remote. |
-| `directive doctor --full --project-root .` | 0 | Engine, content, and pin reconciled at 0.119.11; the lifecycle envelope was current; the taught Lab 2 advisory is `canonical-vendored-npm-signpost`. |
+| `directive doctor --full --project-root .` | 0 | Engine, content, and pin reconciled at 0.119.11; the lifecycle envelope was current; the taught Lab 2 advisories are `canonical-vendored-npm-signpost` and, on the Windows learner path, `agent-hooks-live-probe`. |
 | `directive toolchain:check --consumer --project-root .` | 0 | Git 2.55.0, GitHub CLI 2.92.0, Node.js 26.8.1, npm 11.19.0; all required tools available. |
 
 The doctor replay reported a current 0.8 xBRIEF envelope, valid project lifecycle, current
-managed AGENTS section, and a matching content deposit. The taught advisory is
+managed AGENTS section, and a matching content deposit. The taught cross-platform advisory is
 `canonical-vendored-npm-signpost` with the migrate-only message
 `[deft] One-time: run \`directive migrate\` to stamp npm provenance (idempotent). See content/UPGRADING.md.`
 The curriculum records that advisory rather than executing migrate inside a learner attempt.
-This host also printed `agent-hooks-live-probe` under Restricted PowerShell (#4654). That
-finding is host-specific and is not part of the taught Lab 2 warning set. CI
-linux/macos/windows-2022 captures remain the signpost-only identity. The consumer toolchain
-check also printed a gh advisory to upgrade past 2.92.0; that advisory is observed evidence,
-not a Lab 2 pass condition.
+A 2026-09-29 Lab 2 fixture-helper re-probe on this Windows host also printed
+`agent-hooks-live-probe` under Restricted PowerShell (#4654). That identity is the taught
+Windows learner contract and the windows-pwsh7 CI expected set. linux and macos CI captures
+remain the signpost-only identity. The consumer toolchain check also printed a gh advisory to
+upgrade past 2.92.0; that advisory is observed evidence, not a Lab 2 pass condition.
 
 ## Historical disposable doctor replay (0.119.9)
 

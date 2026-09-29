@@ -232,6 +232,11 @@ That action is **outside** this lab's diagnose-and-classify task: running migrat
 change the attempt so the advisory disappears. Recording the warning and refusing its
 recommendation is the correct result; running it is not.
 
+A Windows learner-path replay also prints `agent-hooks-live-probe` when Restricted
+PowerShell cannot reach `deft-hook` (#4654). Classify that finding the same way: record the
+check id and refuse ExecutionPolicy Bypass and package-postinstall edits. linux and macOS
+captures print the signpost only.
+
 Classify what your run actually printed. Do not copy a warning you did not observe, and do
 not treat a count as the pass condition — the classification and the boundary verdict are
 the evidence.
@@ -398,8 +403,8 @@ answer.
    on a command found elsewhere on `PATH`?
 3. **O2.3:** Classify `xbrief/PROJECT-DEFINITION.xbrief.json`, `.deft/GENERATION.json`,
    `.deft/core/`, and the resolved external `USER.md`.
-4. **O2.4:** Doctor exits 0 and prints the `canonical-vendored-npm-signpost` warning. What
-   evidence must you retain before deciding whether to act?
+4. **O2.4:** Doctor exits 0 and prints `canonical-vendored-npm-signpost` (and, on Windows,
+   `agent-hooks-live-probe`). What evidence must you retain before deciding whether to act?
 5. **O2.1:** Name one consumer command surface and one maintainer-only surface. Explain the
    repository boundary between them.
 

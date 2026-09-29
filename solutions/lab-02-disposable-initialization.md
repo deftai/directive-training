@@ -40,12 +40,14 @@ authoritative sources from tracked managed integration and ignored runtime or re
 state.
 
 Doctor exited 0 in the 2026-09-29 pin-matched 0.119.11 replay and printed the named
-provenance check `canonical-vendored-npm-signpost`. The solution records the warning and its
-recommendation; it does not redefine success as “no output,” and it does not score the
-result by counting warnings. That check recommends a one-time local
-`directive migrate` provenance stamp. Module 2 records and classifies that recommendation
-and refuses it: it is outside this lab's diagnose-and-classify task because running
-migrate would change the attempt so the advisory disappears.
+provenance check `canonical-vendored-npm-signpost`. The Windows learner-path replay also
+printed `agent-hooks-live-probe` when Restricted PowerShell could not reach `deft-hook`
+(#4654). The solution records each printed finding and its recommendation; it does not
+redefine success as “no output,” and it does not score the result by counting warnings.
+The signpost recommends a one-time local `directive migrate` provenance stamp. The live-probe
+row recommends removing the `deft-hook.ps1` shim and forbids ExecutionPolicy Bypass. Module 2
+records and classifies those recommendations and refuses them: both are outside this lab's
+diagnose-and-classify task. linux and macOS captures print the signpost only.
 
 The same healthy doctor report also prints these two banner lines as expected output, in a
 separate sentence from that classified warning:
@@ -206,12 +208,15 @@ tracking evidence; source ownership supplies the anatomy classification.
 
 **Observe:** The 2026-09-29 pin-matched replay recorded `doctor_exit=0 toolchain_exit=0`.
 Doctor printed the provenance check `canonical-vendored-npm-signpost` and reported
-`✓ Project-lifecycle: valid at <lab_root>/xbrief`. A correct record names the check id, its
-message, its single recommended action — one-time local `directive migrate` to stamp npm
-provenance — and the verdict that the action is outside this lab's boundary. Accept a
-learner record that classifies whatever their run printed; reject one that copies an
-unobserved warning or that reports “no warnings” when the run produced one. The consumer check
-reported all required tools available.
+`✓ Project-lifecycle: valid at <lab_root>/xbrief`. The Windows learner-path replay also
+printed `agent-hooks-live-probe`. A correct record names each printed check id, its
+message, its single recommended action, and the verdict that the action is outside this
+lab's boundary. The signpost action is one-time local `directive migrate` to stamp npm
+provenance; the live-probe action is a package postinstall shim removal, not ExecutionPolicy
+Bypass. Accept a learner record that classifies whatever their run printed; reject one that
+copies an unobserved warning or that reports “no warnings” when the run produced findings.
+linux and macOS captures print the signpost only. The consumer check reported all required
+tools available.
 
 A correct anatomy table looks like this:
 
@@ -259,7 +264,7 @@ evidence and the lab's fresh-directory reset.
 | Project-local hook runtime | `deft` resolves inside the attempt; hooks path is `.githooks` | Exact resolved path and Git config | O2.2 |
 | Init plus no-remote guards | Exit 0; managed integration; no remote names | Brownfield classification, generation file, empty output | O2.2 |
 | Git tracking/ignore inspection | Required paths correctly classified | Tracked list, ignore matches, anatomy table | O2.3 |
-| Full doctor | Exit 0; each printed finding retained with its classification and single recommended action; no warning copied that the run did not print | `canonical-vendored-npm-signpost` recorded with its recommendation and out-of-boundary verdict | O2.4 |
+| Full doctor | Exit 0; each printed finding retained with its classification and single recommended action; no warning copied that the run did not print | `canonical-vendored-npm-signpost` recorded with its recommendation and out-of-boundary verdict; Windows also records `agent-hooks-live-probe` the same way | O2.4 |
 | Consumer toolchain check | Exit 0 | Git 2.55.0, gh 2.92.0, Node 26.8.1, npm 11.19.0, all required tools available | O2.2, O2.4 |
 | Provided recovery decision | Five required fields; no forced failure or credential handling | Worked Step 5 table | O2.4 |
 | Archive inspection | Exact path exists; every attempt no-remote | Printed archive path and empty remote output | O2.4 |

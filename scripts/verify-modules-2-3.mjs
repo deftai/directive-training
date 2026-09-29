@@ -918,6 +918,21 @@ assert.match(
   /canonical-vendored-npm-signpost[\s\S]{0,900}outside/i,
   "the Lab 2 solution must classify the signpost recommendation as outside the lab boundary",
 );
+assert.match(
+  lab2,
+  /agent-hooks-live-probe[\s\S]{0,700}outside this lab/i,
+  "Lab 2 must classify the Windows Restricted agent-hooks-live-probe finding",
+);
+assert.match(
+  module2,
+  /agent-hooks-live-probe[\s\S]{0,400}linux and macOS/i,
+  "Module 2 must name the Windows Restricted agent-hooks-live-probe finding without forcing it onto linux/macos",
+);
+assert.match(
+  lab2Solution,
+  /agent-hooks-live-probe[\s\S]{0,900}outside/i,
+  "the Lab 2 solution must classify the Windows Restricted agent-hooks-live-probe finding",
+);
 assert.doesNotMatch(
   lab2Solution,
   /npm i -g @deftai\/directive@latest/,
@@ -1027,6 +1042,24 @@ for (const { proofId, start } of proofOffsets) {
     step.includes("scripts/assert-doctor-warning-set.mjs"),
     proofId + " must assert the doctor warning set through the shared checker",
   );
+  if (proofId === "windows-pwsh7") {
+    assert.match(
+      step,
+      /--expected-id\s+canonical-vendored-npm-signpost/,
+      "windows-pwsh7 must require the signpost warning identity",
+    );
+    assert.match(
+      step,
+      /--expected-id\s+agent-hooks-live-probe/,
+      "windows-pwsh7 must require the Restricted agent-hooks-live-probe identity",
+    );
+  } else {
+    assert.doesNotMatch(
+      step,
+      /--expected-id|agent-hooks-live-probe/,
+      proofId + " must keep the default signpost-only warning set",
+    );
+  }
   assert.match(
     step,
     /Usage refusal/,
@@ -1052,7 +1085,7 @@ assert.doesNotMatch(
 // through the one shared checker; a lane that re-inlines its own assertion drifts silently
 // (deftai/directive-training#19).
 assert.equal(
-  [...workflow.matchAll(/scripts\/assert-doctor-warning-set\.mjs/g)].length,
+  [...workflow.slice(workflow.indexOf("\njobs:\n")).matchAll(/scripts\/assert-doctor-warning-set\.mjs/g)].length,
   3,
   "every platform job must assert the doctor warning set through the shared checker",
 );
@@ -1238,6 +1271,7 @@ for (const token of [
 for (const triggerPath of [
   "labs/02-disposable-initialization.md",
   "labs/fixtures/02-disposable-initialization/**",
+  "scripts/assert-doctor-warning-set.mjs",
   "scripts/init-lab.test.mjs",
 ]) {
   assert.ok(
@@ -1247,6 +1281,16 @@ for (const triggerPath of [
 }
 
 const sourceNotes = read("references/SOURCE-NOTES.md");
+assert.match(
+  sourceNotes,
+  /agent-hooks-live-probe[\s\S]{0,400}windows-pwsh7/i,
+  "SOURCE-NOTES must bind agent-hooks-live-probe to the windows-pwsh7 expected set",
+);
+assert.doesNotMatch(
+  sourceNotes,
+  /windows-2022 captures remain the signpost-only/,
+  "SOURCE-NOTES must not claim windows-pwsh7 CI is still signpost-only",
+);
 const sourceBaseline = read("references/SOURCE-BASELINE.md");
 const nodeRuntimeContracts = [
   [

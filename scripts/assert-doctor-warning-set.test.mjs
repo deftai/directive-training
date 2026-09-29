@@ -1,7 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { checkDoctorWarningSet } from "./assert-doctor-warning-set.mjs";
+import {
+  LEARNER_WARNING_IDS,
+  WINDOWS_LEARNER_WARNING_IDS,
+  checkDoctorWarningSet,
+  parseDoctorWarningSetArgs,
+} from "./assert-doctor-warning-set.mjs";
 
 /**
  * Splice out the first literal occurrence of `search` by position. Replay mutations never go
@@ -23,6 +28,8 @@ const PASS = "✓ ";
 const signpostMessage =
   "[deft] One-time: run `directive migrate` to stamp npm provenance (idempotent). See content/UPGRADING.md.";
 const signpostWarning = `${WARN}Signpost advisory: canonical-vendored-npm-signpost: ${signpostMessage}`;
+const hooksWarning =
+  `${WARN}agent-hooks-live-probe: PowerShell-visible deft-hook is not reachable under Restricted.`;
 
 // The captured 0.119.11 replay recorded in references/SOURCE-NOTES.md, reduced to the rows the
 // assertion reads.
@@ -59,6 +66,15 @@ const replays = [
     name: "extra-warning: a second warning row is rejected",
     text: splice(
       splice(realCapture, `${WARN}System check`, `${WARN}hook-runtime-executable: deft-hook is not executable.\n${WARN}System check`),
+      "with 1 warning",
+      "with 2 warning",
+    ),
+    expectProblem: /expected warning identities/,
+  },
+  {
+    name: "windows-extra: Restricted agent-hooks-live-probe is rejected by the default learner set",
+    text: splice(
+      splice(realCapture, `${WARN}System check`, `${hooksWarning}\n${WARN}System check`),
       "with 1 warning",
       "with 2 warning",
     ),
@@ -137,7 +153,70 @@ for (const replay of replays) {
 }
 
 test("the expected warning set is compared as an exact identity set", () => {
-  assert.deepEqual(checkDoctorWarningSet(realCapture, ["canonical-vendored-npm-signpost"]), []);
+  assert.deepEqual(checkDoctorWarningSet(realCapture, LEARNER_WARNING_IDS), []);
   const problems = checkDoctorWarningSet(realCapture, ["canonical-vendored-npm-signpost", "some-other-check"]);
   assert.ok(problems.some((problem) => /expected the summary to report 2 warning/.test(problem)));
+});
+
+const windowsCapture = splice(
+  splice(realCapture, `${WARN}System check`, `${hooksWarning}\n${WARN}System check`),
+  "with 1 warning",
+  "with 2 warning",
+);
+
+test("the Windows learner set accepts signpost plus agent-hooks-live-probe", () => {
+  assert.deepEqual(checkDoctorWarningSet(windowsCapture, WINDOWS_LEARNER_WARNING_IDS), []);
+});
+
+test("the Windows learner set still requires the signpost identity", () => {
+  const missingSignpost = splice(
+    splice(windowsCapture, `${signpostWarning}\n`),
+    "with 2 warning",
+    "with 1 warning",
+  );
+  const problems = checkDoctorWarningSet(missingSignpost, WINDOWS_LEARNER_WARNING_IDS);
+  assert.ok(problems.some((problem) => /expected warning identities/.test(problem)));
+});
+
+test("the Windows learner set rejects a renamed signpost", () => {
+  const renamed = splice(windowsCapture, "canonical-vendored-npm-signpost", "canonical-vendored-npm-provenance");
+  const problems = checkDoctorWarningSet(renamed, WINDOWS_LEARNER_WARNING_IDS);
+  assert.ok(problems.some((problem) => /expected warning identities/.test(problem)));
+});
+
+test("the Windows learner set rejects an additional unexpected warning", () => {
+  const extra = splice(
+    splice(windowsCapture, `${WARN}System check`, `${WARN}hook-runtime-executable: deft-hook is not executable.\n${WARN}System check`),
+    "with 2 warning",
+    "with 3 warning",
+  );
+  const problems = checkDoctorWarningSet(extra, WINDOWS_LEARNER_WARNING_IDS);
+  assert.ok(problems.some((problem) => /expected warning identities/.test(problem)));
+});
+
+test("parseDoctorWarningSetArgs defaults to the learner signpost set", () => {
+  assert.deepEqual(parseDoctorWarningSetArgs(["doctor-full.txt"]), {
+    path: "doctor-full.txt",
+    expectedWarningIds: LEARNER_WARNING_IDS,
+  });
+});
+
+test("parseDoctorWarningSetArgs binds explicit Windows identities", () => {
+  assert.deepEqual(
+    parseDoctorWarningSetArgs([
+      "--expected-id",
+      "canonical-vendored-npm-signpost",
+      "--expected-id",
+      "agent-hooks-live-probe",
+      "doctor-full.txt",
+    ]),
+    {
+      path: "doctor-full.txt",
+      expectedWarningIds: WINDOWS_LEARNER_WARNING_IDS,
+    },
+  );
+});
+
+test("parseDoctorWarningSetArgs rejects an unknown flag", () => {
+  assert.throws(() => parseDoctorWarningSetArgs(["--allow-extra", "doctor-full.txt"]), /unrecognized flag/);
 });

@@ -24,6 +24,9 @@
 
 ### Fixed
 
+- Recut the leftover Lab 2 windows-pwsh7 doctor warning set for 0.119.11: the
+  Windows learner-path doctor prints `canonical-vendored-npm-signpost` and
+  `agent-hooks-live-probe`; linux/macos stay signpost-only (#118).
 - Recut the leftover Lab 2 Windows PowerShell 7 CI current-pin assertion from
   0.119.9 to 0.119.11 after the teaching-baseline rebind (#118).
 - Lab 11 starting-state now proves a resolvable Python interpreter before
