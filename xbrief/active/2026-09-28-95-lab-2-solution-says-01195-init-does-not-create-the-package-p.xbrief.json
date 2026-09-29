@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #95",
-    "updated": "2026-09-28T12:13:47Z"
+    "updated": "2026-09-29T00:28:28Z"
   },
   "plan": {
     "title": "Lab 2 solution says 0.119.5 init does not create the package pin, contradicting Module 2 and SOURCE-BASELINE",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "The Lab 2 solution currently says Directive 0.119.5 initialization does not create the package pin, contradicting Module 2 and the released source baseline. This story corrects the solution's three-part explanation and recorded toolchain evidence, then adds a focused verifier lock so the obsolete statement cannot return.",
       "ImplementationPlan": "1. Recut the relevant table cells in `solutions/lab-02-disposable-initialization.md` to state that 0.119.5 initialization writes the CLI package pin, while retaining fixture pre-seeding as the lab's deterministic setup reason and citing the released baseline.\n2. Align the solution's observed Node tuple to the recorded 24.20.0 run and describe patch versions as observed evidence rather than a second reconstitution pin.\n3. Extend `scripts/verify-modules-2-3.mjs` with a focused phrase lock that rejects the obsolete `0.119.5 did not` claim and proves the corrected explanation without introducing a generic cross-document checker.",
@@ -348,6 +348,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5586607023",
-    "updated": "2026-09-28T12:13:47Z"
+    "updated": "2026-09-29T00:28:28Z"
   }
 }

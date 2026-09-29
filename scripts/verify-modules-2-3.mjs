@@ -1277,8 +1277,13 @@ assert.match(
 );
 assert.match(
   lab2Solution,
-  /A pre-seeded pin proves what init creates[\s\S]{0,240}unpinned 0\.119\.9 probe created its own private exact CLI pin/,
-  "the Lab 2 solution must distinguish the fixture's pre-seeded graph from current init behavior",
+  /\| 0\.119\.5 init does not create the package pin \| 0\.119\.5 init writes the exact CLI pin; the unpinned 0\.119\.9 probe still created its own private exact CLI pin\. The fixture copies `package\.json` before install to lock the four-package graph, not because init omits the pin\. \| `references\/SOURCE-BASELINE\.md` Modules 2–3 released disagreements and Module 2 §2 \|/,
+  "the Lab 2 solution table must recut pin-authorship onto 0.119.5 init-writes-CLI-pin and cite SOURCE-BASELINE",
+);
+assert.doesNotMatch(
+  lab2Solution,
+  /0\.119\.5 did not/,
+  "the Lab 2 solution must not keep the obsolete 0.119.5 did-not init-pin claim",
 );
 assert.doesNotMatch(
   lab2Solution,
