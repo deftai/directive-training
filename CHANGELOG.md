@@ -18,6 +18,18 @@
 
 ### Fixed
 
+- Lab 11 starting-state now proves a resolvable Python interpreter before
+  `create`: POSIX walks `PATH` for `python3` then `python`, and Native Windows
+  Phase A uses `Get-Command` order `python`, `python3`, then `py`. Expected
+  failures split a pre-create probe miss (install Python and re-run the fence)
+  from an install-time `Required executable not found` leftover that needs
+  `reset`. Python stays presence-only. Lab 7 and Lab 10 POSIX are unchanged
+  (#101).
+- Lab 11 Native Windows Phase A now checks `$LASTEXITCODE` after Python
+  `--version` before `create`, because `$ErrorActionPreference = "Stop"` does
+  not stop a native command that exits nonzero. The Module 11 verifier also
+  locks the POSIX miss-path `exit 1` and the Windows null-result throw so those
+  pre-create guards cannot be dropped silently (#101).
 - README cold-start bootstrap now names learners inside the managed block and
   retitles the first heading, so the global-first ladder stays for agents while
   course learners skip `directive doctor` and `npm i -g`. The cold-start

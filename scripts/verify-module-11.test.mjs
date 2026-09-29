@@ -26,6 +26,36 @@ const requiredVersionCommands = [
   "task --version",
   "uv --version",
 ];
+const lab11EnvironmentSentence = "Use Node.js 22 or later, npm, Git, Task, `uv`, and a resolvable Python interpreter (presence only; no version floor).";
+const lab11PythonProbeLines = [
+  "python_command=",
+  "for python_name in python3 python; do",
+  "  python_search=$PATH",
+  "  while [ -n \"$python_search\" ]; do",
+  "    case \"$python_search\" in",
+  "      *:*)",
+  "        python_directory=${python_search%%:*}",
+  "        python_search=${python_search#*:}",
+  "        ;;",
+  "      *)",
+  "        python_directory=$python_search",
+  "        python_search=",
+  "        ;;",
+  "    esac",
+  "    [ -n \"$python_directory\" ] || continue",
+  "    python_candidate=\"$python_directory/$python_name\"",
+  "    if [ -e \"$python_candidate\" ]; then",
+  "      python_command=\"$python_candidate\"",
+  "      break 2",
+  "    fi",
+  "  done",
+  "done",
+  "if [ -z \"$python_command\" ]; then",
+  "  printf '%s\\n' \"Python is required for the Lab 11 isolated PATH.\" >&2",
+  "  exit 1",
+  "fi",
+  "\"$python_command\" --version",
+];
 
 function copiedRepository() {
   const root = mkdtempSync(join(tmpdir(), "module11-contract-test-"));
@@ -173,8 +203,8 @@ test("verifier rejects losing the separate LAB11_ROOT export fence", () => {
 
 test("verifier rejects Task or uv pins in the Lab 11 starting-state contract", () => {
   const root = changedCopy(lab11Path, (body) => body.replace(
-    "Use Node.js 22 or later, npm, Git, Task, and `uv`.",
-    "Use Node.js 22 or later, npm, Git, `Task` 3.50.0, and `uv` 0.11.10.",
+    lab11EnvironmentSentence,
+    "Use Node.js 22 or later, npm, Git, `Task` 3.50.0, `uv` 0.11.10, and a resolvable Python interpreter (presence only; no version floor).",
   ));
   assert.throws(() => verifyModule11(root), /resolution checks only/);
 });
@@ -188,12 +218,77 @@ for (const pinnedTool of [
 ]) {
   test(`verifier rejects the natural-language pin ${pinnedTool}`, () => {
     const root = changedCopy(lab11Path, (body) => body.replace(
-      "Use Node.js 22 or later, npm, Git, Task, and `uv`.",
-      `Use Node.js 22 or later, npm, Git, Task, and \`uv\`; require ${pinnedTool}.`,
+      lab11EnvironmentSentence,
+      `Use Node.js 22 or later, npm, Git, Task, \`uv\`, and a resolvable Python interpreter (presence only; no version floor); require ${pinnedTool}.`,
     ));
     assert.throws(() => verifyModule11(root), /resolution checks only/);
   });
 }
+
+test("verifier rejects a starting-state fence missing the Python presence probe", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11StartingStateFence(
+    body,
+    ["set -eu", ...requiredVersionCommands, createCommand],
+  ));
+  assert.throws(() => verifyModule11(root), /presence probe after uv --version and before create/);
+});
+
+test("verifier rejects a Python presence probe after create", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11StartingStateFence(
+    body,
+    ["set -eu", ...requiredVersionCommands, createCommand, ...lab11PythonProbeLines],
+  ));
+  assert.throws(() => verifyModule11(root), /presence probe after uv --version and before create/);
+});
+
+test("verifier rejects swapping the POSIX Python lookup order", () => {
+  const root = changedCopy(lab11Path, (body) => body.replace(
+    "for python_name in python3 python; do",
+    "for python_name in python python3; do",
+  ));
+  assert.throws(() => verifyModule11(root), /mirror the helper PATH scan and selected candidate/);
+});
+
+test("verifier rejects a Python preflight that uses shell-only resolution", () => {
+  const root = changedCopy(lab11Path, (body) => body.replace(
+    'if [ -e "$python_candidate" ]; then',
+    'if command -v "$python_name" >/dev/null 2>&1; then',
+  ));
+  assert.throws(() => verifyModule11(root), /mirror the helper PATH scan and selected candidate|must not use shell-only resolution/);
+});
+
+test("verifier rejects a Python version floor in the Lab 11 Environment sentence", () => {
+  const root = changedCopy(lab11Path, (body) => body.replace(
+    lab11EnvironmentSentence,
+    `${lab11EnvironmentSentence} Python 3.13.13 is required.`,
+  ));
+  assert.throws(() => verifyModule11(root), /Python stays presence-only; do not add a Python version floor/);
+});
+
+test("verifier rejects dropping the start-check Python probe miss row", () => {
+  const root = changedCopy(lab11Path, (body) => spliceOnce(
+    lab11Lf(body),
+    "| `Python is required for the Lab 11 isolated PATH.` | The starting-state probe found no resolvable `python3` or `python` before `create` | Install Python through the organization's approved path and re-run the starting-state fence. Do not reset; no attempt exists yet. |\n",
+    "",
+  ));
+  assert.throws(() => verifyModule11(root), /start-check Python probe miss/);
+});
+
+test("verifier rejects binding do not create a new attempt after an install-time throw", () => {
+  const root = changedCopy(lab11Path, (body) => body.replace(
+    "Preserve the leftover install-time token (the helper prefixes `Lab 11 stopped:`) and `reset`. Do not retry `install` in place.",
+    "Preserve the leftover install-time token (the helper prefixes `Lab 11 stopped:`) and `reset` because `node_modules` already exists. Do not create a new attempt.",
+  ));
+  assert.throws(() => verifyModule11(root), /do not create a new attempt/);
+});
+
+test("verifier rejects dropping Lab 11 stopped wrapping", () => {
+  const root = changedCopy("labs/fixtures/11-testing-gates-and-evidence/gates-lab.mjs", (body) => body.replace(
+    'console.error("Lab 11 stopped: " + error.message);',
+    "console.error(error.message);",
+  ));
+  assert.throws(() => verifyModule11(root), /Lab 11 stopped wrapping/);
+});
 
 test("verifier rejects a broken red-green-refactor sequence", () => {
   const root = changedCopy("curriculum/modules/11-testing-gates-and-evidence.md", (body) => body.replaceAll(
@@ -549,6 +644,67 @@ test("verifier rejects a later Lab 11 Windows phase that creates a new attempt",
     "$LabRoot = ((& node $Helper create) | Out-String).Trim()\n& node $Helper refactor $LabRoot\n",
   ));
   assert.throws(() => verifyModule11(root), /reuse \$LabRoot rather than create a new attempt/);
+});
+
+test("verifier rejects a Native Windows Python lookup order other than python, python3, py", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    "@('python', 'python3', 'py')",
+    "@('python3', 'python', 'py')",
+  ));
+  assert.throws(() => verifyModule11(root), /python, python3, then py/);
+});
+
+const lab11WindowsPythonProbe = `$PythonCommand = @('python', 'python3', 'py') | ForEach-Object {
+  Get-Command $_ -CommandType Application -ErrorAction SilentlyContinue
+} | Select-Object -First 1
+if ($null -eq $PythonCommand) { throw 'Python is required for the Lab 11 isolated PATH.' }
+& $PythonCommand.Source --version
+if ($LASTEXITCODE -ne 0) { throw 'Python is required for the Lab 11 isolated PATH.' }
+$LabRoot = ((& node $Helper create) | Out-String).Trim()
+`;
+
+test("verifier rejects a Native Windows Python probe after create", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    lab11WindowsPythonProbe,
+    `$LabRoot = ((& node $Helper create) | Out-String).Trim()
+$PythonCommand = @('python', 'python3', 'py') | ForEach-Object {
+  Get-Command $_ -CommandType Application -ErrorAction SilentlyContinue
+} | Select-Object -First 1
+if ($null -eq $PythonCommand) { throw 'Python is required for the Lab 11 isolated PATH.' }
+& $PythonCommand.Source --version
+if ($LASTEXITCODE -ne 0) { throw 'Python is required for the Lab 11 isolated PATH.' }
+`,
+  ));
+  assert.throws(() => verifyModule11(root), /Phase A must check Python before create/);
+});
+
+test("verifier rejects a POSIX Python probe miss that does not exit 1", () => {
+  const root = changedCopy(lab11Path, (body) => spliceOnce(
+    lab11Lf(body),
+    "  printf '%s\\n' \"Python is required for the Lab 11 isolated PATH.\" >&2\n  exit 1\n",
+    "  printf '%s\\n' \"Python is required for the Lab 11 isolated PATH.\" >&2\n",
+  ));
+  assert.throws(() => verifyModule11(root), /exit 1 before create/);
+});
+
+test("verifier rejects dropping the Native Windows null Python throw", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    "if ($null -eq $PythonCommand) { throw 'Python is required for the Lab 11 isolated PATH.' }\n",
+    "",
+  ));
+  assert.throws(() => verifyModule11(root), /throw before create when Get-Command finds no Python/);
+});
+
+test("verifier rejects dropping the Native Windows Python LASTEXITCODE guard", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    "& $PythonCommand.Source --version\nif ($LASTEXITCODE -ne 0) { throw 'Python is required for the Lab 11 isolated PATH.' }\n",
+    "& $PythonCommand.Source --version\n",
+  ));
+  assert.throws(() => verifyModule11(root), /LASTEXITCODE after Python --version/);
 });
 
 test("verifier rejects dropping the post-green source-only handoff text", () => {

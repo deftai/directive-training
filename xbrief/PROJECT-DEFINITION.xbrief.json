@@ -114,10 +114,10 @@
       {
         "id": "2026-09-28-101-lab-7-and-lab-11-starting-state-checks-omit-python-and-uv-fo",
         "title": "Lab 7 and Lab 11 starting-state checks omit Python (and uv for Lab 7) that their helpers hard-require",
-        "status": "pending",
+        "status": "running",
         "metadata": {
-          "source_path": "pending/2026-09-28-101-lab-7-and-lab-11-starting-state-checks-omit-python-and-uv-fo.xbrief.json",
-          "lifecycle_folder": "pending",
+          "source_path": "active/2026-09-28-101-lab-7-and-lab-11-starting-state-checks-omit-python-and-uv-fo.xbrief.json",
+          "lifecycle_folder": "active",
           "references": [
             {
               "uri": "https://github.com/deftai/directive-training/issues/101",
