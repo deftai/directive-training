@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #94",
-    "updated": "2026-09-29T02:17:31Z"
+    "updated": "2026-09-29T03:45:00Z"
   },
   "plan": {
     "title": "README 'Cold-start bootstrap (read this first)' block contradicts the learner pin boundary taught in Module 2",
@@ -13,16 +13,16 @@
       "UserStory": "As a course learner, I want the first README block to identify which instructions are only for maintainers and agents, so that I do not run global or repository-mutating bootstrap commands before starting the disposable course path.",
       "Traces": "GitHub issue #94 and its ingested design-critique Bound remedy require an in-block learner intercept, preserve the byte-zero agent ladder, and bind focused cold-start plus text-portability verification while excluding a new learner entry file.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/94",
-      "Overview": "\n\n- Keep the skip-sentence identity. Put the intercepting line inside the managed cold-start block: a Learners-prefixed audience line, a retitle of \"read this first\", or both. Byte 0 stays the #2273 agent ladder. Do not bind an after-title skip as the intercept.\n- The bound sentence names learners, or an equivalent audience gate, so agents still follow the global-first ladder (`main-002`).\n- Extend `scripts/verify-cold-start-readme.mjs` and the existing `scripts/verify-text-portability.test.mjs` mutations that already call it so the intercepting audience line cannot drop while CI stays green.\n- Leave `curriculum/README.md` prerequisites and a new `START-HERE.md` out of this harvest; those branches already match the tree.\n\n",
+      "Overview": "\n\n- The managed cold-start heading is titled \"(agents and maintainers)\" and the intercepting Learners skip sentence is \"**Learners:** skip this block.\" Byte 0 stays the #2273 agent ladder.\n- The bound Learners audience line is \"**Learners:** skip this block\" and sends learners to a \"project-local graph\" in a \"disposable repository\".\n- The focused cold-start verifier requires \"the cold-start block must contain a Learners-prefixed audience line\" and \"the Learners audience line must keep the skip-sentence identity\".\n- The course map still says \"Do not install or initialize lab tooling in this training\" and \"Each lab that changes files supplies a disposable starting\" and does not add START-HERE.md.\n\n",
       "Labels": "documentation, design-critique:ingest-ready"
     },
     "items": [
       {
-        "title": "Keep the skip-sentence identity. Put the intercepting line inside the managed cold-start block: a Learners-prefixed audience line, a retitle of \"read this first\", or both. Byte 0 stays the #2273 agent ladder. Do not bind an after-title skip as the intercept.",
+        "title": "The managed cold-start heading is titled \"(agents and maintainers)\" and the intercepting Learners skip sentence is \"**Learners:** skip this block.\" Byte 0 stays the #2273 agent ladder.",
         "status": "proposed",
         "id": "clause.1",
         "narrative": {
-          "Acceptance": "The managed cold-start block begins at byte zero and presents an explicit learner audience intercept before the doctor and global-install rungs, while a line placed only after the project title fails verification."
+          "Acceptance": "The managed cold-start heading contains \"agents and maintainers\" and the Learners skip sentence \"**Learners:** skip this block.\""
         },
         "x-directive/evidence": {
           "kind": "test",
@@ -32,11 +32,11 @@
         }
       },
       {
-        "title": "The bound sentence names learners, or an equivalent audience gate, so agents still follow the global-first ladder (`main-002`).",
+        "title": "The bound Learners audience line is \"**Learners:** skip this block\" and sends learners to a \"project-local graph\" in a \"disposable repository\".",
         "status": "proposed",
         "id": "clause.2",
         "narrative": {
-          "Acceptance": "When the managed block is rendered, the intercept names learners or an equivalent audience identity, tells them to use the disposable project-local path, and leaves the complete global-first bootstrap ladder available to repository agents."
+          "Acceptance": "README.md contains \"**Learners:** skip this block\", \"project-local graph\", and \"disposable repository\" on the in-block audience line."
         },
         "x-directive/evidence": {
           "kind": "test",
@@ -46,11 +46,11 @@
         }
       },
       {
-        "title": "Extend `scripts/verify-cold-start-readme.mjs` and the existing `scripts/verify-text-portability.test.mjs` mutations that already call it so the intercepting audience line cannot drop while CI stays green.",
+        "title": "The focused cold-start verifier requires \"the cold-start block must contain a Learners-prefixed audience line\" and \"the Learners audience line must keep the skip-sentence identity\".",
         "status": "proposed",
         "id": "clause.3",
         "narrative": {
-          "Acceptance": "When the focused cold-start verifier runs under LF and CRLF, the intended README passes and mutations fail if the audience line is removed, moved outside the managed block, or stripped of its learner identity."
+          "Acceptance": "scripts/verify-cold-start-readme.mjs asserts \"the cold-start block must contain a Learners-prefixed audience line\" and \"the Learners audience line must keep the skip-sentence identity\"."
         },
         "x-directive/evidence": {
           "kind": "test",
@@ -60,11 +60,11 @@
         }
       },
       {
-        "title": "Leave `curriculum/README.md` prerequisites and a new `START-HERE.md` out of this harvest; those branches already match the tree.",
+        "title": "The course map still says \"Do not install or initialize lab tooling in this training\" and \"Each lab that changes files supplies a disposable starting\" and does not add START-HERE.md.",
         "status": "proposed",
         "id": "clause.4",
         "narrative": {
-          "Acceptance": "When the final course-entry diff is reviewed, the course map requires only disposable project-local Directive evidence and introduces neither a global Directive prerequisite nor a new `START-HERE.md` entry path."
+          "Acceptance": "curriculum/README.md contains \"Do not install or initialize lab tooling in this training\" and \"Each lab that changes files supplies a disposable starting\" and does not add START-HERE.md."
         },
         "x-directive/evidence": {
           "kind": "test",
@@ -91,36 +91,36 @@
       "source_rung": "derived",
       "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
       "sentences": [
-        "Keep the skip-sentence identity. Put the intercepting line inside the managed cold-start block: a Learners-prefixed audience line, a retitle of \"read this first\", or both. Byte 0 stays the #2273 agent ladder. Do not bind an after-title skip as the intercept.",
-        "The bound sentence names learners, or an equivalent audience gate, so agents still follow the global-first ladder (`main-002`).",
-        "Extend `scripts/verify-cold-start-readme.mjs` and the existing `scripts/verify-text-portability.test.mjs` mutations that already call it so the intercepting audience line cannot drop while CI stays green.",
-        "Leave `curriculum/README.md` prerequisites and a new `START-HERE.md` out of this harvest; those branches already match the tree."
+        "The managed cold-start heading is titled \"(agents and maintainers)\" and the intercepting Learners skip sentence is \"**Learners:** skip this block.\" Byte 0 stays the #2273 agent ladder.",
+        "The bound Learners audience line is \"**Learners:** skip this block\" and sends learners to a \"project-local graph\" in a \"disposable repository\".",
+        "The focused cold-start verifier requires \"the cold-start block must contain a Learners-prefixed audience line\" and \"the Learners audience line must keep the skip-sentence identity\".",
+        "The course map still says \"Do not install or initialize lab tooling in this training\" and \"Each lab that changes files supplies a disposable starting\" and does not add START-HERE.md."
       ],
       "clauses": [
         {
           "id": 1,
-          "text": "Keep the skip-sentence identity. Put the intercepting line inside the managed cold-start block: a Learners-prefixed audience line, a retitle of \"read this first\", or both. Byte 0 stays the #2273 agent ladder. Do not bind an after-title skip as the intercept.",
+          "text": "The managed cold-start heading is titled \"(agents and maintainers)\" and the intercepting Learners skip sentence is \"**Learners:** skip this block.\" Byte 0 stays the #2273 agent ladder.",
           "artifact_path": "README.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 2,
-          "text": "The bound sentence names learners, or an equivalent audience gate, so agents still follow the global-first ladder (`main-002`).",
+          "text": "The bound Learners audience line is \"**Learners:** skip this block\" and sends learners to a \"project-local graph\" in a \"disposable repository\".",
           "artifact_path": "README.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 3,
-          "text": "Extend `scripts/verify-cold-start-readme.mjs` and the existing `scripts/verify-text-portability.test.mjs` mutations that already call it so the intercepting audience line cannot drop while CI stays green.",
+          "text": "The focused cold-start verifier requires \"the cold-start block must contain a Learners-prefixed audience line\" and \"the Learners audience line must keep the skip-sentence identity\".",
           "artifact_path": "scripts/verify-cold-start-readme.mjs",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 4,
-          "text": "Leave `curriculum/README.md` prerequisites and a new `START-HERE.md` out of this harvest; those branches already match the tree.",
+          "text": "The course map still says \"Do not install or initialize lab tooling in this training\" and \"Each lab that changes files supplies a disposable starting\" and does not add START-HERE.md.",
           "artifact_path": "curriculum/README.md",
           "ambiguous": false,
           "provenance": "statement"
@@ -220,7 +220,7 @@
           "author_association": "COLLABORATOR"
         },
         {
-          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe README cold-start block still sends a learner through doctor and npm i -g before any after-title skip. Confirming this map would put a Learners-gated intercept inside the managed block, keep the agent ladder at byte 0, and lock that line on the existing cold-start verifier.\n\nParent forward verdict: P1 holds; after-title placement cannot bind; the intercept belongs inside the managed block.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838827351 and these takes; the evidence is critic 5838994141.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5838994141\nsupersedes: 5838827351\nTarget-digest: sha256:f8f1116d528c49d3f049d3c617af63320aba92b73506f68f504fe7865612d4c5\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### The skip has to intercept the first heading\ntake: accept-into-contract\ncritic: 5838994141\nheading: The skip has to intercept the first heading\n### \"Learners\" on that sentence is load-bearing\ntake: accept-into-contract\ncritic: 5838994141\nheading: \"Learners\" on that sentence is load-bearing\n### Lock the intercepting line on the existing verifier\ntake: accept-into-contract\ncritic: 5838994141\nheading: Lock the intercepting line on the existing verifier\n### footnote — Course map and START-HERE.md\ntake: accept-into-contract\ncritic: 5838994141\nheading: Course map and START-HERE.md\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5838994141 reading=asserted\n\n## Bound remedy\n\n- Keep the skip-sentence identity. Put the intercepting line inside the managed cold-start block: a Learners-prefixed audience line, a retitle of \"read this first\", or both. Byte 0 stays the #2273 agent ladder. Do not bind an after-title skip as the intercept.\n- The bound sentence names learners, or an equivalent audience gate, so agents still follow the global-first ladder (`main-002`).\n- Extend `scripts/verify-cold-start-readme.mjs` and the existing `scripts/verify-text-portability.test.mjs` mutations that already call it so the intercepting audience line cannot drop while CI stays green.\n- Leave `curriculum/README.md` prerequisites and a new `START-HERE.md` out of this harvest; those branches already match the tree.\n\n",
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe README cold-start block still sends a learner through doctor and npm i -g before any after-title skip. Confirming this map would put a Learners-gated intercept inside the managed block, keep the agent ladder at byte 0, and lock that line on the existing cold-start verifier.\n\nParent forward verdict: P1 holds; after-title placement cannot bind; the intercept belongs inside the managed block.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838827351 and these takes; the evidence is critic 5838994141.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5838994141\nsupersedes: 5838827351\nTarget-digest: sha256:f8f1116d528c49d3f049d3c617af63320aba92b73506f68f504fe7865612d4c5\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### The skip has to intercept the first heading\ntake: accept-into-contract\ncritic: 5838994141\nheading: The skip has to intercept the first heading\n### \"Learners\" on that sentence is load-bearing\ntake: accept-into-contract\ncritic: 5838994141\nheading: \"Learners\" on that sentence is load-bearing\n### Lock the intercepting line on the existing verifier\ntake: accept-into-contract\ncritic: 5838994141\nheading: Lock the intercepting line on the existing verifier\n### footnote — Course map and START-HERE.md\ntake: accept-into-contract\ncritic: 5838994141\nheading: Course map and START-HERE.md\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5838994141 reading=asserted\n\n## Bound remedy\n\n- The managed cold-start heading is titled \"(agents and maintainers)\" and the intercepting Learners skip sentence is \"**Learners:** skip this block.\" Byte 0 stays the #2273 agent ladder.\n- The bound Learners audience line is \"**Learners:** skip this block\" and sends learners to a \"project-local graph\" in a \"disposable repository\".\n- The focused cold-start verifier requires \"the cold-start block must contain a Learners-prefixed audience line\" and \"the Learners audience line must keep the skip-sentence identity\".\n- The course map still says \"Do not install or initialize lab tooling in this training\" and \"Each lab that changes files supplies a disposable starting\" and does not add START-HERE.md.\n\n",
           "id": 5847299556,
           "html_url": "https://github.com/deftai/directive-training/issues/94#issuecomment-5847299556",
           "user": {
@@ -380,6 +380,6 @@
       }
     },
     "id": "github.issue.5586606699",
-    "updated": "2026-09-29T02:17:31Z"
+    "updated": "2026-09-29T03:45:00Z"
   }
 }
