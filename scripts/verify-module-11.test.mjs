@@ -655,25 +655,56 @@ test("verifier rejects a Native Windows Python lookup order other than python, p
   assert.throws(() => verifyModule11(root), /python, python3, then py/);
 });
 
-test("verifier rejects a Native Windows Python probe after create", () => {
-  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
-    body,
-    `$PythonCommand = @('python', 'python3', 'py') | ForEach-Object {
+const lab11WindowsPythonProbe = `$PythonCommand = @('python', 'python3', 'py') | ForEach-Object {
   Get-Command $_ -CommandType Application -ErrorAction SilentlyContinue
 } | Select-Object -First 1
 if ($null -eq $PythonCommand) { throw 'Python is required for the Lab 11 isolated PATH.' }
 & $PythonCommand.Source --version
+if ($LASTEXITCODE -ne 0) { throw 'Python is required for the Lab 11 isolated PATH.' }
 $LabRoot = ((& node $Helper create) | Out-String).Trim()
-`,
+`;
+
+test("verifier rejects a Native Windows Python probe after create", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    lab11WindowsPythonProbe,
     `$LabRoot = ((& node $Helper create) | Out-String).Trim()
 $PythonCommand = @('python', 'python3', 'py') | ForEach-Object {
   Get-Command $_ -CommandType Application -ErrorAction SilentlyContinue
 } | Select-Object -First 1
 if ($null -eq $PythonCommand) { throw 'Python is required for the Lab 11 isolated PATH.' }
 & $PythonCommand.Source --version
+if ($LASTEXITCODE -ne 0) { throw 'Python is required for the Lab 11 isolated PATH.' }
 `,
   ));
   assert.throws(() => verifyModule11(root), /Phase A must check Python before create/);
+});
+
+test("verifier rejects a POSIX Python probe miss that does not exit 1", () => {
+  const root = changedCopy(lab11Path, (body) => spliceOnce(
+    lab11Lf(body),
+    "  printf '%s\\n' \"Python is required for the Lab 11 isolated PATH.\" >&2\n  exit 1\n",
+    "  printf '%s\\n' \"Python is required for the Lab 11 isolated PATH.\" >&2\n",
+  ));
+  assert.throws(() => verifyModule11(root), /exit 1 before create/);
+});
+
+test("verifier rejects dropping the Native Windows null Python throw", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    "if ($null -eq $PythonCommand) { throw 'Python is required for the Lab 11 isolated PATH.' }\n",
+    "",
+  ));
+  assert.throws(() => verifyModule11(root), /throw before create when Get-Command finds no Python/);
+});
+
+test("verifier rejects dropping the Native Windows Python LASTEXITCODE guard", () => {
+  const root = changedCopy(lab11Path, (body) => replaceLab11Windows(
+    body,
+    "& $PythonCommand.Source --version\nif ($LASTEXITCODE -ne 0) { throw 'Python is required for the Lab 11 isolated PATH.' }\n",
+    "& $PythonCommand.Source --version\n",
+  ));
+  assert.throws(() => verifyModule11(root), /LASTEXITCODE after Python --version/);
 });
 
 test("verifier rejects dropping the post-green source-only handoff text", () => {

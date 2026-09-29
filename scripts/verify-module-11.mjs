@@ -152,6 +152,11 @@ function requireStartingStateGate(page) {
   assert.match(probe, /case "\$python_search" in\s+\*:\*\)\s+python_directory=\$\{python_search%%:\*\}\s+python_search=\$\{python_search#\*:\}\s+;;\s+\*\)\s+python_directory=\$python_search\s+python_search=\s+;;\s+esac/, pythonPreflightMessage);
   assert.match(probe, /\[ -n "\$python_directory" \] \|\| continue\s+python_candidate="\$python_directory\/\$python_name"\s+if \[ -e "\$python_candidate" \]; then\s+python_command="\$python_candidate"\s+break 2[\s\S]*"\$python_command" --version/, pythonPreflightMessage);
   assert.match(probe, /Python is required for the Lab 11 isolated PATH\./, `${lab11} starting-state probe miss must print the Lab 11 isolated PATH refusal`);
+  assert.match(
+    probe,
+    /if \[ -z "\$python_command" \]; then\s+printf '%s\\n' "Python is required for the Lab 11 isolated PATH\." >&2\s+exit 1\s+fi/,
+    `${lab11} starting-state probe miss must exit 1 before create`,
+  );
   assert.doesNotMatch(probe, /command -v python(?:3)?/, `${lab11} Python preflight must not use shell-only resolution`);
   assert.doesNotMatch(probe, /\bgrep\b|\|\s*awk\b/, `${lab11} Python stays presence-only; do not add a Python version floor`);
   assert.match(
@@ -468,6 +473,17 @@ function assertWindowsRoutePauses(labPath, body) {
     phaseA,
     /Get-Command \$_ -CommandType Application -ErrorAction SilentlyContinue/,
     `${labPath} Phase A must resolve Python with Get-Command`,
+  );
+  const pythonProbe = phaseA.slice(python, create);
+  assert.match(
+    pythonProbe,
+    /if \(\$null -eq \$PythonCommand\) \{ throw 'Python is required for the Lab 11 isolated PATH\.' \}/,
+    `${labPath} Phase A must throw before create when Get-Command finds no Python`,
+  );
+  assert.match(
+    pythonProbe,
+    /& \$PythonCommand\.Source --version\nif \(\$LASTEXITCODE -ne 0\) \{ throw 'Python is required for the Lab 11 isolated PATH\.' \}/,
+    `${labPath} Phase A must check LASTEXITCODE after Python --version before create`,
   );
   const install = phaseA.search(/node \$Helper install \$LabRoot/);
   const printedRoot = phaseA.search(/Write-Output \$LabRoot\b/);

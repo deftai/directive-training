@@ -362,6 +362,7 @@ $PythonCommand = @('python', 'python3', 'py') | ForEach-Object {
 } | Select-Object -First 1
 if ($null -eq $PythonCommand) { throw 'Python is required for the Lab 11 isolated PATH.' }
 & $PythonCommand.Source --version
+if ($LASTEXITCODE -ne 0) { throw 'Python is required for the Lab 11 isolated PATH.' }
 $LabRoot = ((& node $Helper create) | Out-String).Trim()
 & node $Helper guard $LabRoot
 & node $Helper install $LabRoot
