@@ -9,11 +9,11 @@
     "status": "running",
     "narratives": {
       "Description": "The Lab 2 solution currently says Directive 0.119.5 initialization does not create the package pin, contradicting Module 2 and the released source baseline. This story corrects the solution's three-part explanation and recorded toolchain evidence, then adds a focused verifier lock so the obsolete statement cannot return.",
-      "ImplementationPlan": "1. Recut the relevant table cells in `solutions/lab-02-disposable-initialization.md` to state that 0.119.5 initialization writes the CLI package pin, while retaining fixture pre-seeding as the lab's deterministic setup reason and citing the released baseline.\n2. Align the solution's observed Node tuple to the recorded 24.20.0 run and describe patch versions as observed evidence rather than a second reconstitution pin.\n3. Extend `scripts/verify-modules-2-3.mjs` with a focused phrase lock that rejects the obsolete `0.119.5 did not` claim and proves the corrected explanation without introducing a generic cross-document checker.",
+      "ImplementationPlan": "1. Recut the relevant table cells in `solutions/lab-02-disposable-initialization.md` to state that 0.119.5 initialization writes the CLI package pin, while retaining fixture pre-seeding as the lab's deterministic setup reason and citing the released baseline.\n2. Align the solution's Consumer toolchain check to the recorded 0.119.9 observed tuple (Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0) as observed evidence rather than a second reconstitution pin, or label a different tuple as a dated probe.\n3. Extend `scripts/verify-modules-2-3.mjs` with a focused phrase lock that rejects the obsolete `0.119.5 did not` claim and proves the corrected explanation without introducing a generic cross-document checker.",
       "UserStory": "As a Lab 2 learner, I want the explained solution to match the released 0.119.5 initialization behavior, so that I can distinguish what init writes from why the disposable fixture is pre-seeded.",
-      "Traces": "GitHub issue #95 and its ingested design-critique Bound remedy identify the three solution cells, the released Modules 2-3 baseline, the historical 0.112.0 note, the 24.20.0 observed run, and the focused verifier boundary.",
+      "Traces": "GitHub issue #95 and its ingested design-critique Bound remedy identify the three solution cells, the released Modules 2-3 baseline, the historical 0.112.0 note, the 0.119.9 observed toolchain tuple, and the focused verifier boundary.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/95",
-      "Overview": "\n\n- Recut all three cells of `solutions/lab-02-disposable-initialization.md:354` onto 0.119.5 init-writes-CLI-pin. Keep fixture pre-seed as the reason the lab still copies `package.json` before install (`:82-84`, Module 2:168-170), not as a replacement misconception. Point Source at `references/SOURCE-BASELINE.md` Modules 2-3 released disagreements and Module 2 §2. Leave `references/SOURCE-NOTES.md:993` labeled historical 0.112.0.\n- Add a phrase lock on `scripts/verify-modules-2-3.mjs` so the solution table cannot keep `0.119.5 did not` and must state 0.119.5 init-writes-CLI-pin. Do not add a new generic solution-versus-SOURCE-BASELINE checker.\n- Align `solutions/lab-02-disposable-initialization.md:262` to the recorded 24.20.0 run, or label that tuple as the 0.112.0 dated probe from `SOURCE-NOTES.md:133`. Do not treat toolchain patch versions as a second reconstitution pin.\n\n",
+      "Overview": "\n\n- Recut all three cells of `solutions/lab-02-disposable-initialization.md:354` onto 0.119.5 init-writes-CLI-pin. Keep fixture pre-seed as the reason the lab still copies `package.json` before install (`:82-84`, Module 2:168-170), not as a replacement misconception. Point Source at `references/SOURCE-BASELINE.md` Modules 2-3 released disagreements and Module 2 §2. Leave `references/SOURCE-NOTES.md:993` labeled historical 0.112.0.\n- Add a phrase lock on `scripts/verify-modules-2-3.mjs` so the solution table cannot keep `0.119.5 did not` and must state 0.119.5 init-writes-CLI-pin. Do not add a new generic solution-versus-SOURCE-BASELINE checker.\n- Align `solutions/lab-02-disposable-initialization.md` Consumer toolchain check to the recorded 0.119.9 observed tuple (Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0), or label that tuple as a dated probe. Do not treat toolchain patch versions as a second reconstitution pin.\n\n",
       "Labels": "bug, documentation, design-critique:ingest-ready"
     },
     "items": [
@@ -23,6 +23,12 @@
         "id": "clause.1",
         "narrative": {
           "Acceptance": "When the Lab 2 solution table is rendered, all three cells state that Directive 0.119.5 init writes the CLI package pin, distinguish deterministic fixture pre-seeding from product behavior, and cite the released Modules 2-3 baseline while leaving the 0.112.0 note historical."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "solutions/lab-02-disposable-initialization.md",
+          "recorded_at": "2026-09-29T01:32:07Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
@@ -31,14 +37,26 @@
         "id": "clause.2",
         "narrative": {
           "Acceptance": "`npm run check:modules-2-3` passes for the corrected solution and fails when the old `0.119.5 did not` claim returns or the required init-writes-CLI-pin statement is removed."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-09-29T01:32:07Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
-        "title": "Align `solutions/lab-02-disposable-initialization.md:262` to the recorded 24.20.0 run, or label that tuple as the 0.112.0 dated probe from `SOURCE-NOTES.md:133`. Do not treat toolchain patch versions as a second reconstitution pin.",
+        "title": "Align `solutions/lab-02-disposable-initialization.md` Consumer toolchain check to the recorded 0.119.9 observed tuple (Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0), or label that tuple as a dated probe. Do not treat toolchain patch versions as a second reconstitution pin.",
         "status": "proposed",
         "id": "clause.3",
         "narrative": {
-          "Acceptance": "The solution records Node 24.20.0 for the 0.119.5 run and presents the toolchain tuple only as observed evidence, not as an additional reconstitution pin."
+          "Acceptance": "The solution records Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0 for the 0.119.9 course baseline and presents the toolchain tuple only as observed evidence, not as an additional reconstitution pin."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "solutions/lab-02-disposable-initialization.md Consumer toolchain check (Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0)",
+          "recorded_at": "2026-09-29T01:44:25Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       }
     ],
@@ -77,7 +95,7 @@
         ],
         "expected_outputs": [
           "The Lab 2 solution consistently states that Directive 0.119.5 init writes the CLI package pin and explains fixture pre-seeding as deterministic lab setup",
-          "The solution cites the released baseline and records Node 24.20.0 as observed toolchain evidence rather than a second pin",
+          "The solution cites the released baseline and records Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0 as observed 0.119.9 toolchain evidence rather than a second pin",
           "The focused Modules 2-3 verifier rejects the obsolete `0.119.5 did not` wording and a missing init-writes-CLI-pin statement"
         ],
         "depends_on": [
@@ -320,7 +338,7 @@
       "sentences": [
         "Recut all three cells of `solutions/lab-02-disposable-initialization.md:354` onto 0.119.5 init-writes-CLI-pin. Keep fixture pre-seed as the reason the lab still copies `package.json` before install (`:82-84`, Module 2:168-170), not as a replacement misconception. Point Source at `references/SOURCE-BASELINE.md` Modules 2-3 released disagreements and Module 2 §2. Leave `references/SOURCE-NOTES.md:993` labeled historical 0.112.0.",
         "Add a phrase lock on `scripts/verify-modules-2-3.mjs` so the solution table cannot keep `0.119.5 did not` and must state 0.119.5 init-writes-CLI-pin. Do not add a new generic solution-versus-SOURCE-BASELINE checker.",
-        "Align `solutions/lab-02-disposable-initialization.md:262` to the recorded 24.20.0 run, or label that tuple as the 0.112.0 dated probe from `SOURCE-NOTES.md:133`. Do not treat toolchain patch versions as a second reconstitution pin."
+        "Align `solutions/lab-02-disposable-initialization.md` Consumer toolchain check to the recorded 0.119.9 observed tuple (Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0), or label that tuple as a dated probe. Do not treat toolchain patch versions as a second reconstitution pin."
       ],
       "clauses": [
         {
@@ -339,7 +357,7 @@
         },
         {
           "id": 3,
-          "text": "Align `solutions/lab-02-disposable-initialization.md:262` to the recorded 24.20.0 run, or label that tuple as the 0.112.0 dated probe from `SOURCE-NOTES.md:133`. Do not treat toolchain patch versions as a second reconstitution pin.",
+          "text": "Align `solutions/lab-02-disposable-initialization.md` Consumer toolchain check to the recorded 0.119.9 observed tuple (Git 2.54.0, gh 2.92.0, Node 26.8.1, npm 11.19.0), or label that tuple as a dated probe. Do not treat toolchain patch versions as a second reconstitution pin.",
           "artifact_path": "solutions/lab-02-disposable-initialization.md",
           "ambiguous": false,
           "provenance": "statement"
