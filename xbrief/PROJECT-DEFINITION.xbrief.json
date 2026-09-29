@@ -226,10 +226,10 @@
       {
         "id": "2026-09-28-100-lab-attempts-accumulate-unbounded-in-os-temp-14-gb-enospc-ha",
         "title": "Lab attempts accumulate unbounded in OS temp (14 GB); ENOSPC halts the course mid-run with no sanctioned reclamation",
-        "status": "running",
+        "status": "completed",
         "metadata": {
-          "source_path": "active/2026-09-28-100-lab-attempts-accumulate-unbounded-in-os-temp-14-gb-enospc-ha.xbrief.json",
-          "lifecycle_folder": "active",
+          "source_path": "completed/2026-09-28-100-lab-attempts-accumulate-unbounded-in-os-temp-14-gb-enospc-ha.xbrief.json",
+          "lifecycle_folder": "completed",
           "references": [
             {
               "uri": "https://github.com/deftai/directive-training/issues/100",

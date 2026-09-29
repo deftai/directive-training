@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #100",
-    "updated": "2026-09-28T13:22:08Z"
+    "updated": "2026-09-28T19:07:38Z"
   },
   "plan": {
     "title": "Lab attempts accumulate unbounded in OS temp (14 GB); ENOSPC halts the course mid-run with no sanctioned reclamation",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Executable lab attempts and their per-attempt npm caches accumulate in OS temporary storage until an ENOSPC failure can stop the course without a recognized recovery. This story adds a measured disk-capacity contract and a guarded preview-then-apply reclaim path that can remove a confirmed older archive before any new archive directory is created, while preserving live attempts, the curriculum clone, remotes, symlinks, and the existing archive-as-rename behavior. Live attempts retain isolated caches; reclaim removes an archived attempt together with its contained cache.",
       "ImplementationPlan": "1. Add the ENOSPC environment-stop classification, peak-live-install measurement recipe, and reclaim-before-archive-before-reset ordering to `curriculum/README.md`, `labs/README.md`, and each executable lab page.\n2. Extend the six lab helper scripts with a consistent, read-only reclaim preview and confirmed apply verb over their exact existing archive destination classes. The preview must not create an archive directory; apply can reclaim a confirmed older archive first when the volume is full, after which the helper archives the live failed parent by same-volume rename and resets. Retain the existing identity, no-remote, clone, and symlink guards.\n3. Expand the focused lab, content-verifier, and linked-path test suites so evidence proves zero-free-space preview behavior, confirmation, exact deletion and cache-lifecycle boundaries, ENOSPC routing, and rejection of unsafe targets.",
@@ -19,7 +19,7 @@
     "items": [
       {
         "title": "Add an environment-stop ENOSPC / no-space-left row to `labs/README.md` Independent recovery and to each executable lab's Expected failures, including Lab 11 `:242-251`. While the volume reports that stop, Route A / reset / create do not run; reclaim runs first; then the existing reset path, because `installAttempt` still refuses the partial tree. Recut Independent recovery step 6 so unmatched ENOSPC does not Route A.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.1",
         "narrative": {
           "Acceptance": "When an executable lab reports ENOSPC or no space left, the course classifies it as an environment stop and blocks Route A, reset, and create until reclaim runs; focused verifiers reject restoration of the harmful routing."
@@ -33,7 +33,7 @@
       },
       {
         "title": "The disk prerequisite binds as a measurement recipe for peak concurrent live installs (current attempt + one reset + npm extract slack), with reclaim named as what runs on this environment stop before the next create. Do not harvest 20 GB as the course-entry floor.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.2",
         "narrative": {
           "Acceptance": "Given the current attempt, one reset attempt, and npm extraction slack, the course displays a repeatable peak-space measurement recipe and does not present the reporter's 20 GB observation as a universal prerequisite floor."
@@ -47,7 +47,7 @@
       },
       {
         "title": "Reclaim binds as a new helper verb over paths the matching helper would have written as archive destinations. Name all three destination classes: `tmpdir()/3ci-directive-lab-archive/<parent basename>` (Labs 5/7/10/11), `3ci-directive-capstone-archive` (capstone), and Lab 2 `3ci-directive-module-02-archive.<id>`. Refuse live `verifyAttemptIdentity` roots, the curriculum clone, remotes, and symlinks. Preview is read-only and creates no archive directory. If ENOSPC leaves no room to create one, preview and confirm deletion of an already-archived destination first; only after capacity is reclaimed, archive the live failed parent by same-volume rename and then reset. Leftover empty launchers are not the 14 GB.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.3",
         "narrative": {
           "Acceptance": "Given a full temporary volume, reclaim preview creates no directories and prints only existing archive destinations the helper could have created; apply deletes only the confirmed archived paths while rejecting live attempt roots, the curriculum clone, remotes, symlinks, and mismatched identities, and leaves the live failed parent untouched until space exists for archive-as-rename before reset."
@@ -61,7 +61,7 @@
       },
       {
         "title": "Leave shared npm cache off this harvest. Each live attempt keeps its isolated cache; reclaim deletes an archived attempt together with its contained cache.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.4",
         "narrative": {
           "Acceptance": "Given a reclaim run, each live attempt retains its isolated npm cache, deleting a confirmed archived attempt also deletes that archive's contained cache, archive remains a same-volume rename, and focused tests reject a shared npm-cache mechanism and reject empty-launcher deletion as the primary remedy."
@@ -411,9 +411,33 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "290b65c78d0abb90629340e74dd873e510c0717ac1f69ac16b75b0fa511ba007"
+      },
+      "completionProvenance": {
+        "repository": "deftai/directive-training",
+        "implementationCommit": "92060c4e0659bad81e15c3ab049f81675674c498",
+        "prNumber": 108,
+        "prBase": "master",
+        "mergeCommit": "11d5e81466bb44b2d3024f0830b8c1b2ad2fad16",
+        "deliveryBranch": "master",
+        "deliveryCommit": "11d5e81466bb44b2d3024f0830b8c1b2ad2fad16",
+        "verifiedAt": "2026-09-28T19:07:38Z",
+        "verifier": "swarm:finalize-cohort",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "01a0e58a-5f52-7cd0-bb49-952e46176e93"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-09-28T19:07:38Z",
+      "completedSessionId": "01a0e58a-5f52-7cd0-bb49-952e46176e93",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-09-28T19:07:38Z"
       }
     },
     "id": "github.issue.5587628552",
-    "updated": "2026-09-28T13:22:08Z"
+    "updated": "2026-09-28T19:07:38Z"
   }
 }
