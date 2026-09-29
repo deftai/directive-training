@@ -132,13 +132,16 @@
       },
       {
         "id": "clause.9",
-        "title": "clause.9",
+        "title": "npm test exits 0",
         "status": "completed",
+        "narrative": {
+          "Acceptance": "npm test exits 0"
+        },
         "x-directive/evidence": {
           "kind": "test",
-          "pointer": "package.json",
-          "recorded_at": "2026-09-29T21:58:37Z",
-          "recorded_by": "leftover-complete-recut"
+          "pointer": "scripts/teaching-baseline.test.mjs",
+          "recorded_at": "2026-09-29T22:08:00Z",
+          "recorded_by": "leftover-p1-npm-test"
         }
       },
       {
@@ -525,6 +528,7 @@
         "git diff --check exits 0",
         "deft xbrief:validate exits 0",
         "deft check exits 0",
+        "npm test exits 0",
         "Required CI and Greptile on merged PR #119 head 042d7ec8104eaca1e6f3c68daeceb0a65f65eb08 / merge 0f1e6a69b1461017a6f9c526a5d08669c4442775 were CLEAN"
       ],
       "admitted_source_sentences": [
@@ -938,7 +942,8 @@
         ],
         "verify_commands": [
           "npm run test:teaching-baseline",
-          "npm run check:cold-start-readme"
+          "npm run check:cold-start-readme",
+          "npm test"
         ],
         "size": "large",
         "file_scope_confidence": "high",
