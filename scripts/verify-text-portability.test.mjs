@@ -21,10 +21,16 @@ after(() => console.log(`Text portability fixtures retained at ${evidenceRoot}`)
 const readSource = (path) => readFileSync(join(repositoryRoot, path), "utf8").replace(/\r\n/g, "\n");
 const coldStartFiles = new Map([
   ["README.md", readSource("README.md")],
+  ["curriculum/README.md", readSource("curriculum/README.md")],
   ["package.json", readSource("package.json")],
   [coldStartVerifier, readSource(coldStartVerifier)],
   [teachingBaseline, readSource(teachingBaseline)],
 ]);
+const cloneWarningLead = "**Opening your agent in the course clone.**";
+const cloneWarningEnd = "and you may skip it.";
+const cloneRecoveryLead = "If a clone-hook deny appears";
+const cloneForbidLead = "Do not recover this clone with";
+const cloneForbidEnd = "it is not a learner repair target.";
 const directivePin = JSON.parse(coldStartFiles.get("package.json")).devDependencies["@deftai/directive"];
 const expectedNpmGlobalInstall = `npm i -g @deftai/directive@${directivePin}`;
 const expectedPnpmGlobalInstall = `pnpm add -g @deftai/directive@${directivePin}`;
@@ -101,6 +107,27 @@ function audienceLine(text) {
 
 function withoutAudienceLine(text) {
   return text.replace(/^> \*\*Learners:\*\* .+\n(?:>\n)?/m, "");
+}
+
+function extractInclusive(text, startNeedle, endNeedle) {
+  const start = text.indexOf(startNeedle);
+  assert.ok(start >= 0, `fixture must contain ${startNeedle}`);
+  const end = text.indexOf(endNeedle, start);
+  assert.ok(end >= 0, `fixture must contain ${endNeedle}`);
+  return text.slice(start, end + endNeedle.length);
+}
+
+function withoutInclusive(text, startNeedle, endNeedle) {
+  const block = extractInclusive(text, startNeedle, endNeedle);
+  return text.replace(block, "").replace(/\n{3,}/g, "\n\n");
+}
+
+function relocateInclusive(text, startNeedle, endNeedle, heading) {
+  const block = extractInclusive(text, startNeedle, endNeedle);
+  const stripped = withoutInclusive(text, startNeedle, endNeedle);
+  const marker = `## ${heading}\n\n`;
+  assert.ok(stripped.includes(marker), `fixture must contain heading ${heading}`);
+  return stripped.replace(marker, `${marker}${block}\n\n`);
 }
 
 for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
@@ -182,6 +209,66 @@ for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
     assertRejected(
       runVerifier(`cold-start-audience-identity-${label}`, coldStartVerifier, files, eol),
       /Learners-prefixed audience line/,
+    );
+  });
+
+  test(`cold-start verifier rejects a missing Audience clone-hook warning with ${label}`, () => {
+    const files = changed(coldStartFiles, "curriculum/README.md", (text) =>
+      withoutInclusive(text, cloneWarningLead, cloneWarningEnd));
+    assertRejected(
+      runVerifier(`cold-start-audience-warning-missing-${label}`, coldStartVerifier, files, eol),
+      /Audience and prerequisites must carry the course-entry clone-hook warning/,
+    );
+  });
+
+  test(`cold-start verifier rejects a missing Safety clone-hook warning with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", (text) =>
+      withoutInclusive(text, cloneWarningLead, cloneWarningEnd));
+    assertRejected(
+      runVerifier(`cold-start-safety-warning-missing-${label}`, coldStartVerifier, files, eol),
+      /Safety boundary must carry the course-entry clone-hook warning/,
+    );
+  });
+
+  test(`cold-start verifier rejects a relocated Audience clone-hook warning with ${label}`, () => {
+    const files = changed(coldStartFiles, "curriculum/README.md", (text) =>
+      relocateInclusive(text, cloneWarningLead, cloneWarningEnd, "How to take the course"));
+    assertRejected(
+      runVerifier(`cold-start-audience-warning-relocated-${label}`, coldStartVerifier, files, eol),
+      /Audience and prerequisites must carry the course-entry clone-hook warning/,
+    );
+  });
+
+  test(`cold-start verifier rejects a relocated Resume recovery with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", (text) =>
+      relocateInclusive(text, cloneRecoveryLead, cloneForbidEnd, "Maintainers"));
+    assertRejected(
+      runVerifier(`cold-start-recovery-relocated-${label}`, coldStartVerifier, files, eol),
+      /Resume or recover must name the clone-hook deny recovery/,
+    );
+  });
+
+  test(`cold-start verifier rejects mutation-authorizing learner recovery with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", (text) =>
+      text.replace(
+        cloneForbidLead,
+        "Run `deft session:ready` to recover.\n\n" + cloneForbidLead,
+      ));
+    assertRejected(
+      runVerifier(`cold-start-recovery-mutating-${label}`, coldStartVerifier, files, eol),
+      /must appear only as forbidden recovery/,
+    );
+  });
+
+  test(`cold-start verifier rejects kill-switch learner recovery with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", (text) =>
+      text.replace(
+        "a personal untracked\nnote.",
+        "a personal untracked\nnote. Plant `.deft-directive-disable` in the clone root.",
+      ));
+    assertRejected(
+      runVerifier(`cold-start-recovery-kill-switch-${label}`, coldStartVerifier, files, eol),
+      /must not name the test kill switch/,
     );
   });
 

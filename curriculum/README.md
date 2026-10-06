@@ -45,6 +45,14 @@ Do not install or initialize lab tooling in this training
 repository. Each lab that changes files supplies a disposable starting
 repository and reset path.
 
+**Opening your agent in the course clone.** This clone is a governed
+Directive consumer. Opening a coding-agent host at the clone root loads
+its tracked hooks. Those hooks can deny writes, including notes outside
+this tree. Read the course in a browser or a plain editor. For labs, open
+the coding-agent host on `LAB_ROOT`; `DIRECTIVE_TRAINING_ROOT` is the
+helper path only. The product-signal consent prompt is optional partner
+signal, not a course step, and you may skip it.
+
 Before a command-based lab, measure storage headroom on the same temporary
 volume and with the same runtime and package-manager route you will use. Budget
 for the current attempt, one fresh reset attempt, and npm extraction slack; do
