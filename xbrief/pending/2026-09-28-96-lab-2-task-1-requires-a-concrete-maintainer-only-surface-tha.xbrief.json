@@ -323,7 +323,7 @@
       "commands": [],
       "none_stated": true,
       "source_rung": "derived",
-      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "derived_reason": "derived 10 independently testable clauses from the task statement before product edit (#3323)",
       "sentences": [
         "Bind the named-example arm.",
         "Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.",
