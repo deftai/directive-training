@@ -1,0 +1,479 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Scope xBRIEF ingested from GitHub issue #98",
+    "updated": "2026-10-06T22:50:12Z"
+  },
+  "plan": {
+    "title": "Module 3 Card E solution requires Module 8 work-selection knowledge; the rubric fails the answer Modules 1\u20133 support",
+    "status": "running",
+    "narratives": {
+      "Description": "Align the Module 3 Card E answer key with the authority concepts learners have actually encountered by that point in the course. Asking which proposed scope should be approved and activated must receive full credit without importing Module 8's ordered-plan and ranked-queue inspection model.",
+      "UserStory": "As a Directive learner, I want Card E graded against Modules 1\u20133 knowledge, so that a correct escalation to the operator passes before later work-selection mechanics have been taught.",
+      "ImplementationPlan": "1. Recut the Card E decision, operator, additional-context, valid-alternative, and misconception language in `solutions/module-03-authority-and-context.md` so asking which proposed scope should be approved and activated is a complete passing answer. 2. Add focused assertions to `scripts/verify-modules-2-3.mjs` that lock those aligned answer-key surfaces and reject accidental Module 8 ordered-plan or ranked-queue prerequisites; verify with `npm run check:modules-2-3`.",
+      "Traces": "GitHub issue #98 and its accepted Option 2 Bound remedy; implementation is traced by clauses clause.1 through clause.3 and focused Card E assertions in scripts/verify-modules-2-3.mjs.",
+      "Origin": "Ingested from https://github.com/deftai/directive-training/issues/98",
+      "Overview": "\n\n- Bind Option 2. Recut `solutions/module-03-authority-and-context.md` so \"ask which proposed scope should be approved and activated\" is a full pass for Card E, covering Step 1 row E Decision cell, operator cell, and additional context (`:107`), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`.\n- Do not add a Module 3 paragraph that a deterministic work-selection surface exists unless Card E also lists plan/queue facts and O3.3 scores inspection. That expansion is outside this envelope.\n- Leave inspect-first as the existing Module 8 Snapshot 2 / Case C teaching.\n\n",
+      "Labels": "documentation, design-critique:ingest-ready"
+    },
+    "items": [
+      {
+        "title": "Bind Option 2. Recut `solutions/module-03-authority-and-context.md` so \"ask which proposed scope should be approved and activated\" is a full pass for Card E, covering Step 1 row E Decision cell, operator cell, and additional context (`:107`), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`.",
+        "status": "proposed",
+        "id": "clause.1",
+        "narrative": {
+          "Acceptance": "Given the revised answer key, when each named Card E surface is evaluated, then asking which proposed scope should be approved and activated receives a full pass and scripts/verify-modules-2-3.mjs fails if any surface again requires prior work-selection inspection."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-10-06T22:26:47Z",
+          "recorded_by": "leftover-complete"
+        },
+        "x-directive/product-land": {
+          "schema": "deft.scope.product-land.v1",
+          "issue": 98,
+          "pr": 125,
+          "sha": "0f09f7e2c57b73a3b1505ddbc68579de1e6c82d1",
+          "paths": [
+            "scripts/verify-modules-2-3.mjs",
+            "solutions/module-03-authority-and-context.md"
+          ],
+          "verify_commands": [
+            "npm run check:modules-2-3"
+          ],
+          "protected_paths_absent": [
+            "curriculum/modules/08-session-and-work-selection.md",
+            "solutions/module-08-session-and-work-selection.md"
+          ]
+        }
+      },
+      {
+        "title": "Do not add a Module 3 paragraph that a deterministic work-selection surface exists unless Card E also lists plan/queue facts and O3.3 scores inspection. That expansion is outside this envelope.",
+        "status": "proposed",
+        "id": "clause.2",
+        "narrative": {
+          "Acceptance": "Given only Modules 1\u20133 knowledge, when Card E is graded, then the Module 3 solution requires no ordered-plan, ranked-queue, or deterministic work-selection prerequisite and the focused verifier rejects those out-of-sequence concepts."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-10-06T22:26:47Z",
+          "recorded_by": "leftover-complete"
+        },
+        "x-directive/product-land": {
+          "schema": "deft.scope.product-land.v1",
+          "issue": 98,
+          "pr": 125,
+          "sha": "0f09f7e2c57b73a3b1505ddbc68579de1e6c82d1",
+          "paths": [
+            "scripts/verify-modules-2-3.mjs",
+            "solutions/module-03-authority-and-context.md"
+          ],
+          "verify_commands": [
+            "npm run check:modules-2-3"
+          ],
+          "protected_paths_absent": [
+            "curriculum/modules/08-session-and-work-selection.md",
+            "solutions/module-08-session-and-work-selection.md"
+          ]
+        }
+      },
+      {
+        "title": "Leave inspect-first as the existing Module 8 Snapshot 2 / Case C teaching.",
+        "status": "proposed",
+        "id": "clause.3",
+        "narrative": {
+          "Acceptance": "Given the completed implementation diff, when its paths are inspected, then only the Module 3 solution, modules 2-3 verifier, and lifecycle xBRIEF are updated and no Module 8 curriculum or solution path appears."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-10-06T22:26:47Z",
+          "recorded_by": "leftover-complete"
+        },
+        "x-directive/product-land": {
+          "schema": "deft.scope.product-land.v1",
+          "issue": 98,
+          "pr": 125,
+          "sha": "0f09f7e2c57b73a3b1505ddbc68579de1e6c82d1",
+          "paths": [
+            "scripts/verify-modules-2-3.mjs",
+            "solutions/module-03-authority-and-context.md"
+          ],
+          "verify_commands": [
+            "npm run check:modules-2-3"
+          ],
+          "protected_paths_absent": [
+            "curriculum/modules/08-session-and-work-selection.md",
+            "solutions/module-08-session-and-work-selection.md"
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "documentation",
+      "design-critique:ingest-ready"
+    ],
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/98",
+        "type": "x-xbrief/github-issue",
+        "title": "Issue #98: Module 3 Card E solution requires Module 8 work-selection knowledge; the rubric fails the answer Modules 1\u20133 support"
+      }
+    ],
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 3 independently testable clauses from the task statement before product edit (#3323)",
+      "sentences": [
+        "Bind Option 2. Recut `solutions/module-03-authority-and-context.md` so \"ask which proposed scope should be approved and activated\" is a full pass for Card E, covering Step 1 row E Decision cell, operator cell, and additional context (`:107`), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`.",
+        "Do not add a Module 3 paragraph that a deterministic work-selection surface exists unless Card E also lists plan/queue facts and O3.3 scores inspection. That expansion is outside this envelope.",
+        "Leave inspect-first as the existing Module 8 Snapshot 2 / Case C teaching."
+      ],
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Bind Option 2. Recut `solutions/module-03-authority-and-context.md` so \"ask which proposed scope should be approved and activated\" is a full pass for Card E, covering Step 1 row E Decision cell, operator cell, and additional context (`:107`), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`.",
+          "artifact_path": "solutions/module-03-authority-and-context.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Do not add a Module 3 paragraph that a deterministic work-selection surface exists unless Card E also lists plan/queue facts and O3.3 scores inspection. That expansion is outside this envelope.",
+          "artifact_path": "solutions/module-03-authority-and-context.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Leave inspect-first as the existing Module 8 Snapshot 2 / Case C teaching.",
+          "artifact_path": "solutions/module-03-authority-and-context.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found",
+      "admitted_source_sentences": [
+        "Bind Option 2.",
+        "Recut `solutions/module-03-authority-and-context.md` so \"ask which proposed scope should be approved and activated\" is a full pass for Card E, covering Step 1 row E Decision cell, operator cell, and additional context (`:107`), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`.",
+        "Do not add a Module 3 paragraph that a deterministic work-selection surface exists unless Card E also lists plan/queue facts and O3.3 scores inspection.",
+        "That expansion is outside this envelope.",
+        "Leave inspect-first as the existing Module 8 Snapshot 2 / Case C teaching."
+      ],
+      "admitted_source_digest": "b9a769904ad44fd050c7a8db979fd53cbf7ed86f976bc8907a8303f6830e93c1"
+    },
+    "metadata": {
+      "intended_placement": {
+        "schema": "deft.scope.intended_placement.v1",
+        "files": [],
+        "module_boundary": ""
+      },
+      "kind": "story",
+      "swarm": {
+        "readiness": "ready",
+        "parallel_safe": true,
+        "file_scope": [
+          "solutions/module-03-authority-and-context.md",
+          "scripts/verify-modules-2-3.mjs",
+          "xbrief/active/2026-09-28-98-module-3-card-e-solution-requires-module-8-work-selection-kn.xbrief.json"
+        ],
+        "verify_commands": [
+          "npm run check:modules-2-3"
+        ],
+        "expected_outputs": [
+          "All named Card E answer-key surfaces award a full pass for asking which proposed scope should be approved and activated",
+          "The Module 3 solution does not require ordered-plan, ranked-queue, or other Module 8 inspection knowledge",
+          "The modules 2-3 verifier fails when the Card E grading contract regresses"
+        ],
+        "depends_on": [
+          "github.issue.5586607590"
+        ],
+        "conflict_group": "curriculum-modules-2-3",
+        "size": "small",
+        "file_scope_confidence": "high",
+        "model_tier": "high"
+      },
+      "issueCommentThread": [
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: triage\n```\n\ndesign-critique: warranted, because the Module 3 Card E rubric fails the answer Modules 1-3 support by grading later Module 8 work-selection knowledge.\n\nmechanism-shaped: true\narc-mode: no-ingest\nyolo-standing: yes\ncharter: open critique\nspend: N=1\nspend-ask: resolved\nstop-2: charter=open critique; spend=N=1 because parseOperatorSpend resolved n=1 on the operator chat utterance; this is a closed identity recut of either one Module 3 sentence that a deterministic work-selection surface exists or accepting ask-which-scope as a Module 3 pass\npain: P1\nP1: curriculum/modules/03-authority-and-context.md:271 Card E completed xBRIEF plus live instruction Build whatever is next with no active scope; :206 Ask only after narrowing does not name ordered-plan or ranked-queue; solutions/module-03-authority-and-context.md:107 grades E as Not yet. Inspect authorized work selection first; :177 fails immediate escalation that skips an already-defined authorized ordered plan; curriculum/modules/08-session-and-work-selection.md:24 and :135 first teach ordered-plan precedence and ranked queue.\ndest: /Users/davidcall/tools/deft/directive-training/.deft-scratch/worktrees/parent-arc\norigin-ref: origin/master\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5838828300,
+          "html_url": "https://github.com/deftai/directive-training/issues/98#issuecomment-5838828300",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:07:54Z",
+          "updated_at": "2026-09-25T20:07:54Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\n## F1 \u2014 Option 1 as written leaves Card E without an inspectable selection surface\n\n`blocks-the-design`\n\n**Evidence.** Re-verified at dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b` with `git show <sha>:<path>` line prints and a search of `curriculum/modules/01`\u2013`08`.\n\nCard E\u2019s provided state is a completed xBRIEF, the live sentence \u201cBuild whatever is next,\u201d and no active scope (`curriculum/modules/03-authority-and-context.md:271`). The exercise constraint is to use only fictional facts on that page (`:290`). That page lists no ordered plan, ranked queue, or other work-selection snapshot.\n\nThe explained solution still requires inspecting \u201cthe authorized ordered plan or ranked work-selection surface\u201d first (`solutions/module-03-authority-and-context.md:130\u2013132`) and fails immediate escalation when it \u201cskips an already-defined authorized ordered plan without inspecting it\u201d (`:177`). Additional context for row E is \u201cWork-selection/lifecycle guidance\u201d (`:107`).\n\nModules 1\u20137 contain no ordered-plan or ranked-queue teaching. The first occurrence is Module 8 O8.2 (`curriculum/modules/08-session-and-work-selection.md:24`) and work-selection precedence (`:131\u2013139`). Module 3 \u201cAsk only after narrowing\u201d (`03-authority-and-context.md:206\u2013216`) names controlling facts, a deterministic result, and a smallest remaining choice. It does not name an ordered plan or ranked queue.\n\nOption 1 as written is one Module 3 paragraph that a deterministic work-selection surface exists and that a vague \u201cbuild whatever is next\u201d request should consult it before escalating.\n\n**Failure mode.** After that paragraph, Card E still supplies no plan or queue to consult. A learner who names the surface invents world-state the card does not give. A learner who asks which scope to activate still meets the solution\u2019s \u201calready-defined authorized ordered plan\u201d fail path. The named Card E forward-dependency pain stays open.\n\n**Disposition.** This heading blocks binding Option 1 as the closed recut. A design that adds Card E snapshot facts and amends O3.3, O3.4, Hint 3, and completion evidence would expand Module 3\u2019s identity past this envelope.\n\n## F2 \u2014 Bind Option 2 as the closed identity recut of the Module 3 solution\n\n`sharpens-framing`\n\n**Evidence.** Module 3 already scores Card E as the completed-scope authority reject (exercise acceptance O3.3 at `03-authority-and-context.md:309`). Focused questions are scored on H and J (O3.4 `:310`; completion evidence `:319`). Hint 3 (`:345\u2013349`) names those two escalations: declared file-scope expansion, and two incompatible accepted formats.\n\nThe authorization conjunction already states that a live implement instruction without an approved active scope does not supply the missing contract (`:151\u2013152`) and that a completed xBRIEF has zero authority over what to build next (`:153\u2013154`). The model limit sends unresolved scope/authorization residue to a bounded operator question (`:161\u2013164`). Ask-which-scope is the next action Card E supports from Modules 1\u20133.\n\n**Inventory.** Module 8 Snapshot 2 (`08-session-and-work-selection.md:201\u2013215`) already holds exhausted-plan stop plus \u201cstop until an operator target or explicit queue selection exists,\u201d and forbids treating the completed scope as reusable authority. Explained Module 8 Case C (`solutions/module-08-session-and-work-selection.md:62`) already records \u201cAsk for an operator target or explicit queue selection.\u201d At this SHA, issue 16\u2019s recut is present: the Module 6 route row names `NS-INGEST-R2` as an identifier (`solutions/module-06-creating-well-shaped-work.md:256`), keeping the earlier module\u2019s identity and leaving later-module judgment in the later module.\n\n**Road-not-taken.** Adding a fictional ordered-plan snapshot to Card E so inspect-first is in-envelope for Module 3. That path also has to amend O3.3, Hint 3, and completion evidence, and it duplicates Module 8 Snapshot 2. Flip: Card E lists plan/queue facts and O3.3 scores inspection. Measured `:271` and `:309` do not.\n\n**Steelman.** Option 1\u2019s strongest case is that a local sentence makes the solution\u2019s inspect-first grade reachable in Module 3, the same forward-dependency class issue 16 named. That case requires Card E to list selection-surface facts and O3.3 to score inspection.\n\n**Failure mode.** Leaving the proposal as \u201ceither\u201d lets a later pass ship Option 1 (F1). Recutting only Step 1 row E, Step 3, and Valid alternatives, while leaving \u201cE must use current work selection and activation\u201d (`solutions/module-03-authority-and-context.md:228`) and the Additional context cell \u201cWork-selection/lifecycle guidance\u201d (`:107`), keeps inspect-first in the Module 3 solution.\n\n**Disposition.** Successor-lean take `accept-into-contract` on this heading: bind Option 2. Recut the explained Module 3 solution so \u201cask which proposed scope should be approved and activated\u201d is a full pass for Card E, covering Step 1 row E (operator cell and additional context), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`. Inspect-first remains the existing Module 8 Snapshot 2 / Case C teaching.\n\n## F3 \u2014 Issue 16 analog and numeric-order map\n\n`footnote`\n\nIssue 16 (closed) is the same class: an explained solution required later-module knowledge. Course map: complete core modules in numeric order (`curriculum/README.md:48`). Re-verified at this SHA as noted in F2 inventory.\n\n",
+          "id": 5838986663,
+          "html_url": "https://github.com/deftai/directive-training/issues/98#issuecomment-5838986663",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-25T20:18:42Z",
+          "updated_at": "2026-09-25T20:18:42Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe Module 3 Card E rubric still fails the ask-which-scope answer Modules 1-3 support. Confirming this map would recut the explained Module 3 solution so that ask is a full pass for Card E, and leave inspect-first on Module 8 Snapshot 2 / Case C.\n\nParent forward verdict: P1 holds; Option 1 as written cannot bind because Card E lists no selection surface. Option 2 is the harvest.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838828300 and these takes; the evidence is critic 5838986663.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5838986663\nsupersedes: 5838828300\nTarget-digest: sha256:e2484920964d466a5354383c8b8e60eec65bcf445bc6a8ee61e9f75f612aa744\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Option 1 as written leaves Card E without an inspectable selection surface\ntake: accept-into-contract\ncritic: 5838986663\nheading: Option 1 as written leaves Card E without an inspectable selection surface\n### Bind Option 2 as the closed identity recut of the Module 3 solution\ntake: accept-into-contract\ncritic: 5838986663\nheading: Bind Option 2 as the closed identity recut of the Module 3 solution\n### footnote \u2014 Issue 16 analog and numeric-order map\ntake: accept-into-contract\ncritic: 5838986663\nheading: Issue 16 analog and numeric-order map\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5838986663 reading=asserted\n\n## Bound remedy\n\n- Bind Option 2. Recut `solutions/module-03-authority-and-context.md` so \"ask which proposed scope should be approved and activated\" is a full pass for Card E, covering Step 1 row E (operator cell and additional context), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`.\n- Do not add a Module 3 paragraph that a deterministic work-selection surface exists unless Card E also lists plan/queue facts and O3.3 scores inspection. That expansion is outside this envelope.\n- Leave inspect-first as the existing Module 8 Snapshot 2 / Case C teaching.\n\n",
+          "id": 5847300114,
+          "html_url": "https://github.com/deftai/directive-training/issues/98#issuecomment-5847300114",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:03:09Z",
+          "updated_at": "2026-09-26T15:03:09Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2, fresh critic, seat family grok. Pain-audit of successor lean 5847300114. Marker `pain-P1`. Input ceiling 5847300114. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Process-only.\n\nCensus: 0 `blocks-the-design`, 1 `sharpens-framing`, 1 `footnote`.\n\n## Anchors re-verified\n\nEngine `@deftai/directive-core@0.119.5`. Tree reads via `git show aea1e77017962e2e7186ef64ad8d7e82329da77b:<path>`.\n\n- `scanPainList` on Stop 1 5838828300: present, ids `[P1]`, duplicates empty, malformed false.\n- `scanPainCites` on lean 5847300114: one cite `{painId: P1, disposition: relieves, deferredIssueNumber: null}`, `rejected` empty. One `PAIN_CITE_RE` match, line 34, `classifyPosition` null.\n- `extractBoundRemedyHarvest`: three list items under `## Bound remedy`.\n- `parseAuditToken` on the lean `audit:pain-P1` line: well-formed, `reading=asserted`, `pointer=comment:5838986663`.\n\nStop 1 P1 sites at this SHA:\n\n- `curriculum/modules/03-authority-and-context.md:271` Card E: completed xBRIEF, live \u201cBuild whatever is next,\u201d no active scope.\n- `:206` Ask only after narrowing names controlling facts, a deterministic result, and a smallest remaining choice. It names no ordered plan or ranked queue.\n- `solutions/module-03-authority-and-context.md:107` row E Decision: \u201cUse the authorized work-selection and lifecycle path to obtain an active contract.\u201d Additional context: \u201cWork-selection/lifecycle guidance.\u201d Operator: \u201cNot yet. Inspect authorized work selection first\u2026\u201d\n- `:130-132` and `:140-142` Step 3 E: inspect the authorized ordered plan or ranked work-selection surface first; do not ask before using that source.\n- `:177` Valid alternatives fail path: skips an already-defined authorized ordered plan without inspecting it.\n- `:228` misconception: \u201cE must use current work selection and activation.\u201d\n- `curriculum/modules/08-session-and-work-selection.md:24` O8.2 ordered-plan precedence; `:131-139` precedence list (`:135` ranked-queue forbid). Snapshot 2 `:201-215` exhausted-plan stop.\n- `solutions/module-08-session-and-work-selection.md:62` Case C: \u201cAsk for an operator target or explicit queue selection.\u201d\n\n## F1 \u2014 Bound-remedy covering list omits the Step 1 Decision cell\n\n`sharpens-framing`\n\n**Evidence.** Harvest item 1 recuts `solutions/module-03-authority-and-context.md` so ask is a full pass for Card E, covering Step 1 row E (operator cell and additional context), Step 3 E including `:140`, Valid alternatives `:177`, and misconception `:228`. Item 2 keeps a Module 3 work-selection paragraph outside this envelope unless Card E lists plan/queue facts and O3.3 scores inspection. Item 3 leaves inspect-first on Module 8 Snapshot 2 / Case C.\n\nStop 1 named `:107` as the grade. The Operator cell and Additional context on that row are in the covering list. The Decision cell on the same line still requires the authorized work-selection path. That cell is absent from the covering list. `evaluateBoundRemedyCites` takes parent-claimed covered-versus-unmet ids; it does not grade this English.\n\n**Failure mode.** An implementer who treats the covering list as the exclusive recut set changes the Operator and Additional-context cells, Step 3, `:177`, and `:228`, and leaves Decision as \u201cUse the authorized work-selection and lifecycle path.\u201d The worked table\u2019s primary action for Card E still grades Module 8 work-selection. Ask is not a full pass against that column. P1 as Stop 1 named `:107` remains on this harvest.\n\n**Disposition.** Restate Bound-remedy item 1 so the Step 1 row E Decision cell is in the covering list with the Operator cell and Additional context. That changes the harvested list. This harvest is not bindable. Parent posts a new bind lean and another pain-audit.\n\n**Road-not-taken.** Classify `relieves: P1` as `blocks-the-design` because the Decision cell still grades inspect-first. Flip: Option 2 as the recut identity still relieves the forward-dependency once the covering list names that cell; retraction-then-Handoff would drop that recut.\n\n**Steelman.** \u201cFull pass for Card E\u201d already includes the Decision cell, so the covering list is examples. Flip: harvest is `parseListItems` of this slice; the covering list is item 1\u2019s acceptance set; exclusive reading is the measured failure shape.\n\n## F2 \u2014 scanPainCites emits one P1 disposition\n\n`footnote`\n\nThe closed-form match is line 34 `relieves: P1`. Take headings are take-map titles and sit outside `PAIN_CITE_RE`. Prose `P1 holds` and `audit:pain-P1` sit outside that regex. Dedup key is `P1|relieves|`. No second disposition for `P1`. `rejected` is empty. This lean body is well-formed for `scanPainCites`.\n\n",
+          "id": 5847372036,
+          "html_url": "https://github.com/deftai/directive-training/issues/98#issuecomment-5847372036",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:13:30Z",
+          "updated_at": "2026-09-26T15:13:30Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nThe Module 3 Card E rubric still fails the ask-which-scope answer Modules 1-3 support. Confirming this map would recut the explained Module 3 solution so that ask is a full pass for Card E, including the Step 1 Decision cell, and leave inspect-first on Module 8 Snapshot 2 / Case C.\n\nParent forward verdict: P1 holds; Option 2 is the harvest once the covering list names the Decision cell at `:107`.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838828300, prior map 5847300114, and these takes; the evidence is critics 5838986663 and 5847372036.\nThis arc does not ingest and does not dest-place.\n\nround: 2\nsiblings: 1\ncritics: 5838986663, 5847372036\nsupersedes: 5847300114\nTarget-digest: sha256:e2484920964d466a5354383c8b8e60eec65bcf445bc6a8ee61e9f75f612aa744\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Option 1 as written leaves Card E without an inspectable selection surface\ntake: accept-into-contract\ncritic: 5838986663\nheading: Option 1 as written leaves Card E without an inspectable selection surface\n\n### Bind Option 2 as the closed identity recut of the Module 3 solution\ntake: accept-into-contract\ncritic: 5838986663\nheading: Bind Option 2 as the closed identity recut of the Module 3 solution\n\n### footnote \u2014 Issue 16 analog and numeric-order map\ntake: accept-into-contract\ncritic: 5838986663\nheading: Issue 16 analog and numeric-order map\n\n### Bound-remedy covering list omits the Step 1 Decision cell\ntake: accept-into-contract\ncritic: 5847372036\nheading: Bound-remedy covering list omits the Step 1 Decision cell\n\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5847372036 reading=asserted\n\n## Bound remedy\n\n- Bind Option 2. Recut `solutions/module-03-authority-and-context.md` so \"ask which proposed scope should be approved and activated\" is a full pass for Card E, covering Step 1 row E Decision cell, operator cell, and additional context (`:107`), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`.\n- Do not add a Module 3 paragraph that a deterministic work-selection surface exists unless Card E also lists plan/queue facts and O3.3 scores inspection. That expansion is outside this envelope.\n- Leave inspect-first as the existing Module 8 Snapshot 2 / Case C teaching.\n\n",
+          "id": 5847426603,
+          "html_url": "https://github.com/deftai/directive-training/issues/98#issuecomment-5847426603",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:21:22Z",
+          "updated_at": "2026-09-26T15:21:22Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 3, fresh critic, seat family grok. Pain-audit of successor lean 5847426603. Marker `pain-P1`. Input ceiling 5847426603. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Process-only.\n\nCensus: 0 `blocks-the-design`, 0 `sharpens-framing`, 2 `footnote`.\n\n## Anchors re-verified\n\nEngine `@deftai/directive-core@0.119.5`. Tree reads via `git show aea1e77017962e2e7186ef64ad8d7e82329da77b:<path>`.\n\n- `scanPainList` on Stop 1 5838828300: present, ids `[P1]`, duplicates empty, malformed false.\n- `scanPainCites` on lean 5847426603: one cite `{painId: P1, disposition: relieves, deferredIssueNumber: null}`, `rejected` empty. One `PAIN_CITE_RE` match, line 42, `classifyPosition` null.\n- `extractBoundRemedyHarvest`: three list items under `## Bound remedy`.\n- `parseAuditToken` on the lean `audit:pain-P1` line: well-formed, `reading=asserted`, `pointer=comment:5847372036`.\n- `assertedPainIdsFromCites`: `[P1]`.\n- `evaluatePainCitePlacement` kind bind: allowed, `operativeCiteCount` 1.\n\nStop 1 P1 sites at this SHA:\n\n- `curriculum/modules/03-authority-and-context.md:271` Card E: completed xBRIEF, live \u201cBuild whatever is next,\u201d no active scope.\n- `:206` Ask only after narrowing names controlling facts, a deterministic result, and a smallest remaining choice. It names no ordered plan or ranked queue.\n- `:309` O3.3 scores E as rejecting completed-scope authority.\n- `solutions/module-03-authority-and-context.md:107` row E Decision: \u201cUse the authorized work-selection and lifecycle path to obtain an active contract.\u201d Additional context: \u201cWork-selection/lifecycle guidance.\u201d Operator: \u201cNot yet. Inspect authorized work selection first\u2026\u201d\n- `:130-132` Step 3 E bullet: inspect the authorized ordered plan or ranked work-selection surface first; do not ask before using that source.\n- `:140-142` Step 3 following paragraph: Card E may require operator input when the normal ordered plan or ranked work-selection surface does not identify an already-approved candidate.\n- `:177` Valid alternatives fail path: skips an already-defined authorized ordered plan without inspecting it.\n- `:228` misconception: \u201cE must use current work selection and activation.\u201d\n- `curriculum/modules/08-session-and-work-selection.md:24` O8.2 ordered-plan precedence; `:131-139` precedence list (`:135` ranked-queue forbid). Snapshot 2 `:201-215` exhausted-plan stop.\n- `solutions/module-08-session-and-work-selection.md:62` Case C: \u201cAsk for an operator target or explicit queue selection.\u201d\n\n## F1 \u2014 Bound-remedy covers P1 as Stop 1 named it\n\n`footnote`\n\n**Evidence.** Harvest item 1 recuts `solutions/module-03-authority-and-context.md` so ask is a full pass for Card E, covering Step 1 row E Decision cell, operator cell, and additional context (`:107`), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`. Item 2 keeps a Module 3 work-selection paragraph outside this envelope unless Card E lists plan/queue facts and O3.3 scores inspection. Item 3 leaves inspect-first on Module 8 Snapshot 2 / Case C.\n\nThose covering-list sites are the inspect-first grades Stop 1 named at `:107` and `:177`, plus the Step 3 inspect-first text at `:130-132` and `:140-142`, plus misconception `:228`. Card E at `:271` still lists no plan or queue. Ask-only-after-narrowing at `:206` still names no ordered plan. Ordered-plan teaching still starts at Module 8 `:24` and `:135`. `evaluateBoundRemedyCites` takes parent-claimed covered-versus-unmet ids; it does not grade this English.\n\n**Road-not-taken.** Classify `relieves: P1` as `sharpens-framing` because harvest item 1 calls `:140` a Step 3 E bullet, and `:140` is the paragraph after the H and J bullets. Flip: the same harvest item still names `:140`; exclusive covering-list reading recuts that paragraph.\n\n## F2 \u2014 scanPainCites emits one P1 disposition\n\n`footnote`\n\nThe closed-form match is line 42 `relieves: P1`. Take headings sit outside `PAIN_CITE_RE`. Prose `P1 holds` and `audit:pain-P1` sit outside that regex. Dedup key is `P1|relieves|`. `rejected` is empty. This lean body is well-formed for `scanPainCites`.\n\n",
+          "id": 5847477159,
+          "html_url": "https://github.com/deftai/directive-training/issues/98#issuecomment-5847477159",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:28:47Z",
+          "updated_at": "2026-09-26T15:28:47Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\nPain-audit 5847477159 is footnote-only. Bind remains successor lean 5847426603. Harvest unchanged.\n\nround: 3\nsiblings: 1\ncritic: 5847477159\nsupersedes: 5847426603\n\n",
+          "id": 5847495533,
+          "html_url": "https://github.com/deftai/directive-training/issues/98#issuecomment-5847495533",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:31:29Z",
+          "updated_at": "2026-09-26T15:31:29Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## Verified-claims table\n\n| Claim | Verdict | Method |\n| --- | --- | --- |\n| Module 3 Card E solution still grades inspect-first work selection | verified | `git show` solutions/module-03-authority-and-context.md:107, :140, :177, :228 |\n| Bound-remedy recuts Card E including the Step 1 Decision cell; inspect-first stays on Module 8 | verified | harvest on lean 5847426603; `scanPainCites` one `relieves`; pain-audit 5847477159 footnote-only |\n\n",
+          "id": 5847495673,
+          "html_url": "https://github.com/deftai/directive-training/issues/98#issuecomment-5847495673",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:31:30Z",
+          "updated_at": "2026-09-26T15:31:30Z",
+          "author_association": "COLLABORATOR"
+        },
+        {
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n## In plain English\n\nThe Module 3 Card E rubric still fails the ask-which-scope answer Modules 1-3 support. The harvest recuts the explained solution so that ask is a full pass, including the Step 1 Decision cell, and leaves inspect-first on Module 8.\n\ndesign-critique: synthesis accepted, because agents agreed (empty disagreement set)\nsuccessor lean 5847426603\nverified-claims table 5847495673\npain-audit 5847477159\ndispatch-sha: aea1e77017962e2e7186ef64ad8d7e82329da77b\n\n",
+          "id": 5847495819,
+          "html_url": "https://github.com/deftai/directive-training/issues/98#issuecomment-5847495819",
+          "user": {
+            "login": "dbcall2",
+            "id": 15332465,
+            "node_id": "MDQ6VXNlcjE1MzMyNDY1",
+            "avatar_url": "https://avatars.githubusercontent.com/u/15332465?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/dbcall2",
+            "html_url": "https://github.com/dbcall2",
+            "followers_url": "https://api.github.com/users/dbcall2/followers",
+            "following_url": "https://api.github.com/users/dbcall2/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dbcall2/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/dbcall2/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dbcall2/subscriptions",
+            "organizations_url": "https://api.github.com/users/dbcall2/orgs",
+            "repos_url": "https://api.github.com/users/dbcall2/repos",
+            "events_url": "https://api.github.com/users/dbcall2/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/dbcall2/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2026-09-26T15:31:32Z",
+          "updated_at": "2026-09-26T15:31:32Z",
+          "author_association": "COLLABORATOR"
+        }
+      ],
+      "issueBody": "## Course context\n\nModule 3 exercise, Card E, completed before opening the solution, as a mid/senior learner taking the course in order (Windows 11 ARM64, PowerShell 7.6.6; Module 3 is command-free).\n\n## What happened\n\nCard E: \"A completed xBRIEF describes a different normalization improvement. The live instruction says, 'Build whatever is next.' No active scope identifies that improvement.\"\n\nUsing only Modules 1\u20133, I concluded: do not revive the completed record, no active contract exists, so **ask the operator** which scope to promote/activate. Module 3 gives no other way to find \"what is next\". Its only related statement is that a completed xBRIEF \"has zero authority over what to build next\".\n\nThe explained solution grades E as **\"Not yet. Inspect authorized work selection first.\"** It adds: \"Do not ask before using the deterministic selection source\". Its \"Valid alternatives\" table says immediate escalation **fails** when \"It skips an already-defined authorized ordered plan without inspecting it.\"\n\nNothing before Module 8 teaches \"authorized ordered plan\", \"ranked work-selection surface\", or any work-selection mechanism. Module 8's outcomes are where \"ordered-plan precedence and ranked queue selection\" first appear.\n\n## Learner pain\n\nI answered correctly with what the course had taught me, and the rubric still marked my answer as a failure path. That is the same kind of forward dependency fixed for Module 6/9 in #16. It makes a learner think they missed something in Module 3 that they could not have learned there.\n\n## Reproduction\n\nDo Module 3 Card E using only Modules 1\u20133, then compare with `solutions/module-03-authority-and-context.md` Step 1 row E, Step 3, and \"Valid alternatives\".\n\n## Proposed fix\n\nDo one of these:\n\n- add one short paragraph to Module 3 (for example, under \"Authorization is a conjunction\" or \"Ask only after narrowing\") that says Directive has a deterministic work-selection surface (an ordered plan, then a ranked queue, taught in Module 8), and that a vague \"build whatever is next\" request should consult it before escalating; or\n- accept \"ask which proposed scope to approve and activate\" as a full pass for Card E in Module 3, and move the \"inspect work selection first\" refinement to Module 8.\n\n",
+      "x-directive/plan-id": {
+        "version": 1,
+        "source": "github-rest-id",
+        "github_issue_id": 5586667955,
+        "origin": "deftai/directive-training#98",
+        "id": "github.issue.5586667955"
+      },
+      "x-directive/admitted-target-digest": {
+        "schema": "deft.scope.admitted-target-digest.v1",
+        "algorithm": "sha256",
+        "sha256": "e2484920964d466a5354383c8b8e60eec65bcf445bc6a8ee61e9f75f612aa744"
+      }
+    },
+    "id": "github.issue.5586667955",
+    "updated": "2026-10-06T22:50:12Z"
+  }
+}
