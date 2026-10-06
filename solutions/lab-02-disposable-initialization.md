@@ -218,6 +218,17 @@ copies an unobserved warning or that reports “no warnings” when the run prod
 linux and macOS captures print the signpost only. The consumer check reported all required
 tools available.
 
+Doctor also prints one of these USER.md lines as expected skip/info output, not as
+warnings:
+
+```text
+USER.md resolved (<rung>): <path>
+USER.md: no USER.md found; using defaults (searched: ...)
+```
+
+Record resolved-versus-defaulted. Do not open or copy USER.md, and do not copy the host
+path into `evidence.md` or public posts. Do not add helper redaction of `doctor-full.txt`.
+
 A correct anatomy table looks like this:
 
 | Path or region | Git relation | Owner | Anatomy class |
@@ -236,7 +247,13 @@ A correct anatomy table looks like this:
 | conceptual shared `USER.md` row | external and never copied | individual/organization | personal authority source |
 
 The `USER.md` row is based on the project rule and its external authority class. Resolution
-is taught in Module 3; do not resolve or copy its location or contents in this lab.
+is taught in Module 3; do not open or copy USER.md. Record resolved-versus-defaulted from
+the doctor skip/info line; do not copy the host path into `evidence.md` or public posts.
+
+Init installs the ignore rule for `.deft-cache/`. The directory appears on a later cache,
+queue, or session-event write; Lab 2 doctor is not that write. Keep
+`git check-ignore -v -- .deft-cache/example` as the evidence even when the directory is
+absent.
 
 ### Step 5 — Complete the recovery decision drill
 

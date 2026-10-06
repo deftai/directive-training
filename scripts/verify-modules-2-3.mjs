@@ -632,6 +632,88 @@ for (const ignoredPath of [
     "Lab 2 must provide an explicit verbose ignore check for " + ignoredPath,
   );
 }
+// #97: name both USER.md doctor outcomes as skip/info, keep the no-open/no-copy
+// boundary, and classify `.deft-cache/` as a later write, not Lab 2 doctor.
+const lab2Task3 = headingSection(lab2, "Task 3 — Classify the repository anatomy");
+const userMdFound = "USER.md resolved (<rung>): <path>";
+const userMdAbsent = "USER.md: no USER.md found; using defaults (searched: ...)";
+for (const [label, content] of [
+  ["Lab 2", lab2],
+  ["Lab 2 solution", lab2Solution],
+]) {
+  assert.ok(content.includes(userMdFound), label + " must name the found USER.md doctor string");
+  assert.ok(content.includes(userMdAbsent), label + " must name the absent USER.md doctor string");
+  assert.match(
+    content,
+    /skip\/info/,
+    label + " must classify USER.md doctor lines as skip/info",
+  );
+  assert.match(
+    content,
+    /not as\s+warnings/,
+    label + " must say USER.md doctor lines are not warnings",
+  );
+  assert.match(
+    content,
+    /do not open or copy USER\.md/i,
+    label + " must forbid opening or copying USER.md",
+  );
+  assert.match(
+    content,
+    /resolved-versus-defaulted/,
+    label + " must keep resolved-versus-defaulted as evidence",
+  );
+  assert.match(
+    content,
+    /do not copy the host path into `evidence\.md` or public posts/i,
+    label + " must forbid copying the USER.md host path into evidence or public posts",
+  );
+  assert.match(
+    content,
+    /Do not add helper redaction of `doctor-full\.txt`/,
+    label + " must keep doctor-full.txt unredacted",
+  );
+  assert.match(
+    content,
+    /Init installs the ignore rule for `\.deft-cache\/`/,
+    label + " must state that init installs the .deft-cache/ ignore rule",
+  );
+  assert.match(
+    content,
+    /later cache,\s+queue, or session-event write/,
+    label + " must state that .deft-cache/ appears on a later cache, queue, or session-event write",
+  );
+  assert.match(
+    content,
+    /Lab 2 doctor is not that write/,
+    label + " must state that Lab 2 doctor does not create .deft-cache/",
+  );
+}
+assert.doesNotMatch(
+  lab2Task3,
+  /do not resolve or copy/,
+  "Lab 2 Task 3 must recut USER.md away from resolve-or-copy",
+);
+const inspectList = lab2Task3.match(/Inspect at least these paths:\s*```text\n([\s\S]*?)```/)?.[1] ?? "";
+assert.match(
+  inspectList,
+  /^\.deft-cache\/$/m,
+  "Lab 2 Task 3 must keep .deft-cache/ on the inspect list",
+);
+assert.doesNotMatch(
+  inspectList,
+  /xbrief\/\.triage-cache\//,
+  "Lab 2 Task 3 must not replace the .deft-cache/ inspect path with xbrief/.triage-cache/",
+);
+assert.ok(
+  lab2.includes("git check-ignore -v -- .deft-cache/example"),
+  "Lab 2 must keep git check-ignore -v -- .deft-cache/example",
+);
+assert.doesNotMatch(
+  initHelper,
+  /redact/i,
+  "the Lab 2 helper must not redact doctor-full.txt",
+);
 
 assert.match(
   module2,

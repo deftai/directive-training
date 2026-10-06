@@ -385,6 +385,18 @@ xBrief migration: none -- xbrief active, vbrief removed.
 This banner's "vBRIEF" names post-pre-cutover document-model state. Learner-facing files stay
 xBRIEF 0.8, and new course writes stay `xbrief/` schema 0.8.
 
+Doctor also prints one of these USER.md lines as expected skip/info output, not as
+warnings:
+
+```text
+USER.md resolved (<rung>): <path>
+USER.md: no USER.md found; using defaults (searched: ...)
+```
+
+The first line prints when USER.md is found. The second prints when it is absent. Record
+resolved-versus-defaulted. Do not copy the host path into `evidence.md` or public posts.
+Do not add helper redaction of `doctor-full.txt`.
+
 The pin-matched 0.119.11 replay prints the provenance check
 `canonical-vendored-npm-signpost`:
 
@@ -419,7 +431,9 @@ Record what your own run printed, not what this page predicts. Diagnostic severi
 follow from a warning count, so do not use one as your pass condition, and do not copy a
 warning your run did not produce.
 
-**Keep as evidence:** version, both exits, toolchain pass, doctor classifications, and empty remote (O2.2, O2.4).
+**Keep as evidence:** version, both exits, toolchain pass, doctor classifications, the
+resolved-versus-defaulted USER.md outcome, and empty remote (O2.2, O2.4). Do not copy the
+host path into `evidence.md` or public posts.
 
 ### Task 3 — Classify the repository anatomy
 
@@ -439,8 +453,13 @@ AGENTS.md managed section
 .deft-cache/
 .npm-cache/
 xbrief/ or its schemas if present
-USER.md (conceptual external row; do not resolve or copy it in this lab)
+USER.md (conceptual external row; do not open or copy USER.md)
 ```
+
+Init installs the ignore rule for `.deft-cache/`. The directory appears on a later cache,
+queue, or session-event write; Lab 2 doctor is not that write. Keep
+`git check-ignore -v -- .deft-cache/example` as the evidence even when the directory is
+absent.
 
 Use these safe inspections, each run with `git -C "$lab_root"`:
 
@@ -462,11 +481,14 @@ different path without first reconciling it with the pinned baseline.
 
 **Checkpoint:** your table includes at least two authoritative or anchor examples, two tracked
 managed examples, two ignored runtime examples, and two ignored reconstitutable examples. It
-also includes a conceptual external `USER.md` row based on the project rule—not its location
-or contents—and separate rows for the two ownership regions of `AGENTS.md`. This
+also includes a conceptual external `USER.md` row based on the project rule. Do not open or
+copy USER.md. Record resolved-versus-defaulted; do not copy the host path into `evidence.md`
+or public posts. Keep separate rows for the two ownership regions of `AGENTS.md`. This
 demonstrates O2.3.
 
-**Keep as evidence:** only the table and narrow supporting Git output; never copy shared `USER.md` contents.
+**Keep as evidence:** only the table and narrow supporting Git output; record
+resolved-versus-defaulted; never copy shared `USER.md` contents or the host path into
+`evidence.md` or public posts.
 
 ### Task 4 — Trace the provided recovery case
 
