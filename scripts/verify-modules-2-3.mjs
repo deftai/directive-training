@@ -1163,6 +1163,20 @@ assert.doesNotMatch(
   /E must use current work selection and activation/,
   "Card E misconception must not require current work selection and activation",
 );
+const module3CardEGrading = [
+  cardERow,
+  (module3Step3.match(/- \*\*E:\*\*[\s\S]*?(?=\n- \*\*[A-Z]:\*\*)/) ?? [""])[0],
+  (module3Step3.match(/^Card E requires[\s\S]*/m) ?? [""])[0],
+  module3ValidAlts.split("\n").find((line) => /for E/.test(line)) ?? "",
+  module3Misconceptions.split("\n").find((line) =>
+    /^\| Completed scope is queued future work \|/.test(line),
+  ) ?? "",
+].join("\n");
+assert.match(
+  module3CardEGrading,
+  /Ask which proposed scope should be approved and activated/,
+  "Card E grading surfaces must stay extractable for phrase-ban scope",
+);
 for (const [label, pattern] of [
   ["inspect-first operator delay", /Inspect authorized work selection first/i],
   ["authorized ordered plan", /authorized ordered plan/i],
@@ -1172,9 +1186,9 @@ for (const [label, pattern] of [
   ["work-selection misconception", /E must use current work selection and activation/],
 ]) {
   assert.doesNotMatch(
-    module3Solution,
+    module3CardEGrading,
     pattern,
-    "Module 3 solution must not grade Card E with Module 8 " + label,
+    "Card E grading must not use Module 8 " + label,
   );
 }
 
