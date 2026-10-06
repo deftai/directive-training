@@ -28,9 +28,11 @@ this Markdown; they will not replace it as the source of truth.
 ## Start here
 
 1. Confirm the prerequisites in the [course map](curriculum/README.md).
-2. Note the current maintainer project pin: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.121.0<!-- /directive-training:teaching-baseline --> with xBRIEF
+2. Before you open a coding-agent host on this clone, read [Safety boundary](#safety-boundary)
+   and [Resume or recover](#resume-or-recover).
+3. Note the current maintainer project pin: `@deftai/directive` <!-- directive-training:teaching-baseline -->0.121.0<!-- /directive-training:teaching-baseline --> with xBRIEF
    schema 0.8. Course labs, solutions, and SOURCE-BASELINE remain on the 0.119.11 teaching baseline.
-3. Complete [Module 1: What Directive Is](curriculum/modules/01-what-directive-is.md),
+4. Complete [Module 1: What Directive Is](curriculum/modules/01-what-directive-is.md),
    [Module 2: Installation and Project Anatomy](curriculum/modules/02-installation-and-anatomy.md),
    [Module 3: Authority and Context](curriculum/modules/03-authority-and-context.md),
    [Module 4: xBRIEF as Durable State](curriculum/modules/04-xbrief-as-durable-state.md),
@@ -43,18 +45,18 @@ this Markdown; they will not replace it as the source of truth.
    [Module 11: Testing, Gates, and Evidence](curriculum/modules/11-testing-gates-and-evidence.md),
    and [Module 12: PR, Review, and Actual Completion](curriculum/modules/12-review-and-completion.md)
    in order.
-4. Complete the [two-hour end-to-end capstone](curriculum/capstone-end-to-end.md).
-5. Run command work only in the specified disposable no-remote lab:
+5. Complete the [two-hour end-to-end capstone](curriculum/capstone-end-to-end.md).
+6. Run command work only in the specified disposable no-remote lab:
    [Lab 2](labs/02-disposable-initialization.md) or
    [Lab 5](labs/05-projection-drift-recovery.md), or
    [Lab 7](labs/07-scope-lifecycle.md), or
    [Lab 10](labs/10-implementation-golden-path.md),
    [Lab 11](labs/11-testing-gates-and-evidence.md), or the
    [capstone lab](labs/capstone-end-to-end.md).
-6. Use the [glossary](references/GLOSSARY.md) and
+7. Use the [glossary](references/GLOSSARY.md) and
    [quick reference](references/QUICK-REFERENCE.md) when a term or boundary is
    unclear.
-7. Use the [assessment policy](assessments/README.md) to evaluate practical
+8. Use the [assessment policy](assessments/README.md) to evaluate practical
    evidence and the [solution policy](solutions/README.md) to compare and retry
    after a suggested first attempt.
 
@@ -86,6 +88,14 @@ Reading the course does not authorize a push, pull request,
 merge, deployment, release, or publication. Follow the explicit authorization
 and policy for the repository where work is performed.
 
+**Opening your agent in the course clone.** This clone is a governed
+Directive consumer. Opening a coding-agent host at the clone root loads
+its tracked hooks. Those hooks can deny writes, including notes outside
+this tree. Read the course in a browser or a plain editor. For labs, open
+the coding-agent host on `LAB_ROOT`; `DIRECTIVE_TRAINING_ROOT` is the
+helper path only. The product-signal consent prompt is optional partner
+signal, not a course step, and you may skip it.
+
 ## Resume or recover
 
 Return to the course map, find the last checkpoint for which you retained the
@@ -97,6 +107,18 @@ order, and finally its explained solution. If the written paths disagree or do
 not recover the exercise, record the page, command, sanitized output, operating
 system, shell, and Directive version in this repository's issue tracker.
 That is a curriculum defect; completion must not depend on undocumented help.
+
+If a clone-hook deny appears while this clone is the agent workspace,
+leave the deny in place. Treat it as maintainer governance of this
+consumer, not a course step. Keep using paper or a personal untracked
+note. For labs, open the coding-agent host on `LAB_ROOT`; export
+`DIRECTIVE_TRAINING_ROOT` only as the helper path.
+
+Do not recover this clone with
+`deft verify:hooks-installed --scope=agent --repair`, `deft update`,
+`directive init`, `deft policy:disable-host-hooks`, `deft session:ready`,
+or occupancy mint. Pin versus engine skew is expected when the global CLI
+and the teaching pin differ; it is not a learner repair target.
 
 ## Maintainers
 
