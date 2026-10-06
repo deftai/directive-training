@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #97",
-    "updated": "2026-10-06T20:33:00Z"
+    "updated": "2026-10-06T20:40:00Z"
   },
   "plan": {
     "title": "Lab 2 Task 3: 'do not resolve USER.md' conflicts with diagnose writing the resolved path to evidence; .deft-cache/ absent after init",
@@ -49,22 +49,78 @@
       "commands": [],
       "none_stated": true,
       "source_rung": "derived",
-      "derived_reason": "derived 2 independently testable clauses from the task statement before product edit (#3323)",
+      "derived_reason": "derived 9 independently testable clauses from the Bound-remedy harvest before product edit (#3323)",
       "sentences": [
-        "Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent. Say they are skip/info, not warnings. Recut Task 3 to do not open or copy USER.md. Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule. Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts. Do not add helper redaction of `doctor-full.txt`.",
-        "Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`. State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write. Do not replace the inspect path with `xbrief/.triage-cache/`."
+        "Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent.",
+        "Say they are skip/info, not warnings.",
+        "Recut Task 3 to do not open or copy USER.md.",
+        "Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule.",
+        "Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts.",
+        "Do not add helper redaction of `doctor-full.txt`.",
+        "Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`.",
+        "State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write.",
+        "Do not replace the inspect path with `xbrief/.triage-cache/`."
       ],
       "clauses": [
         {
           "id": 1,
-          "text": "Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent. Say they are skip/info, not warnings. Recut Task 3 to do not open or copy USER.md. Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule. Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts. Do not add helper redaction of `doctor-full.txt`.",
-          "artifact_path": "solutions/lab-02-disposable-initialization.md",
+          "text": "Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent.",
+          "artifact_path": "labs/02-disposable-initialization.md",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 2,
-          "text": "Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`. State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write. Do not replace the inspect path with `xbrief/.triage-cache/`.",
+          "text": "Say they are skip/info, not warnings.",
+          "artifact_path": "labs/02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Recut Task 3 to do not open or copy USER.md.",
+          "artifact_path": "labs/02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule.",
+          "artifact_path": "solutions/lab-02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts.",
+          "artifact_path": "solutions/lab-02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "Do not add helper redaction of `doctor-full.txt`.",
+          "artifact_path": "solutions/lab-02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 7,
+          "text": "Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`.",
+          "artifact_path": "labs/02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 8,
+          "text": "State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write.",
+          "artifact_path": "labs/02-disposable-initialization.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 9,
+          "text": "Do not replace the inspect path with `xbrief/.triage-cache/`.",
           "artifact_path": "labs/02-disposable-initialization.md",
           "ambiguous": false,
           "provenance": "statement"
@@ -72,10 +128,17 @@
       ],
       "ambiguity_attestation": "none_found",
       "admitted_source_sentences": [
-        "Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent. Say they are skip/info, not warnings. Recut Task 3 to do not open or copy USER.md. Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule. Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts. Do not add helper redaction of `doctor-full.txt`.",
-        "Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`. State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write. Do not replace the inspect path with `xbrief/.triage-cache/`."
+        "Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent.",
+        "Say they are skip/info, not warnings.",
+        "Recut Task 3 to do not open or copy USER.md.",
+        "Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule.",
+        "Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts.",
+        "Do not add helper redaction of `doctor-full.txt`.",
+        "Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`.",
+        "State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write.",
+        "Do not replace the inspect path with `xbrief/.triage-cache/`."
       ],
-      "admitted_source_digest": "22d482d290eea1c257e0133b954878f396991906b5701ddd03c6967e523079a0"
+      "admitted_source_digest": "8c28b7afe2309985e864d432b11d1369a62bed07c994f6dc36f2c340cd3fb338"
     },
     "metadata": {
       "intended_placement": {
@@ -387,6 +450,6 @@
       }
     },
     "id": "github.issue.5586607590",
-    "updated": "2026-10-06T20:33:00Z"
+    "updated": "2026-10-06T20:40:00Z"
   }
 }
