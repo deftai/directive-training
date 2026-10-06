@@ -130,6 +130,17 @@ function relocateInclusive(text, startNeedle, endNeedle, heading) {
   return stripped.replace(marker, `${marker}${block}\n\n`);
 }
 
+function withoutWrappedSentence(text, lead) {
+  const start = text.indexOf(lead);
+  assert.ok(start >= 0, `fixture must contain ${lead}`);
+  const period = text.indexOf(".", start);
+  assert.ok(period >= 0, `fixture sentence must terminate: ${lead}`);
+  let from = start;
+  const to = period + 1;
+  if (text.slice(from - 1, from) === " ") from -= 1;
+  return (text.slice(0, from) + text.slice(to)).replace(/\n{3,}/g, "\n\n");
+}
+
 for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
   test(`cold-start verifier accepts ${label} content`, () => {
     const result = runVerifier(`cold-start-valid-${label}`, coldStartVerifier, coldStartFiles, eol);
@@ -257,6 +268,54 @@ for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
     assertRejected(
       runVerifier(`cold-start-recovery-mutating-${label}`, coldStartVerifier, files, eol),
       /must appear only as forbidden recovery/,
+    );
+  });
+
+  test(`cold-start verifier rejects same-paragraph affirmative recovery advice with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", (text) =>
+      text.replace(
+        "or occupancy mint.",
+        "or occupancy mint. Run `deft session:ready` to recover.",
+      ));
+    assertRejected(
+      runVerifier(`cold-start-recovery-same-paragraph-${label}`, coldStartVerifier, files, eol),
+      /must appear only as forbidden recovery/,
+    );
+  });
+
+  test(`cold-start verifier rejects a Safety warning missing tracked-hook load with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", (text) =>
+      withoutWrappedSentence(text, "Opening a coding-agent host at the clone root loads"));
+    assertRejected(
+      runVerifier(`cold-start-safety-warning-hooks-load-${label}`, coldStartVerifier, files, eol),
+      /Safety boundary must say opening the host loads tracked hooks/,
+    );
+  });
+
+  test(`cold-start verifier rejects an Audience warning missing tracked-hook load with ${label}`, () => {
+    const files = changed(coldStartFiles, "curriculum/README.md", (text) =>
+      withoutWrappedSentence(text, "Opening a coding-agent host at the clone root loads"));
+    assertRejected(
+      runVerifier(`cold-start-audience-warning-hooks-load-${label}`, coldStartVerifier, files, eol),
+      /Audience and prerequisites must say opening the host loads tracked hooks/,
+    );
+  });
+
+  test(`cold-start verifier rejects a Safety warning missing outside-clone deny with ${label}`, () => {
+    const files = changed(coldStartFiles, "README.md", (text) =>
+      withoutWrappedSentence(text, "Those hooks can deny writes, including notes outside"));
+    assertRejected(
+      runVerifier(`cold-start-safety-warning-deny-writes-${label}`, coldStartVerifier, files, eol),
+      /Safety boundary must say those hooks can deny writes outside the clone/,
+    );
+  });
+
+  test(`cold-start verifier rejects an Audience warning missing outside-clone deny with ${label}`, () => {
+    const files = changed(coldStartFiles, "curriculum/README.md", (text) =>
+      withoutWrappedSentence(text, "Those hooks can deny writes, including notes outside"));
+    assertRejected(
+      runVerifier(`cold-start-audience-warning-deny-writes-${label}`, coldStartVerifier, files, eol),
+      /Audience and prerequisites must say those hooks can deny writes outside the clone/,
     );
   });
 

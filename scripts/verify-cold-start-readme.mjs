@@ -102,9 +102,41 @@ function assertNoKillSwitch(text, label) {
   );
 }
 
+function sentenceContaining(text, index) {
+  let start = 0;
+  for (const sep of [".", "!", "?"]) {
+    const pos = text.lastIndexOf(sep, Math.max(0, index - 1));
+    if (pos >= start) start = pos + 1;
+  }
+  const para = text.lastIndexOf("\n\n", index);
+  if (para >= start) start = para + 2;
+  let end = text.length;
+  for (const sep of [".", "!", "?"]) {
+    const pos = text.indexOf(sep, index);
+    if (pos !== -1 && pos < end) end = pos;
+  }
+  const paraEnd = text.indexOf("\n\n", index);
+  if (paraEnd !== -1 && paraEnd < end) end = paraEnd;
+  return text.slice(start, end);
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function assertCloneWarning(sectionText, label) {
   assert.match(sectionText, /\*\*Opening your agent in the course clone\.\*\*/, `${label} must carry the course-entry clone-hook warning`);
   assert.match(sectionText, /governed\s+Directive consumer/, `${label} must name this clone a governed Directive consumer`);
+  assert.match(
+    sectionText,
+    /Opening a coding-agent host at the clone root loads\s+its tracked hooks/,
+    `${label} must say opening the host loads tracked hooks`,
+  );
+  assert.match(
+    sectionText,
+    /Those hooks can deny writes, including notes outside\s+this tree/,
+    `${label} must say those hooks can deny writes outside the clone`,
+  );
   assert.match(sectionText, /open\s+the coding-agent host on `LAB_ROOT`/, `${label} must name LAB_ROOT as the coding-agent workspace`);
   assert.match(sectionText, /`DIRECTIVE_TRAINING_ROOT` is the\s+helper path only/, `${label} must name DIRECTIVE_TRAINING_ROOT as the helper path only`);
   assert.match(
@@ -120,10 +152,14 @@ function assertCloneWarning(sectionText, label) {
 
 function assertNamedOnlyAsForbidden(recovery, token) {
   assert.ok(recovery.includes(token), `Resume or recover must name ${token}`);
-  const hits = recovery.split(/\n\n+/).filter((unit) => unit.includes(token));
-  assert.ok(hits.length > 0, `Resume or recover must keep ${token} in the recovery text`);
-  for (const unit of hits) {
-    assert.match(unit, /\bdo not\b/i, `${token} must appear only as forbidden recovery`);
+  const tokenRe = new RegExp(escapeRegExp(token), "g");
+  const matches = [...recovery.matchAll(tokenRe)];
+  assert.ok(matches.length > 0, `Resume or recover must keep ${token} in the recovery text`);
+  const affirmativeRe = new RegExp(`\\b(?:run|use)\\s+\`?${escapeRegExp(token)}\`?(?:\\s+to\\s+recover)?`, "i");
+  for (const match of matches) {
+    const sentence = sentenceContaining(recovery, match.index);
+    assert.match(sentence, /\bdo not\b/i, `${token} must appear only as forbidden recovery`);
+    assert.doesNotMatch(sentence, affirmativeRe, `${token} must appear only as forbidden recovery`);
   }
 }
 
