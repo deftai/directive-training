@@ -178,10 +178,10 @@
       {
         "id": "2026-09-28-96-lab-2-task-1-requires-a-concrete-maintainer-only-surface-tha",
         "title": "Lab 2 Task 1 requires a concrete maintainer-only surface that Module 2 never names; solution grades against an unseen command",
-        "status": "pending",
+        "status": "running",
         "metadata": {
-          "source_path": "pending/2026-09-28-96-lab-2-task-1-requires-a-concrete-maintainer-only-surface-tha.xbrief.json",
-          "lifecycle_folder": "pending",
+          "source_path": "active/2026-09-28-96-lab-2-task-1-requires-a-concrete-maintainer-only-surface-tha.xbrief.json",
+          "lifecycle_folder": "active",
           "references": [
             {
               "uri": "https://github.com/deftai/directive-training/issues/96",
