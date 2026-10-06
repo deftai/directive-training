@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #98",
-    "updated": "2026-10-06T22:23:39Z"
+    "updated": "2026-10-06T22:50:12Z"
   },
   "plan": {
     "title": "Module 3 Card E solution requires Module 8 work-selection knowledge; the rubric fails the answer Modules 1\u20133 support",
@@ -29,6 +29,23 @@
           "pointer": "scripts/verify-modules-2-3.mjs",
           "recorded_at": "2026-10-06T22:26:47Z",
           "recorded_by": "leftover-complete"
+        },
+        "x-directive/product-land": {
+          "schema": "deft.scope.product-land.v1",
+          "issue": 98,
+          "pr": 125,
+          "sha": "0f09f7e2c57b73a3b1505ddbc68579de1e6c82d1",
+          "paths": [
+            "scripts/verify-modules-2-3.mjs",
+            "solutions/module-03-authority-and-context.md"
+          ],
+          "verify_commands": [
+            "npm run check:modules-2-3"
+          ],
+          "protected_paths_absent": [
+            "curriculum/modules/08-session-and-work-selection.md",
+            "solutions/module-08-session-and-work-selection.md"
+          ]
         }
       },
       {
@@ -43,6 +60,23 @@
           "pointer": "scripts/verify-modules-2-3.mjs",
           "recorded_at": "2026-10-06T22:26:47Z",
           "recorded_by": "leftover-complete"
+        },
+        "x-directive/product-land": {
+          "schema": "deft.scope.product-land.v1",
+          "issue": 98,
+          "pr": 125,
+          "sha": "0f09f7e2c57b73a3b1505ddbc68579de1e6c82d1",
+          "paths": [
+            "scripts/verify-modules-2-3.mjs",
+            "solutions/module-03-authority-and-context.md"
+          ],
+          "verify_commands": [
+            "npm run check:modules-2-3"
+          ],
+          "protected_paths_absent": [
+            "curriculum/modules/08-session-and-work-selection.md",
+            "solutions/module-08-session-and-work-selection.md"
+          ]
         }
       },
       {
@@ -57,6 +91,23 @@
           "pointer": "scripts/verify-modules-2-3.mjs",
           "recorded_at": "2026-10-06T22:26:47Z",
           "recorded_by": "leftover-complete"
+        },
+        "x-directive/product-land": {
+          "schema": "deft.scope.product-land.v1",
+          "issue": 98,
+          "pr": 125,
+          "sha": "0f09f7e2c57b73a3b1505ddbc68579de1e6c82d1",
+          "paths": [
+            "scripts/verify-modules-2-3.mjs",
+            "solutions/module-03-authority-and-context.md"
+          ],
+          "verify_commands": [
+            "npm run check:modules-2-3"
+          ],
+          "protected_paths_absent": [
+            "curriculum/modules/08-session-and-work-selection.md",
+            "solutions/module-08-session-and-work-selection.md"
+          ]
         }
       }
     ],
@@ -423,6 +474,6 @@
       }
     },
     "id": "github.issue.5586667955",
-    "updated": "2026-10-06T22:23:39Z"
+    "updated": "2026-10-06T22:50:12Z"
   }
 }

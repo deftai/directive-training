@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #93",
-    "updated": "2026-10-06T22:23:35Z"
+    "updated": "2026-10-06T22:50:12Z"
   },
   "plan": {
     "title": "Opening a coding agent in the course clone subjects it to the repo's Directive hooks; the offered recovery mutates the training repo",
@@ -29,6 +29,25 @@
           "pointer": "scripts/verify-cold-start-readme.mjs",
           "recorded_at": "2026-10-06T22:26:47Z",
           "recorded_by": "leftover-complete"
+        },
+        "x-directive/product-land": {
+          "schema": "deft.scope.product-land.v1",
+          "issue": 93,
+          "pr": 123,
+          "sha": "6e0c39f3161db0305acf498c3c27a1da671f4ba8",
+          "paths": [
+            "README.md",
+            "curriculum/README.md",
+            "scripts/verify-cold-start-readme.mjs",
+            "scripts/verify-text-portability.test.mjs"
+          ],
+          "verify_commands": [
+            "npm run check:cold-start-readme",
+            "npm run test:portability"
+          ],
+          "protected_paths_absent": [
+            "labs/02-disposable-initialization.md"
+          ]
         }
       },
       {
@@ -43,6 +62,25 @@
           "pointer": "scripts/verify-cold-start-readme.mjs",
           "recorded_at": "2026-10-06T22:26:47Z",
           "recorded_by": "leftover-complete"
+        },
+        "x-directive/product-land": {
+          "schema": "deft.scope.product-land.v1",
+          "issue": 93,
+          "pr": 123,
+          "sha": "6e0c39f3161db0305acf498c3c27a1da671f4ba8",
+          "paths": [
+            "README.md",
+            "curriculum/README.md",
+            "scripts/verify-cold-start-readme.mjs",
+            "scripts/verify-text-portability.test.mjs"
+          ],
+          "verify_commands": [
+            "npm run check:cold-start-readme",
+            "npm run test:portability"
+          ],
+          "protected_paths_absent": [
+            "labs/02-disposable-initialization.md"
+          ]
         }
       },
       {
@@ -57,6 +95,25 @@
           "pointer": "scripts/verify-cold-start-readme.mjs",
           "recorded_at": "2026-10-06T22:26:47Z",
           "recorded_by": "leftover-complete"
+        },
+        "x-directive/product-land": {
+          "schema": "deft.scope.product-land.v1",
+          "issue": 93,
+          "pr": 123,
+          "sha": "6e0c39f3161db0305acf498c3c27a1da671f4ba8",
+          "paths": [
+            "README.md",
+            "curriculum/README.md",
+            "scripts/verify-cold-start-readme.mjs",
+            "scripts/verify-text-portability.test.mjs"
+          ],
+          "verify_commands": [
+            "npm run check:cold-start-readme",
+            "npm run test:portability"
+          ],
+          "protected_paths_absent": [
+            "labs/02-disposable-initialization.md"
+          ]
         }
       },
       {
@@ -71,6 +128,25 @@
           "pointer": "scripts/verify-cold-start-readme.mjs",
           "recorded_at": "2026-10-06T22:26:47Z",
           "recorded_by": "leftover-complete"
+        },
+        "x-directive/product-land": {
+          "schema": "deft.scope.product-land.v1",
+          "issue": 93,
+          "pr": 123,
+          "sha": "6e0c39f3161db0305acf498c3c27a1da671f4ba8",
+          "paths": [
+            "README.md",
+            "curriculum/README.md",
+            "scripts/verify-cold-start-readme.mjs",
+            "scripts/verify-text-portability.test.mjs"
+          ],
+          "verify_commands": [
+            "npm run check:cold-start-readme",
+            "npm run test:portability"
+          ],
+          "protected_paths_absent": [
+            "labs/02-disposable-initialization.md"
+          ]
         }
       },
       {
@@ -85,6 +161,25 @@
           "pointer": "scripts/verify-cold-start-readme.mjs",
           "recorded_at": "2026-10-06T22:26:47Z",
           "recorded_by": "leftover-complete"
+        },
+        "x-directive/product-land": {
+          "schema": "deft.scope.product-land.v1",
+          "issue": 93,
+          "pr": 123,
+          "sha": "6e0c39f3161db0305acf498c3c27a1da671f4ba8",
+          "paths": [
+            "README.md",
+            "curriculum/README.md",
+            "scripts/verify-cold-start-readme.mjs",
+            "scripts/verify-text-portability.test.mjs"
+          ],
+          "verify_commands": [
+            "npm run check:cold-start-readme",
+            "npm run test:portability"
+          ],
+          "protected_paths_absent": [
+            "labs/02-disposable-initialization.md"
+          ]
         }
       },
       {
@@ -99,6 +194,25 @@
           "pointer": "scripts/verify-cold-start-readme.mjs",
           "recorded_at": "2026-10-06T22:26:47Z",
           "recorded_by": "leftover-complete"
+        },
+        "x-directive/product-land": {
+          "schema": "deft.scope.product-land.v1",
+          "issue": 93,
+          "pr": 123,
+          "sha": "6e0c39f3161db0305acf498c3c27a1da671f4ba8",
+          "paths": [
+            "README.md",
+            "curriculum/README.md",
+            "scripts/verify-cold-start-readme.mjs",
+            "scripts/verify-text-portability.test.mjs"
+          ],
+          "verify_commands": [
+            "npm run check:cold-start-readme",
+            "npm run test:portability"
+          ],
+          "protected_paths_absent": [
+            "labs/02-disposable-initialization.md"
+          ]
         }
       },
       {
@@ -113,6 +227,25 @@
           "pointer": "scripts/verify-cold-start-readme.mjs",
           "recorded_at": "2026-10-06T22:26:47Z",
           "recorded_by": "leftover-complete"
+        },
+        "x-directive/product-land": {
+          "schema": "deft.scope.product-land.v1",
+          "issue": 93,
+          "pr": 123,
+          "sha": "6e0c39f3161db0305acf498c3c27a1da671f4ba8",
+          "paths": [
+            "README.md",
+            "curriculum/README.md",
+            "scripts/verify-cold-start-readme.mjs",
+            "scripts/verify-text-portability.test.mjs"
+          ],
+          "verify_commands": [
+            "npm run check:cold-start-readme",
+            "npm run test:portability"
+          ],
+          "protected_paths_absent": [
+            "labs/02-disposable-initialization.md"
+          ]
         }
       }
     ],
@@ -478,6 +611,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5586606446",
-    "updated": "2026-10-06T22:23:35Z"
+    "updated": "2026-10-06T22:50:12Z"
   }
 }
