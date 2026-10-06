@@ -653,6 +653,34 @@ assert.match(
   /worked repository-boundary answer[\s\S]{0,240}`directive doctor`[\s\S]{0,240}disposable Northstar consumer repository[\s\S]{0,240}`task check:framework-source`[\s\S]{0,240}maintainer-only[\s\S]{0,240}`deftai\/directive` source checkout/i,
   "The Lab 2 solution must explain one concrete consumer surface and one maintainer-only surface",
 );
+assert.match(
+  lab2Solution,
+  /do not run or copy it into this training consumer lab/,
+  "The Lab 2 solution must keep the do-not-run sentence for the maintainer-only example",
+);
+// #96: Module 2 is now the source of the named maintainer-only example. Keep Q5, O2.1
+// inspection, and the Lab 2 done-condition on the concrete command, not a class name.
+const module2Section3 = headingSection(module2, "3. Keep consumer and maintainer commands on their own sides");
+assert.match(
+  module2Section3,
+  /`task check:framework-source`/,
+  "Module 2 §3 must name the pinned maintainer-only example",
+);
+assert.match(
+  module2Section3,
+  /Taskfile\.yml[\s\S]{0,120}75e7d33f114b0e2e67741257813c095e74d9668f/,
+  "Module 2 §3 must cite Taskfile.yml at 75e7d33f114b0e2e67741257813c095e74d9668f",
+);
+assert.match(
+  module2Section3,
+  /Do not run it[\s\S]{0,120}do not copy it into a consumer/i,
+  "Module 2 §3 must forbid running or copying the pinned maintainer example in a consumer lab",
+);
+assert.match(
+  headingSection(module2, "Official sources"),
+  /Taskfile\.yml[\s\S]{0,280}75e7d33f114b0e2e67741257813c095e74d9668f/,
+  "Module 2 Official sources must pin Taskfile.yml at 75e7d33f114b0e2e67741257813c095e74d9668f",
+);
 // #18 recut: the lab no longer mutates the caller's PATH or npm user configuration, so there is
 // nothing to restore. The guarantee moved up a level -- the caller environment is never touched,
 // and no caller state is replayed out of the marker into a later attempt.

@@ -195,8 +195,10 @@ its namespaced consumer tasks such as `task deft:doctor` or `task deft:check`.
 
 The separate `deftai/directive` source repository has contributor instructions, an
 unprefixed root Taskfile, package workspaces, and maintainer tasks. Those are for framework
-development. Do not copy maintainer commands into a consumer lesson merely because both
-repositories mention Directive.
+development. This lesson names one pinned maintainer-only example from that source
+`Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`: `task check:framework-source`.
+Inspect the name as a boundary example. Do not run it, and do not copy it into a consumer
+lab, even though both repositories mention Directive.
 
 ### 4. Interpret health output rather than chasing a silent screen
 
@@ -434,6 +436,7 @@ drill, and a safe retry route. No instructor unlock is required.
 | Consumer install and layout | [README — Getting Started](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/README.md#getting-started); [Concepts — Installer Layout](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/docs/CONCEPTS.md#installer-layout) | Command chooser and deposit model |
 | Consumer prerequisites | [Getting started — Prerequisites](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/docs/getting-started.md#prerequisites) | Tool starting check |
 | Consumer versus contributor route | [Setup skill contract](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/content/skills/deft-directive-setup/SKILL.md) | Repository boundary |
+| Pinned maintainer-only example (0.119.5) | [Root `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`](https://github.com/deftai/directive/blob/75e7d33f114b0e2e67741257813c095e74d9668f/Taskfile.yml) | Named boundary example from the 0.119.5 Taskfile pin, not a 0.119.11 source; inspect, do not run in the consumer lab |
 | Tracked and ignored surfaces | [README — Getting Started](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/README.md#getting-started); [core skill — Project Root vs Framework Internals](https://github.com/deftai/directive/blob/3e47fe5f1fb34438f4a17784eb82d71dd9af5970/SKILL.md) | Artifact classification |
 | Literal CLI behavior | `directive --help`, `directive commands`, and each verb help/runtime probe recorded in [source notes](../../references/SOURCE-NOTES.md#cli-help-probes) | Version-specific syntax and disagreements |
 

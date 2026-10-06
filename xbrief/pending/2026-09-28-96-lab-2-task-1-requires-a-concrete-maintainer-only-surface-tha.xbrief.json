@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #96",
-    "updated": "2026-09-28T12:15:02Z"
+    "updated": "2026-10-06T19:54:56Z"
   },
   "plan": {
     "title": "Lab 2 Task 1 requires a concrete maintainer-only surface that Module 2 never names; solution grades against an unseen command",
@@ -323,46 +323,107 @@
       "commands": [],
       "none_stated": true,
       "source_rung": "derived",
-      "derived_reason": "derived 4 independently testable clauses from the task statement before product edit (#3323)",
+      "derived_reason": "derived 10 independently testable clauses from the task statement before product edit (#3323)",
       "sentences": [
-        "Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.",
-        "Name that command in Module 2 §3. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.",
-        "Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.",
-        "Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks."
+        "Bind the named-example arm.",
+        "Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.",
+        "Name that command in Module 2 §3.",
+        "Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`.",
+        "Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab.",
+        "Keep the solution's do-not-run sentence.",
+        "Reuse `scripts/verify-modules-2-3.mjs`.",
+        "Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.",
+        "Do not bind class-sufficient as the harvest.",
+        "That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks."
       ],
       "clauses": [
         {
           "id": 1,
-          "text": "Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.",
+          "text": "Bind the named-example arm.",
           "artifact_path": "scripts/verify-modules-2-3.mjs",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 2,
-          "text": "Name that command in Module 2 §3. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.",
-          "artifact_path": "curriculum/modules/02-installation-and-anatomy.md",
-          "ambiguous": false,
-          "provenance": "statement"
-        },
-        {
-          "id": 3,
-          "text": "Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.",
+          "text": "Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.",
           "artifact_path": "scripts/verify-modules-2-3.mjs",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
+          "id": 3,
+          "text": "Name that command in Module 2 §3.",
+          "artifact_path": "curriculum/modules/02-installation-and-anatomy.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
           "id": 4,
-          "text": "Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks.",
-          "artifact_path": null,
+          "text": "Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`.",
+          "artifact_path": "curriculum/modules/02-installation-and-anatomy.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab.",
+          "artifact_path": "curriculum/modules/02-installation-and-anatomy.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "Keep the solution's do-not-run sentence.",
+          "artifact_path": "scripts/verify-modules-2-3.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 7,
+          "text": "Reuse `scripts/verify-modules-2-3.mjs`.",
+          "artifact_path": "scripts/verify-modules-2-3.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 8,
+          "text": "Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.",
+          "artifact_path": "scripts/verify-modules-2-3.mjs",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 9,
+          "text": "Do not bind class-sufficient as the harvest.",
+          "artifact_path": "curriculum/modules/02-installation-and-anatomy.md",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 10,
+          "text": "That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks.",
+          "artifact_path": "curriculum/modules/02-installation-and-anatomy.md",
           "ambiguous": false,
           "provenance": "statement"
         }
       ],
-      "ambiguity_attestation": "none_found"
+      "ambiguity_attestation": "none_found",
+      "admitted_source_sentences": [
+        "Bind the named-example arm.",
+        "Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.",
+        "Name that command in Module 2 §3.",
+        "Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`.",
+        "Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab.",
+        "Keep the solution's do-not-run sentence.",
+        "Reuse `scripts/verify-modules-2-3.mjs`.",
+        "Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.",
+        "Do not bind class-sufficient as the harvest.",
+        "That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks."
+      ],
+      "admitted_source_digest": "710c796fc61afe1b49df66a22b2f725e7b3459ccfd89436128926be189806964"
     },
     "id": "github.issue.5586607332",
-    "updated": "2026-09-28T12:15:02Z"
+    "updated": "2026-10-06T19:54:56Z"
   }
 }
