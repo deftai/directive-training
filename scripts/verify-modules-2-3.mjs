@@ -632,14 +632,17 @@ for (const ignoredPath of [
     "Lab 2 must provide an explicit verbose ignore check for " + ignoredPath,
   );
 }
-// #97: name both USER.md doctor outcomes as skip/info, keep the no-open/no-copy
-// boundary, and classify `.deft-cache/` as a later write, not Lab 2 doctor.
+// #97: Task 2 names both USER.md doctor outcomes as skip/info; Task 3 keeps the
+// no-open/no-copy host-path restriction. Whole-lab search would let Task 2 mask
+// a Task 3 regression. Solution Step 4 covers both lab tasks.
+const lab2Task2 = headingSection(lab2, "Task 2 — Diagnose the initialized consumer");
 const lab2Task3 = headingSection(lab2, "Task 3 — Classify the repository anatomy");
+const lab2SolutionStep4 = headingSection(lab2Solution, "Step 4 — Diagnose and classify");
 const userMdFound = "USER.md resolved (<rung>): <path>";
 const userMdAbsent = "USER.md: no USER.md found; using defaults (searched: ...)";
 for (const [label, content] of [
-  ["Lab 2", lab2],
-  ["Lab 2 solution", lab2Solution],
+  ["Lab 2 Task 2", lab2Task2],
+  ["Lab 2 solution Step 4", lab2SolutionStep4],
 ]) {
   assert.ok(content.includes(userMdFound), label + " must name the found USER.md doctor string");
   assert.ok(content.includes(userMdAbsent), label + " must name the absent USER.md doctor string");
@@ -655,9 +658,15 @@ for (const [label, content] of [
   );
   assert.match(
     content,
-    /do not open or copy USER\.md/i,
-    label + " must forbid opening or copying USER.md",
+    /Do not add helper redaction of `doctor-full\.txt`/,
+    label + " must keep doctor-full.txt unredacted",
   );
+}
+for (const [label, content] of [
+  ["Lab 2 Task 2", lab2Task2],
+  ["Lab 2 Task 3", lab2Task3],
+  ["Lab 2 solution Step 4", lab2SolutionStep4],
+]) {
   assert.match(
     content,
     /resolved-versus-defaulted/,
@@ -665,13 +674,18 @@ for (const [label, content] of [
   );
   assert.match(
     content,
-    /do not copy the host path into `evidence\.md` or public posts/i,
+    /do not copy the host path into `evidence\.md`\s+or public posts/i,
     label + " must forbid copying the USER.md host path into evidence or public posts",
   );
+}
+for (const [label, content] of [
+  ["Lab 2 Task 3", lab2Task3],
+  ["Lab 2 solution Step 4", lab2SolutionStep4],
+]) {
   assert.match(
     content,
-    /Do not add helper redaction of `doctor-full\.txt`/,
-    label + " must keep doctor-full.txt unredacted",
+    /do not open or copy USER\.md/i,
+    label + " must forbid opening or copying USER.md",
   );
   assert.match(
     content,
