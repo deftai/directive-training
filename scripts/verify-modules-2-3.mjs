@@ -967,7 +967,7 @@ for (const requiredPhrase of [
 
 const projectPackage = JSON.parse(read("package.json"));
 assert.equal(projectPackage.private, true, "the training package must remain private");
-assertTeachingBaselinePin(projectPackage, read("README.md"));
+const directivePin = assertTeachingBaselinePin(projectPackage, read("README.md"));
 assert.equal(
   projectPackage.scripts?.["check:modules-2-3"],
   "node scripts/verify-modules-2-3.mjs",
@@ -1296,7 +1296,7 @@ const nodeRuntimeContracts = [
   [
     "README.md",
     read("README.md"),
-    /@deftai\/directive@0\.119\.11` \(Node ≥ 22 for this project/,
+    new RegExp(`@deftai/directive@${directivePin.replaceAll(".", "\\.")}\` \\(Node ≥ 22 for this project`),
   ],
   [
     "curriculum/README.md",

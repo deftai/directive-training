@@ -4,6 +4,10 @@
 
 ### Changed
 
+- Refresh the consumer Directive integration from 0.119.11 to 0.121.0 with
+  `directive update`: package pin, deposit generation, managed AGENTS.md, host
+  hooks, and installer-managed xBRIEF schema. Curriculum, labs, solutions,
+  assessments, and SOURCE-BASELINE remain on the 0.119.11 teaching baseline.
 - Upgrade the current Directive teaching baseline to 0.119.11 across generated project
   metadata, all six exact disposable package graphs, curriculum, labs, solutions,
   assessments, references, workflows, and executable verification. Rebind immutable
