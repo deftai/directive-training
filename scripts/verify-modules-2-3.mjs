@@ -1089,6 +1089,109 @@ for (const requiredPhrase of [
   assert.ok(module3.includes(requiredPhrase), `Module 3 is missing authority concept: ${requiredPhrase}`);
 }
 
+// #98: Card E awards a full pass for asking which proposed scope should be approved
+// and activated. Do not import Module 8 ordered-plan or ranked-queue inspect-first.
+const module3CardEQuestion =
+  "Which proposed scope should be approved and activated for this implementation request?";
+const module3Step1 = headingSection(module3Solution, "Step 1 — Classify and resolve every card");
+const module3Step3 = headingSection(module3Solution, "Step 3 — Verify the escalation questions");
+const module3ValidAlts = headingSection(module3Solution, "Valid alternatives");
+const module3Misconceptions = headingSection(
+  module3Solution,
+  "Misconceptions exposed by this exercise",
+);
+const cardERow = module3Step1.split("\n").find((line) => /^\| E \|/.test(line)) ?? "";
+assert.ok(cardERow, "Module 3 solution Step 1 must keep a Card E row");
+const cardECells = cardERow.split("|").map((cell) => cell.trim());
+assert.match(
+  cardECells[5] ?? "",
+  /Ask which proposed scope should be approved and activated/,
+  "Card E Decision must award a full pass for asking which proposed scope to approve and activate",
+);
+assert.doesNotMatch(
+  cardECells[5] ?? "",
+  /work-selection|lifecycle path|inspect/i,
+  "Card E Decision must not require prior work-selection inspection",
+);
+assert.doesNotMatch(
+  cardECells[6] ?? "",
+  /work-selection|lifecycle guidance/i,
+  "Card E additional context must not send learners to work-selection guidance",
+);
+assert.match(
+  cardECells[7] ?? "",
+  new RegExp(`Yes:[\\s\\S]*${escapeRegExp(module3CardEQuestion)}`),
+  "Card E operator cell must ask which proposed scope should be approved and activated",
+);
+assert.doesNotMatch(
+  cardECells[7] ?? "",
+  /Not yet|Inspect authorized work selection first/i,
+  "Card E operator cell must not delay the ask behind inspect-first",
+);
+assert.match(
+  module3Step3,
+  /\*\*E:\*\*[\s\S]{0,280}ask which proposed scope should be approved and activated/i,
+  "Step 3 E must treat ask-which-scope as a full pass",
+);
+assert.match(
+  module3Step3,
+  /this ask is a full pass/i,
+  "Step 3 E must say the Card E ask is a full pass",
+);
+assert.doesNotMatch(
+  module3Step3,
+  /ordered plan|ranked work-selection|deterministic selection source|inspect the authorized/i,
+  "Step 3 E must not require ordered-plan or ranked-queue inspection",
+);
+assert.match(
+  module3ValidAlts,
+  /Ask which proposed scope should be approved and activated for E/,
+  "Valid alternatives must pass immediate ask-which-scope for Card E",
+);
+assert.doesNotMatch(
+  module3ValidAlts,
+  /authorized ordered plan|deterministic selection surface is exhausted/i,
+  "Valid alternatives must not fail Card E for skipping an ordered plan",
+);
+assert.match(
+  module3Misconceptions,
+  /Completed scope is queued future work[\s\S]{0,80}E asks which proposed scope should be approved and activated/,
+  "Card E misconception must treat ask-which-scope as the aligned correction",
+);
+assert.doesNotMatch(
+  module3Misconceptions,
+  /E must use current work selection and activation/,
+  "Card E misconception must not require current work selection and activation",
+);
+const module3CardEGrading = [
+  cardERow,
+  (module3Step3.match(/- \*\*E:\*\*[\s\S]*?(?=\n- \*\*[A-Z]:\*\*)/) ?? [""])[0],
+  (module3Step3.match(/^Card E requires[\s\S]*/m) ?? [""])[0],
+  module3ValidAlts.split("\n").find((line) => /for E/.test(line)) ?? "",
+  module3Misconceptions.split("\n").find((line) =>
+    /^\| Completed scope is queued future work \|/.test(line),
+  ) ?? "",
+].join("\n");
+assert.match(
+  module3CardEGrading,
+  /Ask which proposed scope should be approved and activated/,
+  "Card E grading surfaces must stay extractable for phrase-ban scope",
+);
+for (const [label, pattern] of [
+  ["inspect-first operator delay", /Inspect authorized work selection first/i],
+  ["authorized ordered plan", /authorized ordered plan/i],
+  ["ranked work-selection", /ranked work-selection/i],
+  ["deterministic selection source", /Do not ask before using the deterministic selection source/i],
+  ["work-selection additional context", /Work-selection\/lifecycle guidance/],
+  ["work-selection misconception", /E must use current work selection and activation/],
+]) {
+  assert.doesNotMatch(
+    module3CardEGrading,
+    pattern,
+    "Card E grading must not use Module 8 " + label,
+  );
+}
+
 const projectPackage = JSON.parse(read("package.json"));
 assert.equal(projectPackage.private, true, "the training package must remain private");
 const directivePin = assertTeachingBaselinePin(projectPackage, read("README.md"));
