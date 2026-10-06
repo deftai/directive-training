@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #98",
-    "updated": "2026-09-28T12:13:52Z"
+    "updated": "2026-10-06T21:26:56Z"
   },
   "plan": {
     "title": "Module 3 Card E solution requires Module 8 work-selection knowledge; the rubric fails the answer Modules 1–3 support",
@@ -86,7 +86,13 @@
           "provenance": "statement"
         }
       ],
-      "ambiguity_attestation": "none_found"
+      "ambiguity_attestation": "none_found",
+      "admitted_source_sentences": [
+        "Bind Option 2. Recut `solutions/module-03-authority-and-context.md` so \"ask which proposed scope should be approved and activated\" is a full pass for Card E, covering Step 1 row E Decision cell, operator cell, and additional context (`:107`), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`.",
+        "Do not add a Module 3 paragraph that a deterministic work-selection surface exists unless Card E also lists plan/queue facts and O3.3 scores inspection. That expansion is outside this envelope.",
+        "Leave inspect-first as the existing Module 8 Snapshot 2 / Case C teaching."
+      ],
+      "admitted_source_digest": "279ff6f2f31afa0ce18ce1c1ca945cad1202e44299aa8b7275af432b7c7ec8d1"
     },
     "metadata": {
       "intended_placement": {
@@ -397,6 +403,6 @@
       }
     },
     "id": "github.issue.5586667955",
-    "updated": "2026-09-28T12:13:52Z"
+    "updated": "2026-10-06T21:26:56Z"
   }
 }

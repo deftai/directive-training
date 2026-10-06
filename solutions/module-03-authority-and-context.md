@@ -11,7 +11,7 @@ applying behavior specificity, rule strength, authorization, or operator escalat
 | Solves | `module-03-authority-and-context` |
 | Outcomes covered | O3.1, O3.2, O3.3, O3.4 |
 | Status | `learner-ready draft` |
-| Last verified | 2026-09-07 |
+| Last verified | 2026-10-06 |
 | Directive baseline | fixture-local `@deftai/directive@0.119.11`, engine `@deftai/directive-core@0.119.11`; see the [source baseline](../references/SOURCE-BASELINE.md) |
 | Source exercise | [Module 3 conflict exercise](../curriculum/modules/03-authority-and-context.md#exercise) |
 
@@ -87,8 +87,8 @@ let a live request erase a failed gate, or let project defaults override Persona
 A successful table should show:
 
 - A chooses npm and B preserves the Personal ISO date format for different specificity reasons.
-- C performs no mutation; D performs the gate remediation before any code; E selects new
-  active work rather than reusing completed work.
+- C performs no mutation; D performs the gate remediation before any code; E asks which
+  proposed scope should be approved and activated rather than reusing completed work.
 - F names a small review/scope context set.
 - G retains both the exit-code requirement and its test rule.
 - H and J contain focused questions rather than invented answers.
@@ -104,7 +104,7 @@ A successful table should show:
 | B | Behavior formatting rule | Behavior-source specificity | `USER.md Personal` is more specific than the general framework example | Record evidence dates as ISO 8601, such as `2026-09-07` | None | No |
 | C | Product requirement plus authorization | Implementation authorization | Active xBRIEF supplies accepted work; live instruction explicitly withholds implementation | Summarize only; do not edit | Active scope and the requested review guidance | No |
 | D | Product requirement, authorization, and evidence | Gate readiness after authority | Active scope plus live implement intent exist, but deterministic preflight exited 1 | Follow the stated remediation and rerun the same preflight; write no code until it passes | Preflight contract and its one remediation | No, unless remediation itself needs new authority |
-| E | Historical requirement and vague live intent | Lifecycle authority | Completed xBRIEF has zero authority over what to build next; no active scope exists | Do not implement the old improvement. Use the authorized work-selection and lifecycle path to obtain an active contract | Work-selection/lifecycle guidance | Not yet. Inspect authorized work selection first. If it yields no approved choice: “Which proposed scope should be approved and activated for this implementation request?” |
+| E | Historical requirement and vague live intent | Lifecycle authority | Completed xBRIEF has zero authority over what to build next; no active scope exists | Do not implement the old improvement. Ask which proposed scope should be approved and activated | None beyond the completed-scope boundary | Yes: “Which proposed scope should be approved and activated for this implementation request?” |
 | F | Context-selection behavior | Lazy loading | Lazy-loading contract | Read orientation sources already required, the active/proposed scope being reviewed, and applicable review guidance; defer TypeScript, GitHub, deployment, and swarm material | Only scope/review context | No |
 | G | Product requirement plus behavior rule | Statement classification | Active acceptance controls observable exit 2; coding/testing rule controls method | Keep both: the implementation must return exit 2 and evidence must test it. The card alone does not authorize editing | Language/testing guidance only when implementation becomes authorized | No conflict; separate authorization may still be needed |
 | H | Product requirement plus scope/authorization boundary | Scope authority | Active file scope permits only the named source and test; live request proposes broader parser work | Stop before parser edits and request a scope decision | Scope-provenance/file-scope guidance | Yes: “Should the active scope be amended to include the parser and its acceptance impact, or should I keep this change to `src/stop-code.js` and its test?” |
@@ -127,9 +127,8 @@ A passing three-sentence explanation is:
 
 The required questions are bounded:
 
-- **E, conditionally:** inspect the authorized ordered plan or ranked work-selection surface
-  first. If it supplies no approved choice, ask which proposed scope should be approved and
-  activated. Do not ask before using the deterministic selection source.
+- **E:** ask which proposed scope should be approved and activated. Do not revive the
+  completed record. Card E supplies no active contract, so this ask is a full pass.
 
 - **H:** choose between an explicit scope amendment for parser work and keeping the current
   implementation inside the approved two-file boundary. The question names the downstream
@@ -137,9 +136,9 @@ The required questions are bounded:
 - **J:** choose the observable output format and authorize correction of the superseded
   acceptance clause. The question does not ask the operator to re-explain the whole project.
 
-Card E may also require operator input when the normal ordered plan or ranked work-selection
-surface does not identify an already-approved candidate. Its question is about selecting and
-activating new work, not reviving the completed record.
+Card E requires operator input because the completed xBRIEF has zero authority over what to
+build next and no active scope exists. Its question is about selecting and activating new
+work, not reviving the completed record.
 
 ## Acceptance evidence
 
@@ -174,7 +173,7 @@ as [old type]; the correct type/source is [new result].” Then retry only that 
 | --- | --- | --- | --- |
 | Mark D as “authorized but not mutation-ready” | Failed required preflight blocks mutation without removing the active scope or live intent | Remediation and required rerun are explicit | It implies the gate failure removed implementation authority |
 | List the core skill rather than a generic review contract for F | It may be the smallest source that defines the needed orientation/authority model | State the exact question it answers | It expands into unrelated language/deploy/swarm files |
-| Escalate E after authorized work selection yields no approved choice | “Whatever is next” remains materially ambiguous only after the deterministic selection surface is exhausted | State that completed scope is not used and name the missing active contract | It skips an already-defined authorized ordered plan without inspecting it |
+| Ask which proposed scope should be approved and activated for E | “Build whatever is next” is materially ambiguous, no active scope exists, and the completed record has zero next-build authority | State that completed scope is not used and name the missing active contract | It revives the completed record or invents the next scope instead of asking |
 | Phrase H/J as open text rather than two choices | The operator can still resolve the exact material ambiguity | Both controlling facts and impact are present | It asks a vague “what should I do?” or silently recommends scope expansion |
 
 An alternative is not valid when it changes a gate, promotes a Personal rule into product
@@ -199,7 +198,8 @@ product decision.
 - **Confirm:** quote the live instruction and lifecycle state separately.
 - **Recover:** write `authority = active + live intent`; then add `passing gates` as the
   separate mutation-readiness check above a fresh authorization column.
-- **Retry:** C is read-only, D waits for a gate pass, and E obtains new active work.
+- **Retry:** C is read-only, D waits for a gate pass, and E asks which proposed scope should
+  be approved and activated.
 
 ### Lazy loading becomes bulk reading
 
@@ -225,7 +225,7 @@ product decision.
 | `USER.md` is one undifferentiated level | Personal always wins for personal behavior; Defaults are project-overridable fallbacks | Core skill Rule Precedence |
 | Passing preflight grants scope | A pass supplies gate evidence only; active scope and live intent still bound action | Commands intent/session contracts |
 | An active scope alone authorizes implementation | C remains read-only because live intent explicitly withholds mutation | main xBRIEF persistence rule |
-| Completed scope is queued future work | E must use current work selection and activation | main xBRIEF persistence rule |
+| Completed scope is queued future work | E asks which proposed scope should be approved and activated | main xBRIEF persistence rule |
 | More context is always safer | Irrelevant context increases conflict and drift without answering the current question | Concepts Lazy Loading |
 
 ## Retry plan
