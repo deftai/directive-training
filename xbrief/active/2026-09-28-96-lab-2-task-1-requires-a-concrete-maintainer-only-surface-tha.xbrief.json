@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #96",
-    "updated": "2026-09-28T12:15:02Z"
+    "updated": "2026-10-06T19:33:44Z"
   },
   "plan": {
     "title": "Lab 2 Task 1 requires a concrete maintainer-only surface that Module 2 never names; solution grades against an unseen command",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "Lab 2 Task 1 asks learners to identify a concrete maintainer-only verification surface, but Module 2 never names the command that the explained solution grades as correct. This story teaches the pinned `task check:framework-source` example with a do-not-run boundary and extends the existing Modules 2-3 verifier to keep the lesson and solution aligned.",
       "ImplementationPlan": "1. Update `curriculum/modules/02-installation-and-anatomy.md` §3 to name `task check:framework-source` as the pinned maintainer-only example, cite the official `Taskfile.yml` source at the recorded commit, and forbid running it in the consumer lab.\n2. Recut the surrounding copy warning so one pinned boundary example is teachable without inviting learners to copy or execute maintainer commands.\n3. Extend `scripts/verify-modules-2-3.mjs` with a focused teaching-string assertion that preserves the solution's named command and do-not-run sentence without widening the answer contract to a generic class name.",
@@ -363,6 +363,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5586607332",
-    "updated": "2026-09-28T12:15:02Z"
+    "updated": "2026-10-06T19:33:44Z"
   }
 }
