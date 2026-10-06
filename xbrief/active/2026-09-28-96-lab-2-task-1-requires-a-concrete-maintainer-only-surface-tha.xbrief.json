@@ -2,18 +2,18 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #96",
-    "updated": "2026-10-06T19:54:56Z"
+    "updated": "2026-10-06T22:23:37Z"
   },
   "plan": {
     "title": "Lab 2 Task 1 requires a concrete maintainer-only surface that Module 2 never names; solution grades against an unseen command",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "Lab 2 Task 1 asks learners to identify a concrete maintainer-only verification surface, but Module 2 never names the command that the explained solution grades as correct. This story teaches the pinned `task check:framework-source` example with a do-not-run boundary and extends the existing Modules 2-3 verifier to keep the lesson and solution aligned.",
-      "ImplementationPlan": "1. Update `curriculum/modules/02-installation-and-anatomy.md` §3 to name `task check:framework-source` as the pinned maintainer-only example, cite the official `Taskfile.yml` source at the recorded commit, and forbid running it in the consumer lab.\n2. Recut the surrounding copy warning so one pinned boundary example is teachable without inviting learners to copy or execute maintainer commands.\n3. Extend `scripts/verify-modules-2-3.mjs` with a focused teaching-string assertion that preserves the solution's named command and do-not-run sentence without widening the answer contract to a generic class name.",
+      "ImplementationPlan": "1. Update `curriculum/modules/02-installation-and-anatomy.md` \u00a73 to name `task check:framework-source` as the pinned maintainer-only example, cite the official `Taskfile.yml` source at the recorded commit, and forbid running it in the consumer lab.\n2. Recut the surrounding copy warning so one pinned boundary example is teachable without inviting learners to copy or execute maintainer commands.\n3. Extend `scripts/verify-modules-2-3.mjs` with a focused teaching-string assertion that preserves the solution's named command and do-not-run sentence without widening the answer contract to a generic class name.",
       "UserStory": "As a Lab 2 learner, I want Module 2 to name the maintainer-only command used by the assessment, so that I can answer from taught material without executing that command in my disposable consumer lab.",
       "Traces": "GitHub issue #96 and its ingested design-critique Bound remedy select the named-example arm, preserve `task check:framework-source`, pin its official source, retain the do-not-run boundary, and reject the broader class-sufficient recut.",
       "Origin": "Ingested from https://github.com/deftai/directive-training/issues/96",
-      "Overview": "\n\n- Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.\n- Name that command in Module 2 §3. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.\n- Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.\n- Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks.\n\n",
+      "Overview": "\n\n- Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.\n- Name that command in Module 2 \u00a73. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.\n- Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.\n- Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks.\n\n",
       "Labels": "documentation, design-critique:ingest-ready"
     },
     "items": [
@@ -23,14 +23,26 @@
         "id": "clause.1",
         "narrative": {
           "Acceptance": "When a learner reads Module 2, it names `task check:framework-source` as the concrete maintainer-only example already required by the Lab 2 solution, and the existing solution command remains unchanged."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-10-06T22:24:41Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
-        "title": "Name that command in Module 2 §3. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.",
+        "title": "Name that command in Module 2 \u00a73. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.",
         "status": "proposed",
         "id": "clause.2",
         "narrative": {
           "Acceptance": "When the lesson presents the named example, it cites `Taskfile.yml` at commit `75e7d33f114b0e2e67741257813c095e74d9668f`, permits inspection, and explicitly forbids copying or running the command in the consumer lab."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-10-06T22:24:41Z",
+          "recorded_by": "scope:stamp-evidence"
         }
       },
       {
@@ -39,6 +51,12 @@
         "id": "clause.3",
         "narrative": {
           "Acceptance": "`npm run check:modules-2-3` passes when Module 2 contains the named command, pinned source, and do-not-run boundary, and fails when any of those teaching strings is removed."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-10-06T22:26:47Z",
+          "recorded_by": "leftover-complete"
         }
       },
       {
@@ -47,6 +65,78 @@
         "id": "clause.4",
         "narrative": {
           "Acceptance": "When the final lesson and verifier are reviewed, they require the concrete `task check:framework-source` answer and do not broaden Q5, O2.1, or the Lab 2 done condition to accept an unnamed command class."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-10-06T22:26:47Z",
+          "recorded_by": "leftover-complete"
+        }
+      },
+      {
+        "id": "clause.5",
+        "title": "clause.5",
+        "status": "pending",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-10-06T22:26:47Z",
+          "recorded_by": "leftover-complete"
+        }
+      },
+      {
+        "id": "clause.6",
+        "title": "clause.6",
+        "status": "pending",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-10-06T22:24:41Z",
+          "recorded_by": "scope:stamp-evidence"
+        }
+      },
+      {
+        "id": "clause.7",
+        "title": "clause.7",
+        "status": "pending",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-10-06T22:24:41Z",
+          "recorded_by": "scope:stamp-evidence"
+        }
+      },
+      {
+        "id": "clause.8",
+        "title": "clause.8",
+        "status": "pending",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-10-06T22:24:41Z",
+          "recorded_by": "scope:stamp-evidence"
+        }
+      },
+      {
+        "id": "clause.9",
+        "title": "clause.9",
+        "status": "pending",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-10-06T22:26:47Z",
+          "recorded_by": "leftover-complete"
+        }
+      },
+      {
+        "id": "clause.10",
+        "title": "clause.10",
+        "status": "pending",
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/verify-modules-2-3.mjs",
+          "recorded_at": "2026-10-06T22:26:47Z",
+          "recorded_by": "leftover-complete"
         }
       }
     ],
@@ -131,7 +221,7 @@
           "author_association": "COLLABORATOR"
         },
         {
-          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh critic of issue 96 at dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. In-envelope inputs: issue body plus comment 5838827890.\n\n## 1. Class-sufficient closing needs the surfaces that already grade a command name\n**sharpens-framing**\n\nEvidence: `scripts/verify-modules-2-3.mjs` currently passes (`Modules 2-3 content contract: ok`). It locks Q5 to `Name one consumer command surface and one maintainer-only surface` (module `02-installation-and-anatomy.md:405-406`) and locks the Lab 2 solution to the concrete pair `` `directive doctor` `` / `` `task check:framework-source` `` (`verify-modules-2-3.mjs:466-479`, `solutions/lab-02-disposable-initialization.md:98-101`). Lab 2's done-condition requires the written chooser rows to `match the explained solution` (`labs/02-disposable-initialization.md:24`). O2.1 inspection is `Compare with the walkthrough and solution reasoning` (`02-installation-and-anatomy.md:315`). A probe at this SHA: Module 2 and Lab 2 contain zero `check:framework-source`; the solution regex match is true.\n\nFailure mode: Recutting only Task 1 (`labs/02-disposable-initialization.md:309-316`) and the solution rubric leaves Q5, the Q5 verifier lock, and the match-the-solution done-condition still requiring the unseen command. A class-name answer that the new Task 1 accepts still fails the lab done-condition until the learner copies the solution command.\n\nDisposition: If this arm is the bind, include Q5, `scripts/verify-modules-2-3.mjs:466-479`, Lab 2:24, and O2.1 inspection in the recut set, and state that a class-name boundary answer satisfies those checks. Existing mechanism: recut that verifier; do not add a second content contract.\n\n## 2. Named-example closing needs the copy-warning recut, the Taskfile pin, and a do-not-run bound\n**sharpens-framing**\n\nEvidence: Module 2 §3 already teaches the class (`contributor instructions, an unprefixed root Taskfile, package workspaces, and maintainer tasks`) and says `Do not copy maintainer commands into a consumer lesson` (`02-installation-and-anatomy.md:196-199`). Official sources pin the boundary claim to the setup skill (`02-installation-and-anatomy.md:433`). At release commit `75e7d33f114b0e2e67741257813c095e74d9668f` that skill's contributor path names `deft-install --yes --upgrade --maintainer --repo-root . --json`. The same commit's root `Taskfile.yml` defines `check:framework-source` (task around line 418). `references/SOURCE-BASELINE.md:16,37` is that commit. This dest's consumer `Taskfile.yml:8-10` includes the deposit under namespace `deft`; the deposit still defines `check:framework-source`. The Lab 2 solution already carries `do not run or copy it into this training consumer lab` (`solutions/lab-02-disposable-initialization.md:100-101`). The verifier already requires that command in the solution.\n\nFailure mode: Adding `` `task check:framework-source` `` to §3 while leaving the copy-warning unchanged makes the same section both name and forbid naming a maintainer command. Citing the setup skill as the pin for this example identifies a different maintainer surface. Naming a runnable task in the lesson without the solution's do-not-run bound invites the learner to execute it in the disposable consumer (`task check:framework-source` missing at the unprefixed root, or `task deft:check:framework-source` running a framework-source gate on a consumer tree).\n\nDisposition: If this arm is the bind, keep `` `task check:framework-source` `` because the existing verifier already locks it, add Official sources to `Taskfile.yml` at `75e7d33f`, recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab, and keep the solution's do-not-run sentence. Reuse `verify-modules-2-3.mjs`; add a Module 2 teaching-string assertion there if the lesson is now the source of the name.\n\n## 3. Issue anchors re-measured\n**footnote**\n\nTask 1 at `labs/02-disposable-initialization.md:309-310` and Q5 at `02-installation-and-anatomy.md:405-406` ask for one consumer surface and one maintainer-only surface. Module 2:196-199 gives the class and the copy-warning. The solution at lines 98-101 grades `` `task check:framework-source` `` in the `deftai/directive` source checkout. GitHub GET of `Taskfile.yml` at `75e7d33f` shows that task exists. `node scripts/verify-modules-2-3.mjs` exits 0 on this dest. The identity split is real.\n\n## Inventory\n\nExisting surfaces that already speak to this identity, in harvest order if either arm binds: Module 2 §3, O2.1 (`02-installation-and-anatomy.md:26-29,315,405-406`), Lab 2 Task 1 and done-condition (`labs/02-disposable-initialization.md:24,309-316`), Lab 2 solution Reasoning 1 (`solutions/lab-02-disposable-initialization.md:98-101`), `scripts/verify-modules-2-3.mjs:466-479`, SOURCE-BASELINE consumer-versus-maintainer row (`references/SOURCE-BASELINE.md:85`), glossary `framework source repository` (`references/GLOSSARY.md:20-22`), QUICK-REFERENCE maintainer-outside-course lines (`references/QUICK-REFERENCE.md:60-61`), Official sources setup-skill row, and pinned `Taskfile.yml` `check:framework-source`.\n\n## Road not taken\n\nI considered closing Arm 1 on the setup skill's `deft-install --maintainer`, which Official sources already links. That would mint a second named example while `verify-modules-2-3.mjs` still requires `` `task check:framework-source` ``. Closing the identity already locked by that verifier reuses that command. Flip if the bind recuts the verifier onto a different pinned surface.\n\nSteelmanning the strongest rejected position: a solution may be more specific than the lesson, and comparing after the attempt is the teaching loop. That holds when inspection accepts a class-name boundary answer. Lab 2:24 and O2.1 inspection currently require a match to the solution's concrete command, so the unseen name is the bar. Flip finding 1 if those two lines are recut so a class-name answer completes O2.1.\n\n",
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: none\n\nRound 1 fresh critic of issue 96 at dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. In-envelope inputs: issue body plus comment 5838827890.\n\n## 1. Class-sufficient closing needs the surfaces that already grade a command name\n**sharpens-framing**\n\nEvidence: `scripts/verify-modules-2-3.mjs` currently passes (`Modules 2-3 content contract: ok`). It locks Q5 to `Name one consumer command surface and one maintainer-only surface` (module `02-installation-and-anatomy.md:405-406`) and locks the Lab 2 solution to the concrete pair `` `directive doctor` `` / `` `task check:framework-source` `` (`verify-modules-2-3.mjs:466-479`, `solutions/lab-02-disposable-initialization.md:98-101`). Lab 2's done-condition requires the written chooser rows to `match the explained solution` (`labs/02-disposable-initialization.md:24`). O2.1 inspection is `Compare with the walkthrough and solution reasoning` (`02-installation-and-anatomy.md:315`). A probe at this SHA: Module 2 and Lab 2 contain zero `check:framework-source`; the solution regex match is true.\n\nFailure mode: Recutting only Task 1 (`labs/02-disposable-initialization.md:309-316`) and the solution rubric leaves Q5, the Q5 verifier lock, and the match-the-solution done-condition still requiring the unseen command. A class-name answer that the new Task 1 accepts still fails the lab done-condition until the learner copies the solution command.\n\nDisposition: If this arm is the bind, include Q5, `scripts/verify-modules-2-3.mjs:466-479`, Lab 2:24, and O2.1 inspection in the recut set, and state that a class-name boundary answer satisfies those checks. Existing mechanism: recut that verifier; do not add a second content contract.\n\n## 2. Named-example closing needs the copy-warning recut, the Taskfile pin, and a do-not-run bound\n**sharpens-framing**\n\nEvidence: Module 2 \u00a73 already teaches the class (`contributor instructions, an unprefixed root Taskfile, package workspaces, and maintainer tasks`) and says `Do not copy maintainer commands into a consumer lesson` (`02-installation-and-anatomy.md:196-199`). Official sources pin the boundary claim to the setup skill (`02-installation-and-anatomy.md:433`). At release commit `75e7d33f114b0e2e67741257813c095e74d9668f` that skill's contributor path names `deft-install --yes --upgrade --maintainer --repo-root . --json`. The same commit's root `Taskfile.yml` defines `check:framework-source` (task around line 418). `references/SOURCE-BASELINE.md:16,37` is that commit. This dest's consumer `Taskfile.yml:8-10` includes the deposit under namespace `deft`; the deposit still defines `check:framework-source`. The Lab 2 solution already carries `do not run or copy it into this training consumer lab` (`solutions/lab-02-disposable-initialization.md:100-101`). The verifier already requires that command in the solution.\n\nFailure mode: Adding `` `task check:framework-source` `` to \u00a73 while leaving the copy-warning unchanged makes the same section both name and forbid naming a maintainer command. Citing the setup skill as the pin for this example identifies a different maintainer surface. Naming a runnable task in the lesson without the solution's do-not-run bound invites the learner to execute it in the disposable consumer (`task check:framework-source` missing at the unprefixed root, or `task deft:check:framework-source` running a framework-source gate on a consumer tree).\n\nDisposition: If this arm is the bind, keep `` `task check:framework-source` `` because the existing verifier already locks it, add Official sources to `Taskfile.yml` at `75e7d33f`, recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab, and keep the solution's do-not-run sentence. Reuse `verify-modules-2-3.mjs`; add a Module 2 teaching-string assertion there if the lesson is now the source of the name.\n\n## 3. Issue anchors re-measured\n**footnote**\n\nTask 1 at `labs/02-disposable-initialization.md:309-310` and Q5 at `02-installation-and-anatomy.md:405-406` ask for one consumer surface and one maintainer-only surface. Module 2:196-199 gives the class and the copy-warning. The solution at lines 98-101 grades `` `task check:framework-source` `` in the `deftai/directive` source checkout. GitHub GET of `Taskfile.yml` at `75e7d33f` shows that task exists. `node scripts/verify-modules-2-3.mjs` exits 0 on this dest. The identity split is real.\n\n## Inventory\n\nExisting surfaces that already speak to this identity, in harvest order if either arm binds: Module 2 \u00a73, O2.1 (`02-installation-and-anatomy.md:26-29,315,405-406`), Lab 2 Task 1 and done-condition (`labs/02-disposable-initialization.md:24,309-316`), Lab 2 solution Reasoning 1 (`solutions/lab-02-disposable-initialization.md:98-101`), `scripts/verify-modules-2-3.mjs:466-479`, SOURCE-BASELINE consumer-versus-maintainer row (`references/SOURCE-BASELINE.md:85`), glossary `framework source repository` (`references/GLOSSARY.md:20-22`), QUICK-REFERENCE maintainer-outside-course lines (`references/QUICK-REFERENCE.md:60-61`), Official sources setup-skill row, and pinned `Taskfile.yml` `check:framework-source`.\n\n## Road not taken\n\nI considered closing Arm 1 on the setup skill's `deft-install --maintainer`, which Official sources already links. That would mint a second named example while `verify-modules-2-3.mjs` still requires `` `task check:framework-source` ``. Closing the identity already locked by that verifier reuses that command. Flip if the bind recuts the verifier onto a different pinned surface.\n\nSteelmanning the strongest rejected position: a solution may be more specific than the lesson, and comparing after the attempt is the teaching loop. That holds when inspection accepts a class-name boundary answer. Lab 2:24 and O2.1 inspection currently require a match to the solution's concrete command, so the unseen name is the bar. Flip finding 1 if those two lines are recut so a class-name answer completes O2.1.\n\n",
           "id": 5838971414,
           "html_url": "https://github.com/deftai/directive-training/issues/96#issuecomment-5838971414",
           "user": {
@@ -160,7 +250,7 @@
           "author_association": "COLLABORATOR"
         },
         {
-          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLab 2 Task 1 and Module 2 Q5 still grade an unseen maintainer command. Confirming this map would name `task check:framework-source` in Module 2 §3 with a pinned Taskfile source, recut the copy-warning so the lesson may name one example while forbidding running it, and keep the solution's do-not-run sentence.\n\nParent forward verdict: P1 holds; bind the named-example arm on the existing verifier lock. Class-sufficient without recutting Q5 and the match-the-solution done-condition cannot bind.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838827890 and these takes; the evidence is critic 5838971414.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5838971414\nsupersedes: 5838827890\nTarget-digest: sha256:0d6d8bdda38355672d67e75da3c2e0d30b3bac96a511bc6a73f5d5f5f2da4878\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Class-sufficient closing needs the surfaces that already grade a command name\ntake: accept-into-contract\ncritic: 5838971414\nheading: Class-sufficient closing needs the surfaces that already grade a command name\n### Named-example closing needs the copy-warning recut, the Taskfile pin, and a do-not-run bound\ntake: accept-into-contract\ncritic: 5838971414\nheading: Named-example closing needs the copy-warning recut, the Taskfile pin, and a do-not-run bound\n### footnote — Issue anchors re-measured\ntake: accept-into-contract\ncritic: 5838971414\nheading: Issue anchors re-measured\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5838971414 reading=asserted\n\n## Bound remedy\n\n- Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.\n- Name that command in Module 2 §3. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.\n- Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.\n- Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks.\n\n",
+          "body": "model: grok-4.6\n```quarantined\nrole: parent\n```\n\n**Lean:**\n\n## In plain English\n\nLab 2 Task 1 and Module 2 Q5 still grade an unseen maintainer command. Confirming this map would name `task check:framework-source` in Module 2 \u00a73 with a pinned Taskfile source, recut the copy-warning so the lesson may name one example while forbidding running it, and keep the solution's do-not-run sentence.\n\nParent forward verdict: P1 holds; bind the named-example arm on the existing verifier lock. Class-sufficient without recutting Q5 and the match-the-solution done-condition cannot bind.\nDisposition: every classified heading is accept-into-contract; the next-build contract is the Bound-remedy recut.\nNon-self-arbitration: this parent authored Stop 1 write-back 5838827890 and these takes; the evidence is critic 5838971414.\nThis arc does not ingest and does not dest-place.\n\nround: 1\nsiblings: 1\ncritic: 5838971414\nsupersedes: 5838827890\nTarget-digest: sha256:0d6d8bdda38355672d67e75da3c2e0d30b3bac96a511bc6a73f5d5f5f2da4878\nSpec-path: Bound-remedy harvest; the issue body is historical described content\n\n### Class-sufficient closing needs the surfaces that already grade a command name\ntake: accept-into-contract\ncritic: 5838971414\nheading: Class-sufficient closing needs the surfaces that already grade a command name\n### Named-example closing needs the copy-warning recut, the Taskfile pin, and a do-not-run bound\ntake: accept-into-contract\ncritic: 5838971414\nheading: Named-example closing needs the copy-warning recut, the Taskfile pin, and a do-not-run bound\n### footnote \u2014 Issue anchors re-measured\ntake: accept-into-contract\ncritic: 5838971414\nheading: Issue anchors re-measured\nrelieves: P1\naudit:pain-P1 sha=aea1e77017962e2e7186ef64ad8d7e82329da77b pointer=comment:5838971414 reading=asserted\n\n## Bound remedy\n\n- Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.\n- Name that command in Module 2 \u00a73. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.\n- Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.\n- Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks.\n\n",
           "id": 5847299813,
           "html_url": "https://github.com/deftai/directive-training/issues/96#issuecomment-5847299813",
           "user": {
@@ -189,7 +279,7 @@
           "author_association": "COLLABORATOR"
         },
         {
-          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5847299813. Stop 1 write-back 5838827890. Round-1 critic 5838971414. Input ceiling 5847299813. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Process-only. Parsers from `@deftai/directive-core@0.119.5`.\n\n## Verdict\n\nBound-remedy on lean 5847299813 covers Stop 1 `P1`. `scanPainCites` on this lean body emits one disposition for `P1`: `relieves`.\n\nFinding census: 0 `blocks-the-design`, 0 `sharpens-framing`, 1 `footnote`.\n\n## 1. Bound-remedy covers Stop 1 P1; scanPainCites emits one P1 disposition\n**footnote**\n\nEvidence, measured at `aea1e77017962e2e7186ef64ad8d7e82329da77b` against Stop 1 5838827890 and lean 5847299813.\n\n`scanPainList` on Stop 1 returns `{ present: true, ids: [\"P1\"], duplicates: [], malformed: false }`. Stop 1 names Task 1 at `labs/02-disposable-initialization.md:310`, Q5 at `curriculum/modules/02-installation-and-anatomy.md:405`, the Module 2 class and copy-warning at 197-198 (measured 196-199), and solution grading at `solutions/lab-02-disposable-initialization.md:100`.\n\nAt this SHA, `git show` on Module 2 and Lab 2 yields zero `check:framework-source`. Solution 98-101 grades `` `task check:framework-source` `` for the separate `deftai/directive` source checkout and carries the do-not-run sentence. `scripts/verify-modules-2-3.mjs:466-479` locks that pair. `node scripts/verify-modules-2-3.mjs` exits 0 (20 artifacts). GitHub GET of `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f` defines `check:framework-source:` at line 418.\n\n`extractBoundRemedyHarvest` returns four list items: bind the named-example arm and keep that command under the existing verifier lock; name it in Module 2 §3, add Official sources to that Taskfile pin, recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it, and keep the solution's do-not-run sentence; reuse `scripts/verify-modules-2-3.mjs` and add a Module 2 teaching-string assertion when the lesson is the source of the name; keep class-sufficient off the harvest. `evaluateBoundRemedyCites` with `coveredIds: [\"P1\"]` returns `{ ok: true }`. Naming the currently unseen command in §3, with the copy-warning recut and the Taskfile pin, is P1 as Stop 1 named it.\n\n`scanPainCites` returns one cite `{ painId: \"P1\", disposition: \"relieves\", deferredIssueNumber: null }` and `rejected: []`. `PAIN_CITE_RE` matches once: line 34 `` relieves: P1 ``, `classifyPosition` null. Take-map headings and the summary `P1 holds` run sit outside `PAIN_CITE_RE`. `assertedPainIdsFromCites` returns `[\"P1\"]`. `evaluatePainCitePlacement` kind `bind` returns `{ allowed: true, operativeCiteCount: 1 }`.\n\nFailure mode: none observed on marker `pain-P1`.\n\nDisposition: the asserted `relieves` cite on lean 5847299813 stays independently supported.\n\n",
+          "body": "model: grok-4.6\n```quarantined\nrole: critic\n```\n\naudit-targets: pain-P1\n\nRound 2 fresh pain-audit of successor lean 5847299813. Stop 1 write-back 5838827890. Round-1 critic 5838971414. Input ceiling 5847299813. Dispatch SHA `aea1e77017962e2e7186ef64ad8d7e82329da77b`. Process-only. Parsers from `@deftai/directive-core@0.119.5`.\n\n## Verdict\n\nBound-remedy on lean 5847299813 covers Stop 1 `P1`. `scanPainCites` on this lean body emits one disposition for `P1`: `relieves`.\n\nFinding census: 0 `blocks-the-design`, 0 `sharpens-framing`, 1 `footnote`.\n\n## 1. Bound-remedy covers Stop 1 P1; scanPainCites emits one P1 disposition\n**footnote**\n\nEvidence, measured at `aea1e77017962e2e7186ef64ad8d7e82329da77b` against Stop 1 5838827890 and lean 5847299813.\n\n`scanPainList` on Stop 1 returns `{ present: true, ids: [\"P1\"], duplicates: [], malformed: false }`. Stop 1 names Task 1 at `labs/02-disposable-initialization.md:310`, Q5 at `curriculum/modules/02-installation-and-anatomy.md:405`, the Module 2 class and copy-warning at 197-198 (measured 196-199), and solution grading at `solutions/lab-02-disposable-initialization.md:100`.\n\nAt this SHA, `git show` on Module 2 and Lab 2 yields zero `check:framework-source`. Solution 98-101 grades `` `task check:framework-source` `` for the separate `deftai/directive` source checkout and carries the do-not-run sentence. `scripts/verify-modules-2-3.mjs:466-479` locks that pair. `node scripts/verify-modules-2-3.mjs` exits 0 (20 artifacts). GitHub GET of `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f` defines `check:framework-source:` at line 418.\n\n`extractBoundRemedyHarvest` returns four list items: bind the named-example arm and keep that command under the existing verifier lock; name it in Module 2 \u00a73, add Official sources to that Taskfile pin, recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it, and keep the solution's do-not-run sentence; reuse `scripts/verify-modules-2-3.mjs` and add a Module 2 teaching-string assertion when the lesson is the source of the name; keep class-sufficient off the harvest. `evaluateBoundRemedyCites` with `coveredIds: [\"P1\"]` returns `{ ok: true }`. Naming the currently unseen command in \u00a73, with the copy-warning recut and the Taskfile pin, is P1 as Stop 1 named it.\n\n`scanPainCites` returns one cite `{ painId: \"P1\", disposition: \"relieves\", deferredIssueNumber: null }` and `rejected: []`. `PAIN_CITE_RE` matches once: line 34 `` relieves: P1 ``, `classifyPosition` null. Take-map headings and the summary `P1 holds` run sit outside `PAIN_CITE_RE`. `assertedPainIdsFromCites` returns `[\"P1\"]`. `evaluatePainCitePlacement` kind `bind` returns `{ allowed: true, operativeCiteCount: 1 }`.\n\nFailure mode: none observed on marker `pain-P1`.\n\nDisposition: the asserted `relieves` cite on lean 5847299813 stays independently supported.\n\n",
           "id": 5847360340,
           "html_url": "https://github.com/deftai/directive-training/issues/96#issuecomment-5847360340",
           "user": {
@@ -305,7 +395,7 @@
           "author_association": "COLLABORATOR"
         }
       ],
-      "issueBody": "## Course context\n\nLab 2, Task 1, on Windows 11 ARM64 and PowerShell 7.6.6, with Directive 0.119.5 project-local. I completed it before opening the solution, as the course requires.\n\n## What happened\n\nTask 1 requires: \"Add one consumer command surface and one **framework-maintainer-only surface**, then state which repository each belongs to.\" Module 2's self-assessment Q5 asks the same thing.\n\nModule 2 describes the maintainer side only abstractly: \"contributor instructions, an unprefixed root Taskfile, package workspaces, and maintainer tasks\". It warns: \"Do not copy maintainer commands into a consumer lesson\". It never names a single maintainer-only command.\n\nThe explained solution then grades against a specific example the learner has never seen: \"`task check:framework-source` is a maintainer-only surface for the separate `deftai/directive` source checkout\".\n\n## Learner pain\n\nTo give a *concrete* maintainer-only surface, a learner has three options. They can invent one, which the course itself warns against. They can go looking in the `deftai/directive` source repo, which is outside the course and against \"use only course material\". Or they can answer vaguely (\"the unprefixed Taskfile\"). I chose the vague answer and was unsure whether it met the \"explicit boundary\" bar until I opened the solution.\n\n## Reproduction\n\nComplete Module 2 and Lab 2 Task 1 using only the module text, then compare with `solutions/lab-02-disposable-initialization.md` §Reasoning 1.\n\n## Proposed fix\n\nDo one of these:\n\n- name one concrete maintainer-only example in Module 2 §3 (for example, `task check:framework-source` in the `deftai/directive` source checkout) with its pinned source; or\n- change the Task 1 and solution rubric to say that naming the class (\"an unprefixed root task in the framework source repo\") is sufficient.\n\n",
+      "issueBody": "## Course context\n\nLab 2, Task 1, on Windows 11 ARM64 and PowerShell 7.6.6, with Directive 0.119.5 project-local. I completed it before opening the solution, as the course requires.\n\n## What happened\n\nTask 1 requires: \"Add one consumer command surface and one **framework-maintainer-only surface**, then state which repository each belongs to.\" Module 2's self-assessment Q5 asks the same thing.\n\nModule 2 describes the maintainer side only abstractly: \"contributor instructions, an unprefixed root Taskfile, package workspaces, and maintainer tasks\". It warns: \"Do not copy maintainer commands into a consumer lesson\". It never names a single maintainer-only command.\n\nThe explained solution then grades against a specific example the learner has never seen: \"`task check:framework-source` is a maintainer-only surface for the separate `deftai/directive` source checkout\".\n\n## Learner pain\n\nTo give a *concrete* maintainer-only surface, a learner has three options. They can invent one, which the course itself warns against. They can go looking in the `deftai/directive` source repo, which is outside the course and against \"use only course material\". Or they can answer vaguely (\"the unprefixed Taskfile\"). I chose the vague answer and was unsure whether it met the \"explicit boundary\" bar until I opened the solution.\n\n## Reproduction\n\nComplete Module 2 and Lab 2 Task 1 using only the module text, then compare with `solutions/lab-02-disposable-initialization.md` \u00a7Reasoning 1.\n\n## Proposed fix\n\nDo one of these:\n\n- name one concrete maintainer-only example in Module 2 \u00a73 (for example, `task check:framework-source` in the `deftai/directive` source checkout) with its pinned source; or\n- change the Task 1 and solution rubric to say that naming the class (\"an unprefixed root task in the framework source repo\") is sufficient.\n\n",
       "x-directive/plan-id": {
         "version": 1,
         "source": "github-rest-id",
@@ -327,7 +417,7 @@
       "sentences": [
         "Bind the named-example arm.",
         "Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.",
-        "Name that command in Module 2 §3.",
+        "Name that command in Module 2 \u00a73.",
         "Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`.",
         "Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab.",
         "Keep the solution's do-not-run sentence.",
@@ -353,7 +443,7 @@
         },
         {
           "id": 3,
-          "text": "Name that command in Module 2 §3.",
+          "text": "Name that command in Module 2 \u00a73.",
           "artifact_path": "curriculum/modules/02-installation-and-anatomy.md",
           "ambiguous": false,
           "provenance": "statement"
@@ -412,7 +502,7 @@
       "admitted_source_sentences": [
         "Bind the named-example arm.",
         "Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.",
-        "Name that command in Module 2 §3.",
+        "Name that command in Module 2 \u00a73.",
         "Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`.",
         "Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab.",
         "Keep the solution's do-not-run sentence.",
@@ -424,6 +514,6 @@
       "admitted_source_digest": "710c796fc61afe1b49df66a22b2f725e7b3459ccfd89436128926be189806964"
     },
     "id": "github.issue.5586607332",
-    "updated": "2026-10-06T19:54:56Z"
+    "updated": "2026-10-06T22:23:37Z"
   }
 }
