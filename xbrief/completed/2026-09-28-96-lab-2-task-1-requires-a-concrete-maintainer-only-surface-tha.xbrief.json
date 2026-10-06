@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #96",
-    "updated": "2026-10-06T22:50:12Z"
+    "updated": "2026-10-06T23:01:42Z"
   },
   "plan": {
     "title": "Lab 2 Task 1 requires a concrete maintainer-only surface that Module 2 never names; solution grades against an unseen command",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Lab 2 Task 1 asks learners to identify a concrete maintainer-only verification surface, but Module 2 never names the command that the explained solution grades as correct. This story teaches the pinned `task check:framework-source` example with a do-not-run boundary and extends the existing Modules 2-3 verifier to keep the lesson and solution aligned.",
       "ImplementationPlan": "1. Update `curriculum/modules/02-installation-and-anatomy.md` \u00a73 to name `task check:framework-source` as the pinned maintainer-only example, cite the official `Taskfile.yml` source at the recorded commit, and forbid running it in the consumer lab.\n2. Recut the surrounding copy warning so one pinned boundary example is teachable without inviting learners to copy or execute maintainer commands.\n3. Extend `scripts/verify-modules-2-3.mjs` with a focused teaching-string assertion that preserves the solution's named command and do-not-run sentence without widening the answer contract to a generic class name.",
@@ -19,7 +19,7 @@
     "items": [
       {
         "title": "Bind the named-example arm. Keep `` `task check:framework-source` `` because `scripts/verify-modules-2-3.mjs:466-479` already locks it in `solutions/lab-02-disposable-initialization.md:98-101`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.1",
         "narrative": {
           "Acceptance": "When a learner reads Module 2, it names `task check:framework-source` as the concrete maintainer-only example already required by the Lab 2 solution, and the existing solution command remains unchanged."
@@ -46,7 +46,7 @@
       },
       {
         "title": "Name that command in Module 2 \u00a73. Add Official sources to `Taskfile.yml` at `75e7d33f114b0e2e67741257813c095e74d9668f`. Recut the copy-warning so the lesson may name one pinned boundary example while forbidding running it in the consumer lab. Keep the solution's do-not-run sentence.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.2",
         "narrative": {
           "Acceptance": "When the lesson presents the named example, it cites `Taskfile.yml` at commit `75e7d33f114b0e2e67741257813c095e74d9668f`, permits inspection, and explicitly forbids copying or running the command in the consumer lab."
@@ -73,7 +73,7 @@
       },
       {
         "title": "Reuse `scripts/verify-modules-2-3.mjs`. Add a Module 2 teaching-string assertion there if the lesson is now the source of the name.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.3",
         "narrative": {
           "Acceptance": "`npm run check:modules-2-3` passes when Module 2 contains the named command, pinned source, and do-not-run boundary, and fails when any of those teaching strings is removed."
@@ -100,7 +100,7 @@
       },
       {
         "title": "Do not bind class-sufficient as the harvest. That arm would also have to recut Q5, the Q5 verifier lock, Lab 2:24 match-the-solution done-condition, and O2.1 inspection so a class-name answer satisfies those checks.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.4",
         "narrative": {
           "Acceptance": "When the final lesson and verifier are reviewed, they require the concrete `task check:framework-source` answer and do not broaden Q5, O2.1, or the Lab 2 done condition to accept an unnamed command class."
@@ -128,7 +128,7 @@
       {
         "id": "clause.5",
         "title": "clause.5",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "scripts/verify-modules-2-3.mjs",
@@ -152,7 +152,7 @@
       {
         "id": "clause.6",
         "title": "clause.6",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "scripts/verify-modules-2-3.mjs",
@@ -176,7 +176,7 @@
       {
         "id": "clause.7",
         "title": "clause.7",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "scripts/verify-modules-2-3.mjs",
@@ -200,7 +200,7 @@
       {
         "id": "clause.8",
         "title": "clause.8",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "scripts/verify-modules-2-3.mjs",
@@ -224,7 +224,7 @@
       {
         "id": "clause.9",
         "title": "clause.9",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "scripts/verify-modules-2-3.mjs",
@@ -248,7 +248,7 @@
       {
         "id": "clause.10",
         "title": "clause.10",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "scripts/verify-modules-2-3.mjs",
@@ -537,6 +537,28 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "0d6d8bdda38355672d67e75da3c2e0d30b3bac96a511bc6a73f5d5f5f2da4878"
+      },
+      "completionProvenance": {
+        "repository": "deftai/directive-training",
+        "implementationCommit": "d970407760e1203644889666a4bb6251f5eef273",
+        "prNumber": 122,
+        "prBase": "master",
+        "mergeCommit": "d970407760e1203644889666a4bb6251f5eef273",
+        "deliveryBranch": "master",
+        "deliveryCommit": "fd9fcdf673db4a4779947ae2d6bfefa33fd218e5",
+        "verifiedAt": "2026-10-06T23:01:42Z",
+        "verifier": "swarm:finalize-cohort",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-10-06T23:01:42Z",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-10-06T23:01:42Z"
       }
     },
     "acceptance": {
@@ -644,6 +666,6 @@
       "admitted_source_digest": "710c796fc61afe1b49df66a22b2f725e7b3459ccfd89436128926be189806964"
     },
     "id": "github.issue.5586607332",
-    "updated": "2026-10-06T22:50:12Z"
+    "updated": "2026-10-06T23:01:42Z"
   }
 }

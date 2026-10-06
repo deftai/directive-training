@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #93",
-    "updated": "2026-10-06T22:50:12Z"
+    "updated": "2026-10-06T23:01:42Z"
   },
   "plan": {
     "title": "Opening a coding agent in the course clone subjects it to the repo's Directive hooks; the offered recovery mutates the training repo",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Opening a coding agent in the course clone loads the repository's tracked Directive hooks, while the current learner-facing recovery can rewrite that same training repository. This story adds explicit learner-versus-maintainer guidance, a non-mutating recovery path, and focused verifier coverage without changing hook policy, product-signal policy, or the test kill switch.",
       "ImplementationPlan": "1. Update `README.md` and `curriculum/README.md` with a course-entry warning that separates the governed training clone from the disposable `LAB_ROOT`, and place the named non-mutating stuck-path recovery beside the existing safety guidance.\n2. State the closed learner recovery and forbid lists, expected teaching-pin versus global-engine skew, and optional product-signal prompt without changing tracked hook adapters or project policy.\n3. Extend `scripts/verify-cold-start-readme.mjs` and `scripts/verify-text-portability.test.mjs` so focused LF and CRLF checks reject missing, relocated, or mutation-authorizing learner guidance.",
@@ -19,7 +19,7 @@
     "items": [
       {
         "title": "Recut the next-build contract to a course-entry warning plus a named non-mutating recovery. Park option 3 (learner/maintainer tree split or path-aware hooks, including an upstream OS-temp write recut) off this harvest.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.1",
         "narrative": {
           "Acceptance": "When a learner opens the course-entry pages, they identify the training clone as a governed Directive consumer, provide one named non-mutating learner recovery, and do not instruct learners to add a second tree or recut hook behavior."
@@ -52,7 +52,7 @@
       },
       {
         "title": "Put the warning on `curriculum/README.md` Audience and prerequisites and on `README.md` Safety boundary, or a Start here bullet that points there. Put the named recovery on `README.md` Resume or recover.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.2",
         "narrative": {
           "Acceptance": "When course-entry verification runs, `README.md` and `curriculum/README.md` expose the learner warning before course work begins, `README.md` names the recovery in its stuck path, and removal of either surface fails."
@@ -85,7 +85,7 @@
       },
       {
         "title": "Keep `labs/02-disposable-initialization.md:70-73`. In the example, name `LAB_ROOT` as the coding-agent workspace and `DIRECTIVE_TRAINING_ROOT` as the helper path only.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.3",
         "narrative": {
           "Acceptance": "When the learner-facing workspace example is read, it names `LAB_ROOT` as the coding-agent workspace and `DIRECTIVE_TRAINING_ROOT` only as the helper source, while the diff leaves the existing Lab 2 host-runner contract unchanged."
@@ -118,7 +118,7 @@
       },
       {
         "title": "Closed recovery list: keep using paper or a personal untracked note (`curriculum/modules/01-what-directive-is.md:40`); for labs, open the coding-agent host on `LAB_ROOT`; when a clone-hook deny appears, leave the deny in place and treat it as maintainer governance of this consumer, not a course step.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.4",
         "narrative": {
           "Acceptance": "When a clone-hook denial occurs, the documented learner path keeps notes on paper or in a personal untracked file, opens lab agents on `LAB_ROOT`, and leaves the denial in place as maintainer governance."
@@ -151,7 +151,7 @@
       },
       {
         "title": "Closed forbid list for this clone: `deft verify:hooks-installed --scope=agent --repair`, `deft update` / `directive init`, `deft policy:disable-host-hooks`, `deft session:ready` / occupancy mint. Name pin/engine skew as expected when the global CLI and the teaching pin differ.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.5",
         "narrative": {
           "Acceptance": "When the recovery guidance is inspected, it excludes hook repair, update or init, host-hook disablement, and session-ready occupancy commands, and explains that a global-engine versus teaching-pin mismatch is expected rather than a learner repair target."
@@ -184,7 +184,7 @@
       },
       {
         "title": "One sentence on the warning: the product-signal consent prompt is optional partner signal, not a course step, and the learner may skip it. Do not recut `plan.policy.productSignal`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.6",
         "narrative": {
           "Acceptance": "When the warning is displayed, it says the product-signal consent prompt is optional partner signal that learners may skip, and the final diff contains no product-signal policy change."
@@ -217,7 +217,7 @@
       },
       {
         "title": "Keep `.deft-directive-disable` off the learner recovery list.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.7",
         "narrative": {
           "Acceptance": "No learner recovery text names `.deft-directive-disable`, and the focused verifier rejects adding the test kill switch to the sanctioned course path."
@@ -541,6 +541,28 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "3c097c21745704e19e55a7fc7ada08f4dd9b6f55faa7fc3fbcb19065133079d7"
+      },
+      "completionProvenance": {
+        "repository": "deftai/directive-training",
+        "implementationCommit": "6e0c39f3161db0305acf498c3c27a1da671f4ba8",
+        "prNumber": 123,
+        "prBase": "master",
+        "mergeCommit": "6e0c39f3161db0305acf498c3c27a1da671f4ba8",
+        "deliveryBranch": "master",
+        "deliveryCommit": "fd9fcdf673db4a4779947ae2d6bfefa33fd218e5",
+        "verifiedAt": "2026-10-06T23:01:42Z",
+        "verifier": "swarm:finalize-cohort",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-10-06T23:01:42Z",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-10-06T23:01:42Z"
       }
     },
     "acceptance": {
@@ -611,6 +633,6 @@
       "ambiguity_attestation": "none_found"
     },
     "id": "github.issue.5586606446",
-    "updated": "2026-10-06T22:50:12Z"
+    "updated": "2026-10-06T23:01:42Z"
   }
 }
