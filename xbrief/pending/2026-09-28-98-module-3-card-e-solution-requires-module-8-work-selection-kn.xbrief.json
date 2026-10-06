@@ -88,11 +88,13 @@
       ],
       "ambiguity_attestation": "none_found",
       "admitted_source_sentences": [
-        "Bind Option 2. Recut `solutions/module-03-authority-and-context.md` so \"ask which proposed scope should be approved and activated\" is a full pass for Card E, covering Step 1 row E Decision cell, operator cell, and additional context (`:107`), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`.",
-        "Do not add a Module 3 paragraph that a deterministic work-selection surface exists unless Card E also lists plan/queue facts and O3.3 scores inspection. That expansion is outside this envelope.",
+        "Bind Option 2.",
+        "Recut `solutions/module-03-authority-and-context.md` so \"ask which proposed scope should be approved and activated\" is a full pass for Card E, covering Step 1 row E Decision cell, operator cell, and additional context (`:107`), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`.",
+        "Do not add a Module 3 paragraph that a deterministic work-selection surface exists unless Card E also lists plan/queue facts and O3.3 scores inspection.",
+        "That expansion is outside this envelope.",
         "Leave inspect-first as the existing Module 8 Snapshot 2 / Case C teaching."
       ],
-      "admitted_source_digest": "279ff6f2f31afa0ce18ce1c1ca945cad1202e44299aa8b7275af432b7c7ec8d1"
+      "admitted_source_digest": "b9a769904ad44fd050c7a8db979fd53cbf7ed86f976bc8907a8303f6830e93c1"
     },
     "metadata": {
       "intended_placement": {
