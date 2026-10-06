@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #98",
-    "updated": "2026-10-06T22:50:12Z"
+    "updated": "2026-10-06T23:01:42Z"
   },
   "plan": {
     "title": "Module 3 Card E solution requires Module 8 work-selection knowledge; the rubric fails the answer Modules 1\u20133 support",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Align the Module 3 Card E answer key with the authority concepts learners have actually encountered by that point in the course. Asking which proposed scope should be approved and activated must receive full credit without importing Module 8's ordered-plan and ranked-queue inspection model.",
       "UserStory": "As a Directive learner, I want Card E graded against Modules 1\u20133 knowledge, so that a correct escalation to the operator passes before later work-selection mechanics have been taught.",
@@ -19,7 +19,7 @@
     "items": [
       {
         "title": "Bind Option 2. Recut `solutions/module-03-authority-and-context.md` so \"ask which proposed scope should be approved and activated\" is a full pass for Card E, covering Step 1 row E Decision cell, operator cell, and additional context (`:107`), Step 3 E bullets including `:140`, Valid alternatives `:177`, and misconception `:228`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.1",
         "narrative": {
           "Acceptance": "Given the revised answer key, when each named Card E surface is evaluated, then asking which proposed scope should be approved and activated receives a full pass and scripts/verify-modules-2-3.mjs fails if any surface again requires prior work-selection inspection."
@@ -50,7 +50,7 @@
       },
       {
         "title": "Do not add a Module 3 paragraph that a deterministic work-selection surface exists unless Card E also lists plan/queue facts and O3.3 scores inspection. That expansion is outside this envelope.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.2",
         "narrative": {
           "Acceptance": "Given only Modules 1\u20133 knowledge, when Card E is graded, then the Module 3 solution requires no ordered-plan, ranked-queue, or deterministic work-selection prerequisite and the focused verifier rejects those out-of-sequence concepts."
@@ -81,7 +81,7 @@
       },
       {
         "title": "Leave inspect-first as the existing Module 8 Snapshot 2 / Case C teaching.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.3",
         "narrative": {
           "Acceptance": "Given the completed implementation diff, when its paths are inspected, then only the Module 3 solution, modules 2-3 verifier, and lifecycle xBRIEF are updated and no Module 8 curriculum or solution path appears."
@@ -471,9 +471,31 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "e2484920964d466a5354383c8b8e60eec65bcf445bc6a8ee61e9f75f612aa744"
+      },
+      "completionProvenance": {
+        "repository": "deftai/directive-training",
+        "implementationCommit": "0f09f7e2c57b73a3b1505ddbc68579de1e6c82d1",
+        "prNumber": 125,
+        "prBase": "master",
+        "mergeCommit": "0f09f7e2c57b73a3b1505ddbc68579de1e6c82d1",
+        "deliveryBranch": "master",
+        "deliveryCommit": "fd9fcdf673db4a4779947ae2d6bfefa33fd218e5",
+        "verifiedAt": "2026-10-06T23:01:42Z",
+        "verifier": "swarm:finalize-cohort",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-10-06T23:01:42Z",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-10-06T23:01:42Z"
       }
     },
     "id": "github.issue.5586667955",
-    "updated": "2026-10-06T22:50:12Z"
+    "updated": "2026-10-06T23:01:42Z"
   }
 }

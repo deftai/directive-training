@@ -2,11 +2,11 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Scope xBRIEF ingested from GitHub issue #97",
-    "updated": "2026-10-06T22:50:12Z"
+    "updated": "2026-10-06T23:01:42Z"
   },
   "plan": {
     "title": "Lab 2 Task 3: 'do not resolve USER.md' conflicts with diagnose writing the resolved path to evidence; .deft-cache/ absent after init",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Clarify Lab 2's privacy boundary so learners can recognize both USER.md doctor outcomes without copying host-specific paths into evidence. Also explain that init installs the `.deft-cache/` ignore rule while the directory itself appears only after a later cache, queue, or session-event write.",
       "UserStory": "As a Directive learner, I want Lab 2 to distinguish expected USER.md diagnostics and deferred cache creation, so that I can complete the disposable initialization exercise without leaking host data or chasing a directory that should not exist yet.",
@@ -19,7 +19,7 @@
     "items": [
       {
         "title": "Add both measured doctor strings to the Lab 2 Task 2 expected-output list: `USER.md resolved (<rung>): <path>` when found, and `USER.md: no USER.md found; using defaults (searched: ...)` when absent. Say they are skip/info, not warnings. Recut Task 3 to do not open or copy USER.md. Recut `solutions/lab-02-disposable-initialization.md:232-233` to the same open-or-copy forbid and the same resolved-versus-defaulted keep-as-evidence rule. Keep-as-evidence stays classifications plus the existing environment-data rule: record resolved-versus-defaulted, do not copy the host path into `evidence.md` or public posts. Do not add helper redaction of `doctor-full.txt`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.1",
         "narrative": {
           "Acceptance": "Both Lab 2 documents name the found and absent USER.md doctor strings as skip/info outcomes, forbid opening or copying USER.md and its host path into evidence or public posts, and add no helper redaction; scripts/verify-modules-2-3.mjs fails if any part of that contract is removed."
@@ -47,7 +47,7 @@
       },
       {
         "title": "Keep `.deft-cache/` on the inspect list and keep `git check-ignore -v -- .deft-cache/example`. State that init installs the ignore rule, the directory appears on a later cache/queue/session-event write, and Lab 2 doctor is not that write. Do not replace the inspect path with `xbrief/.triage-cache/`.",
-        "status": "proposed",
+        "status": "completed",
         "id": "clause.2",
         "narrative": {
           "Acceptance": "The lab keeps `.deft-cache/` and `git check-ignore -v -- .deft-cache/example`, states that init installs only the ignore rule and Lab 2 doctor is not the creating write, and scripts/verify-modules-2-3.mjs rejects replacement with `xbrief/.triage-cache/`."
@@ -76,7 +76,7 @@
       {
         "id": "clause.3",
         "title": "clause.3",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "scripts/verify-modules-2-3.mjs",
@@ -101,7 +101,7 @@
       {
         "id": "clause.4",
         "title": "clause.4",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "scripts/verify-modules-2-3.mjs",
@@ -126,7 +126,7 @@
       {
         "id": "clause.5",
         "title": "clause.5",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "scripts/verify-modules-2-3.mjs",
@@ -151,7 +151,7 @@
       {
         "id": "clause.6",
         "title": "clause.6",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "scripts/verify-modules-2-3.mjs",
@@ -176,7 +176,7 @@
       {
         "id": "clause.7",
         "title": "clause.7",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "scripts/verify-modules-2-3.mjs",
@@ -201,7 +201,7 @@
       {
         "id": "clause.8",
         "title": "clause.8",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "scripts/verify-modules-2-3.mjs",
@@ -226,7 +226,7 @@
       {
         "id": "clause.9",
         "title": "clause.9",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "test",
           "pointer": "scripts/verify-modules-2-3.mjs",
@@ -662,9 +662,31 @@
         "schema": "deft.scope.admitted-target-digest.v1",
         "algorithm": "sha256",
         "sha256": "88a8ffb617091e7a9ff50b8e7cfcc05985c94a2526a17e59dfa626ac9cc6eec5"
+      },
+      "completionProvenance": {
+        "repository": "deftai/directive-training",
+        "implementationCommit": "ab79d291c0e703709f6315675aa854e3218d0548",
+        "prNumber": 124,
+        "prBase": "master",
+        "mergeCommit": "ab79d291c0e703709f6315675aa854e3218d0548",
+        "deliveryBranch": "master",
+        "deliveryCommit": "fd9fcdf673db4a4779947ae2d6bfefa33fd218e5",
+        "verifiedAt": "2026-10-06T23:01:42Z",
+        "verifier": "swarm:finalize-cohort",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-10-06T23:01:42Z",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-10-06T23:01:42Z"
       }
     },
     "id": "github.issue.5586607590",
-    "updated": "2026-10-06T22:50:12Z"
+    "updated": "2026-10-06T23:01:42Z"
   }
 }
