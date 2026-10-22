@@ -150,6 +150,7 @@
           "scripts/verify-modules-2-3.mjs",
           "scripts/verify-modules-4-5.test.mjs",
           "xbrief/.deft-version",
+          "xbrief/evaluator-surface-disposition.json",
           "xbrief/active/2026-10-22-authoring-runtime-upgrade.xbrief.json",
           "xbrief/completed/2026-10-22-authoring-runtime-upgrade.xbrief.json"
         ]
