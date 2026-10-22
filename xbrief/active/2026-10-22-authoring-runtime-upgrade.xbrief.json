@@ -3,19 +3,19 @@
     "version": "0.8",
     "description": "Upgrade the authoring runtime while preserving training content",
     "created": "2026-10-22T00:00:00Z",
-    "updated": "2026-10-22T13:14:16Z",
+    "updated": "2026-10-22T14:48:53Z",
     "author": "agent:codex"
   },
   "plan": {
     "id": "training.authoring-runtime-upgrade",
     "title": "Upgrade authoring Directive to 0.127.0 without changing training content",
-    "status": "pending",
+    "status": "running",
     "narratives": {
       "Description": "Upgrade the maintainer runtime and generated framework wiring to the public npm release 0.127.0. Preserve learner-facing content, README, references, lab fixtures, solutions, assessments and templates byte-for-byte relative to the implementation base. The teaching releases remain frozen independently of the authoring runtime.",
       "Authorization": "David requested this upgrade, authorized obsolete marker removal and validation changes, and explicitly authorized pushing and opening this prerequisite scope-only PR on 2026-10-22. This prerequisite PR does not implement the upgrade.",
       "ImplementationPlan": "Use the official npm upgrade. Separate authoring runtime configuration from the existing learner/version declarations in maintainer validation. Preserve exact fixture pins and negative drift tests. Validate the installed runtime, lockfile, framework wiring, content contracts and disposable labs. Do not change training material to match the new runtime.",
       "StopConditions": "Stop after three unsuccessful repairs of the same gate or if completing the upgrade requires changing learner-facing content. Do not weaken or bypass a gate.",
-      "Delivery": "This PR lands only the pending scope and concrete file allowlist required by the write fence. Activate the scope after this prerequisite lands. The implementation and its evidence follow separately; no implementation completion is claimed.",
+      "Delivery": "PR #128 published the pending scope. This prerequisite publishes its active path because the installed runtime reads that exact path on the merge base. David authorized publication with the existing maintainer bootstrap-test failure documented. Add scripts/directive-bootstrap-runtime.test.mjs for the explicitly requested project-only repair. No implementation completion or passing full project check is claimed; implementation and complete validation follow separately.",
       "QualityGate": "Implementation verification requires npm test, task deft:check, directive doctor --full and a checksum comparison of protected training content. These are future delivery criteria; this prerequisite PR only publishes scope and does not claim they have passed for the implementation."
     },
     "metadata": {
@@ -139,6 +139,7 @@
           "Taskfile.yml",
           "package-lock.json",
           "package.json",
+          "scripts/directive-bootstrap-runtime.test.mjs",
           "scripts/teaching-baseline.mjs",
           "scripts/teaching-baseline.test.mjs",
           "scripts/verify-authoring-runtime.mjs",
@@ -203,7 +204,7 @@
         }
       }
     ],
-    "updated": "2026-10-22T13:14:16Z",
+    "updated": "2026-10-22T14:48:53Z",
     "acceptance": {
       "commands": [],
       "none_stated": true,
