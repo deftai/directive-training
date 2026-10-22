@@ -3,20 +3,23 @@
     "version": "0.8",
     "description": "Upgrade the authoring runtime while preserving training content",
     "created": "2026-10-22T00:00:00Z",
-    "updated": "2026-10-22T14:48:53Z",
+    "updated": "2026-10-22T19:57:21Z",
     "author": "agent:codex"
   },
   "plan": {
     "id": "training.authoring-runtime-upgrade",
     "title": "Upgrade authoring Directive to 0.127.0 without changing training content",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Upgrade the maintainer runtime and generated framework wiring to the public npm release 0.127.0. Preserve learner-facing content, README, references, lab fixtures, solutions, assessments and templates byte-for-byte relative to the implementation base. The teaching releases remain frozen independently of the authoring runtime.",
       "Authorization": "David requested this upgrade, authorized obsolete marker removal and validation changes, and explicitly authorized pushing and opening this prerequisite scope-only PR on 2026-10-22. This prerequisite PR does not implement the upgrade.",
       "ImplementationPlan": "Use the official npm upgrade. Separate authoring runtime configuration from the existing learner/version declarations in maintainer validation. Preserve exact fixture pins and negative drift tests. Validate the installed runtime, lockfile, framework wiring, content contracts and disposable labs. Do not change training material to match the new runtime.",
       "StopConditions": "Stop after three unsuccessful repairs of the same gate or if completing the upgrade requires changing learner-facing content. Do not weaken or bypass a gate.",
       "Delivery": "PR #128 published the pending scope. This prerequisite publishes its active path because the installed runtime reads that exact path on the merge base. David authorized publication with the existing maintainer bootstrap-test failure documented. Add scripts/directive-bootstrap-runtime.test.mjs for the explicitly requested project-only repair. No implementation completion or passing full project check is claimed; implementation and complete validation follow separately.",
-      "QualityGate": "Implementation verification requires npm test, task deft:check, directive doctor --full and a checksum comparison of protected training content. These are future delivery criteria; this prerequisite PR only publishes scope and does not claim they have passed for the implementation."
+      "QualityGate": "Implementation verification requires npm test, task deft:check, directive doctor --full and a checksum comparison of protected training content. These are future delivery criteria; this prerequisite PR only publishes scope and does not claim they have passed for the implementation.",
+      "CloseoutRecord": "Issue #133 was created after PR #132 merged to record the delivered, originally chat-authorized upgrade. It did not authorize the original implementation. GitHub now records PR #132 as closing that retrospective issue. Original Authorization and prerequisite narratives remain historical records.",
+      "PrerequisiteEvidence": "The active scope was published by merged PR #129 at 5a3d19e95f7801218763be5fc691035abad07d95; the exact active-path blob is reachable in that commit. This is historical prerequisite publication evidence, not a requirement to retain a duplicate active brief after the native lifecycle move.",
+      "CloseoutValidationRecord": "PR #132 documents the successful full 21-gate task deft:check on reviewed commit 5d2f7e4717727dc78c8297eca098d669974537c3, including npm test; doctor --full and public-npm package/lock/installed alignment at 0.127.0; linked-path tests; and hosted macOS, Linux, and Windows checks. PR #132 merged as 9ba1a283cac300feb211dbf1e50ea60454ac37fa after Greptile 5/5 and resolved review findings. All 112 protected training files were independently SHA-256 compared in this closeout checkout against baseline 406cf72e3dd747f7df329185f70058ca89e71363 and are unchanged. README teaching baseline remains 0.121.0; frozen lab pins remain unchanged. The coverage classifier was explicitly waived by the human CLI, not reported as passed; release hook limitations remain as disclosed in PR #132. The merged master commit also passed hosted CI run https://github.com/deftai/directive-training/actions/runs/39843467534."
     },
     "metadata": {
       "swarm": {
@@ -155,59 +158,186 @@
           "xbrief/active/2026-10-22-authoring-runtime-upgrade.xbrief.json",
           "xbrief/completed/2026-10-22-authoring-runtime-upgrade.xbrief.json"
         ]
-      }
+      },
+      "completionProvenance": {
+        "repository": "deftai/directive-training",
+        "implementationCommit": "5d2f7e4717727dc78c8297eca098d669974537c3",
+        "prNumber": 132,
+        "prBase": "master",
+        "mergeCommit": "9ba1a283cac300feb211dbf1e50ea60454ac37fa",
+        "deliveryBranch": "master",
+        "deliveryCommit": "9ba1a283cac300feb211dbf1e50ea60454ac37fa",
+        "verifiedAt": "2026-10-22T19:57:21Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMTYzOWMtM2M1My03NjgzLThhMmMtNWU2ZDhiMjAwMTlm"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-10-22T19:57:21Z",
+      "completedSessionId": "host:codex:v1:MDFhMTYzOWMtM2M1My03NjgzLThhMmMtNWU2ZDhiMjAwMTlm",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-10-22T19:57:21Z"
+      },
+      "productPullRequest": 132
     },
     "items": [
       {
         "id": "training.authoring-runtime-upgrade.validation",
         "title": "Upgrade maintainer runtime and preserve training behavior",
-        "status": "pending",
+        "status": "completed",
         "narrative": {
           "Acceptance": "The authoring runtime and public-npm lockfile resolve exactly 0.127.0; npm test, task deft:check and directive doctor --full pass; learner content and fixture hashes are unchanged from the implementation base."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/132",
+          "recorded_at": "2026-10-22T19:55:05.821899Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.authoring-runtime-upgrade.requirement-1",
         "title": "Upgrade authoring Directive to 0.127.0 without changing training content",
-        "status": "pending",
+        "status": "completed",
         "narrative": {
           "Acceptance": "Upgrade authoring Directive to 0.127.0 without changing training content"
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/132",
+          "recorded_at": "2026-10-22T19:55:05.821899Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.authoring-runtime-upgrade.requirement-2",
         "title": "Upgrade the maintainer runtime and generated framework wiring to the public npm release 0.127.0.",
-        "status": "pending",
+        "status": "completed",
         "narrative": {
           "Acceptance": "Upgrade the maintainer runtime and generated framework wiring to the public npm release 0.127.0."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/132",
+          "recorded_at": "2026-10-22T19:55:05.821899Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.authoring-runtime-upgrade.requirement-3",
         "title": "Preserve learner-facing content, README, references, lab fixtures, solutions, assessments and templates byte-for-byte relative to the implementation base.",
-        "status": "pending",
+        "status": "completed",
         "narrative": {
           "Acceptance": "Preserve learner-facing content, README, references, lab fixtures, solutions, assessments and templates byte-for-byte relative to the implementation base."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/132",
+          "recorded_at": "2026-10-22T19:55:05.821899Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.authoring-runtime-upgrade.requirement-4",
         "title": "The teaching releases remain frozen independently of the authoring runtime.",
-        "status": "pending",
+        "status": "completed",
         "narrative": {
           "Acceptance": "The teaching releases remain frozen independently of the authoring runtime."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/132",
+          "recorded_at": "2026-10-22T19:55:05.821899Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "training.authoring-runtime-upgrade.scope-publication",
         "title": "Publish the prerequisite scope",
-        "status": "pending",
+        "status": "completed",
         "narrative": {
           "Acceptance": "File xbrief/active/2026-10-22-authoring-runtime-upgrade.xbrief.json exists."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/129",
+          "recorded_at": "2026-10-22T19:55:05.821899Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "clause.1",
+        "title": "clause.1",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/132",
+          "recorded_at": "2026-10-22T19:55:05.821899Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "clause.2",
+        "title": "clause.2",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/132",
+          "recorded_at": "2026-10-22T19:55:05.821899Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "clause.3",
+        "title": "clause.3",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/132",
+          "recorded_at": "2026-10-22T19:55:05.821899Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "clause.4",
+        "title": "clause.4",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/132",
+          "recorded_at": "2026-10-22T19:55:05.821899Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "clause.5",
+        "title": "clause.5",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/132",
+          "recorded_at": "2026-10-22T19:55:05.821899Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "clause.6",
+        "title": "clause.6",
+        "status": "completed",
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/129",
+          "recorded_at": "2026-10-22T19:55:05.821899Z",
+          "recorded_by": "agent:codex"
         }
       }
     ],
-    "updated": "2026-10-22T14:48:53Z",
+    "updated": "2026-10-22T19:57:21Z",
     "acceptance": {
       "commands": [],
       "none_stated": true,
@@ -258,6 +388,13 @@
         }
       ],
       "ambiguity_attestation": "none_found"
-    }
+    },
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/133",
+        "type": "x-xbrief/github-issue",
+        "title": "Retrospective tracking: delivered authoring runtime upgrade"
+      }
+    ]
   }
 }
