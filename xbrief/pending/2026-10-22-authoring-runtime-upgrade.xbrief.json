@@ -1,0 +1,263 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Upgrade the authoring runtime while preserving training content",
+    "created": "2026-10-22T00:00:00Z",
+    "updated": "2026-10-22T13:06:47Z",
+    "author": "agent:codex"
+  },
+  "plan": {
+    "id": "training.authoring-runtime-upgrade",
+    "title": "Upgrade authoring Directive to 0.127.0 without changing training content",
+    "status": "pending",
+    "narratives": {
+      "Description": "Upgrade the maintainer runtime and generated framework wiring to the public npm release 0.127.0. Preserve learner-facing content, README, references, lab fixtures, solutions, assessments and templates byte-for-byte relative to the implementation base. The teaching releases remain frozen independently of the authoring runtime.",
+      "Authorization": "David requested this upgrade, authorized obsolete marker removal and validation changes, and explicitly authorized pushing and opening this prerequisite scope-only PR on 2026-10-22. This prerequisite PR does not implement the upgrade.",
+      "ImplementationPlan": "Use the official npm upgrade. Separate authoring runtime configuration from the existing learner/version declarations in maintainer validation. Preserve exact fixture pins and negative drift tests. Validate the installed runtime, lockfile, framework wiring, content contracts and disposable labs. Do not change training material to match the new runtime.",
+      "StopConditions": "Stop after three unsuccessful repairs of the same gate or if completing the upgrade requires changing learner-facing content. Do not weaken or bypass a gate.",
+      "Delivery": "This PR lands only the pending scope and concrete file allowlist required by the write fence. Activate the scope after this prerequisite lands. The implementation and its evidence follow separately; no implementation completion is claimed.",
+      "QualityGate": "Implementation verification requires npm test, task deft:check, directive doctor --full and a checksum comparison of protected training content. These are future delivery criteria; this prerequisite PR only publishes scope and does not claim they have passed for the implementation."
+    },
+    "metadata": {
+      "swarm": {
+        "file_scope": [
+          ".agents/skills/deft-directive-build/SKILL.md",
+          ".agents/skills/deft-directive-interview/SKILL.md",
+          ".agents/skills/deft-directive-portfolio-priority/SKILL.md",
+          ".agents/skills/deft-directive-pre-pr/SKILL.md",
+          ".agents/skills/deft-directive-refinement/SKILL.md",
+          ".agents/skills/deft-directive-review-cycle/SKILL.md",
+          ".agents/skills/deft-directive-setup/SKILL.md",
+          ".agents/skills/deft-directive-swarm/SKILL.md",
+          ".agents/skills/deft-directive-sync/SKILL.md",
+          ".agents/skills/deft/SKILL.md",
+          ".claude/commands/deft-checkpoint.md",
+          ".claude/commands/deft-continue.md",
+          ".claude/commands/deft-directive-change-apply.md",
+          ".claude/commands/deft-directive-change-archive.md",
+          ".claude/commands/deft-directive-change-verify.md",
+          ".claude/commands/deft-directive-change.md",
+          ".claude/commands/deft-directive-run-discuss.md",
+          ".claude/commands/deft-directive-run-interview.md",
+          ".claude/commands/deft-directive-run-map.md",
+          ".claude/commands/deft-directive-run-probe.md",
+          ".claude/commands/deft-directive-run-research.md",
+          ".claude/commands/deft-directive-run-speckit.md",
+          ".claude/commands/deft-directive-run-yolo.md",
+          ".claude/settings.json",
+          ".claude/skills/deft-directive-build/SKILL.md",
+          ".claude/skills/deft-directive-interview/SKILL.md",
+          ".claude/skills/deft-directive-portfolio-priority/SKILL.md",
+          ".claude/skills/deft-directive-pre-pr/SKILL.md",
+          ".claude/skills/deft-directive-refinement/SKILL.md",
+          ".claude/skills/deft-directive-review-cycle/SKILL.md",
+          ".claude/skills/deft-directive-setup/SKILL.md",
+          ".claude/skills/deft-directive-swarm/SKILL.md",
+          ".claude/skills/deft-directive-sync/SKILL.md",
+          ".claude/skills/deft/SKILL.md",
+          ".codex/hooks.json",
+          ".codex/prompts/deft-checkpoint.md",
+          ".codex/prompts/deft-continue.md",
+          ".codex/prompts/deft-directive-change-apply.md",
+          ".codex/prompts/deft-directive-change-archive.md",
+          ".codex/prompts/deft-directive-change-verify.md",
+          ".codex/prompts/deft-directive-change.md",
+          ".codex/prompts/deft-directive-run-discuss.md",
+          ".codex/prompts/deft-directive-run-interview.md",
+          ".codex/prompts/deft-directive-run-map.md",
+          ".codex/prompts/deft-directive-run-probe.md",
+          ".codex/prompts/deft-directive-run-research.md",
+          ".codex/prompts/deft-directive-run-speckit.md",
+          ".codex/prompts/deft-directive-run-yolo.md",
+          ".codex/skills/deft-directive-build/SKILL.md",
+          ".codex/skills/deft-directive-interview/SKILL.md",
+          ".codex/skills/deft-directive-portfolio-priority/SKILL.md",
+          ".codex/skills/deft-directive-pre-pr/SKILL.md",
+          ".codex/skills/deft-directive-refinement/SKILL.md",
+          ".codex/skills/deft-directive-review-cycle/SKILL.md",
+          ".codex/skills/deft-directive-setup/SKILL.md",
+          ".codex/skills/deft-directive-swarm/SKILL.md",
+          ".codex/skills/deft-directive-sync/SKILL.md",
+          ".codex/skills/deft/SKILL.md",
+          ".cursor/commands/deft-checkpoint.md",
+          ".cursor/commands/deft-continue.md",
+          ".cursor/commands/deft-directive-change-apply.md",
+          ".cursor/commands/deft-directive-change-archive.md",
+          ".cursor/commands/deft-directive-change-verify.md",
+          ".cursor/commands/deft-directive-change.md",
+          ".cursor/commands/deft-directive-run-discuss.md",
+          ".cursor/commands/deft-directive-run-interview.md",
+          ".cursor/commands/deft-directive-run-map.md",
+          ".cursor/commands/deft-directive-run-probe.md",
+          ".cursor/commands/deft-directive-run-research.md",
+          ".cursor/commands/deft-directive-run-speckit.md",
+          ".cursor/commands/deft-directive-run-yolo.md",
+          ".cursor/hooks.json",
+          ".cursor/skills/deft-directive-build/SKILL.md",
+          ".cursor/skills/deft-directive-interview/SKILL.md",
+          ".cursor/skills/deft-directive-portfolio-priority/SKILL.md",
+          ".cursor/skills/deft-directive-pre-pr/SKILL.md",
+          ".cursor/skills/deft-directive-refinement/SKILL.md",
+          ".cursor/skills/deft-directive-review-cycle/SKILL.md",
+          ".cursor/skills/deft-directive-setup/SKILL.md",
+          ".cursor/skills/deft-directive-swarm/SKILL.md",
+          ".cursor/skills/deft-directive-sync/SKILL.md",
+          ".cursor/skills/deft/SKILL.md",
+          ".deft/GENERATION.json",
+          ".deft/directive/data-schema.json",
+          ".githooks/_deft-run.sh",
+          ".githooks/_directive-run.sh",
+          ".githooks/pre-commit",
+          ".githooks/pre-push",
+          ".github/skills/deft-directive-build/SKILL.md",
+          ".github/skills/deft-directive-interview/SKILL.md",
+          ".github/skills/deft-directive-portfolio-priority/SKILL.md",
+          ".github/skills/deft-directive-pre-pr/SKILL.md",
+          ".github/skills/deft-directive-refinement/SKILL.md",
+          ".github/skills/deft-directive-review-cycle/SKILL.md",
+          ".github/skills/deft-directive-setup/SKILL.md",
+          ".github/skills/deft-directive-swarm/SKILL.md",
+          ".github/skills/deft-directive-sync/SKILL.md",
+          ".github/skills/deft/SKILL.md",
+          ".gitignore",
+          ".grok/commands/deft-checkpoint.md",
+          ".grok/commands/deft-continue.md",
+          ".grok/commands/deft-directive-change-apply.md",
+          ".grok/commands/deft-directive-change-archive.md",
+          ".grok/commands/deft-directive-change-verify.md",
+          ".grok/commands/deft-directive-change.md",
+          ".grok/commands/deft-directive-run-discuss.md",
+          ".grok/commands/deft-directive-run-interview.md",
+          ".grok/commands/deft-directive-run-map.md",
+          ".grok/commands/deft-directive-run-probe.md",
+          ".grok/commands/deft-directive-run-research.md",
+          ".grok/commands/deft-directive-run-speckit.md",
+          ".grok/commands/deft-directive-run-yolo.md",
+          ".grok/hooks/deft-pretooluse-wrapper.sh",
+          ".grok/hooks/deft.json",
+          "AGENTS.md",
+          "Taskfile.yml",
+          "package-lock.json",
+          "package.json",
+          "scripts/teaching-baseline.mjs",
+          "scripts/teaching-baseline.test.mjs",
+          "scripts/verify-authoring-runtime.mjs",
+          "scripts/verify-authoring-runtime.test.mjs",
+          "scripts/verify-module-12.test.mjs",
+          "scripts/verify-module-6.test.mjs",
+          "scripts/verify-modules-2-3.mjs",
+          "scripts/verify-modules-4-5.test.mjs",
+          "xbrief/.deft-version",
+          "xbrief/active/2026-10-22-authoring-runtime-upgrade.xbrief.json",
+          "xbrief/completed/2026-10-22-authoring-runtime-upgrade.xbrief.json"
+        ]
+      },
+      "lifecycleWrite": {
+        "action": "cancel",
+        "writtenAt": "2026-10-22T13:06:32Z"
+      }
+    },
+    "items": [
+      {
+        "id": "training.authoring-runtime-upgrade.validation",
+        "title": "Upgrade maintainer runtime and preserve training behavior",
+        "status": "pending",
+        "narrative": {
+          "Acceptance": "The authoring runtime and public-npm lockfile resolve exactly 0.127.0; npm test, task deft:check and directive doctor --full pass; learner content and fixture hashes are unchanged from the implementation base."
+        }
+      },
+      {
+        "id": "training.authoring-runtime-upgrade.requirement-1",
+        "title": "Upgrade authoring Directive to 0.127.0 without changing training content",
+        "status": "pending",
+        "narrative": {
+          "Acceptance": "Upgrade authoring Directive to 0.127.0 without changing training content"
+        }
+      },
+      {
+        "id": "training.authoring-runtime-upgrade.requirement-2",
+        "title": "Upgrade the maintainer runtime and generated framework wiring to the public npm release 0.127.0.",
+        "status": "pending",
+        "narrative": {
+          "Acceptance": "Upgrade the maintainer runtime and generated framework wiring to the public npm release 0.127.0."
+        }
+      },
+      {
+        "id": "training.authoring-runtime-upgrade.requirement-3",
+        "title": "Preserve learner-facing content, README, references, lab fixtures, solutions, assessments and templates byte-for-byte relative to the implementation base.",
+        "status": "pending",
+        "narrative": {
+          "Acceptance": "Preserve learner-facing content, README, references, lab fixtures, solutions, assessments and templates byte-for-byte relative to the implementation base."
+        }
+      },
+      {
+        "id": "training.authoring-runtime-upgrade.requirement-4",
+        "title": "The teaching releases remain frozen independently of the authoring runtime.",
+        "status": "pending",
+        "narrative": {
+          "Acceptance": "The teaching releases remain frozen independently of the authoring runtime."
+        }
+      },
+      {
+        "id": "training.authoring-runtime-upgrade.scope-publication",
+        "title": "Publish the prerequisite scope",
+        "status": "pending",
+        "narrative": {
+          "Acceptance": "File xbrief/active/2026-10-22-authoring-runtime-upgrade.xbrief.json exists."
+        }
+      }
+    ],
+    "updated": "2026-10-22T13:06:47Z",
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 6 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "The authoring runtime and public-npm lockfile resolve exactly 0.127.0; npm test, task deft:check and directive doctor --full pass; learner content and fixture hashes are unchanged from the implementation base.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "Upgrade authoring Directive to 0.127.0 without changing training content",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "Upgrade the maintainer runtime and generated framework wiring to the public npm release 0.127.0.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Preserve learner-facing content, README, references, lab fixtures, solutions, assessments and templates byte-for-byte relative to the implementation base.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "The teaching releases remain frozen independently of the authoring runtime.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "File xbrief/active/2026-10-22-authoring-runtime-upgrade.xbrief.json exists.",
+          "artifact_path": "xbrief/active/2026-10-22-authoring-runtime-upgrade.xbrief.json",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    }
+  }
+}
