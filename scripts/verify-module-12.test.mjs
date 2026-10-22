@@ -486,12 +486,12 @@ test("verifier rejects an unlinked or unavailable Module 12 course row", () => {
 });
 
 test("verifier rejects an altered exact project pin", () => {
-  const pin = JSON.parse(readFileSync(join(repositoryRoot, "package.json"), "utf8")).devDependencies["@deftai/directive"];
+  const pin = JSON.parse(readFileSync(join(repositoryRoot, "package.json"), "utf8")).devDependencies["@deftai/directive-runtime"];
   const root = changedCopy("package.json", (body) => body.replace(
-    `"@deftai/directive": "${pin}"`,
-    `"@deftai/directive": "^${pin}"`,
+    `"@deftai/directive-runtime": "${pin}"`,
+    `"@deftai/directive-runtime": "^${pin}"`,
   ));
-  assert.throws(() => verifyModule12(root), /must pin @deftai\/directive exactly/);
+  assert.throws(() => verifyModule12(root), /must pin @deftai\/directive-runtime exactly/);
 });
 
 test("verifier rejects an altered Module 12 package entry", () => {

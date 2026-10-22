@@ -1,5 +1,8 @@
 {
   "private": true,
+  "directiveTraining": {
+    "readmeBaseline": "0.121.0"
+  },
   "scripts": {
     "test": "npm run test:content && npm run test:runtime",
     "test:content": "node scripts/verify-modules-2-3.mjs && node --test scripts/assert-doctor-warning-set.test.mjs scripts/verify-modules-4-5.test.mjs scripts/verify-module-6.test.mjs scripts/verify-module-7.test.mjs scripts/verify-module-8.test.mjs scripts/verify-module-9.test.mjs scripts/verify-module-10.test.mjs scripts/verify-module-11.test.mjs scripts/verify-module-12.test.mjs scripts/verify-module-numbering-migration.test.mjs scripts/verify-capstone.test.mjs scripts/teaching-baseline.test.mjs",
@@ -37,6 +40,6 @@
     "test:linked-path-safety": "node scripts/verify-symlink-capability.mjs && node --test scripts/linked-path-safety.test.mjs"
   },
   "devDependencies": {
-    "@deftai/directive": "0.121.0"
+    "@deftai/directive-runtime": "0.127.0"
   }
 }

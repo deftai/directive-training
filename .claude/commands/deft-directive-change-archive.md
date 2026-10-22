@@ -2,6 +2,6 @@
 description: Archive the completed change under history/archive/
 ---
 
-Read and follow `commands.md` (content-relative; deposit under `.deft/core/` when installed).
+Read and follow `node_modules/@deftai/directive-runtime/commands.md`.
 Honor `$ARGUMENTS` as documented for this command.
 Do not inline the strategy, skill, or commands.md body here.

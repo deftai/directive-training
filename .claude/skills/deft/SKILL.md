@@ -1,6 +1,8 @@
 ---
 name: deft
-description: Apply deft framework standards for AI-assisted development. Use when starting projects, writing code, running tests, making commits, or when the user references deft, project standards, or coding guidelines.
+description: Apply Directive framework standards for AI-assisted development.
 ---
 
-Read and follow: .deft/core/SKILL.md
+Read and follow: node_modules/@deftai/directive-runtime/skills/deft/SKILL.md
+
+Recovery: npm i -g @deftai/directive, then directive install --repair

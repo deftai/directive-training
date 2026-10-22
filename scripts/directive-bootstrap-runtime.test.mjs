@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, delimiter, dirname, join, resolve } from "node:path";
 import { after, test } from "node:test";
@@ -149,16 +149,28 @@ function nestedPackageVersion(fromDirectory, name) {
   assert.fail(`nested @deftai/${name} was not found from ${fromDirectory}`);
 }
 
-function nestedGraph(prefix) {
-  const globalRoot = runNpm(["root", "-g", "--prefix", prefix]).trim();
-  const cliRoot = join(globalRoot, "@deftai", "directive");
+function readInstalledGraph(cliRoot, { pinnedLayout = false } = {}) {
   const cliManifest = join(cliRoot, "package.json");
   assert.ok(existsSync(cliManifest), `installed CLI manifest missing at ${cliManifest}`);
+  const manifest = JSON.parse(readFileSync(cliManifest, "utf8"));
+  assert.equal(manifest.name, "@deftai/directive");
+  const entrypoint = typeof manifest.bin === "string" ? manifest.bin : manifest.bin?.directive;
+  assert.ok(typeof entrypoint === "string" && existsSync(join(cliRoot, entrypoint)), "installed launcher entrypoint must exist");
   const versions = {
-    directive: JSON.parse(readFileSync(cliManifest, "utf8")).version,
+    directive: manifest.version,
   };
-  for (const name of nestedNames) versions[name] = nestedPackageVersion(cliRoot, name);
+  // Frozen-release evidence retains the old required graph. The independent
+  // latest observation follows the packages that release actually declares.
+  const names = pinnedLayout ? nestedNames : Object.keys(manifest.dependencies ?? {})
+    .filter((name) => name.startsWith("@deftai/"))
+    .map((name) => name.slice("@deftai/".length));
+  for (const name of names) versions[name] = nestedPackageVersion(cliRoot, name);
   return versions;
+}
+
+function nestedGraph(prefix, options) {
+  const globalRoot = runNpm(["root", "-g", "--prefix", prefix]).trim();
+  return readInstalledGraph(join(globalRoot, "@deftai", "directive"), options);
 }
 
 function newerCompatibleReleaseExists() {
@@ -170,6 +182,25 @@ function newerCompatibleReleaseExists() {
   }
   return false;
 }
+
+test("installed package graph observes the launcher and rejects missing declared packages or entrypoints", () => {
+  const cliRoot = join(workspace, "launcher-fixture");
+  mkdirSync(join(cliRoot, "dist"), { recursive: true });
+  const manifest = { name: "@deftai/directive", version: "0.127.0", dependencies: {}, bin: { directive: "dist/bin.js" } };
+  writeFileSync(join(cliRoot, "package.json"), JSON.stringify(manifest));
+  writeFileSync(join(cliRoot, "dist/bin.js"), "// fixture\n");
+  assert.deepEqual(readInstalledGraph(cliRoot), { directive: "0.127.0" });
+  assert.throws(() => readInstalledGraph(cliRoot, { pinnedLayout: true }), /directive-core was not found/);
+  manifest.dependencies["@deftai/directive-core"] = "0.127.0";
+  writeFileSync(join(cliRoot, "package.json"), JSON.stringify(manifest));
+  assert.throws(() => readInstalledGraph(cliRoot), /directive-core was not found/);
+  const core = join(cliRoot, "node_modules/@deftai/directive-core");
+  mkdirSync(core, { recursive: true });
+  writeFileSync(join(core, "package.json"), JSON.stringify({ version: "0.127.0" }));
+  assert.deepEqual(readInstalledGraph(cliRoot), { directive: "0.127.0", "directive-core": "0.127.0" });
+  rmSync(join(cliRoot, "dist/bin.js"));
+  assert.throws(() => readInstalledGraph(cliRoot), /launcher entrypoint/);
+});
 
 test("npm_execpath is accepted only when it names npm", () => {
   assert.equal(isNpmExecPath(join("node_modules", "npm", "bin", "npm-cli.js")), true);
@@ -197,7 +228,7 @@ test("isolated pinned global-prefix install characterizes mixed nested resolutio
     return;
   }
   runNpm(["install", "--global", "--prefix", pinnedPrefix, pinnedSpec], 300_000);
-  const graph = nestedGraph(pinnedPrefix);
+  const graph = nestedGraph(pinnedPrefix, { pinnedLayout: true });
   t.diagnostic(`pinned nested graph: ${JSON.stringify(graph)}`);
   assert.equal(graph.directive, pin, "pinned install must select CLI 0.119.11");
   const nested = nestedNames.map((name) => graph[name]);

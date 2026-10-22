@@ -666,11 +666,11 @@ test("verifier rejects an unsupported verified platform", () => {
   assert.throws(() => verifyCapstone(root), /platform proof marker/);
 });
 
-test("verifier rejects a ranged learner pin", () => {
-  const pin = JSON.parse(readFileSync(join(repositoryRoot, "package.json"), "utf8")).devDependencies["@deftai/directive"];
+test("verifier rejects a ranged authoring runtime pin", () => {
+  const pin = JSON.parse(readFileSync(join(repositoryRoot, "package.json"), "utf8")).devDependencies["@deftai/directive-runtime"];
   const root = changedCopy("package.json", (body) =>
-    body.replace(`"@deftai/directive": "${pin}"`, `"@deftai/directive": "^${pin}"`));
-  assert.throws(() => verifyCapstone(root), /must pin @deftai\/directive exactly/);
+    body.replace(`"@deftai/directive-runtime": "${pin}"`, `"@deftai/directive-runtime": "^${pin}"`));
+  assert.throws(() => verifyCapstone(root), /must pin @deftai\/directive-runtime exactly/);
 });
 
 test("verifier rejects an unavailable capstone index row", () => {

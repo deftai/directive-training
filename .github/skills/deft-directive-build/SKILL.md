@@ -1,10 +1,8 @@
 ---
 name: deft-directive-build
-description: >-
-  Build a project from scope vBRIEFs following Deft framework standards.
-  Use after deft-directive-setup has generated the project definition, or when
-  the user has scope vBRIEFs ready to implement. Handles scaffolding,
-  implementation, testing, and quality checks phase by phase.
+description: Build a project from scope vBRIEFs following Directive standards.
 ---
 
-Read and follow: .deft/core/skills/deft-directive-build/SKILL.md
+Read and follow: node_modules/@deftai/directive-runtime/skills/deft-directive-build/SKILL.md
+
+Recovery: npm i -g @deftai/directive, then directive install --repair

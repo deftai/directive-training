@@ -7,7 +7,21 @@ const openMarker = "<!-- directive-training:teaching-baseline -->";
 const closeMarker = "<!-- /directive-training:teaching-baseline -->";
 const readme = (version, prose = "Learners use `@deftai/directive`") =>
   `# Course\n\n${prose} ${openMarker}${version}${closeMarker}.\n`;
-const packageJson = (version) => ({ devDependencies: { "@deftai/directive": version } });
+const packageJson = (version) => ({
+  devDependencies: { "@deftai/directive-runtime": "0.127.0" },
+  directiveTraining: { readmeBaseline: version },
+});
+
+test("authoring runtime is independently exact while the README baseline remains frozen", () => {
+  for (const pin of [undefined, "latest", "^0.127.0", "0.127.0-beta"]) {
+    const pkg = packageJson("0.119.11");
+    pkg.devDependencies["@deftai/directive-runtime"] = pin;
+    assert.throws(() => assertTeachingBaselinePin(pkg, readme("0.119.11")), /must pin @deftai\/directive-runtime exactly/);
+  }
+  const pkg = packageJson("0.119.11");
+  delete pkg.directiveTraining;
+  assert.throws(() => assertTeachingBaselinePin(pkg, readme("0.119.11")), /declared teaching baseline/);
+});
 
 test("derives the exact pin from the single README teaching declaration", () => {
   assert.equal(declaredTeachingBaseline(readme("0.119.11")), "0.119.11");
@@ -56,13 +70,13 @@ test("keeps the managed Cursor planning hooks exact", () => {
 
   assert.deepEqual(cursorHooks.hooks.beforeSubmitPrompt, [
     {
-      command: "deft-hook --host cursor --event prompt.submit",
+      command: "node node_modules/@deftai/directive-runtime/dist/hook-bin.js --host cursor --event prompt.submit",
       timeout: 5,
     },
   ]);
   assert.deepEqual(cursorHooks.hooks.afterAgentResponse, [
     {
-      command: "deft-hook --host cursor --event agent.response",
+      command: "node node_modules/@deftai/directive-runtime/dist/hook-bin.js --host cursor --event agent.response",
       timeout: 5,
     },
   ]);
