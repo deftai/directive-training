@@ -56,3 +56,4 @@ xbrief/.eval/results/
 .deft-scratch/
 node_modules/
 .deft/directive/wiring-ready.*.json
+/coverage/
