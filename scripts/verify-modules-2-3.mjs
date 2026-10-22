@@ -1202,7 +1202,7 @@ assert.equal(
 );
 assert.deepEqual(
   Object.keys(projectPackage.devDependencies ?? {}).sort(),
-  ["@deftai/directive"],
+  ["@deftai/directive-runtime"],
   "this scope must not add an application or publishing dependency",
 );
 for (const dependencyField of ["dependencies", "optionalDependencies", "peerDependencies"]) {

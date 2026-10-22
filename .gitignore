@@ -12,6 +12,8 @@
 /USER.md
 /.deft/USER.md
 .deft/occupancy.json
+.deft/applying-host.json
+.deft/check-tees/
 .deft/child-occupancy/
 .deft/routing.local.json
 .deft/authz/
@@ -52,3 +54,6 @@ xbrief/.eval/results/
 
 # Deft framework: ignore local-only caches and scratch directories
 .deft-scratch/
+node_modules/
+.deft/directive/wiring-ready.*.json
+/coverage/

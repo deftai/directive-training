@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { dirname, join, posix } from "node:path";
 import { after, test } from "node:test";
 import { fileURLToPath } from "node:url";
+import { declaredTeachingBaseline } from "./teaching-baseline.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const evidenceRoot = mkdtempSync(join(tmpdir(), "text-portability-test-"));
@@ -31,7 +32,7 @@ const cloneWarningEnd = "and you may skip it.";
 const cloneRecoveryLead = "If a clone-hook deny appears";
 const cloneForbidLead = "Do not recover this clone with";
 const cloneForbidEnd = "it is not a learner repair target.";
-const directivePin = JSON.parse(coldStartFiles.get("package.json")).devDependencies["@deftai/directive"];
+const directivePin = declaredTeachingBaseline(coldStartFiles.get("README.md"));
 const expectedNpmGlobalInstall = `npm i -g @deftai/directive@${directivePin}`;
 const expectedPnpmGlobalInstall = `pnpm add -g @deftai/directive@${directivePin}`;
 const modulesFiles = new Map([
@@ -93,10 +94,15 @@ function assertRejected(result, diagnostic) {
   assert.match(result.stderr, diagnostic);
 }
 
-function withPinnedGlobalInstalls(text) {
-  return text
-    .replace(/npm i -g @deftai\/directive(?:@[^\s`]+)?/, expectedNpmGlobalInstall)
-    .replace(/pnpm add -g @deftai\/directive(?:@[^\s`]+)?/, expectedPnpmGlobalInstall);
+function replacePinnedGlobalInstall(text, original, replacement) {
+  for (const command of [expectedNpmGlobalInstall, expectedPnpmGlobalInstall]) {
+    assert.equal(
+      text.split("`" + command + "`").length,
+      2,
+      `fixture must contain exactly one valid ${command}`,
+    );
+  }
+  return text.replace("`" + original + "`", "`" + replacement + "`");
 }
 
 function audienceLine(text) {
@@ -150,7 +156,7 @@ for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
 
   test(`cold-start verifier rejects an unpinned npm global install with ${label}`, () => {
     const files = changed(coldStartFiles, "README.md", (text) =>
-      withPinnedGlobalInstalls(text).replace(expectedNpmGlobalInstall, "npm i -g @deftai/directive"));
+      replacePinnedGlobalInstall(text, expectedNpmGlobalInstall, "npm i -g @deftai/directive"));
     assertRejected(
       runVerifier(`cold-start-npm-unpinned-${label}`, coldStartVerifier, files, eol),
       /rung 3 global installs must use the committed Directive pin/,
@@ -159,7 +165,7 @@ for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
 
   test(`cold-start verifier rejects a mismatched npm global install with ${label}`, () => {
     const files = changed(coldStartFiles, "README.md", (text) =>
-      withPinnedGlobalInstalls(text).replace(expectedNpmGlobalInstall, "npm i -g @deftai/directive@0.0.0"));
+      replacePinnedGlobalInstall(text, expectedNpmGlobalInstall, "npm i -g @deftai/directive@0.0.0"));
     assertRejected(
       runVerifier(`cold-start-npm-mismatch-${label}`, coldStartVerifier, files, eol),
       /rung 3 global installs must use the committed Directive pin/,
@@ -168,7 +174,7 @@ for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
 
   test(`cold-start verifier rejects an unpinned pnpm global install with ${label}`, () => {
     const files = changed(coldStartFiles, "README.md", (text) =>
-      withPinnedGlobalInstalls(text).replace(expectedPnpmGlobalInstall, "pnpm add -g @deftai/directive"));
+      replacePinnedGlobalInstall(text, expectedPnpmGlobalInstall, "pnpm add -g @deftai/directive"));
     assertRejected(
       runVerifier(`cold-start-pnpm-unpinned-${label}`, coldStartVerifier, files, eol),
       /rung 3 global installs must use the committed Directive pin/,
@@ -177,7 +183,7 @@ for (const [label, eol] of [["LF", "\n"], ["CRLF", "\r\n"]]) {
 
   test(`cold-start verifier rejects a mismatched pnpm global install with ${label}`, () => {
     const files = changed(coldStartFiles, "README.md", (text) =>
-      withPinnedGlobalInstalls(text).replace(expectedPnpmGlobalInstall, "pnpm add -g @deftai/directive@0.0.0"));
+      replacePinnedGlobalInstall(text, expectedPnpmGlobalInstall, "pnpm add -g @deftai/directive@0.0.0"));
     assertRejected(
       runVerifier(`cold-start-pnpm-mismatch-${label}`, coldStartVerifier, files, eol),
       /rung 3 global installs must use the committed Directive pin/,

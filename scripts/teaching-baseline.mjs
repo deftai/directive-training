@@ -15,13 +15,20 @@ export function declaredTeachingBaseline(readme) {
   return version;
 }
 
-/** Couple the root authoring pin to the learner-facing declaration. */
+/** Preserve the README declaration independently of the authoring runtime. */
 export function assertTeachingBaselinePin(packageJson, readme) {
   const expected = declaredTeachingBaseline(readme);
+  const runtimePin = packageJson.devDependencies?.["@deftai/directive-runtime"];
+  assert.equal(typeof runtimePin, "string", "package.json must pin @deftai/directive-runtime exactly");
+  assert.match(
+    runtimePin,
+    /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/,
+    "package.json must pin @deftai/directive-runtime exactly",
+  );
   assert.equal(
-    packageJson.devDependencies?.["@deftai/directive"],
+    packageJson.directiveTraining?.readmeBaseline,
     expected,
-    `package.json must pin @deftai/directive exactly to the declared teaching baseline ${expected}`,
+    `package.json must preserve the declared teaching baseline ${expected}`,
   );
   return expected;
 }

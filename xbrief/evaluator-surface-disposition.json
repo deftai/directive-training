@@ -1,0 +1,9 @@
+{
+  "schema": "deft.evaluator-surface-disposition.v1",
+  "kind": "disclosure",
+  "surfaces": [
+    "Taskfile.yml",
+    "xbrief/evaluator-surface-disposition.json"
+  ],
+  "note": "The Directive 0.127.0 authoring upgrade moves the existing deft Taskfile include from the legacy .deft/core deposit to the pinned @deftai/directive-runtime package. This records the installation-layout migration and this disclosure file; it does not remove, disable, or lower a project check or authorize evaluator changes. Training content and frozen learner pins remain unchanged."
+}

@@ -1,9 +1,8 @@
 ---
 name: deft-directive-pre-pr
-description: >-
-  Iterative pre-PR quality loop (Read-Write-Lint-Diff-Loop). Use before
-  pushing a branch for PR creation — structured self-review that agents run
-  to catch issues before they reach the bot reviewer.
+description: Iterative pre-PR quality loop (Read-Write-Lint-Diff-Loop).
 ---
 
-Read and follow: .deft/core/skills/deft-directive-pre-pr/SKILL.md
+Read and follow: node_modules/@deftai/directive-runtime/skills/deft-directive-pre-pr/SKILL.md
+
+Recovery: npm i -g @deftai/directive, then directive install --repair

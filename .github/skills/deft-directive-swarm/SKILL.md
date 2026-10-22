@@ -1,10 +1,8 @@
 ---
 name: deft-directive-swarm
-description: >-
-  Parallel local agent orchestration. Use when running multiple agents
-  on roadmap items simultaneously — to select non-overlapping tasks, set up
-  isolated worktrees, launch agents with proven prompts, monitor progress,
-  handle stalled review cycles, and close out PRs cleanly.
+description: Parallel local agent orchestration with isolated worktrees.
 ---
 
-Read and follow: .deft/core/skills/deft-directive-swarm/SKILL.md
+Read and follow: node_modules/@deftai/directive-runtime/skills/deft-directive-swarm/SKILL.md
+
+Recovery: npm i -g @deftai/directive, then directive install --repair

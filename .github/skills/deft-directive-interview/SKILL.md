@@ -1,9 +1,8 @@
 ---
 name: deft-directive-interview
-description: >-
-  Deterministic structured Q&A interview skill. Use when a skill or workflow
-  needs to collect structured answers from the user — one question per turn,
-  numbered options, default acceptance, and a confirmation gate.
+description: Deterministic structured Q&A interview skill (one question per turn).
 ---
 
-Read and follow: .deft/core/skills/deft-directive-interview/SKILL.md
+Read and follow: node_modules/@deftai/directive-runtime/skills/deft-directive-interview/SKILL.md
+
+Recovery: npm i -g @deftai/directive, then directive install --repair

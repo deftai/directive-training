@@ -306,7 +306,8 @@ function fixture(t) {
       "check:module-6": "node scripts/verify-module-6.mjs",
       "test:module-6": "node --test scripts/verify-module-6.test.mjs",
     },
-    devDependencies: { "@deftai/directive": "0.119.11" },
+    devDependencies: { "@deftai/directive-runtime": "0.127.0" },
+    directiveTraining: { readmeBaseline: "0.119.11" },
   }));
   return {
     root,
@@ -620,7 +621,7 @@ test("rejects stale and ranged Directive pins", (t) => {
   assert.throws(() => verifyModule6(files.root), /exact Directive 0\.119\.11 baseline/);
   files.change(module6, (body) => spliceAll(body, "0.111.0", "0.119.11"));
   files.change("package.json", (body) => splice(body, '"0.119.11"', '"^0.119.11"'));
-  assert.throws(() => verifyModule6(files.root), /must pin @deftai\/directive exactly/);
+  assert.throws(() => verifyModule6(files.root), /declared teaching baseline/);
 });
 
 test("requires durable Module 7 navigation without owning its lifecycle state", (t) => {

@@ -1,9 +1,8 @@
 ---
 name: deft-directive-setup
-description: >-
-  Set up a new project with Deft framework standards. Use when the user wants
-  to bootstrap user preferences, configure a project, or generate a project
-  specification. Walks through setup conversationally — no separate CLI needed.
+description: Set up a new project with Directive framework standards.
 ---
 
-Read and follow: .deft/core/skills/deft-directive-setup/SKILL.md
+Read and follow: node_modules/@deftai/directive-runtime/skills/deft-directive-setup/SKILL.md
+
+Recovery: npm i -g @deftai/directive, then directive install --repair
