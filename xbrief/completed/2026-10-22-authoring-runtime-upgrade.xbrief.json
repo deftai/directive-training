@@ -3,13 +3,13 @@
     "version": "0.8",
     "description": "Upgrade the authoring runtime while preserving training content",
     "created": "2026-10-22T00:00:00Z",
-    "updated": "2026-10-22T14:48:53Z",
+    "updated": "2026-10-22T19:57:21Z",
     "author": "agent:codex"
   },
   "plan": {
     "id": "training.authoring-runtime-upgrade",
     "title": "Upgrade authoring Directive to 0.127.0 without changing training content",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Upgrade the maintainer runtime and generated framework wiring to the public npm release 0.127.0. Preserve learner-facing content, README, references, lab fixtures, solutions, assessments and templates byte-for-byte relative to the implementation base. The teaching releases remain frozen independently of the authoring runtime.",
       "Authorization": "David requested this upgrade, authorized obsolete marker removal and validation changes, and explicitly authorized pushing and opening this prerequisite scope-only PR on 2026-10-22. This prerequisite PR does not implement the upgrade.",
@@ -158,13 +158,38 @@
           "xbrief/active/2026-10-22-authoring-runtime-upgrade.xbrief.json",
           "xbrief/completed/2026-10-22-authoring-runtime-upgrade.xbrief.json"
         ]
-      }
+      },
+      "completionProvenance": {
+        "repository": "deftai/directive-training",
+        "implementationCommit": "5d2f7e4717727dc78c8297eca098d669974537c3",
+        "prNumber": 132,
+        "prBase": "master",
+        "mergeCommit": "9ba1a283cac300feb211dbf1e50ea60454ac37fa",
+        "deliveryBranch": "master",
+        "deliveryCommit": "9ba1a283cac300feb211dbf1e50ea60454ac37fa",
+        "verifiedAt": "2026-10-22T19:57:21Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMTYzOWMtM2M1My03NjgzLThhMmMtNWU2ZDhiMjAwMTlm"
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-10-22T19:57:21Z",
+      "completedSessionId": "host:codex:v1:MDFhMTYzOWMtM2M1My03NjgzLThhMmMtNWU2ZDhiMjAwMTlm",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-10-22T19:57:21Z"
+      },
+      "productPullRequest": 132
     },
     "items": [
       {
         "id": "training.authoring-runtime-upgrade.validation",
         "title": "Upgrade maintainer runtime and preserve training behavior",
-        "status": "pending",
+        "status": "completed",
         "narrative": {
           "Acceptance": "The authoring runtime and public-npm lockfile resolve exactly 0.127.0; npm test, task deft:check and directive doctor --full pass; learner content and fixture hashes are unchanged from the implementation base."
         },
@@ -178,7 +203,7 @@
       {
         "id": "training.authoring-runtime-upgrade.requirement-1",
         "title": "Upgrade authoring Directive to 0.127.0 without changing training content",
-        "status": "pending",
+        "status": "completed",
         "narrative": {
           "Acceptance": "Upgrade authoring Directive to 0.127.0 without changing training content"
         },
@@ -192,7 +217,7 @@
       {
         "id": "training.authoring-runtime-upgrade.requirement-2",
         "title": "Upgrade the maintainer runtime and generated framework wiring to the public npm release 0.127.0.",
-        "status": "pending",
+        "status": "completed",
         "narrative": {
           "Acceptance": "Upgrade the maintainer runtime and generated framework wiring to the public npm release 0.127.0."
         },
@@ -206,7 +231,7 @@
       {
         "id": "training.authoring-runtime-upgrade.requirement-3",
         "title": "Preserve learner-facing content, README, references, lab fixtures, solutions, assessments and templates byte-for-byte relative to the implementation base.",
-        "status": "pending",
+        "status": "completed",
         "narrative": {
           "Acceptance": "Preserve learner-facing content, README, references, lab fixtures, solutions, assessments and templates byte-for-byte relative to the implementation base."
         },
@@ -220,7 +245,7 @@
       {
         "id": "training.authoring-runtime-upgrade.requirement-4",
         "title": "The teaching releases remain frozen independently of the authoring runtime.",
-        "status": "pending",
+        "status": "completed",
         "narrative": {
           "Acceptance": "The teaching releases remain frozen independently of the authoring runtime."
         },
@@ -234,7 +259,7 @@
       {
         "id": "training.authoring-runtime-upgrade.scope-publication",
         "title": "Publish the prerequisite scope",
-        "status": "pending",
+        "status": "completed",
         "narrative": {
           "Acceptance": "File xbrief/active/2026-10-22-authoring-runtime-upgrade.xbrief.json exists."
         },
@@ -248,7 +273,7 @@
       {
         "id": "clause.1",
         "title": "clause.1",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "review",
           "pointer": "https://github.com/deftai/directive-training/pull/132",
@@ -259,7 +284,7 @@
       {
         "id": "clause.2",
         "title": "clause.2",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "review",
           "pointer": "https://github.com/deftai/directive-training/pull/132",
@@ -270,7 +295,7 @@
       {
         "id": "clause.3",
         "title": "clause.3",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "review",
           "pointer": "https://github.com/deftai/directive-training/pull/132",
@@ -281,7 +306,7 @@
       {
         "id": "clause.4",
         "title": "clause.4",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "review",
           "pointer": "https://github.com/deftai/directive-training/pull/132",
@@ -292,7 +317,7 @@
       {
         "id": "clause.5",
         "title": "clause.5",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "review",
           "pointer": "https://github.com/deftai/directive-training/pull/132",
@@ -303,7 +328,7 @@
       {
         "id": "clause.6",
         "title": "clause.6",
-        "status": "pending",
+        "status": "completed",
         "x-directive/evidence": {
           "kind": "review",
           "pointer": "https://github.com/deftai/directive-training/pull/129",
@@ -312,7 +337,7 @@
         }
       }
     ],
-    "updated": "2026-10-22T14:48:53Z",
+    "updated": "2026-10-22T19:57:21Z",
     "acceptance": {
       "commands": [],
       "none_stated": true,
