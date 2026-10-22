@@ -3,7 +3,7 @@
     "version": "0.8",
     "description": "Upgrade the authoring runtime while preserving training content",
     "created": "2026-10-22T00:00:00Z",
-    "updated": "2026-10-22T13:06:47Z",
+    "updated": "2026-10-22T13:14:16Z",
     "author": "agent:codex"
   },
   "plan": {
@@ -151,10 +151,6 @@
           "xbrief/active/2026-10-22-authoring-runtime-upgrade.xbrief.json",
           "xbrief/completed/2026-10-22-authoring-runtime-upgrade.xbrief.json"
         ]
-      },
-      "lifecycleWrite": {
-        "action": "cancel",
-        "writtenAt": "2026-10-22T13:06:32Z"
       }
     },
     "items": [
@@ -207,7 +203,7 @@
         }
       }
     ],
-    "updated": "2026-10-22T13:06:47Z",
+    "updated": "2026-10-22T13:14:16Z",
     "acceptance": {
       "commands": [],
       "none_stated": true,
