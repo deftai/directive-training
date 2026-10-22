@@ -140,6 +140,7 @@
           "package-lock.json",
           "package.json",
           "scripts/directive-bootstrap-runtime.test.mjs",
+          "scripts/verify-capstone.test.mjs",
           "scripts/teaching-baseline.mjs",
           "scripts/teaching-baseline.test.mjs",
           "scripts/verify-authoring-runtime.mjs",
