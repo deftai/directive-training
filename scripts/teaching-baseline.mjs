@@ -18,8 +18,10 @@ export function declaredTeachingBaseline(readme) {
 /** Preserve the README declaration independently of the authoring runtime. */
 export function assertTeachingBaselinePin(packageJson, readme) {
   const expected = declaredTeachingBaseline(readme);
+  const runtimePin = packageJson.devDependencies?.["@deftai/directive-runtime"];
+  assert.equal(typeof runtimePin, "string", "package.json must pin @deftai/directive-runtime exactly");
   assert.match(
-    String(packageJson.devDependencies?.["@deftai/directive-runtime"] ?? ""),
+    runtimePin,
     /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/,
     "package.json must pin @deftai/directive-runtime exactly",
   );

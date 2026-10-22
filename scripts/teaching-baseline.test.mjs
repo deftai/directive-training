@@ -13,7 +13,7 @@ const packageJson = (version) => ({
 });
 
 test("authoring runtime is independently exact while the README baseline remains frozen", () => {
-  for (const pin of [undefined, "latest", "^0.127.0", "0.127.0-beta"]) {
+  for (const pin of [undefined, null, {}, ["0.127.0"], "latest", "^0.127.0", "0.127.0-beta"]) {
     const pkg = packageJson("0.119.11");
     pkg.devDependencies["@deftai/directive-runtime"] = pin;
     assert.throws(() => assertTeachingBaselinePin(pkg, readme("0.119.11")), /must pin @deftai\/directive-runtime exactly/);
