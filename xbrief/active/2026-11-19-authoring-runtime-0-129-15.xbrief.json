@@ -1,0 +1,203 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Authoring tools and generated wiring for the 0.129.15 public npm release",
+    "updated": "2026-11-19T22:40:56Z"
+  },
+  "plan": {
+    "id": "training.authoring-runtime-0-129-15",
+    "title": "Upgrade the training repository's authoring runtime to Directive 0.129.15",
+    "status": "running",
+    "narratives": {
+      "Description": "Update the project's authoring runtime, npm lockfile and generated host wiring. Adapt the maintainer hook regression test to the new wrapper. Include the new runtime's local ignore entries where needed. Preserve the current course, README and executable learner fixtures.",
+      "Authorization": "David requested the authoring upgrade and authorized pull requests for it. The upgrade is separate from curriculum development.",
+      "Validation": "Use the public npm registry. Verify the resolved package and lock, run the curriculum tests, platform-capable linked-path tests, repository gate and doctor. Compare learner-facing files with the starting commit.",
+      "StartingRevision": "858d438dae4b00ee7d76b9c1d55b4a114f89631b",
+      "ImplementationProof": "Verify the package.json pin, root lockfile specifier, locked tarball version, installed version and public npm integrity against @deftai/directive-runtime@0.129.15. Run npm test, npm run test:linked-path-safety, directive doctor --full and the repository aggregate separately. Compare protected learner content with git diff --exit-code 858d438dae4b00ee7d76b9c1d55b4a114f89631b -- README.md curriculum labs references assessments solutions maintainers templates. Report every skip. The scope-only PR authorizes the listed paths. Implementation proof belongs to the subsequent upgrade PR."
+    },
+    "items": [
+      {
+        "id": "upgrade.pin",
+        "title": "The project pin, public npm lockfile and installed runtime agree on 0.129.15.",
+        "status": "proposed",
+        "narrative": {
+          "Acceptance": "The project pin, public npm lockfile and installed runtime agree on 0.129.15."
+        }
+      },
+      {
+        "id": "upgrade.hooks",
+        "title": "The Cursor planning-hook test verifies both events, their exact arguments and timeouts, and the installed version's hook file.",
+        "status": "proposed",
+        "narrative": {
+          "Acceptance": "The Cursor planning-hook test verifies both events, their exact arguments and timeouts, and the installed version's hook file."
+        }
+      },
+      {
+        "id": "upgrade.verify",
+        "title": "The learner content and fixtures match the starting revision, the repository checks pass, and the runtime doctor reports that the pin and wiring are in sync.",
+        "status": "proposed",
+        "narrative": {
+          "Acceptance": "The learner content and fixtures match the starting revision, the repository checks pass, and the runtime doctor reports that the pin and wiring are in sync."
+        }
+      },
+      {
+        "id": "upgrade.version",
+        "title": "Upgrade the training repository's authoring runtime to Directive 0.129.15",
+        "status": "proposed",
+        "narrative": {
+          "Acceptance": "Upgrade the training repository's authoring runtime to Directive 0.129.15"
+        }
+      },
+      {
+        "id": "upgrade.wiring",
+        "title": "Update the project's authoring runtime, npm lockfile and generated host wiring.",
+        "status": "proposed",
+        "narrative": {
+          "Acceptance": "Update the project's authoring runtime, npm lockfile and generated host wiring."
+        }
+      },
+      {
+        "id": "upgrade.wrapper",
+        "title": "Adapt the maintainer hook regression test to the new wrapper.",
+        "status": "proposed",
+        "narrative": {
+          "Acceptance": "Adapt the maintainer hook regression test to the new wrapper."
+        }
+      },
+      {
+        "id": "upgrade.ignore",
+        "title": "Include the new runtime's local ignore entries where needed.",
+        "status": "proposed",
+        "narrative": {
+          "Acceptance": "Include the new runtime's local ignore entries where needed."
+        }
+      },
+      {
+        "id": "upgrade.preserve",
+        "title": "Preserve the current course, README and executable learner fixtures.",
+        "status": "proposed",
+        "narrative": {
+          "Acceptance": "Preserve the current course, README and executable learner fixtures."
+        }
+      },
+      {
+        "id": "upgrade.teaching-marker",
+        "title": "The separate README teaching marker in `package.json` retains `\"readmeBaseline\": \"0.121.0\"`.",
+        "status": "proposed",
+        "narrative": {
+          "Acceptance": "The separate README teaching marker in `package.json` retains `\"readmeBaseline\": \"0.121.0\"`."
+        }
+      }
+    ],
+    "metadata": {
+      "swarm": {
+        "file_scope": [
+          ".agents/skills/deft-directive-feedback/SKILL.md",
+          ".agents/skills/deft-directive-refinement/SKILL.md",
+          ".agents/skills/deft-directive-tutorial/SKILL.md",
+          ".claude/deft-hook-a598056e.mjs",
+          ".claude/settings.json",
+          ".claude/skills/deft-directive-feedback/SKILL.md",
+          ".claude/skills/deft-directive-refinement/SKILL.md",
+          ".claude/skills/deft-directive-tutorial/SKILL.md",
+          ".codex/deft-hook-a598056e.mjs",
+          ".codex/hooks.json",
+          ".codex/skills/deft-directive-feedback/SKILL.md",
+          ".codex/skills/deft-directive-refinement/SKILL.md",
+          ".codex/skills/deft-directive-tutorial/SKILL.md",
+          ".cursor/hooks.json",
+          ".cursor/hooks/deft-hook-a598056e.mjs",
+          ".cursor/skills/deft-directive-feedback/SKILL.md",
+          ".cursor/skills/deft-directive-refinement/SKILL.md",
+          ".cursor/skills/deft-directive-tutorial/SKILL.md",
+          ".deft/GENERATION.json",
+          ".gitattributes",
+          ".github/skills/deft-directive-feedback/SKILL.md",
+          ".github/skills/deft-directive-refinement/SKILL.md",
+          ".github/skills/deft-directive-tutorial/SKILL.md",
+          ".gitignore",
+          ".grok/hooks/deft-hook-a598056e.mjs",
+          ".grok/hooks/deft-pretooluse-wrapper.sh",
+          ".grok/hooks/deft.json",
+          "AGENTS.md",
+          "package-lock.json",
+          "package.json",
+          "scripts/teaching-baseline.test.mjs"
+        ]
+      }
+    },
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 9 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "The project pin, public npm lockfile and installed runtime agree on 0.129.15.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "The Cursor planning-hook test verifies both events, their exact arguments and timeouts, and the installed version's hook file.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "The learner content and fixtures match the starting revision, the repository checks pass, and the runtime doctor reports that the pin and wiring are in sync.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "Upgrade the training repository's authoring runtime to Directive 0.129.15",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "Update the project's authoring runtime, npm lockfile and generated host wiring.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "Adapt the maintainer hook regression test to the new wrapper.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 7,
+          "text": "Include the new runtime's local ignore entries where needed.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 8,
+          "text": "Preserve the current course, README and executable learner fixtures.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 9,
+          "text": "The separate README teaching marker in `package.json` retains `\"readmeBaseline\": \"0.121.0\"`.",
+          "artifact_path": "package.json",
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    },
+    "updated": "2026-11-19T22:40:56Z"
+  }
+}
