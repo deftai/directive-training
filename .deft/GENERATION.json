@@ -1,12 +1,17 @@
 {
   "schemaVersion": 1,
-  "runtimeVersion": "0.127.0",
+  "runtimeVersion": "0.129.15",
   "packageManager": "npm",
   "ownership": [
     {
       "path": ".agents/skills/deft-directive-build/SKILL.md",
       "kind": "whole-file",
       "fingerprint": "00ffe0a28ce3080a9a8bc6f384e54f13c6ad4d26208aeb226330d0e0331b1215"
+    },
+    {
+      "path": ".agents/skills/deft-directive-feedback/SKILL.md",
+      "kind": "whole-file",
+      "fingerprint": "4fa7d075439ae2c08d2007563bc8eac84e9bf02e0ee02fe83d639e504714822b"
     },
     {
       "path": ".agents/skills/deft-directive-interview/SKILL.md",
@@ -26,7 +31,7 @@
     {
       "path": ".agents/skills/deft-directive-refinement/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "ad3e273864970df9d68f2a3923b1bee2371b911bcfd09c31f5b93ffc84ba5a49"
+      "fingerprint": "f67be7485b7cd17fd744048fdc43b4c0d8caf1af91a3a76459a33405bd641953"
     },
     {
       "path": ".agents/skills/deft-directive-review-cycle/SKILL.md",
@@ -47,6 +52,11 @@
       "path": ".agents/skills/deft-directive-sync/SKILL.md",
       "kind": "whole-file",
       "fingerprint": "552cd30e7842084cd49a8f29a666503ad29c855b51167fe4751a82f9d3f70600"
+    },
+    {
+      "path": ".agents/skills/deft-directive-tutorial/SKILL.md",
+      "kind": "whole-file",
+      "fingerprint": "73bdaac5aa75f99d558dbc32709752c1cd72ab2fea87dfb7f9f8d04ea79bf8e4"
     },
     {
       "path": ".agents/skills/deft/SKILL.md",
@@ -121,13 +131,18 @@
     {
       "path": ".claude/settings.json",
       "kind": "structured-entry",
-      "fingerprint": "569e893d9cced0da8448b938b465207f23e40ccb965444e0a44d8cb5e9b0b510",
+      "fingerprint": "6165d8078eed43d468c31b91054dc17f53c92f2bf3dd4ad176fd8a12ccab6991",
       "entryKey": "hooks"
     },
     {
       "path": ".claude/skills/deft-directive-build/SKILL.md",
       "kind": "whole-file",
       "fingerprint": "00ffe0a28ce3080a9a8bc6f384e54f13c6ad4d26208aeb226330d0e0331b1215"
+    },
+    {
+      "path": ".claude/skills/deft-directive-feedback/SKILL.md",
+      "kind": "whole-file",
+      "fingerprint": "4fa7d075439ae2c08d2007563bc8eac84e9bf02e0ee02fe83d639e504714822b"
     },
     {
       "path": ".claude/skills/deft-directive-interview/SKILL.md",
@@ -147,7 +162,7 @@
     {
       "path": ".claude/skills/deft-directive-refinement/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "ad3e273864970df9d68f2a3923b1bee2371b911bcfd09c31f5b93ffc84ba5a49"
+      "fingerprint": "f67be7485b7cd17fd744048fdc43b4c0d8caf1af91a3a76459a33405bd641953"
     },
     {
       "path": ".claude/skills/deft-directive-review-cycle/SKILL.md",
@@ -170,6 +185,11 @@
       "fingerprint": "552cd30e7842084cd49a8f29a666503ad29c855b51167fe4751a82f9d3f70600"
     },
     {
+      "path": ".claude/skills/deft-directive-tutorial/SKILL.md",
+      "kind": "whole-file",
+      "fingerprint": "73bdaac5aa75f99d558dbc32709752c1cd72ab2fea87dfb7f9f8d04ea79bf8e4"
+    },
+    {
       "path": ".claude/skills/deft/SKILL.md",
       "kind": "whole-file",
       "fingerprint": "00abab205561afa252549002171cd32bdcff14835de22ffa9ea97ad6a7966cca"
@@ -177,7 +197,7 @@
     {
       "path": ".codex/hooks.json",
       "kind": "structured-entry",
-      "fingerprint": "5e0aa664f31ef47888990ad0d7dbf18d7f0e048cc4dd14b5bedb497a38412415",
+      "fingerprint": "0adfd84d4104c49a93d23de14dddd62956ce673243095887b6b86c5d86b1a0bd",
       "entryKey": "hooks"
     },
     {
@@ -251,6 +271,11 @@
       "fingerprint": "00ffe0a28ce3080a9a8bc6f384e54f13c6ad4d26208aeb226330d0e0331b1215"
     },
     {
+      "path": ".codex/skills/deft-directive-feedback/SKILL.md",
+      "kind": "whole-file",
+      "fingerprint": "4fa7d075439ae2c08d2007563bc8eac84e9bf02e0ee02fe83d639e504714822b"
+    },
+    {
       "path": ".codex/skills/deft-directive-interview/SKILL.md",
       "kind": "whole-file",
       "fingerprint": "e7c8dfe4cf2a9897aefd429a18645b7fda9a61f5eda86e57dfa176f5a97dbb84"
@@ -268,7 +293,7 @@
     {
       "path": ".codex/skills/deft-directive-refinement/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "ad3e273864970df9d68f2a3923b1bee2371b911bcfd09c31f5b93ffc84ba5a49"
+      "fingerprint": "f67be7485b7cd17fd744048fdc43b4c0d8caf1af91a3a76459a33405bd641953"
     },
     {
       "path": ".codex/skills/deft-directive-review-cycle/SKILL.md",
@@ -289,6 +314,11 @@
       "path": ".codex/skills/deft-directive-sync/SKILL.md",
       "kind": "whole-file",
       "fingerprint": "552cd30e7842084cd49a8f29a666503ad29c855b51167fe4751a82f9d3f70600"
+    },
+    {
+      "path": ".codex/skills/deft-directive-tutorial/SKILL.md",
+      "kind": "whole-file",
+      "fingerprint": "73bdaac5aa75f99d558dbc32709752c1cd72ab2fea87dfb7f9f8d04ea79bf8e4"
     },
     {
       "path": ".codex/skills/deft/SKILL.md",
@@ -363,13 +393,18 @@
     {
       "path": ".cursor/hooks.json",
       "kind": "structured-entry",
-      "fingerprint": "5dc9578e622272c8fc8acefccfe4d8d1dff317736363b9007a6da29207e0b0b8",
+      "fingerprint": "dfa476f7bf2107ed521b266dfdfc49168445a2c84f7e2d59a7c9b36058a53f3d",
       "entryKey": "hooks"
     },
     {
       "path": ".cursor/skills/deft-directive-build/SKILL.md",
       "kind": "whole-file",
       "fingerprint": "00ffe0a28ce3080a9a8bc6f384e54f13c6ad4d26208aeb226330d0e0331b1215"
+    },
+    {
+      "path": ".cursor/skills/deft-directive-feedback/SKILL.md",
+      "kind": "whole-file",
+      "fingerprint": "4fa7d075439ae2c08d2007563bc8eac84e9bf02e0ee02fe83d639e504714822b"
     },
     {
       "path": ".cursor/skills/deft-directive-interview/SKILL.md",
@@ -389,7 +424,7 @@
     {
       "path": ".cursor/skills/deft-directive-refinement/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "ad3e273864970df9d68f2a3923b1bee2371b911bcfd09c31f5b93ffc84ba5a49"
+      "fingerprint": "f67be7485b7cd17fd744048fdc43b4c0d8caf1af91a3a76459a33405bd641953"
     },
     {
       "path": ".cursor/skills/deft-directive-review-cycle/SKILL.md",
@@ -410,6 +445,11 @@
       "path": ".cursor/skills/deft-directive-sync/SKILL.md",
       "kind": "whole-file",
       "fingerprint": "552cd30e7842084cd49a8f29a666503ad29c855b51167fe4751a82f9d3f70600"
+    },
+    {
+      "path": ".cursor/skills/deft-directive-tutorial/SKILL.md",
+      "kind": "whole-file",
+      "fingerprint": "73bdaac5aa75f99d558dbc32709752c1cd72ab2fea87dfb7f9f8d04ea79bf8e4"
     },
     {
       "path": ".cursor/skills/deft/SKILL.md",
@@ -437,6 +477,11 @@
       "fingerprint": "00ffe0a28ce3080a9a8bc6f384e54f13c6ad4d26208aeb226330d0e0331b1215"
     },
     {
+      "path": ".github/skills/deft-directive-feedback/SKILL.md",
+      "kind": "whole-file",
+      "fingerprint": "4fa7d075439ae2c08d2007563bc8eac84e9bf02e0ee02fe83d639e504714822b"
+    },
+    {
       "path": ".github/skills/deft-directive-interview/SKILL.md",
       "kind": "whole-file",
       "fingerprint": "e7c8dfe4cf2a9897aefd429a18645b7fda9a61f5eda86e57dfa176f5a97dbb84"
@@ -454,7 +499,7 @@
     {
       "path": ".github/skills/deft-directive-refinement/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "ad3e273864970df9d68f2a3923b1bee2371b911bcfd09c31f5b93ffc84ba5a49"
+      "fingerprint": "f67be7485b7cd17fd744048fdc43b4c0d8caf1af91a3a76459a33405bd641953"
     },
     {
       "path": ".github/skills/deft-directive-review-cycle/SKILL.md",
@@ -475,6 +520,11 @@
       "path": ".github/skills/deft-directive-sync/SKILL.md",
       "kind": "whole-file",
       "fingerprint": "552cd30e7842084cd49a8f29a666503ad29c855b51167fe4751a82f9d3f70600"
+    },
+    {
+      "path": ".github/skills/deft-directive-tutorial/SKILL.md",
+      "kind": "whole-file",
+      "fingerprint": "73bdaac5aa75f99d558dbc32709752c1cd72ab2fea87dfb7f9f8d04ea79bf8e4"
     },
     {
       "path": ".github/skills/deft/SKILL.md",
@@ -549,13 +599,13 @@
     {
       "path": ".grok/hooks/deft.json",
       "kind": "structured-entry",
-      "fingerprint": "6e33f1cfaad79cc15ef49f788ee623a6c390b11e4d31730bd6dad5616033a8a7",
+      "fingerprint": "3f6a34e4c77fe27dfa77e40f1fb17df92d6a46ce17c6496f3c54aca3a411446f",
       "entryKey": "hooks"
     },
     {
       "path": "AGENTS.md",
       "kind": "marked-section",
-      "fingerprint": "b97652501960e1ab11fc3c7fd8e2c2f14823a475195d0cfd828a041ccfb22e16",
+      "fingerprint": "840ab0780367b587f59db391ee5880d33682b37db2e0ae7967f2fd485ad9c648",
       "markerId": "deft:managed-section"
     },
     {

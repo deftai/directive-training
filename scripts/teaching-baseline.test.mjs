@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import { assertTeachingBaselinePin, declaredTeachingBaseline } from "./teaching-baseline.mjs";
@@ -67,16 +68,20 @@ test("keeps the managed Cursor planning hooks exact", () => {
   const cursorHooks = JSON.parse(
     readFileSync(new URL("../.cursor/hooks.json", import.meta.url), "utf8"),
   );
+  const wrapperPath = ".cursor/hooks/deft-hook-a598056e.mjs";
+  const wrapperSource = readFileSync(new URL(`../${wrapperPath}`, import.meta.url), "utf8");
+  const contentHash = createHash("sha256").update(wrapperSource.replace(/\r\n/g, "\n")).digest("hex");
+  assert.equal(wrapperPath, `.cursor/hooks/deft-hook-${contentHash.slice(0, 8)}.mjs`);
 
   assert.deepEqual(cursorHooks.hooks.beforeSubmitPrompt, [
     {
-      command: "node node_modules/@deftai/directive-runtime/dist/hook-bin.js --host cursor --event prompt.submit",
+      command: `node ${wrapperPath} --host cursor --event prompt.submit`,
       timeout: 5,
     },
   ]);
   assert.deepEqual(cursorHooks.hooks.afterAgentResponse, [
     {
-      command: "node node_modules/@deftai/directive-runtime/dist/hook-bin.js --host cursor --event agent.response",
+      command: `node ${wrapperPath} --host cursor --event agent.response`,
       timeout: 5,
     },
   ]);

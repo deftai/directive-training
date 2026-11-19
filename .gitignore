@@ -20,6 +20,10 @@
 .deft/delivery-attempts/
 .deft/metrics/
 .deft/escalations/
+.deft/pre-pr-execution-private/
+.deft/plan-sequence.json.generation
+.deft/plan-sequence.json.lock
+.deft/plan-sequence.json.lock.claim-*
 .deft/approved-scope/*.bak
 .deft/approved-scope/*.next.tmp
 .deft/approved-scope/.*.pair.lock.tmp
