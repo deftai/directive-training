@@ -8,3 +8,22 @@
 .deft/approved-scope/** text eol=lf
 history/** text eol=lf
 xbrief/completed/** text eol=lf
+
+# Deft framework: the vendored payload is packaged framework code, not
+# consumer source. text=auto + eol=lf normalizes text only; binaries keep
+# byte identity. Mark generated + vendored (#1430, #2118, #5245).
+.deft/core/** text=auto eol=lf
+.deft/core/** linguist-generated=true
+.deft/core/** linguist-vendored=true
+.claude/commands/** text=auto eol=lf
+.cursor/commands/** text=auto eol=lf
+.grok/commands/** text=auto eol=lf
+.codex/prompts/** text=auto eol=lf
+.agents/skills/** text=auto eol=lf
+.claude/skills/** text=auto eol=lf
+.cursor/skills/** text=auto eol=lf
+.codex/skills/** text=auto eol=lf
+.github/skills/** text=auto eol=lf
+.githooks/** text=auto eol=lf
+.grok/hooks/** text=auto eol=lf
+AGENTS.md text=auto eol=lf
