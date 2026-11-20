@@ -2,12 +2,12 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Authoring tools and generated wiring for the 0.129.15 public npm release",
-    "updated": "2026-11-19T22:40:56Z"
+    "updated": "2026-11-20T00:43:19Z"
   },
   "plan": {
     "id": "training.authoring-runtime-0-129-15",
     "title": "Upgrade the training repository's authoring runtime to Directive 0.129.15",
-    "status": "running",
+    "status": "completed",
     "narratives": {
       "Description": "Update the project's authoring runtime, npm lockfile and generated host wiring. Adapt the maintainer hook regression test to the new wrapper. Include the new runtime's local ignore entries where needed. Preserve the current course, README and executable learner fixtures.",
       "Authorization": "David requested the authoring upgrade and authorized pull requests for it. The upgrade is separate from curriculum development.",
@@ -19,73 +19,235 @@
       {
         "id": "upgrade.pin",
         "title": "The project pin, public npm lockfile and installed runtime agree on 0.129.15.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "The project pin, public npm lockfile and installed runtime agree on 0.129.15."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/136",
+          "recorded_at": "2026-11-20T00:36:16Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "upgrade.hooks",
         "title": "The Cursor planning-hook test verifies both events, their exact arguments and timeouts, and the installed version's hook file.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "The Cursor planning-hook test verifies both events, their exact arguments and timeouts, and the installed version's hook file."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/teaching-baseline.test.mjs",
+          "recorded_at": "2026-11-20T00:36:16Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "upgrade.verify",
         "title": "The learner content and fixtures match the starting revision, the repository checks pass, and the runtime doctor reports that the pin and wiring are in sync.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "The learner content and fixtures match the starting revision, the repository checks pass, and the runtime doctor reports that the pin and wiring are in sync."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/136",
+          "recorded_at": "2026-11-20T00:36:16Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "upgrade.version",
         "title": "Upgrade the training repository's authoring runtime to Directive 0.129.15",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "Upgrade the training repository's authoring runtime to Directive 0.129.15"
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/blob/b7e47e6dd31d31f423978bfa99a88015382b4356/package-lock.json#L12-L14",
+          "recorded_at": "2026-11-20T00:36:16Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "upgrade.wiring",
         "title": "Update the project's authoring runtime, npm lockfile and generated host wiring.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "Update the project's authoring runtime, npm lockfile and generated host wiring."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/136/files",
+          "recorded_at": "2026-11-20T00:36:16Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "upgrade.wrapper",
         "title": "Adapt the maintainer hook regression test to the new wrapper.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "Adapt the maintainer hook regression test to the new wrapper."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/teaching-baseline.test.mjs",
+          "recorded_at": "2026-11-20T00:36:16Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "upgrade.ignore",
         "title": "Include the new runtime's local ignore entries where needed.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "Include the new runtime's local ignore entries where needed."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/blob/b7e47e6dd31d31f423978bfa99a88015382b4356/.gitignore#L23-L26",
+          "recorded_at": "2026-11-20T00:36:16Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "upgrade.preserve",
         "title": "Preserve the current course, README and executable learner fixtures.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "Preserve the current course, README and executable learner fixtures."
+        },
+        "x-directive/evidence": {
+          "kind": "review",
+          "pointer": "https://github.com/deftai/directive-training/pull/136",
+          "recorded_at": "2026-11-20T00:36:16Z",
+          "recorded_by": "agent:codex"
         }
       },
       {
         "id": "upgrade.teaching-marker",
         "title": "The separate README teaching marker in `package.json` retains `\"readmeBaseline\": \"0.121.0\"`.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "The separate README teaching marker in `package.json` retains `\"readmeBaseline\": \"0.121.0\"`."
+        },
+        "x-directive/evidence": {
+          "kind": "test",
+          "pointer": "scripts/teaching-baseline.test.mjs",
+          "recorded_at": "2026-11-20T00:36:16Z",
+          "recorded_by": "agent:codex"
+        }
+      },
+      {
+        "id": "clause.1",
+        "title": "clause.1",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "b7e47e6dd31d31f423978bfa99a88015382b4356",
+          "recorded_at": "2026-11-20T00:35:30Z",
+          "recorded_by": "swarm:finalize-cohort"
+        }
+      },
+      {
+        "id": "clause.2",
+        "title": "clause.2",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "b7e47e6dd31d31f423978bfa99a88015382b4356",
+          "recorded_at": "2026-11-20T00:35:30Z",
+          "recorded_by": "swarm:finalize-cohort"
+        }
+      },
+      {
+        "id": "clause.3",
+        "title": "clause.3",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "b7e47e6dd31d31f423978bfa99a88015382b4356",
+          "recorded_at": "2026-11-20T00:35:30Z",
+          "recorded_by": "swarm:finalize-cohort"
+        }
+      },
+      {
+        "id": "clause.4",
+        "title": "clause.4",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "b7e47e6dd31d31f423978bfa99a88015382b4356",
+          "recorded_at": "2026-11-20T00:35:30Z",
+          "recorded_by": "swarm:finalize-cohort"
+        }
+      },
+      {
+        "id": "clause.5",
+        "title": "clause.5",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "b7e47e6dd31d31f423978bfa99a88015382b4356",
+          "recorded_at": "2026-11-20T00:35:30Z",
+          "recorded_by": "swarm:finalize-cohort"
+        }
+      },
+      {
+        "id": "clause.6",
+        "title": "clause.6",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "b7e47e6dd31d31f423978bfa99a88015382b4356",
+          "recorded_at": "2026-11-20T00:35:30Z",
+          "recorded_by": "swarm:finalize-cohort"
+        }
+      },
+      {
+        "id": "clause.7",
+        "title": "clause.7",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "b7e47e6dd31d31f423978bfa99a88015382b4356",
+          "recorded_at": "2026-11-20T00:35:30Z",
+          "recorded_by": "swarm:finalize-cohort"
+        }
+      },
+      {
+        "id": "clause.8",
+        "title": "clause.8",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "b7e47e6dd31d31f423978bfa99a88015382b4356",
+          "recorded_at": "2026-11-20T00:35:30Z",
+          "recorded_by": "swarm:finalize-cohort"
+        }
+      },
+      {
+        "id": "clause.9",
+        "title": "clause.9",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "b7e47e6dd31d31f423978bfa99a88015382b4356",
+          "recorded_at": "2026-11-20T00:35:30Z",
+          "recorded_by": "swarm:finalize-cohort"
         }
       }
     ],
@@ -124,6 +286,32 @@
           "package.json",
           "scripts/teaching-baseline.test.mjs"
         ]
+      },
+      "productPullRequest": 136,
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completionProvenance": {
+        "repository": "deftai/directive-training",
+        "implementationCommit": "dfca4d351460654e7ae6c70c422dd62df933426a",
+        "prNumber": 136,
+        "prBase": "master",
+        "mergeCommit": "b7e47e6dd31d31f423978bfa99a88015382b4356",
+        "deliveryBranch": "master",
+        "deliveryCommit": "b7e47e6dd31d31f423978bfa99a88015382b4356",
+        "verifiedAt": "2026-11-20T00:43:19Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMWY1ZGQtMWY2ZC03YzUzLWI5YjctYTUyNGIxYjYxMGUx",
+        "identityBasis": "pr-only"
+      },
+      "completedAt": "2026-11-20T00:43:19Z",
+      "completedSessionId": "host:codex:v1:MDFhMWY1ZGQtMWY2ZC03YzUzLWI5YjctYTUyNGIxYjYxMGUx",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-11-20T00:43:19Z"
       }
     },
     "acceptance": {
@@ -198,6 +386,6 @@
       ],
       "ambiguity_attestation": "none_found"
     },
-    "updated": "2026-11-19T22:40:56Z"
+    "updated": "2026-11-20T00:43:19Z"
   }
 }
