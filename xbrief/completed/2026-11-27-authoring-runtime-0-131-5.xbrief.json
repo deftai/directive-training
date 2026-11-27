@@ -2,13 +2,15 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Project-only Directive 0.131.5 authoring upgrade from public npm",
-    "updated": "2026-11-27T16:48:51Z"
+    "updated": "2026-11-27T17:22:48Z"
   },
   "plan": {
     "id": "training.authoring-runtime-0-131-5",
     "title": "Upgrade the project’s authoring runtime from Directive 0.129.15 to 0.131.5 using public npm.",
-    "status": "running",
+    "status": "completed",
+    "x-directive/specImpact": "none",
     "narratives": {
+      "SpecificationImpact": "Only authoring tools and their maintainer checks changed. The course requirements, learner files and teaching baseline match the starting revision. Directive 0.131.5 advisory mode flags a completed plan with items even when the recorded impact is none.",
       "Description": "Learner material and executable fixtures match the starting revision byte for byte, and the README teaching marker continues to declare 0.121.0.",
       "StartingRevision": "1c7ccf84ddb290800236c212a977e321d1596bea",
       "ManagedChanges": "Use the managed output from the public npm release. Remove the obsolete .deft/core/** exclusion from .github/codeql/codeql-config.yml and greptile.json and retire .github/workflows/deft-core-guard.yml. The repository has no tracked vendored core. Preserve other review settings, workflows and project-owned text, including the AGENTS.md header.",
@@ -20,57 +22,190 @@
       {
         "id": "upgrade.version",
         "title": "Upgrade the project’s authoring runtime from Directive 0.129.15 to 0.131.5 using public npm.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "Upgrade the project’s authoring runtime from Directive 0.129.15 to 0.131.5 using public npm."
+        },
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
         }
       },
       {
         "id": "upgrade.pin",
         "title": "The project manifest, root lockfile specifier, locked tarball and installed authoring runtime agree on the exact public npm release 0.131.5.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "The project manifest, root lockfile specifier, locked tarball and installed authoring runtime agree on the exact public npm release 0.131.5."
+        },
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
         }
       },
       {
         "id": "upgrade.wiring",
         "title": "The repository uses the 0.131.5 installer’s host registrations, content-addressed hook wrappers, skill pointers, Git hooks, generation record, managed AGENTS section and file handling rules.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "The repository uses the 0.131.5 installer’s host registrations, content-addressed hook wrappers, skill pointers, Git hooks, generation record, managed AGENTS section and file handling rules."
+        },
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
         }
       },
       {
         "id": "upgrade.retire-core",
         "title": "CodeQL and Greptile drop the obsolete vendored-core exclusion, and the installer retires the workflow that guarded the vendored payload.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "CodeQL and Greptile drop the obsolete vendored-core exclusion, and the installer retires the workflow that guarded the vendored payload."
+        },
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
         }
       },
       {
         "id": "upgrade.cursor",
         "title": "The maintainer regression test checks the new Cursor wrapper’s content hash and both planning events with their exact arguments and five-second timeouts.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "The maintainer regression test checks the new Cursor wrapper’s content hash and both planning events with their exact arguments and five-second timeouts."
+        },
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
         }
       },
       {
         "id": "upgrade.teaching",
         "title": "The separate teaching declaration in `package.json` retains `\"readmeBaseline\": \"0.121.0\"`.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "The separate teaching declaration in `package.json` retains `\"readmeBaseline\": \"0.121.0\"`."
+        },
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
         }
       },
       {
         "id": "upgrade.preserve",
         "title": "Learner material and executable fixtures match the starting revision byte for byte, and the README teaching marker continues to declare 0.121.0.",
-        "status": "proposed",
+        "status": "completed",
         "narrative": {
           "Acceptance": "Learner material and executable fixtures match the starting revision byte for byte, and the README teaching marker continues to declare 0.121.0."
+        },
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
+        }
+      },
+      {
+        "id": "clause.1",
+        "title": "clause.1",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
+        }
+      },
+      {
+        "id": "clause.2",
+        "title": "clause.2",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
+        }
+      },
+      {
+        "id": "clause.3",
+        "title": "clause.3",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
+        }
+      },
+      {
+        "id": "clause.4",
+        "title": "clause.4",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
+        }
+      },
+      {
+        "id": "clause.5",
+        "title": "clause.5",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
+        }
+      },
+      {
+        "id": "clause.6",
+        "title": "clause.6",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
+        }
+      },
+      {
+        "id": "clause.7",
+        "title": "clause.7",
+        "status": "completed",
+        "x-directive/requires": "merge",
+        "x-directive/evidence": {
+          "kind": "merge",
+          "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+          "recorded_at": "2026-11-27T17:22:48Z",
+          "recorded_by": "scope:complete"
         }
       }
     ],
@@ -160,9 +295,37 @@
           "package.json",
           "scripts/teaching-baseline.test.mjs"
         ]
+      },
+      "completionProvenance": {
+        "repository": "deftai/directive-training",
+        "implementationCommit": "643ce9f76e563fa5f35188af47c829e4b703bd3a",
+        "prNumber": 141,
+        "prBase": "master",
+        "mergeCommit": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+        "deliveryBranch": "master",
+        "deliveryCommit": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
+        "verifiedAt": "2026-11-27T17:22:48Z",
+        "verifier": "scope:complete",
+        "disposition": "delivered",
+        "handoffState": "delivered",
+        "deployed": null,
+        "uatVerified": null,
+        "completedSessionId": "host:codex:v1:MDFhMjFkOWMtNzZkNi03ZTgzLTkxM2EtMmNiYjU4NGM1YTli",
+        "identityBasis": "merge-time-mark",
+        "partLinePrs": [
+          140
+        ]
+      },
+      "deliveryDisposition": "delivered",
+      "handoffState": "delivered",
+      "completedAt": "2026-11-27T17:22:48Z",
+      "completedSessionId": "host:codex:v1:MDFhMjFkOWMtNzZkNi03ZTgzLTkxM2EtMmNiYjU4NGM1YTli",
+      "lifecycleWrite": {
+        "action": "complete",
+        "writtenAt": "2026-11-27T17:22:48Z"
       }
     },
-    "updated": "2026-11-27T16:48:51Z",
+    "updated": "2026-11-27T17:22:48Z",
     "acceptance": {
       "commands": [],
       "none_stated": true,
