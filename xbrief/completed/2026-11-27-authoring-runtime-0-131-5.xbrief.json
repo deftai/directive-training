@@ -2,13 +2,15 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Project-only Directive 0.131.5 authoring upgrade from public npm",
-    "updated": "2026-11-27T17:17:01Z"
+    "updated": "2026-11-27T17:22:48Z"
   },
   "plan": {
     "id": "training.authoring-runtime-0-131-5",
     "title": "Upgrade the project’s authoring runtime from Directive 0.129.15 to 0.131.5 using public npm.",
     "status": "completed",
+    "x-directive/specImpact": "none",
     "narratives": {
+      "SpecificationImpact": "Only authoring tools and their maintainer checks changed. The course requirements, learner files and teaching baseline match the starting revision. Directive 0.131.5 advisory mode flags a completed plan with items even when the recorded impact is none.",
       "Description": "Learner material and executable fixtures match the starting revision byte for byte, and the README teaching marker continues to declare 0.121.0.",
       "StartingRevision": "1c7ccf84ddb290800236c212a977e321d1596bea",
       "ManagedChanges": "Use the managed output from the public npm release. Remove the obsolete .deft/core/** exclusion from .github/codeql/codeql-config.yml and greptile.json and retire .github/workflows/deft-core-guard.yml. The repository has no tracked vendored core. Preserve other review settings, workflows and project-owned text, including the AGENTS.md header.",
@@ -28,7 +30,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       },
@@ -43,7 +45,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       },
@@ -58,7 +60,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       },
@@ -73,7 +75,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       },
@@ -88,7 +90,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       },
@@ -103,7 +105,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       },
@@ -118,7 +120,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       },
@@ -130,7 +132,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       },
@@ -142,7 +144,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       },
@@ -154,7 +156,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       },
@@ -166,7 +168,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       },
@@ -178,7 +180,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       },
@@ -190,7 +192,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       },
@@ -202,7 +204,7 @@
         "x-directive/evidence": {
           "kind": "merge",
           "pointer": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-          "recorded_at": "2026-11-27T17:17:01Z",
+          "recorded_at": "2026-11-27T17:22:48Z",
           "recorded_by": "scope:complete"
         }
       }
@@ -302,7 +304,7 @@
         "mergeCommit": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
         "deliveryBranch": "master",
         "deliveryCommit": "6357a54d8d477cec71a8d1836981dcc1e15bb4e2",
-        "verifiedAt": "2026-11-27T17:17:01Z",
+        "verifiedAt": "2026-11-27T17:22:48Z",
         "verifier": "scope:complete",
         "disposition": "delivered",
         "handoffState": "delivered",
@@ -316,14 +318,14 @@
       },
       "deliveryDisposition": "delivered",
       "handoffState": "delivered",
-      "completedAt": "2026-11-27T17:17:01Z",
+      "completedAt": "2026-11-27T17:22:48Z",
       "completedSessionId": "host:codex:v1:MDFhMjFkOWMtNzZkNi03ZTgzLTkxM2EtMmNiYjU4NGM1YTli",
       "lifecycleWrite": {
         "action": "complete",
-        "writtenAt": "2026-11-27T17:17:01Z"
+        "writtenAt": "2026-11-27T17:22:48Z"
       }
     },
-    "updated": "2026-11-27T17:17:01Z",
+    "updated": "2026-11-27T17:22:48Z",
     "acceptance": {
       "commands": [],
       "none_stated": true,

@@ -3,9 +3,9 @@
   "unresolved": [
     {
       "scopeId": "training.authoring-runtime-0-131-5",
-      "reason": "shape-changing completion missing x-directive/specImpact (none|delta|new)",
-      "specImpact": null,
-      "completedAt": "2026-11-27T17:17:09Z"
+      "reason": "specImpact=none without requirements/delta coverage for shape-changing completion",
+      "specImpact": "none",
+      "completedAt": "2026-11-27T17:22:56Z"
     }
   ],
   "coverage": [],
