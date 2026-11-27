@@ -2,4 +2,4 @@
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 1
 # shellcheck source=/dev/null
 . "$REPO_ROOT/.githooks/_directive-run.sh"
-run_directive verify:branch --project-root "$REPO_ROOT" || exit $?
+run_directive preflight-gh --pre-push-stdin --project-root "$REPO_ROOT" || exit $?

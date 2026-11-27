@@ -68,7 +68,7 @@ test("keeps the managed Cursor planning hooks exact", () => {
   const cursorHooks = JSON.parse(
     readFileSync(new URL("../.cursor/hooks.json", import.meta.url), "utf8"),
   );
-  const wrapperPath = ".cursor/hooks/deft-hook-a598056e.mjs";
+  const wrapperPath = ".cursor/hooks/deft-hook-bc294904.mjs";
   const wrapperSource = readFileSync(new URL(`../${wrapperPath}`, import.meta.url), "utf8");
   const contentHash = createHash("sha256").update(wrapperSource.replace(/\r\n/g, "\n")).digest("hex");
   assert.equal(wrapperPath, `.cursor/hooks/deft-hook-${contentHash.slice(0, 8)}.mjs`);
