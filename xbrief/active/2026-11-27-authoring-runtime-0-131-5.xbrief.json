@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Project-only Directive 0.131.5 authoring upgrade from public npm",
-    "updated": "2026-11-27T16:41:52Z"
+    "updated": "2026-11-27T16:44:03Z"
   },
   "plan": {
     "id": "training.authoring-runtime-0-131-5",
@@ -166,7 +166,7 @@
         "writtenAt": "2026-11-27T16:41:38Z"
       }
     },
-    "updated": "2026-11-27T16:41:52Z",
+    "updated": "2026-11-27T16:44:03Z",
     "acceptance": {
       "commands": [],
       "none_stated": true,
@@ -176,21 +176,21 @@
         {
           "id": 1,
           "text": "Upgrade the project’s authoring runtime from Directive 0.129.15 to 0.131.5 using public npm.",
-          "artifact_path": null,
+          "artifact_path": "package.json",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 2,
           "text": "The project manifest, root lockfile specifier, locked tarball and installed authoring runtime agree on the exact public npm release 0.131.5.",
-          "artifact_path": null,
+          "artifact_path": "package-lock.json",
           "ambiguous": false,
           "provenance": "statement"
         },
         {
           "id": 3,
           "text": "The repository uses the 0.131.5 installer’s host registrations, content-addressed hook wrappers, skill pointers, Git hooks, generation record, managed AGENTS section and file handling rules.",
-          "artifact_path": null,
+          "artifact_path": ".deft/GENERATION.json",
           "ambiguous": false,
           "provenance": "statement"
         },
@@ -204,7 +204,7 @@
         {
           "id": 5,
           "text": "The maintainer regression test checks the new Cursor wrapper’s content hash and both planning events with their exact arguments and five-second timeouts.",
-          "artifact_path": null,
+          "artifact_path": "scripts/teaching-baseline.test.mjs",
           "ambiguous": false,
           "provenance": "statement"
         },
@@ -224,6 +224,13 @@
         }
       ],
       "ambiguity_attestation": "none_found"
-    }
+    },
+    "references": [
+      {
+        "uri": "https://github.com/deftai/directive-training/issues/138",
+        "type": "x-xbrief/github-issue",
+        "TrustLevel": "external"
+      }
+    ]
   }
 }
