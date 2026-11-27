@@ -2,7 +2,7 @@
   "xBRIEFInfo": {
     "version": "0.8",
     "description": "Project-only Directive 0.131.5 authoring upgrade from public npm",
-    "updated": "2026-11-27T16:44:03Z"
+    "updated": "2026-11-27T16:48:51Z"
   },
   "plan": {
     "id": "training.authoring-runtime-0-131-5",
@@ -14,7 +14,7 @@
       "ManagedChanges": "Use the managed output from the public npm release. Remove the obsolete .deft/core/** exclusion from .github/codeql/codeql-config.yml and greptile.json and retire .github/workflows/deft-core-guard.yml. The repository has no tracked vendored core. Preserve other review settings, workflows and project-owned text, including the AGENTS.md header.",
       "ImplementationProof": "Compare the installed version and both lockfile entries with the project pin. Verify the runtime tarball URL and integrity against npm view @deftai/directive-runtime@0.131.5 dist --registry=https://registry.npmjs.org. Compare managed wiring with the 0.131.5 installer output. In scripts/teaching-baseline.test.mjs update only the expected wrapper path to .cursor/hooks/deft-hook-bc294904.mjs. Keep the normalized SHA-256 check and exact beforeSubmitPrompt and afterAgentResponse assertions for prompt.submit and agent.response.",
       "PreservationProof": "Run git diff --exit-code 1c7ccf84ddb290800236c212a977e321d1596bea HEAD -- README.md curriculum labs references assessments solutions maintainers templates history. Compare the implementation diff with the concrete file list. Preserve the package scripts and the 0.121.0 package and README teaching declarations. Run npm test, npm run test:linked-path-safety on a symlink-capable host, directive doctor --full and the repository aggregate gate. Record results and any skips in the implementation PR.",
-      "ScopePublication": "The scope PR publishes the concrete file list on master before the implementation PR. The upgrade applies only to this repository."
+      "ScopePublication": "The scope PR publishes the concrete file list on master before the implementation PR. The upgrade applies only to this repository. The vendored-core retirement and learner-preservation criteria each span several paths. Verify them against the Git diff and the starting revision."
     },
     "items": [
       {
@@ -28,7 +28,7 @@
       {
         "id": "upgrade.pin",
         "title": "The project manifest, root lockfile specifier, locked tarball and installed authoring runtime agree on the exact public npm release 0.131.5.",
-        "status": "cancelled",
+        "status": "proposed",
         "narrative": {
           "Acceptance": "The project manifest, root lockfile specifier, locked tarball and installed authoring runtime agree on the exact public npm release 0.131.5."
         }
@@ -36,7 +36,7 @@
       {
         "id": "upgrade.wiring",
         "title": "The repository uses the 0.131.5 installer’s host registrations, content-addressed hook wrappers, skill pointers, Git hooks, generation record, managed AGENTS section and file handling rules.",
-        "status": "cancelled",
+        "status": "proposed",
         "narrative": {
           "Acceptance": "The repository uses the 0.131.5 installer’s host registrations, content-addressed hook wrappers, skill pointers, Git hooks, generation record, managed AGENTS section and file handling rules."
         }
@@ -44,7 +44,7 @@
       {
         "id": "upgrade.retire-core",
         "title": "CodeQL and Greptile drop the obsolete vendored-core exclusion, and the installer retires the workflow that guarded the vendored payload.",
-        "status": "cancelled",
+        "status": "proposed",
         "narrative": {
           "Acceptance": "CodeQL and Greptile drop the obsolete vendored-core exclusion, and the installer retires the workflow that guarded the vendored payload."
         }
@@ -52,7 +52,7 @@
       {
         "id": "upgrade.cursor",
         "title": "The maintainer regression test checks the new Cursor wrapper’s content hash and both planning events with their exact arguments and five-second timeouts.",
-        "status": "cancelled",
+        "status": "proposed",
         "narrative": {
           "Acceptance": "The maintainer regression test checks the new Cursor wrapper’s content hash and both planning events with their exact arguments and five-second timeouts."
         }
@@ -60,7 +60,7 @@
       {
         "id": "upgrade.teaching",
         "title": "The separate teaching declaration in `package.json` retains `\"readmeBaseline\": \"0.121.0\"`.",
-        "status": "cancelled",
+        "status": "proposed",
         "narrative": {
           "Acceptance": "The separate teaching declaration in `package.json` retains `\"readmeBaseline\": \"0.121.0\"`."
         }
@@ -68,7 +68,7 @@
       {
         "id": "upgrade.preserve",
         "title": "Learner material and executable fixtures match the starting revision byte for byte, and the README teaching marker continues to declare 0.121.0.",
-        "status": "cancelled",
+        "status": "proposed",
         "narrative": {
           "Acceptance": "Learner material and executable fixtures match the starting revision byte for byte, and the README teaching marker continues to declare 0.121.0."
         }
@@ -160,13 +160,9 @@
           "package.json",
           "scripts/teaching-baseline.test.mjs"
         ]
-      },
-      "lifecycleWrite": {
-        "action": "cancel",
-        "writtenAt": "2026-11-27T16:41:38Z"
       }
     },
-    "updated": "2026-11-27T16:44:03Z",
+    "updated": "2026-11-27T16:48:51Z",
     "acceptance": {
       "commands": [],
       "none_stated": true,
