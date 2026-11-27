@@ -1,0 +1,229 @@
+{
+  "xBRIEFInfo": {
+    "version": "0.8",
+    "description": "Project-only Directive 0.131.5 authoring upgrade from public npm",
+    "updated": "2026-11-27T16:41:52Z"
+  },
+  "plan": {
+    "id": "training.authoring-runtime-0-131-5",
+    "title": "Upgrade the project’s authoring runtime from Directive 0.129.15 to 0.131.5 using public npm.",
+    "status": "running",
+    "narratives": {
+      "Description": "Learner material and executable fixtures match the starting revision byte for byte, and the README teaching marker continues to declare 0.121.0.",
+      "StartingRevision": "1c7ccf84ddb290800236c212a977e321d1596bea",
+      "ManagedChanges": "Use the managed output from the public npm release. Remove the obsolete .deft/core/** exclusion from .github/codeql/codeql-config.yml and greptile.json and retire .github/workflows/deft-core-guard.yml. The repository has no tracked vendored core. Preserve other review settings, workflows and project-owned text, including the AGENTS.md header.",
+      "ImplementationProof": "Compare the installed version and both lockfile entries with the project pin. Verify the runtime tarball URL and integrity against npm view @deftai/directive-runtime@0.131.5 dist --registry=https://registry.npmjs.org. Compare managed wiring with the 0.131.5 installer output. In scripts/teaching-baseline.test.mjs update only the expected wrapper path to .cursor/hooks/deft-hook-bc294904.mjs. Keep the normalized SHA-256 check and exact beforeSubmitPrompt and afterAgentResponse assertions for prompt.submit and agent.response.",
+      "PreservationProof": "Run git diff --exit-code 1c7ccf84ddb290800236c212a977e321d1596bea HEAD -- README.md curriculum labs references assessments solutions maintainers templates history. Compare the implementation diff with the concrete file list. Preserve the package scripts and the 0.121.0 package and README teaching declarations. Run npm test, npm run test:linked-path-safety on a symlink-capable host, directive doctor --full and the repository aggregate gate. Record results and any skips in the implementation PR.",
+      "ScopePublication": "The scope PR publishes the concrete file list on master before the implementation PR. The upgrade applies only to this repository."
+    },
+    "items": [
+      {
+        "id": "upgrade.version",
+        "title": "Upgrade the project’s authoring runtime from Directive 0.129.15 to 0.131.5 using public npm.",
+        "status": "proposed",
+        "narrative": {
+          "Acceptance": "Upgrade the project’s authoring runtime from Directive 0.129.15 to 0.131.5 using public npm."
+        }
+      },
+      {
+        "id": "upgrade.pin",
+        "title": "The project manifest, root lockfile specifier, locked tarball and installed authoring runtime agree on the exact public npm release 0.131.5.",
+        "status": "cancelled",
+        "narrative": {
+          "Acceptance": "The project manifest, root lockfile specifier, locked tarball and installed authoring runtime agree on the exact public npm release 0.131.5."
+        }
+      },
+      {
+        "id": "upgrade.wiring",
+        "title": "The repository uses the 0.131.5 installer’s host registrations, content-addressed hook wrappers, skill pointers, Git hooks, generation record, managed AGENTS section and file handling rules.",
+        "status": "cancelled",
+        "narrative": {
+          "Acceptance": "The repository uses the 0.131.5 installer’s host registrations, content-addressed hook wrappers, skill pointers, Git hooks, generation record, managed AGENTS section and file handling rules."
+        }
+      },
+      {
+        "id": "upgrade.retire-core",
+        "title": "CodeQL and Greptile drop the obsolete vendored-core exclusion, and the installer retires the workflow that guarded the vendored payload.",
+        "status": "cancelled",
+        "narrative": {
+          "Acceptance": "CodeQL and Greptile drop the obsolete vendored-core exclusion, and the installer retires the workflow that guarded the vendored payload."
+        }
+      },
+      {
+        "id": "upgrade.cursor",
+        "title": "The maintainer regression test checks the new Cursor wrapper’s content hash and both planning events with their exact arguments and five-second timeouts.",
+        "status": "cancelled",
+        "narrative": {
+          "Acceptance": "The maintainer regression test checks the new Cursor wrapper’s content hash and both planning events with their exact arguments and five-second timeouts."
+        }
+      },
+      {
+        "id": "upgrade.teaching",
+        "title": "The separate teaching declaration in `package.json` retains `\"readmeBaseline\": \"0.121.0\"`.",
+        "status": "cancelled",
+        "narrative": {
+          "Acceptance": "The separate teaching declaration in `package.json` retains `\"readmeBaseline\": \"0.121.0\"`."
+        }
+      },
+      {
+        "id": "upgrade.preserve",
+        "title": "Learner material and executable fixtures match the starting revision byte for byte, and the README teaching marker continues to declare 0.121.0.",
+        "status": "cancelled",
+        "narrative": {
+          "Acceptance": "Learner material and executable fixtures match the starting revision byte for byte, and the README teaching marker continues to declare 0.121.0."
+        }
+      }
+    ],
+    "metadata": {
+      "swarm": {
+        "file_scope": [
+          ".agents/skills/deft-directive-build/SKILL.md",
+          ".agents/skills/deft-directive-feedback/SKILL.md",
+          ".agents/skills/deft-directive-interview/SKILL.md",
+          ".agents/skills/deft-directive-portfolio-priority/SKILL.md",
+          ".agents/skills/deft-directive-pre-pr/SKILL.md",
+          ".agents/skills/deft-directive-refinement/SKILL.md",
+          ".agents/skills/deft-directive-review-cycle/SKILL.md",
+          ".agents/skills/deft-directive-setup/SKILL.md",
+          ".agents/skills/deft-directive-swarm/SKILL.md",
+          ".agents/skills/deft-directive-sync/SKILL.md",
+          ".agents/skills/deft-directive-tutorial/SKILL.md",
+          ".agents/skills/deft/SKILL.md",
+          ".claude/deft-hook-bc294904.mjs",
+          ".claude/settings.json",
+          ".claude/skills/deft-directive-build/SKILL.md",
+          ".claude/skills/deft-directive-feedback/SKILL.md",
+          ".claude/skills/deft-directive-interview/SKILL.md",
+          ".claude/skills/deft-directive-portfolio-priority/SKILL.md",
+          ".claude/skills/deft-directive-pre-pr/SKILL.md",
+          ".claude/skills/deft-directive-refinement/SKILL.md",
+          ".claude/skills/deft-directive-review-cycle/SKILL.md",
+          ".claude/skills/deft-directive-setup/SKILL.md",
+          ".claude/skills/deft-directive-swarm/SKILL.md",
+          ".claude/skills/deft-directive-sync/SKILL.md",
+          ".claude/skills/deft-directive-tutorial/SKILL.md",
+          ".claude/skills/deft/SKILL.md",
+          ".codex/deft-hook-bc294904.mjs",
+          ".codex/hooks.json",
+          ".codex/skills/deft-directive-build/SKILL.md",
+          ".codex/skills/deft-directive-feedback/SKILL.md",
+          ".codex/skills/deft-directive-interview/SKILL.md",
+          ".codex/skills/deft-directive-portfolio-priority/SKILL.md",
+          ".codex/skills/deft-directive-pre-pr/SKILL.md",
+          ".codex/skills/deft-directive-refinement/SKILL.md",
+          ".codex/skills/deft-directive-review-cycle/SKILL.md",
+          ".codex/skills/deft-directive-setup/SKILL.md",
+          ".codex/skills/deft-directive-swarm/SKILL.md",
+          ".codex/skills/deft-directive-sync/SKILL.md",
+          ".codex/skills/deft-directive-tutorial/SKILL.md",
+          ".codex/skills/deft/SKILL.md",
+          ".cursor/hooks.json",
+          ".cursor/hooks/deft-hook-bc294904.mjs",
+          ".cursor/skills/deft-directive-build/SKILL.md",
+          ".cursor/skills/deft-directive-feedback/SKILL.md",
+          ".cursor/skills/deft-directive-interview/SKILL.md",
+          ".cursor/skills/deft-directive-portfolio-priority/SKILL.md",
+          ".cursor/skills/deft-directive-pre-pr/SKILL.md",
+          ".cursor/skills/deft-directive-refinement/SKILL.md",
+          ".cursor/skills/deft-directive-review-cycle/SKILL.md",
+          ".cursor/skills/deft-directive-setup/SKILL.md",
+          ".cursor/skills/deft-directive-swarm/SKILL.md",
+          ".cursor/skills/deft-directive-sync/SKILL.md",
+          ".cursor/skills/deft-directive-tutorial/SKILL.md",
+          ".cursor/skills/deft/SKILL.md",
+          ".deft/GENERATION.json",
+          ".gitattributes",
+          ".githooks/_directive-run.sh",
+          ".githooks/pre-commit",
+          ".githooks/pre-push",
+          ".github/codeql/codeql-config.yml",
+          ".github/skills/deft-directive-build/SKILL.md",
+          ".github/skills/deft-directive-feedback/SKILL.md",
+          ".github/skills/deft-directive-interview/SKILL.md",
+          ".github/skills/deft-directive-portfolio-priority/SKILL.md",
+          ".github/skills/deft-directive-pre-pr/SKILL.md",
+          ".github/skills/deft-directive-refinement/SKILL.md",
+          ".github/skills/deft-directive-review-cycle/SKILL.md",
+          ".github/skills/deft-directive-setup/SKILL.md",
+          ".github/skills/deft-directive-swarm/SKILL.md",
+          ".github/skills/deft-directive-sync/SKILL.md",
+          ".github/skills/deft-directive-tutorial/SKILL.md",
+          ".github/skills/deft/SKILL.md",
+          ".github/workflows/deft-core-guard.yml",
+          ".gitignore",
+          ".grok/hooks/deft-hook-bc294904.mjs",
+          ".grok/hooks/deft.json",
+          ".prettierignore",
+          "AGENTS.md",
+          "greptile.json",
+          "package-lock.json",
+          "package.json",
+          "scripts/teaching-baseline.test.mjs"
+        ]
+      },
+      "lifecycleWrite": {
+        "action": "cancel",
+        "writtenAt": "2026-11-27T16:41:38Z"
+      }
+    },
+    "updated": "2026-11-27T16:41:52Z",
+    "acceptance": {
+      "commands": [],
+      "none_stated": true,
+      "source_rung": "derived",
+      "derived_reason": "derived 7 independently testable clauses from the task statement before product edit (#3323)",
+      "clauses": [
+        {
+          "id": 1,
+          "text": "Upgrade the project’s authoring runtime from Directive 0.129.15 to 0.131.5 using public npm.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 2,
+          "text": "The project manifest, root lockfile specifier, locked tarball and installed authoring runtime agree on the exact public npm release 0.131.5.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 3,
+          "text": "The repository uses the 0.131.5 installer’s host registrations, content-addressed hook wrappers, skill pointers, Git hooks, generation record, managed AGENTS section and file handling rules.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 4,
+          "text": "CodeQL and Greptile drop the obsolete vendored-core exclusion, and the installer retires the workflow that guarded the vendored payload.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 5,
+          "text": "The maintainer regression test checks the new Cursor wrapper’s content hash and both planning events with their exact arguments and five-second timeouts.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 6,
+          "text": "The separate teaching declaration in `package.json` retains `\"readmeBaseline\": \"0.121.0\"`.",
+          "artifact_path": "package.json",
+          "ambiguous": false,
+          "provenance": "statement"
+        },
+        {
+          "id": 7,
+          "text": "Learner material and executable fixtures match the starting revision byte for byte, and the README teaching marker continues to declare 0.121.0.",
+          "artifact_path": null,
+          "ambiguous": false,
+          "provenance": "statement"
+        }
+      ],
+      "ambiguity_attestation": "none_found"
+    }
+  }
+}
