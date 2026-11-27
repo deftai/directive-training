@@ -1,2 +1,2 @@
-# Deft framework: the vendored payload is outside the consumer Prettier gate (#2534).
-.deft/core/
+# Deft managed wiring: Directive's committed hook files are not formatted (AC13.3).
+**/deft-hook-*.mjs

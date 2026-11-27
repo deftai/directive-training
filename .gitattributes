@@ -1,6 +1,3 @@
-# Deft framework: the vendored payload is packaged framework code, not
-# consumer source. text=auto + eol=lf normalizes text only; binaries keep
-# byte identity. Mark generated + vendored (#1430, #2118, #5245).
 .deft/core/** linguist-generated=true linguist-vendored=true text=auto eol=lf
 
 # Module-numbering migration: these protected records are hashed byte-for-byte.
@@ -9,12 +6,8 @@
 history/** text eol=lf
 xbrief/completed/** text eol=lf
 
-# Deft framework: the vendored payload is packaged framework code, not
-# consumer source. text=auto + eol=lf normalizes text only; binaries keep
-# byte identity. Mark generated + vendored (#1430, #2118, #5245).
-.deft/core/** text=auto eol=lf
-.deft/core/** linguist-generated=true
-.deft/core/** linguist-vendored=true
+# Deft managed wiring: pin Directive-deposited host/command/hook/skill paths
+# to LF so Windows core.autocrlf checkouts stay ownership-comparable (#5995).
 .claude/commands/** text=auto eol=lf
 .cursor/commands/** text=auto eol=lf
 .grok/commands/** text=auto eol=lf
@@ -27,3 +20,6 @@ xbrief/completed/** text eol=lf
 .githooks/** text=auto eol=lf
 .grok/hooks/** text=auto eol=lf
 AGENTS.md text=auto eol=lf
+.claude/deft-hook-*.mjs text=auto eol=lf
+.codex/deft-hook-*.mjs text=auto eol=lf
+.cursor/hooks/deft-hook-*.mjs text=auto eol=lf

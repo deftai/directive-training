@@ -1,67 +1,67 @@
 {
   "schemaVersion": 1,
-  "runtimeVersion": "0.129.15",
+  "runtimeVersion": "0.131.5",
   "packageManager": "npm",
   "ownership": [
     {
       "path": ".agents/skills/deft-directive-build/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "00ffe0a28ce3080a9a8bc6f384e54f13c6ad4d26208aeb226330d0e0331b1215"
+      "fingerprint": "65c68be2a880b1e66bb2355f8ab45200086258229bf3170ada92c80a31aed7c3"
     },
     {
       "path": ".agents/skills/deft-directive-feedback/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "4fa7d075439ae2c08d2007563bc8eac84e9bf02e0ee02fe83d639e504714822b"
+      "fingerprint": "89266017f9671354dcccc937ce1e7238a248e3e08f82cee0d6587536271b4468"
     },
     {
       "path": ".agents/skills/deft-directive-interview/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "e7c8dfe4cf2a9897aefd429a18645b7fda9a61f5eda86e57dfa176f5a97dbb84"
+      "fingerprint": "beee367bdc2938c04a0c25566c7e73bd9e288da17842e7b223f39a38f8f6204d"
     },
     {
       "path": ".agents/skills/deft-directive-portfolio-priority/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "597f74803df22425a7b3806885f594c49ca7aa59b19dbc0f8fbd0298e0c86d36"
+      "fingerprint": "639a56104d9680cdb11e18365132b18b1c8e56b5f3d1f747539a9ab7515474e0"
     },
     {
       "path": ".agents/skills/deft-directive-pre-pr/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "59a29f0b564001e5fa9480a678cf8909c8ab2e256de5c9ef755b538a9bd017c4"
+      "fingerprint": "0cb0d5cc681a87f0f01fe5713be6ac923987337b2acb0e479520d5a0367001fe"
     },
     {
       "path": ".agents/skills/deft-directive-refinement/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "f67be7485b7cd17fd744048fdc43b4c0d8caf1af91a3a76459a33405bd641953"
+      "fingerprint": "54d56ea5063caa9ad99ec1560f951b1b747833b7fb1df1f8f76bd9e5bec4de50"
     },
     {
       "path": ".agents/skills/deft-directive-review-cycle/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "8bb6ec6c3b530a87f2e1e0c04018d90b82cdbb61195855efe72600789d702588"
+      "fingerprint": "36b2f49588fe95f2c681c2af088277713972669a6097b2672bf797b7cd1b76bc"
     },
     {
       "path": ".agents/skills/deft-directive-setup/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "45126fbc0d54d38e381362d83493b0991e7198f00af4949a8f20598c6e99d5d1"
+      "fingerprint": "5035b2e72a1e4b23537fe37c290bd13c1183155aa0006947e1e2954a4c06199c"
     },
     {
       "path": ".agents/skills/deft-directive-swarm/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "5fa85b476a63ac1d86087bd133b82b9923390d838b4e2498e517a1dd355313a1"
+      "fingerprint": "9e50fcc47bfde3d60d15bef7871d9db708f7a0ae7e463ce2c5c87e627dd6082e"
     },
     {
       "path": ".agents/skills/deft-directive-sync/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "552cd30e7842084cd49a8f29a666503ad29c855b51167fe4751a82f9d3f70600"
+      "fingerprint": "efe7455d940f6355a113607dc0b8868b4d2a44fec591296933876a6b7070bb01"
     },
     {
       "path": ".agents/skills/deft-directive-tutorial/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "73bdaac5aa75f99d558dbc32709752c1cd72ab2fea87dfb7f9f8d04ea79bf8e4"
+      "fingerprint": "83f72fdfcdb9bf8d47be263744d581a8c63e48e2b10a32158410245d364b1411"
     },
     {
       "path": ".agents/skills/deft/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "00abab205561afa252549002171cd32bdcff14835de22ffa9ea97ad6a7966cca"
+      "fingerprint": "eb9072882142ca60350f0e02b8d5f444b8308babc98d786d5d3d946b68029591"
     },
     {
       "path": ".claude/commands/deft-checkpoint.md",
@@ -129,75 +129,85 @@
       "fingerprint": "2dd49b128c65a57fb361ced93dfb00d1036d325b536d7c3d57d7f1828f801137"
     },
     {
+      "path": ".claude/deft-hook-bc294904.mjs",
+      "kind": "whole-file",
+      "fingerprint": "bc2949046f0fa341f407cac3d700df3ebe78c2b2e8f2503a29f4fb6bb5bd03f0"
+    },
+    {
       "path": ".claude/settings.json",
       "kind": "structured-entry",
-      "fingerprint": "6165d8078eed43d468c31b91054dc17f53c92f2bf3dd4ad176fd8a12ccab6991",
+      "fingerprint": "5f2fc2bf69ede7ab74eed7da53c48c70c01ce38765b8e26dcc5832cf67da0e60",
       "entryKey": "hooks"
     },
     {
       "path": ".claude/skills/deft-directive-build/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "00ffe0a28ce3080a9a8bc6f384e54f13c6ad4d26208aeb226330d0e0331b1215"
+      "fingerprint": "65c68be2a880b1e66bb2355f8ab45200086258229bf3170ada92c80a31aed7c3"
     },
     {
       "path": ".claude/skills/deft-directive-feedback/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "4fa7d075439ae2c08d2007563bc8eac84e9bf02e0ee02fe83d639e504714822b"
+      "fingerprint": "89266017f9671354dcccc937ce1e7238a248e3e08f82cee0d6587536271b4468"
     },
     {
       "path": ".claude/skills/deft-directive-interview/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "e7c8dfe4cf2a9897aefd429a18645b7fda9a61f5eda86e57dfa176f5a97dbb84"
+      "fingerprint": "beee367bdc2938c04a0c25566c7e73bd9e288da17842e7b223f39a38f8f6204d"
     },
     {
       "path": ".claude/skills/deft-directive-portfolio-priority/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "597f74803df22425a7b3806885f594c49ca7aa59b19dbc0f8fbd0298e0c86d36"
+      "fingerprint": "639a56104d9680cdb11e18365132b18b1c8e56b5f3d1f747539a9ab7515474e0"
     },
     {
       "path": ".claude/skills/deft-directive-pre-pr/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "59a29f0b564001e5fa9480a678cf8909c8ab2e256de5c9ef755b538a9bd017c4"
+      "fingerprint": "0cb0d5cc681a87f0f01fe5713be6ac923987337b2acb0e479520d5a0367001fe"
     },
     {
       "path": ".claude/skills/deft-directive-refinement/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "f67be7485b7cd17fd744048fdc43b4c0d8caf1af91a3a76459a33405bd641953"
+      "fingerprint": "54d56ea5063caa9ad99ec1560f951b1b747833b7fb1df1f8f76bd9e5bec4de50"
     },
     {
       "path": ".claude/skills/deft-directive-review-cycle/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "8bb6ec6c3b530a87f2e1e0c04018d90b82cdbb61195855efe72600789d702588"
+      "fingerprint": "36b2f49588fe95f2c681c2af088277713972669a6097b2672bf797b7cd1b76bc"
     },
     {
       "path": ".claude/skills/deft-directive-setup/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "45126fbc0d54d38e381362d83493b0991e7198f00af4949a8f20598c6e99d5d1"
+      "fingerprint": "5035b2e72a1e4b23537fe37c290bd13c1183155aa0006947e1e2954a4c06199c"
     },
     {
       "path": ".claude/skills/deft-directive-swarm/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "5fa85b476a63ac1d86087bd133b82b9923390d838b4e2498e517a1dd355313a1"
+      "fingerprint": "9e50fcc47bfde3d60d15bef7871d9db708f7a0ae7e463ce2c5c87e627dd6082e"
     },
     {
       "path": ".claude/skills/deft-directive-sync/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "552cd30e7842084cd49a8f29a666503ad29c855b51167fe4751a82f9d3f70600"
+      "fingerprint": "efe7455d940f6355a113607dc0b8868b4d2a44fec591296933876a6b7070bb01"
     },
     {
       "path": ".claude/skills/deft-directive-tutorial/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "73bdaac5aa75f99d558dbc32709752c1cd72ab2fea87dfb7f9f8d04ea79bf8e4"
+      "fingerprint": "83f72fdfcdb9bf8d47be263744d581a8c63e48e2b10a32158410245d364b1411"
     },
     {
       "path": ".claude/skills/deft/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "00abab205561afa252549002171cd32bdcff14835de22ffa9ea97ad6a7966cca"
+      "fingerprint": "eb9072882142ca60350f0e02b8d5f444b8308babc98d786d5d3d946b68029591"
+    },
+    {
+      "path": ".codex/deft-hook-bc294904.mjs",
+      "kind": "whole-file",
+      "fingerprint": "bc2949046f0fa341f407cac3d700df3ebe78c2b2e8f2503a29f4fb6bb5bd03f0"
     },
     {
       "path": ".codex/hooks.json",
       "kind": "structured-entry",
-      "fingerprint": "0adfd84d4104c49a93d23de14dddd62956ce673243095887b6b86c5d86b1a0bd",
+      "fingerprint": "4cafe73d7b941de325dfb112b26653e6180a1a949d08d0dd65e7f99899b2e812",
       "entryKey": "hooks"
     },
     {
@@ -268,62 +278,62 @@
     {
       "path": ".codex/skills/deft-directive-build/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "00ffe0a28ce3080a9a8bc6f384e54f13c6ad4d26208aeb226330d0e0331b1215"
+      "fingerprint": "65c68be2a880b1e66bb2355f8ab45200086258229bf3170ada92c80a31aed7c3"
     },
     {
       "path": ".codex/skills/deft-directive-feedback/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "4fa7d075439ae2c08d2007563bc8eac84e9bf02e0ee02fe83d639e504714822b"
+      "fingerprint": "89266017f9671354dcccc937ce1e7238a248e3e08f82cee0d6587536271b4468"
     },
     {
       "path": ".codex/skills/deft-directive-interview/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "e7c8dfe4cf2a9897aefd429a18645b7fda9a61f5eda86e57dfa176f5a97dbb84"
+      "fingerprint": "beee367bdc2938c04a0c25566c7e73bd9e288da17842e7b223f39a38f8f6204d"
     },
     {
       "path": ".codex/skills/deft-directive-portfolio-priority/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "597f74803df22425a7b3806885f594c49ca7aa59b19dbc0f8fbd0298e0c86d36"
+      "fingerprint": "639a56104d9680cdb11e18365132b18b1c8e56b5f3d1f747539a9ab7515474e0"
     },
     {
       "path": ".codex/skills/deft-directive-pre-pr/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "59a29f0b564001e5fa9480a678cf8909c8ab2e256de5c9ef755b538a9bd017c4"
+      "fingerprint": "0cb0d5cc681a87f0f01fe5713be6ac923987337b2acb0e479520d5a0367001fe"
     },
     {
       "path": ".codex/skills/deft-directive-refinement/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "f67be7485b7cd17fd744048fdc43b4c0d8caf1af91a3a76459a33405bd641953"
+      "fingerprint": "54d56ea5063caa9ad99ec1560f951b1b747833b7fb1df1f8f76bd9e5bec4de50"
     },
     {
       "path": ".codex/skills/deft-directive-review-cycle/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "8bb6ec6c3b530a87f2e1e0c04018d90b82cdbb61195855efe72600789d702588"
+      "fingerprint": "36b2f49588fe95f2c681c2af088277713972669a6097b2672bf797b7cd1b76bc"
     },
     {
       "path": ".codex/skills/deft-directive-setup/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "45126fbc0d54d38e381362d83493b0991e7198f00af4949a8f20598c6e99d5d1"
+      "fingerprint": "5035b2e72a1e4b23537fe37c290bd13c1183155aa0006947e1e2954a4c06199c"
     },
     {
       "path": ".codex/skills/deft-directive-swarm/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "5fa85b476a63ac1d86087bd133b82b9923390d838b4e2498e517a1dd355313a1"
+      "fingerprint": "9e50fcc47bfde3d60d15bef7871d9db708f7a0ae7e463ce2c5c87e627dd6082e"
     },
     {
       "path": ".codex/skills/deft-directive-sync/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "552cd30e7842084cd49a8f29a666503ad29c855b51167fe4751a82f9d3f70600"
+      "fingerprint": "efe7455d940f6355a113607dc0b8868b4d2a44fec591296933876a6b7070bb01"
     },
     {
       "path": ".codex/skills/deft-directive-tutorial/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "73bdaac5aa75f99d558dbc32709752c1cd72ab2fea87dfb7f9f8d04ea79bf8e4"
+      "fingerprint": "83f72fdfcdb9bf8d47be263744d581a8c63e48e2b10a32158410245d364b1411"
     },
     {
       "path": ".codex/skills/deft/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "00abab205561afa252549002171cd32bdcff14835de22ffa9ea97ad6a7966cca"
+      "fingerprint": "eb9072882142ca60350f0e02b8d5f444b8308babc98d786d5d3d946b68029591"
     },
     {
       "path": ".cursor/commands/deft-checkpoint.md",
@@ -393,143 +403,148 @@
     {
       "path": ".cursor/hooks.json",
       "kind": "structured-entry",
-      "fingerprint": "dfa476f7bf2107ed521b266dfdfc49168445a2c84f7e2d59a7c9b36058a53f3d",
+      "fingerprint": "0fb21460efcd974ea7b480e8536fc2e60b6d7b773bfeb6232c1f7e383d332f5a",
       "entryKey": "hooks"
+    },
+    {
+      "path": ".cursor/hooks/deft-hook-bc294904.mjs",
+      "kind": "whole-file",
+      "fingerprint": "bc2949046f0fa341f407cac3d700df3ebe78c2b2e8f2503a29f4fb6bb5bd03f0"
     },
     {
       "path": ".cursor/skills/deft-directive-build/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "00ffe0a28ce3080a9a8bc6f384e54f13c6ad4d26208aeb226330d0e0331b1215"
+      "fingerprint": "65c68be2a880b1e66bb2355f8ab45200086258229bf3170ada92c80a31aed7c3"
     },
     {
       "path": ".cursor/skills/deft-directive-feedback/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "4fa7d075439ae2c08d2007563bc8eac84e9bf02e0ee02fe83d639e504714822b"
+      "fingerprint": "89266017f9671354dcccc937ce1e7238a248e3e08f82cee0d6587536271b4468"
     },
     {
       "path": ".cursor/skills/deft-directive-interview/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "e7c8dfe4cf2a9897aefd429a18645b7fda9a61f5eda86e57dfa176f5a97dbb84"
+      "fingerprint": "beee367bdc2938c04a0c25566c7e73bd9e288da17842e7b223f39a38f8f6204d"
     },
     {
       "path": ".cursor/skills/deft-directive-portfolio-priority/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "597f74803df22425a7b3806885f594c49ca7aa59b19dbc0f8fbd0298e0c86d36"
+      "fingerprint": "639a56104d9680cdb11e18365132b18b1c8e56b5f3d1f747539a9ab7515474e0"
     },
     {
       "path": ".cursor/skills/deft-directive-pre-pr/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "59a29f0b564001e5fa9480a678cf8909c8ab2e256de5c9ef755b538a9bd017c4"
+      "fingerprint": "0cb0d5cc681a87f0f01fe5713be6ac923987337b2acb0e479520d5a0367001fe"
     },
     {
       "path": ".cursor/skills/deft-directive-refinement/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "f67be7485b7cd17fd744048fdc43b4c0d8caf1af91a3a76459a33405bd641953"
+      "fingerprint": "54d56ea5063caa9ad99ec1560f951b1b747833b7fb1df1f8f76bd9e5bec4de50"
     },
     {
       "path": ".cursor/skills/deft-directive-review-cycle/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "8bb6ec6c3b530a87f2e1e0c04018d90b82cdbb61195855efe72600789d702588"
+      "fingerprint": "36b2f49588fe95f2c681c2af088277713972669a6097b2672bf797b7cd1b76bc"
     },
     {
       "path": ".cursor/skills/deft-directive-setup/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "45126fbc0d54d38e381362d83493b0991e7198f00af4949a8f20598c6e99d5d1"
+      "fingerprint": "5035b2e72a1e4b23537fe37c290bd13c1183155aa0006947e1e2954a4c06199c"
     },
     {
       "path": ".cursor/skills/deft-directive-swarm/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "5fa85b476a63ac1d86087bd133b82b9923390d838b4e2498e517a1dd355313a1"
+      "fingerprint": "9e50fcc47bfde3d60d15bef7871d9db708f7a0ae7e463ce2c5c87e627dd6082e"
     },
     {
       "path": ".cursor/skills/deft-directive-sync/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "552cd30e7842084cd49a8f29a666503ad29c855b51167fe4751a82f9d3f70600"
+      "fingerprint": "efe7455d940f6355a113607dc0b8868b4d2a44fec591296933876a6b7070bb01"
     },
     {
       "path": ".cursor/skills/deft-directive-tutorial/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "73bdaac5aa75f99d558dbc32709752c1cd72ab2fea87dfb7f9f8d04ea79bf8e4"
+      "fingerprint": "83f72fdfcdb9bf8d47be263744d581a8c63e48e2b10a32158410245d364b1411"
     },
     {
       "path": ".cursor/skills/deft/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "00abab205561afa252549002171cd32bdcff14835de22ffa9ea97ad6a7966cca"
+      "fingerprint": "eb9072882142ca60350f0e02b8d5f444b8308babc98d786d5d3d946b68029591"
     },
     {
       "path": ".githooks/_directive-run.sh",
       "kind": "whole-file",
-      "fingerprint": "51bf0021f607c22b7364efde1039500f5705684b43fc0469d93c7da0a7bae6c7"
+      "fingerprint": "b6e69862cbe39ba4296cca515e5367261a54ab51b4c4bd49b2a3d21d59ecad2d"
     },
     {
       "path": ".githooks/pre-commit",
       "kind": "whole-file",
-      "fingerprint": "cd2ddf4697f7117285d043d5b9e589a1ccfc7412bde0affe1110c5f9ca8aa408"
+      "fingerprint": "aee11a523e9515345ae9daaa3341ff59306f49a0a67e880a5d9c31534a77eac9"
     },
     {
       "path": ".githooks/pre-push",
       "kind": "whole-file",
-      "fingerprint": "9b4510c87973c163c7cb5dfa278eee103780e6fbad89235425ec6db2f3abae90"
+      "fingerprint": "2d6ba61c835271b8dc8db7164a4f3e65ec306092c7e763fa7c936f0abd61b0ac"
     },
     {
       "path": ".github/skills/deft-directive-build/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "00ffe0a28ce3080a9a8bc6f384e54f13c6ad4d26208aeb226330d0e0331b1215"
+      "fingerprint": "65c68be2a880b1e66bb2355f8ab45200086258229bf3170ada92c80a31aed7c3"
     },
     {
       "path": ".github/skills/deft-directive-feedback/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "4fa7d075439ae2c08d2007563bc8eac84e9bf02e0ee02fe83d639e504714822b"
+      "fingerprint": "89266017f9671354dcccc937ce1e7238a248e3e08f82cee0d6587536271b4468"
     },
     {
       "path": ".github/skills/deft-directive-interview/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "e7c8dfe4cf2a9897aefd429a18645b7fda9a61f5eda86e57dfa176f5a97dbb84"
+      "fingerprint": "beee367bdc2938c04a0c25566c7e73bd9e288da17842e7b223f39a38f8f6204d"
     },
     {
       "path": ".github/skills/deft-directive-portfolio-priority/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "597f74803df22425a7b3806885f594c49ca7aa59b19dbc0f8fbd0298e0c86d36"
+      "fingerprint": "639a56104d9680cdb11e18365132b18b1c8e56b5f3d1f747539a9ab7515474e0"
     },
     {
       "path": ".github/skills/deft-directive-pre-pr/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "59a29f0b564001e5fa9480a678cf8909c8ab2e256de5c9ef755b538a9bd017c4"
+      "fingerprint": "0cb0d5cc681a87f0f01fe5713be6ac923987337b2acb0e479520d5a0367001fe"
     },
     {
       "path": ".github/skills/deft-directive-refinement/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "f67be7485b7cd17fd744048fdc43b4c0d8caf1af91a3a76459a33405bd641953"
+      "fingerprint": "54d56ea5063caa9ad99ec1560f951b1b747833b7fb1df1f8f76bd9e5bec4de50"
     },
     {
       "path": ".github/skills/deft-directive-review-cycle/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "8bb6ec6c3b530a87f2e1e0c04018d90b82cdbb61195855efe72600789d702588"
+      "fingerprint": "36b2f49588fe95f2c681c2af088277713972669a6097b2672bf797b7cd1b76bc"
     },
     {
       "path": ".github/skills/deft-directive-setup/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "45126fbc0d54d38e381362d83493b0991e7198f00af4949a8f20598c6e99d5d1"
+      "fingerprint": "5035b2e72a1e4b23537fe37c290bd13c1183155aa0006947e1e2954a4c06199c"
     },
     {
       "path": ".github/skills/deft-directive-swarm/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "5fa85b476a63ac1d86087bd133b82b9923390d838b4e2498e517a1dd355313a1"
+      "fingerprint": "9e50fcc47bfde3d60d15bef7871d9db708f7a0ae7e463ce2c5c87e627dd6082e"
     },
     {
       "path": ".github/skills/deft-directive-sync/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "552cd30e7842084cd49a8f29a666503ad29c855b51167fe4751a82f9d3f70600"
+      "fingerprint": "efe7455d940f6355a113607dc0b8868b4d2a44fec591296933876a6b7070bb01"
     },
     {
       "path": ".github/skills/deft-directive-tutorial/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "73bdaac5aa75f99d558dbc32709752c1cd72ab2fea87dfb7f9f8d04ea79bf8e4"
+      "fingerprint": "83f72fdfcdb9bf8d47be263744d581a8c63e48e2b10a32158410245d364b1411"
     },
     {
       "path": ".github/skills/deft/SKILL.md",
       "kind": "whole-file",
-      "fingerprint": "00abab205561afa252549002171cd32bdcff14835de22ffa9ea97ad6a7966cca"
+      "fingerprint": "eb9072882142ca60350f0e02b8d5f444b8308babc98d786d5d3d946b68029591"
     },
     {
       "path": ".grok/commands/deft-checkpoint.md",
@@ -597,15 +612,20 @@
       "fingerprint": "2dd49b128c65a57fb361ced93dfb00d1036d325b536d7c3d57d7f1828f801137"
     },
     {
+      "path": ".grok/hooks/deft-hook-bc294904.mjs",
+      "kind": "whole-file",
+      "fingerprint": "bc2949046f0fa341f407cac3d700df3ebe78c2b2e8f2503a29f4fb6bb5bd03f0"
+    },
+    {
       "path": ".grok/hooks/deft.json",
       "kind": "structured-entry",
-      "fingerprint": "3f6a34e4c77fe27dfa77e40f1fb17df92d6a46ce17c6496f3c54aca3a411446f",
+      "fingerprint": "7b48126f803100246a3eb66b9d81a8f6d78e109b4cc76ca5f7bf6294c5d764f3",
       "entryKey": "hooks"
     },
     {
       "path": "AGENTS.md",
       "kind": "marked-section",
-      "fingerprint": "840ab0780367b587f59db391ee5880d33682b37db2e0ae7967f2fd485ad9c648",
+      "fingerprint": "ceb8524b6c6d3c52c0b0d3f268615b70c0cf83f5b89ecd8fcfdb8a7c628dd86a",
       "markerId": "deft:managed-section"
     },
     {
